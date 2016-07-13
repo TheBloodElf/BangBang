@@ -11,6 +11,7 @@
 #import "LoginController.h"
 #import "WelcomeController.h"
 #import "IdentityManager.h"
+#import "UserManager.h"
 
 @interface MainViewController () {
     WelcomeController *_welcome;//欢迎界面
@@ -75,6 +76,8 @@
             [self.view addSubview:_login.view];
             [_login.view willMoveToSuperview:self.view];
         } else {
+            //已经登陆就加载登陆的用户信息
+            [[UserManager manager] loadUserWithGuid:manager.identity.user_guid];
             _business = [BusinessController new];
             [self addChildViewController:_business];
             [_business willMoveToParentViewController:self];

@@ -1,5 +1,5 @@
 //
-//  LeftMenuController.h
+//  LeftMenuCell.h
 //  RealmDemo
 //
 //  Created by Mac on 16/7/13.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LeftMenuController : UIViewController
+@interface LeftMenuCell : UITableViewCell
 
 @end

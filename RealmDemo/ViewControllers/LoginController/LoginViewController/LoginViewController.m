@@ -67,7 +67,6 @@
         User *user = [[User alloc] initWithJsonDic:data];
         UserManager *manager = [UserManager manager];
         [manager loadUserWithGuid:user.user_guid];
-        [manager updateUser:user];
         //加入圈子到数据库
         NSMutableArray *companys = [@[] mutableCopy];
         for (NSDictionary *tempDic in data[@"user_companies"]) {
@@ -76,6 +75,10 @@
             [companys addObject:company];
         }
         [manager updateCompanyArr:companys];
+        //初始化第一个圈子为用户当前圈子
+        if(companys.count)
+            user.currCompany = companys[0];
+        [manager updateUser:user];
         //更换登录信息
         IdentityManager *identityManager = [IdentityManager manager];
         identityManager.identity.user_guid = user.user_guid;

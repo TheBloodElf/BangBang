@@ -32,6 +32,7 @@
     [self addChildViewController:_businessNav];
     [_businessNav.view willMoveToSuperview:self.view];
     [_businessNav willMoveToParentViewController:self];
+    [_businessNav setNavigationBarHidden:YES animated:YES];
     [self.view addSubview:_businessNav.view];
     //加上新消息的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecivePushMessage:) name:@"DidRecivePushMessage" object:nil];

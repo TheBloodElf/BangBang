@@ -39,6 +39,7 @@
     [_scrollView addSubview:_homeListBottomView];
     _scrollView.contentSize = CGSizeMake(MAIN_SCREEN_WIDTH, CGRectGetMaxY(_homeListBottomView.frame));
     [self.view addSubview:_scrollView];
+    [self setLeftNavigationBarItem];
     // Do any additional setup after loading the view.
 }
 - (void)viewWillAppear:(BOOL)animated {
@@ -75,14 +76,33 @@
 #pragma mark --
 #pragma mark -- setNavigationBar
 - (void)setLeftNavigationBarItem {
+    UserManager *manager = [UserManager manager];
+    User *user = manager.user;
     _leftNavigationBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _leftNavigationBarButton.frame = CGRectMake(0, 0, 100, 38);
+    //创建头像
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 2, 33, 33)];
     imageView.layer.cornerRadius = 33 / 2.f;
     imageView.clipsToBounds = YES;
-    UserManager *manager = [UserManager manager];
-    User *user = manager.user;
-    
+    imageView.tag = 1001;
+    [imageView sd_setImageWithURL:[NSURL URLWithString:user.currCompany.logo] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
+    [_leftNavigationBarButton addSubview:imageView];
+    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(38, 2, 62, 12)];
+    nameLabel.font = [UIFont systemFontOfSize:12];
+    nameLabel.textColor = [UIColor whiteColor];
+    nameLabel.text = user.real_name;
+    nameLabel.tag = 1002;
+    [_leftNavigationBarButton addSubview:nameLabel];
+    UILabel *companyLabel = [[UILabel alloc] initWithFrame:CGRectMake(38, 23, 62, 10)];
+    companyLabel.font = [UIFont systemFontOfSize:10];
+    companyLabel.textColor = [UIColor whiteColor];
+    companyLabel.text = user.currCompany.company_name;
+    companyLabel.tag = 1003;
+    [_leftNavigationBarButton addSubview:companyLabel];
+    [_leftNavigationBarButton addTarget:self action:@selector(leftNavigationBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_leftNavigationBarButton];
 }
-
+- (void)leftNavigationBtnClicked:(id)btn {
+    [self.navigationController.frostedViewController presentMenuViewController];
+}
 @end

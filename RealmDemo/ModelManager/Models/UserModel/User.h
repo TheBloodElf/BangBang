@@ -36,7 +36,7 @@
 /** weixin */
 @property (nonatomic, strong) NSString  * weixin;
 /** 用户当前所在圈子编号 */
-@property (nonatomic, assign) int currCompanyNo;
+@property (nonatomic, strong) Company *currCompany;
 
 - (instancetype)initWithJsonDic:(NSDictionary*)dic;
 

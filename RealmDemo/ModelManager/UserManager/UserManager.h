@@ -27,6 +27,8 @@
 #pragma mark -- Company
 //更新圈子数据
 - (void)updateCompanyArr:(NSArray<Company*>*)companyArr;
+//获取圈子数组
+- (NSMutableArray<Company*>*)getCompanyArr;
 //创建圈子的数据库观察者
 - (RBQFetchedResultsController*)createCompanyFetchedResultsController;
 @end

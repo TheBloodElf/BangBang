@@ -9,5 +9,7 @@
 #import "Company.h"
 
 @implementation Company
-
++ (NSString*)primaryKey {
+    return @"company_no";
+}
 @end

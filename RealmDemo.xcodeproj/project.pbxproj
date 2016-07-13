@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		04A817771D3525D700011DA1 /* IdentityHttp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A817761D3525D700011DA1 /* IdentityHttp.m */; };
+		04FE7CCB1D3670AD00362702 /* LeftMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FE7CC91D3670AD00362702 /* LeftMenuController.m */; settings = {ASSET_TAGS = (); }; };
+		04FE7CCC1D3670AD00362702 /* LeftMenuController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04FE7CCA1D3670AD00362702 /* LeftMenuController.xib */; settings = {ASSET_TAGS = (); }; };
+		04FE7CCF1D36725A00362702 /* menu_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 04FE7CCE1D36725A00362702 /* menu_background.png */; settings = {ASSET_TAGS = (); }; };
+		04FE7CD41D367CE000362702 /* LeftMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FE7CD21D367CE000362702 /* LeftMenuCell.m */; settings = {ASSET_TAGS = (); }; };
+		04FE7CD51D367CE000362702 /* LeftMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04FE7CD31D367CE000362702 /* LeftMenuCell.xib */; settings = {ASSET_TAGS = (); }; };
 		1B06D5D31D362FA8002D06A7 /* Company.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B06D5D21D362FA8002D06A7 /* Company.m */; };
 		1B157FFD1D24FFF50081A1A3 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B157FFC1D24FFF50081A1A3 /* libc++.tbd */; };
 		1B36FCD01D35E748006694E4 /* HomeListTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B36FCCF1D35E748006694E4 /* HomeListTopView.m */; };
@@ -40,7 +45,6 @@
 		1B5585AA1D34F1E700DCD3A0 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5585A91D34F1E700DCD3A0 /* RegisterViewController.m */; };
 		1B5585B11D34F3A600DCD3A0 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5585AF1D34F3A600DCD3A0 /* LoginViewController.m */; };
 		1B5585B21D34F3A600DCD3A0 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B5585B01D34F3A600DCD3A0 /* LoginViewController.xib */; };
-		1B5585B71D34F7EE00DCD3A0 /* LeftMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5585B61D34F7EE00DCD3A0 /* LeftMenuController.m */; };
 		1B5585BA1D34F7FB00DCD3A0 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5585B91D34F7FB00DCD3A0 /* TabBarController.m */; };
 		1B5585BE1D34F8E000DCD3A0 /* CMDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5585BD1D34F8E000DCD3A0 /* CMDeviceInfo.m */; };
 		1B5585C51D34FA7D00DCD3A0 /* HomeListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5585C41D34FA7D00DCD3A0 /* HomeListController.m */; };
@@ -65,6 +69,13 @@
 /* Begin PBXFileReference section */
 		04A817751D3525D700011DA1 /* IdentityHttp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdentityHttp.h; sourceTree = "<group>"; };
 		04A817761D3525D700011DA1 /* IdentityHttp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentityHttp.m; sourceTree = "<group>"; };
+		04FE7CC81D3670AD00362702 /* LeftMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftMenuController.h; sourceTree = "<group>"; };
+		04FE7CC91D3670AD00362702 /* LeftMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftMenuController.m; sourceTree = "<group>"; };
+		04FE7CCA1D3670AD00362702 /* LeftMenuController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeftMenuController.xib; sourceTree = "<group>"; };
+		04FE7CCE1D36725A00362702 /* menu_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_background.png; sourceTree = "<group>"; };
+		04FE7CD11D367CE000362702 /* LeftMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftMenuCell.h; sourceTree = "<group>"; };
+		04FE7CD21D367CE000362702 /* LeftMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftMenuCell.m; sourceTree = "<group>"; };
+		04FE7CD31D367CE000362702 /* LeftMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeftMenuCell.xib; sourceTree = "<group>"; };
 		1B06D5D11D362FA8002D06A7 /* Company.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Company.h; sourceTree = "<group>"; };
 		1B06D5D21D362FA8002D06A7 /* Company.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Company.m; sourceTree = "<group>"; };
 		1B157FFC1D24FFF50081A1A3 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
@@ -123,8 +134,6 @@
 		1B5585AE1D34F3A600DCD3A0 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		1B5585AF1D34F3A600DCD3A0 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		1B5585B01D34F3A600DCD3A0 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
-		1B5585B51D34F7EE00DCD3A0 /* LeftMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftMenuController.h; sourceTree = "<group>"; };
-		1B5585B61D34F7EE00DCD3A0 /* LeftMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftMenuController.m; sourceTree = "<group>"; };
 		1B5585B81D34F7FB00DCD3A0 /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
 		1B5585B91D34F7FB00DCD3A0 /* TabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
 		1B5585BC1D34F8E000DCD3A0 /* CMDeviceInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMDeviceInfo.h; sourceTree = "<group>"; };
@@ -180,6 +189,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04FE7CCD1D36725100362702 /* LeftController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = LeftController;
+			sourceTree = "<group>";
+		};
+		04FE7CD01D367CC500362702 /* LeftMenuCell */ = {
+			isa = PBXGroup;
+			children = (
+				04FE7CD11D367CE000362702 /* LeftMenuCell.h */,
+				04FE7CD21D367CE000362702 /* LeftMenuCell.m */,
+				04FE7CD31D367CE000362702 /* LeftMenuCell.xib */,
+			);
+			path = LeftMenuCell;
+			sourceTree = "<group>";
+		};
 		1B36FCCC1D35E71F006694E4 /* HomeListBottomView */ = {
 			isa = PBXGroup;
 			children = (
@@ -325,6 +351,7 @@
 		1B5585941D34E27D00DCD3A0 /* ImagesIcon */ = {
 			isa = PBXGroup;
 			children = (
+				04FE7CCD1D36725100362702 /* LeftController */,
 				1B5585991D34E2C000DCD3A0 /* WelcomeImage */,
 			);
 			path = ImagesIcon;
@@ -342,6 +369,7 @@
 		1B5585991D34E2C000DCD3A0 /* WelcomeImage */ = {
 			isa = PBXGroup;
 			children = (
+				04FE7CCE1D36725A00362702 /* menu_background.png */,
 				1B55859A1D34E2C800DCD3A0 /* ic_welcome_avatar_3_3.png */,
 				1B55859B1D34E2C800DCD3A0 /* ic_welcome_avatar_0_0.png */,
 				1B55859C1D34E2C800DCD3A0 /* ic_welcome_avatar_1_1.png */,
@@ -381,8 +409,10 @@
 		1B5585B31D34F7D900DCD3A0 /* LeftMenuController */ = {
 			isa = PBXGroup;
 			children = (
-				1B5585B51D34F7EE00DCD3A0 /* LeftMenuController.h */,
-				1B5585B61D34F7EE00DCD3A0 /* LeftMenuController.m */,
+				04FE7CC81D3670AD00362702 /* LeftMenuController.h */,
+				04FE7CC91D3670AD00362702 /* LeftMenuController.m */,
+				04FE7CCA1D3670AD00362702 /* LeftMenuController.xib */,
+				04FE7CD01D367CC500362702 /* LeftMenuCell */,
 			);
 			path = LeftMenuController;
 			sourceTree = "<group>";
@@ -684,9 +714,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04FE7CCF1D36725A00362702 /* menu_background.png in Resources */,
+				04FE7CD51D367CE000362702 /* LeftMenuCell.xib in Resources */,
 				1B877F251D178E7D000144B2 /* LaunchScreen.storyboard in Resources */,
 				1B55859E1D34E2C800DCD3A0 /* ic_welcome_avatar_3_3.png in Resources */,
 				1B877F221D178E7D000144B2 /* Assets.xcassets in Resources */,
+				04FE7CCC1D3670AD00362702 /* LeftMenuController.xib in Resources */,
 				1B5585A11D34E2C800DCD3A0 /* ic_welcome_avatar_2_2.png in Resources */,
 				1B5585A01D34E2C800DCD3A0 /* ic_welcome_avatar_1_1.png in Resources */,
 				1B5585B21D34F3A600DCD3A0 /* LoginViewController.xib in Resources */,
@@ -759,6 +792,7 @@
 				1B5585CE1D34FA9600DCD3A0 /* XAddrBookController.m in Sources */,
 				1B5585551D34CA2C00DCD3A0 /* IdentityManager.m in Sources */,
 				1B5585801D34DD4E00DCD3A0 /* NSString+isBlank.m in Sources */,
+				04FE7CD41D367CE000362702 /* LeftMenuCell.m in Sources */,
 				1B36FCDB1D35EC96006694E4 /* TaskView.m in Sources */,
 				1B36FCDF1D35F01B006694E4 /* BottomViewItem.m in Sources */,
 				1B55856C1D34CF4F00DCD3A0 /* UIView+REFrostedViewController.m in Sources */,
@@ -767,7 +801,6 @@
 				1B5585BA1D34F7FB00DCD3A0 /* TabBarController.m in Sources */,
 				1B36FCE21D360A4D006694E4 /* BottomItemModel.m in Sources */,
 				1B5585AA1D34F1E700DCD3A0 /* RegisterViewController.m in Sources */,
-				1B5585B71D34F7EE00DCD3A0 /* LeftMenuController.m in Sources */,
 				1B36FCD31D35E750006694E4 /* HomeListBottomView.m in Sources */,
 				1B5585761D34D93800DCD3A0 /* BusinessController.m in Sources */,
 				75E5FF7D1D27D68300F77961 /* User.m in Sources */,
@@ -785,6 +818,7 @@
 				75E5FF5B1D27A81B00F77961 /* AppCustoms.m in Sources */,
 				75E5FF601D27A97500F77961 /* InterfaceConfig.m in Sources */,
 				1B5585981D34E29700DCD3A0 /* AppDelegate.m in Sources */,
+				04FE7CCB1D3670AD00362702 /* LeftMenuController.m in Sources */,
 				1B5585CB1D34FA8D00DCD3A0 /* MineViewController.m in Sources */,
 				1B5585A71D34F1DF00DCD3A0 /* FindPasswordViewController.m in Sources */,
 				1B36FCE51D360B9F006694E4 /* NSObject+data.m in Sources */,

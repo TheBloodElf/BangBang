@@ -78,6 +78,18 @@
     [_rlmRealm addObjects:companyArr];
     [_rlmRealm commitWriteTransaction];
 }
+//获取圈子数组
+- (NSMutableArray<Company*>*)getCompanyArr {
+    NSMutableArray<Company*> *companyArr = [@[] mutableCopy];
+    [_rlmRealm beginWriteTransaction];
+    RLMResults *companys = [Company allObjectsInRealm:_rlmRealm];
+    for (int index = 0;index < companys.count;index ++) {
+        Company *company = [companys objectAtIndex:index];
+        [companyArr addObject:company];
+    }
+    [_rlmRealm commitWriteTransaction];
+    return companyArr;
+}
 //创建圈子的数据库观察者
 - (RBQFetchedResultsController*)createCompanyFetchedResultsController {
     RBQFetchedResultsController *fetchedResultsController = nil;
