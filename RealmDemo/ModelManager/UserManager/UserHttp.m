@@ -10,7 +10,7 @@
 #import "UserManager.h"
 @implementation UserHttp
 //创建工作圈
-- (NSURLSessionDataTask*)createCompany:(NSString*)company_name company_type:(NSString*)company_type hasImage:(UIImage*)hasImage handler:(completionHandler)handler {
++ (NSURLSessionDataTask*)createCompany:(NSString*)company_name company_type:(NSString*)company_type hasImage:(UIImage*)hasImage handler:(completionHandler)handler {
     NSString *urlPath = @"Users/register_phone";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params setObject:company_name forKey:@"company_name"];

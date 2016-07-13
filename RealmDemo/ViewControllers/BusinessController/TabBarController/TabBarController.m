@@ -32,22 +32,22 @@
 }
 - (UINavigationController*)homeListController {
     HomeListController *home = [HomeListController new];
-    home.tabBarItem.title = @"首页";
+    home.title = @"首页";
     return [[UINavigationController alloc] initWithRootViewController:home];
 }
 - (UINavigationController*)messageController {
     MessageController *home = [MessageController new];
-    home.tabBarItem.title = @"消息";
+    home.title = @"消息";
     return [[UINavigationController alloc] initWithRootViewController:home];
 }
 - (UINavigationController*)mineViewController {
     MineViewController *home = [MineViewController new];
-    home.tabBarItem.title = @"联系人";
+    home.title = @"联系人";
     return [[UINavigationController alloc] initWithRootViewController:home];
 }
 - (UINavigationController*)xAddrBookController {
     XAddrBookController *home = [XAddrBookController new];
-    home.tabBarItem.title = @"设置";
+    home.title = @"设置";
     return [[UINavigationController alloc] initWithRootViewController:home];
 }
 @end

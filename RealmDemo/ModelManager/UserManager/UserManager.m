@@ -33,6 +33,7 @@
     });
     return manager;
 }
+#pragma mark -- User
 //更新用户数据
 - (void)updateUser:(User*)user {
     [_rlmRealm beginWriteTransaction];
@@ -62,6 +63,26 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user_guid = %@",_user.user_guid];
     RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"User" inRealm:_rlmRealm predicate:predicate];
     fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:@"User"];
+    [fetchedResultsController performFetch];
+    return fetchedResultsController;
+}
+#pragma mark -- Company
+//更新圈子数据
+- (void)updateCompanyArr:(NSArray<Company*>*)companyArr {
+    [_rlmRealm beginWriteTransaction];
+    RLMResults *companys = [Company allObjectsInRealm:_rlmRealm];
+    for (int index = 0;index < companys.count;index ++) {
+        Company *company = [companys objectAtIndex:index];
+        [_rlmRealm deleteObject:company];
+    }
+    [_rlmRealm addObjects:companyArr];
+    [_rlmRealm commitWriteTransaction];
+}
+//创建圈子的数据库观察者
+- (RBQFetchedResultsController*)createCompanyFetchedResultsController {
+    RBQFetchedResultsController *fetchedResultsController = nil;
+    RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"Company" inRealm:_rlmRealm predicate:nil];
+    fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:@"Company"];
     [fetchedResultsController performFetch];
     return fetchedResultsController;
 }

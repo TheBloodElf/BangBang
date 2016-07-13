@@ -11,9 +11,9 @@
 
 @interface IdentityHttp : NSObject
 //获取accessToken
-- (NSURLSessionDataTask*)getAccessTokenhandler:(completionHandler)handler;
++ (NSURLSessionDataTask*)getAccessTokenhandler:(completionHandler)handler;
 //系统账号密码登陆
-- (NSURLSessionDataTask*)loginWithEmail:(NSString*)email password:(NSString*)password handler:(completionHandler)handler;
++ (NSURLSessionDataTask*)loginWithEmail:(NSString*)email password:(NSString*)password handler:(completionHandler)handler;
 //第三方登陆
-- (NSURLSessionDataTask*)regWithphone:(NSString *)phone password:(NSString *)password confirm_password:(NSString *)confirm_password real_name:(NSString *)real_name captcha:(NSString *)captcha handler:(completionHandler)handler;
++ (NSURLSessionDataTask*)regWithphone:(NSString *)phone password:(NSString *)password confirm_password:(NSString *)confirm_password real_name:(NSString *)real_name captcha:(NSString *)captcha handler:(completionHandler)handler;
 @end

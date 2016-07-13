@@ -11,5 +11,5 @@
 
 @interface UserHttp : NSObject
 //创建工作圈
-- (NSURLSessionDataTask*)createCompany:(NSString*)company_name company_type:(NSString*)company_type hasImage:(UIImage*)hasImage handler:(completionHandler)handler;
++ (NSURLSessionDataTask*)createCompany:(NSString*)company_name company_type:(NSString*)company_type hasImage:(UIImage*)hasImage handler:(completionHandler)handler;
 @end

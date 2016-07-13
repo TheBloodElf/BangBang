@@ -54,10 +54,6 @@ static HttpService * __singleton__;
     //初始化请求
     NSString *urlStr = [[NSURL URLWithString:pathStr relativeToURL:_dataSessionManager.baseURL] absoluteString];
     NSString *methodStr = [self stringWithMethod:method];
-    //加上accessToken
-    NSString *accessToken = [IdentityManager manager].identity.accessToken;
-    if(![NSString isBlank:accessToken])
-        [parameters setObject:accessToken forKey:@"access_token"];
     NSMutableURLRequest *request = [_dataSessionManager.requestSerializer requestWithMethod:methodStr URLString:urlStr parameters:parameters error:nil];
     __block NSURLSessionDataTask *task = nil;
     task = [_dataSessionManager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
@@ -71,11 +67,11 @@ static HttpService * __singleton__;
         MError *err = nil;
         id data = nil;
         NSDictionary *responseObjectDic = [responseObject mj_keyValues];
-        NSString *resultStr = responseObjectDic[@"status"];
-        if([resultStr isEqualToString:@"200"]) {//200表示成功
+        NSInteger resultCode = [responseObjectDic[@"code"] integerValue];
+        if(resultCode == 0) {//0表示成功
             data = responseObjectDic[@"data"];
-        } else if([resultStr isEqualToString:@"500"]) {//500表示失败
-            err = [[MError alloc] initWithCode:500 statsMsg:responseObjectDic[@"msg"]];
+        } else {
+            err = [[MError alloc] initWithCode:resultCode statsMsg:responseObjectDic[@"message"]];
         }
         //主线程执行回调
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -113,7 +109,7 @@ static HttpService * __singleton__;
 #pragma mark - Ptavite Methods
 
 - (void)initManagers {
-    _dataSessionManager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:KBSSDKAPIURL]];
+    _dataSessionManager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:KBSSDKAPIDomain]];
     [_dataSessionManager setRequestSerializer:[AFHTTPRequestSerializer serializer]];
     [_dataSessionManager setResponseSerializer:[AFJSONResponseSerializer serializer]];
     

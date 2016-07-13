@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "AppCustoms.h"
 #import "MainViewController.h"
-
+#import "IdentityManager.h"
 @interface AppDelegate ()
 
 @end
@@ -18,6 +18,10 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    //重新登录
+//    IdentityManager *identityManager = [IdentityManager manager];
+//    [identityManager readAuthorizeData];
+//    [identityManager resetAuthorizeData];
     //对应用进行全局的初始化
     [AppCustoms customs];
     //创建根视图控制器

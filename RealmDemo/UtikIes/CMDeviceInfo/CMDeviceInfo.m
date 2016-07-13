@@ -44,25 +44,6 @@ NSString * const IDFV_APP_SUFFIX = @"-fadein-ios";
     return [UIScreen mainScreen].bounds.size.height;
 }
 
-//idfv （identifierForVendor）:apple提供给Vendor的唯一标识符，Vendor代表了应用开发商
-+ (NSString *)idfv {
-    NSString *idfv = [CMDeviceInfo load:VENDOR_IDENTIFIER_KEY];
-    if (!idfv || idfv.length == 0) {
-        idfv = [[[[UIDevice currentDevice] identifierForVendor] UUIDString] stringByAppendingString:IDFV_APP_SUFFIX];
-        if (idfv && idfv.length != 0) {
-            [CMDeviceInfo save:VENDOR_IDENTIFIER_KEY data:@{IDFV_KEY:idfv.Md5String}];
-        }
-        else {
-            return @"can not get idfv";
-        }
-    }
-    return idfv;
-}
-
-+ (NSDictionary *)deviceInfo {
-    return @{@"id":[CMDeviceInfo idfv],@"osType":@"1",@"osVersion":[CMSystemInfo systemVersion]};
-}
-
 //UUID（Universally Unique Identifier）:通用唯一识别码，每次生成均不一样，所以第一次生成后需要保存到钥匙串，这样即使应用删除再重装仍然可以从钥匙串得到它
 + (NSString *)uuid {
     CFUUIDRef puuid = CFUUIDCreate( nil );

@@ -50,10 +50,4 @@
 + (CGFloat)mainScreenWidth;
 + (CGFloat)mainScreenHeight;
 
-//设备唯一标识符
-+ (NSString *)idfv;
-
-//返回设备信息
-+ (NSDictionary *)deviceInfo;
-
 @end
