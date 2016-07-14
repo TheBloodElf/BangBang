@@ -71,10 +71,8 @@
 - (void)updateCompanyArr:(NSArray<Company*>*)companyArr {
     [_rlmRealm beginWriteTransaction];
     RLMResults *companys = [Company allObjectsInRealm:_rlmRealm];
-    for (int index = 0;index < companys.count;index ++) {
-        Company *company = [companys objectAtIndex:index];
-        [_rlmRealm deleteObject:company];
-    }
+    while (companys.count)
+        [_rlmRealm deleteObject:companys.firstObject];
     [_rlmRealm addObjects:companyArr];
     [_rlmRealm commitWriteTransaction];
 }
@@ -97,5 +95,30 @@
     fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:@"Company"];
     [fetchedResultsController performFetch];
     return fetchedResultsController;
+}
+//根据圈子ID更新员工信息
+- (void)updateEmployee:(NSMutableArray<Employee*>*)employeeArr companyID:(int)companyID {
+    [_rlmRealm beginWriteTransaction];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"company_no = %d",companyID];
+    RLMResults *results = [Employee objectsInRealm:_rlmRealm withPredicate:pred];
+    while (results.count)
+        [_rlmRealm deleteObject:results.firstObject];
+    for (Employee * employee in employeeArr) {
+        [_rlmRealm addOrUpdateObject:employee];
+    }
+    [_rlmRealm commitWriteTransaction];
+}
+//根据圈子ID获取员工信息
+- (NSMutableArray<Employee*>*)getEmployeeWithID:(int)companyID {
+    NSMutableArray *array = [@[] mutableCopy];
+    [_rlmRealm beginWriteTransaction];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"company_no = %d",companyID];
+    RLMResults *results = [Employee objectsInRealm:_rlmRealm withPredicate:pred];
+    for (int index = 0;index < results.count;index ++) {
+        Employee *employee = [results objectAtIndex:index];
+        [array addObject:employee];
+    }
+    [_rlmRealm commitWriteTransaction];
+    return array;
 }
 @end

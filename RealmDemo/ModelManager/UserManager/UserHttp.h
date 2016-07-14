@@ -10,6 +10,9 @@
 #import "HttpService.h"
 
 @interface UserHttp : NSObject
-//创建工作圈
-+ (NSURLSessionDataTask*)createCompany:(NSString*)company_name company_type:(NSString*)company_type hasImage:(UIImage*)hasImage handler:(completionHandler)handler;
+#pragma mark -- 工作圈
+//获取圈子员工列表
++ (NSURLSessionDataTask*)getEmployeeCompnyNo:(int)companyNo status:(int)status userGuid:(NSString*)userGuid handler:(completionHandler)handler;
+//获取用户所在工作圈
++ (NSURLSessionDataTask*)getCompanysUserGuid:(NSString*)userGuid handler:(completionHandler)handler;
 @end

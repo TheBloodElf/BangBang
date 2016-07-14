@@ -11,12 +11,14 @@
 #import "HomeListBottomView.h"
 #import "UserManager.h"
 
-@interface HomeListController ()<HomeListTopDelegate,HomeListBottomDelegate> {
+@interface HomeListController ()<HomeListTopDelegate,HomeListBottomDelegate,RBQFetchedResultsControllerDelegate> {
     UIScrollView *_scrollView;//整体的滚动视图
     HomeListTopView *_homeListTopView;//头部数据视图
     HomeListBottomView *_homeListBottomView;//底部的按钮视图
     UIButton *_leftNavigationBarButton;//左边导航的按钮
     UIButton *_rightNavigationBarButton;//右边导航的按钮
+    UserManager *_userManager;//用户管理器
+    RBQFetchedResultsController *_userFetchedResultsController;//用户数据库监听
 }
 
 @end
@@ -25,6 +27,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _userManager = [UserManager manager];
+    _userFetchedResultsController = [_userManager createUserFetchedResultsController];
+    _userFetchedResultsController.delegate = self;
     _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     _scrollView.showsVerticalScrollIndicator = NO;
     //创建头部数据视图
@@ -40,10 +45,22 @@
     _scrollView.contentSize = CGSizeMake(MAIN_SCREEN_WIDTH, CGRectGetMaxY(_homeListBottomView.frame));
     [self.view addSubview:_scrollView];
     [self setLeftNavigationBarItem];
+    [self setRightNavigationBarItem];
     // Do any additional setup after loading the view.
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+}
+#pragma mark -- 
+#pragma mark -- RBQFetchedResultsControllerDelegate
+- (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
+    User *user = controller.fetchedObjects[0];
+    UIImageView *imageView = [_leftNavigationBarButton viewWithTag:1001];
+    UILabel *nameLabel = [_leftNavigationBarButton viewWithTag:1002];
+    UILabel *companyLabel = [_leftNavigationBarButton viewWithTag:1003];
+    [imageView sd_setImageWithURL:[NSURL URLWithString:user.currCompany.logo] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
+    nameLabel.text = user.real_name;
+    companyLabel.text = user.currCompany.company_name;
 }
 #pragma mark -- 
 #pragma mark -- HomeListTopDelegate 
@@ -76,8 +93,7 @@
 #pragma mark --
 #pragma mark -- setNavigationBar
 - (void)setLeftNavigationBarItem {
-    UserManager *manager = [UserManager manager];
-    User *user = manager.user;
+    User *user = _userManager.user;
     _leftNavigationBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _leftNavigationBarButton.frame = CGRectMake(0, 0, 100, 38);
     //创建头像
@@ -87,16 +103,19 @@
     imageView.tag = 1001;
     [imageView sd_setImageWithURL:[NSURL URLWithString:user.currCompany.logo] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
     [_leftNavigationBarButton addSubview:imageView];
-    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(38, 2, 62, 12)];
+    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(38, 2, 100, 12)];
     nameLabel.font = [UIFont systemFontOfSize:12];
-    nameLabel.textColor = [UIColor whiteColor];
+    nameLabel.textColor = [UIColor blackColor];
     nameLabel.text = user.real_name;
     nameLabel.tag = 1002;
     [_leftNavigationBarButton addSubview:nameLabel];
-    UILabel *companyLabel = [[UILabel alloc] initWithFrame:CGRectMake(38, 23, 62, 10)];
+    UILabel *companyLabel = [[UILabel alloc] initWithFrame:CGRectMake(38, 23, 100, 10)];
     companyLabel.font = [UIFont systemFontOfSize:10];
-    companyLabel.textColor = [UIColor whiteColor];
-    companyLabel.text = user.currCompany.company_name;
+    companyLabel.textColor = [UIColor blackColor];
+    if([NSString isBlank:user.currCompany.company_name])
+        companyLabel.text = @"未选择圈子";
+    else
+        companyLabel.text = user.currCompany.company_name;
     companyLabel.tag = 1003;
     [_leftNavigationBarButton addSubview:companyLabel];
     [_leftNavigationBarButton addTarget:self action:@selector(leftNavigationBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -104,5 +123,15 @@
 }
 - (void)leftNavigationBtnClicked:(id)btn {
     [self.navigationController.frostedViewController presentMenuViewController];
+}
+- (void)setRightNavigationBarItem {
+    _rightNavigationBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _rightNavigationBarButton.frame = CGRectMake(0, 0, 30, 30);
+    [_rightNavigationBarButton setImage:[UIImage imageNamed:@"home_remind_icon"] forState:UIControlStateNormal];
+    [_rightNavigationBarButton addTarget:self action:@selector(rightNavigationBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_rightNavigationBarButton];
+}
+- (void)rightNavigationBtnClicked:(id)btn {
+    
 }
 @end

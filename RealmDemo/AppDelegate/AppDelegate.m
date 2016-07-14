@@ -18,6 +18,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    RLMRealmConfiguration *config = [RLMRealmConfiguration defaultConfiguration];
+    config.schemaVersion = 1;
+    [RLMRealmConfiguration setDefaultConfiguration:config];
     //重新登录
 //    IdentityManager *identityManager = [IdentityManager manager];
 //    [identityManager readAuthorizeData];

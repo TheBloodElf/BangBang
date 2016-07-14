@@ -32,22 +32,36 @@
 }
 - (UINavigationController*)homeListController {
     HomeListController *home = [HomeListController new];
-    home.title = @"首页";
-    return [[UINavigationController alloc] initWithRootViewController:home];
-}
-- (UINavigationController*)messageController {
-    MessageController *home = [MessageController new];
-    home.title = @"消息";
-    return [[UINavigationController alloc] initWithRootViewController:home];
-}
-- (UINavigationController*)mineViewController {
-    MineViewController *home = [MineViewController new];
-    home.title = @"联系人";
-    return [[UINavigationController alloc] initWithRootViewController:home];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:home];
+    nav.tabBarItem.title = @"首页";
+    nav.tabBarItem.image = [[UIImage imageNamed:@"index-gray"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    nav.tabBarItem.selectedImage = [[UIImage imageNamed:@"index-green"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    return nav;
 }
 - (UINavigationController*)xAddrBookController {
     XAddrBookController *home = [XAddrBookController new];
-    home.title = @"设置";
-    return [[UINavigationController alloc] initWithRootViewController:home];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:home];
+    nav.tabBarItem.title = @"联系人";
+    nav.tabBarItem.image = [[UIImage imageNamed:@"set-gray"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    nav.tabBarItem.selectedImage = [[UIImage imageNamed:@"set-green"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    return nav;
 }
+- (UINavigationController*)messageController {
+    MessageController *home = [MessageController new];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:home];
+    nav.tabBarItem.title = @"消息";
+    nav.tabBarItem.image = [[UIImage imageNamed:@"message-gray"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    nav.tabBarItem.selectedImage = [[UIImage imageNamed:@"message-green"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    return nav;
+}
+- (UINavigationController*)mineViewController {
+    UIStoryboard *story = [UIStoryboard storyboardWithName:@"MineView" bundle:nil];
+    MineViewController *home = [story instantiateViewControllerWithIdentifier:@"MineViewController"];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:home];
+    nav.tabBarItem.title = @"我的";
+    nav.tabBarItem.image = [[UIImage imageNamed:@"contact-gray"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    nav.tabBarItem.selectedImage = [[UIImage imageNamed:@"contact-green"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    return nav;
+}
+
 @end

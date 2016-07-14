@@ -11,6 +11,7 @@
 #import <RBQFetchedResultsController/RBQFRC.h>
 #import "User.h"
 #import "Company.h"
+#import "Employee.h"
 
 @interface UserManager : NSObject
 //全局的用户信息
@@ -31,4 +32,8 @@
 - (NSMutableArray<Company*>*)getCompanyArr;
 //创建圈子的数据库观察者
 - (RBQFetchedResultsController*)createCompanyFetchedResultsController;
+//根据圈子ID更新员工信息
+- (void)updateEmployee:(NSMutableArray<Employee*>*)employeeArr companyID:(int)companyID;
+//根据圈子ID获取员工信息
+- (NSMutableArray<Employee*>*)getEmployeeWithID:(int)companyID;
 @end

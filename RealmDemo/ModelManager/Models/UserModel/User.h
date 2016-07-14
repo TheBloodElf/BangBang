@@ -6,7 +6,7 @@
 //  Copyright © 2016年 com.luohaifang. All rights reserved.
 //
 
-#import <Realm/Realm.h>
+
 #import "Company.h"
 
 @interface User : RLMObject
@@ -39,6 +39,6 @@
 @property (nonatomic, strong) Company *currCompany;
 
 - (instancetype)initWithJsonDic:(NSDictionary*)dic;
-
++ (User*)copyFromUser:(User*)user;
 @end
 

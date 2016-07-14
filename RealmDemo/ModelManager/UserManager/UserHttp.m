@@ -8,18 +8,33 @@
 
 #import "UserHttp.h"
 #import "UserManager.h"
+#import "IdentityManager.h"
+
 @implementation UserHttp
-//创建工作圈
-+ (NSURLSessionDataTask*)createCompany:(NSString*)company_name company_type:(NSString*)company_type hasImage:(UIImage*)hasImage handler:(completionHandler)handler {
-    NSString *urlPath = @"Users/register_phone";
+#pragma mark -- 工作圈
+//获取圈子员工列表
++ (NSURLSessionDataTask*)getEmployeeCompnyNo:(int)companyNo status:(int)status userGuid:(NSString*)userGuid handler:(completionHandler)handler {
+    NSString *urlPath = @"Companies/employee_list_new";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    [params setObject:company_name forKey:@"company_name"];
-    [params setObject:company_type forKey:@"company_type"];
-    [params setObject:hasImage forKey:@"image"];
-    [params setObject:[UserManager manager].user.user_guid forKey:@"user_guid"];
+    [params setObject:@(companyNo) forKey:@"company_no"];
+    [params setObject:@(status) forKey:@"status"];
+    [params setObject:@(100000) forKey:@"page_size"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    [params setObject:userGuid forKey:@"user_guid"];
     completionHandler compleionHandler = ^(id data,MError *error) {
         handler(data,error);
     };
-    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_GET URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
+//获取用户所在工作圈
++ (NSURLSessionDataTask*)getCompanysUserGuid:(NSString*)userGuid handler:(completionHandler)handler {
+    NSString *urlPath = @"Companies/user_companies";
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:userGuid forKey:@"user_guid"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_GET URLPath:urlPath parameters:params completionHandler:compleionHandler];
 }
 @end

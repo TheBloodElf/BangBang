@@ -11,12 +11,12 @@
 #import "LeftMenuCell.h"
 
 @interface LeftMenuController ()<UITableViewDataSource,UITableViewDelegate,RBQFetchedResultsControllerDelegate> {
-    UserManager *_userManager;
-    NSMutableArray<Company*> *_companyArr;
-    RBQFetchedResultsController *_userFetchedResultsController;
-    RBQFetchedResultsController *_commpanyFetchedResultsController;
+    UserManager *_userManager;//用户管理器
+    NSMutableArray<Company*> *_companyArr;//圈子数组
+    RBQFetchedResultsController *_userFetchedResultsController;//用户数据库监听
+    RBQFetchedResultsController *_commpanyFetchedResultsController;//圈子数据监听
 }
-@property (weak, nonatomic) IBOutlet UIButton *avaterImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *avaterImageView;
 @property (weak, nonatomic) IBOutlet UILabel *userName;
 @property (weak, nonatomic) IBOutlet UILabel *userMood;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -41,7 +41,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"LeftMenuCell" bundle:nil] forCellReuseIdentifier:@"LeftMenuCell"];
     self.tableView.tableFooterView = [UIView new];
     //设置用户信息
-    [self.avaterImageView.imageView sd_setImageWithURL:[NSURL URLWithString:user.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
+    [self.avaterImageView sd_setImageWithURL:[NSURL URLWithString:user.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
     self.userName.text = user.real_name;
     self.userMood.text = user.mood;
     //设置圈子信息
@@ -54,25 +54,36 @@
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
     if(controller == _userFetchedResultsController) {
         User *user = controller.fetchedObjects[0];
-        [self.avaterImageView.imageView sd_setImageWithURL:[NSURL URLWithString:user.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
+        [self.avaterImageView sd_setImageWithURL:[NSURL URLWithString:user.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
         self.userName.text = user.real_name;
         self.userMood.text = user.mood;
     } else {
         [_companyArr removeAllObjects];
         [_companyArr addObjectsFromArray:(id)controller.fetchedObjects];
         [_tableView reloadData];
+        //因为圈子更新后会把用户当前圈子给清除掉，所以这里重新设置一下 当然随便在其他地方也可以
+        if(_companyArr.count) {
+            User *user = [User copyFromUser:_userManager.user];
+            user.currCompany = _companyArr[0];
+            [_userManager updateUser:user];
+        }
     }
 }
 //加入圈子被点击
 - (IBAction)joinCompanyClicked:(id)sender {
-    
+    //隐藏菜单控制器
+    [self.frostedViewController hideMenuViewController];
 }
 //头像被点击
 - (IBAction)avaterClicked:(id)sender {
-    
+    //隐藏菜单控制器
+    [self.frostedViewController hideMenuViewController];
 }
 #pragma mark --
 #pragma mark -- UITableViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 70.f;
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _companyArr.count;
 }
@@ -80,5 +91,17 @@
     LeftMenuCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LeftMenuCell" forIndexPath:indexPath];
     cell.data = _companyArr[indexPath.row];
     return cell;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    //改变用户当前圈子
+    Company *company = _companyArr[indexPath.row];
+    User *user = [User copyFromUser:_userManager.user];
+    user.currCompany = company;
+    [_userManager updateUser:user];
+    //刷新表格视图
+    [_tableView reloadData];
+    //隐藏菜单控制器
+    [self.frostedViewController hideMenuViewController];
 }
 @end

@@ -24,14 +24,13 @@ static AppCustoms * __singleton__;
     return __singleton__;
 }
 
-
 #pragma mark -
 #pragma mark - Init
 
 - (instancetype)init {
     self = [super init];
     if (self) {
-       
+        [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     }
     return self;
 }

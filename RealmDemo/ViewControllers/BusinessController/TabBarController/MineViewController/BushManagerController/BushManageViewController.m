@@ -1,0 +1,110 @@
+//
+//  BushManageViewController.m
+//  BangBang
+//
+//  Created by Kiwaro on 14-12-16.
+//  Copyright (c) 2014年 Kiwaro. All rights reserved.
+//
+
+#import "BushManageViewController.h"
+#import "BushManagerCell.h"
+#import "Company.h"
+#import "UserManager.h"
+#import "UserHttp.h"
+
+@interface BushManageViewController ()<UITableViewDataSource,UITableViewDelegate,RBQFetchedResultsControllerDelegate> {
+    UserManager *_userManager;//用户管理器
+    UITableView *_tableView;//展示数据的表格视图
+    NSMutableArray<Company*> *_companyArr;//圈子数组
+    RBQFetchedResultsController *_companyFetchedResultsController;//圈子数据监听
+    UIView *_noDataView;//没有数据显示的视图
+}
+@property (nonatomic, strong) UIButton *backButton;
+@end
+
+@implementation BushManageViewController
+#pragma mark --
+#pragma mark -- ControllerLifeCycle
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.title = @"圈子管理";
+    _companyArr = [@[] mutableCopy];
+    _userManager = [UserManager manager];
+    _companyFetchedResultsController = [_userManager createCompanyFetchedResultsController];
+    _companyFetchedResultsController.delegate = self;
+    //设置标签的位置和约束
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT) style:UITableViewStylePlain];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.tableFooterView = [UIView new];
+    [_tableView registerNib:[UINib nibWithNibName:@"BushManagerCell" bundle:nil] forCellReuseIdentifier:@"BushManagerCell"];
+    [self.view addSubview:_tableView];
+    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [UserHttp getCompanysUserGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+            if(error) {
+                [_tableView.mj_header endRefreshing];
+                [self.navigationController.view showFailureTips:error.statsMsg];
+                return ;
+            }
+            NSMutableArray<Company*> *companys = [@[] mutableCopy];
+            for (NSDictionary *dic in data) {
+                Company *company = [Company new];
+                [company mj_setKeyValues:[dic mj_keyValues]];
+                [companys addObject:company];
+            }
+            [_userManager updateCompanyArr:companys];
+            _companyArr = companys;
+            [_tableView.mj_header endRefreshing];
+            if(_companyArr.count == 0)
+                _tableView.tableFooterView = _noDataView;
+            else
+                _tableView.tableFooterView = [UIView new];
+        }];
+    }];
+    //创建空太图
+    _noDataView = [[UIView alloc] initWithFrame:_tableView.bounds];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0.5 * (_tableView.frame.size.height - 10), MAIN_SCREEN_WIDTH, 10)];
+    label.text = @"您当前还没有加入任何的圈子，请尝试加入一个吧";
+    label.textColor = [UIColor grayColor];
+    [_noDataView addSubview:label];
+    //获取当前用户所有的圈子
+    _companyArr = [_userManager getCompanyArr];
+    if(_companyArr.count == 0)
+        _tableView.tableFooterView = _noDataView;
+    [_tableView reloadData];
+    //创建右边导航按钮
+    
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+#pragma mark -- 
+#pragma mark -- RBQFetchedResultsControllerDelegate
+- (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
+    _companyArr = (id)controller.fetchedObjects;
+    if(_companyArr.count == 0)
+        _tableView.tableFooterView = _noDataView;
+    else
+        _tableView.tableFooterView = [UIView new];
+    [_tableView reloadData];
+}
+#pragma mark --
+#pragma mark -- TableViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 60.f;
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return _companyArr.count;
+}
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    BushManagerCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BushManagerCell" forIndexPath:indexPath];
+    Company * item = _companyArr[indexPath.row];
+    cell.data = item;
+    return cell;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+}
+@end
