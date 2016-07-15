@@ -30,7 +30,7 @@ static AppCustoms * __singleton__;
 - (instancetype)init {
     self = [super init];
     if (self) {
-        [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+        [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
     }
     return self;
 }

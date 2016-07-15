@@ -120,7 +120,7 @@
         [_tableView reloadData];
     } else {
         //从本地加载数据，如果没有数据就转菊花
-        _employeeArr = [_userManager getEmployeeWithID:companyID];
+        _employeeArr = [_userManager getEmployeeWithCompanyID:companyID];
         [self sortEmployee];
         [_tableView reloadData];
         //从网络上获取最新的员工数据

@@ -8,16 +8,21 @@
 
 #import "BushManageViewController.h"
 #import "BushManagerCell.h"
+#import "BushSearchViewController.h"
 #import "Company.h"
 #import "UserManager.h"
 #import "UserHttp.h"
+#import "BushDetailController.h"
+#import "CreateBushController.h"
+#import "MoreSelectView.h"
 
-@interface BushManageViewController ()<UITableViewDataSource,UITableViewDelegate,RBQFetchedResultsControllerDelegate> {
+@interface BushManageViewController ()<UITableViewDataSource,UITableViewDelegate,RBQFetchedResultsControllerDelegate,MoreSelectViewDelegate> {
     UserManager *_userManager;//用户管理器
     UITableView *_tableView;//展示数据的表格视图
     NSMutableArray<Company*> *_companyArr;//圈子数组
     RBQFetchedResultsController *_companyFetchedResultsController;//圈子数据监听
     UIView *_noDataView;//没有数据显示的视图
+    MoreSelectView *_moreSelectView;//多选视图
 }
 @property (nonatomic, strong) UIButton *backButton;
 @end
@@ -72,12 +77,46 @@
     if(_companyArr.count == 0)
         _tableView.tableFooterView = _noDataView;
     [_tableView reloadData];
+    //创建多选视图
+    //是不是当前圈子的管理员
+    if([_userManager.user.currCompany.admin_user_guid isEqualToString:_userManager.user.user_guid]) {
+        _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100 - 15, 64, 100, 120)];
+        _moreSelectView.selectArr = @[@"加入圈子",@"创建圈子",@"申请管理"];
+    }
+    else {
+        _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100 - 15, 64, 100, 80)];
+        _moreSelectView.selectArr = @[@"加入圈子",@"创建圈子"];
+    }
+    _moreSelectView.delegate = self;
+    [_moreSelectView setupUI];
+    [self.view addSubview:_moreSelectView];
+    [self.view bringSubviewToFront:_moreSelectView];
     //创建右边导航按钮
-    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"更多" style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonClicked:)];
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+- (void)rightBarButtonClicked:(UIBarButtonItem*)item {
+    if(_moreSelectView.isHide)
+        [_moreSelectView showSelectView];
+    else
+        [_moreSelectView hideSelectView];
+}
+#pragma mark -- 
+#pragma mark -- MoreSelectViewDelegate
+-(void)moreSelectIndex:(int)index {
+    if(index == 0) {//加入圈子
+        BushSearchViewController *search = [BushSearchViewController new];
+        [self.navigationController pushViewController:search animated:YES];
+    } else if (index == 1) {//创建圈子
+        UIStoryboard *story = [UIStoryboard storyboardWithName:@"MineView" bundle:nil];
+        CreateBushController *bush = [story instantiateViewControllerWithIdentifier:@"CreateBushController"];
+        [self.navigationController pushViewController:bush animated:YES];
+    } else {//申请管理
+        
+    }
 }
 #pragma mark -- 
 #pragma mark -- RBQFetchedResultsControllerDelegate
@@ -105,6 +144,9 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+    UIStoryboard *story = [UIStoryboard storyboardWithName:@"MineView" bundle:nil];
+    BushDetailController *bushDetail = [story instantiateViewControllerWithIdentifier:@"BushDetailController"];
+    bushDetail.data = _companyArr[indexPath.row];
+    [self.navigationController pushViewController:bushDetail animated:YES];
 }
 @end

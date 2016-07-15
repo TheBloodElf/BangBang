@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BushSearchCell" rowHeight="60" id="EXo-DV-37m" customClass="BushSearchCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EXo-DV-37m" id="QKf-2F-fmh">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="erx-wm-1ZR">
+                        <rect key="frame" x="15" y="5" width="50" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="3Tm-xV-DUj"/>
+                            <constraint firstAttribute="height" constant="50" id="Qmv-r5-Kz0"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tov-Os-Jfm">
+                        <rect key="frame" x="75" y="8" width="40" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="Wtb-SJ-IGm"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jyj-WJ-8wz">
+                        <rect key="frame" x="75" y="36" width="36" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="x4Q-xv-rrz"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZqU-Jb-ewO">
+                        <rect key="frame" x="255" y="15" width="50" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="LDW-fM-o1A"/>
+                            <constraint firstAttribute="width" constant="50" id="cHc-5O-e4N"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <state key="normal" title="Button">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="ZqU-Jb-ewO" secondAttribute="trailing" constant="15" id="Ajz-Uz-OoC"/>
+                    <constraint firstAttribute="bottom" secondItem="jyj-WJ-8wz" secondAttribute="bottom" constant="8" id="Idd-oj-TOb"/>
+                    <constraint firstItem="Tov-Os-Jfm" firstAttribute="top" secondItem="QKf-2F-fmh" secondAttribute="top" constant="8" id="Yps-tX-da4"/>
+                    <constraint firstItem="jyj-WJ-8wz" firstAttribute="leading" secondItem="erx-wm-1ZR" secondAttribute="trailing" constant="10" id="aVN-bQ-jez"/>
+                    <constraint firstItem="erx-wm-1ZR" firstAttribute="centerY" secondItem="QKf-2F-fmh" secondAttribute="centerY" id="bWR-Xp-v4L"/>
+                    <constraint firstItem="Tov-Os-Jfm" firstAttribute="leading" secondItem="erx-wm-1ZR" secondAttribute="trailing" constant="10" id="m2x-4C-pcQ"/>
+                    <constraint firstItem="erx-wm-1ZR" firstAttribute="leading" secondItem="QKf-2F-fmh" secondAttribute="leading" constant="15" id="qcl-og-k6i"/>
+                    <constraint firstItem="ZqU-Jb-ewO" firstAttribute="centerY" secondItem="QKf-2F-fmh" secondAttribute="centerY" id="zYZ-wb-mnS"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="bushImage" destination="erx-wm-1ZR" id="VAg-gS-2EA"/>
+                <outlet property="bushName" destination="Tov-Os-Jfm" id="OTG-5l-CLQ"/>
+                <outlet property="bushType" destination="jyj-WJ-8wz" id="MtB-K7-gX2"/>
+                <outlet property="joinBtn" destination="ZqU-Jb-ewO" id="iun-Az-tSs"/>
+            </connections>
+            <point key="canvasLocation" x="-146" y="266"/>
+        </tableViewCell>
+    </objects>
+</document>

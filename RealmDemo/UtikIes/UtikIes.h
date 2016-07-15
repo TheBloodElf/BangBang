@@ -19,6 +19,7 @@
 #import "CMDeviceInfo.h"
 #import "NSObject+data.h"
 #import "NSObject+Tips.h"
+#import "UIImage+scale.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 #endif /* UtikIes_h */

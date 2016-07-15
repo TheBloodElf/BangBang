@@ -25,8 +25,16 @@
 - (void)loadUserWithGuid:(NSString*)userGuid;
 //创建用户的数据库观察者
 - (RBQFetchedResultsController*)createUserFetchedResultsController;
+//根据Guid和圈子ID获取员工
+- (Employee*)getEmployeeWithGuid:(NSString*)userGuid companyNo:(int)companyNo;
 #pragma mark -- Company
-//更新圈子数据
+//更新某个圈子信息
+- (void)updateCompany:(Company*)company;
+//添加某个圈子
+- (void)addCompany:(Company*)company;
+//删除某个圈子
+- (void)deleteCompany:(Company*)company;
+//更新所有圈子数据
 - (void)updateCompanyArr:(NSArray<Company*>*)companyArr;
 //获取圈子数组
 - (NSMutableArray<Company*>*)getCompanyArr;
@@ -35,5 +43,5 @@
 //根据圈子ID更新员工信息
 - (void)updateEmployee:(NSMutableArray<Employee*>*)employeeArr companyID:(int)companyID;
 //根据圈子ID获取员工信息
-- (NSMutableArray<Employee*>*)getEmployeeWithID:(int)companyID;
+- (NSMutableArray<Employee*>*)getEmployeeWithCompanyID:(int)companyID;
 @end

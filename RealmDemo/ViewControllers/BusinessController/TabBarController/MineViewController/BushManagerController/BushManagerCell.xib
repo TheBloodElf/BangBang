@@ -54,7 +54,7 @@
                 <outlet property="bushName" destination="IVR-4N-19C" id="3Sw-Vw-rCg"/>
                 <outlet property="bushTitle" destination="cA8-ic-qds" id="UbK-BU-tdj"/>
             </connections>
-            <point key="canvasLocation" x="42" y="306"/>
+            <point key="canvasLocation" x="287" y="355"/>
         </tableViewCell>
     </objects>
 </document>

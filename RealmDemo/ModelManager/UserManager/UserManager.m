@@ -66,8 +66,34 @@
     [fetchedResultsController performFetch];
     return fetchedResultsController;
 }
+//根据Guid和圈子ID获取员工
+- (Employee*)getEmployeeWithGuid:(NSString*)userGuid companyNo:(int)companyNo {
+    [_rlmRealm beginWriteTransaction];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"user_guid = %@ and company_no = %d",userGuid,companyNo];
+    RLMResults *results = [Employee objectsInRealm:_rlmRealm withPredicate:pred];
+    [_rlmRealm commitWriteTransaction];
+    return [results objectAtIndex:0];
+}
 #pragma mark -- Company
-//更新圈子数据
+//更新某个圈子信息
+- (void)updateCompany:(Company*)company {
+    [_rlmRealm beginWriteTransaction];
+    [_rlmRealm addOrUpdateObject:company];
+    [_rlmRealm commitWriteTransaction];
+}
+//添加某个圈子
+- (void)addCompany:(Company*)company {
+    [_rlmRealm beginWriteTransaction];
+    [_rlmRealm addObject:company];
+    [_rlmRealm commitWriteTransaction];
+}
+//删除某个圈子
+- (void)deleteCompany:(Company*)company {
+    [_rlmRealm beginWriteTransaction];
+    [_rlmRealm deleteObject:company];
+    [_rlmRealm commitWriteTransaction];
+}
+//更新所有圈子数据
 - (void)updateCompanyArr:(NSArray<Company*>*)companyArr {
     [_rlmRealm beginWriteTransaction];
     RLMResults *companys = [Company allObjectsInRealm:_rlmRealm];
@@ -109,7 +135,7 @@
     [_rlmRealm commitWriteTransaction];
 }
 //根据圈子ID获取员工信息
-- (NSMutableArray<Employee*>*)getEmployeeWithID:(int)companyID {
+- (NSMutableArray<Employee*>*)getEmployeeWithCompanyID:(int)companyID {
     NSMutableArray *array = [@[] mutableCopy];
     [_rlmRealm beginWriteTransaction];
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"company_no = %d",companyID];
