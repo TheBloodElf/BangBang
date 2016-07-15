@@ -11,7 +11,7 @@
 #import "UserManager.h"
 #import "UpdateBushController.h"
 
-@interface BushDetailController () {
+@interface BushDetailController ()<UpdateBushDelegate> {
     Company *_currCompany;//当前圈子
     UserManager *_userManager;//用户管理器
     Employee *_currCompanyOwner;//当前圈子的创建者
@@ -35,15 +35,18 @@
     self.companyAvater.clipsToBounds = YES;
     [self.tableView addSubview:self.companyAvater];
     _userManager = [UserManager manager];
-    //得到圈子创建者信息
-    
+    //得到圈子创建者信息 得到后才给界面赋值
+}
+#pragma mark --
+#pragma mark -- UpdateBushDelegate
+- (void)updateBush:(Company *)company {
+    _currCompany = company;
+    [self setupUI];
 }
 - (void)dataDidChange {
-    _currCompany = self.data;
+    _currCompany = [Company copyFromCompany:self.data];
 }
-//每次进来都填充一次 万一修改了就好实时更新
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void)setupUI {
     [self.companyAvater sd_setImageWithURL:[NSURL URLWithString:_currCompany.logo] placeholderImage:[UIImage imageNamed:@""]];
     self.companyName.text = _currCompany.company_name;
     self.companyType.text = [_currCompany companyTypeStr];
@@ -67,6 +70,7 @@
     UIStoryboard *story = [UIStoryboard storyboardWithName:@"MineView" bundle:nil];
     UpdateBushController *bush = [story instantiateViewControllerWithIdentifier:@"UpdateBushController"];
     bush.data = _currCompany;
+    bush.delegate = self;
     [self.navigationController pushViewController:bush animated:YES];
 }
 //转让圈子
