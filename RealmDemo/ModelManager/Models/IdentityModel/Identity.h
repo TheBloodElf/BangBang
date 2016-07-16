@@ -26,9 +26,11 @@
 @property (nonatomic, assign) BOOL showBugTags;
 //是不是第一次加载日程
 @property (nonatomic, assign) BOOL firstLoadCalendar;
+//融云免打扰功能
+@property (nonatomic, assign) BOOL ryDisturb;
 //融云免打扰开始时间
-@property (nonatomic, assign) NSUInteger ryDisturbBeginTime;
+@property (nonatomic, strong) NSDate *ryDisturbBeginTime;
 //融云免打扰结束时间
-@property (nonatomic, assign) NSUInteger ryDisturbEndTime;
+@property (nonatomic, strong) NSDate *ryDisturbEndTime;
 
 @end

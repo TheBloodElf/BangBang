@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "InterfaceConfig.h"
 #import "MError.h"
 
 typedef NS_ENUM(NSUInteger, HTTP_REQUEST_METHOD) {

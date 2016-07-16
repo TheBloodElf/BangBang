@@ -19,7 +19,7 @@
     return companyTypeArray[self.company_type];
 }
 - (Employee*)getOwnerEmployeeInThisCompany:(int)companyNo {
-    NSArray<Employee*> *employeeArr = [[UserManager manager] getEmployeeWithCompanyID:companyNo];
+    NSArray<Employee*> *employeeArr = [[UserManager manager] getEmployeeWithCompanyNo:companyNo status:1];
     for (Employee *employee in employeeArr)
         if([employee.user_guid isEqualToString:[UserManager manager].user.user_guid])
             return employee;

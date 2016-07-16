@@ -15,6 +15,7 @@
 #import "UserHttp.h"
 
 @interface BushSearchViewController ()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource,BushSearchCellDelegate>{
+    UserManager *_userManager;
     UIView *_noDataView;//没有数据应该显示的内容
     UITableView *_tableView;//展示数据的表格视图
     int currentPage;//搜索的页码
@@ -30,6 +31,7 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"加入圈子";
     _companyArr = [@[] mutableCopy];
+    _userManager = [UserManager manager];
     //创建搜索框
     self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 64, MAIN_SCREEN_WIDTH, 55)];
     self.searchBar.delegate = self;
@@ -57,7 +59,7 @@
     label.text = @"未找到你想要的内容";
     [_noDataView addSubview:label];
     //创建导航按钮
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"创建" style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonClicked:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(rightBarButtonClicked:)];
 }
 //从网上加载数据
 - (void)search {
@@ -102,7 +104,31 @@
 #pragma mark -- 
 #pragma mark -- BushSearchCellDelegate
 - (void)bushSearchCellJoin:(Company *)model {
-    
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"圈子名称" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [alertVC addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"请输入名称...";
+        textField.text = [NSString stringWithFormat:@"我是%@，请求加入圈子",_userManager.user.real_name];
+    }];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UITextField *field = alertVC.textFields[0];
+        if([NSString isBlank:field.text]) {
+           field.text = [NSString stringWithFormat:@"我是%@，请求加入圈子",_userManager.user.real_name];
+        }
+        [self.navigationController.view showLoadingTips:@"请稍等..."];
+        [UserHttp joinCompany:model.company_no userGuid:_userManager.user.user_guid joinReason:field.text handler:^(id data, MError *error) {
+            [self.navigationController.view dismissTips];
+            if(error) {
+                [self.navigationController.view showFailureTips:error.statsMsg];
+                return ;
+            }
+            [self.navigationController showMessageTips:@"请求已发出，请等待"];
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+    }];
+    UIAlertAction *cancleActio = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alertVC addAction:cancleActio];
+    [alertVC addAction:okAction];
+    [self presentViewController:alertVC animated:YES completion:nil];
 }
 #pragma mark --
 #pragma mark -- UISearchBarDelegate

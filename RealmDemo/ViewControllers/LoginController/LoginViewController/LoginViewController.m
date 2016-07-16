@@ -10,6 +10,7 @@
 #import "IdentityManager.h"
 #import "IdentityHttp.h"
 #import "UserManager.h"
+#import "UserHttp.h"
 
 @interface LoginViewController ()
 
@@ -58,8 +59,8 @@
 - (void)gotoLogin {
     [self.navigationController showLoadingTips:@"请稍等..."];
     [IdentityHttp loginWithEmail:self.accountFiexd.text password:self.passwordFiexd.text handler:^(id data, MError *error) {
-        [self.navigationController dismissTips];
         if(error) {
+            [self.navigationController dismissTips];
             [self.navigationController.view showFailureTips:error.statsMsg];
             return ;
         }
@@ -83,9 +84,25 @@
         IdentityManager *identityManager = [IdentityManager manager];
         identityManager.identity.user_guid = user.user_guid;
         [identityManager saveAuthorizeData];
-        //发通知 登录成功
-        [self.navigationController showSuccessTips:@"登录成功"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginDidFinish" object:nil];
+        //获取所有圈子的员工信息
+        [UserHttp getEmployeeCompnyNo:0 status:-1 userGuid:user.user_guid handler:^(id data, MError *error) {
+            [self.navigationController dismissTips];
+            if(error) {
+                [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
+                return ;
+            }
+            NSMutableArray *array = [@[] mutableCopy];
+            for (NSDictionary *dic in data[@"list"]) {
+                Employee *employee = [Employee new];
+                [employee mj_setKeyValues:[dic mj_keyValues]];
+                [array addObject:employee];
+            }
+            //存入本地数据库
+            [manager updateEmployee:array companyNo:0];
+            //发通知 登录成功
+            [self.navigationController showSuccessTips:@"登录成功"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginDidFinish" object:nil];
+        }];
     }];
 }
 @end

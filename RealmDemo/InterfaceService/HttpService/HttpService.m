@@ -67,11 +67,16 @@ static HttpService * __singleton__;
         MError *err = nil;
         id data = nil;
         NSDictionary *responseObjectDic = [responseObject mj_keyValues];
-        NSInteger resultCode = [responseObjectDic[@"code"] integerValue];
-        if(resultCode == 0) {//0表示成功
-            data = responseObjectDic[@"data"];
+        //有的返回结果不包含code，这种就是成功的意思，奇葩啊。。。
+        if([[responseObjectDic allKeys] containsObject:@"code"]) {
+            NSInteger resultCode = [responseObjectDic[@"code"] integerValue];
+            if(resultCode == 0) {//0表示成功
+                data = responseObjectDic[@"data"];
+            } else {
+                err = [[MError alloc] initWithCode:resultCode statsMsg:responseObjectDic[@"message"]];
+            }
         } else {
-            err = [[MError alloc] initWithCode:resultCode statsMsg:responseObjectDic[@"message"]];
+            data = responseObject;
         }
         //主线程执行回调
         dispatch_async(dispatch_get_main_queue(), ^{

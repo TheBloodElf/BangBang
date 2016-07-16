@@ -14,6 +14,7 @@
 #import "UserHttp.h"
 #import "BushDetailController.h"
 #import "CreateBushController.h"
+#import "RequestManagerController.h"
 #import "MoreSelectView.h"
 
 @interface BushManageViewController ()<UITableViewDataSource,UITableViewDelegate,RBQFetchedResultsControllerDelegate,MoreSelectViewDelegate> {
@@ -115,7 +116,8 @@
         CreateBushController *bush = [story instantiateViewControllerWithIdentifier:@"CreateBushController"];
         [self.navigationController pushViewController:bush animated:YES];
     } else {//申请管理
-        
+        RequestManagerController *manager = [RequestManagerController new];
+        [self.navigationController pushViewController:manager animated:YES];
     }
 }
 #pragma mark -- 

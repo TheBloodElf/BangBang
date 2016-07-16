@@ -33,7 +33,7 @@
     _createBushModel = [CreateBushModel new];
     _createBushModel.type = 6;
     _createBushModel.typeString = @"其他";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"创建" style:UIBarButtonItemStylePlain target:self action:@selector(rightButtonClicked:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightButtonClicked:)];
 }
 - (void)rightButtonClicked:(UIBarButtonItem*)item {
     //创建圈子前腰看看是否满足提交的条件
@@ -141,12 +141,12 @@
             UIImagePickerController * picker = [[UIImagePickerController alloc] init];
             picker.delegate = self;
             picker.allowsEditing = YES;
-            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {//看当前设备是否能够拍照
+            if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {//看当前设备是否能够拍照
                 picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+                [self presentViewController:picker animated:YES completion:nil];
             } else {
                 [self.navigationController.view showFailureTips:@"无法打开相机"];
             }
-            [self presentViewController:picker animated:YES completion:nil];
         }];
         [alertVC addAction:cacleAction];
         [alertVC addAction:selectAction];

@@ -36,7 +36,7 @@
     self.companyName.text = _currCompany.company_name;
     self.companyType.text = [_currCompany companyTypeStr];
     [self.companyImage sd_setImageWithURL:[NSURL URLWithString:_currCompany.logo] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(rightButtonClicked:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(rightButtonClicked:)];
 }
 - (void)dataDidChange {
     _currCompany = [Company copyFromCompany:self.data];
@@ -55,6 +55,11 @@
             }
             [self.navigationController.view showSuccessTips:@"修改成功"];
             [_userManager updateCompany:_currCompany];
+            //改变圈子详情的内容
+            Company *company = self.data;
+            company.company_name = _currCompany.company_name;
+            company.company_type = _currCompany.company_type;
+            company.logo = _currCompany.logo;
             [self.navigationController popViewControllerAnimated:YES];
         }];
     }

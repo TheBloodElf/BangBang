@@ -14,5 +14,6 @@
 
 #import "UtikIes.h"
 #import "AppCustoms.h"
+#import <Social/Social.h>
 
 #endif /* PrefixHeader_pch */

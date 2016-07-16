@@ -18,6 +18,9 @@ MJExtensionCodingImplementation
     if (self) {
         _firstUseSoft = YES;
         _firstLoadCalendar = YES;
+        _ryDisturb = YES;
+        _ryDisturbBeginTime = [NSDate new];
+        _ryDisturbEndTime = [NSDate new];
     }
     return self;
 }

@@ -35,9 +35,7 @@
 - (void)saveAuthorizeData {
     [DataCache setCache:self.identity forKey:@"IdentityLocCache"];
 }
-- (void)resetAuthorizeData {
-    self.identity = [Identity new];
-    [self saveAuthorizeData];
+- (void)showLogin {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowLogin" object:nil];
 }
-
 @end

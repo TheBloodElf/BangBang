@@ -11,6 +11,7 @@
 #import "UserHttp.h"
 #import "XAddrBookCell.h"
 #import "MoreSelectView.h"
+#import "InviteColleagueController.h"
 
 @interface XAddrBookController ()<RBQFetchedResultsControllerDelegate,UITableViewDelegate,UITableViewDataSource,MoreSelectViewDelegate> {
     UITableView *_tableView;//展示数据的表格视图
@@ -46,9 +47,9 @@
     [self.view addSubview:_tableView];
     //先从本地获取一次信息
     if(_userManager.user.currCompany)
-        [self getEmployeeWithCompanyID:_userManager.user.currCompany.company_no];
+        [self getEmployeeWithCompanyNo:_userManager.user.currCompany.company_no];
     else
-        [self getEmployeeWithCompanyID:0];
+        [self getEmployeeWithCompanyNo:0];
     //创建选择视图
     //是不是当前圈子的管理员
     if([_userManager.user.currCompany.admin_user_guid isEqualToString:_userManager.user.user_guid]) {
@@ -64,16 +65,20 @@
     [self.view addSubview:_moreSelectView];
     [self.view bringSubviewToFront:_moreSelectView];
     //创建导航按钮
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"刷新" style:UIBarButtonItemStylePlain target:self action:@selector(leftClicked:)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(leftClicked:)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"更多" style:UIBarButtonItemStylePlain target:self action:@selector(rightClicked:)];
     // Do any additional setup after loading the view.
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.frostedViewController.navigationController setNavigationBarHidden:YES animated:YES];
 }
 - (void)leftClicked:(UIBarButtonItem*)item {
     //先从本地获取一次信息
     if(_userManager.user.currCompany)
-        [self getEmployeeWithCompanyID:_userManager.user.currCompany.company_no];
+        [self getEmployeeWithCompanyNo:_userManager.user.currCompany.company_no];
     else
-        [self getEmployeeWithCompanyID:0];
+        [self getEmployeeWithCompanyNo:0];
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
     if(_moreSelectView.isHide)
@@ -84,7 +89,15 @@
 #pragma mark -- 
 #pragma mark -- MoreSelectViewDelegate
 - (void)moreSelectIndex:(int)index {
-    
+    if(index == 0) {
+        //群聊
+    } else {
+        //邀请
+        UIStoryboard *story = [UIStoryboard storyboardWithName:@"InviteColleagueController" bundle:nil];
+        InviteColleagueController *colleague = [story instantiateViewControllerWithIdentifier:@"InviteColleagueController"];
+        colleague.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:colleague animated:YES];
+    }
 }
 - (UIView*)tableViewHeaderView {
     UIButton *view = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -108,25 +121,25 @@
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
     User *user = controller.fetchedObjects[0];
     if(user.currCompany)
-        [self getEmployeeWithCompanyID:user.currCompany.company_no];
+        [self getEmployeeWithCompanyNo:user.currCompany.company_no];
     else
-        [self getEmployeeWithCompanyID:0];
+        [self getEmployeeWithCompanyNo:0];
 }
 //根据圈子ID填充员工数组
-- (void)getEmployeeWithCompanyID:(int)companyID {
-    if(companyID == 0) {
+- (void)getEmployeeWithCompanyNo:(int)companyNo {
+    if(companyNo == 0) {
         _employeeArr = [@[] mutableCopy];
         [self sortEmployee];
         [_tableView reloadData];
     } else {
         //从本地加载数据，如果没有数据就转菊花
-        _employeeArr = [_userManager getEmployeeWithCompanyID:companyID];
+        _employeeArr = [_userManager getEmployeeWithCompanyNo:companyNo status:1];
         [self sortEmployee];
         [_tableView reloadData];
         //从网络上获取最新的员工数据
         if(_employeeArr.count == 0)
             [self.navigationController.view showLoadingTips:@"请稍等..."];
-        [UserHttp getEmployeeCompnyNo:companyID status:1 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+        [UserHttp getEmployeeCompnyNo:companyNo status:-1 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
             [self.navigationController.view dismissTips];
             if(error) {
                 [self.navigationController.view showFailureTips:@"获取失败，请重试"];
@@ -139,7 +152,7 @@
                 [array addObject:employee];
             }
             //存入本地数据库
-            [_userManager updateEmployee:array companyID:companyID];
+            [_userManager updateEmployee:array companyNo:companyNo];
             _employeeArr = array;
             [self sortEmployee];
             [_tableView reloadData];

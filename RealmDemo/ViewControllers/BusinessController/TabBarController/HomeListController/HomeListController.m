@@ -10,13 +10,13 @@
 #import "HomeListTopView.h"
 #import "HomeListBottomView.h"
 #import "UserManager.h"
+#import "PushMessageController.h"
 
 @interface HomeListController ()<HomeListTopDelegate,HomeListBottomDelegate,RBQFetchedResultsControllerDelegate> {
     UIScrollView *_scrollView;//整体的滚动视图
     HomeListTopView *_homeListTopView;//头部数据视图
     HomeListBottomView *_homeListBottomView;//底部的按钮视图
     UIButton *_leftNavigationBarButton;//左边导航的按钮
-    UIButton *_rightNavigationBarButton;//右边导航的按钮
     UserManager *_userManager;//用户管理器
     RBQFetchedResultsController *_userFetchedResultsController;//用户数据库监听
 }
@@ -50,6 +50,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.frostedViewController.navigationController setNavigationBarHidden:YES animated:YES];
 }
 #pragma mark -- 
 #pragma mark -- RBQFetchedResultsControllerDelegate
@@ -125,13 +126,10 @@
     [self.navigationController.frostedViewController presentMenuViewController];
 }
 - (void)setRightNavigationBarItem {
-    _rightNavigationBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _rightNavigationBarButton.frame = CGRectMake(0, 0, 30, 30);
-    [_rightNavigationBarButton setImage:[UIImage imageNamed:@"home_remind_icon"] forState:UIControlStateNormal];
-    [_rightNavigationBarButton addTarget:self action:@selector(rightNavigationBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_rightNavigationBarButton];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(rightNavigationBtnClicked:)];
 }
-- (void)rightNavigationBtnClicked:(id)btn {
-    
+- (void)rightNavigationBtnClicked:(UIBarButtonItem*)item {
+    PushMessageController *push = [PushMessageController new];
+    [self.navigationController pushViewController:push animated:YES];
 }
 @end

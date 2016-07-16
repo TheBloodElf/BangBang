@@ -9,6 +9,8 @@
 #import "MineViewController.h"
 #import "BushManageViewController.h"
 #import "UserManager.h"
+#import "UserSettingController.h"
+#import "AboutViewController.h"
 
 @interface MineViewController ()<RBQFetchedResultsControllerDelegate> {
     UserManager *_userManager;
@@ -44,6 +46,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [self.frostedViewController.navigationController setNavigationBarHidden:YES animated:YES];
 }
 #pragma mark -- 
 #pragma mark -- RBQFetchedResultsControllerDelegate
@@ -62,12 +65,25 @@
         
     } else if (indexPath.section == 1) {
         if(indexPath.row == 0) {
+            //圈子管理
             BushManageViewController *bushManager = [BushManageViewController new];
             bushManager.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:bushManager animated:YES];
         } else {
             
         }
+    } else if (indexPath.section == 2) {
+        if(indexPath.row == 0) {
+            //用户设置
+            UIStoryboard *story = [UIStoryboard storyboardWithName:@"MineView" bundle:nil];
+            UserSettingController *user = [story instantiateViewControllerWithIdentifier:@"UserSettingController"];
+            user.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:user animated:YES];
+        }
+    } else {
+        AboutViewController *about = [AboutViewController new];
+        about.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:about animated:YES];
     }
 }
 @end

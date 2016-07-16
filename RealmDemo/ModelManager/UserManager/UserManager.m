@@ -72,7 +72,10 @@
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"user_guid = %@ and company_no = %d",userGuid,companyNo];
     RLMResults *results = [Employee objectsInRealm:_rlmRealm withPredicate:pred];
     [_rlmRealm commitWriteTransaction];
-    return [results objectAtIndex:0];
+    //如果有值就返回  没有就算了
+    if(results.count)
+        return [results objectAtIndex:0];
+    return nil;
 }
 #pragma mark -- Company
 //更新某个圈子信息
@@ -122,10 +125,20 @@
     [fetchedResultsController performFetch];
     return fetchedResultsController;
 }
-//根据圈子ID更新员工信息
-- (void)updateEmployee:(NSMutableArray<Employee*>*)employeeArr companyID:(int)companyID {
+#pragma mark -- Employee
+//更新某个员工
+- (void)updateEmployee:(Employee*)emplyee {
     [_rlmRealm beginWriteTransaction];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"company_no = %d",companyID];
+    [_rlmRealm addOrUpdateObject:emplyee];
+    [_rlmRealm commitWriteTransaction];
+}
+//根据圈子ID更新所有员工信息
+- (void)updateEmployee:(NSMutableArray<Employee*>*)employeeArr companyNo:(int)companyNo{
+    [_rlmRealm beginWriteTransaction];
+    NSPredicate *pred = nil;
+    //如果有圈子id就查询指定圈子员工 如果有状态就查询状态
+    if(companyNo)
+        pred = [NSPredicate predicateWithFormat:@"company_no = %d",companyNo];
     RLMResults *results = [Employee objectsInRealm:_rlmRealm withPredicate:pred];
     while (results.count)
         [_rlmRealm deleteObject:results.firstObject];
@@ -135,10 +148,24 @@
     [_rlmRealm commitWriteTransaction];
 }
 //根据圈子ID获取员工信息
-- (NSMutableArray<Employee*>*)getEmployeeWithCompanyID:(int)companyID {
+- (NSMutableArray<Employee*>*)getEmployeeWithCompanyNo:(int)companyNo status:(int)status{
     NSMutableArray *array = [@[] mutableCopy];
     [_rlmRealm beginWriteTransaction];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"company_no = %d",companyID];
+    NSPredicate *pred = nil;
+    //如果有圈子id就查询指定圈子员工 如果有状态就查询状态
+    if(companyNo) {
+        if(status == -1) {
+            pred = [NSPredicate predicateWithFormat:@"company_no = %d",companyNo];
+        } else {
+            pred = [NSPredicate predicateWithFormat:@"company_no = %d and status = %d",companyNo,status];
+        }
+    } else {
+        if(status == -1) {
+           
+        } else {
+            pred = [NSPredicate predicateWithFormat:@"status = %d",status];
+        }
+    }
     RLMResults *results = [Employee objectsInRealm:_rlmRealm withPredicate:pred];
     for (int index = 0;index < results.count;index ++) {
         Employee *employee = [results objectAtIndex:index];
@@ -146,5 +173,28 @@
     }
     [_rlmRealm commitWriteTransaction];
     return array;
+}
+//根据圈子和状态创建数据库监听
+- (RBQFetchedResultsController*)createEmployeesFetchedResultsControllerWithCompanyNo:(int)companyNo status:(int)status {
+    RBQFetchedResultsController *fetchedResultsController = nil;
+    NSPredicate *pred = nil;
+    //如果有圈子id就查询指定圈子员工 如果有状态就查询状态
+    if(companyNo) {
+        if(status == -1) {
+            pred = [NSPredicate predicateWithFormat:@"company_no = %d",companyNo];
+        } else {
+            pred = [NSPredicate predicateWithFormat:@"company_no = %d and status = %d",companyNo,status];
+        }
+    } else {
+        if(status == -1) {
+            
+        } else {
+            pred = [NSPredicate predicateWithFormat:@"status = %d",status];
+        }
+    }
+    RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"Employee" inRealm:_rlmRealm predicate:pred];
+    fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:@"Employee"];
+    [fetchedResultsController performFetch];
+    return fetchedResultsController;
 }
 @end

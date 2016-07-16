@@ -21,5 +21,8 @@
 #import "NSObject+Tips.h"
 #import "UIImage+scale.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "WebViewJavascriptBridge.h"
+#import "NSDate+Format.h"
+#import "InterfaceConfig.h"
 
 #endif /* UtikIes_h */

@@ -30,12 +30,21 @@
     self.view.backgroundColor = [UIColor whiteColor];
     //进入判断逻辑
     [self gotoIdentityVC];
+    //加上重新登录的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showLogin) name:@"ShowLogin" object:nil];
     //加上欢迎界面和登录界面的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(welcomeDidFinish) name:@"WelcomeDidFinish" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginDidFinish) name:@"LoginDidFinish" object:nil];
 }
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+//弹出登录控制器
+- (void)showLogin {
+    IdentityManager *manager = [IdentityManager manager];
+    manager.identity = [Identity new];
+    [manager saveAuthorizeData];
+    [self gotoIdentityVC];
 }
 //欢迎界面展示完毕
 - (void)welcomeDidFinish {

@@ -40,8 +40,13 @@
 - (NSMutableArray<Company*>*)getCompanyArr;
 //创建圈子的数据库观察者
 - (RBQFetchedResultsController*)createCompanyFetchedResultsController;
-//根据圈子ID更新员工信息
-- (void)updateEmployee:(NSMutableArray<Employee*>*)employeeArr companyID:(int)companyID;
-//根据圈子ID获取员工信息
-- (NSMutableArray<Employee*>*)getEmployeeWithCompanyID:(int)companyID;
+#pragma mark -- Employee
+//更新某个员工
+- (void)updateEmployee:(Employee*)emplyee;
+//根据圈子NO更新所有员工信息
+- (void)updateEmployee:(NSMutableArray<Employee*>*)employeeArr companyNo:(int)companyNo;
+//根据圈子NO获取员工数组 状态为－1查询所有状态
+- (NSMutableArray<Employee*>*)getEmployeeWithCompanyNo:(int)companNo status:(int)status;
+//根据圈子和状态创建数据库监听 主要用于申请管理用
+- (RBQFetchedResultsController*)createEmployeesFetchedResultsControllerWithCompanyNo:(int)companyNo status:(int)status;
 @end

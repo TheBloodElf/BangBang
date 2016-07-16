@@ -9,6 +9,8 @@
 #import "LeftMenuController.h"
 #import "UserManager.h"
 #import "LeftMenuCell.h"
+#import "MineInfoEditController.h"
+#import "BushSearchViewController.h"
 
 @interface LeftMenuController ()<UITableViewDataSource,UITableViewDelegate,RBQFetchedResultsControllerDelegate> {
     UserManager *_userManager;//用户管理器
@@ -71,11 +73,15 @@
 }
 //加入圈子被点击
 - (IBAction)joinCompanyClicked:(id)sender {
+    BushSearchViewController *bush = [BushSearchViewController new];
+    [self.frostedViewController.navigationController pushViewController:bush animated:YES];
     //隐藏菜单控制器
     [self.frostedViewController hideMenuViewController];
 }
 //头像被点击
 - (IBAction)avaterClicked:(id)sender {
+    MineInfoEditController *mine = [MineInfoEditController new];
+    [self.frostedViewController.navigationController pushViewController:mine animated:YES];
     //隐藏菜单控制器
     [self.frostedViewController hideMenuViewController];
 }

@@ -14,11 +14,12 @@
 @property (nonatomic, strong) Identity *identity;
 
 + (instancetype)manager;
+
 //从本地读取登录缓存信息
 - (void)readAuthorizeData;
 //把登录信息存入本地
 - (void)saveAuthorizeData;
-//重置登录信息
-- (void)resetAuthorizeData;
+//重新登录
+- (void)showLogin;
 
 @end

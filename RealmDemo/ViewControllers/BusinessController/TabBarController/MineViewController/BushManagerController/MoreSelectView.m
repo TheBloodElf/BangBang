@@ -18,6 +18,8 @@
 
 - (void)setupUI {
     self.backgroundColor = [UIColor whiteColor];
+    self.layer.borderWidth = 0.5;
+    self.layer.borderColor = [UIColor groupTableViewBackgroundColor].CGColor;
     self.hidden = YES;
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, _selectArr.count * 40) style:UITableViewStylePlain];
     _tableView.delegate = self;

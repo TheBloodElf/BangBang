@@ -10,6 +10,7 @@
 #import "AppCustoms.h"
 #import "MainViewController.h"
 #import "IdentityManager.h"
+
 @interface AppDelegate ()
 
 @end
@@ -21,16 +22,16 @@
     RLMRealmConfiguration *config = [RLMRealmConfiguration defaultConfiguration];
     config.schemaVersion = 1;
     [RLMRealmConfiguration setDefaultConfiguration:config];
-    //重新登录
-//    IdentityManager *identityManager = [IdentityManager manager];
-//    [identityManager readAuthorizeData];
-//    [identityManager resetAuthorizeData];
     //对应用进行全局的初始化
     [AppCustoms customs];
     //创建根视图控制器
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.rootViewController = [MainViewController new];
     [self.window makeKeyAndVisible];
+    //重新登录
+//    IdentityManager *identityManager = [IdentityManager manager];
+//    [identityManager readAuthorizeData];
+//    [identityManager showLogin];
     return YES;
 }
 
