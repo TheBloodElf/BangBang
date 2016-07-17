@@ -33,7 +33,7 @@
     _employeeDataArr = [@[] mutableCopy];
     self.title = @"人员选择";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightBarButtomItemAction:)];
-    _muliteSelectTopView = [[MuliteSelectTopView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 44)];
+    _muliteSelectTopView = [[MuliteSelectTopView alloc] initWithFrame:CGRectMake(0, 64, MAIN_SCREEN_WIDTH, 44)];
     _muliteSelectTopView.delegate = self;
     [self.view addSubview:_muliteSelectTopView];
     //全选按钮

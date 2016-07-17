@@ -197,4 +197,43 @@
     [fetchedResultsController performFetch];
     return fetchedResultsController;
 }
+#pragma mark -- PushMessage
+//添加某个推送消息
+- (void)addPushMessage:(PushMessage*)pushMessage {
+    [_rlmRealm beginWriteTransaction];
+    [_rlmRealm addObject:pushMessage];
+    [_rlmRealm commitWriteTransaction];
+}
+//修改某个推送消息
+- (void)updatePushMessage:(PushMessage*)pushMessage {
+    [_rlmRealm beginWriteTransaction];
+    [_rlmRealm addOrUpdateObject:pushMessage];
+    [_rlmRealm commitWriteTransaction];
+}
+//删除某个推送消息
+- (void)deletePushMessage:(PushMessage*)pushMessage {
+    [_rlmRealm beginWriteTransaction];
+    [_rlmRealm deleteObject:pushMessage];
+    [_rlmRealm commitWriteTransaction];
+}
+//获取所有的推送消息
+- (NSMutableArray<PushMessage*>*)getPushMessageArr {
+    NSMutableArray<PushMessage*> *pushMessageArr = [@[] mutableCopy];
+    [_rlmRealm beginWriteTransaction];
+    RLMResults *pushMessages = [PushMessage allObjectsInRealm:_rlmRealm];
+    for (int index = 0;index < pushMessages.count;index ++) {
+        PushMessage *company = [pushMessages objectAtIndex:index];
+        [pushMessageArr addObject:company];
+    }
+    [_rlmRealm commitWriteTransaction];
+    return pushMessageArr;
+}
+//创建消息数据监听
+- (RBQFetchedResultsController*)createPushMessagesFetchedResultsController {
+    RBQFetchedResultsController *fetchedResultsController = nil;
+    RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"PushMessage" inRealm:_rlmRealm predicate:nil];
+    fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:@"PushMessage"];
+    [fetchedResultsController performFetch];
+    return fetchedResultsController;
+}
 @end

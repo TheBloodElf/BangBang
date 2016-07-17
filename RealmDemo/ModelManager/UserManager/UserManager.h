@@ -12,6 +12,7 @@
 #import "User.h"
 #import "Company.h"
 #import "Employee.h"
+#import "PushMessage.h"
 
 @interface UserManager : NSObject
 //全局的用户信息
@@ -49,4 +50,15 @@
 - (NSMutableArray<Employee*>*)getEmployeeWithCompanyNo:(int)companNo status:(int)status;
 //根据圈子和状态创建数据库监听 主要用于申请管理用
 - (RBQFetchedResultsController*)createEmployeesFetchedResultsControllerWithCompanyNo:(int)companyNo status:(int)status;
+#pragma mark -- PushMessage
+//添加某个推送消息
+- (void)addPushMessage:(PushMessage*)pushMessage;
+//修改某个推送消息
+- (void)updatePushMessage:(PushMessage*)pushMessage;
+//删除某个推送消息
+- (void)deletePushMessage:(PushMessage*)pushMessage;
+//获取所有的推送消息
+- (NSMutableArray<PushMessage*>*)getPushMessageArr;
+//创建消息数据监听
+- (RBQFetchedResultsController*)createPushMessagesFetchedResultsController;
 @end

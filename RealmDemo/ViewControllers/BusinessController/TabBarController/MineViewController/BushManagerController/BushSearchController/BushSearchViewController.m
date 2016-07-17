@@ -37,6 +37,7 @@
     self.searchBar.delegate = self;
     self.searchBar.placeholder = @"使用圈子名称搜索圈子";
     self.searchBar.text = @"琅拓科";
+    self.searchBar.returnKeyType = UIReturnKeySearch;
     [self.view addSubview:self.searchBar];
     //创建表格视图
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64 + 55, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 55 - 64) style:UITableViewStylePlain];
@@ -60,6 +61,10 @@
     [_noDataView addSubview:label];
     //创建导航按钮
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(rightBarButtonClicked:)];
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 //从网上加载数据
 - (void)search {

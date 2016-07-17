@@ -24,5 +24,6 @@
 #import "WebViewJavascriptBridge.h"
 #import "NSDate+Format.h"
 #import "InterfaceConfig.h"
+#import "NSString+StringSize.h"
 
 #endif /* UtikIes_h */

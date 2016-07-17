@@ -20,7 +20,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     RLMRealmConfiguration *config = [RLMRealmConfiguration defaultConfiguration];
-    config.schemaVersion = 1;
+    config.schemaVersion = 2;
     [RLMRealmConfiguration setDefaultConfiguration:config];
     //对应用进行全局的初始化
     [AppCustoms customs];

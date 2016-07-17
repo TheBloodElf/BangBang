@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0471C0911D3B23A700377178 /* NSString+StringSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 0471C0901D3B23A700377178 /* NSString+StringSize.m */; settings = {ASSET_TAGS = (); }; };
+		0471C0951D3B262600377178 /* PushMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0471C0931D3B262600377178 /* PushMessageCell.m */; settings = {ASSET_TAGS = (); }; };
+		0471C0961D3B262600377178 /* PushMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0471C0941D3B262600377178 /* PushMessageCell.xib */; settings = {ASSET_TAGS = (); }; };
 		049585F41D39C01700544259 /* RequestManagerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 049585F01D39C01700544259 /* RequestManagerCell.m */; settings = {ASSET_TAGS = (); }; };
 		049585F51D39C01700544259 /* RequestManagerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049585F11D39C01700544259 /* RequestManagerCell.xib */; settings = {ASSET_TAGS = (); }; };
 		049585F61D39C01700544259 /* RequestManagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049585F31D39C01700544259 /* RequestManagerController.m */; settings = {ASSET_TAGS = (); }; };
@@ -343,6 +346,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0471C08F1D3B23A700377178 /* NSString+StringSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+StringSize.h"; sourceTree = "<group>"; };
+		0471C0901D3B23A700377178 /* NSString+StringSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+StringSize.m"; sourceTree = "<group>"; };
+		0471C0921D3B262600377178 /* PushMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushMessageCell.h; sourceTree = "<group>"; };
+		0471C0931D3B262600377178 /* PushMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushMessageCell.m; sourceTree = "<group>"; };
+		0471C0941D3B262600377178 /* PushMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PushMessageCell.xib; sourceTree = "<group>"; };
 		049585EF1D39C01700544259 /* RequestManagerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestManagerCell.h; sourceTree = "<group>"; };
 		049585F01D39C01700544259 /* RequestManagerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestManagerCell.m; sourceTree = "<group>"; };
 		049585F11D39C01700544259 /* RequestManagerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RequestManagerCell.xib; sourceTree = "<group>"; };
@@ -1919,6 +1927,9 @@
 			children = (
 				04E7E5AF1D3A77EA00C653B4 /* PushMessageController.h */,
 				04E7E5B01D3A77EA00C653B4 /* PushMessageController.m */,
+				0471C0921D3B262600377178 /* PushMessageCell.h */,
+				0471C0931D3B262600377178 /* PushMessageCell.m */,
+				0471C0941D3B262600377178 /* PushMessageCell.xib */,
 			);
 			path = PushMessageController;
 			sourceTree = "<group>";
@@ -2115,6 +2126,8 @@
 				1B55857F1D34DD4E00DCD3A0 /* NSString+isBlank.m */,
 				049586321D3A1CCA00544259 /* NSDate+Format.h */,
 				049586331D3A1CCA00544259 /* NSDate+Format.m */,
+				0471C08F1D3B23A700377178 /* NSString+StringSize.h */,
+				0471C0901D3B23A700377178 /* NSString+StringSize.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -2551,6 +2564,7 @@
 				1B877F251D178E7D000144B2 /* LaunchScreen.storyboard in Resources */,
 				049586181D39D3A500544259 /* MuliteSelectCell.xib in Resources */,
 				1B4B16151D37398600E71B3D /* XAddrBookCell.xib in Resources */,
+				0471C0961D3B262600377178 /* PushMessageCell.xib in Resources */,
 				1B55859E1D34E2C800DCD3A0 /* ic_welcome_avatar_3_3.png in Resources */,
 				0495861F1D39D3A500544259 /* SigleSelectCell.xib in Resources */,
 				049586441D3A303800544259 /* AboutViewController.xib in Resources */,
@@ -2888,6 +2902,7 @@
 				049588E81D3A620300544259 /* ZXCode39Writer.m in Sources */,
 				049588B41D3A620300544259 /* ZXDataMatrixC40Encoder.m in Sources */,
 				049588701D3A620300544259 /* ZXISBNParsedResult.m in Sources */,
+				0471C0951D3B262600377178 /* PushMessageCell.m in Sources */,
 				049588711D3A620300544259 /* ZXISBNResultParser.m in Sources */,
 				049589061D3A620300544259 /* ZXPDF417DetectionResult.m in Sources */,
 				0495885B1D3A620300544259 /* ZXAztecHighLevelEncoder.m in Sources */,
@@ -2924,6 +2939,7 @@
 				1B4B16101D3731D900E71B3D /* Employee.m in Sources */,
 				049589021D3A620300544259 /* ZXPDF417BoundingBox.m in Sources */,
 				049588ED1D3A620300544259 /* ZXEAN8Writer.m in Sources */,
+				0471C0911D3B23A700377178 /* NSString+StringSize.m in Sources */,
 				049588E71D3A620300544259 /* ZXCode39Reader.m in Sources */,
 				049588561D3A620300544259 /* ZXAztecDecoder.m in Sources */,
 				0495891A1D3A620300544259 /* ZXQRCodeDecoder.m in Sources */,

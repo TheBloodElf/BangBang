@@ -35,6 +35,7 @@
 #pragma mark -- ControllerLifeCycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"设置";
     _userManager = [UserManager manager];
     //从融云那里得到

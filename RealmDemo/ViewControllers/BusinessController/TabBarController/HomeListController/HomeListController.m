@@ -17,8 +17,10 @@
     HomeListTopView *_homeListTopView;//头部数据视图
     HomeListBottomView *_homeListBottomView;//底部的按钮视图
     UIButton *_leftNavigationBarButton;//左边导航的按钮
+    UIButton *_rightNavigationBarButton;//右边导航的按钮
     UserManager *_userManager;//用户管理器
     RBQFetchedResultsController *_userFetchedResultsController;//用户数据库监听
+    RBQFetchedResultsController *_pushMessageFetchedResultsController;//推送消息数据监听
 }
 
 @end
@@ -30,6 +32,8 @@
     _userManager = [UserManager manager];
     _userFetchedResultsController = [_userManager createUserFetchedResultsController];
     _userFetchedResultsController.delegate = self;
+    _pushMessageFetchedResultsController = [_userManager createPushMessagesFetchedResultsController];
+    _pushMessageFetchedResultsController.delegate = self;
     _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     _scrollView.showsVerticalScrollIndicator = NO;
     //创建头部数据视图
@@ -55,13 +59,26 @@
 #pragma mark -- 
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
-    User *user = controller.fetchedObjects[0];
-    UIImageView *imageView = [_leftNavigationBarButton viewWithTag:1001];
-    UILabel *nameLabel = [_leftNavigationBarButton viewWithTag:1002];
-    UILabel *companyLabel = [_leftNavigationBarButton viewWithTag:1003];
-    [imageView sd_setImageWithURL:[NSURL URLWithString:user.currCompany.logo] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
-    nameLabel.text = user.real_name;
-    companyLabel.text = user.currCompany.company_name;
+    if(controller == _pushMessageFetchedResultsController) {
+        UILabel *label = [_rightNavigationBarButton viewWithTag:1001];
+        int count = 0;
+        for (PushMessage *push in controller.fetchedObjects) {
+            if(push.unread == YES)
+                count ++;
+        }
+        if(count )
+            label.text = [NSString stringWithFormat:@"%d",count];
+        else
+            label.text = nil;
+    } else {
+        User *user = controller.fetchedObjects[0];
+        UIImageView *imageView = [_leftNavigationBarButton viewWithTag:1001];
+        UILabel *nameLabel = [_leftNavigationBarButton viewWithTag:1002];
+        UILabel *companyLabel = [_leftNavigationBarButton viewWithTag:1003];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:user.currCompany.logo] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
+        nameLabel.text = user.real_name;
+        companyLabel.text = user.currCompany.company_name;
+    }
 }
 #pragma mark -- 
 #pragma mark -- HomeListTopDelegate 
@@ -126,10 +143,31 @@
     [self.navigationController.frostedViewController presentMenuViewController];
 }
 - (void)setRightNavigationBarItem {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(rightNavigationBtnClicked:)];
+    _rightNavigationBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _rightNavigationBarButton.frame = CGRectMake(0, 0, 40, 40);
+    [_rightNavigationBarButton setImage:[UIImage imageNamed:@"pushMessage_Email1"] forState:UIControlStateNormal];
+    [_rightNavigationBarButton addTarget:self action:@selector(rightNavigationBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    _rightNavigationBarButton.clipsToBounds = NO;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_rightNavigationBarButton];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(30, -5, 20, 15)];
+    int count = 0;
+    for (PushMessage *push in [_userManager getPushMessageArr]) {
+        if(push.unread == YES)
+            count ++;
+    }
+    if(count )
+        label.text = [NSString stringWithFormat:@"%d",count];
+    else
+        label.text = nil;
+    label.textColor = [UIColor redColor];
+    label.font = [UIFont systemFontOfSize:15];
+    label.textAlignment = NSTextAlignmentLeft;
+    label.tag = 1001;
+    [_rightNavigationBarButton addSubview:label];
 }
-- (void)rightNavigationBtnClicked:(UIBarButtonItem*)item {
+- (void)rightNavigationBtnClicked:(UIButton*)item {
     PushMessageController *push = [PushMessageController new];
+    push.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:push animated:YES];
 }
 @end

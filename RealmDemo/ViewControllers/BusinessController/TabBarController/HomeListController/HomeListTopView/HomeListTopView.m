@@ -49,7 +49,7 @@
         [self addSubview:_taskBtn];
         //创建线
         _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 30, frame.size.width / 2, 2)];
-        _lineView.backgroundColor = [UIColor greenColor];
+        _lineView.backgroundColor = [UIColor blackColor];
         [self addSubview:_lineView];
         //创建滚动视图
         _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 32, frame.size.width, frame.size.height - 32)];
