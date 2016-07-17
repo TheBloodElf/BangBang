@@ -10,6 +10,7 @@
 		0471C0911D3B23A700377178 /* NSString+StringSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 0471C0901D3B23A700377178 /* NSString+StringSize.m */; settings = {ASSET_TAGS = (); }; };
 		0471C0951D3B262600377178 /* PushMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0471C0931D3B262600377178 /* PushMessageCell.m */; settings = {ASSET_TAGS = (); }; };
 		0471C0961D3B262600377178 /* PushMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0471C0941D3B262600377178 /* PushMessageCell.xib */; settings = {ASSET_TAGS = (); }; };
+		0471C0981D3BBA6000377178 /* Readme.md in Sources */ = {isa = PBXBuildFile; fileRef = 0471C0971D3BBA6000377178 /* Readme.md */; settings = {ASSET_TAGS = (); }; };
 		049585F41D39C01700544259 /* RequestManagerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 049585F01D39C01700544259 /* RequestManagerCell.m */; settings = {ASSET_TAGS = (); }; };
 		049585F51D39C01700544259 /* RequestManagerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049585F11D39C01700544259 /* RequestManagerCell.xib */; settings = {ASSET_TAGS = (); }; };
 		049585F61D39C01700544259 /* RequestManagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049585F31D39C01700544259 /* RequestManagerController.m */; settings = {ASSET_TAGS = (); }; };
@@ -351,6 +352,7 @@
 		0471C0921D3B262600377178 /* PushMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushMessageCell.h; sourceTree = "<group>"; };
 		0471C0931D3B262600377178 /* PushMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushMessageCell.m; sourceTree = "<group>"; };
 		0471C0941D3B262600377178 /* PushMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PushMessageCell.xib; sourceTree = "<group>"; };
+		0471C0971D3BBA6000377178 /* Readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
 		049585EF1D39C01700544259 /* RequestManagerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestManagerCell.h; sourceTree = "<group>"; };
 		049585F01D39C01700544259 /* RequestManagerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestManagerCell.m; sourceTree = "<group>"; };
 		049585F11D39C01700544259 /* RequestManagerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RequestManagerCell.xib; sourceTree = "<group>"; };
@@ -2301,6 +2303,7 @@
 		1B877F141D178E7D000144B2 /* RealmDemo */ = {
 			isa = PBXGroup;
 			children = (
+				0471C0971D3BBA6000377178 /* Readme.md */,
 				1B5585951D34E29700DCD3A0 /* AppDelegate */,
 				75E5FF571D27A7B300F77961 /* UtikIes */,
 				75E5FF5D1D27A95700F77961 /* InterfaceService */,
@@ -2894,6 +2897,7 @@
 				049589251D3A620300544259 /* ZXQRCodeFinderPatternInfo.m in Sources */,
 				0495891E1D3A620300544259 /* ZXQRCodeMode.m in Sources */,
 				1B4B162E1D3794B800E71B3D /* MoreSelectView.m in Sources */,
+				0471C0981D3BBA6000377178 /* Readme.md in Sources */,
 				049588A51D3A620300544259 /* ZXErrors.m in Sources */,
 				0495886D1D3A620300544259 /* ZXExpandedProductResultParser.m in Sources */,
 				049588D41D3A620300544259 /* ZXRSSExpandedDecodedInformation.m in Sources */,

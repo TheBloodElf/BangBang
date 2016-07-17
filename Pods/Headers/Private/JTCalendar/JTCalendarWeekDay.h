@@ -1,0 +1,1 @@
+../../../JTCalendar/JTCalendar/Protocols/JTCalendarWeekDay.h

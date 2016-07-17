@@ -8,4 +8,8 @@ target 'RealmDemo' do
    pod 'SDWebImage', '~> 3.7.6'
    pod 'Realm', '~> 1.0.1'
    pod 'RBQFetchedResultsController'
+   pod 'JTCalendar', '~> 2.0'
+   pod 'AMap3DMap' #3D地图SDK
+   pod 'RongCloudIMKit', '~> 2.6.4'   
+   pod 'AMapSearch' #高德地图搜索服务SDK
 end
