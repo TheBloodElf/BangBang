@@ -119,7 +119,7 @@
         [alertVC addAction:selectAction5];
         [alertVC addAction:selectAction6];
         [self presentViewController:alertVC animated:YES completion:nil];
-    } else {
+    } else if(indexPath.row == 2) {
         //选择圈子图标
         UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"上传图标" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         UIAlertAction *cacleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];

@@ -11,7 +11,6 @@
 #import "HomeListBottomView.h"
 #import "UserManager.h"
 #import "PushMessageController.h"
-#import "SelectAdressController.h"
 
 @interface HomeListController ()<HomeListTopDelegate,HomeListBottomDelegate,RBQFetchedResultsControllerDelegate> {
     UIScrollView *_scrollView;//整体的滚动视图
@@ -78,7 +77,10 @@
         UILabel *companyLabel = [_leftNavigationBarButton viewWithTag:1003];
         [imageView sd_setImageWithURL:[NSURL URLWithString:user.currCompany.logo] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
         nameLabel.text = user.real_name;
-        companyLabel.text = user.currCompany.company_name;
+        if([NSString isBlank:user.currCompany.company_name])
+            companyLabel.text = @"未选择圈子";
+        else
+            companyLabel.text = user.currCompany.company_name;
     }
 }
 #pragma mark -- 
@@ -104,9 +106,7 @@
 //第几个按钮被点击了
 - (void)homeListBottomClicked:(NSInteger)index {
     if(index == 0) {
-        SelectAdressController *select = [SelectAdressController new];
-        select.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:select animated:YES];
+        
     } else if (index == 1) {
         
     }

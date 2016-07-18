@@ -28,6 +28,7 @@
 #import <RongIMKit/RongIMKit.h>
 #import <AMapSearchKit/AMapSearchKit.h>
 #import <MAMapKit/MAMapKit.h>
+#import <AMapFoundationKit/AMapFoundationKit.h>
 #import "RYChatManager.h"
 #import "UINavigationController+Direction.h"
 #import "CMMacros.h"

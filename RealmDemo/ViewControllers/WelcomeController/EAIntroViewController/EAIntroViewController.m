@@ -42,13 +42,13 @@
     _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, pageScrollImageheight - 50 - pageControlHeight, pageScrollImagewidth, pageControlHeight)];
     _pageControl.numberOfPages = nameArr.count;
     _pageControl.currentPage = 0;
-    _pageControl.currentPageIndicatorTintColor = [UIColor blueColor];
+    _pageControl.currentPageIndicatorTintColor = [UIColor blackColor];
     _pageControl.pageIndicatorTintColor = [UIColor grayColor];
     [self.view addSubview:_pageControl];
     //创建跳过按钮
     UIButton *jumpBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     [jumpBtn setTitle:@"跳过" forState:UIControlStateNormal];
-    [jumpBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [jumpBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     jumpBtn.frame = CGRectMake(pageScrollImagewidth - 40 - 20, pageScrollImageheight - 20 - 50, 40, 20);
     [self.view addSubview:jumpBtn];
     [jumpBtn addTarget:self action:@selector(jumpClicked:) forControlEvents:UIControlEventTouchUpInside];

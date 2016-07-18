@@ -32,6 +32,7 @@
 #pragma mark -- LifeStyle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"选择位置";
     //配置百度地图
     _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 64, MAIN_SCREEN_WIDTH, 250)];
     _mapView.delegate = self;
@@ -93,7 +94,7 @@
     _searchPOIRequest.requireExtension = YES;
     _searchDataArr = [@[] mutableCopy];
     
-    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(goToSearchAdressController:)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightNavigationBarAction:)]];
+    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightNavigationBarAction:)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(goToSearchAdressController:)]];
     // Do any additional setup after loading the view from its nib.
 }
 //开始定位

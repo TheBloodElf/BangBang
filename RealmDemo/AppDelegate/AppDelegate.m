@@ -23,7 +23,7 @@
     config.schemaVersion = 2;
     [RLMRealmConfiguration setDefaultConfiguration:config];
     //百度地图注册
-    
+    [AMapServices sharedServices].apiKey = @"812f92db9078841bddb73919f07e8d15";
     //对应用进行全局的初始化
     [AppCustoms customs];
     //连接融云

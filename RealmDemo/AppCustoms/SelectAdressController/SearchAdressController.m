@@ -11,14 +11,14 @@
 #import "MJRefresh.h"
 #import "SelectAdressTableCell.h"
 
-@interface SearchAdressController ()<UITextFieldDelegate,AMapSearchDelegate,UITableViewDelegate,UITableViewDataSource> {
+@interface SearchAdressController ()<UISearchBarDelegate,AMapSearchDelegate,UITableViewDelegate,UITableViewDataSource> {
     AMapSearchAPI *_searchAPI;//百度搜索API
     NSMutableArray<AMapPOI*> *_searchDataArr;//搜索结果数组
     AMapPOI *_userSelectedPOI;//用户已经选择的位置
 
     UITableView *_tableView;//展示数据的表格视图
     NoResultView *_noResultView;//没有结果的视图
-    UITextField *_searchBar;//搜索的输入框
+    UISearchBar *_searchBar;//搜索的输入框
 }
 @end
 
@@ -26,8 +26,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"选择位置";
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 64, MAIN_SCREEN_WIDTH, 55)];
+    _searchBar.placeholder = @" 输入你要搜索的内容...";
+    _searchBar.delegate = self;
+    [self.view addSubview:_searchBar];
     //配置表格
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64 + 25, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 64 - 25) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64 + 55, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 64 - 55) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.tableFooterView = [UIView new];
@@ -35,11 +40,11 @@
     [self.view addSubview:_tableView];
     _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         _searchPOIRequest.page = 0;
-        [self searchPOIData];
+        [_searchAPI AMapPOIAroundSearch:_searchPOIRequest];
     }];
     _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         _searchPOIRequest.page ++;
-        [self searchPOIData];
+        [_searchAPI AMapPOIAroundSearch:_searchPOIRequest];
     }];
     _noResultView = [[NoResultView alloc] initWithFrame:_tableView.bounds];
     
@@ -49,19 +54,14 @@
     _searchDataArr = [@[] mutableCopy];
     _userSelectedPOI = [AMapPOI new];
     
-    [self setCenterNavigationBar];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightNavigationBarAction:)];
     [_tableView.mj_header beginRefreshing];
     // Do any additional setup after loading the view.
 }
-- (void)searchBtnSearch:(UIButton*)btn {
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     _searchPOIRequest.keywords = _searchBar.text;
-    [self.view endEditing:YES];
+    [searchBar endEditing:YES];
     [_tableView.mj_header beginRefreshing];
-}
-//百度搜索数据
-- (void)searchPOIData {
-    [_searchAPI AMapPOIAroundSearch:_searchPOIRequest];
 }
 #pragma mark --
 #pragma mark -- UITableViewDelegate
@@ -107,31 +107,18 @@
             _userSelectedPOI = nil;
         }
     }
-    [_tableView.header endRefreshing];
-    if(_tableView.footer != (id)_noResultView)
-        [_tableView.footer endRefreshing];
+    [_tableView.mj_header endRefreshing];
+    if(_tableView.mj_footer != (id)_noResultView)
+        [_tableView.mj_footer endRefreshing];
     if(_searchDataArr.count == 0) {
-        _tableView.footer = (id)_noResultView;
+        _tableView.mj_footer = (id)_noResultView;
     } else {
-        _tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
             _searchPOIRequest.page ++;
-            [self searchPOIData];
+            [_searchAPI AMapPOIAroundSearch:_searchPOIRequest];
         }];
     }
     [_tableView reloadData];
-}
-#pragma mark --
-#pragma mark -- ConfigNavigationBar
-- (void)setCenterNavigationBar {
-    _searchBar = [[UITextField alloc] initWithFrame:CGRectMake(50, 64, MAIN_SCREEN_WIDTH - 100, 25)];
-    _searchBar.backgroundColor = [UIColor whiteColor];
-    _searchBar.font = [UIFont systemFontOfSize:14];
-    _searchBar.text = @" 输入你要搜索的内容...";
-    _searchBar.delegate = self;
-    _searchBar.textColor = [UIColor grayColor];
-    _searchBar.layer.cornerRadius = 5;
-    _searchBar.clipsToBounds = YES;
-    [self.view addSubview:_searchBar];
 }
 - (void)rightNavigationBarAction:(UIBarButtonItem*)item {
     if(self.delegate && [self.delegate respondsToSelector:@selector(searchAdress:)]) {

@@ -251,4 +251,47 @@
     [fetchedResultsController performFetch];
     return fetchedResultsController;
 }
+#pragma mark -- UserDiscuss
+//添加通讯录中的讨论组
+- (void)addUserDiscuss:(UserDiscuss*)userDiscuss {
+    [_rlmRealm beginWriteTransaction];
+    [_rlmRealm addObject:userDiscuss];
+    [_rlmRealm commitWriteTransaction];
+}
+//删除通讯录中的讨论组
+- (void)deleteUserDiscuss:(UserDiscuss*)userDiscuss {
+    [_rlmRealm beginWriteTransaction];
+    [_rlmRealm deleteObject:userDiscuss];
+    [_rlmRealm commitWriteTransaction];
+}
+//更新所有讨论组
+- (void)updateUserDiscussArr:(NSMutableArray<UserDiscuss*>*)userDiscussArr {
+    [_rlmRealm beginWriteTransaction];
+    RLMResults *pushMessages = [UserDiscuss allObjectsInRealm:_rlmRealm];
+    while (pushMessages.count)
+        [_rlmRealm deleteObject:pushMessages.firstObject];
+    [_rlmRealm addObjects:userDiscussArr];
+    [_rlmRealm commitWriteTransaction];
+
+}
+//获取所有的讨论组
+- (NSMutableArray<UserDiscuss*>*)getUserDiscussArr {
+    NSMutableArray<UserDiscuss*> *pushMessageArr = [@[] mutableCopy];
+    [_rlmRealm beginWriteTransaction];
+    RLMResults *pushMessages = [UserDiscuss allObjectsInRealm:_rlmRealm];
+    for (int index = 0;index < pushMessages.count;index ++) {
+        UserDiscuss *company = [pushMessages objectAtIndex:index];
+        [pushMessageArr addObject:company];
+    }
+    [_rlmRealm commitWriteTransaction];
+    return pushMessageArr;
+}
+//创建讨论组数据监听
+- (RBQFetchedResultsController*)createUserDiscusFetchedResultsController {
+    RBQFetchedResultsController *fetchedResultsController = nil;
+    RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"UserDiscuss" inRealm:_rlmRealm predicate:nil];
+    fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:@"UserDiscuss"];
+    [fetchedResultsController performFetch];
+    return fetchedResultsController;
+}
 @end

@@ -13,6 +13,7 @@
 #import "Company.h"
 #import "Employee.h"
 #import "PushMessage.h"
+#import "UserDiscuss.h"
 
 @interface UserManager : NSObject
 //全局的用户信息
@@ -63,4 +64,15 @@
 - (NSMutableArray<PushMessage*>*)getPushMessageArr;
 //创建消息数据监听
 - (RBQFetchedResultsController*)createPushMessagesFetchedResultsController;
+#pragma mark -- UserDiscuss
+//添加通讯录中的讨论组
+- (void)addUserDiscuss:(UserDiscuss*)userDiscuss;
+//删除通讯录中的讨论组
+- (void)deleteUserDiscuss:(UserDiscuss*)userDiscuss;
+//获取所有的讨论组
+- (NSMutableArray<UserDiscuss*>*)getUserDiscussArr;
+//更新所有讨论组
+- (void)updateUserDiscussArr:(NSMutableArray<UserDiscuss*>*)userDiscussArr;
+//创建讨论组数据监听
+- (RBQFetchedResultsController*)createUserDiscusFetchedResultsController;
 @end

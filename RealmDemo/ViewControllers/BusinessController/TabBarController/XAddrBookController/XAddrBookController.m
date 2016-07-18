@@ -12,6 +12,10 @@
 #import "XAddrBookCell.h"
 #import "MoreSelectView.h"
 #import "InviteColleagueController.h"
+#import "MineInfoEditController.h"
+#import "RYChatController.h"
+#import "RequestManagerController.h"
+#import "DiscussListViewController.h"
 
 @interface XAddrBookController ()<RBQFetchedResultsControllerDelegate,UITableViewDelegate,UITableViewDataSource,MoreSelectViewDelegate> {
     UITableView *_tableView;//展示数据的表格视图
@@ -91,12 +95,22 @@
 - (void)moreSelectIndex:(int)index {
     if(index == 0) {
         //群聊
-    } else {
+        RYChatController *temp = [[RYChatController alloc]init];
+        temp.targetId = @(_userManager.user.currCompany.company_no).stringValue;
+        temp.conversationType = ConversationType_GROUP;
+        temp.title = _userManager.user.currCompany.company_name;
+        temp.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:temp animated:YES];
+    } else if(index == 1) {
         //邀请
         UIStoryboard *story = [UIStoryboard storyboardWithName:@"InviteColleagueController" bundle:nil];
         InviteColleagueController *colleague = [story instantiateViewControllerWithIdentifier:@"InviteColleagueController"];
         colleague.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:colleague animated:YES];
+    } else {
+        RequestManagerController *request = [RequestManagerController new];
+        request.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:request animated:YES];
     }
 }
 - (UIView*)tableViewHeaderView {
@@ -114,7 +128,9 @@
     return view;
 }
 - (void)discussClicked:(UIButton*)btn {
-    
+    DiscussListViewController *list = [DiscussListViewController new];
+    list.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:list animated:YES];
 }
 #pragma mark --
 #pragma mark -- RBQFetchedResultsControllerDelegate
@@ -124,6 +140,21 @@
         [self getEmployeeWithCompanyNo:user.currCompany.company_no];
     else
         [self getEmployeeWithCompanyNo:0];
+    //创建选择视图
+    [_moreSelectView removeFromSuperview];
+    //是不是当前圈子的管理员
+    if([_userManager.user.currCompany.admin_user_guid isEqualToString:_userManager.user.user_guid]) {
+        _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100 - 15, 64, 100, 120)];
+        _moreSelectView.selectArr = @[@"发起群聊",@"邀请同事",@"申请管理"];
+    }
+    else {
+        _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100 - 15, 64, 100, 80)];
+        _moreSelectView.selectArr = @[@"发起群聊",@"邀请同事"];
+    }
+    _moreSelectView.delegate = self;
+    [_moreSelectView setupUI];
+    [self.view addSubview:_moreSelectView];
+    [self.view bringSubviewToFront:_moreSelectView];
 }
 //根据圈子ID填充员工数组
 - (void)getEmployeeWithCompanyNo:(int)companyNo {
@@ -137,8 +168,6 @@
         [self sortEmployee];
         [_tableView reloadData];
         //从网络上获取最新的员工数据
-        if(_employeeArr.count == 0)
-            [self.navigationController.view showLoadingTips:@"请稍等..."];
         [UserHttp getEmployeeCompnyNo:companyNo status:5 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
             [self.navigationController.view dismissTips];
             if(error) {
@@ -241,5 +270,19 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    Employee * employee = [[_employeeDataArr objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    if ([employee.user_guid isEqualToString:_userManager.user.user_guid]) {
+        MineInfoEditController *vc = [MineInfoEditController new];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    } else {
+        //单聊
+        RYChatController *conversationVC = [[RYChatController alloc]init];
+        conversationVC.conversationType =ConversationType_PRIVATE; //会话类型，这里设置为 PRIVATE 即发起单聊会话。
+        conversationVC.targetId = @(employee.user_no).stringValue; // 接收者的 targetId，这里为举例。
+        conversationVC.title = employee.user_real_name; // 会话的 title。
+        conversationVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:conversationVC animated:YES];
+    }
 }
 @end

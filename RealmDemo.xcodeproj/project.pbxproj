@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		040A09A61D3D171B00156C16 /* UserDiscuss.m in Sources */ = {isa = PBXBuildFile; fileRef = 040A09A51D3D171B00156C16 /* UserDiscuss.m */; settings = {ASSET_TAGS = (); }; };
+		040A09AF1D3D182F00156C16 /* DiscussListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 040A09A91D3D182F00156C16 /* DiscussListCell.m */; settings = {ASSET_TAGS = (); }; };
+		040A09B01D3D182F00156C16 /* DiscussListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040A09AA1D3D182F00156C16 /* DiscussListCell.xib */; settings = {ASSET_TAGS = (); }; };
+		040A09B11D3D182F00156C16 /* DiscussListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 040A09AC1D3D182F00156C16 /* DiscussListViewController.m */; settings = {ASSET_TAGS = (); }; };
 		0471C0911D3B23A700377178 /* NSString+StringSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 0471C0901D3B23A700377178 /* NSString+StringSize.m */; };
 		0471C0951D3B262600377178 /* PushMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0471C0931D3B262600377178 /* PushMessageCell.m */; };
 		0471C0961D3B262600377178 /* PushMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0471C0941D3B262600377178 /* PushMessageCell.xib */; };
@@ -374,6 +378,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		040A09A41D3D171B00156C16 /* UserDiscuss.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDiscuss.h; sourceTree = "<group>"; };
+		040A09A51D3D171B00156C16 /* UserDiscuss.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDiscuss.m; sourceTree = "<group>"; };
+		040A09A81D3D182F00156C16 /* DiscussListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscussListCell.h; sourceTree = "<group>"; };
+		040A09A91D3D182F00156C16 /* DiscussListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscussListCell.m; sourceTree = "<group>"; };
+		040A09AA1D3D182F00156C16 /* DiscussListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscussListCell.xib; sourceTree = "<group>"; };
+		040A09AB1D3D182F00156C16 /* DiscussListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscussListViewController.h; sourceTree = "<group>"; };
+		040A09AC1D3D182F00156C16 /* DiscussListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscussListViewController.m; sourceTree = "<group>"; };
 		0471C08F1D3B23A700377178 /* NSString+StringSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+StringSize.h"; sourceTree = "<group>"; };
 		0471C0901D3B23A700377178 /* NSString+StringSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+StringSize.m"; sourceTree = "<group>"; };
 		0471C0921D3B262600377178 /* PushMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushMessageCell.h; sourceTree = "<group>"; };
@@ -1107,6 +1118,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		040A09A71D3D182F00156C16 /* DiscussListController */ = {
+			isa = PBXGroup;
+			children = (
+				040A09A81D3D182F00156C16 /* DiscussListCell.h */,
+				040A09A91D3D182F00156C16 /* DiscussListCell.m */,
+				040A09AA1D3D182F00156C16 /* DiscussListCell.xib */,
+				040A09AB1D3D182F00156C16 /* DiscussListViewController.h */,
+				040A09AC1D3D182F00156C16 /* DiscussListViewController.m */,
+				040A09AD1D3D182F00156C16 /* InviteColleagueController */,
+				040A09AE1D3D182F00156C16 /* RequestManagerController */,
+			);
+			path = DiscussListController;
+			sourceTree = "<group>";
+		};
+		040A09AD1D3D182F00156C16 /* InviteColleagueController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = InviteColleagueController;
+			sourceTree = "<group>";
+		};
+		040A09AE1D3D182F00156C16 /* RequestManagerController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = RequestManagerController;
+			sourceTree = "<group>";
+		};
 		049585EE1D39C01700544259 /* RequestManagerController */ = {
 			isa = PBXGroup;
 			children = (
@@ -2438,6 +2477,7 @@
 		1B5585C21D34FA7100DCD3A0 /* XAddrBookController */ = {
 			isa = PBXGroup;
 			children = (
+				040A09A71D3D182F00156C16 /* DiscussListController */,
 				049586451D3A348200544259 /* InviteColleagueController */,
 				049585EE1D39C01700544259 /* RequestManagerController */,
 				1B5585CC1D34FA9600DCD3A0 /* XAddrBookController.h */,
@@ -2701,6 +2741,8 @@
 				1B4B160F1D3731D900E71B3D /* Employee.m */,
 				04E7E5B21D3A7D2500C653B4 /* PushMessage.h */,
 				04E7E5B31D3A7D2500C653B4 /* PushMessage.m */,
+				040A09A41D3D171B00156C16 /* UserDiscuss.h */,
+				040A09A51D3D171B00156C16 /* UserDiscuss.m */,
 			);
 			path = UserModel;
 			sourceTree = "<group>";
@@ -2816,6 +2858,7 @@
 				1B9DD18D1D3CDB81008FEC53 /* SelectAdressTableCell.xib in Resources */,
 				1B5585B21D34F3A600DCD3A0 /* LoginViewController.xib in Resources */,
 				1B55859F1D34E2C800DCD3A0 /* ic_welcome_avatar_0_0.png in Resources */,
+				040A09B01D3D182F00156C16 /* DiscussListCell.xib in Resources */,
 				0495864D1D3A348200544259 /* FaceInviteColleague.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2933,6 +2976,7 @@
 				1B5585CE1D34FA9600DCD3A0 /* XAddrBookController.m in Sources */,
 				049585F61D39C01700544259 /* RequestManagerController.m in Sources */,
 				049588C61D3A620300544259 /* ZXAbstractExpandedDecoder.m in Sources */,
+				040A09A61D3D171B00156C16 /* UserDiscuss.m in Sources */,
 				049588691D3A620300544259 /* ZXEmailAddressParsedResult.m in Sources */,
 				1B5585551D34CA2C00DCD3A0 /* IdentityManager.m in Sources */,
 				04E7E5A81D3A660800C653B4 /* ChangeUserBBH.m in Sources */,
@@ -3152,6 +3196,7 @@
 				0471C0981D3BBA6000377178 /* Readme.md in Sources */,
 				049588A51D3A620300544259 /* ZXErrors.m in Sources */,
 				0495886D1D3A620300544259 /* ZXExpandedProductResultParser.m in Sources */,
+				040A09B11D3D182F00156C16 /* DiscussListViewController.m in Sources */,
 				049588D41D3A620300544259 /* ZXRSSExpandedDecodedInformation.m in Sources */,
 				049588F71D3A620300544259 /* ZXUPCEANExtension2Support.m in Sources */,
 				1B9DD18B1D3CDB81008FEC53 /* SelectAdressController.m in Sources */,
@@ -3188,6 +3233,7 @@
 				049588AD1D3A620300544259 /* ZXDataMatrixDataBlock.m in Sources */,
 				049588A11D3A620300544259 /* ZXByteMatrix.m in Sources */,
 				049588E11D3A620300544259 /* ZXRSSPair.m in Sources */,
+				040A09AF1D3D182F00156C16 /* DiscussListCell.m in Sources */,
 				049588FA1D3A620300544259 /* ZXUPCEANReader.m in Sources */,
 				049589101D3A620300544259 /* ZXPDF417ErrorCorrection.m in Sources */,
 				049589121D3A620300544259 /* ZXPDF417Common.m in Sources */,
