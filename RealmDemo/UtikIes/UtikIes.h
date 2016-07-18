@@ -25,5 +25,11 @@
 #import "NSDate+Format.h"
 #import "InterfaceConfig.h"
 #import "NSString+StringSize.h"
+#import <RongIMKit/RongIMKit.h>
+#import <AMapSearchKit/AMapSearchKit.h>
+#import <MAMapKit/MAMapKit.h>
+#import "RYChatManager.h"
+#import "UINavigationController+Direction.h"
+#import "CMMacros.h"
 
 #endif /* UtikIes_h */

@@ -28,9 +28,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _userManager = [UserManager manager];
     _selectEmployees = [@[] mutableCopy];
     _employeekeyArr = [@[] mutableCopy];
     _employeeDataArr = [@[] mutableCopy];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     self.title = @"人员选择";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightBarButtomItemAction:)];
     _muliteSelectTopView = [[MuliteSelectTopView alloc] initWithFrame:CGRectMake(0, 64, MAIN_SCREEN_WIDTH, 44)];
@@ -40,6 +42,8 @@
     _allSelectBtn = [AllSelectBtn buttonWithType:UIButtonTypeCustom];
     _allSelectBtn.frame = CGRectMake(0, CGRectGetMaxY(_muliteSelectTopView.frame) + 10, MAIN_SCREEN_WIDTH,30);
     _allSelectBtn.backgroundColor = [UIColor whiteColor];
+    [_allSelectBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [_allSelectBtn setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
     [_allSelectBtn setTitle:@"全选" forState:UIControlStateNormal];
     [_allSelectBtn setTitle:@"全选" forState:UIControlStateSelected];
     [_allSelectBtn setImage:[UIImage imageNamed:@"btn_nomaril_icon"] forState:UIControlStateNormal];
@@ -47,7 +51,7 @@
     [_allSelectBtn addTarget:self action:@selector(allSelectBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_allSelectBtn];
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_allSelectBtn.frame), MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - CGRectGetMaxY(_allSelectBtn.frame) - 64) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_allSelectBtn.frame), MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - CGRectGetMaxY(_allSelectBtn.frame)) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.tableFooterView = [UIView new];
@@ -89,8 +93,7 @@
         [selectedIDArr addObject:employee.employee_guid];
     }
     for (Employee *tempEmployee in employeeArr) {
-        SelectEmployeeModel *model = [SelectEmployeeModel new];
-        [model mj_setKeyValues:[tempEmployee mj_keyValues]];
+        SelectEmployeeModel *model = [[SelectEmployeeModel alloc] initWithEmployee:tempEmployee];
         if([selectedIDArr containsObject:model.employee_guid])
             model.isSelected = YES;
         [_selectEmployees addObject:model];

@@ -69,12 +69,27 @@
 //根据Guid和圈子ID获取员工
 - (Employee*)getEmployeeWithGuid:(NSString*)userGuid companyNo:(int)companyNo {
     [_rlmRealm beginWriteTransaction];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"user_guid = %@ and company_no = %d",userGuid,companyNo];
+    NSPredicate *pred  = [NSPredicate predicateWithFormat:@"user_guid = %@ and company_no = %d",userGuid,companyNo];
     RLMResults *results = [Employee objectsInRealm:_rlmRealm withPredicate:pred];
     [_rlmRealm commitWriteTransaction];
-    //如果有值就返回  没有就算了
+    //如果有值就返回 没有就算了
     if(results.count)
         return [results objectAtIndex:0];
+    return nil;
+}
+//根据UserNO获取员工
+- (Employee*)getEmployeeWithNo:(int)userNo {
+    [_rlmRealm beginWriteTransaction];
+    RLMResults *results = [Employee objectsInRealm:_rlmRealm withPredicate:nil];
+    [_rlmRealm commitWriteTransaction];
+    //如果有值就返回 没有就算了
+    if(results.count) {
+        for (int i = 0;i < results.count;i ++) {
+            Employee *employee = [results objectAtIndex:i];
+            if(employee.user_no == userNo)
+                return employee;
+        }
+    }
     return nil;
 }
 #pragma mark -- Company

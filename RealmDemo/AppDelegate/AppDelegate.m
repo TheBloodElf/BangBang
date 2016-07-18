@@ -24,6 +24,8 @@
     [RLMRealmConfiguration setDefaultConfiguration:config];
     //对应用进行全局的初始化
     [AppCustoms customs];
+    //连接融云
+    [[RYChatManager shareInstance] registerRYChat];
     //创建根视图控制器
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.rootViewController = [MainViewController new];

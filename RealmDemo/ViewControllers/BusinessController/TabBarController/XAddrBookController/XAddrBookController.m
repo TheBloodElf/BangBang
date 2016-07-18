@@ -139,7 +139,7 @@
         //从网络上获取最新的员工数据
         if(_employeeArr.count == 0)
             [self.navigationController.view showLoadingTips:@"请稍等..."];
-        [UserHttp getEmployeeCompnyNo:companyNo status:-1 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+        [UserHttp getEmployeeCompnyNo:companyNo status:5 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
             [self.navigationController.view dismissTips];
             if(error) {
                 [self.navigationController.view showFailureTips:@"获取失败，请重试"];

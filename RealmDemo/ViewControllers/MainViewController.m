@@ -87,6 +87,10 @@
         } else {
             //已经登陆就加载登陆的用户信息
             [[UserManager manager] loadUserWithGuid:manager.identity.user_guid];
+            IdentityManager * identityManager = [IdentityManager manager];
+            //用融云登录聊天
+            [[RYChatManager shareInstance] syncRYGroup];
+            [[RCIM sharedRCIM] connectWithToken:identityManager.identity.RYToken success:nil error:nil tokenIncorrect:nil];
             _business = [BusinessController new];
             [self addChildViewController:_business];
             [_business willMoveToParentViewController:self];

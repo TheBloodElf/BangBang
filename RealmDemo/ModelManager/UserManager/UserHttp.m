@@ -11,6 +11,53 @@
 #import "IdentityManager.h"
 
 @implementation UserHttp
+#pragma mark -- 融云
+//同步群组
++ (NSURLSessionDataTask*)syncRYGroup:(int)userNo handler:(completionHandler)handler {
+    NSString *urlPath = @"RongClouds/sync";
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:@(userNo) forKey:@"user_no"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
+//获取融云token
++ (NSURLSessionDataTask*)getRYToken:(int)userNo handler:(completionHandler)handler {
+    NSString *urlPath = @"RongClouds/token";
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:@(userNo) forKey:@"user_no"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
+//将员工加入群聊
++ (NSURLSessionDataTask*)joinRYGroup:(int)userNo companyNo:(int)companyNo handler:(completionHandler)handler {
+    NSString *urlPath = @"RongClouds/join";
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:@(companyNo) forKey:@"company_no"];
+    [params setObject:@(userNo) forKey:@"user_no"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
+//将员工移除群聊
++ (NSURLSessionDataTask*)quitRYGroup:(int)userNo companyNo:(int)companyNo handler:(completionHandler)handler {
+    NSString *urlPath = @"RongClouds/quit";
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:@(companyNo) forKey:@"company_no"];
+    [params setObject:@(userNo) forKey:@"user_no"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
 #pragma mark -- 邀请链接
 + (NSURLSessionDataTask*)getInviteURL:(int)userNo companyNo:(int)companyNo handler:(completionHandler)handler {
     NSString *urlPath = @"Common/get_invite_link_url_short";
@@ -161,30 +208,6 @@
     [params setObject:employeeGuid forKey:@"employee_guid"];
     [params setObject:@(status) forKey:@"status"];
     [params setObject:reason forKey:@"reason"];
-    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
-    completionHandler compleionHandler = ^(id data,MError *error) {
-        handler(data,error);
-    };
-    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
-}
-//将员工加入群聊
-+ (NSURLSessionDataTask*)joinRYGroup:(int)userNo companyNo:(int)companyNo handler:(completionHandler)handler {
-    NSString *urlPath = @"RongClouds/join";
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    [params setObject:@(companyNo) forKey:@"company_no"];
-    [params setObject:@(userNo) forKey:@"user_no"];
-    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
-    completionHandler compleionHandler = ^(id data,MError *error) {
-        handler(data,error);
-    };
-    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
-}
-//将员工移除群聊
-+ (NSURLSessionDataTask*)quitRYGroup:(int)userNo companyNo:(int)companyNo handler:(completionHandler)handler {
-    NSString *urlPath = @"RongClouds/quit";
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    [params setObject:@(companyNo) forKey:@"company_no"];
-    [params setObject:@(userNo) forKey:@"user_no"];
     [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
     completionHandler compleionHandler = ^(id data,MError *error) {
         handler(data,error);

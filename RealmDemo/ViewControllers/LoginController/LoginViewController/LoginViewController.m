@@ -35,9 +35,13 @@
         [self.navigationController.view showFailureTips:@"请输入密码"];
         return;
     }
+    [self getToken];
+}
+//进入获取token程序
+- (void)getToken {
     //看存不存在accessToken，不存在就获取
-    IdentityManager *manager = [IdentityManager manager];
-    if([NSString isBlank:manager.identity.accessToken]) {
+    IdentityManager *identityManager = [IdentityManager manager];
+    if([NSString isBlank:identityManager.identity.accessToken]) {
         [self.navigationController showLoadingTips:@"请稍等..."];
         [IdentityHttp getAccessTokenhandler:^(id data, MError *error) {
             if(error) {
@@ -46,10 +50,9 @@
                 return ;
             }
             NSString *accessToken = data[@"access_token"];
-            manager.identity.accessToken = accessToken;
-            [manager saveAuthorizeData];
-            //进入登录程序
-            [self gotoLogin];
+            identityManager.identity.accessToken = accessToken;
+            [identityManager saveAuthorizeData];
+            [self getToken];
         }];
     } else {
         [self gotoLogin];
@@ -58,9 +61,12 @@
 //进入登录程序
 - (void)gotoLogin {
     [self.navigationController showLoadingTips:@"请稍等..."];
+    IdentityManager *identityManager = [IdentityManager manager];
     [IdentityHttp loginWithEmail:self.accountFiexd.text password:self.passwordFiexd.text handler:^(id data, MError *error) {
         if(error) {
             [self.navigationController dismissTips];
+            identityManager.identity.user_guid = @"";
+            [identityManager saveAuthorizeData];
             [self.navigationController.view showFailureTips:error.statsMsg];
             return ;
         }
@@ -76,18 +82,16 @@
             [companys addObject:company];
         }
         [manager updateCompanyArr:companys];
-        //初始化第一个圈子为用户当前圈子
-        if(companys.count)
-            user.currCompany = companys[0];
         [manager updateUser:user];
         //更换登录信息
-        IdentityManager *identityManager = [IdentityManager manager];
         identityManager.identity.user_guid = user.user_guid;
         [identityManager saveAuthorizeData];
         //获取所有圈子的员工信息
-        [UserHttp getEmployeeCompnyNo:0 status:-1 userGuid:user.user_guid handler:^(id data, MError *error) {
-            [self.navigationController dismissTips];
+        [UserHttp getEmployeeCompnyNo:0 status:5 userGuid:user.user_guid handler:^(id data, MError *error) {
             if(error) {
+                [self.navigationController dismissTips];
+                identityManager.identity.user_guid = @"";
+                [identityManager saveAuthorizeData];
                 [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
                 return ;
             }
@@ -99,9 +103,38 @@
             }
             //存入本地数据库
             [manager updateEmployee:array companyNo:0];
-            //发通知 登录成功
-            [self.navigationController showSuccessTips:@"登录成功"];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginDidFinish" object:nil];
+            //看是否有融云token 没有就获取
+            if([NSString isBlank:identityManager.identity.RYToken]) {
+                [UserHttp getRYToken:user.user_no handler:^(id data, MError *error) {
+                    if(error) {
+                        [self.navigationController dismissTips];
+                        identityManager.identity.user_guid = @"";
+                        [identityManager saveAuthorizeData];
+                        [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
+                        return ;
+                    }
+                    identityManager.identity.RYToken = data;
+                    [identityManager saveAuthorizeData];
+                    //用融云登录聊天
+                    [[RYChatManager shareInstance] syncRYGroup];
+                    [[RCIM sharedRCIM] connectWithToken:identityManager.identity.RYToken success:^(NSString *userId) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.navigationController dismissTips];
+                        [self.navigationController.view showFailureTips:@"登陆成功"];
+                        //发通知 登录成功
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginDidFinish" object:nil];
+                        });
+                    } error:nil tokenIncorrect:^{
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                        identityManager.identity.RYToken = @"";
+                        identityManager.identity.user_guid = @"";
+                        [identityManager saveAuthorizeData];
+                        [self.navigationController dismissTips];
+                        [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
+                        });
+                    }];
+                }];
+            }
         }];
     }];
 }

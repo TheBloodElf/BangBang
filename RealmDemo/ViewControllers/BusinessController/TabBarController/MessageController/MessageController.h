@@ -6,8 +6,7 @@
 //  Copyright © 2016年 com.luohaifang. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 //聊天
-@interface MessageController : UIViewController
+@interface MessageController : RCConversationListViewController
 
 @end

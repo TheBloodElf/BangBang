@@ -7,268 +7,268 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0471C0911D3B23A700377178 /* NSString+StringSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 0471C0901D3B23A700377178 /* NSString+StringSize.m */; settings = {ASSET_TAGS = (); }; };
-		0471C0951D3B262600377178 /* PushMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0471C0931D3B262600377178 /* PushMessageCell.m */; settings = {ASSET_TAGS = (); }; };
-		0471C0961D3B262600377178 /* PushMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0471C0941D3B262600377178 /* PushMessageCell.xib */; settings = {ASSET_TAGS = (); }; };
-		0471C0981D3BBA6000377178 /* Readme.md in Sources */ = {isa = PBXBuildFile; fileRef = 0471C0971D3BBA6000377178 /* Readme.md */; settings = {ASSET_TAGS = (); }; };
-		049585F41D39C01700544259 /* RequestManagerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 049585F01D39C01700544259 /* RequestManagerCell.m */; settings = {ASSET_TAGS = (); }; };
-		049585F51D39C01700544259 /* RequestManagerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049585F11D39C01700544259 /* RequestManagerCell.xib */; settings = {ASSET_TAGS = (); }; };
-		049585F61D39C01700544259 /* RequestManagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049585F31D39C01700544259 /* RequestManagerController.m */; settings = {ASSET_TAGS = (); }; };
-		049586161D39D3A500544259 /* AllSelectBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 049585FF1D39D3A500544259 /* AllSelectBtn.m */; settings = {ASSET_TAGS = (); }; };
-		049586171D39D3A500544259 /* MuliteSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586021D39D3A500544259 /* MuliteSelectCell.m */; settings = {ASSET_TAGS = (); }; };
-		049586181D39D3A500544259 /* MuliteSelectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049586031D39D3A500544259 /* MuliteSelectCell.xib */; settings = {ASSET_TAGS = (); }; };
-		049586191D39D3A500544259 /* MuliteSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586051D39D3A500544259 /* MuliteSelectController.m */; settings = {ASSET_TAGS = (); }; };
-		0495861A1D39D3A500544259 /* MuliteSelectController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049586061D39D3A500544259 /* MuliteSelectController.xib */; settings = {ASSET_TAGS = (); }; };
-		0495861B1D39D3A500544259 /* SelectEmployeeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586091D39D3A500544259 /* SelectEmployeeModel.m */; settings = {ASSET_TAGS = (); }; };
-		0495861C1D39D3A500544259 /* MuliteSelectTopImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495860C1D39D3A500544259 /* MuliteSelectTopImageView.m */; settings = {ASSET_TAGS = (); }; };
-		0495861D1D39D3A500544259 /* MuliteSelectTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495860E1D39D3A500544259 /* MuliteSelectTopView.m */; settings = {ASSET_TAGS = (); }; };
-		0495861E1D39D3A500544259 /* SigleSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586111D39D3A500544259 /* SigleSelectCell.m */; settings = {ASSET_TAGS = (); }; };
-		0495861F1D39D3A500544259 /* SigleSelectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049586121D39D3A500544259 /* SigleSelectCell.xib */; settings = {ASSET_TAGS = (); }; };
-		049586201D39D3A500544259 /* SingleSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586141D39D3A500544259 /* SingleSelectController.m */; settings = {ASSET_TAGS = (); }; };
-		049586211D39D3A500544259 /* SingleSelectController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049586151D39D3A500544259 /* SingleSelectController.xib */; settings = {ASSET_TAGS = (); }; };
-		0495862A1D3A1A3F00544259 /* WebViewJavascriptBridge.js.txt in Resources */ = {isa = PBXBuildFile; fileRef = 049586241D3A1A3F00544259 /* WebViewJavascriptBridge.js.txt */; settings = {ASSET_TAGS = (); }; };
-		0495862B1D3A1A3F00544259 /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586251D3A1A3F00544259 /* WebViewJavascriptBridge.m */; settings = {ASSET_TAGS = (); }; };
-		0495862C1D3A1A3F00544259 /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586271D3A1A3F00544259 /* WebViewJavascriptBridgeBase.m */; settings = {ASSET_TAGS = (); }; };
-		0495862D1D3A1A3F00544259 /* WKWebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586291D3A1A3F00544259 /* WKWebViewJavascriptBridge.m */; settings = {ASSET_TAGS = (); }; };
-		049586311D3A1B3800544259 /* UserSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586301D3A1B3800544259 /* UserSettingController.m */; settings = {ASSET_TAGS = (); }; };
-		049586341D3A1CCA00544259 /* NSDate+Format.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586331D3A1CCA00544259 /* NSDate+Format.m */; settings = {ASSET_TAGS = (); }; };
-		049586381D3A1D2900544259 /* SelectDateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586361D3A1D2900544259 /* SelectDateController.m */; settings = {ASSET_TAGS = (); }; };
-		049586391D3A1D2900544259 /* SelectDateController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049586371D3A1D2900544259 /* SelectDateController.xib */; settings = {ASSET_TAGS = (); }; };
-		049586431D3A303800544259 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586411D3A303800544259 /* AboutViewController.m */; settings = {ASSET_TAGS = (); }; };
-		049586441D3A303800544259 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049586421D3A303800544259 /* AboutViewController.xib */; settings = {ASSET_TAGS = (); }; };
-		0495864C1D3A348200544259 /* FaceInviteColleague.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586471D3A348200544259 /* FaceInviteColleague.m */; settings = {ASSET_TAGS = (); }; };
-		0495864D1D3A348200544259 /* FaceInviteColleague.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049586481D3A348200544259 /* FaceInviteColleague.xib */; settings = {ASSET_TAGS = (); }; };
-		0495864E1D3A348200544259 /* InviteColleagueController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495864A1D3A348200544259 /* InviteColleagueController.m */; settings = {ASSET_TAGS = (); }; };
-		0495864F1D3A348200544259 /* InviteColleagueController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0495864B1D3A348200544259 /* InviteColleagueController.storyboard */; settings = {ASSET_TAGS = (); }; };
+		0471C0911D3B23A700377178 /* NSString+StringSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 0471C0901D3B23A700377178 /* NSString+StringSize.m */; };
+		0471C0951D3B262600377178 /* PushMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0471C0931D3B262600377178 /* PushMessageCell.m */; };
+		0471C0961D3B262600377178 /* PushMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0471C0941D3B262600377178 /* PushMessageCell.xib */; };
+		0471C0981D3BBA6000377178 /* Readme.md in Sources */ = {isa = PBXBuildFile; fileRef = 0471C0971D3BBA6000377178 /* Readme.md */; };
+		049585F41D39C01700544259 /* RequestManagerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 049585F01D39C01700544259 /* RequestManagerCell.m */; };
+		049585F51D39C01700544259 /* RequestManagerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049585F11D39C01700544259 /* RequestManagerCell.xib */; };
+		049585F61D39C01700544259 /* RequestManagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049585F31D39C01700544259 /* RequestManagerController.m */; };
+		049586161D39D3A500544259 /* AllSelectBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 049585FF1D39D3A500544259 /* AllSelectBtn.m */; };
+		049586171D39D3A500544259 /* MuliteSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586021D39D3A500544259 /* MuliteSelectCell.m */; };
+		049586181D39D3A500544259 /* MuliteSelectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049586031D39D3A500544259 /* MuliteSelectCell.xib */; };
+		049586191D39D3A500544259 /* MuliteSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586051D39D3A500544259 /* MuliteSelectController.m */; };
+		0495861A1D39D3A500544259 /* MuliteSelectController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049586061D39D3A500544259 /* MuliteSelectController.xib */; };
+		0495861B1D39D3A500544259 /* SelectEmployeeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586091D39D3A500544259 /* SelectEmployeeModel.m */; };
+		0495861C1D39D3A500544259 /* MuliteSelectTopImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495860C1D39D3A500544259 /* MuliteSelectTopImageView.m */; };
+		0495861D1D39D3A500544259 /* MuliteSelectTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495860E1D39D3A500544259 /* MuliteSelectTopView.m */; };
+		0495861E1D39D3A500544259 /* SigleSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586111D39D3A500544259 /* SigleSelectCell.m */; };
+		0495861F1D39D3A500544259 /* SigleSelectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049586121D39D3A500544259 /* SigleSelectCell.xib */; };
+		049586201D39D3A500544259 /* SingleSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586141D39D3A500544259 /* SingleSelectController.m */; };
+		049586211D39D3A500544259 /* SingleSelectController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049586151D39D3A500544259 /* SingleSelectController.xib */; };
+		0495862A1D3A1A3F00544259 /* WebViewJavascriptBridge.js.txt in Resources */ = {isa = PBXBuildFile; fileRef = 049586241D3A1A3F00544259 /* WebViewJavascriptBridge.js.txt */; };
+		0495862B1D3A1A3F00544259 /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586251D3A1A3F00544259 /* WebViewJavascriptBridge.m */; };
+		0495862C1D3A1A3F00544259 /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586271D3A1A3F00544259 /* WebViewJavascriptBridgeBase.m */; };
+		0495862D1D3A1A3F00544259 /* WKWebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586291D3A1A3F00544259 /* WKWebViewJavascriptBridge.m */; };
+		049586311D3A1B3800544259 /* UserSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586301D3A1B3800544259 /* UserSettingController.m */; };
+		049586341D3A1CCA00544259 /* NSDate+Format.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586331D3A1CCA00544259 /* NSDate+Format.m */; };
+		049586381D3A1D2900544259 /* SelectDateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586361D3A1D2900544259 /* SelectDateController.m */; };
+		049586391D3A1D2900544259 /* SelectDateController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049586371D3A1D2900544259 /* SelectDateController.xib */; };
+		049586431D3A303800544259 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586411D3A303800544259 /* AboutViewController.m */; };
+		049586441D3A303800544259 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049586421D3A303800544259 /* AboutViewController.xib */; };
+		0495864C1D3A348200544259 /* FaceInviteColleague.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586471D3A348200544259 /* FaceInviteColleague.m */; };
+		0495864D1D3A348200544259 /* FaceInviteColleague.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049586481D3A348200544259 /* FaceInviteColleague.xib */; };
+		0495864E1D3A348200544259 /* InviteColleagueController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495864A1D3A348200544259 /* InviteColleagueController.m */; };
+		0495864F1D3A348200544259 /* InviteColleagueController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0495864B1D3A348200544259 /* InviteColleagueController.storyboard */; };
 		0495866B1D3A618600544259 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0495866A1D3A618600544259 /* UIKit.framework */; };
-		049588561D3A620300544259 /* ZXAztecDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586701D3A620200544259 /* ZXAztecDecoder.m */; settings = {ASSET_TAGS = (); }; };
-		049588571D3A620300544259 /* ZXAztecDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586731D3A620200544259 /* ZXAztecDetector.m */; settings = {ASSET_TAGS = (); }; };
-		049588581D3A620300544259 /* ZXAztecBinaryShiftToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586761D3A620200544259 /* ZXAztecBinaryShiftToken.m */; settings = {ASSET_TAGS = (); }; };
-		049588591D3A620300544259 /* ZXAztecCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586781D3A620200544259 /* ZXAztecCode.m */; settings = {ASSET_TAGS = (); }; };
-		0495885A1D3A620300544259 /* ZXAztecEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495867A1D3A620200544259 /* ZXAztecEncoder.m */; settings = {ASSET_TAGS = (); }; };
-		0495885B1D3A620300544259 /* ZXAztecHighLevelEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495867C1D3A620200544259 /* ZXAztecHighLevelEncoder.m */; settings = {ASSET_TAGS = (); }; };
-		0495885C1D3A620300544259 /* ZXAztecSimpleToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495867E1D3A620200544259 /* ZXAztecSimpleToken.m */; settings = {ASSET_TAGS = (); }; };
-		0495885D1D3A620300544259 /* ZXAztecState.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586801D3A620200544259 /* ZXAztecState.m */; settings = {ASSET_TAGS = (); }; };
-		0495885E1D3A620300544259 /* ZXAztecToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586821D3A620200544259 /* ZXAztecToken.m */; settings = {ASSET_TAGS = (); }; };
-		0495885F1D3A620300544259 /* ZXAztecDetectorResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586841D3A620200544259 /* ZXAztecDetectorResult.m */; settings = {ASSET_TAGS = (); }; };
-		049588601D3A620300544259 /* ZXAztecReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586861D3A620200544259 /* ZXAztecReader.m */; settings = {ASSET_TAGS = (); }; };
-		049588611D3A620300544259 /* ZXAztecWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586881D3A620200544259 /* ZXAztecWriter.m */; settings = {ASSET_TAGS = (); }; };
-		049588621D3A620300544259 /* ZXAbstractDoCoMoResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495868D1D3A620200544259 /* ZXAbstractDoCoMoResultParser.m */; settings = {ASSET_TAGS = (); }; };
-		049588631D3A620300544259 /* ZXAddressBookAUResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495868F1D3A620200544259 /* ZXAddressBookAUResultParser.m */; settings = {ASSET_TAGS = (); }; };
-		049588641D3A620300544259 /* ZXAddressBookDoCoMoResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586911D3A620200544259 /* ZXAddressBookDoCoMoResultParser.m */; settings = {ASSET_TAGS = (); }; };
-		049588651D3A620300544259 /* ZXAddressBookParsedResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586931D3A620200544259 /* ZXAddressBookParsedResult.m */; settings = {ASSET_TAGS = (); }; };
-		049588661D3A620300544259 /* ZXBizcardResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586951D3A620200544259 /* ZXBizcardResultParser.m */; settings = {ASSET_TAGS = (); }; };
-		049588671D3A620300544259 /* ZXBookmarkDoCoMoResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586971D3A620200544259 /* ZXBookmarkDoCoMoResultParser.m */; settings = {ASSET_TAGS = (); }; };
-		049588681D3A620300544259 /* ZXCalendarParsedResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586991D3A620200544259 /* ZXCalendarParsedResult.m */; settings = {ASSET_TAGS = (); }; };
-		049588691D3A620300544259 /* ZXEmailAddressParsedResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495869B1D3A620200544259 /* ZXEmailAddressParsedResult.m */; settings = {ASSET_TAGS = (); }; };
-		0495886A1D3A620300544259 /* ZXEmailAddressResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495869D1D3A620200544259 /* ZXEmailAddressResultParser.m */; settings = {ASSET_TAGS = (); }; };
-		0495886B1D3A620300544259 /* ZXEmailDoCoMoResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495869F1D3A620200544259 /* ZXEmailDoCoMoResultParser.m */; settings = {ASSET_TAGS = (); }; };
-		0495886C1D3A620300544259 /* ZXExpandedProductParsedResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586A11D3A620200544259 /* ZXExpandedProductParsedResult.m */; settings = {ASSET_TAGS = (); }; };
-		0495886D1D3A620300544259 /* ZXExpandedProductResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586A31D3A620200544259 /* ZXExpandedProductResultParser.m */; settings = {ASSET_TAGS = (); }; };
-		0495886E1D3A620300544259 /* ZXGeoParsedResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586A51D3A620200544259 /* ZXGeoParsedResult.m */; settings = {ASSET_TAGS = (); }; };
-		0495886F1D3A620300544259 /* ZXGeoResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586A71D3A620200544259 /* ZXGeoResultParser.m */; settings = {ASSET_TAGS = (); }; };
-		049588701D3A620300544259 /* ZXISBNParsedResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586A91D3A620200544259 /* ZXISBNParsedResult.m */; settings = {ASSET_TAGS = (); }; };
-		049588711D3A620300544259 /* ZXISBNResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586AB1D3A620200544259 /* ZXISBNResultParser.m */; settings = {ASSET_TAGS = (); }; };
-		049588721D3A620300544259 /* ZXParsedResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586AD1D3A620200544259 /* ZXParsedResult.m */; settings = {ASSET_TAGS = (); }; };
-		049588731D3A620300544259 /* ZXProductParsedResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586B01D3A620200544259 /* ZXProductParsedResult.m */; settings = {ASSET_TAGS = (); }; };
-		049588741D3A620300544259 /* ZXProductResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586B21D3A620200544259 /* ZXProductResultParser.m */; settings = {ASSET_TAGS = (); }; };
-		049588751D3A620300544259 /* ZXResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586B41D3A620200544259 /* ZXResultParser.m */; settings = {ASSET_TAGS = (); }; };
-		049588761D3A620300544259 /* ZXSMSMMSResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586B61D3A620200544259 /* ZXSMSMMSResultParser.m */; settings = {ASSET_TAGS = (); }; };
-		049588771D3A620300544259 /* ZXSMSParsedResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586B81D3A620200544259 /* ZXSMSParsedResult.m */; settings = {ASSET_TAGS = (); }; };
-		049588781D3A620300544259 /* ZXSMSTOMMSTOResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586BA1D3A620200544259 /* ZXSMSTOMMSTOResultParser.m */; settings = {ASSET_TAGS = (); }; };
-		049588791D3A620300544259 /* ZXSMTPResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586BC1D3A620200544259 /* ZXSMTPResultParser.m */; settings = {ASSET_TAGS = (); }; };
-		0495887A1D3A620300544259 /* ZXTelParsedResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586BE1D3A620200544259 /* ZXTelParsedResult.m */; settings = {ASSET_TAGS = (); }; };
-		0495887B1D3A620300544259 /* ZXTelResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586C01D3A620200544259 /* ZXTelResultParser.m */; settings = {ASSET_TAGS = (); }; };
-		0495887C1D3A620300544259 /* ZXTextParsedResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586C21D3A620200544259 /* ZXTextParsedResult.m */; settings = {ASSET_TAGS = (); }; };
-		0495887D1D3A620300544259 /* ZXURIParsedResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586C41D3A620200544259 /* ZXURIParsedResult.m */; settings = {ASSET_TAGS = (); }; };
-		0495887E1D3A620300544259 /* ZXURIResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586C61D3A620200544259 /* ZXURIResultParser.m */; settings = {ASSET_TAGS = (); }; };
-		0495887F1D3A620300544259 /* ZXURLTOResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586C81D3A620200544259 /* ZXURLTOResultParser.m */; settings = {ASSET_TAGS = (); }; };
-		049588801D3A620300544259 /* ZXVCardResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586CA1D3A620200544259 /* ZXVCardResultParser.m */; settings = {ASSET_TAGS = (); }; };
-		049588811D3A620300544259 /* ZXVEventResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586CC1D3A620200544259 /* ZXVEventResultParser.m */; settings = {ASSET_TAGS = (); }; };
-		049588821D3A620300544259 /* ZXVINParsedResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586CE1D3A620200544259 /* ZXVINParsedResult.m */; settings = {ASSET_TAGS = (); }; };
-		049588831D3A620300544259 /* ZXVINResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586D01D3A620200544259 /* ZXVINResultParser.m */; settings = {ASSET_TAGS = (); }; };
-		049588841D3A620300544259 /* ZXWifiParsedResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586D21D3A620200544259 /* ZXWifiParsedResult.m */; settings = {ASSET_TAGS = (); }; };
-		049588851D3A620300544259 /* ZXWifiResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586D41D3A620200544259 /* ZXWifiResultParser.m */; settings = {ASSET_TAGS = (); }; };
-		049588861D3A620300544259 /* ZXCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586D61D3A620200544259 /* ZXCapture.m */; settings = {ASSET_TAGS = (); }; };
-		049588871D3A620300544259 /* ZXCGImageLuminanceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586D91D3A620200544259 /* ZXCGImageLuminanceSource.m */; settings = {ASSET_TAGS = (); }; };
-		049588881D3A620300544259 /* ZXImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586DB1D3A620200544259 /* ZXImage.m */; settings = {ASSET_TAGS = (); }; };
-		049588891D3A620300544259 /* ZXMathUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586DF1D3A620200544259 /* ZXMathUtils.m */; settings = {ASSET_TAGS = (); }; };
-		0495888A1D3A620300544259 /* ZXMonochromeRectangleDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586E11D3A620200544259 /* ZXMonochromeRectangleDetector.m */; settings = {ASSET_TAGS = (); }; };
-		0495888B1D3A620300544259 /* ZXWhiteRectangleDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586E31D3A620200544259 /* ZXWhiteRectangleDetector.m */; settings = {ASSET_TAGS = (); }; };
-		0495888C1D3A620300544259 /* ZXGenericGF.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586E61D3A620200544259 /* ZXGenericGF.m */; settings = {ASSET_TAGS = (); }; };
-		0495888D1D3A620300544259 /* ZXGenericGFPoly.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586E81D3A620200544259 /* ZXGenericGFPoly.m */; settings = {ASSET_TAGS = (); }; };
-		0495888E1D3A620300544259 /* ZXReedSolomonDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586EA1D3A620200544259 /* ZXReedSolomonDecoder.m */; settings = {ASSET_TAGS = (); }; };
-		0495888F1D3A620300544259 /* ZXReedSolomonEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586EC1D3A620200544259 /* ZXReedSolomonEncoder.m */; settings = {ASSET_TAGS = (); }; };
-		049588901D3A620300544259 /* ZXBitArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586EE1D3A620200544259 /* ZXBitArray.m */; settings = {ASSET_TAGS = (); }; };
-		049588911D3A620300544259 /* ZXBitMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586F01D3A620200544259 /* ZXBitMatrix.m */; settings = {ASSET_TAGS = (); }; };
-		049588921D3A620300544259 /* ZXBitSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586F21D3A620200544259 /* ZXBitSource.m */; settings = {ASSET_TAGS = (); }; };
-		049588931D3A620300544259 /* ZXBoolArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586F41D3A620200544259 /* ZXBoolArray.m */; settings = {ASSET_TAGS = (); }; };
-		049588941D3A620300544259 /* ZXByteArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586F61D3A620200544259 /* ZXByteArray.m */; settings = {ASSET_TAGS = (); }; };
-		049588951D3A620300544259 /* ZXCharacterSetECI.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586F81D3A620200544259 /* ZXCharacterSetECI.m */; settings = {ASSET_TAGS = (); }; };
-		049588961D3A620300544259 /* ZXDecoderResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586FA1D3A620200544259 /* ZXDecoderResult.m */; settings = {ASSET_TAGS = (); }; };
-		049588971D3A620300544259 /* ZXDefaultGridSampler.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586FC1D3A620200544259 /* ZXDefaultGridSampler.m */; settings = {ASSET_TAGS = (); }; };
-		049588981D3A620300544259 /* ZXDetectorResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586FE1D3A620200544259 /* ZXDetectorResult.m */; settings = {ASSET_TAGS = (); }; };
-		049588991D3A620300544259 /* ZXGlobalHistogramBinarizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587001D3A620200544259 /* ZXGlobalHistogramBinarizer.m */; settings = {ASSET_TAGS = (); }; };
-		0495889A1D3A620300544259 /* ZXGridSampler.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587021D3A620200544259 /* ZXGridSampler.m */; settings = {ASSET_TAGS = (); }; };
-		0495889B1D3A620300544259 /* ZXHybridBinarizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587041D3A620200544259 /* ZXHybridBinarizer.m */; settings = {ASSET_TAGS = (); }; };
-		0495889C1D3A620300544259 /* ZXIntArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587061D3A620200544259 /* ZXIntArray.m */; settings = {ASSET_TAGS = (); }; };
-		0495889D1D3A620300544259 /* ZXPerspectiveTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587081D3A620200544259 /* ZXPerspectiveTransform.m */; settings = {ASSET_TAGS = (); }; };
-		0495889E1D3A620300544259 /* ZXStringUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495870A1D3A620200544259 /* ZXStringUtils.m */; settings = {ASSET_TAGS = (); }; };
-		0495889F1D3A620300544259 /* ZXBinarizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495870E1D3A620200544259 /* ZXBinarizer.m */; settings = {ASSET_TAGS = (); }; };
-		049588A01D3A620300544259 /* ZXBinaryBitmap.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587101D3A620200544259 /* ZXBinaryBitmap.m */; settings = {ASSET_TAGS = (); }; };
-		049588A11D3A620300544259 /* ZXByteMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587121D3A620200544259 /* ZXByteMatrix.m */; settings = {ASSET_TAGS = (); }; };
-		049588A21D3A620300544259 /* ZXDecodeHints.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587141D3A620200544259 /* ZXDecodeHints.m */; settings = {ASSET_TAGS = (); }; };
-		049588A31D3A620300544259 /* ZXDimension.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587161D3A620200544259 /* ZXDimension.m */; settings = {ASSET_TAGS = (); }; };
-		049588A41D3A620300544259 /* ZXEncodeHints.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587181D3A620200544259 /* ZXEncodeHints.m */; settings = {ASSET_TAGS = (); }; };
-		049588A51D3A620300544259 /* ZXErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495871A1D3A620200544259 /* ZXErrors.m */; settings = {ASSET_TAGS = (); }; };
-		049588A61D3A620300544259 /* ZXInvertedLuminanceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495871D1D3A620200544259 /* ZXInvertedLuminanceSource.m */; settings = {ASSET_TAGS = (); }; };
-		049588A71D3A620300544259 /* ZXLuminanceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495871F1D3A620200544259 /* ZXLuminanceSource.m */; settings = {ASSET_TAGS = (); }; };
-		049588A81D3A620300544259 /* ZXPlanarYUVLuminanceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587211D3A620200544259 /* ZXPlanarYUVLuminanceSource.m */; settings = {ASSET_TAGS = (); }; };
-		049588A91D3A620300544259 /* ZXResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587241D3A620200544259 /* ZXResult.m */; settings = {ASSET_TAGS = (); }; };
-		049588AA1D3A620300544259 /* ZXResultPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587271D3A620200544259 /* ZXResultPoint.m */; settings = {ASSET_TAGS = (); }; };
-		049588AB1D3A620300544259 /* ZXRGBLuminanceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495872A1D3A620200544259 /* ZXRGBLuminanceSource.m */; settings = {ASSET_TAGS = (); }; };
-		049588AC1D3A620300544259 /* ZXDataMatrixBitMatrixParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495872F1D3A620200544259 /* ZXDataMatrixBitMatrixParser.m */; settings = {ASSET_TAGS = (); }; };
-		049588AD1D3A620300544259 /* ZXDataMatrixDataBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587311D3A620200544259 /* ZXDataMatrixDataBlock.m */; settings = {ASSET_TAGS = (); }; };
-		049588AE1D3A620300544259 /* ZXDataMatrixDecodedBitStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587331D3A620200544259 /* ZXDataMatrixDecodedBitStreamParser.m */; settings = {ASSET_TAGS = (); }; };
-		049588AF1D3A620300544259 /* ZXDataMatrixDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587351D3A620200544259 /* ZXDataMatrixDecoder.m */; settings = {ASSET_TAGS = (); }; };
-		049588B01D3A620300544259 /* ZXDataMatrixVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587371D3A620200544259 /* ZXDataMatrixVersion.m */; settings = {ASSET_TAGS = (); }; };
-		049588B11D3A620300544259 /* ZXDataMatrixDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495873A1D3A620200544259 /* ZXDataMatrixDetector.m */; settings = {ASSET_TAGS = (); }; };
-		049588B21D3A620300544259 /* ZXDataMatrixASCIIEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495873D1D3A620200544259 /* ZXDataMatrixASCIIEncoder.m */; settings = {ASSET_TAGS = (); }; };
-		049588B31D3A620300544259 /* ZXDataMatrixBase256Encoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495873F1D3A620200544259 /* ZXDataMatrixBase256Encoder.m */; settings = {ASSET_TAGS = (); }; };
-		049588B41D3A620300544259 /* ZXDataMatrixC40Encoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587411D3A620200544259 /* ZXDataMatrixC40Encoder.m */; settings = {ASSET_TAGS = (); }; };
-		049588B51D3A620300544259 /* ZXDataMatrixDefaultPlacement.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587431D3A620200544259 /* ZXDataMatrixDefaultPlacement.m */; settings = {ASSET_TAGS = (); }; };
-		049588B61D3A620300544259 /* ZXDataMatrixEdifactEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587451D3A620200544259 /* ZXDataMatrixEdifactEncoder.m */; settings = {ASSET_TAGS = (); }; };
-		049588B71D3A620300544259 /* ZXDataMatrixEncoderContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587481D3A620200544259 /* ZXDataMatrixEncoderContext.m */; settings = {ASSET_TAGS = (); }; };
-		049588B81D3A620300544259 /* ZXDataMatrixErrorCorrection.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495874A1D3A620200544259 /* ZXDataMatrixErrorCorrection.m */; settings = {ASSET_TAGS = (); }; };
-		049588B91D3A620300544259 /* ZXDataMatrixHighLevelEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495874C1D3A620200544259 /* ZXDataMatrixHighLevelEncoder.m */; settings = {ASSET_TAGS = (); }; };
-		049588BA1D3A620300544259 /* ZXDataMatrixSymbolInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495874E1D3A620200544259 /* ZXDataMatrixSymbolInfo.m */; settings = {ASSET_TAGS = (); }; };
-		049588BB1D3A620300544259 /* ZXDataMatrixSymbolInfo144.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587501D3A620200544259 /* ZXDataMatrixSymbolInfo144.m */; settings = {ASSET_TAGS = (); }; };
-		049588BC1D3A620300544259 /* ZXDataMatrixTextEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587521D3A620200544259 /* ZXDataMatrixTextEncoder.m */; settings = {ASSET_TAGS = (); }; };
-		049588BD1D3A620300544259 /* ZXDataMatrixX12Encoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587541D3A620200544259 /* ZXDataMatrixX12Encoder.m */; settings = {ASSET_TAGS = (); }; };
-		049588BE1D3A620300544259 /* ZXDataMatrixReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587561D3A620200544259 /* ZXDataMatrixReader.m */; settings = {ASSET_TAGS = (); }; };
-		049588BF1D3A620300544259 /* ZXDataMatrixWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587581D3A620200544259 /* ZXDataMatrixWriter.m */; settings = {ASSET_TAGS = (); }; };
-		049588C01D3A620300544259 /* ZXMaxiCodeBitMatrixParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495875D1D3A620200544259 /* ZXMaxiCodeBitMatrixParser.m */; settings = {ASSET_TAGS = (); }; };
-		049588C11D3A620300544259 /* ZXMaxiCodeDecodedBitStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495875F1D3A620200544259 /* ZXMaxiCodeDecodedBitStreamParser.m */; settings = {ASSET_TAGS = (); }; };
-		049588C21D3A620300544259 /* ZXMaxiCodeDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587611D3A620200544259 /* ZXMaxiCodeDecoder.m */; settings = {ASSET_TAGS = (); }; };
-		049588C31D3A620300544259 /* ZXMaxiCodeReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587641D3A620200544259 /* ZXMaxiCodeReader.m */; settings = {ASSET_TAGS = (); }; };
-		049588C41D3A620300544259 /* ZXByQuadrantReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587671D3A620200544259 /* ZXByQuadrantReader.m */; settings = {ASSET_TAGS = (); }; };
-		049588C51D3A620300544259 /* ZXGenericMultipleBarcodeReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587691D3A620200544259 /* ZXGenericMultipleBarcodeReader.m */; settings = {ASSET_TAGS = (); }; };
-		049588C61D3A620300544259 /* ZXAbstractExpandedDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587701D3A620200544259 /* ZXAbstractExpandedDecoder.m */; settings = {ASSET_TAGS = (); }; };
-		049588C71D3A620300544259 /* ZXAI013103decoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587721D3A620200544259 /* ZXAI013103decoder.m */; settings = {ASSET_TAGS = (); }; };
-		049588C81D3A620300544259 /* ZXAI01320xDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587741D3A620200544259 /* ZXAI01320xDecoder.m */; settings = {ASSET_TAGS = (); }; };
-		049588C91D3A620300544259 /* ZXAI01392xDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587761D3A620200544259 /* ZXAI01392xDecoder.m */; settings = {ASSET_TAGS = (); }; };
-		049588CA1D3A620300544259 /* ZXAI01393xDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587781D3A620200544259 /* ZXAI01393xDecoder.m */; settings = {ASSET_TAGS = (); }; };
-		049588CB1D3A620300544259 /* ZXAI013x0x1xDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495877A1D3A620200544259 /* ZXAI013x0x1xDecoder.m */; settings = {ASSET_TAGS = (); }; };
-		049588CC1D3A620300544259 /* ZXAI013x0xDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495877C1D3A620200544259 /* ZXAI013x0xDecoder.m */; settings = {ASSET_TAGS = (); }; };
-		049588CD1D3A620300544259 /* ZXAI01AndOtherAIs.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495877E1D3A620200544259 /* ZXAI01AndOtherAIs.m */; settings = {ASSET_TAGS = (); }; };
-		049588CE1D3A620300544259 /* ZXAI01decoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587801D3A620200544259 /* ZXAI01decoder.m */; settings = {ASSET_TAGS = (); }; };
-		049588CF1D3A620300544259 /* ZXAI01weightDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587821D3A620200544259 /* ZXAI01weightDecoder.m */; settings = {ASSET_TAGS = (); }; };
-		049588D01D3A620300544259 /* ZXAnyAIDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587841D3A620200544259 /* ZXAnyAIDecoder.m */; settings = {ASSET_TAGS = (); }; };
-		049588D11D3A620300544259 /* ZXRSSExpandedBlockParsedResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587861D3A620200544259 /* ZXRSSExpandedBlockParsedResult.m */; settings = {ASSET_TAGS = (); }; };
-		049588D21D3A620300544259 /* ZXRSSExpandedCurrentParsingState.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587881D3A620200544259 /* ZXRSSExpandedCurrentParsingState.m */; settings = {ASSET_TAGS = (); }; };
-		049588D31D3A620300544259 /* ZXRSSExpandedDecodedChar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495878A1D3A620200544259 /* ZXRSSExpandedDecodedChar.m */; settings = {ASSET_TAGS = (); }; };
-		049588D41D3A620300544259 /* ZXRSSExpandedDecodedInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495878C1D3A620200544259 /* ZXRSSExpandedDecodedInformation.m */; settings = {ASSET_TAGS = (); }; };
-		049588D51D3A620300544259 /* ZXRSSExpandedDecodedNumeric.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495878E1D3A620200544259 /* ZXRSSExpandedDecodedNumeric.m */; settings = {ASSET_TAGS = (); }; };
-		049588D61D3A620300544259 /* ZXRSSExpandedDecodedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587901D3A620200544259 /* ZXRSSExpandedDecodedObject.m */; settings = {ASSET_TAGS = (); }; };
-		049588D71D3A620300544259 /* ZXRSSExpandedFieldParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587921D3A620200544259 /* ZXRSSExpandedFieldParser.m */; settings = {ASSET_TAGS = (); }; };
-		049588D81D3A620300544259 /* ZXRSSExpandedGeneralAppIdDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587941D3A620200544259 /* ZXRSSExpandedGeneralAppIdDecoder.m */; settings = {ASSET_TAGS = (); }; };
-		049588D91D3A620300544259 /* ZXBitArrayBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587961D3A620200544259 /* ZXBitArrayBuilder.m */; settings = {ASSET_TAGS = (); }; };
-		049588DA1D3A620300544259 /* ZXRSSExpandedPair.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587981D3A620200544259 /* ZXRSSExpandedPair.m */; settings = {ASSET_TAGS = (); }; };
-		049588DB1D3A620300544259 /* ZXRSSExpandedReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495879A1D3A620200544259 /* ZXRSSExpandedReader.m */; settings = {ASSET_TAGS = (); }; };
-		049588DC1D3A620300544259 /* ZXRSSExpandedRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495879C1D3A620200544259 /* ZXRSSExpandedRow.m */; settings = {ASSET_TAGS = (); }; };
-		049588DD1D3A620300544259 /* ZXAbstractRSSReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495879E1D3A620200544259 /* ZXAbstractRSSReader.m */; settings = {ASSET_TAGS = (); }; };
-		049588DE1D3A620300544259 /* ZXRSS14Reader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587A01D3A620200544259 /* ZXRSS14Reader.m */; settings = {ASSET_TAGS = (); }; };
-		049588DF1D3A620300544259 /* ZXRSSDataCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587A21D3A620200544259 /* ZXRSSDataCharacter.m */; settings = {ASSET_TAGS = (); }; };
-		049588E01D3A620300544259 /* ZXRSSFinderPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587A41D3A620200544259 /* ZXRSSFinderPattern.m */; settings = {ASSET_TAGS = (); }; };
-		049588E11D3A620300544259 /* ZXRSSPair.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587A61D3A620200544259 /* ZXRSSPair.m */; settings = {ASSET_TAGS = (); }; };
-		049588E21D3A620300544259 /* ZXRSSUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587A81D3A620200544259 /* ZXRSSUtils.m */; settings = {ASSET_TAGS = (); }; };
-		049588E31D3A620300544259 /* ZXCodaBarReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587AA1D3A620200544259 /* ZXCodaBarReader.m */; settings = {ASSET_TAGS = (); }; };
-		049588E41D3A620300544259 /* ZXCodaBarWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587AC1D3A620200544259 /* ZXCodaBarWriter.m */; settings = {ASSET_TAGS = (); }; };
-		049588E51D3A620300544259 /* ZXCode128Reader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587AE1D3A620200544259 /* ZXCode128Reader.m */; settings = {ASSET_TAGS = (); }; };
-		049588E61D3A620300544259 /* ZXCode128Writer.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587B01D3A620200544259 /* ZXCode128Writer.m */; settings = {ASSET_TAGS = (); }; };
-		049588E71D3A620300544259 /* ZXCode39Reader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587B21D3A620200544259 /* ZXCode39Reader.m */; settings = {ASSET_TAGS = (); }; };
-		049588E81D3A620300544259 /* ZXCode39Writer.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587B41D3A620200544259 /* ZXCode39Writer.m */; settings = {ASSET_TAGS = (); }; };
-		049588E91D3A620300544259 /* ZXCode93Reader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587B61D3A620200544259 /* ZXCode93Reader.m */; settings = {ASSET_TAGS = (); }; };
-		049588EA1D3A620300544259 /* ZXEAN13Reader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587B81D3A620200544259 /* ZXEAN13Reader.m */; settings = {ASSET_TAGS = (); }; };
-		049588EB1D3A620300544259 /* ZXEAN13Writer.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587BA1D3A620200544259 /* ZXEAN13Writer.m */; settings = {ASSET_TAGS = (); }; };
-		049588EC1D3A620300544259 /* ZXEAN8Reader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587BC1D3A620200544259 /* ZXEAN8Reader.m */; settings = {ASSET_TAGS = (); }; };
-		049588ED1D3A620300544259 /* ZXEAN8Writer.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587BE1D3A620200544259 /* ZXEAN8Writer.m */; settings = {ASSET_TAGS = (); }; };
-		049588EE1D3A620300544259 /* ZXEANManufacturerOrgSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587C01D3A620200544259 /* ZXEANManufacturerOrgSupport.m */; settings = {ASSET_TAGS = (); }; };
-		049588EF1D3A620300544259 /* ZXITFReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587C31D3A620200544259 /* ZXITFReader.m */; settings = {ASSET_TAGS = (); }; };
-		049588F01D3A620300544259 /* ZXITFWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587C51D3A620200544259 /* ZXITFWriter.m */; settings = {ASSET_TAGS = (); }; };
-		049588F11D3A620300544259 /* ZXMultiFormatOneDReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587C71D3A620200544259 /* ZXMultiFormatOneDReader.m */; settings = {ASSET_TAGS = (); }; };
-		049588F21D3A620300544259 /* ZXMultiFormatUPCEANReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587C91D3A620200544259 /* ZXMultiFormatUPCEANReader.m */; settings = {ASSET_TAGS = (); }; };
-		049588F31D3A620300544259 /* ZXOneDimensionalCodeWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587CB1D3A620200544259 /* ZXOneDimensionalCodeWriter.m */; settings = {ASSET_TAGS = (); }; };
-		049588F41D3A620300544259 /* ZXOneDReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587CD1D3A620200544259 /* ZXOneDReader.m */; settings = {ASSET_TAGS = (); }; };
-		049588F51D3A620300544259 /* ZXUPCAReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587CF1D3A620200544259 /* ZXUPCAReader.m */; settings = {ASSET_TAGS = (); }; };
-		049588F61D3A620300544259 /* ZXUPCAWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587D11D3A620200544259 /* ZXUPCAWriter.m */; settings = {ASSET_TAGS = (); }; };
-		049588F71D3A620300544259 /* ZXUPCEANExtension2Support.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587D31D3A620200544259 /* ZXUPCEANExtension2Support.m */; settings = {ASSET_TAGS = (); }; };
-		049588F81D3A620300544259 /* ZXUPCEANExtension5Support.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587D51D3A620200544259 /* ZXUPCEANExtension5Support.m */; settings = {ASSET_TAGS = (); }; };
-		049588F91D3A620300544259 /* ZXUPCEANExtensionSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587D71D3A620200544259 /* ZXUPCEANExtensionSupport.m */; settings = {ASSET_TAGS = (); }; };
-		049588FA1D3A620300544259 /* ZXUPCEANReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587D91D3A620200544259 /* ZXUPCEANReader.m */; settings = {ASSET_TAGS = (); }; };
-		049588FB1D3A620300544259 /* ZXUPCEANWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587DB1D3A620200544259 /* ZXUPCEANWriter.m */; settings = {ASSET_TAGS = (); }; };
-		049588FC1D3A620300544259 /* ZXUPCEReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587DD1D3A620200544259 /* ZXUPCEReader.m */; settings = {ASSET_TAGS = (); }; };
-		049588FD1D3A620300544259 /* ZXModulusGF.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587E21D3A620200544259 /* ZXModulusGF.m */; settings = {ASSET_TAGS = (); }; };
-		049588FE1D3A620300544259 /* ZXModulusPoly.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587E41D3A620200544259 /* ZXModulusPoly.m */; settings = {ASSET_TAGS = (); }; };
-		049588FF1D3A620300544259 /* ZXPDF417ECErrorCorrection.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587E61D3A620200544259 /* ZXPDF417ECErrorCorrection.m */; settings = {ASSET_TAGS = (); }; };
-		049589001D3A620300544259 /* ZXPDF417BarcodeMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587E81D3A620200544259 /* ZXPDF417BarcodeMetadata.m */; settings = {ASSET_TAGS = (); }; };
-		049589011D3A620300544259 /* ZXPDF417BarcodeValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587EA1D3A620200544259 /* ZXPDF417BarcodeValue.m */; settings = {ASSET_TAGS = (); }; };
-		049589021D3A620300544259 /* ZXPDF417BoundingBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587EC1D3A620200544259 /* ZXPDF417BoundingBox.m */; settings = {ASSET_TAGS = (); }; };
-		049589031D3A620300544259 /* ZXPDF417Codeword.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587EE1D3A620200544259 /* ZXPDF417Codeword.m */; settings = {ASSET_TAGS = (); }; };
-		049589041D3A620300544259 /* ZXPDF417CodewordDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587F01D3A620200544259 /* ZXPDF417CodewordDecoder.m */; settings = {ASSET_TAGS = (); }; };
-		049589051D3A620300544259 /* ZXPDF417DecodedBitStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587F21D3A620200544259 /* ZXPDF417DecodedBitStreamParser.m */; settings = {ASSET_TAGS = (); }; };
-		049589061D3A620300544259 /* ZXPDF417DetectionResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587F41D3A620200544259 /* ZXPDF417DetectionResult.m */; settings = {ASSET_TAGS = (); }; };
-		049589071D3A620300544259 /* ZXPDF417DetectionResultColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587F61D3A620200544259 /* ZXPDF417DetectionResultColumn.m */; settings = {ASSET_TAGS = (); }; };
-		049589081D3A620300544259 /* ZXPDF417DetectionResultRowIndicatorColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587F81D3A620200544259 /* ZXPDF417DetectionResultRowIndicatorColumn.m */; settings = {ASSET_TAGS = (); }; };
-		049589091D3A620300544259 /* ZXPDF417ScanningDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587FA1D3A620200544259 /* ZXPDF417ScanningDecoder.m */; settings = {ASSET_TAGS = (); }; };
-		0495890A1D3A620300544259 /* ZXPDF417Detector.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587FD1D3A620200544259 /* ZXPDF417Detector.m */; settings = {ASSET_TAGS = (); }; };
-		0495890B1D3A620300544259 /* ZXPDF417DetectorResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587FF1D3A620200544259 /* ZXPDF417DetectorResult.m */; settings = {ASSET_TAGS = (); }; };
-		0495890C1D3A620300544259 /* ZXPDF417.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588021D3A620200544259 /* ZXPDF417.m */; settings = {ASSET_TAGS = (); }; };
-		0495890D1D3A620300544259 /* ZXPDF417BarcodeMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588041D3A620200544259 /* ZXPDF417BarcodeMatrix.m */; settings = {ASSET_TAGS = (); }; };
-		0495890E1D3A620300544259 /* ZXPDF417BarcodeRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588061D3A620200544259 /* ZXPDF417BarcodeRow.m */; settings = {ASSET_TAGS = (); }; };
-		0495890F1D3A620300544259 /* ZXPDF417Dimensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588081D3A620200544259 /* ZXPDF417Dimensions.m */; settings = {ASSET_TAGS = (); }; };
-		049589101D3A620300544259 /* ZXPDF417ErrorCorrection.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495880A1D3A620200544259 /* ZXPDF417ErrorCorrection.m */; settings = {ASSET_TAGS = (); }; };
-		049589111D3A620300544259 /* ZXPDF417HighLevelEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495880C1D3A620200544259 /* ZXPDF417HighLevelEncoder.m */; settings = {ASSET_TAGS = (); }; };
-		049589121D3A620300544259 /* ZXPDF417Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495880F1D3A620200544259 /* ZXPDF417Common.m */; settings = {ASSET_TAGS = (); }; };
-		049589131D3A620300544259 /* ZXPDF417Reader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588111D3A620200544259 /* ZXPDF417Reader.m */; settings = {ASSET_TAGS = (); }; };
-		049589141D3A620300544259 /* ZXPDF417ResultMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588131D3A620200544259 /* ZXPDF417ResultMetadata.m */; settings = {ASSET_TAGS = (); }; };
-		049589151D3A620300544259 /* ZXPDF417Writer.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588151D3A620200544259 /* ZXPDF417Writer.m */; settings = {ASSET_TAGS = (); }; };
-		049589161D3A620300544259 /* ZXQRCodeBitMatrixParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588191D3A620200544259 /* ZXQRCodeBitMatrixParser.m */; settings = {ASSET_TAGS = (); }; };
-		049589171D3A620300544259 /* ZXQRCodeDataBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495881B1D3A620200544259 /* ZXQRCodeDataBlock.m */; settings = {ASSET_TAGS = (); }; };
-		049589181D3A620300544259 /* ZXQRCodeDataMask.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495881D1D3A620200544259 /* ZXQRCodeDataMask.m */; settings = {ASSET_TAGS = (); }; };
-		049589191D3A620300544259 /* ZXQRCodeDecodedBitStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495881F1D3A620200544259 /* ZXQRCodeDecodedBitStreamParser.m */; settings = {ASSET_TAGS = (); }; };
-		0495891A1D3A620300544259 /* ZXQRCodeDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588211D3A620200544259 /* ZXQRCodeDecoder.m */; settings = {ASSET_TAGS = (); }; };
-		0495891B1D3A620300544259 /* ZXQRCodeDecoderMetaData.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588231D3A620200544259 /* ZXQRCodeDecoderMetaData.m */; settings = {ASSET_TAGS = (); }; };
-		0495891C1D3A620300544259 /* ZXQRCodeErrorCorrectionLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588251D3A620200544259 /* ZXQRCodeErrorCorrectionLevel.m */; settings = {ASSET_TAGS = (); }; };
-		0495891D1D3A620300544259 /* ZXQRCodeFormatInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588271D3A620200544259 /* ZXQRCodeFormatInformation.m */; settings = {ASSET_TAGS = (); }; };
-		0495891E1D3A620300544259 /* ZXQRCodeMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588291D3A620200544259 /* ZXQRCodeMode.m */; settings = {ASSET_TAGS = (); }; };
-		0495891F1D3A620300544259 /* ZXQRCodeVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495882B1D3A620200544259 /* ZXQRCodeVersion.m */; settings = {ASSET_TAGS = (); }; };
-		049589201D3A620300544259 /* ZXQRCodeAlignmentPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495882E1D3A620200544259 /* ZXQRCodeAlignmentPattern.m */; settings = {ASSET_TAGS = (); }; };
-		049589211D3A620300544259 /* ZXQRCodeAlignmentPatternFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588301D3A620200544259 /* ZXQRCodeAlignmentPatternFinder.m */; settings = {ASSET_TAGS = (); }; };
-		049589221D3A620300544259 /* ZXQRCodeDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588321D3A620200544259 /* ZXQRCodeDetector.m */; settings = {ASSET_TAGS = (); }; };
-		049589231D3A620300544259 /* ZXQRCodeFinderPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588341D3A620200544259 /* ZXQRCodeFinderPattern.m */; settings = {ASSET_TAGS = (); }; };
-		049589241D3A620300544259 /* ZXQRCodeFinderPatternFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588361D3A620200544259 /* ZXQRCodeFinderPatternFinder.m */; settings = {ASSET_TAGS = (); }; };
-		049589251D3A620300544259 /* ZXQRCodeFinderPatternInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588381D3A620200544259 /* ZXQRCodeFinderPatternInfo.m */; settings = {ASSET_TAGS = (); }; };
-		049589261D3A620300544259 /* ZXQRCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495883B1D3A620200544259 /* ZXQRCode.m */; settings = {ASSET_TAGS = (); }; };
-		049589271D3A620300544259 /* ZXQRCodeBlockPair.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495883D1D3A620200544259 /* ZXQRCodeBlockPair.m */; settings = {ASSET_TAGS = (); }; };
-		049589281D3A620300544259 /* ZXQRCodeEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495883F1D3A620200544259 /* ZXQRCodeEncoder.m */; settings = {ASSET_TAGS = (); }; };
-		049589291D3A620300544259 /* ZXQRCodeMaskUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588411D3A620200544259 /* ZXQRCodeMaskUtil.m */; settings = {ASSET_TAGS = (); }; };
-		0495892A1D3A620300544259 /* ZXQRCodeMatrixUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588431D3A620200544259 /* ZXQRCodeMatrixUtil.m */; settings = {ASSET_TAGS = (); }; };
-		0495892B1D3A620300544259 /* ZXMultiDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588471D3A620200544259 /* ZXMultiDetector.m */; settings = {ASSET_TAGS = (); }; };
-		0495892C1D3A620300544259 /* ZXMultiFinderPatternFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588491D3A620200544259 /* ZXMultiFinderPatternFinder.m */; settings = {ASSET_TAGS = (); }; };
-		0495892D1D3A620300544259 /* ZXQRCodeMultiReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495884B1D3A620200544259 /* ZXQRCodeMultiReader.m */; settings = {ASSET_TAGS = (); }; };
-		0495892E1D3A620300544259 /* ZXQRCodeReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495884E1D3A620200544259 /* ZXQRCodeReader.m */; settings = {ASSET_TAGS = (); }; };
-		0495892F1D3A620300544259 /* ZXQRCodeWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588501D3A620200544259 /* ZXQRCodeWriter.m */; settings = {ASSET_TAGS = (); }; };
-		049589301D3A620300544259 /* ZXMultiFormatReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588531D3A620200544259 /* ZXMultiFormatReader.m */; settings = {ASSET_TAGS = (); }; };
-		049589311D3A620300544259 /* ZXMultiFormatWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588551D3A620200544259 /* ZXMultiFormatWriter.m */; settings = {ASSET_TAGS = (); }; };
-		049589381D3A62B900544259 /* CMQRCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 049589371D3A62B900544259 /* CMQRCode.m */; settings = {ASSET_TAGS = (); }; };
+		049588561D3A620300544259 /* ZXAztecDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586701D3A620200544259 /* ZXAztecDecoder.m */; };
+		049588571D3A620300544259 /* ZXAztecDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586731D3A620200544259 /* ZXAztecDetector.m */; };
+		049588581D3A620300544259 /* ZXAztecBinaryShiftToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586761D3A620200544259 /* ZXAztecBinaryShiftToken.m */; };
+		049588591D3A620300544259 /* ZXAztecCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586781D3A620200544259 /* ZXAztecCode.m */; };
+		0495885A1D3A620300544259 /* ZXAztecEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495867A1D3A620200544259 /* ZXAztecEncoder.m */; };
+		0495885B1D3A620300544259 /* ZXAztecHighLevelEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495867C1D3A620200544259 /* ZXAztecHighLevelEncoder.m */; };
+		0495885C1D3A620300544259 /* ZXAztecSimpleToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495867E1D3A620200544259 /* ZXAztecSimpleToken.m */; };
+		0495885D1D3A620300544259 /* ZXAztecState.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586801D3A620200544259 /* ZXAztecState.m */; };
+		0495885E1D3A620300544259 /* ZXAztecToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586821D3A620200544259 /* ZXAztecToken.m */; };
+		0495885F1D3A620300544259 /* ZXAztecDetectorResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586841D3A620200544259 /* ZXAztecDetectorResult.m */; };
+		049588601D3A620300544259 /* ZXAztecReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586861D3A620200544259 /* ZXAztecReader.m */; };
+		049588611D3A620300544259 /* ZXAztecWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586881D3A620200544259 /* ZXAztecWriter.m */; };
+		049588621D3A620300544259 /* ZXAbstractDoCoMoResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495868D1D3A620200544259 /* ZXAbstractDoCoMoResultParser.m */; };
+		049588631D3A620300544259 /* ZXAddressBookAUResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495868F1D3A620200544259 /* ZXAddressBookAUResultParser.m */; };
+		049588641D3A620300544259 /* ZXAddressBookDoCoMoResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586911D3A620200544259 /* ZXAddressBookDoCoMoResultParser.m */; };
+		049588651D3A620300544259 /* ZXAddressBookParsedResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586931D3A620200544259 /* ZXAddressBookParsedResult.m */; };
+		049588661D3A620300544259 /* ZXBizcardResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586951D3A620200544259 /* ZXBizcardResultParser.m */; };
+		049588671D3A620300544259 /* ZXBookmarkDoCoMoResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586971D3A620200544259 /* ZXBookmarkDoCoMoResultParser.m */; };
+		049588681D3A620300544259 /* ZXCalendarParsedResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586991D3A620200544259 /* ZXCalendarParsedResult.m */; };
+		049588691D3A620300544259 /* ZXEmailAddressParsedResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495869B1D3A620200544259 /* ZXEmailAddressParsedResult.m */; };
+		0495886A1D3A620300544259 /* ZXEmailAddressResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495869D1D3A620200544259 /* ZXEmailAddressResultParser.m */; };
+		0495886B1D3A620300544259 /* ZXEmailDoCoMoResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495869F1D3A620200544259 /* ZXEmailDoCoMoResultParser.m */; };
+		0495886C1D3A620300544259 /* ZXExpandedProductParsedResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586A11D3A620200544259 /* ZXExpandedProductParsedResult.m */; };
+		0495886D1D3A620300544259 /* ZXExpandedProductResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586A31D3A620200544259 /* ZXExpandedProductResultParser.m */; };
+		0495886E1D3A620300544259 /* ZXGeoParsedResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586A51D3A620200544259 /* ZXGeoParsedResult.m */; };
+		0495886F1D3A620300544259 /* ZXGeoResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586A71D3A620200544259 /* ZXGeoResultParser.m */; };
+		049588701D3A620300544259 /* ZXISBNParsedResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586A91D3A620200544259 /* ZXISBNParsedResult.m */; };
+		049588711D3A620300544259 /* ZXISBNResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586AB1D3A620200544259 /* ZXISBNResultParser.m */; };
+		049588721D3A620300544259 /* ZXParsedResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586AD1D3A620200544259 /* ZXParsedResult.m */; };
+		049588731D3A620300544259 /* ZXProductParsedResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586B01D3A620200544259 /* ZXProductParsedResult.m */; };
+		049588741D3A620300544259 /* ZXProductResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586B21D3A620200544259 /* ZXProductResultParser.m */; };
+		049588751D3A620300544259 /* ZXResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586B41D3A620200544259 /* ZXResultParser.m */; };
+		049588761D3A620300544259 /* ZXSMSMMSResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586B61D3A620200544259 /* ZXSMSMMSResultParser.m */; };
+		049588771D3A620300544259 /* ZXSMSParsedResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586B81D3A620200544259 /* ZXSMSParsedResult.m */; };
+		049588781D3A620300544259 /* ZXSMSTOMMSTOResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586BA1D3A620200544259 /* ZXSMSTOMMSTOResultParser.m */; };
+		049588791D3A620300544259 /* ZXSMTPResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586BC1D3A620200544259 /* ZXSMTPResultParser.m */; };
+		0495887A1D3A620300544259 /* ZXTelParsedResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586BE1D3A620200544259 /* ZXTelParsedResult.m */; };
+		0495887B1D3A620300544259 /* ZXTelResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586C01D3A620200544259 /* ZXTelResultParser.m */; };
+		0495887C1D3A620300544259 /* ZXTextParsedResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586C21D3A620200544259 /* ZXTextParsedResult.m */; };
+		0495887D1D3A620300544259 /* ZXURIParsedResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586C41D3A620200544259 /* ZXURIParsedResult.m */; };
+		0495887E1D3A620300544259 /* ZXURIResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586C61D3A620200544259 /* ZXURIResultParser.m */; };
+		0495887F1D3A620300544259 /* ZXURLTOResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586C81D3A620200544259 /* ZXURLTOResultParser.m */; };
+		049588801D3A620300544259 /* ZXVCardResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586CA1D3A620200544259 /* ZXVCardResultParser.m */; };
+		049588811D3A620300544259 /* ZXVEventResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586CC1D3A620200544259 /* ZXVEventResultParser.m */; };
+		049588821D3A620300544259 /* ZXVINParsedResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586CE1D3A620200544259 /* ZXVINParsedResult.m */; };
+		049588831D3A620300544259 /* ZXVINResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586D01D3A620200544259 /* ZXVINResultParser.m */; };
+		049588841D3A620300544259 /* ZXWifiParsedResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586D21D3A620200544259 /* ZXWifiParsedResult.m */; };
+		049588851D3A620300544259 /* ZXWifiResultParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586D41D3A620200544259 /* ZXWifiResultParser.m */; };
+		049588861D3A620300544259 /* ZXCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586D61D3A620200544259 /* ZXCapture.m */; };
+		049588871D3A620300544259 /* ZXCGImageLuminanceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586D91D3A620200544259 /* ZXCGImageLuminanceSource.m */; };
+		049588881D3A620300544259 /* ZXImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586DB1D3A620200544259 /* ZXImage.m */; };
+		049588891D3A620300544259 /* ZXMathUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586DF1D3A620200544259 /* ZXMathUtils.m */; };
+		0495888A1D3A620300544259 /* ZXMonochromeRectangleDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586E11D3A620200544259 /* ZXMonochromeRectangleDetector.m */; };
+		0495888B1D3A620300544259 /* ZXWhiteRectangleDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586E31D3A620200544259 /* ZXWhiteRectangleDetector.m */; };
+		0495888C1D3A620300544259 /* ZXGenericGF.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586E61D3A620200544259 /* ZXGenericGF.m */; };
+		0495888D1D3A620300544259 /* ZXGenericGFPoly.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586E81D3A620200544259 /* ZXGenericGFPoly.m */; };
+		0495888E1D3A620300544259 /* ZXReedSolomonDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586EA1D3A620200544259 /* ZXReedSolomonDecoder.m */; };
+		0495888F1D3A620300544259 /* ZXReedSolomonEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586EC1D3A620200544259 /* ZXReedSolomonEncoder.m */; };
+		049588901D3A620300544259 /* ZXBitArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586EE1D3A620200544259 /* ZXBitArray.m */; };
+		049588911D3A620300544259 /* ZXBitMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586F01D3A620200544259 /* ZXBitMatrix.m */; };
+		049588921D3A620300544259 /* ZXBitSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586F21D3A620200544259 /* ZXBitSource.m */; };
+		049588931D3A620300544259 /* ZXBoolArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586F41D3A620200544259 /* ZXBoolArray.m */; };
+		049588941D3A620300544259 /* ZXByteArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586F61D3A620200544259 /* ZXByteArray.m */; };
+		049588951D3A620300544259 /* ZXCharacterSetECI.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586F81D3A620200544259 /* ZXCharacterSetECI.m */; };
+		049588961D3A620300544259 /* ZXDecoderResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586FA1D3A620200544259 /* ZXDecoderResult.m */; };
+		049588971D3A620300544259 /* ZXDefaultGridSampler.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586FC1D3A620200544259 /* ZXDefaultGridSampler.m */; };
+		049588981D3A620300544259 /* ZXDetectorResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049586FE1D3A620200544259 /* ZXDetectorResult.m */; };
+		049588991D3A620300544259 /* ZXGlobalHistogramBinarizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587001D3A620200544259 /* ZXGlobalHistogramBinarizer.m */; };
+		0495889A1D3A620300544259 /* ZXGridSampler.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587021D3A620200544259 /* ZXGridSampler.m */; };
+		0495889B1D3A620300544259 /* ZXHybridBinarizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587041D3A620200544259 /* ZXHybridBinarizer.m */; };
+		0495889C1D3A620300544259 /* ZXIntArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587061D3A620200544259 /* ZXIntArray.m */; };
+		0495889D1D3A620300544259 /* ZXPerspectiveTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587081D3A620200544259 /* ZXPerspectiveTransform.m */; };
+		0495889E1D3A620300544259 /* ZXStringUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495870A1D3A620200544259 /* ZXStringUtils.m */; };
+		0495889F1D3A620300544259 /* ZXBinarizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495870E1D3A620200544259 /* ZXBinarizer.m */; };
+		049588A01D3A620300544259 /* ZXBinaryBitmap.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587101D3A620200544259 /* ZXBinaryBitmap.m */; };
+		049588A11D3A620300544259 /* ZXByteMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587121D3A620200544259 /* ZXByteMatrix.m */; };
+		049588A21D3A620300544259 /* ZXDecodeHints.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587141D3A620200544259 /* ZXDecodeHints.m */; };
+		049588A31D3A620300544259 /* ZXDimension.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587161D3A620200544259 /* ZXDimension.m */; };
+		049588A41D3A620300544259 /* ZXEncodeHints.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587181D3A620200544259 /* ZXEncodeHints.m */; };
+		049588A51D3A620300544259 /* ZXErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495871A1D3A620200544259 /* ZXErrors.m */; };
+		049588A61D3A620300544259 /* ZXInvertedLuminanceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495871D1D3A620200544259 /* ZXInvertedLuminanceSource.m */; };
+		049588A71D3A620300544259 /* ZXLuminanceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495871F1D3A620200544259 /* ZXLuminanceSource.m */; };
+		049588A81D3A620300544259 /* ZXPlanarYUVLuminanceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587211D3A620200544259 /* ZXPlanarYUVLuminanceSource.m */; };
+		049588A91D3A620300544259 /* ZXResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587241D3A620200544259 /* ZXResult.m */; };
+		049588AA1D3A620300544259 /* ZXResultPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587271D3A620200544259 /* ZXResultPoint.m */; };
+		049588AB1D3A620300544259 /* ZXRGBLuminanceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495872A1D3A620200544259 /* ZXRGBLuminanceSource.m */; };
+		049588AC1D3A620300544259 /* ZXDataMatrixBitMatrixParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495872F1D3A620200544259 /* ZXDataMatrixBitMatrixParser.m */; };
+		049588AD1D3A620300544259 /* ZXDataMatrixDataBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587311D3A620200544259 /* ZXDataMatrixDataBlock.m */; };
+		049588AE1D3A620300544259 /* ZXDataMatrixDecodedBitStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587331D3A620200544259 /* ZXDataMatrixDecodedBitStreamParser.m */; };
+		049588AF1D3A620300544259 /* ZXDataMatrixDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587351D3A620200544259 /* ZXDataMatrixDecoder.m */; };
+		049588B01D3A620300544259 /* ZXDataMatrixVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587371D3A620200544259 /* ZXDataMatrixVersion.m */; };
+		049588B11D3A620300544259 /* ZXDataMatrixDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495873A1D3A620200544259 /* ZXDataMatrixDetector.m */; };
+		049588B21D3A620300544259 /* ZXDataMatrixASCIIEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495873D1D3A620200544259 /* ZXDataMatrixASCIIEncoder.m */; };
+		049588B31D3A620300544259 /* ZXDataMatrixBase256Encoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495873F1D3A620200544259 /* ZXDataMatrixBase256Encoder.m */; };
+		049588B41D3A620300544259 /* ZXDataMatrixC40Encoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587411D3A620200544259 /* ZXDataMatrixC40Encoder.m */; };
+		049588B51D3A620300544259 /* ZXDataMatrixDefaultPlacement.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587431D3A620200544259 /* ZXDataMatrixDefaultPlacement.m */; };
+		049588B61D3A620300544259 /* ZXDataMatrixEdifactEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587451D3A620200544259 /* ZXDataMatrixEdifactEncoder.m */; };
+		049588B71D3A620300544259 /* ZXDataMatrixEncoderContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587481D3A620200544259 /* ZXDataMatrixEncoderContext.m */; };
+		049588B81D3A620300544259 /* ZXDataMatrixErrorCorrection.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495874A1D3A620200544259 /* ZXDataMatrixErrorCorrection.m */; };
+		049588B91D3A620300544259 /* ZXDataMatrixHighLevelEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495874C1D3A620200544259 /* ZXDataMatrixHighLevelEncoder.m */; };
+		049588BA1D3A620300544259 /* ZXDataMatrixSymbolInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495874E1D3A620200544259 /* ZXDataMatrixSymbolInfo.m */; };
+		049588BB1D3A620300544259 /* ZXDataMatrixSymbolInfo144.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587501D3A620200544259 /* ZXDataMatrixSymbolInfo144.m */; };
+		049588BC1D3A620300544259 /* ZXDataMatrixTextEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587521D3A620200544259 /* ZXDataMatrixTextEncoder.m */; };
+		049588BD1D3A620300544259 /* ZXDataMatrixX12Encoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587541D3A620200544259 /* ZXDataMatrixX12Encoder.m */; };
+		049588BE1D3A620300544259 /* ZXDataMatrixReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587561D3A620200544259 /* ZXDataMatrixReader.m */; };
+		049588BF1D3A620300544259 /* ZXDataMatrixWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587581D3A620200544259 /* ZXDataMatrixWriter.m */; };
+		049588C01D3A620300544259 /* ZXMaxiCodeBitMatrixParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495875D1D3A620200544259 /* ZXMaxiCodeBitMatrixParser.m */; };
+		049588C11D3A620300544259 /* ZXMaxiCodeDecodedBitStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495875F1D3A620200544259 /* ZXMaxiCodeDecodedBitStreamParser.m */; };
+		049588C21D3A620300544259 /* ZXMaxiCodeDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587611D3A620200544259 /* ZXMaxiCodeDecoder.m */; };
+		049588C31D3A620300544259 /* ZXMaxiCodeReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587641D3A620200544259 /* ZXMaxiCodeReader.m */; };
+		049588C41D3A620300544259 /* ZXByQuadrantReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587671D3A620200544259 /* ZXByQuadrantReader.m */; };
+		049588C51D3A620300544259 /* ZXGenericMultipleBarcodeReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587691D3A620200544259 /* ZXGenericMultipleBarcodeReader.m */; };
+		049588C61D3A620300544259 /* ZXAbstractExpandedDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587701D3A620200544259 /* ZXAbstractExpandedDecoder.m */; };
+		049588C71D3A620300544259 /* ZXAI013103decoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587721D3A620200544259 /* ZXAI013103decoder.m */; };
+		049588C81D3A620300544259 /* ZXAI01320xDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587741D3A620200544259 /* ZXAI01320xDecoder.m */; };
+		049588C91D3A620300544259 /* ZXAI01392xDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587761D3A620200544259 /* ZXAI01392xDecoder.m */; };
+		049588CA1D3A620300544259 /* ZXAI01393xDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587781D3A620200544259 /* ZXAI01393xDecoder.m */; };
+		049588CB1D3A620300544259 /* ZXAI013x0x1xDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495877A1D3A620200544259 /* ZXAI013x0x1xDecoder.m */; };
+		049588CC1D3A620300544259 /* ZXAI013x0xDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495877C1D3A620200544259 /* ZXAI013x0xDecoder.m */; };
+		049588CD1D3A620300544259 /* ZXAI01AndOtherAIs.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495877E1D3A620200544259 /* ZXAI01AndOtherAIs.m */; };
+		049588CE1D3A620300544259 /* ZXAI01decoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587801D3A620200544259 /* ZXAI01decoder.m */; };
+		049588CF1D3A620300544259 /* ZXAI01weightDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587821D3A620200544259 /* ZXAI01weightDecoder.m */; };
+		049588D01D3A620300544259 /* ZXAnyAIDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587841D3A620200544259 /* ZXAnyAIDecoder.m */; };
+		049588D11D3A620300544259 /* ZXRSSExpandedBlockParsedResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587861D3A620200544259 /* ZXRSSExpandedBlockParsedResult.m */; };
+		049588D21D3A620300544259 /* ZXRSSExpandedCurrentParsingState.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587881D3A620200544259 /* ZXRSSExpandedCurrentParsingState.m */; };
+		049588D31D3A620300544259 /* ZXRSSExpandedDecodedChar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495878A1D3A620200544259 /* ZXRSSExpandedDecodedChar.m */; };
+		049588D41D3A620300544259 /* ZXRSSExpandedDecodedInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495878C1D3A620200544259 /* ZXRSSExpandedDecodedInformation.m */; };
+		049588D51D3A620300544259 /* ZXRSSExpandedDecodedNumeric.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495878E1D3A620200544259 /* ZXRSSExpandedDecodedNumeric.m */; };
+		049588D61D3A620300544259 /* ZXRSSExpandedDecodedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587901D3A620200544259 /* ZXRSSExpandedDecodedObject.m */; };
+		049588D71D3A620300544259 /* ZXRSSExpandedFieldParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587921D3A620200544259 /* ZXRSSExpandedFieldParser.m */; };
+		049588D81D3A620300544259 /* ZXRSSExpandedGeneralAppIdDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587941D3A620200544259 /* ZXRSSExpandedGeneralAppIdDecoder.m */; };
+		049588D91D3A620300544259 /* ZXBitArrayBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587961D3A620200544259 /* ZXBitArrayBuilder.m */; };
+		049588DA1D3A620300544259 /* ZXRSSExpandedPair.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587981D3A620200544259 /* ZXRSSExpandedPair.m */; };
+		049588DB1D3A620300544259 /* ZXRSSExpandedReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495879A1D3A620200544259 /* ZXRSSExpandedReader.m */; };
+		049588DC1D3A620300544259 /* ZXRSSExpandedRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495879C1D3A620200544259 /* ZXRSSExpandedRow.m */; };
+		049588DD1D3A620300544259 /* ZXAbstractRSSReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495879E1D3A620200544259 /* ZXAbstractRSSReader.m */; };
+		049588DE1D3A620300544259 /* ZXRSS14Reader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587A01D3A620200544259 /* ZXRSS14Reader.m */; };
+		049588DF1D3A620300544259 /* ZXRSSDataCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587A21D3A620200544259 /* ZXRSSDataCharacter.m */; };
+		049588E01D3A620300544259 /* ZXRSSFinderPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587A41D3A620200544259 /* ZXRSSFinderPattern.m */; };
+		049588E11D3A620300544259 /* ZXRSSPair.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587A61D3A620200544259 /* ZXRSSPair.m */; };
+		049588E21D3A620300544259 /* ZXRSSUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587A81D3A620200544259 /* ZXRSSUtils.m */; };
+		049588E31D3A620300544259 /* ZXCodaBarReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587AA1D3A620200544259 /* ZXCodaBarReader.m */; };
+		049588E41D3A620300544259 /* ZXCodaBarWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587AC1D3A620200544259 /* ZXCodaBarWriter.m */; };
+		049588E51D3A620300544259 /* ZXCode128Reader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587AE1D3A620200544259 /* ZXCode128Reader.m */; };
+		049588E61D3A620300544259 /* ZXCode128Writer.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587B01D3A620200544259 /* ZXCode128Writer.m */; };
+		049588E71D3A620300544259 /* ZXCode39Reader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587B21D3A620200544259 /* ZXCode39Reader.m */; };
+		049588E81D3A620300544259 /* ZXCode39Writer.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587B41D3A620200544259 /* ZXCode39Writer.m */; };
+		049588E91D3A620300544259 /* ZXCode93Reader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587B61D3A620200544259 /* ZXCode93Reader.m */; };
+		049588EA1D3A620300544259 /* ZXEAN13Reader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587B81D3A620200544259 /* ZXEAN13Reader.m */; };
+		049588EB1D3A620300544259 /* ZXEAN13Writer.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587BA1D3A620200544259 /* ZXEAN13Writer.m */; };
+		049588EC1D3A620300544259 /* ZXEAN8Reader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587BC1D3A620200544259 /* ZXEAN8Reader.m */; };
+		049588ED1D3A620300544259 /* ZXEAN8Writer.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587BE1D3A620200544259 /* ZXEAN8Writer.m */; };
+		049588EE1D3A620300544259 /* ZXEANManufacturerOrgSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587C01D3A620200544259 /* ZXEANManufacturerOrgSupport.m */; };
+		049588EF1D3A620300544259 /* ZXITFReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587C31D3A620200544259 /* ZXITFReader.m */; };
+		049588F01D3A620300544259 /* ZXITFWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587C51D3A620200544259 /* ZXITFWriter.m */; };
+		049588F11D3A620300544259 /* ZXMultiFormatOneDReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587C71D3A620200544259 /* ZXMultiFormatOneDReader.m */; };
+		049588F21D3A620300544259 /* ZXMultiFormatUPCEANReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587C91D3A620200544259 /* ZXMultiFormatUPCEANReader.m */; };
+		049588F31D3A620300544259 /* ZXOneDimensionalCodeWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587CB1D3A620200544259 /* ZXOneDimensionalCodeWriter.m */; };
+		049588F41D3A620300544259 /* ZXOneDReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587CD1D3A620200544259 /* ZXOneDReader.m */; };
+		049588F51D3A620300544259 /* ZXUPCAReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587CF1D3A620200544259 /* ZXUPCAReader.m */; };
+		049588F61D3A620300544259 /* ZXUPCAWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587D11D3A620200544259 /* ZXUPCAWriter.m */; };
+		049588F71D3A620300544259 /* ZXUPCEANExtension2Support.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587D31D3A620200544259 /* ZXUPCEANExtension2Support.m */; };
+		049588F81D3A620300544259 /* ZXUPCEANExtension5Support.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587D51D3A620200544259 /* ZXUPCEANExtension5Support.m */; };
+		049588F91D3A620300544259 /* ZXUPCEANExtensionSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587D71D3A620200544259 /* ZXUPCEANExtensionSupport.m */; };
+		049588FA1D3A620300544259 /* ZXUPCEANReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587D91D3A620200544259 /* ZXUPCEANReader.m */; };
+		049588FB1D3A620300544259 /* ZXUPCEANWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587DB1D3A620200544259 /* ZXUPCEANWriter.m */; };
+		049588FC1D3A620300544259 /* ZXUPCEReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587DD1D3A620200544259 /* ZXUPCEReader.m */; };
+		049588FD1D3A620300544259 /* ZXModulusGF.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587E21D3A620200544259 /* ZXModulusGF.m */; };
+		049588FE1D3A620300544259 /* ZXModulusPoly.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587E41D3A620200544259 /* ZXModulusPoly.m */; };
+		049588FF1D3A620300544259 /* ZXPDF417ECErrorCorrection.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587E61D3A620200544259 /* ZXPDF417ECErrorCorrection.m */; };
+		049589001D3A620300544259 /* ZXPDF417BarcodeMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587E81D3A620200544259 /* ZXPDF417BarcodeMetadata.m */; };
+		049589011D3A620300544259 /* ZXPDF417BarcodeValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587EA1D3A620200544259 /* ZXPDF417BarcodeValue.m */; };
+		049589021D3A620300544259 /* ZXPDF417BoundingBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587EC1D3A620200544259 /* ZXPDF417BoundingBox.m */; };
+		049589031D3A620300544259 /* ZXPDF417Codeword.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587EE1D3A620200544259 /* ZXPDF417Codeword.m */; };
+		049589041D3A620300544259 /* ZXPDF417CodewordDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587F01D3A620200544259 /* ZXPDF417CodewordDecoder.m */; };
+		049589051D3A620300544259 /* ZXPDF417DecodedBitStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587F21D3A620200544259 /* ZXPDF417DecodedBitStreamParser.m */; };
+		049589061D3A620300544259 /* ZXPDF417DetectionResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587F41D3A620200544259 /* ZXPDF417DetectionResult.m */; };
+		049589071D3A620300544259 /* ZXPDF417DetectionResultColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587F61D3A620200544259 /* ZXPDF417DetectionResultColumn.m */; };
+		049589081D3A620300544259 /* ZXPDF417DetectionResultRowIndicatorColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587F81D3A620200544259 /* ZXPDF417DetectionResultRowIndicatorColumn.m */; };
+		049589091D3A620300544259 /* ZXPDF417ScanningDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587FA1D3A620200544259 /* ZXPDF417ScanningDecoder.m */; };
+		0495890A1D3A620300544259 /* ZXPDF417Detector.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587FD1D3A620200544259 /* ZXPDF417Detector.m */; };
+		0495890B1D3A620300544259 /* ZXPDF417DetectorResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 049587FF1D3A620200544259 /* ZXPDF417DetectorResult.m */; };
+		0495890C1D3A620300544259 /* ZXPDF417.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588021D3A620200544259 /* ZXPDF417.m */; };
+		0495890D1D3A620300544259 /* ZXPDF417BarcodeMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588041D3A620200544259 /* ZXPDF417BarcodeMatrix.m */; };
+		0495890E1D3A620300544259 /* ZXPDF417BarcodeRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588061D3A620200544259 /* ZXPDF417BarcodeRow.m */; };
+		0495890F1D3A620300544259 /* ZXPDF417Dimensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588081D3A620200544259 /* ZXPDF417Dimensions.m */; };
+		049589101D3A620300544259 /* ZXPDF417ErrorCorrection.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495880A1D3A620200544259 /* ZXPDF417ErrorCorrection.m */; };
+		049589111D3A620300544259 /* ZXPDF417HighLevelEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495880C1D3A620200544259 /* ZXPDF417HighLevelEncoder.m */; };
+		049589121D3A620300544259 /* ZXPDF417Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495880F1D3A620200544259 /* ZXPDF417Common.m */; };
+		049589131D3A620300544259 /* ZXPDF417Reader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588111D3A620200544259 /* ZXPDF417Reader.m */; };
+		049589141D3A620300544259 /* ZXPDF417ResultMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588131D3A620200544259 /* ZXPDF417ResultMetadata.m */; };
+		049589151D3A620300544259 /* ZXPDF417Writer.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588151D3A620200544259 /* ZXPDF417Writer.m */; };
+		049589161D3A620300544259 /* ZXQRCodeBitMatrixParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588191D3A620200544259 /* ZXQRCodeBitMatrixParser.m */; };
+		049589171D3A620300544259 /* ZXQRCodeDataBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495881B1D3A620200544259 /* ZXQRCodeDataBlock.m */; };
+		049589181D3A620300544259 /* ZXQRCodeDataMask.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495881D1D3A620200544259 /* ZXQRCodeDataMask.m */; };
+		049589191D3A620300544259 /* ZXQRCodeDecodedBitStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495881F1D3A620200544259 /* ZXQRCodeDecodedBitStreamParser.m */; };
+		0495891A1D3A620300544259 /* ZXQRCodeDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588211D3A620200544259 /* ZXQRCodeDecoder.m */; };
+		0495891B1D3A620300544259 /* ZXQRCodeDecoderMetaData.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588231D3A620200544259 /* ZXQRCodeDecoderMetaData.m */; };
+		0495891C1D3A620300544259 /* ZXQRCodeErrorCorrectionLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588251D3A620200544259 /* ZXQRCodeErrorCorrectionLevel.m */; };
+		0495891D1D3A620300544259 /* ZXQRCodeFormatInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588271D3A620200544259 /* ZXQRCodeFormatInformation.m */; };
+		0495891E1D3A620300544259 /* ZXQRCodeMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588291D3A620200544259 /* ZXQRCodeMode.m */; };
+		0495891F1D3A620300544259 /* ZXQRCodeVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495882B1D3A620200544259 /* ZXQRCodeVersion.m */; };
+		049589201D3A620300544259 /* ZXQRCodeAlignmentPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495882E1D3A620200544259 /* ZXQRCodeAlignmentPattern.m */; };
+		049589211D3A620300544259 /* ZXQRCodeAlignmentPatternFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588301D3A620200544259 /* ZXQRCodeAlignmentPatternFinder.m */; };
+		049589221D3A620300544259 /* ZXQRCodeDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588321D3A620200544259 /* ZXQRCodeDetector.m */; };
+		049589231D3A620300544259 /* ZXQRCodeFinderPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588341D3A620200544259 /* ZXQRCodeFinderPattern.m */; };
+		049589241D3A620300544259 /* ZXQRCodeFinderPatternFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588361D3A620200544259 /* ZXQRCodeFinderPatternFinder.m */; };
+		049589251D3A620300544259 /* ZXQRCodeFinderPatternInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588381D3A620200544259 /* ZXQRCodeFinderPatternInfo.m */; };
+		049589261D3A620300544259 /* ZXQRCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495883B1D3A620200544259 /* ZXQRCode.m */; };
+		049589271D3A620300544259 /* ZXQRCodeBlockPair.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495883D1D3A620200544259 /* ZXQRCodeBlockPair.m */; };
+		049589281D3A620300544259 /* ZXQRCodeEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495883F1D3A620200544259 /* ZXQRCodeEncoder.m */; };
+		049589291D3A620300544259 /* ZXQRCodeMaskUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588411D3A620200544259 /* ZXQRCodeMaskUtil.m */; };
+		0495892A1D3A620300544259 /* ZXQRCodeMatrixUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588431D3A620200544259 /* ZXQRCodeMatrixUtil.m */; };
+		0495892B1D3A620300544259 /* ZXMultiDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588471D3A620200544259 /* ZXMultiDetector.m */; };
+		0495892C1D3A620300544259 /* ZXMultiFinderPatternFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588491D3A620200544259 /* ZXMultiFinderPatternFinder.m */; };
+		0495892D1D3A620300544259 /* ZXQRCodeMultiReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495884B1D3A620200544259 /* ZXQRCodeMultiReader.m */; };
+		0495892E1D3A620300544259 /* ZXQRCodeReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495884E1D3A620200544259 /* ZXQRCodeReader.m */; };
+		0495892F1D3A620300544259 /* ZXQRCodeWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588501D3A620200544259 /* ZXQRCodeWriter.m */; };
+		049589301D3A620300544259 /* ZXMultiFormatReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588531D3A620200544259 /* ZXMultiFormatReader.m */; };
+		049589311D3A620300544259 /* ZXMultiFormatWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 049588551D3A620200544259 /* ZXMultiFormatWriter.m */; };
+		049589381D3A62B900544259 /* CMQRCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 049589371D3A62B900544259 /* CMQRCode.m */; };
 		04A817771D3525D700011DA1 /* IdentityHttp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A817761D3525D700011DA1 /* IdentityHttp.m */; };
-		04E7E5A81D3A660800C653B4 /* ChangeUserBBH.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E7E59C1D3A660800C653B4 /* ChangeUserBBH.m */; settings = {ASSET_TAGS = (); }; };
-		04E7E5A91D3A660800C653B4 /* ChangeUserDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E7E59F1D3A660800C653B4 /* ChangeUserDetail.m */; settings = {ASSET_TAGS = (); }; };
-		04E7E5AA1D3A660800C653B4 /* ChangeUserName.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E7E5A21D3A660800C653B4 /* ChangeUserName.m */; settings = {ASSET_TAGS = (); }; };
-		04E7E5AC1D3A660800C653B4 /* MineInfoEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E7E5A71D3A660800C653B4 /* MineInfoEditController.m */; settings = {ASSET_TAGS = (); }; };
-		04E7E5B11D3A77EA00C653B4 /* PushMessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E7E5B01D3A77EA00C653B4 /* PushMessageController.m */; settings = {ASSET_TAGS = (); }; };
-		04E7E5B41D3A7D2500C653B4 /* PushMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E7E5B31D3A7D2500C653B4 /* PushMessage.m */; settings = {ASSET_TAGS = (); }; };
+		04E7E5A81D3A660800C653B4 /* ChangeUserBBH.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E7E59C1D3A660800C653B4 /* ChangeUserBBH.m */; };
+		04E7E5A91D3A660800C653B4 /* ChangeUserDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E7E59F1D3A660800C653B4 /* ChangeUserDetail.m */; };
+		04E7E5AA1D3A660800C653B4 /* ChangeUserName.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E7E5A21D3A660800C653B4 /* ChangeUserName.m */; };
+		04E7E5AC1D3A660800C653B4 /* MineInfoEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E7E5A71D3A660800C653B4 /* MineInfoEditController.m */; };
+		04E7E5B11D3A77EA00C653B4 /* PushMessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E7E5B01D3A77EA00C653B4 /* PushMessageController.m */; };
+		04E7E5B41D3A7D2500C653B4 /* PushMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E7E5B31D3A7D2500C653B4 /* PushMessage.m */; };
 		04FE7CCB1D3670AD00362702 /* LeftMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FE7CC91D3670AD00362702 /* LeftMenuController.m */; };
 		04FE7CCC1D3670AD00362702 /* LeftMenuController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04FE7CCA1D3670AD00362702 /* LeftMenuController.xib */; };
 		04FE7CCF1D36725A00362702 /* menu_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 04FE7CCE1D36725A00362702 /* menu_background.png */; };
@@ -276,6 +276,25 @@
 		04FE7CD51D367CE000362702 /* LeftMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04FE7CD31D367CE000362702 /* LeftMenuCell.xib */; };
 		1B06D5D31D362FA8002D06A7 /* Company.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B06D5D21D362FA8002D06A7 /* Company.m */; };
 		1B0715ED1D386CBC00D7881D /* MineView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B0715EC1D386CBC00D7881D /* MineView.storyboard */; };
+		1B119E591D3C8794007CC050 /* RYChatController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B119E581D3C8794007CC050 /* RYChatController.m */; };
+		1B119E6D1D3CB89F007CC050 /* AllowSelectPhotoBrose.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B119E5C1D3CB89F007CC050 /* AllowSelectPhotoBrose.m */; };
+		1B119E6E1D3CB89F007CC050 /* BigPhotoSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B119E5E1D3CB89F007CC050 /* BigPhotoSelectController.m */; };
+		1B119E6F1D3CB89F007CC050 /* PhotoGroupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B119E601D3CB89F007CC050 /* PhotoGroupController.m */; };
+		1B119E701D3CB89F007CC050 /* PhotoGroupTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B119E631D3CB89F007CC050 /* PhotoGroupTableCell.m */; };
+		1B119E711D3CB89F007CC050 /* PhotoGroupTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B119E641D3CB89F007CC050 /* PhotoGroupTableCell.xib */; };
+		1B119E721D3CB89F007CC050 /* PhotoImageCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B119E661D3CB89F007CC050 /* PhotoImageCollectionCell.m */; };
+		1B119E731D3CB89F007CC050 /* PhotoImageCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B119E671D3CB89F007CC050 /* PhotoImageCollectionCell.xib */; };
+		1B119E741D3CB89F007CC050 /* SelectImageCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B119E691D3CB89F007CC050 /* SelectImageCollectionCell.m */; };
+		1B119E751D3CB89F007CC050 /* SelectImageCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B119E6A1D3CB89F007CC050 /* SelectImageCollectionCell.xib */; };
+		1B119E761D3CB89F007CC050 /* SelectImageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B119E6C1D3CB89F007CC050 /* SelectImageController.m */; };
+		1B119E821D3CB8FB007CC050 /* AllowDeletePhotoBrose.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B119E791D3CB8FB007CC050 /* AllowDeletePhotoBrose.m */; };
+		1B119E831D3CB8FB007CC050 /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B119E7B1D3CB8FB007CC050 /* ImageCollectionViewCell.m */; };
+		1B119E841D3CB8FB007CC050 /* ImageSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B119E7D1D3CB8FB007CC050 /* ImageSelectView.m */; };
+		1B119E851D3CB8FB007CC050 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B119E7F1D3CB8FB007CC050 /* Photo.m */; };
+		1B119E861D3CB8FB007CC050 /* SelectImageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B119E811D3CB8FB007CC050 /* SelectImageViewCell.m */; };
+		1B119E8A1D3CB907007CC050 /* ImageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B119E891D3CB907007CC050 /* ImageScrollView.m */; };
+		1B119E8E1D3CB92B007CC050 /* ShowBigImageScroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B119E8D1D3CB92B007CC050 /* ShowBigImageScroller.m */; };
+		1B119E911D3CB957007CC050 /* UINavigationController+Direction.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B119E901D3CB957007CC050 /* UINavigationController+Direction.m */; };
 		1B157FFD1D24FFF50081A1A3 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B157FFC1D24FFF50081A1A3 /* libc++.tbd */; };
 		1B36FCD01D35E748006694E4 /* HomeListTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B36FCCF1D35E748006694E4 /* HomeListTopView.m */; };
 		1B36FCD31D35E750006694E4 /* HomeListBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B36FCD21D35E750006694E4 /* HomeListBottomView.m */; };
@@ -335,6 +354,7 @@
 		1BD872291D38DD6C0074CDC7 /* BushSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD872251D38DD6C0074CDC7 /* BushSearchViewController.m */; };
 		1BD8722A1D38DD6C0074CDC7 /* BushSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD872271D38DD6C0074CDC7 /* BushSearchCell.m */; };
 		1BD8722B1D38DD6C0074CDC7 /* BushSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BD872281D38DD6C0074CDC7 /* BushSearchCell.xib */; };
+		1BDF20B71D3C61BF00666814 /* RYChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDF20B61D3C61BF00666814 /* RYChatManager.m */; };
 		75E5FF5B1D27A81B00F77961 /* AppCustoms.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E5FF5A1D27A81B00F77961 /* AppCustoms.m */; };
 		75E5FF601D27A97500F77961 /* InterfaceConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E5FF5F1D27A97500F77961 /* InterfaceConfig.m */; };
 		75E5FF641D27AA9100F77961 /* HttpService.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E5FF631D27AA9100F77961 /* HttpService.m */; };
@@ -885,6 +905,43 @@
 		1B06D5D11D362FA8002D06A7 /* Company.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Company.h; sourceTree = "<group>"; };
 		1B06D5D21D362FA8002D06A7 /* Company.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Company.m; sourceTree = "<group>"; };
 		1B0715EC1D386CBC00D7881D /* MineView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MineView.storyboard; sourceTree = "<group>"; };
+		1B119E571D3C8794007CC050 /* RYChatController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RYChatController.h; sourceTree = "<group>"; };
+		1B119E581D3C8794007CC050 /* RYChatController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RYChatController.m; sourceTree = "<group>"; };
+		1B119E5B1D3CB89F007CC050 /* AllowSelectPhotoBrose.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllowSelectPhotoBrose.h; sourceTree = "<group>"; };
+		1B119E5C1D3CB89F007CC050 /* AllowSelectPhotoBrose.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllowSelectPhotoBrose.m; sourceTree = "<group>"; };
+		1B119E5D1D3CB89F007CC050 /* BigPhotoSelectController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BigPhotoSelectController.h; sourceTree = "<group>"; };
+		1B119E5E1D3CB89F007CC050 /* BigPhotoSelectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BigPhotoSelectController.m; sourceTree = "<group>"; };
+		1B119E5F1D3CB89F007CC050 /* PhotoGroupController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoGroupController.h; sourceTree = "<group>"; };
+		1B119E601D3CB89F007CC050 /* PhotoGroupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoGroupController.m; sourceTree = "<group>"; };
+		1B119E621D3CB89F007CC050 /* PhotoGroupTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoGroupTableCell.h; sourceTree = "<group>"; };
+		1B119E631D3CB89F007CC050 /* PhotoGroupTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoGroupTableCell.m; sourceTree = "<group>"; };
+		1B119E641D3CB89F007CC050 /* PhotoGroupTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoGroupTableCell.xib; sourceTree = "<group>"; };
+		1B119E651D3CB89F007CC050 /* PhotoImageCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoImageCollectionCell.h; sourceTree = "<group>"; };
+		1B119E661D3CB89F007CC050 /* PhotoImageCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoImageCollectionCell.m; sourceTree = "<group>"; };
+		1B119E671D3CB89F007CC050 /* PhotoImageCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoImageCollectionCell.xib; sourceTree = "<group>"; };
+		1B119E681D3CB89F007CC050 /* SelectImageCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectImageCollectionCell.h; sourceTree = "<group>"; };
+		1B119E691D3CB89F007CC050 /* SelectImageCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectImageCollectionCell.m; sourceTree = "<group>"; };
+		1B119E6A1D3CB89F007CC050 /* SelectImageCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectImageCollectionCell.xib; sourceTree = "<group>"; };
+		1B119E6B1D3CB89F007CC050 /* SelectImageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectImageController.h; sourceTree = "<group>"; };
+		1B119E6C1D3CB89F007CC050 /* SelectImageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectImageController.m; sourceTree = "<group>"; };
+		1B119E781D3CB8FB007CC050 /* AllowDeletePhotoBrose.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllowDeletePhotoBrose.h; sourceTree = "<group>"; };
+		1B119E791D3CB8FB007CC050 /* AllowDeletePhotoBrose.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllowDeletePhotoBrose.m; sourceTree = "<group>"; };
+		1B119E7A1D3CB8FB007CC050 /* ImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCollectionViewCell.h; sourceTree = "<group>"; };
+		1B119E7B1D3CB8FB007CC050 /* ImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCollectionViewCell.m; sourceTree = "<group>"; };
+		1B119E7C1D3CB8FB007CC050 /* ImageSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSelectView.h; sourceTree = "<group>"; };
+		1B119E7D1D3CB8FB007CC050 /* ImageSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSelectView.m; sourceTree = "<group>"; };
+		1B119E7E1D3CB8FB007CC050 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
+		1B119E7F1D3CB8FB007CC050 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
+		1B119E801D3CB8FB007CC050 /* SelectImageViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectImageViewCell.h; sourceTree = "<group>"; };
+		1B119E811D3CB8FB007CC050 /* SelectImageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectImageViewCell.m; sourceTree = "<group>"; };
+		1B119E881D3CB907007CC050 /* ImageScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageScrollView.h; sourceTree = "<group>"; };
+		1B119E891D3CB907007CC050 /* ImageScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageScrollView.m; sourceTree = "<group>"; };
+		1B119E8C1D3CB92B007CC050 /* ShowBigImageScroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowBigImageScroller.h; sourceTree = "<group>"; };
+		1B119E8D1D3CB92B007CC050 /* ShowBigImageScroller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowBigImageScroller.m; sourceTree = "<group>"; };
+		1B119E8F1D3CB957007CC050 /* UINavigationController+Direction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Direction.h"; sourceTree = "<group>"; };
+		1B119E901D3CB957007CC050 /* UINavigationController+Direction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Direction.m"; sourceTree = "<group>"; };
+		1B119E931D3CB9B6007CC050 /* CMMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMMacros.h; sourceTree = "<group>"; };
+		1B119E941D3CB9B6007CC050 /* CMMacros+Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CMMacros+Block.h"; sourceTree = "<group>"; };
 		1B157FFC1D24FFF50081A1A3 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		1B36FCCE1D35E748006694E4 /* HomeListTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeListTopView.h; sourceTree = "<group>"; };
 		1B36FCCF1D35E748006694E4 /* HomeListTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeListTopView.m; sourceTree = "<group>"; };
@@ -991,6 +1048,8 @@
 		1BD872261D38DD6C0074CDC7 /* BushSearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BushSearchCell.h; sourceTree = "<group>"; };
 		1BD872271D38DD6C0074CDC7 /* BushSearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BushSearchCell.m; sourceTree = "<group>"; };
 		1BD872281D38DD6C0074CDC7 /* BushSearchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BushSearchCell.xib; sourceTree = "<group>"; };
+		1BDF20B51D3C61BF00666814 /* RYChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RYChatManager.h; sourceTree = "<group>"; };
+		1BDF20B61D3C61BF00666814 /* RYChatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RYChatManager.m; sourceTree = "<group>"; };
 		21CA8CCC01D73A106F99FB12 /* Pods-RealmDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RealmDemo/Pods-RealmDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		75E5FF581D27A7FE00F77961 /* UtikIes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtikIes.h; sourceTree = "<group>"; };
 		75E5FF591D27A81B00F77961 /* AppCustoms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppCustoms.h; sourceTree = "<group>"; };
@@ -1953,6 +2012,91 @@
 			path = LeftMenuCell;
 			sourceTree = "<group>";
 		};
+		1B119E561D3C8776007CC050 /* RYChatController */ = {
+			isa = PBXGroup;
+			children = (
+				1B119E571D3C8794007CC050 /* RYChatController.h */,
+				1B119E581D3C8794007CC050 /* RYChatController.m */,
+			);
+			path = RYChatController;
+			sourceTree = "<group>";
+		};
+		1B119E5A1D3CB89F007CC050 /* SelectImageController */ = {
+			isa = PBXGroup;
+			children = (
+				1B119E5B1D3CB89F007CC050 /* AllowSelectPhotoBrose.h */,
+				1B119E5C1D3CB89F007CC050 /* AllowSelectPhotoBrose.m */,
+				1B119E5D1D3CB89F007CC050 /* BigPhotoSelectController.h */,
+				1B119E5E1D3CB89F007CC050 /* BigPhotoSelectController.m */,
+				1B119E5F1D3CB89F007CC050 /* PhotoGroupController.h */,
+				1B119E601D3CB89F007CC050 /* PhotoGroupController.m */,
+				1B119E611D3CB89F007CC050 /* SelectImageCell */,
+				1B119E6B1D3CB89F007CC050 /* SelectImageController.h */,
+				1B119E6C1D3CB89F007CC050 /* SelectImageController.m */,
+			);
+			path = SelectImageController;
+			sourceTree = "<group>";
+		};
+		1B119E611D3CB89F007CC050 /* SelectImageCell */ = {
+			isa = PBXGroup;
+			children = (
+				1B119E621D3CB89F007CC050 /* PhotoGroupTableCell.h */,
+				1B119E631D3CB89F007CC050 /* PhotoGroupTableCell.m */,
+				1B119E641D3CB89F007CC050 /* PhotoGroupTableCell.xib */,
+				1B119E651D3CB89F007CC050 /* PhotoImageCollectionCell.h */,
+				1B119E661D3CB89F007CC050 /* PhotoImageCollectionCell.m */,
+				1B119E671D3CB89F007CC050 /* PhotoImageCollectionCell.xib */,
+				1B119E681D3CB89F007CC050 /* SelectImageCollectionCell.h */,
+				1B119E691D3CB89F007CC050 /* SelectImageCollectionCell.m */,
+				1B119E6A1D3CB89F007CC050 /* SelectImageCollectionCell.xib */,
+			);
+			path = SelectImageCell;
+			sourceTree = "<group>";
+		};
+		1B119E771D3CB8FB007CC050 /* ImageSelectView */ = {
+			isa = PBXGroup;
+			children = (
+				1B119E781D3CB8FB007CC050 /* AllowDeletePhotoBrose.h */,
+				1B119E791D3CB8FB007CC050 /* AllowDeletePhotoBrose.m */,
+				1B119E7A1D3CB8FB007CC050 /* ImageCollectionViewCell.h */,
+				1B119E7B1D3CB8FB007CC050 /* ImageCollectionViewCell.m */,
+				1B119E7C1D3CB8FB007CC050 /* ImageSelectView.h */,
+				1B119E7D1D3CB8FB007CC050 /* ImageSelectView.m */,
+				1B119E7E1D3CB8FB007CC050 /* Photo.h */,
+				1B119E7F1D3CB8FB007CC050 /* Photo.m */,
+				1B119E801D3CB8FB007CC050 /* SelectImageViewCell.h */,
+				1B119E811D3CB8FB007CC050 /* SelectImageViewCell.m */,
+			);
+			path = ImageSelectView;
+			sourceTree = "<group>";
+		};
+		1B119E871D3CB907007CC050 /* ImageScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				1B119E881D3CB907007CC050 /* ImageScrollView.h */,
+				1B119E891D3CB907007CC050 /* ImageScrollView.m */,
+			);
+			path = ImageScrollView;
+			sourceTree = "<group>";
+		};
+		1B119E8B1D3CB92B007CC050 /* ShowBigImageScroller */ = {
+			isa = PBXGroup;
+			children = (
+				1B119E8C1D3CB92B007CC050 /* ShowBigImageScroller.h */,
+				1B119E8D1D3CB92B007CC050 /* ShowBigImageScroller.m */,
+			);
+			path = ShowBigImageScroller;
+			sourceTree = "<group>";
+		};
+		1B119E921D3CB9AC007CC050 /* CMMacros */ = {
+			isa = PBXGroup;
+			children = (
+				1B119E931D3CB9B6007CC050 /* CMMacros.h */,
+				1B119E941D3CB9B6007CC050 /* CMMacros+Block.h */,
+			);
+			path = CMMacros;
+			sourceTree = "<group>";
+		};
 		1B36FCCC1D35E71F006694E4 /* HomeListBottomView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2116,6 +2260,8 @@
 		1B55857D1D34DD3C00DCD3A0 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				1B119E8F1D3CB957007CC050 /* UINavigationController+Direction.h */,
+				1B119E901D3CB957007CC050 /* UINavigationController+Direction.m */,
 				1BD871EE1D38BECD0074CDC7 /* UIImage+scale.h */,
 				1BD871EF1D38BECD0074CDC7 /* UIImage+scale.m */,
 				1B4B160B1D372F7C00E71B3D /* NSString+firstChar.h */,
@@ -2252,6 +2398,7 @@
 			children = (
 				1B5585C61D34FA8500DCD3A0 /* MessageController.h */,
 				1B5585C71D34FA8500DCD3A0 /* MessageController.m */,
+				1B119E561D3C8776007CC050 /* RYChatController */,
 			);
 			path = MessageController;
 			sourceTree = "<group>";
@@ -2360,6 +2507,15 @@
 			path = BushSearchController;
 			sourceTree = "<group>";
 		};
+		1BDF20B41D3C618800666814 /* RYChatManager */ = {
+			isa = PBXGroup;
+			children = (
+				1BDF20B51D3C61BF00666814 /* RYChatManager.h */,
+				1BDF20B61D3C61BF00666814 /* RYChatManager.m */,
+			);
+			path = RYChatManager;
+			sourceTree = "<group>";
+		};
 		4D6CC168BC56EB689405D00C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -2372,6 +2528,7 @@
 		75E5FF541D27A76F00F77961 /* ModelManager */ = {
 			isa = PBXGroup;
 			children = (
+				1BDF20B41D3C618800666814 /* RYChatManager */,
 				75E5FF731D27D60500F77961 /* Models */,
 				75E5FF7A1D27D61C00F77961 /* IdentityManager */,
 				75E5FF681D27D38500F77961 /* UserManager */,
@@ -2396,6 +2553,10 @@
 			children = (
 				75E5FF591D27A81B00F77961 /* AppCustoms.h */,
 				75E5FF5A1D27A81B00F77961 /* AppCustoms.m */,
+				1B119E8B1D3CB92B007CC050 /* ShowBigImageScroller */,
+				1B119E871D3CB907007CC050 /* ImageScrollView */,
+				1B119E771D3CB8FB007CC050 /* ImageSelectView */,
+				1B119E5A1D3CB89F007CC050 /* SelectImageController */,
 				049589351D3A62AF00544259 /* CMQRCode */,
 				049585FC1D39D3A500544259 /* SelectPersonController */,
 			);
@@ -2406,6 +2567,7 @@
 			isa = PBXGroup;
 			children = (
 				75E5FF581D27A7FE00F77961 /* UtikIes.h */,
+				1B119E921D3CB9AC007CC050 /* CMMacros */,
 				1B5585BB1D34F8E000DCD3A0 /* CMDeviceInfo */,
 				1B55857D1D34DD3C00DCD3A0 /* Category */,
 				1B5585561D34CB4E00DCD3A0 /* ThirdParty */,
@@ -2566,14 +2728,17 @@
 				1B4B16291D37858400E71B3D /* BushManagerCell.xib in Resources */,
 				1B877F251D178E7D000144B2 /* LaunchScreen.storyboard in Resources */,
 				049586181D39D3A500544259 /* MuliteSelectCell.xib in Resources */,
+				1B119E711D3CB89F007CC050 /* PhotoGroupTableCell.xib in Resources */,
 				1B4B16151D37398600E71B3D /* XAddrBookCell.xib in Resources */,
 				0471C0961D3B262600377178 /* PushMessageCell.xib in Resources */,
 				1B55859E1D34E2C800DCD3A0 /* ic_welcome_avatar_3_3.png in Resources */,
 				0495861F1D39D3A500544259 /* SigleSelectCell.xib in Resources */,
 				049586441D3A303800544259 /* AboutViewController.xib in Resources */,
 				1BD871E51D3882510074CDC7 /* ic_setting_bg_default.jpg in Resources */,
+				1B119E731D3CB89F007CC050 /* PhotoImageCollectionCell.xib in Resources */,
 				1B877F221D178E7D000144B2 /* Assets.xcassets in Resources */,
 				1B0715ED1D386CBC00D7881D /* MineView.storyboard in Resources */,
+				1B119E751D3CB89F007CC050 /* SelectImageCollectionCell.xib in Resources */,
 				049586391D3A1D2900544259 /* SelectDateController.xib in Resources */,
 				04FE7CCC1D3670AD00362702 /* LeftMenuController.xib in Resources */,
 				1BD8722B1D38DD6C0074CDC7 /* BushSearchCell.xib in Resources */,
@@ -2650,11 +2815,14 @@
 				049588F01D3A620300544259 /* ZXITFWriter.m in Sources */,
 				0495890E1D3A620300544259 /* ZXPDF417BarcodeRow.m in Sources */,
 				049588D21D3A620300544259 /* ZXRSSExpandedCurrentParsingState.m in Sources */,
+				1B119E591D3C8794007CC050 /* RYChatController.m in Sources */,
+				1B119E8A1D3CB907007CC050 /* ImageScrollView.m in Sources */,
 				049588611D3A620300544259 /* ZXAztecWriter.m in Sources */,
 				0495861B1D39D3A500544259 /* SelectEmployeeModel.m in Sources */,
 				0495890B1D3A620300544259 /* ZXPDF417DetectorResult.m in Sources */,
 				1B55855A1D34CB7000DCD3A0 /* DataCache.m in Sources */,
 				049588EC1D3A620300544259 /* ZXEAN8Reader.m in Sources */,
+				1B119E6F1D3CB89F007CC050 /* PhotoGroupController.m in Sources */,
 				049588F41D3A620300544259 /* ZXOneDReader.m in Sources */,
 				75E5FF641D27AA9100F77961 /* HttpService.m in Sources */,
 				04E7E5B41D3A7D2500C653B4 /* PushMessage.m in Sources */,
@@ -2694,6 +2862,7 @@
 				049588991D3A620300544259 /* ZXGlobalHistogramBinarizer.m in Sources */,
 				049588C31D3A620300544259 /* ZXMaxiCodeReader.m in Sources */,
 				049588841D3A620300544259 /* ZXWifiParsedResult.m in Sources */,
+				1B119E831D3CB8FB007CC050 /* ImageCollectionViewCell.m in Sources */,
 				1B5585CE1D34FA9600DCD3A0 /* XAddrBookController.m in Sources */,
 				049585F61D39C01700544259 /* RequestManagerController.m in Sources */,
 				049588C61D3A620300544259 /* ZXAbstractExpandedDecoder.m in Sources */,
@@ -2715,6 +2884,7 @@
 				0495862D1D3A1A3F00544259 /* WKWebViewJavascriptBridge.m in Sources */,
 				04FE7CD41D367CE000362702 /* LeftMenuCell.m in Sources */,
 				0495891D1D3A620300544259 /* ZXQRCodeFormatInformation.m in Sources */,
+				1B119E911D3CB957007CC050 /* UINavigationController+Direction.m in Sources */,
 				049586311D3A1B3800544259 /* UserSettingController.m in Sources */,
 				049588E61D3A620300544259 /* ZXCode128Writer.m in Sources */,
 				049588B51D3A620300544259 /* ZXDataMatrixDefaultPlacement.m in Sources */,
@@ -2744,10 +2914,12 @@
 				1B5585761D34D93800DCD3A0 /* BusinessController.m in Sources */,
 				75E5FF7D1D27D68300F77961 /* User.m in Sources */,
 				049588811D3A620300544259 /* ZXVEventResultParser.m in Sources */,
+				1B119E741D3CB89F007CC050 /* SelectImageCollectionCell.m in Sources */,
 				1B55857C1D34D94A00DCD3A0 /* WelcomeController.m in Sources */,
 				75E5FF6F1D27D3D600F77961 /* UserManager.m in Sources */,
 				049588DE1D3A620300544259 /* ZXRSS14Reader.m in Sources */,
 				049588AC1D3A620300544259 /* ZXDataMatrixBitMatrixParser.m in Sources */,
+				1B119E851D3CB8FB007CC050 /* Photo.m in Sources */,
 				049588631D3A620300544259 /* ZXAddressBookAUResultParser.m in Sources */,
 				049586431D3A303800544259 /* AboutViewController.m in Sources */,
 				75E5FF671D27ADD100F77961 /* MError.m in Sources */,
@@ -2777,6 +2949,7 @@
 				049588D61D3A620300544259 /* ZXRSSExpandedDecodedObject.m in Sources */,
 				049588961D3A620300544259 /* ZXDecoderResult.m in Sources */,
 				049588E51D3A620300544259 /* ZXCode128Reader.m in Sources */,
+				1B119E841D3CB8FB007CC050 /* ImageSelectView.m in Sources */,
 				04A817771D3525D700011DA1 /* IdentityHttp.m in Sources */,
 				049588651D3A620300544259 /* ZXAddressBookParsedResult.m in Sources */,
 				049589201D3A620300544259 /* ZXQRCodeAlignmentPattern.m in Sources */,
@@ -2811,6 +2984,7 @@
 				049586171D39D3A500544259 /* MuliteSelectCell.m in Sources */,
 				049588DA1D3A620300544259 /* ZXRSSExpandedPair.m in Sources */,
 				049589181D3A620300544259 /* ZXQRCodeDataMask.m in Sources */,
+				1B119E701D3CB89F007CC050 /* PhotoGroupTableCell.m in Sources */,
 				049588F81D3A620300544259 /* ZXUPCEANExtension5Support.m in Sources */,
 				049589281D3A620300544259 /* ZXQRCodeEncoder.m in Sources */,
 				049588EE1D3A620300544259 /* ZXEANManufacturerOrgSupport.m in Sources */,
@@ -2841,9 +3015,12 @@
 				049588641D3A620300544259 /* ZXAddressBookDoCoMoResultParser.m in Sources */,
 				049586161D39D3A500544259 /* AllSelectBtn.m in Sources */,
 				049589111D3A620300544259 /* ZXPDF417HighLevelEncoder.m in Sources */,
+				1B119E721D3CB89F007CC050 /* PhotoImageCollectionCell.m in Sources */,
 				049588A41D3A620300544259 /* ZXEncodeHints.m in Sources */,
 				1B4B161B1D37675E00E71B3D /* MineViewController.m in Sources */,
 				049588591D3A620300544259 /* ZXAztecCode.m in Sources */,
+				1BDF20B71D3C61BF00666814 /* RYChatManager.m in Sources */,
+				1B119E821D3CB8FB007CC050 /* AllowDeletePhotoBrose.m in Sources */,
 				049589301D3A620300544259 /* ZXMultiFormatReader.m in Sources */,
 				049588971D3A620300544259 /* ZXDefaultGridSampler.m in Sources */,
 				0495864E1D3A348200544259 /* InviteColleagueController.m in Sources */,
@@ -2855,6 +3032,7 @@
 				1B4B16141D37398600E71B3D /* XAddrBookCell.m in Sources */,
 				049588801D3A620300544259 /* ZXVCardResultParser.m in Sources */,
 				049588D71D3A620300544259 /* ZXRSSExpandedFieldParser.m in Sources */,
+				1B119E8E1D3CB92B007CC050 /* ShowBigImageScroller.m in Sources */,
 				049588CD1D3A620300544259 /* ZXAI01AndOtherAIs.m in Sources */,
 				049588F11D3A620300544259 /* ZXMultiFormatOneDReader.m in Sources */,
 				049588DF1D3A620300544259 /* ZXRSSDataCharacter.m in Sources */,
@@ -2875,10 +3053,12 @@
 				049588581D3A620300544259 /* ZXAztecBinaryShiftToken.m in Sources */,
 				0495888C1D3A620300544259 /* ZXGenericGF.m in Sources */,
 				0495888B1D3A620300544259 /* ZXWhiteRectangleDetector.m in Sources */,
+				1B119E761D3CB89F007CC050 /* SelectImageController.m in Sources */,
 				049586381D3A1D2900544259 /* SelectDateController.m in Sources */,
 				049588871D3A620300544259 /* ZXCGImageLuminanceSource.m in Sources */,
 				049588C41D3A620300544259 /* ZXByQuadrantReader.m in Sources */,
 				0495887F1D3A620300544259 /* ZXURLTOResultParser.m in Sources */,
+				1B119E861D3CB8FB007CC050 /* SelectImageViewCell.m in Sources */,
 				1B4B16281D37858400E71B3D /* BushManagerCell.m in Sources */,
 				049588781D3A620300544259 /* ZXSMSTOMMSTOResultParser.m in Sources */,
 				049588FF1D3A620300544259 /* ZXPDF417ECErrorCorrection.m in Sources */,
@@ -2886,6 +3066,7 @@
 				1B5585691D34CF4F00DCD3A0 /* REFrostedContainerViewController.m in Sources */,
 				0495887A1D3A620300544259 /* ZXTelParsedResult.m in Sources */,
 				049589191D3A620300544259 /* ZXQRCodeDecodedBitStreamParser.m in Sources */,
+				1B119E6D1D3CB89F007CC050 /* AllowSelectPhotoBrose.m in Sources */,
 				049588AE1D3A620300544259 /* ZXDataMatrixDecodedBitStreamParser.m in Sources */,
 				049588721D3A620300544259 /* ZXParsedResult.m in Sources */,
 				049588FC1D3A620300544259 /* ZXUPCEReader.m in Sources */,
@@ -2938,6 +3119,7 @@
 				049588FA1D3A620300544259 /* ZXUPCEANReader.m in Sources */,
 				049589101D3A620300544259 /* ZXPDF417ErrorCorrection.m in Sources */,
 				049589121D3A620300544259 /* ZXPDF417Common.m in Sources */,
+				1B119E6E1D3CB89F007CC050 /* BigPhotoSelectController.m in Sources */,
 				0495892F1D3A620300544259 /* ZXQRCodeWriter.m in Sources */,
 				1B06D5D31D362FA8002D06A7 /* Company.m in Sources */,
 				1B4B16101D3731D900E71B3D /* Employee.m in Sources */,

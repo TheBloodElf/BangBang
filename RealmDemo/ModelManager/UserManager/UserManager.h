@@ -28,6 +28,8 @@
 - (RBQFetchedResultsController*)createUserFetchedResultsController;
 //根据Guid和圈子ID获取员工
 - (Employee*)getEmployeeWithGuid:(NSString*)userGuid companyNo:(int)companyNo;
+//根据UserNO获取员工
+- (Employee*)getEmployeeWithNo:(int)userNo;
 #pragma mark -- Company
 //更新某个圈子信息
 - (void)updateCompany:(Company*)company;

@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>4</integer>
 		</dict>
+		<key>JTCalendar.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>9</integer>
+		</dict>
 		<key>MBProgressHUD.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -53,6 +58,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>0D2D8B369ED36FEE3BE710DA8519A3E3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>1B6FA83DCEB5A61903101F822F367B5E</key>
 		<dict>
 			<key>primary</key>
@@ -73,12 +83,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>4A7B1F380A3F16E55346CD6AD0009E2D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>50A2CA0CE6CC009993ABCB7191FDCDF1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>5C2D669C5A5532C27A8F68FDA42DEC64</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>70BC44266C6FFE30D2C57129458E070B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>773B9CF207704757DAFD9D9E7E3603A0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -99,6 +124,11 @@
 			<true/>
 		</dict>
 		<key>9EAB3E42EF957541E6C3C76D35FD008E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C3AD7E342840A1BEA026D1D3A2D9C1A7</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -63,12 +63,6 @@
         [_companyArr removeAllObjects];
         [_companyArr addObjectsFromArray:(id)controller.fetchedObjects];
         [_tableView reloadData];
-        //因为圈子更新后会把用户当前圈子给清除掉，所以这里重新设置一下 当然随便在其他地方也可以
-        if(_companyArr.count) {
-            User *user = [User copyFromUser:_userManager.user];
-            user.currCompany = _companyArr[0];
-            [_userManager updateUser:user];
-        }
     }
 }
 //加入圈子被点击
@@ -101,7 +95,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     //改变用户当前圈子
-    Company *company = _companyArr[indexPath.row];
+    Company *company = [Company copyFromCompany:_companyArr[indexPath.row]];
     User *user = [User copyFromUser:_userManager.user];
     user.currCompany = company;
     [_userManager updateUser:user];

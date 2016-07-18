@@ -11,8 +11,19 @@
 #import "User.h"
 
 @interface UserHttp : NSObject
+#pragma mark -- 融云
+//同步群组
++ (NSURLSessionDataTask*)syncRYGroup:(int)userNo handler:(completionHandler)handler;
+//获取融云token
++ (NSURLSessionDataTask*)getRYToken:(int)userNo handler:(completionHandler)handler;
+//将员工加入群聊
++ (NSURLSessionDataTask*)joinRYGroup:(int)userNo companyNo:(int)companyNo handler:(completionHandler)handler;
+//将员工移除群聊
++ (NSURLSessionDataTask*)quitRYGroup:(int)userNo companyNo:(int)companyNo handler:(completionHandler)handler;
 #pragma mark -- 邀请链接
+//获取分享链接
 + (NSURLSessionDataTask*)getInviteURL:(int)userNo companyNo:(int)companyNo handler:(completionHandler)handler;
+//获取推广链接
 + (NSURLSessionDataTask*)getReferrerURL:(int)userNo handler:(completionHandler)handler;
 #pragma mark -- 修改用户信息
 + (NSURLSessionDataTask*)updateUserInfo:(User*)user handler:(completionHandler)handler;
@@ -35,9 +46,4 @@
 + (NSURLSessionDataTask*)getCompanyOwner:(int)companyNo handler:(completionHandler)handler;
 //更新员工状态 如果在圈子中 那么退出圈子都是调的这个方法
 + (NSURLSessionDataTask*)updateEmployeeStatus:(NSString*)employeeGuid status:(int)status reason:(NSString*)reason handler:(completionHandler)handler;
-#pragma mark -- 融云群聊
-//将员工加入群聊
-+ (NSURLSessionDataTask*)joinRYGroup:(int)userNo companyNo:(int)companyNo handler:(completionHandler)handler;
-//将员工移除群聊
-+ (NSURLSessionDataTask*)quitRYGroup:(int)userNo companyNo:(int)companyNo handler:(completionHandler)handler;
 @end
