@@ -62,7 +62,7 @@
     UIButton *okBtn= [UIButton buttonWithType:UIButtonTypeCustom];
     [okBtn setTitle:@"完成" forState:UIControlStateNormal];\
     okBtn.tag = 1102;
-    [okBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [okBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [okBtn addTarget:self action:@selector(finishClicked:) forControlEvents:UIControlEventTouchUpInside];
     okBtn.frame = CGRectMake(_bottomView.frame.size.width - btnWidth - btnRight, 0.5 * (_bottomView.frame.size.height - btnHeight), btnWidth, btnHeight);
     [_bottomView addSubview:okBtn];
@@ -197,17 +197,7 @@
 #pragma mark -- Navigation buttons
 
 - (void)setupLeftNavigationButton {
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setFrame:CGRectMake(0.0f, 0.0f, 50.0f, 40.0f)];
-    [button setTitleEdgeInsets:UIEdgeInsetsMake(0, -5, 0, 0)];
-    [button setTitle:@"返回" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    [button setImageEdgeInsets:UIEdgeInsetsMake(0.0f, -15.0f, 0.0f, 0.0f)];
-    [button setImage:[UIImage imageNamed:@"back_arrow"] forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(leftNavigationButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-    temporaryBarButtonItem.style = UIBarButtonItemStylePlain;
-    self.navigationItem.leftBarButtonItem = temporaryBarButtonItem;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(leftNavigationButtonAction:)];
 }
 
 - (void)setupRightNavigationButton {

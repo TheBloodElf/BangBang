@@ -188,42 +188,43 @@
         }
         else
         {
-            if(self.photo.zoomUrl)
-            {
-                //先下载缩略图 再下载原图
-                [imageView sd_setImageWithURL:self.photo.zoomUrl placeholderImage:[UIImage imageNamed:@""] options:SDWebImageHighPriority progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-                    
-                    
-                } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                    if(error)
-                    {
-                        [activityView stopAnimating];
-                        return;
-                    }
-                    weakSelf.photo.zoomImage = image;
-                    imageView.image = weakSelf.photo.zoomImage;
-                    if(!weakSelf.noNeedScale)
-                        imageView.frame = [weakSelf scaleToScreenSize:weakSelf.photo.zoomImage.size];
-                    if(self.photo.oiginalUrl)
-                    {
-                        //下载原图
-                        [imageView sd_setImageWithURL:weakSelf.photo.oiginalUrl placeholderImage:weakSelf.photo.zoomImage options:SDWebImageHighPriority progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-                            
-                        } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                            weakSelf.photo.oiginalImage = image;
-                            imageView.image = weakSelf.photo.oiginalImage;
-                            //停止转动菊花
-                            [activityView stopAnimating];
-                            //配置已经加载
-                            isLoaded = YES;
-                            if(!weakSelf.noNeedScale)
-                                imageView.frame = [weakSelf scaleToScreenSize:weakSelf.photo.oiginalImage.size];
-                        }];
-                    }
-                }];
-            }
-            else
-            {
+            //因为本项目没有缩略图地址，所以直接注释掉
+//            if(self.photo.zoomUrl)
+//            {
+//                //先下载缩略图 再下载原图
+//                [imageView sd_setImageWithURL:self.photo.zoomUrl placeholderImage:[UIImage imageNamed:@""] options:SDWebImageHighPriority progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+//                    
+//                    
+//                } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//                    if(error)
+//                    {
+//                        [activityView stopAnimating];
+//                        return;
+//                    }
+//                    weakSelf.photo.zoomImage = image;
+//                    imageView.image = weakSelf.photo.zoomImage;
+//                    if(!weakSelf.noNeedScale)
+//                        imageView.frame = [weakSelf scaleToScreenSize:weakSelf.photo.zoomImage.size];
+//                    if(self.photo.oiginalUrl)
+//                    {
+//                        //下载原图
+//                        [imageView sd_setImageWithURL:weakSelf.photo.oiginalUrl placeholderImage:weakSelf.photo.zoomImage options:SDWebImageHighPriority progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+//                            
+//                        } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//                            weakSelf.photo.oiginalImage = image;
+//                            imageView.image = weakSelf.photo.oiginalImage;
+//                            //停止转动菊花
+//                            [activityView stopAnimating];
+//                            //配置已经加载
+//                            isLoaded = YES;
+//                            if(!weakSelf.noNeedScale)
+//                                imageView.frame = [weakSelf scaleToScreenSize:weakSelf.photo.oiginalImage.size];
+//                        }];
+//                    }
+//                }];
+//            }
+//            else
+//            {
                 if(self.photo.oiginalUrl)
                 {
                     //下载原图
@@ -240,7 +241,7 @@
                             imageView.frame = [weakSelf scaleToScreenSize:weakSelf.photo.oiginalImage.size];
                     }];
                 }
-            }
+//            }
         }
     }
 }

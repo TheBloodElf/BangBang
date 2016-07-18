@@ -44,15 +44,13 @@
     self.title = @"相机胶卷";
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
 
-    [self setupNavigationBar];
     [self setupLeftNavigationButton];
     [self setupRightNavigationButton];
     // Do any additional setup after loading the view.
 }
-
-- (void)dealloc
-{
-    
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 #pragma mark -- BigPhotoSelectDelegate
@@ -123,7 +121,7 @@
     [okBtn setTitle:@"完成" forState:UIControlStateNormal];
     okBtn.titleLabel.font = [UIFont systemFontOfSize:17];
     okBtn.tag = 1102;
-    [okBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [okBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [okBtn addTarget:self action:@selector(finishBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     okBtn.frame = CGRectMake(_bottomView.frame.size.width - btnWidth - btnRight, 0.5 * (_bottomView.frame.size.height - btnHeight), btnWidth, btnHeight);
     [_bottomView addSubview:okBtn];
@@ -131,7 +129,7 @@
     //创建标签后面的红色图像
     UIView *iamgeView = [[UIView alloc] initWithFrame:CGRectMake(_bottomView.frame.size.width - btnWidth - labelWidth - btnRight, 0.5 * (_bottomView.frame.size.height - labelHeight), labelWidth, labelHeight)];
     iamgeView.tag = 1101;
-    iamgeView.backgroundColor = [UIColor redColor];
+    iamgeView.backgroundColor = [UIColor blackColor];
     iamgeView.layer.cornerRadius = labelHeight / 2;
     iamgeView.clipsToBounds = YES;
     [_bottomView addSubview:iamgeView];
@@ -157,7 +155,7 @@
     lookBtn.titleLabel.font = [UIFont systemFontOfSize:17];
     lookBtn.frame = CGRectMake(btnRight,  0.5 * (_bottomView.frame.size.height - btnHeight), btnWidth, btnHeight);
     [lookBtn addTarget:self action:@selector(lookBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [lookBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [lookBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     lookBtn.tag = 1099;
     [_bottomView addSubview:lookBtn];
 }
@@ -335,7 +333,7 @@
     }
     else{
         BigPhotoSelectController *big = [BigPhotoSelectController new];
-        big.index = indexPath.item-1;
+        big.index = (int)indexPath.item - 1;
         big.photoArr = _photoArr;
         big.maxCount = self.maxSelect;
         big.delegate = self;
@@ -407,7 +405,7 @@
         okBtn.enabled = YES;
         lookBtn.enabled = YES;
         iamgeView.hidden = NO;
-        [okBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        [okBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [lookBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     }
     else
@@ -415,7 +413,7 @@
         okBtn.enabled = NO;
         lookBtn.enabled = NO;
         iamgeView.hidden = YES;
-        [okBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        [okBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [lookBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     }
 }
@@ -434,28 +432,10 @@
 #pragma mark -
 #pragma mark - Navigation Config
 
-#pragma mark -- Navigation Bar
-
-- (void)setupNavigationBar {
-    UINavigationBar *navigationBar = self.navigationController.navigationBar;
-    [navigationBar setBackgroundImage:nil forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-    [navigationBar setShadowImage:nil];
-}
-
 #pragma mark -- Navigation buttons
 
 - (void)setupLeftNavigationButton {
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setFrame:CGRectMake(0.0f, 0.0f, 50.0f, 40.0f)];
-    [button setTitleEdgeInsets:UIEdgeInsetsMake(0, -5, 0, 0)];
-    [button setTitle:@"相册" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    [button setImageEdgeInsets:UIEdgeInsetsMake(0.0f, -15.0f, 0.0f, 0.0f)];
-    [button setImage:[UIImage imageNamed:@"back_arrow"] forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(leftNavigationButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-    temporaryBarButtonItem.style = UIBarButtonItemStylePlain;
-    self.navigationItem.leftBarButtonItem = temporaryBarButtonItem;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"相册" style:UIBarButtonItemStylePlain target:self action:@selector(leftNavigationButtonAction:)];
 }
 
 - (void)setupRightNavigationButton {

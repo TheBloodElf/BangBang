@@ -346,6 +346,13 @@
 		1B877F171D178E7D000144B2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B877F161D178E7D000144B2 /* main.m */; };
 		1B877F221D178E7D000144B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B877F211D178E7D000144B2 /* Assets.xcassets */; };
 		1B877F251D178E7D000144B2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B877F231D178E7D000144B2 /* LaunchScreen.storyboard */; };
+		1B9DD17D1D3CD619008FEC53 /* AvaterBroseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9DD1791D3CD619008FEC53 /* AvaterBroseController.m */; };
+		1B9DD17E1D3CD619008FEC53 /* PlainPhotoBrose.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9DD17C1D3CD619008FEC53 /* PlainPhotoBrose.m */; };
+		1B9DD1891D3CDB81008FEC53 /* NoResultView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9DD1811D3CDB81008FEC53 /* NoResultView.m */; };
+		1B9DD18A1D3CDB81008FEC53 /* SearchAdressController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9DD1831D3CDB81008FEC53 /* SearchAdressController.m */; };
+		1B9DD18B1D3CDB81008FEC53 /* SelectAdressController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9DD1851D3CDB81008FEC53 /* SelectAdressController.m */; };
+		1B9DD18C1D3CDB81008FEC53 /* SelectAdressTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9DD1871D3CDB81008FEC53 /* SelectAdressTableCell.m */; };
+		1B9DD18D1D3CDB81008FEC53 /* SelectAdressTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B9DD1881D3CDB81008FEC53 /* SelectAdressTableCell.xib */; };
 		1BD871E51D3882510074CDC7 /* ic_setting_bg_default.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1BD871E41D3882510074CDC7 /* ic_setting_bg_default.jpg */; };
 		1BD871EA1D38AE200074CDC7 /* CreateBushController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD871E91D38AE200074CDC7 /* CreateBushController.m */; };
 		1BD871ED1D38AFEF0074CDC7 /* CreateBushModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD871EC1D38AFEF0074CDC7 /* CreateBushModel.m */; };
@@ -1034,6 +1041,19 @@
 		1B877F211D178E7D000144B2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1B877F241D178E7D000144B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1B877F261D178E7D000144B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1B9DD1781D3CD619008FEC53 /* AvaterBroseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvaterBroseController.h; sourceTree = "<group>"; };
+		1B9DD1791D3CD619008FEC53 /* AvaterBroseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvaterBroseController.m; sourceTree = "<group>"; };
+		1B9DD17B1D3CD619008FEC53 /* PlainPhotoBrose.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlainPhotoBrose.h; sourceTree = "<group>"; };
+		1B9DD17C1D3CD619008FEC53 /* PlainPhotoBrose.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlainPhotoBrose.m; sourceTree = "<group>"; };
+		1B9DD1801D3CDB81008FEC53 /* NoResultView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoResultView.h; sourceTree = "<group>"; };
+		1B9DD1811D3CDB81008FEC53 /* NoResultView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoResultView.m; sourceTree = "<group>"; };
+		1B9DD1821D3CDB81008FEC53 /* SearchAdressController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchAdressController.h; sourceTree = "<group>"; };
+		1B9DD1831D3CDB81008FEC53 /* SearchAdressController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchAdressController.m; sourceTree = "<group>"; };
+		1B9DD1841D3CDB81008FEC53 /* SelectAdressController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectAdressController.h; sourceTree = "<group>"; };
+		1B9DD1851D3CDB81008FEC53 /* SelectAdressController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectAdressController.m; sourceTree = "<group>"; };
+		1B9DD1861D3CDB81008FEC53 /* SelectAdressTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectAdressTableCell.h; sourceTree = "<group>"; };
+		1B9DD1871D3CDB81008FEC53 /* SelectAdressTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectAdressTableCell.m; sourceTree = "<group>"; };
+		1B9DD1881D3CDB81008FEC53 /* SelectAdressTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectAdressTableCell.xib; sourceTree = "<group>"; };
 		1BD871E41D3882510074CDC7 /* ic_setting_bg_default.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ic_setting_bg_default.jpg; sourceTree = "<group>"; };
 		1BD871E81D38AE200074CDC7 /* CreateBushController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateBushController.h; sourceTree = "<group>"; };
 		1BD871E91D38AE200074CDC7 /* CreateBushController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateBushController.m; sourceTree = "<group>"; };
@@ -2475,6 +2495,49 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		1B9DD1761D3CD619008FEC53 /* PhotoBrowseController */ = {
+			isa = PBXGroup;
+			children = (
+				1B9DD1771D3CD619008FEC53 /* AvaterBroseController */,
+				1B9DD17A1D3CD619008FEC53 /* PlainPhotoBrose */,
+			);
+			path = PhotoBrowseController;
+			sourceTree = "<group>";
+		};
+		1B9DD1771D3CD619008FEC53 /* AvaterBroseController */ = {
+			isa = PBXGroup;
+			children = (
+				1B9DD1781D3CD619008FEC53 /* AvaterBroseController.h */,
+				1B9DD1791D3CD619008FEC53 /* AvaterBroseController.m */,
+			);
+			path = AvaterBroseController;
+			sourceTree = "<group>";
+		};
+		1B9DD17A1D3CD619008FEC53 /* PlainPhotoBrose */ = {
+			isa = PBXGroup;
+			children = (
+				1B9DD17B1D3CD619008FEC53 /* PlainPhotoBrose.h */,
+				1B9DD17C1D3CD619008FEC53 /* PlainPhotoBrose.m */,
+			);
+			path = PlainPhotoBrose;
+			sourceTree = "<group>";
+		};
+		1B9DD17F1D3CDB81008FEC53 /* SelectAdressController */ = {
+			isa = PBXGroup;
+			children = (
+				1B9DD1801D3CDB81008FEC53 /* NoResultView.h */,
+				1B9DD1811D3CDB81008FEC53 /* NoResultView.m */,
+				1B9DD1821D3CDB81008FEC53 /* SearchAdressController.h */,
+				1B9DD1831D3CDB81008FEC53 /* SearchAdressController.m */,
+				1B9DD1841D3CDB81008FEC53 /* SelectAdressController.h */,
+				1B9DD1851D3CDB81008FEC53 /* SelectAdressController.m */,
+				1B9DD1861D3CDB81008FEC53 /* SelectAdressTableCell.h */,
+				1B9DD1871D3CDB81008FEC53 /* SelectAdressTableCell.m */,
+				1B9DD1881D3CDB81008FEC53 /* SelectAdressTableCell.xib */,
+			);
+			path = SelectAdressController;
+			sourceTree = "<group>";
+		};
 		1BD871E71D38AE040074CDC7 /* CreateBushController */ = {
 			isa = PBXGroup;
 			children = (
@@ -2553,6 +2616,8 @@
 			children = (
 				75E5FF591D27A81B00F77961 /* AppCustoms.h */,
 				75E5FF5A1D27A81B00F77961 /* AppCustoms.m */,
+				1B9DD17F1D3CDB81008FEC53 /* SelectAdressController */,
+				1B9DD1761D3CD619008FEC53 /* PhotoBrowseController */,
 				1B119E8B1D3CB92B007CC050 /* ShowBigImageScroller */,
 				1B119E871D3CB907007CC050 /* ImageScrollView */,
 				1B119E771D3CB8FB007CC050 /* ImageSelectView */,
@@ -2748,6 +2813,7 @@
 				1B5585A01D34E2C800DCD3A0 /* ic_welcome_avatar_1_1.png in Resources */,
 				0495864F1D3A348200544259 /* InviteColleagueController.storyboard in Resources */,
 				049586211D39D3A500544259 /* SingleSelectController.xib in Resources */,
+				1B9DD18D1D3CDB81008FEC53 /* SelectAdressTableCell.xib in Resources */,
 				1B5585B21D34F3A600DCD3A0 /* LoginViewController.xib in Resources */,
 				1B55859F1D34E2C800DCD3A0 /* ic_welcome_avatar_0_0.png in Resources */,
 				0495864D1D3A348200544259 /* FaceInviteColleague.xib in Resources */,
@@ -2809,6 +2875,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B9DD1891D3CDB81008FEC53 /* NoResultView.m in Sources */,
 				0495891B1D3A620300544259 /* ZXQRCodeDecoderMetaData.m in Sources */,
 				049588C21D3A620300544259 /* ZXMaxiCodeDecoder.m in Sources */,
 				1B55856D1D34CF4F00DCD3A0 /* UIViewController+REFrostedViewController.m in Sources */,
@@ -2952,6 +3019,7 @@
 				1B119E841D3CB8FB007CC050 /* ImageSelectView.m in Sources */,
 				04A817771D3525D700011DA1 /* IdentityHttp.m in Sources */,
 				049588651D3A620300544259 /* ZXAddressBookParsedResult.m in Sources */,
+				1B9DD17D1D3CD619008FEC53 /* AvaterBroseController.m in Sources */,
 				049589201D3A620300544259 /* ZXQRCodeAlignmentPattern.m in Sources */,
 				1B5585791D34D94100DCD3A0 /* LoginController.m in Sources */,
 				0495890F1D3A620300544259 /* ZXPDF417Dimensions.m in Sources */,
@@ -3006,11 +3074,13 @@
 				049589261D3A620300544259 /* ZXQRCode.m in Sources */,
 				0495885C1D3A620300544259 /* ZXAztecSimpleToken.m in Sources */,
 				049588C11D3A620300544259 /* ZXMaxiCodeDecodedBitStreamParser.m in Sources */,
+				1B9DD18A1D3CDB81008FEC53 /* SearchAdressController.m in Sources */,
 				1BD8722A1D38DD6C0074CDC7 /* BushSearchCell.m in Sources */,
 				049588E31D3A620300544259 /* ZXCodaBarReader.m in Sources */,
 				049588DC1D3A620300544259 /* ZXRSSExpandedRow.m in Sources */,
 				1B5585A71D34F1DF00DCD3A0 /* FindPasswordViewController.m in Sources */,
 				0495887D1D3A620300544259 /* ZXURIParsedResult.m in Sources */,
+				1B9DD17E1D3CD619008FEC53 /* PlainPhotoBrose.m in Sources */,
 				0495888E1D3A620300544259 /* ZXReedSolomonDecoder.m in Sources */,
 				049588641D3A620300544259 /* ZXAddressBookDoCoMoResultParser.m in Sources */,
 				049586161D39D3A500544259 /* AllSelectBtn.m in Sources */,
@@ -3029,6 +3099,7 @@
 				049588C71D3A620300544259 /* ZXAI013103decoder.m in Sources */,
 				049588BE1D3A620300544259 /* ZXDataMatrixReader.m in Sources */,
 				1BD871F01D38BECD0074CDC7 /* UIImage+scale.m in Sources */,
+				1B9DD18C1D3CDB81008FEC53 /* SelectAdressTableCell.m in Sources */,
 				1B4B16141D37398600E71B3D /* XAddrBookCell.m in Sources */,
 				049588801D3A620300544259 /* ZXVCardResultParser.m in Sources */,
 				049588D71D3A620300544259 /* ZXRSSExpandedFieldParser.m in Sources */,
@@ -3083,6 +3154,7 @@
 				0495886D1D3A620300544259 /* ZXExpandedProductResultParser.m in Sources */,
 				049588D41D3A620300544259 /* ZXRSSExpandedDecodedInformation.m in Sources */,
 				049588F71D3A620300544259 /* ZXUPCEANExtension2Support.m in Sources */,
+				1B9DD18B1D3CDB81008FEC53 /* SelectAdressController.m in Sources */,
 				049588D11D3A620300544259 /* ZXRSSExpandedBlockParsedResult.m in Sources */,
 				049588E81D3A620300544259 /* ZXCode39Writer.m in Sources */,
 				049588B41D3A620300544259 /* ZXDataMatrixC40Encoder.m in Sources */,

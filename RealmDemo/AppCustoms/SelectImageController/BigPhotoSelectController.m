@@ -78,7 +78,7 @@
     UIButton *okBtn= [UIButton buttonWithType:UIButtonTypeCustom];
     [okBtn setTitle:@"完成" forState:UIControlStateNormal];\
     okBtn.tag = 1102;
-    [okBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [okBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [okBtn addTarget:self action:@selector(finishBtn:) forControlEvents:UIControlEventTouchUpInside];
     okBtn.frame = CGRectMake(_bottomView.frame.size.width - btnWidth - btnRight, 0.5 * (_bottomView.frame.size.height - btnHeight), btnWidth, btnHeight);
     [_bottomView addSubview:okBtn];

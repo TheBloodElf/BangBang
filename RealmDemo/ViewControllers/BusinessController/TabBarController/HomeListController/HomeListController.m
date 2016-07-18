@@ -11,6 +11,7 @@
 #import "HomeListBottomView.h"
 #import "UserManager.h"
 #import "PushMessageController.h"
+#import "SelectAdressController.h"
 
 @interface HomeListController ()<HomeListTopDelegate,HomeListBottomDelegate,RBQFetchedResultsControllerDelegate> {
     UIScrollView *_scrollView;//整体的滚动视图
@@ -103,7 +104,9 @@
 //第几个按钮被点击了
 - (void)homeListBottomClicked:(NSInteger)index {
     if(index == 0) {
-        
+        SelectAdressController *select = [SelectAdressController new];
+        select.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:select animated:YES];
     } else if (index == 1) {
         
     }

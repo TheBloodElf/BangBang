@@ -22,6 +22,8 @@
     RLMRealmConfiguration *config = [RLMRealmConfiguration defaultConfiguration];
     config.schemaVersion = 2;
     [RLMRealmConfiguration setDefaultConfiguration:config];
+    //百度地图注册
+    
     //对应用进行全局的初始化
     [AppCustoms customs];
     //连接融云
