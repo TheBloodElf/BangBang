@@ -14,6 +14,7 @@
 #import "Employee.h"
 #import "PushMessage.h"
 #import "UserDiscuss.h"
+#import "Calendar.h"
 
 @interface UserManager : NSObject
 //全局的用户信息
@@ -75,4 +76,9 @@
 - (void)updateUserDiscussArr:(NSMutableArray<UserDiscuss*>*)userDiscussArr;
 //创建讨论组数据监听
 - (RBQFetchedResultsController*)createUserDiscusFetchedResultsController;
+#pragma mark -- Calendar
+//更新所有的日程
+- (void)updateCalendar:(NSMutableArray<Calendar*>*)calendarArr;
+//创建日程数据监听
+- (RBQFetchedResultsController*)createCalendarFetchedResultsController;
 @end

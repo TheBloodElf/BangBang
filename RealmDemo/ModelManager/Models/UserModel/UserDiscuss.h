@@ -14,7 +14,7 @@
 /**
  *  讨论组主键
  */
-@property(nonatomic,strong)NSString *id;
+@property(nonatomic,assign)int id;
 /**
  *  用户编号
  */

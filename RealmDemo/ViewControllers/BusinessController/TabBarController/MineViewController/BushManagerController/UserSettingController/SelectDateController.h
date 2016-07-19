@@ -13,5 +13,6 @@ typedef void(^SelectDateBlock)(NSDate *selectDate);
 @interface SelectDateController : UIViewController
 
 @property (nonatomic, copy) SelectDateBlock selectDateBlock;
+@property (nonatomic, assign) UIDatePickerMode datePickerMode;
 
 @end

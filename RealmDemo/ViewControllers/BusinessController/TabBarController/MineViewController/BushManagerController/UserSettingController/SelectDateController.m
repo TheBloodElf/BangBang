@@ -18,6 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.dataPicker.datePickerMode = self.datePickerMode;
     // Do any additional setup after loading the view from its nib.
 }
 - (IBAction)sureClicked:(id)sender {

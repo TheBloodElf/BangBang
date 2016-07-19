@@ -294,4 +294,24 @@
     [fetchedResultsController performFetch];
     return fetchedResultsController;
 }
+#pragma mark -- Calendar
+//更新所有的日程
+- (void)updateCalendar:(NSMutableArray<Calendar*>*)calendarArr {
+    [_rlmRealm beginWriteTransaction];
+    RLMResults *pushMessages = [Calendar allObjectsInRealm:_rlmRealm];
+    while (pushMessages.count)
+        [_rlmRealm deleteObject:pushMessages.firstObject];
+    for (Calendar *calendar in calendarArr) {
+        [_rlmRealm addOrUpdateObject:calendar];
+    }
+    [_rlmRealm commitWriteTransaction];
+}
+//创建日程数据监听
+- (RBQFetchedResultsController*)createCalendarFetchedResultsController {
+    RBQFetchedResultsController *fetchedResultsController = nil;
+    RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"Calendar" inRealm:_rlmRealm predicate:nil];
+    fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:@"Calendar"];
+    [fetchedResultsController performFetch];
+    return fetchedResultsController;
+}
 @end

@@ -46,4 +46,10 @@
 + (NSURLSessionDataTask*)getCompanyOwner:(int)companyNo handler:(completionHandler)handler;
 //更新员工状态 如果在圈子中 那么退出圈子都是调的这个方法
 + (NSURLSessionDataTask*)updateEmployeeStatus:(NSString*)employeeGuid status:(int)status reason:(NSString*)reason handler:(completionHandler)handler;
+#pragma mark -- 讨论组
+//获取用户通讯录中的讨论组
++ (NSURLSessionDataTask*)getUserDiscuss:(int)userNo handler:(completionHandler)handler;
+#pragma mark -- 日程
+//获取用户所有日程
++ (NSURLSessionDataTask*)getUserCalendar:(NSString*)userGuid handler:(completionHandler)handler;
 @end

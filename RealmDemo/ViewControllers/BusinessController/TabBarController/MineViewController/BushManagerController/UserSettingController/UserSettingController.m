@@ -210,6 +210,7 @@
         if(indexPath.row == 4) {
             //选择开始时间
             SelectDateController *select = [SelectDateController new];
+            select.datePickerMode = UIDatePickerModeTime;
             select.selectDateBlock = ^(NSDate *date) {
                 _identityManager.identity.ryDisturbBeginTime = date;
                 [_identityManager saveAuthorizeData];
@@ -228,6 +229,7 @@
         } else if (indexPath.row == 5) {
             //选择结束时间
             SelectDateController *select = [SelectDateController new];
+            select.datePickerMode = UIDatePickerModeTime;
             select.selectDateBlock = ^(NSDate *date) {
                 _identityManager.identity.ryDisturbEndTime = date;
                 [_identityManager saveAuthorizeData];

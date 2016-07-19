@@ -10,4 +10,8 @@
 
 @implementation UserDiscuss
 
++ (NSString*)primaryKey {
+    return @"id";
+}
+
 @end

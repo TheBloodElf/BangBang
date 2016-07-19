@@ -6,7 +6,7 @@
 //  Copyright © 2016年 com.luohaifang. All rights reserved.
 //
 
-
+//员工
 @interface Employee : RLMObject
 /** id  */
 @property (nonatomic, assign) int id;

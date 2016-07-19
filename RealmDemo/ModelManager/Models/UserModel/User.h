@@ -8,7 +8,7 @@
 
 
 #import "Company.h"
-
+//当前用户
 @interface User : RLMObject
 
 /** qq */

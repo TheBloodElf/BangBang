@@ -42,7 +42,19 @@
     week = week - 1;
     return week ?: 7;
 }
-
+- (NSString*)weekdayStr {
+    NSString *weekday = nil;
+    switch (self.weekday) {
+        case 1:weekday = @"星期一";break;
+        case 2:weekday = @"星期二";break;
+        case 3:weekday = @"星期三";break;
+        case 4:weekday = @"星期四";break;
+        case 5:weekday = @"星期五";break;
+        case 6:weekday = @"星期六";break;
+        default:weekday = @"星期日"; break;
+    }
+    return weekday;
+}
 
 - (NSString *)stringWithDateFormat:(NSString *)format {
 #if 0

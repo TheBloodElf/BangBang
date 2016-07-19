@@ -20,7 +20,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     RLMRealmConfiguration *config = [RLMRealmConfiguration defaultConfiguration];
-    config.schemaVersion = 2;
+    config.schemaVersion = 7;
     [RLMRealmConfiguration setDefaultConfiguration:config];
     //百度地图注册
     [AMapServices sharedServices].apiKey = @"812f92db9078841bddb73919f07e8d15";

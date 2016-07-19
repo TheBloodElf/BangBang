@@ -6,6 +6,7 @@
 //  Copyright © 2016年 com.luohaifang. All rights reserved.
 //
 @class Employee;
+//圈子
 @interface Company : RLMObject
 
 @property (nonatomic, strong) NSString *admin_user_guid;//管理员guid

@@ -7,7 +7,7 @@
 //
 
 #import <Realm/Realm.h>
-
+//推送消息
 @interface PushMessage : RLMObject
 
 @property (nonatomic,strong) NSString *target_id;

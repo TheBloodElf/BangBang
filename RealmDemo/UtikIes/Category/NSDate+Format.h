@@ -41,6 +41,6 @@
 
 + (NSDate *)now;
 
-
+- (NSString*)weekdayStr;
 
 @end

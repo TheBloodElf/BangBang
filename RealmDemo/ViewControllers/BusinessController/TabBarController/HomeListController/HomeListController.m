@@ -11,6 +11,7 @@
 #import "HomeListBottomView.h"
 #import "UserManager.h"
 #import "PushMessageController.h"
+#import "CalendarController.h"
 
 @interface HomeListController ()<HomeListTopDelegate,HomeListBottomDelegate,RBQFetchedResultsControllerDelegate> {
     UIScrollView *_scrollView;//整体的滚动视图
@@ -87,11 +88,15 @@
 #pragma mark -- HomeListTopDelegate 
 //今天完成日程被点击
 - (void)todayFinishCalendar {
-    
+    CalendarController *calendar = [CalendarController new];
+    calendar.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:calendar animated:YES];
 }
 //本周完成日程被点击
 - (void)weekFinishCalendar {
-    
+    CalendarController *calendar = [CalendarController new];
+    calendar.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:calendar animated:YES];
 }
 //我委派的任务被点击
 - (void)createTaskClicked {

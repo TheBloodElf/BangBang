@@ -106,8 +106,8 @@
             //看是否有融云token 没有就获取
             if([NSString isBlank:identityManager.identity.RYToken]) {
                 [UserHttp getRYToken:user.user_no handler:^(id data, MError *error) {
+                    [self.navigationController dismissTips];
                     if(error) {
-                        [self.navigationController dismissTips];
                         identityManager.identity.user_guid = @"";
                         [identityManager saveAuthorizeData];
                         [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
@@ -115,24 +115,9 @@
                     }
                     identityManager.identity.RYToken = data;
                     [identityManager saveAuthorizeData];
-                    //用融云登录聊天
-                    [[RYChatManager shareInstance] syncRYGroup];
-                    [[RCIM sharedRCIM] connectWithToken:identityManager.identity.RYToken success:^(NSString *userId) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                        [self.navigationController dismissTips];
-                        [self.navigationController.view showFailureTips:@"登陆成功"];
-                        //发通知 登录成功
-                        [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginDidFinish" object:nil];
-                        });
-                    } error:nil tokenIncorrect:^{
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                        identityManager.identity.RYToken = @"";
-                        identityManager.identity.user_guid = @"";
-                        [identityManager saveAuthorizeData];
-                        [self.navigationController dismissTips];
-                        [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
-                        });
-                    }];
+                    [self.navigationController.view showFailureTips:@"登陆成功"];
+                    //发通知 登录成功
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginDidFinish" object:nil];
                 }];
             }
         }];

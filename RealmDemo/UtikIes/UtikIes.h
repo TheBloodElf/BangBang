@@ -21,6 +21,7 @@
 #import "NSObject+Tips.h"
 #import "UIImage+scale.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <JTCalendar/JTCalendar.h>
 #import "WebViewJavascriptBridge.h"
 #import "NSDate+Format.h"
 #import "InterfaceConfig.h"
@@ -32,5 +33,7 @@
 #import "RYChatManager.h"
 #import "UINavigationController+Direction.h"
 #import "CMMacros.h"
+#import "Scheduler.h"
+#import "UIColor+FlatUI.h"
 
 #endif /* UtikIes_h */

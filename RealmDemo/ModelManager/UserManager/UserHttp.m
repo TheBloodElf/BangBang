@@ -214,4 +214,33 @@
     };
     return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
 }
+#pragma mark -- 讨论组
+//获取用户通讯录中的讨论组
++ (NSURLSessionDataTask*)getUserDiscuss:(int)userNo handler:(completionHandler)handler {
+    NSString *urlPath = @"RongClouds/get_discuss_list";
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:@(userNo) forKey:@"user_no"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_GET URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
+#pragma mark -- 日程
+//获取用户所有日程
++ (NSURLSessionDataTask*)getUserCalendar:(NSString*)userGuid handler:(completionHandler)handler {
+    NSString *urlPath = @"Calendars/list_v3";
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:@"1" forKey:@"begin_date"];
+    [params setObject:@"1756809030000" forKey:@"end_date"];
+    [params setObject:@(1) forKey:@"page_index"];
+    [params setObject:@(100000000000) forKey:@"page_size"];
+    [params setObject:@"desc" forKey:@"order_by"];
+    [params setObject:userGuid forKey:@"user_guid"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_GET URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
 @end
