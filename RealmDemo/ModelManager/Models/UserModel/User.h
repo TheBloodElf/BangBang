@@ -40,5 +40,6 @@
 
 - (instancetype)initWithJsonDic:(NSDictionary*)dic;
 + (User*)copyFromUser:(User*)user;
+
 @end
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CalendarSelectAlertTime">
@@ -22,11 +22,11 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                 </button>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="soB-6Q-1JX">
-                    <rect key="frame" x="0.0" y="209" width="375" height="250"/>
+                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="soB-6Q-1JX">
+                    <rect key="frame" x="-29" y="209" width="375" height="250"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="误差范围（米）" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5nV-Pf-nJw">
-                            <rect key="frame" x="128" y="10" width="119" height="20"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="提示时间" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5nV-Pf-nJw">
+                            <rect key="frame" x="154" y="10" width="68" height="20"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="20" id="LKo-or-shs"/>
                             </constraints>
@@ -47,10 +47,13 @@
                                 <constraint firstAttribute="height" constant="30" id="pAz-Mm-cCe"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <state key="normal" title="100" image="icon_select">
+                            <state key="normal" title="1分钟" image="icon_select">
                                 <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="selected" image="icon_selected"/>
+                            <connections>
+                                <action selector="btnClicked:" destination="-1" eventType="touchUpInside" id="0yF-JF-hyY"/>
+                            </connections>
                         </button>
                         <button opaque="NO" tag="1002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GUn-jr-bd4">
                             <rect key="frame" x="109" y="51" width="69" height="30"/>
@@ -58,10 +61,13 @@
                                 <constraint firstAttribute="height" constant="30" id="fuD-3B-XIA"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <state key="normal" title="200" image="icon_select">
+                            <state key="normal" title="5分钟" image="icon_select">
                                 <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="selected" image="icon_selected"/>
+                            <connections>
+                                <action selector="btnClicked:" destination="-1" eventType="touchUpInside" id="gOY-bM-c9O"/>
+                            </connections>
                         </button>
                         <button opaque="NO" tag="1004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jpX-GL-8Gn">
                             <rect key="frame" x="286" y="51" width="69" height="30"/>
@@ -69,10 +75,13 @@
                                 <constraint firstAttribute="height" constant="30" id="1uU-2O-7mQ"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <state key="normal" title="400" image="icon_select">
+                            <state key="normal" title="15分钟" image="icon_select">
                                 <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="selected" image="icon_selected"/>
+                            <connections>
+                                <action selector="btnClicked:" destination="-1" eventType="touchUpInside" id="HR2-Hj-k8b"/>
+                            </connections>
                         </button>
                         <button opaque="NO" tag="1005" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yf1-LM-vk7">
                             <rect key="frame" x="20" y="91" width="69" height="30"/>
@@ -80,10 +89,13 @@
                                 <constraint firstAttribute="height" constant="30" id="jHA-np-p9y"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <state key="normal" title="500" image="icon_select">
+                            <state key="normal" title="30分钟" image="icon_select">
                                 <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="selected" image="icon_selected"/>
+                            <connections>
+                                <action selector="btnClicked:" destination="-1" eventType="touchUpInside" id="rv7-RJ-oSC"/>
+                            </connections>
                         </button>
                         <button opaque="NO" tag="1007" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s7T-C4-wnP">
                             <rect key="frame" x="198" y="91" width="68" height="30"/>
@@ -91,10 +103,13 @@
                                 <constraint firstAttribute="height" constant="30" id="4qn-Nf-CaD"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <state key="normal" title="700" image="icon_select">
+                            <state key="normal" title="90分钟" image="icon_select">
                                 <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="selected" image="icon_selected"/>
+                            <connections>
+                                <action selector="btnClicked:" destination="-1" eventType="touchUpInside" id="GOw-Bg-0G7"/>
+                            </connections>
                         </button>
                         <button opaque="NO" tag="1008" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1z8-yf-JtQ">
                             <rect key="frame" x="286" y="91" width="69" height="30"/>
@@ -102,10 +117,13 @@
                                 <constraint firstAttribute="height" constant="30" id="ItN-z2-msM"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <state key="normal" title="800" image="icon_select">
+                            <state key="normal" title="2小时" image="icon_select">
                                 <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="selected" image="icon_selected"/>
+                            <connections>
+                                <action selector="btnClicked:" destination="-1" eventType="touchUpInside" id="tu5-iP-I8R"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kgK-b0-mcz">
                             <rect key="frame" x="67" y="160" width="90" height="40"/>
@@ -117,6 +135,9 @@
                             <state key="normal" title="取消">
                                 <color key="titleColor" white="0.93874091159999995" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="cancleBtnAction:" destination="-1" eventType="touchUpInside" id="JV6-MA-uc1"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kna-ph-cfV">
                             <rect key="frame" x="218" y="160" width="90" height="40"/>
@@ -128,6 +149,9 @@
                             <state key="normal" title="保存">
                                 <color key="titleColor" white="0.93874091159999995" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="okBntAction:" destination="-1" eventType="touchUpInside" id="ROE-rp-Yev"/>
+                            </connections>
                         </button>
                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n10-rD-LUp">
                             <rect key="frame" x="187" y="0.0" width="1" height="250"/>
@@ -142,10 +166,13 @@
                                 <constraint firstAttribute="height" constant="30" id="3h5-2R-ZI7"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <state key="normal" title="600" image="icon_select">
+                            <state key="normal" title="1小时" image="icon_select">
                                 <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="selected" image="icon_selected"/>
+                            <connections>
+                                <action selector="btnClicked:" destination="-1" eventType="touchUpInside" id="w1A-9U-lXZ"/>
+                            </connections>
                         </button>
                         <button opaque="NO" tag="1003" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UTv-Km-yCy">
                             <rect key="frame" x="198" y="51" width="68" height="30"/>
@@ -153,10 +180,13 @@
                                 <constraint firstAttribute="height" constant="30" id="Ht3-CX-9Gq"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <state key="normal" title="300" image="icon_select">
+                            <state key="normal" title="10分钟" image="icon_select">
                                 <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="selected" image="icon_selected"/>
+                            <connections>
+                                <action selector="btnClicked:" destination="-1" eventType="touchUpInside" id="d8u-iX-ctW"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

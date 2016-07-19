@@ -131,5 +131,18 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if(indexPath.row == 3) {//提醒时间
+        if(self.delegate && [self.delegate respondsToSelector:@selector(ComCanendarAlertBefore)]) {
+            [self.delegate ComCanendarAlertBefore];
+        }
+    } else if (indexPath.row == 4) {//提醒时间
+        if(self.delegate && [self.delegate respondsToSelector:@selector(ComCanendarAlertAfter)]) {
+            [self.delegate ComCanendarAlertAfter];
+        }
+    } else if(indexPath.row == 5) {//分享
+        if(self.delegate && [self.delegate respondsToSelector:@selector(ComCanendarShare)]) {
+            [self.delegate ComCanendarShare];
+        }
+    }
 }
 @end

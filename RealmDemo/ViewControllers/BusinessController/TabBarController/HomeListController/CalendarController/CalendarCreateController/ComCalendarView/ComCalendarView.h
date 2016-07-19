@@ -11,8 +11,11 @@
 
 @protocol ComCalendarViewDelegate <NSObject>
 
-- (void)ComCalendarViewBegin;
-- (void)ComCalendarViewEnd;
+- (void)ComCalendarViewBegin;//开始时间
+- (void)ComCalendarViewEnd;//结束时间
+- (void)ComCanendarAlertBefore;//事前提醒
+- (void)ComCanendarAlertAfter;//事后提醒
+- (void)ComCanendarShare;//分享
 
 @end
 

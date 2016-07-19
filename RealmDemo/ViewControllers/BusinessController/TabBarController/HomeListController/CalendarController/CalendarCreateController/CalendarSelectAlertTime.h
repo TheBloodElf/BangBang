@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^CalendarSelectTime)(int alertTime);
+
 @interface CalendarSelectAlertTime : UIViewController
+
+@property (nonatomic, copy )CalendarSelectTime calendarSelectTime;
 
 @end

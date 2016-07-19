@@ -12,6 +12,7 @@
 #import "ComCalendarView.h"
 #import "RepCalendarView.h"
 #import "SelectDateController.h"
+#import "CalendarSelectAlertTime.h"
 
 @interface CalendarCreateController ()<UIScrollViewDelegate,ComCalendarViewDelegate> {
     UISegmentedControl *_segmentedControl;
@@ -82,8 +83,7 @@
     select.datePickerMode = _currCalendar.is_allday ? UIDatePickerModeDate : UIDatePickerModeDateAndTime;
     select.selectDateBlock = ^(NSDate *date) {
         _currCalendar.begindate_utc = [date timeIntervalSince1970] * 1000;
-        _currCalendar.data = _currCalendar;
-        _repCalendarView.data = _currCalendar;
+        _comCalendarView.data = _currCalendar;
     };
     select.providesPresentationContextTransitionStyle = YES;
     select.definesPresentationContext = YES;
@@ -96,13 +96,41 @@
     select.datePickerMode = _currCalendar.is_allday ? UIDatePickerModeDate : UIDatePickerModeDateAndTime;
     select.selectDateBlock = ^(NSDate *date) {
         _currCalendar.enddate_utc = [date timeIntervalSince1970] * 1000;
-        _currCalendar.data = _currCalendar;
-        _repCalendarView.data = _currCalendar;
+        _comCalendarView.data = _currCalendar;
     };
     select.providesPresentationContextTransitionStyle = YES;
     select.definesPresentationContext = YES;
     select.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     [self presentViewController:select animated:NO completion:nil];
+}
+//一般事务事前提醒
+- (void)ComCanendarAlertBefore {
+    CalendarSelectAlertTime *select = [CalendarSelectAlertTime new];
+    select.calendarSelectTime = ^(int date) {
+        _currCalendar.alert_minutes_before = date;
+        _comCalendarView.data = _currCalendar;
+    };
+    select.providesPresentationContextTransitionStyle = YES;
+    select.definesPresentationContext = YES;
+    select.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    [self presentViewController:select animated:NO completion:nil];
+
+}
+//一般事务事后提醒
+- (void)ComCanendarAlertAfter {
+    CalendarSelectAlertTime *select = [CalendarSelectAlertTime new];
+    select.calendarSelectTime = ^(int date) {
+        _currCalendar.alert_minutes_after = date;
+        _comCalendarView.data = _currCalendar;
+    };
+    select.providesPresentationContextTransitionStyle = YES;
+    select.definesPresentationContext = YES;
+    select.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    [self presentViewController:select animated:NO completion:nil];
+}
+//一般事务事后分享
+- (void)ComCanendarShare {
+    
 }
 #pragma mark -- 
 #pragma mark -- UIScrollViewDelegate
