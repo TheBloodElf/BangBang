@@ -20,6 +20,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.adressLabel.delegate = self;
     // Initialization code
 }
 
@@ -29,8 +30,8 @@
 }
 #pragma mark --
 #pragma mark -- UITextFieldDelegate
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
-    _calendar.address = textField.text;
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    _calendar.address = [textField.text stringByReplacingCharactersInRange:range withString:string];
     return YES;
 }
 @end

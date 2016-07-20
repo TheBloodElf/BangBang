@@ -22,6 +22,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.detailInstructionView.delegate = self;
     // Initialization code
 }
 - (void)dataDidChange {

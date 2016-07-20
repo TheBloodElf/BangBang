@@ -33,7 +33,8 @@
 #import "RYChatManager.h"
 #import "UINavigationController+Direction.h"
 #import "CMMacros.h"
-#import "Scheduler.h"
 #import "UIColor+FlatUI.h"
+#import <EventKit/EKRecurrenceRule.h>
+#import "EKRecurrenceRule+RRULE.h"
 
 #endif /* UtikIes_h */

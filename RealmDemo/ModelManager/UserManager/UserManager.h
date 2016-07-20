@@ -77,8 +77,14 @@
 //创建讨论组数据监听
 - (RBQFetchedResultsController*)createUserDiscusFetchedResultsController;
 #pragma mark -- Calendar
+//添加日程
+- (void)addCalendar:(Calendar*)calendar;
+//更新日程
+- (void)updateCalendar:(Calendar*)calendar;
 //更新所有的日程
-- (void)updateCalendar:(NSMutableArray<Calendar*>*)calendarArr;
+- (void)updateCalendars:(NSMutableArray<Calendar*>*)calendarArr;
+//获取所有的日程
+- (NSMutableArray<Calendar*>*)getCalendarArr;
 //创建日程数据监听
 - (RBQFetchedResultsController*)createCalendarFetchedResultsController;
 @end

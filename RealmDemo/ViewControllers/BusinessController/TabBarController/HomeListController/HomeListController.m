@@ -10,6 +10,7 @@
 #import "HomeListTopView.h"
 #import "HomeListBottomView.h"
 #import "UserManager.h"
+#import "SiginController.h"
 #import "PushMessageController.h"
 #import "CalendarController.h"
 
@@ -114,6 +115,10 @@
         
     } else if (index == 1) {
         
+    } else if (index == 2) {
+        SiginController *sigin = [SiginController new];
+        sigin.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:sigin animated:YES];
     }
 }
 #pragma mark --

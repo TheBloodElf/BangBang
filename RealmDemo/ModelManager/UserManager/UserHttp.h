@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "HttpService.h"
 #import "User.h"
+#import "Calendar.h"
 
 @interface UserHttp : NSObject
 #pragma mark -- 融云
@@ -50,6 +51,8 @@
 //获取用户通讯录中的讨论组
 + (NSURLSessionDataTask*)getUserDiscuss:(int)userNo handler:(completionHandler)handler;
 #pragma mark -- 日程
+//创建日程
++ (NSURLSessionDataTask*)createUserCalendar:(Calendar*)calendar handler:(completionHandler)handler;
 //获取用户所有日程
 + (NSURLSessionDataTask*)getUserCalendar:(NSString*)userGuid handler:(completionHandler)handler;
 @end

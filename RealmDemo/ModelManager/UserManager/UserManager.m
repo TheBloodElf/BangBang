@@ -272,7 +272,6 @@
         [_rlmRealm deleteObject:pushMessages.firstObject];
     [_rlmRealm addObjects:userDiscussArr];
     [_rlmRealm commitWriteTransaction];
-
 }
 //获取所有的讨论组
 - (NSMutableArray<UserDiscuss*>*)getUserDiscussArr {
@@ -295,8 +294,20 @@
     return fetchedResultsController;
 }
 #pragma mark -- Calendar
+//添加日程
+- (void)addCalendar:(Calendar*)calendar {
+    [_rlmRealm beginWriteTransaction];
+    [_rlmRealm addObject:calendar];
+    [_rlmRealm commitWriteTransaction];
+}
+//更新日程
+- (void)updateCalendar:(Calendar*)calendar {
+    [_rlmRealm beginWriteTransaction];
+    [_rlmRealm addOrUpdateObject:calendar];
+    [_rlmRealm commitWriteTransaction];
+}
 //更新所有的日程
-- (void)updateCalendar:(NSMutableArray<Calendar*>*)calendarArr {
+- (void)updateCalendars:(NSMutableArray<Calendar*>*)calendarArr {
     [_rlmRealm beginWriteTransaction];
     RLMResults *pushMessages = [Calendar allObjectsInRealm:_rlmRealm];
     while (pushMessages.count)
@@ -305,6 +316,18 @@
         [_rlmRealm addOrUpdateObject:calendar];
     }
     [_rlmRealm commitWriteTransaction];
+}
+//获取所有的日程
+- (NSMutableArray<Calendar*>*)getCalendarArr {
+    NSMutableArray<Calendar*> *pushMessageArr = [@[] mutableCopy];
+    [_rlmRealm beginWriteTransaction];
+    RLMResults *pushMessages = [Calendar allObjectsInRealm:_rlmRealm];
+    for (int index = 0;index < pushMessages.count;index ++) {
+        Calendar *company = [pushMessages objectAtIndex:index];
+        [pushMessageArr addObject:company];
+    }
+    [_rlmRealm commitWriteTransaction];
+    return pushMessageArr;
 }
 //创建日程数据监听
 - (RBQFetchedResultsController*)createCalendarFetchedResultsController {

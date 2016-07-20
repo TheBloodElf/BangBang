@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="2Av-ZV-TsN" customClass="RepYearView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="108"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="1" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RZb-tj-ee6">
+                    <rect key="frame" x="55" y="10" width="40" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="18" id="QvF-Yh-Or9"/>
+                        <constraint firstAttribute="width" constant="40" id="cK6-q2-Nnl"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="月" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zgf-zY-jhd">
+                    <rect key="frame" x="100" y="10" width="15" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="日" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ewJ-xF-vrC">
+                    <rect key="frame" x="153" y="10" width="15" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="77b-XC-Us3">
+                    <rect key="frame" x="0.0" y="10" width="50" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="7dr-Gx-CtI"/>
+                        <constraint firstAttribute="height" constant="18" id="Gkf-ph-WO9"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="每年" image="repeat_radio_selected">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" title="每" image="repeat_radio_selected"/>
+                </button>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="1" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ymJ-87-N89">
+                    <rect key="frame" x="118" y="10" width="30" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="30" id="Xwa-w1-aGQ"/>
+                        <constraint firstAttribute="height" constant="18" id="YW6-7w-Nlf"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="zgf-zY-jhd" firstAttribute="leading" secondItem="RZb-tj-ee6" secondAttribute="trailing" constant="5" id="MRB-UP-UVP"/>
+                <constraint firstItem="77b-XC-Us3" firstAttribute="top" secondItem="2Av-ZV-TsN" secondAttribute="top" constant="10" id="PdC-Z4-ZoT"/>
+                <constraint firstItem="zgf-zY-jhd" firstAttribute="centerY" secondItem="RZb-tj-ee6" secondAttribute="centerY" id="Quv-gS-KjB"/>
+                <constraint firstItem="ewJ-xF-vrC" firstAttribute="leading" secondItem="ymJ-87-N89" secondAttribute="trailing" constant="5" id="Yf5-mK-AbN"/>
+                <constraint firstItem="77b-XC-Us3" firstAttribute="leading" secondItem="2Av-ZV-TsN" secondAttribute="leading" id="YhK-Py-dWk"/>
+                <constraint firstItem="ewJ-xF-vrC" firstAttribute="centerY" secondItem="ymJ-87-N89" secondAttribute="centerY" id="hhp-Ge-wzm"/>
+                <constraint firstItem="ymJ-87-N89" firstAttribute="leading" secondItem="zgf-zY-jhd" secondAttribute="trailing" constant="3" id="kRB-mb-Z7W"/>
+                <constraint firstItem="ymJ-87-N89" firstAttribute="centerY" secondItem="zgf-zY-jhd" secondAttribute="centerY" id="l6K-rf-sot"/>
+                <constraint firstItem="RZb-tj-ee6" firstAttribute="centerY" secondItem="77b-XC-Us3" secondAttribute="centerY" id="peU-c9-EPf"/>
+                <constraint firstItem="RZb-tj-ee6" firstAttribute="leading" secondItem="77b-XC-Us3" secondAttribute="trailing" constant="5" id="zPd-N5-PCQ"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="dayTextField" destination="ymJ-87-N89" id="AkE-Xi-KuW"/>
+                <outlet property="monthTextField" destination="RZb-tj-ee6" id="6bt-8L-QqP"/>
+            </connections>
+            <point key="canvasLocation" x="279" y="134"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="repeat_radio_selected" width="14" height="14"/>
+    </resources>
+</document>

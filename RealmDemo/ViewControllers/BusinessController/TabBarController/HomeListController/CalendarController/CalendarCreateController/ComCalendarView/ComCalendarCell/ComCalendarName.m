@@ -27,8 +27,8 @@
     _calendar = self.data;
     self.nameLabel.text = _calendar.event_name;
 }
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
-    _calendar.event_name = self.nameLabel.text;
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    _calendar.event_name = [textField.text stringByReplacingCharactersInRange:range withString:string];
     return YES;
 }
 @end

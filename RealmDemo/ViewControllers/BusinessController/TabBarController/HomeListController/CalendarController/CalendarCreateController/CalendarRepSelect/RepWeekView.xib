@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="RepWeekView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="108"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ftd-Xq-nhi">
+                    <rect key="frame" x="0.0" y="10" width="29" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="29" id="Ef0-ee-xFS"/>
+                        <constraint firstAttribute="height" constant="18" id="Tie-5P-uhd"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="每">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" title="每"/>
+                </button>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="1" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="F8e-cT-FAi">
+                    <rect key="frame" x="34" y="10" width="29" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="29" id="rXU-lB-ukS"/>
+                        <constraint firstAttribute="height" constant="18" id="wkk-FD-h7f"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="周" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Bl-Fo-gV7">
+                    <rect key="frame" x="68" y="10" width="15" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" tag="1001" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k0R-O6-sRo">
+                    <rect key="frame" x="0.0" y="38" width="44" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="周日" image="repeat_week_unchecked">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" image="repeat_week_checked"/>
+                    <connections>
+                        <action selector="weekBtnClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="UCa-Cv-TCR"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="1002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eXz-My-hHa">
+                    <rect key="frame" x="59" y="38" width="44" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="周一" image="repeat_week_unchecked">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" image="repeat_week_checked"/>
+                    <connections>
+                        <action selector="weekBtnClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="Dwl-7i-VMn"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="1003" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zFV-c7-Eni">
+                    <rect key="frame" x="118" y="38" width="44" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="周二" image="repeat_week_unchecked">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" image="repeat_week_checked"/>
+                    <connections>
+                        <action selector="weekBtnClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="AVg-vn-nIx"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="1004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lN5-IV-CCo">
+                    <rect key="frame" x="177" y="38" width="44" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="周三" image="repeat_week_unchecked">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" image="repeat_week_checked"/>
+                    <connections>
+                        <action selector="weekBtnClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="UrD-a9-DPn"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="1005" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="efo-S8-3Jc">
+                    <rect key="frame" x="0.0" y="66" width="44" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="周四" image="repeat_week_unchecked">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" image="repeat_week_checked"/>
+                    <connections>
+                        <action selector="weekBtnClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="j0z-Xe-ml7"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="1006" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="58u-mQ-D9o">
+                    <rect key="frame" x="59" y="66" width="44" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="周五" image="repeat_week_unchecked">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" image="repeat_week_checked"/>
+                    <connections>
+                        <action selector="weekBtnClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="Aav-zP-7gU"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="1007" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Ek-Iz-Kqm">
+                    <rect key="frame" x="118" y="66" width="44" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="周六" image="repeat_week_unchecked">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" image="repeat_week_checked"/>
+                    <connections>
+                        <action selector="weekBtnClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="cBP-Vy-dlA"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="lN5-IV-CCo" firstAttribute="centerY" secondItem="zFV-c7-Eni" secondAttribute="centerY" id="5yH-sm-qLt"/>
+                <constraint firstItem="zFV-c7-Eni" firstAttribute="leading" secondItem="eXz-My-hHa" secondAttribute="trailing" constant="15" id="8Hm-U1-4R9"/>
+                <constraint firstItem="eXz-My-hHa" firstAttribute="leading" secondItem="k0R-O6-sRo" secondAttribute="trailing" constant="15" id="ACr-g5-MiJ"/>
+                <constraint firstItem="1Bl-Fo-gV7" firstAttribute="centerY" secondItem="F8e-cT-FAi" secondAttribute="centerY" id="E26-vj-o2b"/>
+                <constraint firstItem="1Ek-Iz-Kqm" firstAttribute="leading" secondItem="58u-mQ-D9o" secondAttribute="trailing" constant="15" id="EIS-qF-NUv"/>
+                <constraint firstItem="efo-S8-3Jc" firstAttribute="top" secondItem="k0R-O6-sRo" secondAttribute="bottom" constant="10" id="KNU-ZS-Tqy"/>
+                <constraint firstItem="1Ek-Iz-Kqm" firstAttribute="centerY" secondItem="58u-mQ-D9o" secondAttribute="centerY" id="NQD-wp-18H"/>
+                <constraint firstItem="k0R-O6-sRo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="NSV-Hr-bBb"/>
+                <constraint firstItem="58u-mQ-D9o" firstAttribute="leading" secondItem="efo-S8-3Jc" secondAttribute="trailing" constant="15" id="Pe8-3v-qzm"/>
+                <constraint firstItem="F8e-cT-FAi" firstAttribute="centerY" secondItem="ftd-Xq-nhi" secondAttribute="centerY" id="Uo6-9l-jKg"/>
+                <constraint firstItem="ftd-Xq-nhi" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="beC-Il-bae"/>
+                <constraint firstItem="ftd-Xq-nhi" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="d1G-Ht-l6a"/>
+                <constraint firstItem="eXz-My-hHa" firstAttribute="centerY" secondItem="k0R-O6-sRo" secondAttribute="centerY" id="edF-z2-Bi8"/>
+                <constraint firstItem="lN5-IV-CCo" firstAttribute="leading" secondItem="zFV-c7-Eni" secondAttribute="trailing" constant="15" id="iOk-c0-zQt"/>
+                <constraint firstItem="efo-S8-3Jc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="kFj-SD-AjF"/>
+                <constraint firstItem="zFV-c7-Eni" firstAttribute="centerY" secondItem="eXz-My-hHa" secondAttribute="centerY" id="nRp-5O-f0l"/>
+                <constraint firstItem="k0R-O6-sRo" firstAttribute="top" secondItem="F8e-cT-FAi" secondAttribute="bottom" constant="10" id="p11-Gg-TuN"/>
+                <constraint firstItem="1Bl-Fo-gV7" firstAttribute="leading" secondItem="F8e-cT-FAi" secondAttribute="trailing" constant="5" id="txo-OL-B0U"/>
+                <constraint firstItem="58u-mQ-D9o" firstAttribute="centerY" secondItem="efo-S8-3Jc" secondAttribute="centerY" id="xIK-J9-44D"/>
+                <constraint firstItem="F8e-cT-FAi" firstAttribute="leading" secondItem="ftd-Xq-nhi" secondAttribute="trailing" constant="5" id="zh7-7w-5vE"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="weekTextField" destination="F8e-cT-FAi" id="a7g-Xt-oiq"/>
+            </connections>
+            <point key="canvasLocation" x="894" y="176"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="repeat_week_checked" width="14" height="14"/>
+        <image name="repeat_week_unchecked" width="14" height="14"/>
+    </resources>
+</document>

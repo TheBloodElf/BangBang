@@ -395,6 +395,29 @@
 		1BD8722A1D38DD6C0074CDC7 /* BushSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD872271D38DD6C0074CDC7 /* BushSearchCell.m */; };
 		1BD8722B1D38DD6C0074CDC7 /* BushSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BD872281D38DD6C0074CDC7 /* BushSearchCell.xib */; };
 		1BDF20B71D3C61BF00666814 /* RYChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDF20B61D3C61BF00666814 /* RYChatManager.m */; };
+		1BFBC1431D3F0CDC00A5511A /* RepCalendarTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFBC1411D3F0CDC00A5511A /* RepCalendarTime.m */; };
+		1BFBC1441D3F0CDC00A5511A /* RepCalendarTime.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BFBC1421D3F0CDC00A5511A /* RepCalendarTime.xib */; };
+		1BFBC1481D3F0F0100A5511A /* RepCalendarRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFBC1461D3F0F0100A5511A /* RepCalendarRep.m */; };
+		1BFBC1491D3F0F0100A5511A /* RepCalendarRep.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BFBC1471D3F0F0100A5511A /* RepCalendarRep.xib */; };
+		1BFBC14D1D3F0FD200A5511A /* RepCalendarRepTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFBC14B1D3F0FD200A5511A /* RepCalendarRepTime.m */; };
+		1BFBC14E1D3F0FD200A5511A /* RepCalendarRepTime.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BFBC14C1D3F0FD200A5511A /* RepCalendarRepTime.xib */; };
+		1BFBC1581D3F269400A5511A /* CalendarRepSelect.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFBC1561D3F269400A5511A /* CalendarRepSelect.m */; };
+		1BFBC1591D3F269400A5511A /* CalendarRepSelect.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BFBC1571D3F269400A5511A /* CalendarRepSelect.xib */; };
+		1BFBC15C1D3F26B500A5511A /* RepDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFBC15B1D3F26B500A5511A /* RepDayView.m */; };
+		1BFBC15E1D3F26EC00A5511A /* RepDayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BFBC15D1D3F26EC00A5511A /* RepDayView.xib */; };
+		1BFBC1601D3F2BE300A5511A /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BFBC15F1D3F2BE300A5511A /* EventKit.framework */; };
+		1BFBC1631D3F454A00A5511A /* RepWeekView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFBC1621D3F454A00A5511A /* RepWeekView.m */; };
+		1BFBC1651D3F455500A5511A /* RepWeekView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BFBC1641D3F455500A5511A /* RepWeekView.xib */; };
+		1BFBC1681D3F473B00A5511A /* RepMonthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFBC1671D3F473B00A5511A /* RepMonthView.m */; };
+		1BFBC16A1D3F474500A5511A /* RepMonthView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BFBC1691D3F474500A5511A /* RepMonthView.xib */; };
+		1BFBC16D1D3F4C0100A5511A /* RepYearView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFBC16C1D3F4C0100A5511A /* RepYearView.m */; };
+		1BFBC16F1D3F4C2300A5511A /* RepYearView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BFBC16E1D3F4C2300A5511A /* RepYearView.xib */; };
+		1BFBC17B1D3F7B0D00A5511A /* ComCalendarDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFBC1781D3F7B0D00A5511A /* ComCalendarDetailController.m */; };
+		1BFBC17C1D3F7B0D00A5511A /* RepCalendarDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFBC17A1D3F7B0D00A5511A /* RepCalendarDetailController.m */; };
+		1BFBC17F1D3F7B3100A5511A /* ComCalendarEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFBC17E1D3F7B3100A5511A /* ComCalendarEditController.m */; };
+		1BFBC1821D3F7B3D00A5511A /* RepCalendarEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFBC1811D3F7B3D00A5511A /* RepCalendarEditController.m */; };
+		1BFBC1871D3F811900A5511A /* SiginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFBC1851D3F811900A5511A /* SiginController.m */; };
+		1BFBC1881D3F811900A5511A /* SiginController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BFBC1861D3F811900A5511A /* SiginController.xib */; };
 		75E5FF5B1D27A81B00F77961 /* AppCustoms.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E5FF5A1D27A81B00F77961 /* AppCustoms.m */; };
 		75E5FF601D27A97500F77961 /* InterfaceConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E5FF5F1D27A97500F77961 /* InterfaceConfig.m */; };
 		75E5FF641D27AA9100F77961 /* HttpService.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E5FF631D27AA9100F77961 /* HttpService.m */; };
@@ -1160,6 +1183,42 @@
 		1BD872281D38DD6C0074CDC7 /* BushSearchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BushSearchCell.xib; sourceTree = "<group>"; };
 		1BDF20B51D3C61BF00666814 /* RYChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RYChatManager.h; sourceTree = "<group>"; };
 		1BDF20B61D3C61BF00666814 /* RYChatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RYChatManager.m; sourceTree = "<group>"; };
+		1BFBC1401D3F0CDC00A5511A /* RepCalendarTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepCalendarTime.h; sourceTree = "<group>"; };
+		1BFBC1411D3F0CDC00A5511A /* RepCalendarTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepCalendarTime.m; sourceTree = "<group>"; };
+		1BFBC1421D3F0CDC00A5511A /* RepCalendarTime.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RepCalendarTime.xib; sourceTree = "<group>"; };
+		1BFBC1451D3F0F0100A5511A /* RepCalendarRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepCalendarRep.h; sourceTree = "<group>"; };
+		1BFBC1461D3F0F0100A5511A /* RepCalendarRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepCalendarRep.m; sourceTree = "<group>"; };
+		1BFBC1471D3F0F0100A5511A /* RepCalendarRep.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RepCalendarRep.xib; sourceTree = "<group>"; };
+		1BFBC14A1D3F0FD200A5511A /* RepCalendarRepTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepCalendarRepTime.h; sourceTree = "<group>"; };
+		1BFBC14B1D3F0FD200A5511A /* RepCalendarRepTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepCalendarRepTime.m; sourceTree = "<group>"; };
+		1BFBC14C1D3F0FD200A5511A /* RepCalendarRepTime.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RepCalendarRepTime.xib; sourceTree = "<group>"; };
+		1BFBC1551D3F269400A5511A /* CalendarRepSelect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarRepSelect.h; sourceTree = "<group>"; };
+		1BFBC1561D3F269400A5511A /* CalendarRepSelect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarRepSelect.m; sourceTree = "<group>"; };
+		1BFBC1571D3F269400A5511A /* CalendarRepSelect.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarRepSelect.xib; sourceTree = "<group>"; };
+		1BFBC15A1D3F26B500A5511A /* RepDayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepDayView.h; sourceTree = "<group>"; };
+		1BFBC15B1D3F26B500A5511A /* RepDayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepDayView.m; sourceTree = "<group>"; };
+		1BFBC15D1D3F26EC00A5511A /* RepDayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RepDayView.xib; sourceTree = "<group>"; };
+		1BFBC15F1D3F2BE300A5511A /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		1BFBC1611D3F454A00A5511A /* RepWeekView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepWeekView.h; sourceTree = "<group>"; };
+		1BFBC1621D3F454A00A5511A /* RepWeekView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepWeekView.m; sourceTree = "<group>"; };
+		1BFBC1641D3F455500A5511A /* RepWeekView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RepWeekView.xib; sourceTree = "<group>"; };
+		1BFBC1661D3F473B00A5511A /* RepMonthView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepMonthView.h; sourceTree = "<group>"; };
+		1BFBC1671D3F473B00A5511A /* RepMonthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepMonthView.m; sourceTree = "<group>"; };
+		1BFBC1691D3F474500A5511A /* RepMonthView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RepMonthView.xib; sourceTree = "<group>"; };
+		1BFBC16B1D3F4C0100A5511A /* RepYearView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepYearView.h; sourceTree = "<group>"; };
+		1BFBC16C1D3F4C0100A5511A /* RepYearView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepYearView.m; sourceTree = "<group>"; };
+		1BFBC16E1D3F4C2300A5511A /* RepYearView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RepYearView.xib; sourceTree = "<group>"; };
+		1BFBC1771D3F7B0D00A5511A /* ComCalendarDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComCalendarDetailController.h; sourceTree = "<group>"; };
+		1BFBC1781D3F7B0D00A5511A /* ComCalendarDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComCalendarDetailController.m; sourceTree = "<group>"; };
+		1BFBC1791D3F7B0D00A5511A /* RepCalendarDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepCalendarDetailController.h; sourceTree = "<group>"; };
+		1BFBC17A1D3F7B0D00A5511A /* RepCalendarDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepCalendarDetailController.m; sourceTree = "<group>"; };
+		1BFBC17D1D3F7B3100A5511A /* ComCalendarEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComCalendarEditController.h; sourceTree = "<group>"; };
+		1BFBC17E1D3F7B3100A5511A /* ComCalendarEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComCalendarEditController.m; sourceTree = "<group>"; };
+		1BFBC1801D3F7B3D00A5511A /* RepCalendarEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepCalendarEditController.h; sourceTree = "<group>"; };
+		1BFBC1811D3F7B3D00A5511A /* RepCalendarEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepCalendarEditController.m; sourceTree = "<group>"; };
+		1BFBC1841D3F811900A5511A /* SiginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SiginController.h; sourceTree = "<group>"; };
+		1BFBC1851D3F811900A5511A /* SiginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SiginController.m; sourceTree = "<group>"; };
+		1BFBC1861D3F811900A5511A /* SiginController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SiginController.xib; sourceTree = "<group>"; };
 		21CA8CCC01D73A106F99FB12 /* Pods-RealmDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RealmDemo/Pods-RealmDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		75E5FF581D27A7FE00F77961 /* UtikIes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtikIes.h; sourceTree = "<group>"; };
 		75E5FF591D27A81B00F77961 /* AppCustoms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppCustoms.h; sourceTree = "<group>"; };
@@ -1188,6 +1247,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BFBC1601D3F2BE300A5511A /* EventKit.framework in Frameworks */,
 				0495866B1D3A618600544259 /* UIKit.framework in Frameworks */,
 				1B157FFD1D24FFF50081A1A3 /* libc++.tbd in Frameworks */,
 				BF1B0A6965866FA7165750D2 /* libPods-RealmDemo.a in Frameworks */,
@@ -2243,6 +2303,7 @@
 				1B1B9BC21D3DF6FA00F53EDC /* CalenderEventTableViewCell.h */,
 				1B1B9BC31D3DF6FA00F53EDC /* CalenderEventTableViewCell.m */,
 				1B1B9BC41D3DF6FA00F53EDC /* CalenderEventTableViewCell.xib */,
+				1BFBC1761D3F7AC900A5511A /* CalendarEditController */,
 				1B1B9BCE1D3E04CF00F53EDC /* CalendarCreateController */,
 				1B1B9BCF1D3E04CF00F53EDC /* CalendarDetailController */,
 				1B1B9BCA1D3DFC1800F53EDC /* CalendarListController */,
@@ -2286,6 +2347,7 @@
 				1B1B9BFA1D3E376200F53EDC /* CalendarSelectAlertTime.h */,
 				1B1B9BFB1D3E376200F53EDC /* CalendarSelectAlertTime.m */,
 				1B1B9BFC1D3E376200F53EDC /* CalendarSelectAlertTime.xib */,
+				1BFBC1541D3F269400A5511A /* CalendarRepSelect */,
 				1B1B9BD31D3E0FA900F53EDC /* ComCalendarView */,
 				1B1B9BD41D3E0FA900F53EDC /* RepCalendarView */,
 			);
@@ -2295,6 +2357,10 @@
 		1B1B9BCF1D3E04CF00F53EDC /* CalendarDetailController */ = {
 			isa = PBXGroup;
 			children = (
+				1BFBC1771D3F7B0D00A5511A /* ComCalendarDetailController.h */,
+				1BFBC1781D3F7B0D00A5511A /* ComCalendarDetailController.m */,
+				1BFBC1791D3F7B0D00A5511A /* RepCalendarDetailController.h */,
+				1BFBC17A1D3F7B0D00A5511A /* RepCalendarDetailController.m */,
 			);
 			path = CalendarDetailController;
 			sourceTree = "<group>";
@@ -2314,6 +2380,7 @@
 			children = (
 				1B1B9BD81D3E0FC500F53EDC /* RepCalendarView.h */,
 				1B1B9BD91D3E0FC500F53EDC /* RepCalendarView.m */,
+				1BFBC13F1D3F0CBB00A5511A /* RepCalendarCell */,
 			);
 			path = RepCalendarView;
 			sourceTree = "<group>";
@@ -2635,6 +2702,7 @@
 			children = (
 				1B5585C31D34FA7D00DCD3A0 /* HomeListController.h */,
 				1B5585C41D34FA7D00DCD3A0 /* HomeListController.m */,
+				1BFBC1831D3F80E000A5511A /* SiginController */,
 				1B1B986C1D3DB4F600F53EDC /* CalendarController */,
 				04E7E5AE1D3A77D600C653B4 /* PushMessageController */,
 				1B36FCCD1D35E71F006694E4 /* HomeListTopView */,
@@ -2810,6 +2878,65 @@
 			path = RYChatManager;
 			sourceTree = "<group>";
 		};
+		1BFBC13F1D3F0CBB00A5511A /* RepCalendarCell */ = {
+			isa = PBXGroup;
+			children = (
+				1BFBC1401D3F0CDC00A5511A /* RepCalendarTime.h */,
+				1BFBC1411D3F0CDC00A5511A /* RepCalendarTime.m */,
+				1BFBC1421D3F0CDC00A5511A /* RepCalendarTime.xib */,
+				1BFBC1451D3F0F0100A5511A /* RepCalendarRep.h */,
+				1BFBC1461D3F0F0100A5511A /* RepCalendarRep.m */,
+				1BFBC1471D3F0F0100A5511A /* RepCalendarRep.xib */,
+				1BFBC14A1D3F0FD200A5511A /* RepCalendarRepTime.h */,
+				1BFBC14B1D3F0FD200A5511A /* RepCalendarRepTime.m */,
+				1BFBC14C1D3F0FD200A5511A /* RepCalendarRepTime.xib */,
+			);
+			path = RepCalendarCell;
+			sourceTree = "<group>";
+		};
+		1BFBC1541D3F269400A5511A /* CalendarRepSelect */ = {
+			isa = PBXGroup;
+			children = (
+				1BFBC1551D3F269400A5511A /* CalendarRepSelect.h */,
+				1BFBC1561D3F269400A5511A /* CalendarRepSelect.m */,
+				1BFBC1571D3F269400A5511A /* CalendarRepSelect.xib */,
+				1BFBC15A1D3F26B500A5511A /* RepDayView.h */,
+				1BFBC15B1D3F26B500A5511A /* RepDayView.m */,
+				1BFBC15D1D3F26EC00A5511A /* RepDayView.xib */,
+				1BFBC1611D3F454A00A5511A /* RepWeekView.h */,
+				1BFBC1621D3F454A00A5511A /* RepWeekView.m */,
+				1BFBC1641D3F455500A5511A /* RepWeekView.xib */,
+				1BFBC1661D3F473B00A5511A /* RepMonthView.h */,
+				1BFBC1671D3F473B00A5511A /* RepMonthView.m */,
+				1BFBC1691D3F474500A5511A /* RepMonthView.xib */,
+				1BFBC16B1D3F4C0100A5511A /* RepYearView.h */,
+				1BFBC16C1D3F4C0100A5511A /* RepYearView.m */,
+				1BFBC16E1D3F4C2300A5511A /* RepYearView.xib */,
+			);
+			path = CalendarRepSelect;
+			sourceTree = "<group>";
+		};
+		1BFBC1761D3F7AC900A5511A /* CalendarEditController */ = {
+			isa = PBXGroup;
+			children = (
+				1BFBC17D1D3F7B3100A5511A /* ComCalendarEditController.h */,
+				1BFBC17E1D3F7B3100A5511A /* ComCalendarEditController.m */,
+				1BFBC1801D3F7B3D00A5511A /* RepCalendarEditController.h */,
+				1BFBC1811D3F7B3D00A5511A /* RepCalendarEditController.m */,
+			);
+			path = CalendarEditController;
+			sourceTree = "<group>";
+		};
+		1BFBC1831D3F80E000A5511A /* SiginController */ = {
+			isa = PBXGroup;
+			children = (
+				1BFBC1841D3F811900A5511A /* SiginController.h */,
+				1BFBC1851D3F811900A5511A /* SiginController.m */,
+				1BFBC1861D3F811900A5511A /* SiginController.xib */,
+			);
+			path = SiginController;
+			sourceTree = "<group>";
+		};
 		4D6CC168BC56EB689405D00C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -2954,6 +3081,7 @@
 		AE1CB48D1985A705EE5EEAD9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1BFBC15F1D3F2BE300A5511A /* EventKit.framework */,
 				0495866A1D3A618600544259 /* UIKit.framework */,
 				1B157FFC1D24FFF50081A1A3 /* libc++.tbd */,
 				B5741F96C8DE18CC807FD69E /* libPods-RealmDemo.a */,
@@ -3024,18 +3152,24 @@
 				04FE7CCF1D36725A00362702 /* menu_background.png in Resources */,
 				04FE7CD51D367CE000362702 /* LeftMenuCell.xib in Resources */,
 				0495862A1D3A1A3F00544259 /* WebViewJavascriptBridge.js.txt in Resources */,
+				1BFBC1881D3F811900A5511A /* SiginController.xib in Resources */,
+				1BFBC1591D3F269400A5511A /* CalendarRepSelect.xib in Resources */,
 				1B4B16201D37684700E71B3D /* banner.png in Resources */,
 				1B4B16291D37858400E71B3D /* BushManagerCell.xib in Resources */,
 				1B1B9BEA1D3E151A00F53EDC /* ComCalendarExigence.xib in Resources */,
 				1B877F251D178E7D000144B2 /* LaunchScreen.storyboard in Resources */,
+				1BFBC1441D3F0CDC00A5511A /* RepCalendarTime.xib in Resources */,
 				049586181D39D3A500544259 /* MuliteSelectCell.xib in Resources */,
 				1B119E711D3CB89F007CC050 /* PhotoGroupTableCell.xib in Resources */,
 				1B1B9BEF1D3E178F00F53EDC /* ComCalendarDetail.xib in Resources */,
+				1BFBC14E1D3F0FD200A5511A /* RepCalendarRepTime.xib in Resources */,
 				1B4B16151D37398600E71B3D /* XAddrBookCell.xib in Resources */,
+				1BFBC1651D3F455500A5511A /* RepWeekView.xib in Resources */,
 				0471C0961D3B262600377178 /* PushMessageCell.xib in Resources */,
 				1B55859E1D34E2C800DCD3A0 /* ic_welcome_avatar_3_3.png in Resources */,
 				1B1B9BFE1D3E376200F53EDC /* CalendarSelectAlertTime.xib in Resources */,
 				1B1B9BC61D3DF6FA00F53EDC /* CalenderEventTableViewCell.xib in Resources */,
+				1BFBC16F1D3F4C2300A5511A /* RepYearView.xib in Resources */,
 				1B1B9BF91D3E198600F53EDC /* ComCalendarInstruction.xib in Resources */,
 				0495861F1D39D3A500544259 /* SigleSelectCell.xib in Resources */,
 				049586441D3A303800544259 /* AboutViewController.xib in Resources */,
@@ -3051,14 +3185,17 @@
 				0495861A1D39D3A500544259 /* MuliteSelectController.xib in Resources */,
 				049585F51D39C01700544259 /* RequestManagerCell.xib in Resources */,
 				1B5585A11D34E2C800DCD3A0 /* ic_welcome_avatar_2_2.png in Resources */,
+				1BFBC15E1D3F26EC00A5511A /* RepDayView.xib in Resources */,
 				1B5585A01D34E2C800DCD3A0 /* ic_welcome_avatar_1_1.png in Resources */,
 				1B1B9BF41D3E18D300F53EDC /* ComCalendarAdress.xib in Resources */,
+				1BFBC16A1D3F474500A5511A /* RepMonthView.xib in Resources */,
 				0495864F1D3A348200544259 /* InviteColleagueController.storyboard in Resources */,
 				049586211D39D3A500544259 /* SingleSelectController.xib in Resources */,
 				1B1B9BE51D3E126100F53EDC /* ComCalendarTime.xib in Resources */,
 				1B9DD18D1D3CDB81008FEC53 /* SelectAdressTableCell.xib in Resources */,
 				1B5585B21D34F3A600DCD3A0 /* LoginViewController.xib in Resources */,
 				1B55859F1D34E2C800DCD3A0 /* ic_welcome_avatar_0_0.png in Resources */,
+				1BFBC1491D3F0F0100A5511A /* RepCalendarRep.xib in Resources */,
 				040A09B01D3D182F00156C16 /* DiscussListCell.xib in Resources */,
 				0495864D1D3A348200544259 /* FaceInviteColleague.xib in Resources */,
 			);
@@ -3126,6 +3263,8 @@
 				049588F01D3A620300544259 /* ZXITFWriter.m in Sources */,
 				0495890E1D3A620300544259 /* ZXPDF417BarcodeRow.m in Sources */,
 				1B1B9BD21D3E07B300F53EDC /* CalendarCreateController.m in Sources */,
+				1BFBC1821D3F7B3D00A5511A /* RepCalendarEditController.m in Sources */,
+				1BFBC1481D3F0F0100A5511A /* RepCalendarRep.m in Sources */,
 				049588D21D3A620300544259 /* ZXRSSExpandedCurrentParsingState.m in Sources */,
 				1B119E591D3C8794007CC050 /* RYChatController.m in Sources */,
 				1B119E8A1D3CB907007CC050 /* ImageScrollView.m in Sources */,
@@ -3142,6 +3281,7 @@
 				049588EA1D3A620300544259 /* ZXEAN13Reader.m in Sources */,
 				049588CA1D3A620300544259 /* ZXAI01393xDecoder.m in Sources */,
 				0495862C1D3A1A3F00544259 /* WebViewJavascriptBridgeBase.m in Sources */,
+				1BFBC17C1D3F7B0D00A5511A /* RepCalendarDetailController.m in Sources */,
 				0495861D1D39D3A500544259 /* MuliteSelectTopView.m in Sources */,
 				049588731D3A620300544259 /* ZXProductParsedResult.m in Sources */,
 				1B5585931D34E22800DCD3A0 /* EAIntroViewController.m in Sources */,
@@ -3156,6 +3296,7 @@
 				049589011D3A620300544259 /* ZXPDF417BarcodeValue.m in Sources */,
 				049589151D3A620300544259 /* ZXPDF417Writer.m in Sources */,
 				049588A91D3A620300544259 /* ZXResult.m in Sources */,
+				1BFBC14D1D3F0FD200A5511A /* RepCalendarRepTime.m in Sources */,
 				0495887C1D3A620300544259 /* ZXTextParsedResult.m in Sources */,
 				0495861C1D39D3A500544259 /* MuliteSelectTopImageView.m in Sources */,
 				049588E91D3A620300544259 /* ZXCode93Reader.m in Sources */,
@@ -3178,6 +3319,8 @@
 				049588841D3A620300544259 /* ZXWifiParsedResult.m in Sources */,
 				1B119E831D3CB8FB007CC050 /* ImageCollectionViewCell.m in Sources */,
 				1B5585CE1D34FA9600DCD3A0 /* XAddrBookController.m in Sources */,
+				1BFBC1581D3F269400A5511A /* CalendarRepSelect.m in Sources */,
+				1BFBC1631D3F454A00A5511A /* RepWeekView.m in Sources */,
 				049585F61D39C01700544259 /* RequestManagerController.m in Sources */,
 				049588C61D3A620300544259 /* ZXAbstractExpandedDecoder.m in Sources */,
 				040A09A61D3D171B00156C16 /* UserDiscuss.m in Sources */,
@@ -3192,6 +3335,7 @@
 				049588851D3A620300544259 /* ZXWifiResultParser.m in Sources */,
 				049588CF1D3A620300544259 /* ZXAI01weightDecoder.m in Sources */,
 				0495888F1D3A620300544259 /* ZXReedSolomonEncoder.m in Sources */,
+				1BFBC17F1D3F7B3100A5511A /* ComCalendarEditController.m in Sources */,
 				049588D91D3A620300544259 /* ZXBitArrayBuilder.m in Sources */,
 				049588F61D3A620300544259 /* ZXUPCAWriter.m in Sources */,
 				0495892B1D3A620300544259 /* ZXMultiDetector.m in Sources */,
@@ -3201,6 +3345,7 @@
 				0495891D1D3A620300544259 /* ZXQRCodeFormatInformation.m in Sources */,
 				1B119E911D3CB957007CC050 /* UINavigationController+Direction.m in Sources */,
 				049586311D3A1B3800544259 /* UserSettingController.m in Sources */,
+				1BFBC17B1D3F7B0D00A5511A /* ComCalendarDetailController.m in Sources */,
 				1B1B9BC01D3DCB8000F53EDC /* Scheduler.m in Sources */,
 				049588E61D3A620300544259 /* ZXCode128Writer.m in Sources */,
 				049588B51D3A620300544259 /* ZXDataMatrixDefaultPlacement.m in Sources */,
@@ -3218,6 +3363,7 @@
 				049588FB1D3A620300544259 /* ZXUPCEANWriter.m in Sources */,
 				049588AA1D3A620300544259 /* ZXResultPoint.m in Sources */,
 				049588901D3A620300544259 /* ZXBitArray.m in Sources */,
+				1BFBC16D1D3F4C0100A5511A /* RepYearView.m in Sources */,
 				1B55856C1D34CF4F00DCD3A0 /* UIView+REFrostedViewController.m in Sources */,
 				04E7E5AC1D3A660800C653B4 /* MineInfoEditController.m in Sources */,
 				1B5585701D34D80D00DCD3A0 /* MainViewController.m in Sources */,
@@ -3443,6 +3589,7 @@
 				049588951D3A620300544259 /* ZXCharacterSetECI.m in Sources */,
 				04E7E5B11D3A77EA00C653B4 /* PushMessageController.m in Sources */,
 				0495861E1D39D3A500544259 /* SigleSelectCell.m in Sources */,
+				1BFBC1681D3F473B00A5511A /* RepMonthView.m in Sources */,
 				0495887B1D3A620300544259 /* ZXTelResultParser.m in Sources */,
 				1B55856B1D34CF4F00DCD3A0 /* UIImage+REFrostedViewController.m in Sources */,
 				1B5585BE1D34F8E000DCD3A0 /* CMDeviceInfo.m in Sources */,
@@ -3457,14 +3604,17 @@
 				049588FA1D3A620300544259 /* ZXUPCEANReader.m in Sources */,
 				049589101D3A620300544259 /* ZXPDF417ErrorCorrection.m in Sources */,
 				1B1B9BBF1D3DCB8000F53EDC /* NSArray+Atipik.m in Sources */,
+				1BFBC1431D3F0CDC00A5511A /* RepCalendarTime.m in Sources */,
 				049589121D3A620300544259 /* ZXPDF417Common.m in Sources */,
 				1B119E6E1D3CB89F007CC050 /* BigPhotoSelectController.m in Sources */,
 				1B1B9BD71D3E0FB700F53EDC /* ComCalendarView.m in Sources */,
 				0495892F1D3A620300544259 /* ZXQRCodeWriter.m in Sources */,
 				1B06D5D31D362FA8002D06A7 /* Company.m in Sources */,
 				1B4B16101D3731D900E71B3D /* Employee.m in Sources */,
+				1BFBC15C1D3F26B500A5511A /* RepDayView.m in Sources */,
 				049589021D3A620300544259 /* ZXPDF417BoundingBox.m in Sources */,
 				049588ED1D3A620300544259 /* ZXEAN8Writer.m in Sources */,
+				1BFBC1871D3F811900A5511A /* SiginController.m in Sources */,
 				0471C0911D3B23A700377178 /* NSString+StringSize.m in Sources */,
 				049588E71D3A620300544259 /* ZXCode39Reader.m in Sources */,
 				049588561D3A620300544259 /* ZXAztecDecoder.m in Sources */,

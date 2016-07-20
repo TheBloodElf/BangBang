@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="RepDayView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="108"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4IL-gy-Ysh">
+                    <rect key="frame" x="0.0" y="10" width="29" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="29" id="WYf-dW-I2h"/>
+                        <constraint firstAttribute="height" constant="18" id="n8H-yb-34O"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="每" image="repeat_radio_gray">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" title="每" image="repeat_radio_selected"/>
+                    <connections>
+                        <action selector="topClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="p4y-Kg-cb8"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jSN-KB-CeV">
+                    <rect key="frame" x="0.0" y="38" width="89" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="29" id="MFW-vr-MZf"/>
+                        <constraint firstAttribute="height" constant="18" id="jfN-G4-JpV"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="每个工作日" image="repeat_radio_gray">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" title="每个工作日" image="repeat_radio_selected"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="MFW-vr-MZf"/>
+                        </mask>
+                    </variation>
+                    <connections>
+                        <action selector="bottomClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="5Zd-fN-2fm"/>
+                    </connections>
+                </button>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="1" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TeJ-cN-7zg">
+                    <rect key="frame" x="34" y="10" width="29" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="29" id="0Ac-oD-spv"/>
+                        <constraint firstAttribute="height" constant="18" id="cXS-Ob-73s"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="日" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uja-E8-LHL">
+                    <rect key="frame" x="68" y="10" width="15" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="4IL-gy-Ysh" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="EFQ-hN-Q1b"/>
+                <constraint firstItem="Uja-E8-LHL" firstAttribute="centerY" secondItem="TeJ-cN-7zg" secondAttribute="centerY" id="Ktq-Lx-zQG"/>
+                <constraint firstItem="4IL-gy-Ysh" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="L6y-Rv-J4n"/>
+                <constraint firstItem="jSN-KB-CeV" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="qDu-F7-iog"/>
+                <constraint firstItem="TeJ-cN-7zg" firstAttribute="leading" secondItem="4IL-gy-Ysh" secondAttribute="trailing" constant="5" id="rDl-I2-yWO"/>
+                <constraint firstItem="jSN-KB-CeV" firstAttribute="top" secondItem="4IL-gy-Ysh" secondAttribute="bottom" constant="10" id="rRH-aW-ahS"/>
+                <constraint firstItem="TeJ-cN-7zg" firstAttribute="centerY" secondItem="4IL-gy-Ysh" secondAttribute="centerY" id="wkc-DU-eaf"/>
+                <constraint firstItem="Uja-E8-LHL" firstAttribute="leading" secondItem="TeJ-cN-7zg" secondAttribute="trailing" constant="5" id="xiY-Hk-JyO"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="bottomBtn" destination="jSN-KB-CeV" id="cfx-TL-Nyw"/>
+                <outlet property="dayField" destination="TeJ-cN-7zg" id="UxF-g3-UI5"/>
+                <outlet property="topBtn" destination="4IL-gy-Ysh" id="I6N-tw-Xsn"/>
+            </connections>
+            <point key="canvasLocation" x="436" y="223"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="repeat_radio_gray" width="14" height="14"/>
+        <image name="repeat_radio_selected" width="14" height="14"/>
+    </resources>
+</document>

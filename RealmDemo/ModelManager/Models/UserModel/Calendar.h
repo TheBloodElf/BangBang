@@ -62,9 +62,9 @@
  */
 @property (nonatomic,assign) int emergency_status;
 //周期性已删除日期
-@property (nonatomic,strong) NSString        *deleted_dates;
+@property (nonatomic,strong) NSString   *deleted_dates;
 //周期性已完成日期
-@property (nonatomic,strong) NSString        *finished_dates;
+@property (nonatomic,strong) NSString   *finished_dates;
 
 /**
  *  有重复周期的开始时间
@@ -96,5 +96,7 @@
  *  创建者姓名
  */
 @property(nonatomic,strong) NSString *creator_name;
+
++ (Calendar*)copyFromCalendar:(Calendar*)calendar;
 
 @end

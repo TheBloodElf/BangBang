@@ -96,7 +96,7 @@
                 calendar.descriptionStr = dic[@"description"];
                 [array addObject:calendar];
             }
-            [_userManager updateCalendar:array];
+            [_userManager updateCalendars:array];
             identity.identity.firstLoadCalendar = NO;
             [identity saveAuthorizeData];
             [self.navigationController.view showSuccessTips:@"同步成功"];
@@ -125,7 +125,7 @@
 }
 #pragma mark --
 #pragma mark -- RBQFetchedResultsControllerDelegate
-- (void)controllerDidPerformFetch:(nonnull RBQFetchedResultsController *)controller {
+- (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
     //刷新当前的事件表格视图，重新加载一次日历视图
     [_calendarManager reload];
     _todayCalendarArr = [self getTodayCalendarArr];
