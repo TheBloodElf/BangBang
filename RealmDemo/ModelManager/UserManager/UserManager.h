@@ -91,6 +91,8 @@
 //创建日程数据监听
 - (RBQFetchedResultsController*)createCalendarFetchedResultsController;
 #pragma mark -- SignIn
+//更新今天的签到记录
+- (void)updateTodaySinInList:(NSMutableArray<SignIn*>*)sigInArr guid:(NSString*)employeeGuid;
 //获取今天的签到记录
 - (NSMutableArray<SignIn*>*)getTodaySigInListGuid:(NSString*)employeeGuid;
 //创建日程数据监听

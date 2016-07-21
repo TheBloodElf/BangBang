@@ -321,23 +321,8 @@
 - (NSMutableArray<Calendar*>*)getCalendarArrWithDate:(NSDate*)date {
     NSMutableArray<Calendar*> *pushMessageArr = [@[] mutableCopy];
     [_rlmRealm beginWriteTransaction];
-    NSDateComponents *dateFirstcomps = [[NSDateComponents alloc] init];
-    [dateFirstcomps setYear:date.year];
-    [dateFirstcomps setMonth:date.month];
-    [dateFirstcomps setDay:date.day];
-    [dateFirstcomps setHour:00];
-    [dateFirstcomps setMinute:00];
-    [dateFirstcomps setSecond:00];
-    NSUInteger dateFirstTime = [[NSCalendar currentCalendar] dateFromComponents:dateFirstcomps].timeIntervalSince1970 * 1000;
-    NSDateComponents *dateLastcomps = [[NSDateComponents alloc] init];
-    [dateLastcomps setYear:date.year];
-    [dateLastcomps setMonth:date.month];
-    [dateLastcomps setDay:date.day];
-    [dateLastcomps setHour:23];
-    [dateLastcomps setMinute:59];
-    [dateLastcomps setSecond:59];
-    NSUInteger dateLastTime = [[NSCalendar currentCalendar] dateFromComponents:dateLastcomps].timeIntervalSince1970 * 1000;
-
+    NSUInteger dateFirstTime = date.firstTime.timeIntervalSince1970 * 1000;
+    NSUInteger dateLastTime = date.lastTime.timeIntervalSince1970 * 1000;
     NSString *resultStr = [NSString stringWithFormat:@"((enddate_utc >= %ld and begindate_utc <= %ld ) or (enddate_utc >= %ld and begindate_utc <= %ld ) or (enddate_utc <= %ld and begindate_utc >= %ld ) or (r_end_date_utc >= %ld and r_begin_date_utc <= %ld ) or (r_end_date_utc >= %ld and r_begin_date_utc <= %ld ) or (r_end_date_utc <= %ld and r_begin_date_utc >= %ld ))",dateLastTime,dateLastTime,dateFirstTime,dateFirstTime,dateLastTime,dateFirstTime,dateLastTime,dateLastTime,dateFirstTime,dateFirstTime,dateLastTime,dateFirstTime];
     RLMResults *calendarResult = [Calendar objectsInRealm:_rlmRealm where:resultStr];
     for (int index = 0;index < calendarResult.count;index ++) {
@@ -370,27 +355,27 @@
     return fetchedResultsController;
 }
 #pragma mark -- SignIn
+//更新今天的签到记录
+- (void)updateTodaySinInList:(NSMutableArray<SignIn*>*)sigInArr guid:(NSString*)employeeGuid{
+    [_rlmRealm beginWriteTransaction];
+    NSDate *date = [NSDate date];
+    NSUInteger dateFirstTime = date.firstTime.timeIntervalSince1970 * 1000;
+    NSUInteger dateLastTime = date.lastTime.timeIntervalSince1970 * 1000;
+    NSString *resultStr = [NSString stringWithFormat:@"employee_guid = %@ and create_on_utc >= %ld and create_on_utc <= %ld",employeeGuid,dateFirstTime,dateLastTime];
+    RLMResults *calendarResult = [SignIn objectsInRealm:_rlmRealm where:resultStr];
+    while (calendarResult.count) {
+        [_rlmRealm deleteObject:calendarResult.firstObject];
+    }
+    [_rlmRealm addObjects:sigInArr];
+    [_rlmRealm commitWriteTransaction];
+}
 //获取今天的签到记录
 - (NSMutableArray<SignIn*>*)getTodaySigInListGuid:(NSString*)employeeGuid {
     NSMutableArray<SignIn*> *pushMessageArr = [@[] mutableCopy];
     [_rlmRealm beginWriteTransaction];
     NSDate *date = [NSDate date];
-    NSDateComponents *dateFirstcomps = [[NSDateComponents alloc] init];
-    [dateFirstcomps setYear:date.year];
-    [dateFirstcomps setMonth:date.month];
-    [dateFirstcomps setDay:date.day];
-    [dateFirstcomps setHour:00];
-    [dateFirstcomps setMinute:00];
-    [dateFirstcomps setSecond:00];
-    NSUInteger dateFirstTime = [[NSCalendar currentCalendar] dateFromComponents:dateFirstcomps].timeIntervalSince1970 * 1000;
-    NSDateComponents *dateLastcomps = [[NSDateComponents alloc] init];
-    [dateLastcomps setYear:date.year];
-    [dateLastcomps setMonth:date.month];
-    [dateLastcomps setDay:date.day];
-    [dateLastcomps setHour:23];
-    [dateLastcomps setMinute:59];
-    [dateLastcomps setSecond:59];
-    NSUInteger dateLastTime = [[NSCalendar currentCalendar] dateFromComponents:dateLastcomps].timeIntervalSince1970 * 1000;
+    NSUInteger dateFirstTime = date.firstTime.timeIntervalSince1970 * 1000;
+    NSUInteger dateLastTime = date.lastTime.timeIntervalSince1970 * 1000;
     NSString *resultStr = [NSString stringWithFormat:@"employee_guid = %@ and create_on_utc >= %ld and create_on_utc <= %ld",employeeGuid,dateFirstTime,dateLastTime];
     RLMResults *calendarResult = [SignIn objectsInRealm:_rlmRealm where:resultStr];
     for (int index = 0;index < calendarResult.count;index ++) {
@@ -404,22 +389,8 @@
 - (RBQFetchedResultsController*)createSigInListFetchedResultsController:(NSString*)employeeGuid {
     RBQFetchedResultsController *fetchedResultsController = nil;
     NSDate *date = [NSDate date];
-    NSDateComponents *dateFirstcomps = [[NSDateComponents alloc] init];
-    [dateFirstcomps setYear:date.year];
-    [dateFirstcomps setMonth:date.month];
-    [dateFirstcomps setDay:date.day];
-    [dateFirstcomps setHour:00];
-    [dateFirstcomps setMinute:00];
-    [dateFirstcomps setSecond:00];
-    NSUInteger dateFirstTime = [[NSCalendar currentCalendar] dateFromComponents:dateFirstcomps].timeIntervalSince1970 * 1000;
-    NSDateComponents *dateLastcomps = [[NSDateComponents alloc] init];
-    [dateLastcomps setYear:date.year];
-    [dateLastcomps setMonth:date.month];
-    [dateLastcomps setDay:date.day];
-    [dateLastcomps setHour:23];
-    [dateLastcomps setMinute:59];
-    [dateLastcomps setSecond:59];
-    NSUInteger dateLastTime = [[NSCalendar currentCalendar] dateFromComponents:dateLastcomps].timeIntervalSince1970 * 1000;
+    NSUInteger dateFirstTime = date.firstTime.timeIntervalSince1970 * 1000;
+    NSUInteger dateLastTime = date.lastTime.timeIntervalSince1970 * 1000;
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"employee_guid = %@ and create_on_utc >= %ld and create_on_utc <= %ld",employeeGuid,dateFirstTime,dateLastTime];
     RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"SignIn" inRealm:_rlmRealm predicate:predicate];
     fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:@"SignIn"];

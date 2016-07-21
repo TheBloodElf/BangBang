@@ -34,6 +34,8 @@
 - (NSString *)timeAgo4Dialog;
 - (NSString *)timeAgo4Chat;
 - (NSString *)timeLeft;
+- (NSDate*)firstTime;
+- (NSDate*)lastTime;
 
 + (NSDate*)dateWithFormat:(NSString *)format;
 

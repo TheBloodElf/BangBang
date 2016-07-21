@@ -7,6 +7,18 @@
 //
 
 #import "SigInListCell.h"
+#import "SignIn.h"
+
+@interface SigInListCell ()
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;//时间
+@property (weak, nonatomic) IBOutlet UIImageView *avaterImage;//头像
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;//员工名字
+@property (weak, nonatomic) IBOutlet UILabel *categoryLabel;//分类
+@property (weak, nonatomic) IBOutlet UIButton *adressLabel;//地址
+@property (weak, nonatomic) IBOutlet UILabel *detailLabel;//说明
+@property (weak, nonatomic) IBOutlet UIView *attemthLabel;//附件图片展示
+
+@end
 
 @implementation SigInListCell
 
@@ -15,10 +27,9 @@
     // Initialization code
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (void)dataDidChange {
+    SignIn *signIn = self.data;
+    
 }
 
 @end

@@ -313,6 +313,27 @@
     
     return result;
 }
+- (NSDate*)firstTime {
+    NSDateComponents *dateFirstcomps = [[NSDateComponents alloc] init];
+    [dateFirstcomps setYear:self.year];
+    [dateFirstcomps setMonth:self.month];
+    [dateFirstcomps setDay:self.day];
+    [dateFirstcomps setHour:00];
+    [dateFirstcomps setMinute:00];
+    [dateFirstcomps setSecond:00];
+    return  [[NSCalendar currentCalendar] dateFromComponents:dateFirstcomps];
+}
+- (NSDate*)lastTime {
+    NSDateComponents *dateFirstcomps = [[NSDateComponents alloc] init];
+    [dateFirstcomps setYear:self.year];
+    [dateFirstcomps setMonth:self.month];
+    [dateFirstcomps setDay:self.day];
+    [dateFirstcomps setHour:23];
+    [dateFirstcomps setMinute:59];
+    [dateFirstcomps setSecond:59];
+    return  [[NSCalendar currentCalendar] dateFromComponents:dateFirstcomps];
+
+}
 + (NSDate*)dateWithFormat:(NSString *)format
 {
     NSDateFormatter * df2 = [[NSDateFormatter alloc] init];
