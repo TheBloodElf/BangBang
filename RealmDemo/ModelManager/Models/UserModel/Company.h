@@ -18,7 +18,6 @@
 @property (nonatomic, strong) NSString *logo;//logoURL地址
 
 - (NSString*)companyTypeStr;//圈子类型
-- (Employee*)getOwnerEmployeeInThisCompany:(int)companyNo;//得到自己在这圈子里的员工信息
 
 + (Company*)copyFromCompany:(Company*)company;
 

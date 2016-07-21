@@ -19,8 +19,8 @@
 @implementation RepMonthView
 
 - (EKRecurrenceRule*)eKRecurrenceRule {
-    NSInteger interval = self.monthTextField.text.integerValue;
-    NSArray *days = @[@(self.dayTextField.text.integerValue)];
+    NSInteger interval = self.monthTextField.text.integerValue ?: 1;
+    NSArray *days = @[@(self.dayTextField.text.integerValue ?: 1)];
     EKRecurrenceRule *rule = [[EKRecurrenceRule alloc] initRecurrenceWithFrequency:EKRecurrenceFrequencyMonthly interval:interval daysOfTheWeek:nil daysOfTheMonth:days monthsOfTheYear:nil weeksOfTheYear:nil daysOfTheYear:nil setPositions:nil end:nil];
     return rule;
 }

@@ -102,28 +102,16 @@
     
     //详情
     if (calendar.description.length > 0) {
-        _descriptionLab.text = calendar.description;
+        _descriptionLab.text = calendar.descriptionStr;
     }
     else{
         _descriptionLab.text = @"暂无描述";
     }
     //状态
-    
-    if (calendar.status == 0) {
-        _status.text = @"未同步";
-        _status.textColor = [UIColor lightGrayColor];
-        _status.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    }
-    else if (calendar.status == 1){
+   if (calendar.status == 1) {
         _status.text = @"进行中";
-        _status.textColor = [UIColor colorFromHexCode:@"0x5995f5"];
-        _status.layer.borderColor = [UIColor colorFromHexCode:@"0x5995f5"].CGColor;
-    }
-    else if(calendar.status == 2){
+    } else if (calendar.status == 2) {
         _status.text = @"已完成";
-        _status.textColor = [UIColor whiteColor];
-        _status.backgroundColor = [UIColor colorFromHexCode:@"0x5995f5"];
-        _status.layer.borderColor = [UIColor colorFromHexCode:@"0x5995f5"].CGColor;
     }
     
     //紧急度

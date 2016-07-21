@@ -36,5 +36,6 @@
 #import "UIColor+FlatUI.h"
 #import <EventKit/EKRecurrenceRule.h>
 #import "EKRecurrenceRule+RRULE.h"
+#import "Scheduler.h"
 
 #endif /* UtikIes_h */

@@ -236,6 +236,8 @@
 //一般事务事后分享
 - (void)ComCanendarShare {
     MuliteSelectController *mulite = [MuliteSelectController new];
+    Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
+    mulite.outEmployees = [@[employee] mutableCopy];
     mulite.delegate = self;
     [self.navigationController pushViewController:mulite animated:YES];
 }

@@ -15,10 +15,12 @@
 #import "CalendarRepSelect.h"
 #import "Calendar.h"
 #import "UserManager.h"
+#import "UserHttp.h"
 
 @interface RepCalendarEditController ()<MuliteSelectDelegate,CalendarRepSelectDelegate,RepCalendarViewDelegate>{
     RepCalendarView *_repCalendarView;
     Calendar *_calendar;
+    UserManager *_userManager;
 }
 
 @end
@@ -27,7 +29,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _repCalendarView = [[RepCalendarView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 50)];
+    self.title = @"日程编辑";
+    _userManager = [UserManager manager];
+    _repCalendarView = [[RepCalendarView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT)];
     _repCalendarView.data = _calendar;
     _repCalendarView.delegate = self;
     [self.view addSubview:_repCalendarView];
@@ -35,9 +39,20 @@
     // Do any additional setup after loading the view.
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
-    if(self.delegate && [self.delegate respondsToSelector:@selector(RepCalendarEdit:)])
-        [self.delegate RepCalendarEdit:_calendar];
-    [self.navigationController popViewControllerAnimated:YES];
+    //修改日程
+    [self.navigationController.view showLoadingTips:@"请稍等..."];
+    [UserHttp updateUserCalendar:_calendar handler:^(id data, MError *error) {
+        [self.navigationController.view dismissTips];
+        if(error) {
+            [self.navigationController.view showFailureTips:error.statsMsg];
+            return ;
+        }
+        [self.navigationController.view showSuccessTips:@"修改成功"];
+        if(self.delegate && [self.delegate respondsToSelector:@selector(RepCalendarEdit:)])
+            [self.delegate RepCalendarEdit:_calendar];
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+    
 }
 - (void)dataDidChange {
     _calendar = [Calendar copyFromCalendar:self.data];
@@ -140,6 +155,8 @@
 //一般事务事后分享
 - (void)ComCanendarShare {
     MuliteSelectController *mulite = [MuliteSelectController new];
+    Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
+    mulite.outEmployees = [@[employee] mutableCopy];
     mulite.delegate = self;
     [self.navigationController pushViewController:mulite animated:YES];
 }

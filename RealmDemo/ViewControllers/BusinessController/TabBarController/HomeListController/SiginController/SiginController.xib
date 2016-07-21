@@ -7,7 +7,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SiginController">
             <connections>
+                <outlet property="dateLabel" destination="bJz-RS-4aV" id="ZQW-tf-8tj"/>
+                <outlet property="tableView" destination="Szw-CW-dFC" id="lF7-U0-gLd"/>
+                <outlet property="timeLabel" destination="ccQ-Kn-L8a" id="jIk-s2-m6N"/>
+                <outlet property="todatSiginNumber" destination="RWL-oP-p7O" id="ite-lB-856"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="weatherLabel" destination="cOt-hR-FXD" id="1fX-Sk-49P"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -37,8 +42,8 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="郫县 多云 35" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cOt-hR-FXD">
-                    <rect key="frame" x="39" y="173" width="92" height="20"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="正在获取天气..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cOt-hR-FXD">
+                    <rect key="frame" x="30" y="173" width="110" height="20"/>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -79,7 +84,7 @@
                 <constraint firstItem="bJz-RS-4aV" firstAttribute="centerX" secondItem="ccQ-Kn-L8a" secondAttribute="centerX" id="uhj-S2-nTy"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="225" y="144"/>
+            <point key="canvasLocation" x="192" y="111"/>
         </view>
     </objects>
     <resources>

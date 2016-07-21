@@ -31,7 +31,7 @@
     NSInteger interval = 1;
     NSArray *days = @[];
     if(self.topBtn.selected == YES) {
-        interval = [self.dayField.text integerValue];
+        interval = [self.dayField.text integerValue] ?: 1;
         days = nil;
     } else {
         interval = 1;

@@ -9,13 +9,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "RealmDemo/ViewControllers/BusinessController/TabBarController/HomeListController/CalendarController/CalendarController.m"
-            timestampString = "490694771.824377"
+            filePath = "RealmDemo/ViewControllers/BusinessController/TabBarController/HomeListController/CalendarController/CalendarCreateController/CalendarCreateController.m"
+            timestampString = "490776831.396041"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
-            landmarkName = "-viewDidLoad"
+            startingLineNumber = "96"
+            endingLineNumber = "96"
+            landmarkName = "-rightClicked:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RealmDemo/ViewControllers/BusinessController/TabBarController/HomeListController/CalendarController/CalendarCreateController/CalendarCreateController.m"
+            timestampString = "490776889.299768"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
+            landmarkName = "-rightClicked:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

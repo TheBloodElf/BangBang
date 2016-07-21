@@ -258,6 +258,37 @@
     };
     return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
 }
+//修改日程
++ (NSURLSessionDataTask*)updateUserCalendar:(Calendar*)calendar handler:(completionHandler)handler {
+    NSString *urlPath = @"Calendars/update_v3";
+    NSMutableDictionary *params = [@{} mutableCopy];
+    [params setObject:@(calendar.company_no) forKey:@"company_no"];
+    [params setObject:calendar.event_name forKey:@"event_name"];
+    [params setObject:calendar.descriptionStr forKey:@"description"];
+    [params setObject:calendar.address forKey:@"address"];
+    [params setObject:@(calendar.begindate_utc) forKey:@"begindate_utc"];
+    [params setObject:@(calendar.enddate_utc) forKey:@"enddate_utc"];
+    [params setObject:@(calendar.is_allday) forKey:@"is_allday"];
+    [params setObject:calendar.app_guid forKey:@"app_guid"];
+    [params setObject:calendar.target_id forKey:@"target_id"];
+    [params setObject:@(calendar.repeat_type) forKey:@"repeat_type"];
+    [params setObject:@(calendar.is_alert) forKey:@"is_alert"];
+    [params setObject:@(calendar.alert_minutes_before) forKey:@"alert_minutes_before"];
+    [params setObject:@(calendar.alert_minutes_after) forKey:@"alert_minutes_after"];
+    [params setObject:calendar.user_guid forKey:@"user_guid"];
+    [params setObject:calendar.created_by forKey:@"created_by"];
+    [params setObject:@(calendar.emergency_status) forKey:@"emergency_status"];
+    [params setObject:calendar.rrule forKey:@"rrule"];
+    [params setObject:calendar.rdate forKey:@"rdate"];
+    [params setObject:@(calendar.r_begin_date_utc) forKey:@"r_begin_date_utc"];
+    [params setObject:@(calendar.r_end_date_utc) forKey:@"r_end_date_utc"];
+    [params setObject:calendar.members forKey:@"members"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
 //获取用户所有日程
 + (NSURLSessionDataTask*)getUserCalendar:(NSString*)userGuid handler:(completionHandler)handler {
     NSString *urlPath = @"Calendars/list_v3";
@@ -268,6 +299,41 @@
     [params setObject:@(100000000000) forKey:@"page_size"];
     [params setObject:@"desc" forKey:@"order_by"];
     [params setObject:userGuid forKey:@"user_guid"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_GET URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
+#pragma mark -- 签到
+//获取今天的签到记录
++ (NSURLSessionDataTask*)getSiginList:(int)companyNo employeeGuid:(NSString*)employeeGuid handler:(completionHandler)handler{
+    NSString *urlPath = @"Attendance/search_sign_record_list";
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    NSDate *date = [NSDate date];
+    NSDateComponents *dateFirstcomps = [[NSDateComponents alloc] init];
+    [dateFirstcomps setYear:date.year];
+    [dateFirstcomps setMonth:date.month];
+    [dateFirstcomps setDay:date.day];
+    [dateFirstcomps setHour:00];
+    [dateFirstcomps setMinute:00];
+    [dateFirstcomps setSecond:00];
+    NSUInteger dateFirstTime = [[NSCalendar currentCalendar] dateFromComponents:dateFirstcomps].timeIntervalSince1970 * 1000;
+    NSDateComponents *dateLastcomps = [[NSDateComponents alloc] init];
+    [dateLastcomps setYear:date.year];
+    [dateLastcomps setMonth:date.month];
+    [dateLastcomps setDay:date.day];
+    [dateLastcomps setHour:23];
+    [dateLastcomps setMinute:59];
+    [dateLastcomps setSecond:59];
+    NSUInteger dateLastTime = [[NSCalendar currentCalendar] dateFromComponents:dateLastcomps].timeIntervalSince1970 * 1000;
+    [params setObject:@(companyNo) forKey:@"company_no"];
+    [params setObject:@(dateFirstTime) forKey:@"begin_utc_time"];
+    [params setObject:@(dateLastTime) forKey:@"end_utc_time"];
+    [params setObject:@(1) forKey:@"page_index"];
+    [params setObject:@(100000000000) forKey:@"page_size"];
+    [params setObject:@(1) forKey:@"is_asc"];
+    [params setObject:employeeGuid forKey:@"employee_guid"];
     [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
     completionHandler compleionHandler = ^(id data,MError *error) {
         handler(data,error);

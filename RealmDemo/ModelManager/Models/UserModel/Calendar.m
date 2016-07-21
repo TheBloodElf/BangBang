@@ -50,4 +50,26 @@
     tempCalendar.creator_name = calendar.creator_name;
     return tempCalendar;
 }
+- (BOOL)haveDeleteDate:(NSDate*)date {
+    NSArray *timeArr = [self.deleted_dates componentsSeparatedByString:@","];
+    for (NSString *timeStr in timeArr) {
+        NSDate *startTimeTemp = [NSDate dateWithTimeIntervalSince1970:timeStr.integerValue / 1000];
+        NSString *key = [NSString stringWithFormat:@"%ld年%02ld月%02ld日",startTimeTemp.year,startTimeTemp.month,startTimeTemp.day];
+        NSString *comeKey = [NSString stringWithFormat:@"%ld年%02ld月%02ld日",date.year,date.month,date.day];
+        if([key isEqualToString:comeKey])
+            return YES;
+    }
+    return NO;
+}
+- (BOOL)haveFinishDate:(NSDate*)date {
+    NSArray *timeArr = [self.finished_dates componentsSeparatedByString:@","];
+    for (NSString *timeStr in timeArr) {
+        NSDate *startTimeTemp = [NSDate dateWithTimeIntervalSince1970:timeStr.integerValue / 1000];
+        NSString *key = [NSString stringWithFormat:@"%ld年%02ld月%02ld日",startTimeTemp.year,startTimeTemp.month,startTimeTemp.day];
+        NSString *comeKey = [NSString stringWithFormat:@"%ld年%02ld月%02ld日",date.year,date.month,date.day];
+        if([key isEqualToString:comeKey])
+            return YES;
+    }
+    return NO;
+}
 @end

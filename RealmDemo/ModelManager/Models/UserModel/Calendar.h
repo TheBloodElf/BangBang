@@ -97,6 +97,11 @@
  */
 @property(nonatomic,strong) NSString *creator_name;
 
+//是否有这个删除时间
+- (BOOL)haveDeleteDate:(NSDate*)date;
+//是否有这个完成时间
+- (BOOL)haveFinishDate:(NSDate*)date;
+
 + (Calendar*)copyFromCalendar:(Calendar*)calendar;
 
 @end

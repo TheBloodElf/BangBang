@@ -20,7 +20,7 @@
     btn.selected = !btn.selected;
 }
 - (EKRecurrenceRule*)eKRecurrenceRule {
-    NSInteger interval = [self.weekTextField.text integerValue];
+    NSInteger interval = [self.weekTextField.text integerValue] ?: 1;
     NSMutableArray *days = [@[] mutableCopy];
     ////////////
     UIButton *Sunday = [self viewWithTag:1000 + 1];

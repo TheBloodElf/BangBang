@@ -15,6 +15,7 @@
 #import "PushMessage.h"
 #import "UserDiscuss.h"
 #import "Calendar.h"
+#import "SignIn.h"
 
 @interface UserManager : NSObject
 //全局的用户信息
@@ -83,8 +84,15 @@
 - (void)updateCalendar:(Calendar*)calendar;
 //更新所有的日程
 - (void)updateCalendars:(NSMutableArray<Calendar*>*)calendarArr;
+//获取指定时间的日程 未删除的
+- (NSMutableArray<Calendar*>*)getCalendarArrWithDate:(NSDate*)date;
 //获取所有的日程
 - (NSMutableArray<Calendar*>*)getCalendarArr;
 //创建日程数据监听
 - (RBQFetchedResultsController*)createCalendarFetchedResultsController;
+#pragma mark -- SignIn
+//获取今天的签到记录
+- (NSMutableArray<SignIn*>*)getTodaySigInListGuid:(NSString*)employeeGuid;
+//创建日程数据监听
+- (RBQFetchedResultsController*)createSigInListFetchedResultsController:(NSString*)employeeGuid;
 @end

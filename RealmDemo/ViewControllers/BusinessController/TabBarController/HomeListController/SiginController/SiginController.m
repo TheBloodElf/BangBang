@@ -9,12 +9,18 @@
 #import "SiginController.h"
 #import "UserManager.h"
 #import "MoreSelectView.h"
+#import "SigInListCell.h"
 
-@interface SiginController ()<MoreSelectViewDelegate> {
+@interface SiginController ()<MoreSelectViewDelegate,UITableViewDelegate,UITableViewDataSource> {
     UIButton *_leftNavigationBarButton;//左边导航的按钮
     UserManager *_userManager;//用户管理器
     MoreSelectView *_moreSelectView;//多选视图
 }
+@property (weak, nonatomic) IBOutlet UILabel *todatSiginNumber;
+@property (weak, nonatomic) IBOutlet UILabel *weatherLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @end
 
 @implementation SiginController
@@ -24,11 +30,29 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
     _userManager = [UserManager manager];
+    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateTime) userInfo:nil repeats:YES];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.tableFooterView = [UIView new];
+    
     [self setLeftNavigationBarItem];
     [self setRightNavigationBarItem];
     // Do any additional setup after loading the view from its nib.
 }
-
+#pragma mark --
+#pragma mark -- UITableViewDelegate
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [UITableViewCell new];
+}
+//一直刷新时间
+- (void)updateTime {
+    NSDate *currDate = [NSDate date];
+    self.dateLabel.text = [NSString stringWithFormat:@"%02ld月%02ld日 %@",currDate.month,currDate.day,currDate.weekdayStr];
+    self.timeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld",currDate.hour,currDate.minute];
+}
 #pragma mark --
 #pragma mark -- setNavigationBar
 - (void)setLeftNavigationBarItem {
