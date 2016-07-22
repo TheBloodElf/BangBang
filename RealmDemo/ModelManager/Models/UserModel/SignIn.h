@@ -122,4 +122,6 @@
  */
 @property(nonatomic, assign)BOOL validity;
 
+- (NSString*)categoryStr;
+
 @end

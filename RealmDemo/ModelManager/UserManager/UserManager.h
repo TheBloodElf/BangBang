@@ -16,6 +16,7 @@
 #import "UserDiscuss.h"
 #import "Calendar.h"
 #import "SignIn.h"
+#import "SiginRuleSet.h"
 
 @interface UserManager : NSObject
 //全局的用户信息
@@ -97,4 +98,17 @@
 - (NSMutableArray<SignIn*>*)getTodaySigInListGuid:(NSString*)employeeGuid;
 //创建日程数据监听
 - (RBQFetchedResultsController*)createSigInListFetchedResultsController:(NSString*)employeeGuid;
+#pragma mark -- SiginRuleSet
+//更新签到规则
+- (void)updateSiginRule:(SiginRuleSet*)siginRule;
+//添加签到规则
+- (void)addSiginRule:(SiginRuleSet*)siginRule;
+//删除签到规则
+- (void)deleteSiginRule:(SiginRuleSet*)siginRule;
+//获取圈子的所有签到规则
+- (NSMutableArray<SiginRuleSet*>*)getSiginRule:(int)companyNo;
+//更新圈子的所有签到规则
+- (void)updateSiginRule:(NSMutableArray<SiginRuleSet*>*)sigRules companyNo:(int)companyNo;
+//创建圈子的数据监听
+- (RBQFetchedResultsController*)createSiginRuleFetchedResultsController:(int)companyNo;
 @end

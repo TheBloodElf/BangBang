@@ -330,8 +330,8 @@
     [params setObject:@(companyNo) forKey:@"company_no"];
     [params setObject:@(dateFirstTime) forKey:@"begin_utc_time"];
     [params setObject:@(dateLastTime) forKey:@"end_utc_time"];
-    [params setObject:@(1) forKey:@"page_index"];
-    [params setObject:@(100000000000) forKey:@"page_size"];
+    [params setObject:@(1) forKey:@"page"];
+    [params setObject:@(1000) forKey:@"size"];
     [params setObject:@(1) forKey:@"is_asc"];
     [params setObject:employeeGuid forKey:@"employee_guid"];
     [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
@@ -339,5 +339,47 @@
         handler(data,error);
     };
     return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_GET URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
+//获取公司的签到规则
++ (NSURLSessionDataTask*)getSiginRule:(int)companyNo handler:(completionHandler)handler {
+    NSString *urlPath = @"Attendance/get_setting_list_v2";
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:@(companyNo) forKey:@"company_no"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_GET URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
+//删除公司签到规则
++ (NSURLSessionDataTask*)deleteSiginRule:(NSString*)settingGuid handler:(completionHandler)handler {
+    NSString *urlPath = @"Attendance/delete_setting_v2";
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:settingGuid forKey:@"setting_guid"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
+//更新公司签到规则
++ (NSURLSessionDataTask*)updateSiginRule:(NSDictionary*)siginRule handler:(completionHandler)handler {
+    NSString *urlPath = @"Attendance/update_setting_v2";
+    NSMutableDictionary *params = [siginRule mutableCopy];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
+//添加公司签到规则
++ (NSURLSessionDataTask*)addSiginRule:(NSDictionary*)siginRule handler:(completionHandler)handler {
+    NSString *urlPath = @"Attendance/setting_v2";
+    NSMutableDictionary *params = [siginRule mutableCopy];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
 }
 @end

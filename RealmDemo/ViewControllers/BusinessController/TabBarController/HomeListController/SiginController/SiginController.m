@@ -8,9 +8,11 @@
 
 #import "SiginController.h"
 #import "UserManager.h"
+#import "CreateSiginController.h"
 #import "MoreSelectView.h"
 #import "UserHttp.h"
 #import "SigInListCell.h"
+#import "AttendanceRollController.h"
 
 @interface SiginController ()<MoreSelectViewDelegate,UITableViewDelegate,UITableViewDataSource,RBQFetchedResultsControllerDelegate,CLLocationManagerDelegate,AMapSearchDelegate> {
     UIButton *_leftNavigationBarButton;//左边导航的按钮
@@ -65,14 +67,12 @@
     [self setRightNavigationBarItem];
     //看是否有数据 没有就从服务器获取
     if(_todaySigInArr.count == 0) {
-        [self.navigationController.view showLoadingTips:@""];
         [UserHttp getSiginList:_userManager.user.currCompany.company_no employeeGuid:employee.employee_guid handler:^(id data, MError *error) {
             [self.navigationController.view dismissTips];
             if(error) {
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
-            [self.navigationController.view showSuccessTips:@"今日数据获取成功"];
             NSMutableArray *array = [@[] mutableCopy];
             for (NSDictionary *dic in data) {
                 SignIn *sigIn = [SignIn new];
@@ -98,6 +98,13 @@
     NSDate *currDate = [NSDate date];
     self.dateLabel.text = [NSString stringWithFormat:@"%02ld月%02ld日 %@",currDate.month,currDate.day,currDate.weekdayStr];
     self.timeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld",currDate.hour,currDate.minute];
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    //导航透明
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage colorImg:[UIColor clearColor]] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackIndicatorTransitionMaskImage:[UIImage colorImg:[UIColor clearColor]]];
+    [self.navigationController.navigationBar setShadowImage:[UIImage colorImg:[UIColor clearColor]]];
 }
 #pragma mark --
 #pragma mark -- RBQFetchedResultsControllerDelegate
@@ -160,7 +167,7 @@
         if(response.lives.count == 0)
             return;
         AMapLocalWeatherLive *live = response.lives[0];
-        NSString *addressAndWeatherStr = [NSString stringWithFormat:@"%@ %@ %@°",self.weatherLabel.text,live.weather,live.temperature];
+        NSString *addressAndWeatherStr = [NSString stringWithFormat:@"%@ %@",self.weatherLabel.text,live.weather];
         self.weatherLabel.text = addressAndWeatherStr;
     }
 }
@@ -225,7 +232,7 @@
     if([_userManager.user.currCompany.admin_user_guid isEqualToString:_userManager.user.user_guid]) {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"更多" style:UIBarButtonItemStylePlain target:self action:@selector(rightClicked:)];
         _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100, 64, 100, 120)];
-        _moreSelectView.selectArr = @[@"发起群聊",@"邀请同事",@"申请管理"];
+        _moreSelectView.selectArr = @[@"我的签到",@"签到统计",@"签到设置"];
         _moreSelectView.delegate = self;
         [_moreSelectView setupUI];
         [self.view addSubview:_moreSelectView];
@@ -243,10 +250,23 @@
 }
 #pragma mark -- MoreSelectViewDelegate
 -(void)moreSelectIndex:(int)index {
-    
+    if(index == 0) {
+        
+    } else if (index == 1) {
+        
+    } else {//签到设置
+        AttendanceRollController *roll = [AttendanceRollController new];
+        [self.navigationController pushViewController:roll animated:YES];
+    }
 }
 //签到记录
 - (void)siginNote:(UIBarButtonItem*)item {
     
+}
+//签到按钮被点击
+- (IBAction)siginClicked:(id)sender {
+    UIStoryboard *story = [UIStoryboard storyboardWithName:@"SiginStory" bundle:nil];
+    CreateSiginController *sigin = [story instantiateViewControllerWithIdentifier:@"CreateSiginController"];
+    [self.navigationController pushViewController:sigin animated:YES];
 }
 @end

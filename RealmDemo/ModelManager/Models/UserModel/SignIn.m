@@ -13,5 +13,16 @@
 + (NSString*)primaryKey {
     return @"id";
 }
-
+/**
+ *  类型；0-上班；1-下班；2-外勤；3-其他
+ */
+- (NSString*)categoryStr {
+    if (_category == 0)
+        return @"上班";
+    else if (_category == 1)
+        return @"下班";
+    else if (_category == 2)
+        return @"外勤";
+    return @"其他";
+}
 @end

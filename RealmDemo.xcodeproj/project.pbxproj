@@ -391,6 +391,36 @@
 		1B9DD18B1D3CDB81008FEC53 /* SelectAdressController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9DD1851D3CDB81008FEC53 /* SelectAdressController.m */; };
 		1B9DD18C1D3CDB81008FEC53 /* SelectAdressTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9DD1871D3CDB81008FEC53 /* SelectAdressTableCell.m */; };
 		1B9DD18D1D3CDB81008FEC53 /* SelectAdressTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B9DD1881D3CDB81008FEC53 /* SelectAdressTableCell.xib */; };
+		1BC2AE3F1D41F46500842153 /* SiginStory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BC2AE3E1D41F46500842153 /* SiginStory.storyboard */; };
+		1BC2AE421D41F48A00842153 /* CreateSiginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC2AE411D41F48A00842153 /* CreateSiginController.m */; };
+		1BC2AE461D4208CB00842153 /* SiginImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC2AE441D4208CB00842153 /* SiginImageCell.m */; };
+		1BC2AE471D4208CB00842153 /* SiginImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BC2AE451D4208CB00842153 /* SiginImageCell.xib */; };
+		1BC2AE4B1D4208DB00842153 /* SiginSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC2AE491D4208DB00842153 /* SiginSelectCell.m */; };
+		1BC2AE4C1D4208DB00842153 /* SiginSelectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BC2AE4A1D4208DB00842153 /* SiginSelectCell.xib */; };
+		1BC2AE4F1D42109E00842153 /* SiginRuleSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC2AE4E1D42109E00842153 /* SiginRuleSet.m */; };
+		1BC2AE521D4210C700842153 /* PunchCardAddressSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC2AE511D4210C700842153 /* PunchCardAddressSetting.m */; };
+		1BC2AE7D1D42113800842153 /* AttendanceRollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC2AE551D42113800842153 /* AttendanceRollCell.m */; };
+		1BC2AE7E1D42113800842153 /* AttendanceRollCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BC2AE561D42113800842153 /* AttendanceRollCell.xib */; };
+		1BC2AE7F1D42113800842153 /* AttendanceRollController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC2AE581D42113800842153 /* AttendanceRollController.m */; };
+		1BC2AE801D42113800842153 /* PalneTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC2AE5C1D42113800842153 /* PalneTableViewCell.m */; };
+		1BC2AE811D42113800842153 /* PalneTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BC2AE5D1D42113800842153 /* PalneTableViewCell.xib */; };
+		1BC2AE821D42113800842153 /* PunchCardRemind.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC2AE5F1D42113800842153 /* PunchCardRemind.m */; };
+		1BC2AE831D42113800842153 /* PunchCardRemind.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BC2AE601D42113800842153 /* PunchCardRemind.xib */; };
+		1BC2AE841D42113800842153 /* SiginName.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC2AE621D42113800842153 /* SiginName.m */; };
+		1BC2AE851D42113800842153 /* SiginName.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BC2AE631D42113800842153 /* SiginName.xib */; };
+		1BC2AE861D42113800842153 /* WorkAdressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC2AE651D42113800842153 /* WorkAdressCell.m */; };
+		1BC2AE871D42113800842153 /* WorkAdressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BC2AE661D42113800842153 /* WorkAdressCell.xib */; };
+		1BC2AE881D42113800842153 /* CreateAttendanceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC2AE681D42113800842153 /* CreateAttendanceController.m */; };
+		1BC2AE891D42113800842153 /* SelectAttendanceRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC2AE6B1D42113800842153 /* SelectAttendanceRange.m */; };
+		1BC2AE8A1D42113800842153 /* SelectAttendanceRange.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BC2AE6C1D42113800842153 /* SelectAttendanceRange.xib */; };
+		1BC2AE8B1D42113800842153 /* SelectAttendanceSpaceTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC2AE6F1D42113800842153 /* SelectAttendanceSpaceTime.m */; };
+		1BC2AE8C1D42113800842153 /* SelectAttendanceSpaceTime.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BC2AE701D42113800842153 /* SelectAttendanceSpaceTime.xib */; };
+		1BC2AE8D1D42113800842153 /* SelectAttendanceTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC2AE731D42113800842153 /* SelectAttendanceTime.m */; };
+		1BC2AE8E1D42113800842153 /* SelectAttendanceTime.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BC2AE741D42113800842153 /* SelectAttendanceTime.xib */; };
+		1BC2AE8F1D42113800842153 /* SelectAttendanceWorkDay.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC2AE771D42113800842153 /* SelectAttendanceWorkDay.m */; };
+		1BC2AE901D42113800842153 /* SelectAttendanceWorkDay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BC2AE781D42113800842153 /* SelectAttendanceWorkDay.xib */; };
+		1BC2AE911D42113800842153 /* UpdateAttendanceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC2AE7A1D42113800842153 /* UpdateAttendanceController.m */; };
+		1BC2AE921D42113800842153 /* NoSiginruleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC2AE7C1D42113800842153 /* NoSiginruleView.m */; };
 		1BD871E51D3882510074CDC7 /* ic_setting_bg_default.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1BD871E41D3882510074CDC7 /* ic_setting_bg_default.jpg */; };
 		1BD871EA1D38AE200074CDC7 /* CreateBushController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD871E91D38AE200074CDC7 /* CreateBushController.m */; };
 		1BD871ED1D38AFEF0074CDC7 /* CreateBushModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD871EC1D38AFEF0074CDC7 /* CreateBushModel.m */; };
@@ -1179,6 +1209,54 @@
 		1B9DD1861D3CDB81008FEC53 /* SelectAdressTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectAdressTableCell.h; sourceTree = "<group>"; };
 		1B9DD1871D3CDB81008FEC53 /* SelectAdressTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectAdressTableCell.m; sourceTree = "<group>"; };
 		1B9DD1881D3CDB81008FEC53 /* SelectAdressTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectAdressTableCell.xib; sourceTree = "<group>"; };
+		1BC2AE3E1D41F46500842153 /* SiginStory.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SiginStory.storyboard; sourceTree = "<group>"; };
+		1BC2AE401D41F48A00842153 /* CreateSiginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateSiginController.h; sourceTree = "<group>"; };
+		1BC2AE411D41F48A00842153 /* CreateSiginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateSiginController.m; sourceTree = "<group>"; };
+		1BC2AE431D4208CB00842153 /* SiginImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SiginImageCell.h; sourceTree = "<group>"; };
+		1BC2AE441D4208CB00842153 /* SiginImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SiginImageCell.m; sourceTree = "<group>"; };
+		1BC2AE451D4208CB00842153 /* SiginImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SiginImageCell.xib; sourceTree = "<group>"; };
+		1BC2AE481D4208DB00842153 /* SiginSelectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SiginSelectCell.h; sourceTree = "<group>"; };
+		1BC2AE491D4208DB00842153 /* SiginSelectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SiginSelectCell.m; sourceTree = "<group>"; };
+		1BC2AE4A1D4208DB00842153 /* SiginSelectCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SiginSelectCell.xib; sourceTree = "<group>"; };
+		1BC2AE4D1D42109E00842153 /* SiginRuleSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SiginRuleSet.h; sourceTree = "<group>"; };
+		1BC2AE4E1D42109E00842153 /* SiginRuleSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SiginRuleSet.m; sourceTree = "<group>"; };
+		1BC2AE501D4210C700842153 /* PunchCardAddressSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PunchCardAddressSetting.h; sourceTree = "<group>"; };
+		1BC2AE511D4210C700842153 /* PunchCardAddressSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PunchCardAddressSetting.m; sourceTree = "<group>"; };
+		1BC2AE541D42113800842153 /* AttendanceRollCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttendanceRollCell.h; sourceTree = "<group>"; };
+		1BC2AE551D42113800842153 /* AttendanceRollCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttendanceRollCell.m; sourceTree = "<group>"; };
+		1BC2AE561D42113800842153 /* AttendanceRollCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AttendanceRollCell.xib; sourceTree = "<group>"; };
+		1BC2AE571D42113800842153 /* AttendanceRollController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttendanceRollController.h; sourceTree = "<group>"; };
+		1BC2AE581D42113800842153 /* AttendanceRollController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttendanceRollController.m; sourceTree = "<group>"; };
+		1BC2AE5B1D42113800842153 /* PalneTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PalneTableViewCell.h; sourceTree = "<group>"; };
+		1BC2AE5C1D42113800842153 /* PalneTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PalneTableViewCell.m; sourceTree = "<group>"; };
+		1BC2AE5D1D42113800842153 /* PalneTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PalneTableViewCell.xib; sourceTree = "<group>"; };
+		1BC2AE5E1D42113800842153 /* PunchCardRemind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PunchCardRemind.h; sourceTree = "<group>"; };
+		1BC2AE5F1D42113800842153 /* PunchCardRemind.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PunchCardRemind.m; sourceTree = "<group>"; };
+		1BC2AE601D42113800842153 /* PunchCardRemind.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PunchCardRemind.xib; sourceTree = "<group>"; };
+		1BC2AE611D42113800842153 /* SiginName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SiginName.h; sourceTree = "<group>"; };
+		1BC2AE621D42113800842153 /* SiginName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SiginName.m; sourceTree = "<group>"; };
+		1BC2AE631D42113800842153 /* SiginName.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SiginName.xib; sourceTree = "<group>"; };
+		1BC2AE641D42113800842153 /* WorkAdressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkAdressCell.h; sourceTree = "<group>"; };
+		1BC2AE651D42113800842153 /* WorkAdressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkAdressCell.m; sourceTree = "<group>"; };
+		1BC2AE661D42113800842153 /* WorkAdressCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WorkAdressCell.xib; sourceTree = "<group>"; };
+		1BC2AE671D42113800842153 /* CreateAttendanceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateAttendanceController.h; sourceTree = "<group>"; };
+		1BC2AE681D42113800842153 /* CreateAttendanceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateAttendanceController.m; sourceTree = "<group>"; };
+		1BC2AE6A1D42113800842153 /* SelectAttendanceRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectAttendanceRange.h; sourceTree = "<group>"; };
+		1BC2AE6B1D42113800842153 /* SelectAttendanceRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectAttendanceRange.m; sourceTree = "<group>"; };
+		1BC2AE6C1D42113800842153 /* SelectAttendanceRange.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectAttendanceRange.xib; sourceTree = "<group>"; };
+		1BC2AE6E1D42113800842153 /* SelectAttendanceSpaceTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectAttendanceSpaceTime.h; sourceTree = "<group>"; };
+		1BC2AE6F1D42113800842153 /* SelectAttendanceSpaceTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectAttendanceSpaceTime.m; sourceTree = "<group>"; };
+		1BC2AE701D42113800842153 /* SelectAttendanceSpaceTime.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectAttendanceSpaceTime.xib; sourceTree = "<group>"; };
+		1BC2AE721D42113800842153 /* SelectAttendanceTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectAttendanceTime.h; sourceTree = "<group>"; };
+		1BC2AE731D42113800842153 /* SelectAttendanceTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectAttendanceTime.m; sourceTree = "<group>"; };
+		1BC2AE741D42113800842153 /* SelectAttendanceTime.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectAttendanceTime.xib; sourceTree = "<group>"; };
+		1BC2AE761D42113800842153 /* SelectAttendanceWorkDay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectAttendanceWorkDay.h; sourceTree = "<group>"; };
+		1BC2AE771D42113800842153 /* SelectAttendanceWorkDay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectAttendanceWorkDay.m; sourceTree = "<group>"; };
+		1BC2AE781D42113800842153 /* SelectAttendanceWorkDay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectAttendanceWorkDay.xib; sourceTree = "<group>"; };
+		1BC2AE791D42113800842153 /* UpdateAttendanceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateAttendanceController.h; sourceTree = "<group>"; };
+		1BC2AE7A1D42113800842153 /* UpdateAttendanceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateAttendanceController.m; sourceTree = "<group>"; };
+		1BC2AE7B1D42113800842153 /* NoSiginruleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoSiginruleView.h; sourceTree = "<group>"; };
+		1BC2AE7C1D42113800842153 /* NoSiginruleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoSiginruleView.m; sourceTree = "<group>"; };
 		1BD871E41D3882510074CDC7 /* ic_setting_bg_default.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ic_setting_bg_default.jpg; sourceTree = "<group>"; };
 		1BD871E81D38AE200074CDC7 /* CreateBushController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateBushController.h; sourceTree = "<group>"; };
 		1BD871E91D38AE200074CDC7 /* CreateBushController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateBushController.m; sourceTree = "<group>"; };
@@ -2845,6 +2923,111 @@
 			path = SelectAdressController;
 			sourceTree = "<group>";
 		};
+		1BC2AE3D1D41F40B00842153 /* CreateSiginController */ = {
+			isa = PBXGroup;
+			children = (
+				1BC2AE401D41F48A00842153 /* CreateSiginController.h */,
+				1BC2AE411D41F48A00842153 /* CreateSiginController.m */,
+				1BC2AE431D4208CB00842153 /* SiginImageCell.h */,
+				1BC2AE441D4208CB00842153 /* SiginImageCell.m */,
+				1BC2AE451D4208CB00842153 /* SiginImageCell.xib */,
+				1BC2AE481D4208DB00842153 /* SiginSelectCell.h */,
+				1BC2AE491D4208DB00842153 /* SiginSelectCell.m */,
+				1BC2AE4A1D4208DB00842153 /* SiginSelectCell.xib */,
+			);
+			path = CreateSiginController;
+			sourceTree = "<group>";
+		};
+		1BC2AE531D42113800842153 /* AttendanceRollController */ = {
+			isa = PBXGroup;
+			children = (
+				1BC2AE541D42113800842153 /* AttendanceRollCell.h */,
+				1BC2AE551D42113800842153 /* AttendanceRollCell.m */,
+				1BC2AE561D42113800842153 /* AttendanceRollCell.xib */,
+				1BC2AE571D42113800842153 /* AttendanceRollController.h */,
+				1BC2AE581D42113800842153 /* AttendanceRollController.m */,
+				1BC2AE591D42113800842153 /* CreateAttendance */,
+				1BC2AE7B1D42113800842153 /* NoSiginruleView.h */,
+				1BC2AE7C1D42113800842153 /* NoSiginruleView.m */,
+			);
+			path = AttendanceRollController;
+			sourceTree = "<group>";
+		};
+		1BC2AE591D42113800842153 /* CreateAttendance */ = {
+			isa = PBXGroup;
+			children = (
+				1BC2AE5A1D42113800842153 /* CreateAttendanceCell */,
+				1BC2AE671D42113800842153 /* CreateAttendanceController.h */,
+				1BC2AE681D42113800842153 /* CreateAttendanceController.m */,
+				1BC2AE691D42113800842153 /* SelectAttendanceRange */,
+				1BC2AE6D1D42113800842153 /* SelectAttendanceSpaceTime */,
+				1BC2AE711D42113800842153 /* SelectAttendanceTime */,
+				1BC2AE751D42113800842153 /* SelectAttendanceWorkDay */,
+				1BC2AE791D42113800842153 /* UpdateAttendanceController.h */,
+				1BC2AE7A1D42113800842153 /* UpdateAttendanceController.m */,
+			);
+			path = CreateAttendance;
+			sourceTree = "<group>";
+		};
+		1BC2AE5A1D42113800842153 /* CreateAttendanceCell */ = {
+			isa = PBXGroup;
+			children = (
+				1BC2AE5B1D42113800842153 /* PalneTableViewCell.h */,
+				1BC2AE5C1D42113800842153 /* PalneTableViewCell.m */,
+				1BC2AE5D1D42113800842153 /* PalneTableViewCell.xib */,
+				1BC2AE5E1D42113800842153 /* PunchCardRemind.h */,
+				1BC2AE5F1D42113800842153 /* PunchCardRemind.m */,
+				1BC2AE601D42113800842153 /* PunchCardRemind.xib */,
+				1BC2AE611D42113800842153 /* SiginName.h */,
+				1BC2AE621D42113800842153 /* SiginName.m */,
+				1BC2AE631D42113800842153 /* SiginName.xib */,
+				1BC2AE641D42113800842153 /* WorkAdressCell.h */,
+				1BC2AE651D42113800842153 /* WorkAdressCell.m */,
+				1BC2AE661D42113800842153 /* WorkAdressCell.xib */,
+			);
+			path = CreateAttendanceCell;
+			sourceTree = "<group>";
+		};
+		1BC2AE691D42113800842153 /* SelectAttendanceRange */ = {
+			isa = PBXGroup;
+			children = (
+				1BC2AE6A1D42113800842153 /* SelectAttendanceRange.h */,
+				1BC2AE6B1D42113800842153 /* SelectAttendanceRange.m */,
+				1BC2AE6C1D42113800842153 /* SelectAttendanceRange.xib */,
+			);
+			path = SelectAttendanceRange;
+			sourceTree = "<group>";
+		};
+		1BC2AE6D1D42113800842153 /* SelectAttendanceSpaceTime */ = {
+			isa = PBXGroup;
+			children = (
+				1BC2AE6E1D42113800842153 /* SelectAttendanceSpaceTime.h */,
+				1BC2AE6F1D42113800842153 /* SelectAttendanceSpaceTime.m */,
+				1BC2AE701D42113800842153 /* SelectAttendanceSpaceTime.xib */,
+			);
+			path = SelectAttendanceSpaceTime;
+			sourceTree = "<group>";
+		};
+		1BC2AE711D42113800842153 /* SelectAttendanceTime */ = {
+			isa = PBXGroup;
+			children = (
+				1BC2AE721D42113800842153 /* SelectAttendanceTime.h */,
+				1BC2AE731D42113800842153 /* SelectAttendanceTime.m */,
+				1BC2AE741D42113800842153 /* SelectAttendanceTime.xib */,
+			);
+			path = SelectAttendanceTime;
+			sourceTree = "<group>";
+		};
+		1BC2AE751D42113800842153 /* SelectAttendanceWorkDay */ = {
+			isa = PBXGroup;
+			children = (
+				1BC2AE761D42113800842153 /* SelectAttendanceWorkDay.h */,
+				1BC2AE771D42113800842153 /* SelectAttendanceWorkDay.m */,
+				1BC2AE781D42113800842153 /* SelectAttendanceWorkDay.xib */,
+			);
+			path = SelectAttendanceWorkDay;
+			sourceTree = "<group>";
+		};
 		1BD871E71D38AE040074CDC7 /* CreateBushController */ = {
 			isa = PBXGroup;
 			children = (
@@ -2944,6 +3127,9 @@
 				1B0FECBF1D40B68400DB4369 /* SigInListCell.h */,
 				1B0FECC01D40B68400DB4369 /* SigInListCell.m */,
 				1B0FECC11D40B68400DB4369 /* SigInListCell.xib */,
+				1BC2AE3E1D41F46500842153 /* SiginStory.storyboard */,
+				1BC2AE531D42113800842153 /* AttendanceRollController */,
+				1BC2AE3D1D41F40B00842153 /* CreateSiginController */,
 			);
 			path = SiginController;
 			sourceTree = "<group>";
@@ -3076,6 +3262,10 @@
 				1B1B98711D3DBD0300F53EDC /* Calendar.m */,
 				1B0FECB71D40AD7600DB4369 /* SignIn.h */,
 				1B0FECB81D40AD7600DB4369 /* SignIn.m */,
+				1BC2AE4D1D42109E00842153 /* SiginRuleSet.h */,
+				1BC2AE4E1D42109E00842153 /* SiginRuleSet.m */,
+				1BC2AE501D4210C700842153 /* PunchCardAddressSetting.h */,
+				1BC2AE511D4210C700842153 /* PunchCardAddressSetting.m */,
 			);
 			path = UserModel;
 			sourceTree = "<group>";
@@ -3168,14 +3358,18 @@
 				1BFBC1881D3F811900A5511A /* SiginController.xib in Resources */,
 				1BFBC1591D3F269400A5511A /* CalendarRepSelect.xib in Resources */,
 				1B4B16201D37684700E71B3D /* banner.png in Resources */,
+				1BC2AE811D42113800842153 /* PalneTableViewCell.xib in Resources */,
 				1B0FECC31D40B68400DB4369 /* SigInListCell.xib in Resources */,
 				1B4B16291D37858400E71B3D /* BushManagerCell.xib in Resources */,
 				1B1B9BEA1D3E151A00F53EDC /* ComCalendarExigence.xib in Resources */,
 				1B877F251D178E7D000144B2 /* LaunchScreen.storyboard in Resources */,
 				1BFBC1441D3F0CDC00A5511A /* RepCalendarTime.xib in Resources */,
+				1BC2AE8A1D42113800842153 /* SelectAttendanceRange.xib in Resources */,
 				049586181D39D3A500544259 /* MuliteSelectCell.xib in Resources */,
 				1B119E711D3CB89F007CC050 /* PhotoGroupTableCell.xib in Resources */,
 				1B1B9BEF1D3E178F00F53EDC /* ComCalendarDetail.xib in Resources */,
+				1BC2AE851D42113800842153 /* SiginName.xib in Resources */,
+				1BC2AE8E1D42113800842153 /* SelectAttendanceTime.xib in Resources */,
 				1BFBC14E1D3F0FD200A5511A /* RepCalendarRepTime.xib in Resources */,
 				1B4B16151D37398600E71B3D /* XAddrBookCell.xib in Resources */,
 				1BFBC1651D3F455500A5511A /* RepWeekView.xib in Resources */,
@@ -3190,27 +3384,35 @@
 				1BD871E51D3882510074CDC7 /* ic_setting_bg_default.jpg in Resources */,
 				1B119E731D3CB89F007CC050 /* PhotoImageCollectionCell.xib in Resources */,
 				1B877F221D178E7D000144B2 /* Assets.xcassets in Resources */,
+				1BC2AE3F1D41F46500842153 /* SiginStory.storyboard in Resources */,
 				1B0715ED1D386CBC00D7881D /* MineView.storyboard in Resources */,
 				1B119E751D3CB89F007CC050 /* SelectImageCollectionCell.xib in Resources */,
 				049586391D3A1D2900544259 /* SelectDateController.xib in Resources */,
 				04FE7CCC1D3670AD00362702 /* LeftMenuController.xib in Resources */,
 				1BD8722B1D38DD6C0074CDC7 /* BushSearchCell.xib in Resources */,
+				1BC2AE831D42113800842153 /* PunchCardRemind.xib in Resources */,
 				1B1B9BE01D3E11FA00F53EDC /* ComCalendarName.xib in Resources */,
 				0495861A1D39D3A500544259 /* MuliteSelectController.xib in Resources */,
 				049585F51D39C01700544259 /* RequestManagerCell.xib in Resources */,
+				1BC2AE7E1D42113800842153 /* AttendanceRollCell.xib in Resources */,
 				1B5585A11D34E2C800DCD3A0 /* ic_welcome_avatar_2_2.png in Resources */,
+				1BC2AE871D42113800842153 /* WorkAdressCell.xib in Resources */,
 				1BFBC15E1D3F26EC00A5511A /* RepDayView.xib in Resources */,
 				1B5585A01D34E2C800DCD3A0 /* ic_welcome_avatar_1_1.png in Resources */,
 				1B1B9BF41D3E18D300F53EDC /* ComCalendarAdress.xib in Resources */,
+				1BC2AE4C1D4208DB00842153 /* SiginSelectCell.xib in Resources */,
 				1BFBC16A1D3F474500A5511A /* RepMonthView.xib in Resources */,
 				0495864F1D3A348200544259 /* InviteColleagueController.storyboard in Resources */,
 				049586211D39D3A500544259 /* SingleSelectController.xib in Resources */,
+				1BC2AE471D4208CB00842153 /* SiginImageCell.xib in Resources */,
 				1B1B9BE51D3E126100F53EDC /* ComCalendarTime.xib in Resources */,
 				1B9DD18D1D3CDB81008FEC53 /* SelectAdressTableCell.xib in Resources */,
 				1B5585B21D34F3A600DCD3A0 /* LoginViewController.xib in Resources */,
 				1B55859F1D34E2C800DCD3A0 /* ic_welcome_avatar_0_0.png in Resources */,
+				1BC2AE8C1D42113800842153 /* SelectAttendanceSpaceTime.xib in Resources */,
 				1BFBC1491D3F0F0100A5511A /* RepCalendarRep.xib in Resources */,
 				040A09B01D3D182F00156C16 /* DiscussListCell.xib in Resources */,
+				1BC2AE901D42113800842153 /* SelectAttendanceWorkDay.xib in Resources */,
 				0495864D1D3A348200544259 /* FaceInviteColleague.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3288,10 +3490,12 @@
 				1B55855A1D34CB7000DCD3A0 /* DataCache.m in Sources */,
 				049588EC1D3A620300544259 /* ZXEAN8Reader.m in Sources */,
 				1B119E6F1D3CB89F007CC050 /* PhotoGroupController.m in Sources */,
+				1BC2AE4B1D4208DB00842153 /* SiginSelectCell.m in Sources */,
 				049588F41D3A620300544259 /* ZXOneDReader.m in Sources */,
 				75E5FF641D27AA9100F77961 /* HttpService.m in Sources */,
 				04E7E5B41D3A7D2500C653B4 /* PushMessage.m in Sources */,
 				049589271D3A620300544259 /* ZXQRCodeBlockPair.m in Sources */,
+				1BC2AE8D1D42113800842153 /* SelectAttendanceTime.m in Sources */,
 				049588EA1D3A620300544259 /* ZXEAN13Reader.m in Sources */,
 				049588CA1D3A620300544259 /* ZXAI01393xDecoder.m in Sources */,
 				0495862C1D3A1A3F00544259 /* WebViewJavascriptBridgeBase.m in Sources */,
@@ -3371,12 +3575,15 @@
 				1B36FCDF1D35F01B006694E4 /* BottomViewItem.m in Sources */,
 				1B4B162A1D37858400E71B3D /* BushManageViewController.m in Sources */,
 				0495887E1D3A620300544259 /* ZXURIResultParser.m in Sources */,
+				1BC2AE7D1D42113800842153 /* AttendanceRollCell.m in Sources */,
 				1B1B9BFD1D3E376200F53EDC /* CalendarSelectAlertTime.m in Sources */,
 				1B1B986F1D3DB50400F53EDC /* CalendarController.m in Sources */,
 				049588761D3A620300544259 /* ZXSMSMMSResultParser.m in Sources */,
 				049588FB1D3A620300544259 /* ZXUPCEANWriter.m in Sources */,
 				049588AA1D3A620300544259 /* ZXResultPoint.m in Sources */,
+				1BC2AE881D42113800842153 /* CreateAttendanceController.m in Sources */,
 				049588901D3A620300544259 /* ZXBitArray.m in Sources */,
+				1BC2AE821D42113800842153 /* PunchCardRemind.m in Sources */,
 				1BFBC16D1D3F4C0100A5511A /* RepYearView.m in Sources */,
 				1B55856C1D34CF4F00DCD3A0 /* UIView+REFrostedViewController.m in Sources */,
 				04E7E5AC1D3A660800C653B4 /* MineInfoEditController.m in Sources */,
@@ -3400,6 +3607,7 @@
 				049588AC1D3A620300544259 /* ZXDataMatrixBitMatrixParser.m in Sources */,
 				1B119E851D3CB8FB007CC050 /* Photo.m in Sources */,
 				049588631D3A620300544259 /* ZXAddressBookAUResultParser.m in Sources */,
+				1BC2AE461D4208CB00842153 /* SiginImageCell.m in Sources */,
 				049586431D3A303800544259 /* AboutViewController.m in Sources */,
 				75E5FF671D27ADD100F77961 /* MError.m in Sources */,
 				1B5585C51D34FA7D00DCD3A0 /* HomeListController.m in Sources */,
@@ -3426,12 +3634,14 @@
 				049589141D3A620300544259 /* ZXPDF417ResultMetadata.m in Sources */,
 				049588BD1D3A620300544259 /* ZXDataMatrixX12Encoder.m in Sources */,
 				049589091D3A620300544259 /* ZXPDF417ScanningDecoder.m in Sources */,
+				1BC2AE861D42113800842153 /* WorkAdressCell.m in Sources */,
 				049588D61D3A620300544259 /* ZXRSSExpandedDecodedObject.m in Sources */,
 				049588961D3A620300544259 /* ZXDecoderResult.m in Sources */,
 				049588E51D3A620300544259 /* ZXCode128Reader.m in Sources */,
 				1B119E841D3CB8FB007CC050 /* ImageSelectView.m in Sources */,
 				04A817771D3525D700011DA1 /* IdentityHttp.m in Sources */,
 				049588651D3A620300544259 /* ZXAddressBookParsedResult.m in Sources */,
+				1BC2AE421D41F48A00842153 /* CreateSiginController.m in Sources */,
 				1B9DD17D1D3CD619008FEC53 /* AvaterBroseController.m in Sources */,
 				049589201D3A620300544259 /* ZXQRCodeAlignmentPattern.m in Sources */,
 				1B5585791D34D94100DCD3A0 /* LoginController.m in Sources */,
@@ -3441,6 +3651,7 @@
 				049588A31D3A620300544259 /* ZXDimension.m in Sources */,
 				0495886A1D3A620300544259 /* ZXEmailAddressResultParser.m in Sources */,
 				049588CC1D3A620300544259 /* ZXAI013x0xDecoder.m in Sources */,
+				1BC2AE891D42113800842153 /* SelectAttendanceRange.m in Sources */,
 				049588931D3A620300544259 /* ZXBoolArray.m in Sources */,
 				049589031D3A620300544259 /* ZXPDF417Codeword.m in Sources */,
 				1BD871EA1D38AE200074CDC7 /* CreateBushController.m in Sources */,
@@ -3466,6 +3677,8 @@
 				04E7E5AA1D3A660800C653B4 /* ChangeUserName.m in Sources */,
 				049588B21D3A620300544259 /* ZXDataMatrixASCIIEncoder.m in Sources */,
 				049586171D39D3A500544259 /* MuliteSelectCell.m in Sources */,
+				1BC2AE4F1D42109E00842153 /* SiginRuleSet.m in Sources */,
+				1BC2AE7F1D42113800842153 /* AttendanceRollController.m in Sources */,
 				049588DA1D3A620300544259 /* ZXRSSExpandedPair.m in Sources */,
 				049589181D3A620300544259 /* ZXQRCodeDataMask.m in Sources */,
 				1B119E701D3CB89F007CC050 /* PhotoGroupTableCell.m in Sources */,
@@ -3478,6 +3691,8 @@
 				049588681D3A620300544259 /* ZXCalendarParsedResult.m in Sources */,
 				049588B71D3A620300544259 /* ZXDataMatrixEncoderContext.m in Sources */,
 				1B03E8FF1D4075EF00FB6E1E /* RepCalendarDetailController.m in Sources */,
+				1BC2AE8F1D42113800842153 /* SelectAttendanceWorkDay.m in Sources */,
+				1BC2AE801D42113800842153 /* PalneTableViewCell.m in Sources */,
 				049588FE1D3A620300544259 /* ZXModulusPoly.m in Sources */,
 				0495886C1D3A620300544259 /* ZXExpandedProductParsedResult.m in Sources */,
 				04FE7CCB1D3670AD00362702 /* LeftMenuController.m in Sources */,
@@ -3506,6 +3721,7 @@
 				1B1B9BC11D3DCB8000F53EDC /* EKRecurrenceRule+RRULE.m in Sources */,
 				049589111D3A620300544259 /* ZXPDF417HighLevelEncoder.m in Sources */,
 				1B119E721D3CB89F007CC050 /* PhotoImageCollectionCell.m in Sources */,
+				1BC2AE921D42113800842153 /* NoSiginruleView.m in Sources */,
 				049588A41D3A620300544259 /* ZXEncodeHints.m in Sources */,
 				1B4B161B1D37675E00E71B3D /* MineViewController.m in Sources */,
 				049588591D3A620300544259 /* ZXAztecCode.m in Sources */,
@@ -3556,6 +3772,7 @@
 				1B4B16281D37858400E71B3D /* BushManagerCell.m in Sources */,
 				049588781D3A620300544259 /* ZXSMSTOMMSTOResultParser.m in Sources */,
 				049588FF1D3A620300544259 /* ZXPDF417ECErrorCorrection.m in Sources */,
+				1BC2AE911D42113800842153 /* UpdateAttendanceController.m in Sources */,
 				0495862B1D3A1A3F00544259 /* WebViewJavascriptBridge.m in Sources */,
 				1B5585691D34CF4F00DCD3A0 /* REFrostedContainerViewController.m in Sources */,
 				0495887A1D3A620300544259 /* ZXTelParsedResult.m in Sources */,
@@ -3567,6 +3784,7 @@
 				049588FC1D3A620300544259 /* ZXUPCEReader.m in Sources */,
 				0495885E1D3A620300544259 /* ZXAztecToken.m in Sources */,
 				049588E41D3A620300544259 /* ZXCodaBarWriter.m in Sources */,
+				1BC2AE841D42113800842153 /* SiginName.m in Sources */,
 				0495886B1D3A620300544259 /* ZXEmailDoCoMoResultParser.m in Sources */,
 				049588CE1D3A620300544259 /* ZXAI01decoder.m in Sources */,
 				1B1B9BE41D3E126100F53EDC /* ComCalendarTime.m in Sources */,
@@ -3584,6 +3802,7 @@
 				049588D11D3A620300544259 /* ZXRSSExpandedBlockParsedResult.m in Sources */,
 				049588E81D3A620300544259 /* ZXCode39Writer.m in Sources */,
 				049588B41D3A620300544259 /* ZXDataMatrixC40Encoder.m in Sources */,
+				1BC2AE8B1D42113800842153 /* SelectAttendanceSpaceTime.m in Sources */,
 				049588701D3A620300544259 /* ZXISBNParsedResult.m in Sources */,
 				0471C0951D3B262600377178 /* PushMessageCell.m in Sources */,
 				049588711D3A620300544259 /* ZXISBNResultParser.m in Sources */,
@@ -3606,6 +3825,7 @@
 				04E7E5B11D3A77EA00C653B4 /* PushMessageController.m in Sources */,
 				0495861E1D39D3A500544259 /* SigleSelectCell.m in Sources */,
 				1BFBC1681D3F473B00A5511A /* RepMonthView.m in Sources */,
+				1BC2AE521D4210C700842153 /* PunchCardAddressSetting.m in Sources */,
 				0495887B1D3A620300544259 /* ZXTelResultParser.m in Sources */,
 				1B55856B1D34CF4F00DCD3A0 /* UIImage+REFrostedViewController.m in Sources */,
 				1B5585BE1D34F8E000DCD3A0 /* CMDeviceInfo.m in Sources */,
@@ -3693,7 +3913,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -3731,7 +3951,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

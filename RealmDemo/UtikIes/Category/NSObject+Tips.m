@@ -90,7 +90,7 @@ __weak MBProgressHUD * _sharedHud;
         
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:container animated:YES];
         hud.mode = MBProgressHUDModeCustomView;
-        hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nolocation"]];
+        hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"create_close"]];
         hud.detailsLabelText = message;
         hud.detailsLabelFont = [UIFont systemFontOfSize:15];
         _sharedHud = hud;
@@ -143,7 +143,7 @@ __weak MBProgressHUD * _sharedHud;
         
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:container animated:YES];
         hud.mode = MBProgressHUDModeCustomView;
-        hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark"]];
+        hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"create_ok"]];
         hud.detailsLabelText = message;
         hud.detailsLabelFont = [UIFont systemFontOfSize:15];
         _sharedHud = hud;

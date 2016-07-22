@@ -83,4 +83,23 @@
     UIGraphicsEndImageContext();
     return cutImage;
 }
++ (id)colorImg:(UIColor*)color {
+    CGSize imageSize = CGSizeMake(50.0, 50.0);
+    UIGraphicsBeginImageContextWithOptions(imageSize, 0, [UIScreen mainScreen].scale);
+    [color set];
+    UIRectFill(CGRectMake(0, 0, imageSize.width, imageSize.height));
+    UIImage *colorImg = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return colorImg;
+}
+
++ (id)colorImg:(UIColor*)color size:(CGSize)size {
+    CGSize imageSize = size;
+    UIGraphicsBeginImageContextWithOptions(imageSize, 0, [UIScreen mainScreen].scale);
+    [color set];
+    UIRectFill(CGRectMake(0, 0, imageSize.width, imageSize.height));
+    UIImage *colorImg = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return colorImg;
+}
 @end

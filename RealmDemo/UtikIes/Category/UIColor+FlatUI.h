@@ -10,6 +10,8 @@
 
 @interface UIColor (FlatUI)
 
+
+
 + (UIColor *) colorFromHexCode:(NSString *)hexString;
 + (UIColor *) buttonColor_n;
 + (UIColor *) buttonColor_d;

@@ -361,8 +361,8 @@
     NSDate *date = [NSDate date];
     NSUInteger dateFirstTime = date.firstTime.timeIntervalSince1970 * 1000;
     NSUInteger dateLastTime = date.lastTime.timeIntervalSince1970 * 1000;
-    NSString *resultStr = [NSString stringWithFormat:@"employee_guid = %@ and create_on_utc >= %ld and create_on_utc <= %ld",employeeGuid,dateFirstTime,dateLastTime];
-    RLMResults *calendarResult = [SignIn objectsInRealm:_rlmRealm where:resultStr];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(employee_guid = %@ and create_on_utc >= %ld and create_on_utc <= %ld)",employeeGuid,dateFirstTime,dateLastTime];
+    RLMResults *calendarResult = [SignIn objectsInRealm:_rlmRealm withPredicate:predicate];
     while (calendarResult.count) {
         [_rlmRealm deleteObject:calendarResult.firstObject];
     }
@@ -376,8 +376,8 @@
     NSDate *date = [NSDate date];
     NSUInteger dateFirstTime = date.firstTime.timeIntervalSince1970 * 1000;
     NSUInteger dateLastTime = date.lastTime.timeIntervalSince1970 * 1000;
-    NSString *resultStr = [NSString stringWithFormat:@"employee_guid = %@ and create_on_utc >= %ld and create_on_utc <= %ld",employeeGuid,dateFirstTime,dateLastTime];
-    RLMResults *calendarResult = [SignIn objectsInRealm:_rlmRealm where:resultStr];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(employee_guid = %@ and create_on_utc >= %ld and create_on_utc <= %ld)",employeeGuid,dateFirstTime,dateLastTime];
+    RLMResults *calendarResult = [SignIn objectsInRealm:_rlmRealm withPredicate:predicate];
     for (int index = 0;index < calendarResult.count;index ++) {
         SignIn *company = [calendarResult objectAtIndex:index];
         [pushMessageArr addObject:company];
@@ -391,9 +391,60 @@
     NSDate *date = [NSDate date];
     NSUInteger dateFirstTime = date.firstTime.timeIntervalSince1970 * 1000;
     NSUInteger dateLastTime = date.lastTime.timeIntervalSince1970 * 1000;
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"employee_guid = %@ and create_on_utc >= %ld and create_on_utc <= %ld",employeeGuid,dateFirstTime,dateLastTime];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(employee_guid = %@ and create_on_utc >= %ld and create_on_utc <= %ld)",employeeGuid,dateFirstTime,dateLastTime];
     RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"SignIn" inRealm:_rlmRealm predicate:predicate];
     fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:@"SignIn"];
+    [fetchedResultsController performFetch];
+    return fetchedResultsController;
+}
+#pragma mark -- SiginRuleSet
+//更新签到规则
+- (void)updateSiginRule:(SiginRuleSet*)siginRule {
+    [_rlmRealm beginWriteTransaction];
+    [_rlmRealm addOrUpdateObject:siginRule];
+    [_rlmRealm commitWriteTransaction];
+}
+//添加签到规则
+- (void)addSiginRule:(SiginRuleSet*)siginRule {
+    [_rlmRealm beginWriteTransaction];
+    [_rlmRealm addObject:siginRule];
+    [_rlmRealm commitWriteTransaction];
+}
+//删除签到规则
+- (void)deleteSiginRule:(SiginRuleSet*)siginRule {
+    [_rlmRealm beginWriteTransaction];
+    [_rlmRealm deleteObject:siginRule];
+    [_rlmRealm commitWriteTransaction];
+}
+//获取圈子的所有签到规则
+- (NSMutableArray<SiginRuleSet*>*)getSiginRule:(int)companyNo {
+    NSMutableArray *array = [@[] mutableCopy];
+    [_rlmRealm beginWriteTransaction];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(company_no = %d )",companyNo];
+    RLMResults *calendarResult = [SiginRuleSet objectsInRealm:_rlmRealm withPredicate:predicate];
+    for (int i = 0; i < calendarResult.count; i ++) {
+        [array addObject:[calendarResult objectAtIndex:i]];
+    }
+    [_rlmRealm commitWriteTransaction];
+    return array;
+}
+//更新圈子的所有签到规则
+- (void)updateSiginRule:(NSMutableArray<SiginRuleSet*>*)sigRules companyNo:(int)companyNo {
+    [_rlmRealm beginWriteTransaction];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(company_no = %d )",companyNo];
+    RLMResults *calendarResult = [SiginRuleSet objectsInRealm:_rlmRealm withPredicate:predicate];
+    while (calendarResult.count) {
+        [_rlmRealm deleteObject:calendarResult.firstObject];
+    }
+    [_rlmRealm addObjects:sigRules];
+    [_rlmRealm commitWriteTransaction];
+}
+//创建圈子的数据监听
+- (RBQFetchedResultsController*)createSiginRuleFetchedResultsController:(int)companyNo {
+    RBQFetchedResultsController *fetchedResultsController = nil;
+     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(company_no = %d )",companyNo];
+    RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"SiginRuleSet" inRealm:_rlmRealm predicate:predicate];
+    fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:@"SiginRuleSet"];
     [fetchedResultsController performFetch];
     return fetchedResultsController;
 }

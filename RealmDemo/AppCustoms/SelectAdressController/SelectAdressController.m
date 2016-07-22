@@ -156,7 +156,7 @@
     CLLocationCoordinate2D d2d = [mapView convertPoint:_mapView.center toCoordinateFromView:_mapView];
     //地图中心点发生变化
     _searchPOIRequest.location = [AMapGeoPoint locationWithLatitude:d2d.latitude longitude:d2d.longitude];
-    [_tableView.header beginRefreshing];
+    [_tableView.mj_header beginRefreshing];
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -186,13 +186,13 @@
             _userSelectedPOI = nil;
         }
     }
-    [_tableView.header endRefreshing];
-    if(_tableView.footer != (id)_noResultView)
-        [_tableView.footer endRefreshing];
+    [_tableView.mj_header endRefreshing];
+    if(_tableView.mj_footer != (id)_noResultView)
+        [_tableView.mj_footer endRefreshing];
     if(_searchDataArr.count == 0) {
-        _tableView.footer = (id)_noResultView;
+        _tableView.mj_footer = (id)_noResultView;
     } else {
-        _tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
             _searchPOIRequest.page ++;
             [self searchPOIData];
         }];

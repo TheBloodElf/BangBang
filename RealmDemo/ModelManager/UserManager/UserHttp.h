@@ -60,4 +60,12 @@
 #pragma mark -- 签到
 //获取今天的签到记录
 + (NSURLSessionDataTask*)getSiginList:(int)companyNo employeeGuid:(NSString*)employeeGuid handler:(completionHandler)handler;
+//获取公司的签到规则
++ (NSURLSessionDataTask*)getSiginRule:(int)companyNo handler:(completionHandler)handler;
+//删除公司签到规则
++ (NSURLSessionDataTask*)deleteSiginRule:(NSString*)settingGuid handler:(completionHandler)handler;
+//更新公司签到规则
++ (NSURLSessionDataTask*)updateSiginRule:(NSDictionary*)siginRule handler:(completionHandler)handler;
+//添加公司签到规则
++ (NSURLSessionDataTask*)addSiginRule:(NSDictionary*)siginRule handler:(completionHandler)handler;
 @end
