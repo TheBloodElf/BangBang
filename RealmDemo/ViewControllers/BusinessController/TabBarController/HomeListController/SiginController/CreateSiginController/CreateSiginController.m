@@ -8,14 +8,24 @@
 
 #import "CreateSiginController.h"
 #import "UserManager.h"
+#import "UserHttp.h"
 #import "SiginImageCell.h"
 #import "SiginSelectCell.h"
+#import "OrientationViewController.H"
 
-@interface CreateSiginController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate,UITextViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,SiginImageDelegate> {
+@interface CreateSiginController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate,UITextViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,SiginImageDelegate,MAMapViewDelegate,AMapSearchDelegate> {
     UserManager *_userManager;//用户管理器
     NSMutableArray *_todaySiginArr;//今天所有的签到记录
     SignIn *_currSignIn;//创建签到的模型
     NSMutableArray<UIImage*> *_siginImageArr;//签到附件数组
+    NSMutableArray<NSString*> *_siginImageNameArr;//签到附件名字数组
+    
+    SiginRuleSet *_currSiginRuleSet;//当前圈子的签到规则
+    PunchCardAddressSetting *_currPunchCardAddressSetting;//离用户最近的规则中的地址
+    
+    MAUserLocation *currUserLocation;//当前位置，提高定位精准度
+    MAMapView *_mapView;//使用地图来定位 更准确
+    AMapSearchAPI *_search;//搜索地址
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *siginDeatilLabel;//签到详情的辅助提示
@@ -39,6 +49,9 @@
     self.title = @"创建签到";
     _userManager = [UserManager manager];
     _siginImageArr = [@[] mutableCopy];
+    _siginImageNameArr = [@[] mutableCopy];
+    //获取签到规则
+    _currSiginRuleSet = [_userManager getSiginRule:_userManager.user.currCompany.company_no][0];
     self.tableView.tableFooterView = [UIView new];
     //初始化集合视图
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
@@ -51,6 +64,7 @@
     [self.siginImageCollection registerNib:[UINib nibWithNibName:@"SiginImageCell" bundle:nil] forCellWithReuseIdentifier:@"SiginImageCell"];
     [self.siginImageCollection registerNib:[UINib nibWithNibName:@"SiginSelectCell" bundle:nil] forCellWithReuseIdentifier:@"SiginSelectCell"];
     self.currCompanyName.text = _userManager.user.currCompany.company_name;
+    //获取用户今天的所有签到记录
     Employee * employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
     _todaySiginArr = [_userManager getTodaySigInListGuid:employee.employee_guid];
     [self initCategoryBtn];
@@ -59,12 +73,102 @@
     _currSignIn.employee_guid = employee.employee_guid;
     _currSignIn.create_name = employee.real_name;
     self.siginTextView.delegate = self;
+    //开始定位 然后获取离用户最近的签到地址
+    //地图初始化
+    _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
+    _mapView.delegate = self;
+    _mapView.hidden = YES;
+    _mapView.zoomLevel = 13;//地图缩放级别
+    _mapView.distanceFilter = 100;
+    _mapView.showsUserLocation = YES;
+    _mapView.desiredAccuracy = kCLLocationAccuracyBest;
+    [self.view addSubview:_mapView];
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setBackIndicatorTransitionMaskImage:nil];
     [self.navigationController.navigationBar setShadowImage:nil];
+}
+#pragma mark -- 
+#pragma mark -- UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if(indexPath.row == 3) {//重新定位
+        OrientationViewController *orientation = [OrientationViewController new];
+        orientation.currSiginRule = _currSiginRuleSet;
+        orientation.setting = _currPunchCardAddressSetting;
+        orientation.category = _currSignIn.category;
+        orientation.finishOrientation = ^(AMapPOI *poi){
+            if(!poi)
+                return ;
+            self.currAdressDetail.text = [NSString stringWithFormat:@"%@%@%@%@", poi.province,poi.city,poi.district,poi.address];
+            self.currAdressName.text = poi.name;
+            _currSignIn.province = poi.province;
+            _currSignIn.city = poi.city;
+            _currSignIn.city_code = (int)poi.citycode;
+            _currSignIn.subdistrict = poi.district;
+            _currSignIn.address = [NSString stringWithFormat:@"%@%@%@%@%@", poi.province,poi.city,poi.district,poi.address,poi.name];
+            _currSignIn.address_name = poi.name;
+            _currSignIn.latitude = poi.location.latitude;
+            _currSignIn.longitude = poi.location.longitude;
+            [self setMapImageViewWithLatitude:_currSignIn.latitude longitude:_currSignIn.longitude];
+        };
+        [self.navigationController pushViewController:orientation animated:YES];
+    }
+}
+#pragma mark --
+#pragma mark -- MAMapViewDelegate
+-(void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation{
+    if (!currUserLocation) {
+        //取出当前位置的坐标
+        NSLog(@"latitude : %f,longitude: %f",userLocation.coordinate.latitude,userLocation.coordinate.longitude);
+        currUserLocation = userLocation;
+        //根据位置请求当前位置的POI
+        AMapPOIAroundSearchRequest *request = [[AMapPOIAroundSearchRequest alloc] init];
+        request.location = [AMapGeoPoint locationWithLatitude:userLocation.coordinate.latitude longitude:userLocation.coordinate.longitude];
+        /* 按照距离排序. */
+        request.types = @"汽车服务|汽车销售|汽车维修|摩托车服务|餐饮服务|购物服务|生活服务|体育休闲服务|医疗保健服务|住宿服务|风景名胜|商务住宅|政府机构及社会团体|科教文化服务|交通设施服务|金融保险服务|公司企业|道路附属设施|地名地址信息|公共设施";
+        request.sortrule = 0;
+        request.requireExtension = YES;
+        request.radius = 300;
+        [_search AMapPOIAroundSearch:request];
+    }
+}
+#pragma mark --
+#pragma mark -- AMapSearchDelegate
+/* POI 搜索回调. */
+- (void)onPOISearchDone:(AMapPOISearchBaseRequest *)request response:(AMapPOISearchResponse *)response
+{
+    if (response.pois.count == 0)
+        return;
+    AMapPOI *searchPOI = response.pois[0];
+    NSString *adress = [NSString stringWithFormat:@"%@%@%@%@", searchPOI.province,searchPOI.city,searchPOI.district,searchPOI.address];
+    self.currAdressDetail.text = adress;
+    self.currAdressName.text = searchPOI.name;
+    _currSignIn.province = searchPOI.province;
+    _currSignIn.city = searchPOI.city;
+    _currSignIn.city_code = (int)searchPOI.citycode;
+    _currSignIn.subdistrict = adress;
+    _currSignIn.address = adress;
+    _currSignIn.address_name = searchPOI.name;
+    _currSignIn.latitude = searchPOI.location.latitude;
+    _currSignIn.longitude = searchPOI.location.longitude;
+    [self setMapImageViewWithLatitude:_currSignIn.latitude longitude:_currSignIn.longitude];
+    double distance = MAXFLOAT;
+    CLLocation *currentLoaction = [[CLLocation alloc] initWithLatitude:searchPOI.location.latitude longitude:searchPOI.location.longitude];
+    //算出最近的签到规则地址
+    for (PunchCardAddressSetting *model in _currSiginRuleSet.json_list_address_settings) {
+        CLLocationDistance distanceFromSettingPoint = [currentLoaction distanceFromLocation:[[CLLocation alloc] initWithLatitude:model.latitude longitude:model.longitude]];
+        if (distanceFromSettingPoint < distance) {
+            distance = distanceFromSettingPoint;
+            _currPunchCardAddressSetting = model;
+        }
+    }
+}
+- (void)setMapImageViewWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude {
+    NSString *imageUrl = [NSString stringWithFormat:@"http://restapi.amap.com/v3/staticmap?location=%f,%f&zoom=15&size=300*300&markers=mid,,A:%f,%f&key=ee95e52bf08006f63fd29bcfbcf21df0",longitude,latitude,longitude,latitude];
+    [self.currAdressImage sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"signin_position"]];
 }
 #pragma mark --
 #pragma mark -- UITextViewDelegate
@@ -155,17 +259,148 @@
     }
     sender.backgroundColor = [UIColor blackColor];
     [sender setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    _currSignIn.category = sender.tag - 1000;
+    _currSignIn.category = (int)sender.tag - 1000;
 }
+#pragma mark -- 提交签到数据
 //提交按钮被点击
 - (IBAction)submitClicked:(id)sender {
-    
+     Employee * employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
+    _currSignIn.employee_guid = employee.employee_guid;
+    //是否定位
+    if([NSString isBlank:_currSignIn.address]) {
+        [self.navigationController.view showMessageTips:@"请选择位置"];
+        return;
+    }
+    //判断距离
+    if (_currSignIn.category < 2) {
+        //判断当前选择位置是否在圈内
+        if(!MACircleContainsCoordinate(CLLocationCoordinate2DMake(_currPunchCardAddressSetting.latitude, _currPunchCardAddressSetting.longitude),CLLocationCoordinate2DMake(_currSiginRuleSet.latitude, _currSiginRuleSet.longitude),_currSiginRuleSet.scope)){
+            [self.navigationController.view showMessageTips:@"当前位置离公司签到点太远啦!"];
+            return;
+        }
+        _currSignIn.distance = MAMetersBetweenMapPoints(MAMapPointForCoordinate(CLLocationCoordinate2DMake(_currPunchCardAddressSetting.latitude, _currPunchCardAddressSetting.longitude)),MAMapPointForCoordinate(CLLocationCoordinate2DMake(_currSignIn.latitude, _currSignIn.longitude)));
+        _currSignIn.setting_guid = _currPunchCardAddressSetting.setting_guid;
+    }
+    //判断时间是否迟到或者早退
+    NSDate *currDate = [NSDate new];
+    NSUInteger currDateSecond = currDate.hour * 60 * 60 + currDate.minute * 60 + currDate.second;
+    if(_currSignIn.category == 0) {
+        //得到当前的时间 看是否是迟到超过5分钟 超过了那必须要写详情
+        BOOL isArrive = NO;
+        NSDate *leaveDate = [NSDate dateWithTimeIntervalSince1970:_currSiginRuleSet.start_work_time / 1000];
+        NSUInteger leaveDateSecond = leaveDate.hour * 60 * 60 + leaveDate.minute * 60 + leaveDate.second;
+        if (currDateSecond > (leaveDateSecond + 5 * 60)) {
+            isArrive = YES;
+        }
+        if (isArrive) {//如果迟到 必须要写详情
+            if([NSString isBlank:self.siginDeatilLabel.text]) {
+                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"你迟到超过5分钟，需要写明原因" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *alertSure = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:nil];
+                [alertVC addAction:alertSure];
+                [self presentViewController:alertVC animated:YES completion:nil];
+            } else {
+                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"你已经迟到超过5分钟，确认上班？" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *alertCancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+                UIAlertAction *alertSure = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    _currSignIn.validity = NO;
+                    [self siginMethod];
+                }];
+                [alertVC addAction:alertCancel];
+                [alertVC addAction:alertSure];
+                [self presentViewController:alertVC animated:YES completion:nil];
+            }
+        } else {//没有迟到，正常逻辑
+            UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"确认上班？" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *alertCancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            UIAlertAction *alertSure = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                _currSignIn.validity = YES;
+                [self siginMethod];
+            }];
+            [alertVC addAction:alertCancel];
+            [alertVC addAction:alertSure];
+            [self presentViewController:alertVC animated:YES completion:nil];
+        }
+    } else if (_currSignIn.category == 1) {
+        //得到当前的时间 看是否是早退 早退要写详情
+        BOOL isLeave = NO;
+        NSDate *leaveDate = [NSDate dateWithTimeIntervalSince1970:_currSiginRuleSet.end_work_time / 1000];
+        NSUInteger leaveDateSecond = leaveDate.hour * 60 * 60 + leaveDate.minute * 60 + leaveDate.second;
+        if (currDateSecond < leaveDateSecond) {
+            isLeave = YES;
+        }
+        if (isLeave) {//如果早退 需要写明原因
+            if([NSString isBlank:self.siginDeatilLabel.text]) {
+                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"你属于早退，需要写明原因" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *alertSure = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:nil];
+                [alertVC addAction:alertSure];
+                [self presentViewController:alertVC animated:YES completion:nil];
+            } else {
+                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"你属于早退，确认下班？" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *alertCancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+                UIAlertAction *alertSure = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    _currSignIn.validity = NO;
+                     [self siginMethod];
+                }];
+                [alertVC addAction:alertCancel];
+                [alertVC addAction:alertSure];
+                [self presentViewController:alertVC animated:YES completion:nil];
+            }
+        } else {
+            UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"确认下班？" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *alertCancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            UIAlertAction *alertSure = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                _currSignIn.validity = YES;
+                 [self siginMethod];
+            }];
+            [alertVC addAction:alertCancel];
+            [alertVC addAction:alertSure];
+            [self presentViewController:alertVC animated:YES completion:nil];
+        }
+    } else {
+        _currSignIn.validity = YES;
+        [self siginMethod];
+    }
+}
+//统一一个签到方法 还要上传图片 很是蛋疼
+- (void)siginMethod {
+    [self.navigationController.view showLoadingTips:@""];
+    [UserHttp sigin:_currSignIn handler:^(id data, MError *error) {
+        if(error) {
+            [self.navigationController.view dismissTips];
+            [self.navigationController.view showFailureTips:error.statsMsg];
+            return ;
+        }
+        if(_siginImageArr.count) {//进入上传图片逻辑
+            [self sendSiginPhoto];
+        } else {
+            [self.navigationController.view dismissTips];
+            [_userManager addSigin:_currSignIn];
+            [self.navigationController.view showMessageTips:@"签到成功"];
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }
+    }];
+}
+//上传图片
+- (void)sendSiginPhoto {
+    if(_siginImageNameArr.count == _siginImageArr.count) {
+        [self.navigationController.view dismissTips];
+        _currSignIn.attachments = [_siginImageNameArr componentsJoinedByString:@","];
+        [_userManager addSigin:_currSignIn];
+        [self.navigationController.view showMessageTips:@"签到成功"];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    } else {
+        [UserHttp updateImageGuid:@"" image:_siginImageArr[_siginImageNameArr.count] handler:^(id data, MError *error) {
+            if(error) {
+                [self.navigationController.view showFailureTips:error.statsMsg];
+                return ;
+            }
+            [_siginImageNameArr addObject:data[@"file_path"]];
+            [self sendSiginPhoto];
+        }];
+    }
 }
 #pragma mark --
 #pragma mark -- UITableViewDelegate
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
 //初始化上下班按钮状态
 - (void)initCategoryBtn {
     //如果上班过了，上班按钮变灰不可用

@@ -34,13 +34,13 @@
 {
     Photo *lo_photo = self.data;
     //有缩略图就显示缩略图
-    if(lo_photo.zoomImage)
-        _imageView.image = lo_photo.zoomImage;
+    if(lo_photo.oiginalImage)
+        _imageView.image = lo_photo.oiginalImage;
     //否者用缩略图url显示
     else
     {
-        [_imageView sd_setImageWithURL:lo_photo.zoomUrl completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            lo_photo.zoomImage = image;
+        [_imageView sd_setImageWithURL:lo_photo.oiginalUrl completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            lo_photo.oiginalImage = image;
         }];
     }
 }

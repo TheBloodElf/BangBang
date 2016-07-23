@@ -7,6 +7,7 @@
 //
 
 #import "AboutViewController.h"
+#import "WebNonstandarViewController.h"
 #import "EAIntroViewController.h"
 
 @interface AboutViewController ()<EAIntroViewDelegate>
@@ -18,7 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"关于棒棒";
+    self.title = @"关于帮帮";
     //添加当前版本号信息
     NSString *currentVerson = [NSString stringWithFormat:@"v%@",[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]];
     if([KBSSDKAPIDomain rangeOfString:@"test"].location != NSNotFound) {
@@ -29,6 +30,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackIndicatorTransitionMaskImage:nil];
+    [self.navigationController.navigationBar setShadowImage:nil];
 }
 - (IBAction)ealntroClicked:(id)sender {
     EAIntroViewController *view = [EAIntroViewController new];
@@ -39,5 +43,13 @@
 #pragma mark -- EAIntroViewDelegate
 - (void)eAIntroViewDidFinish:(EAIntroViewController *)eAIntro {
     [eAIntro dismissViewControllerAnimated:NO completion:nil];
+}
+- (IBAction)helpClicked:(id)sender {
+    //常见问题
+    WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
+    webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@common/terms",BBHOMEURL];
+    webViewcontroller.showNavigationBar = YES;
+    webViewcontroller.title = @"使用条款";
+    [self.navigationController pushViewController:webViewcontroller animated:YES];
 }
 @end

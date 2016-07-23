@@ -11,8 +11,11 @@
 #import "CreateSiginController.h"
 #import "MoreSelectView.h"
 #import "UserHttp.h"
+#import "IdentityManager.h"
 #import "SigInListCell.h"
 #import "AttendanceRollController.h"
+#import "WebNonstandarViewController.h"
+#import "SiginNoteController.h"
 
 @interface SiginController ()<MoreSelectViewDelegate,UITableViewDelegate,UITableViewDataSource,RBQFetchedResultsControllerDelegate,CLLocationManagerDelegate,AMapSearchDelegate> {
     UIButton *_leftNavigationBarButton;//左边导航的按钮
@@ -65,7 +68,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"SigInListCell" bundle:nil] forCellReuseIdentifier:@"SigInListCell"];
     [self setLeftNavigationBarItem];
     [self setRightNavigationBarItem];
-    //看是否有数据 没有就从服务器获取
+    //看是否有签到记录数据 没有就从服务器获取
     if(_todaySigInArr.count == 0) {
         [UserHttp getSiginList:_userManager.user.currCompany.company_no employeeGuid:employee.employee_guid handler:^(id data, MError *error) {
             [self.navigationController.view dismissTips];
@@ -101,6 +104,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     //导航透明
     [self.navigationController.navigationBar setBackgroundImage:[UIImage colorImg:[UIColor clearColor]] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setBackIndicatorTransitionMaskImage:[UIImage colorImg:[UIColor clearColor]]];
@@ -250,10 +254,13 @@
 }
 #pragma mark -- MoreSelectViewDelegate
 -(void)moreSelectIndex:(int)index {
-    if(index == 0) {
-        
-    } else if (index == 1) {
-        
+    if(index == 0) {//签到记录
+        SiginNoteController *sigin = [SiginNoteController new];
+        [self.navigationController pushViewController:sigin animated:YES];
+    } else if (index == 1) {//签到统计
+        WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
+        webViewcontroller.applicationUrl  = [NSString stringWithFormat:@"%@PunchCard/SignInStatistics?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+        [self.navigationController pushViewController:webViewcontroller animated:YES];
     } else {//签到设置
         AttendanceRollController *roll = [AttendanceRollController new];
         [self.navigationController pushViewController:roll animated:YES];
@@ -261,10 +268,16 @@
 }
 //签到记录
 - (void)siginNote:(UIBarButtonItem*)item {
-    
+    SiginNoteController *sigin = [SiginNoteController new];
+    [self.navigationController pushViewController:sigin animated:YES];
 }
 //签到按钮被点击
 - (IBAction)siginClicked:(id)sender {
+    //看是否有签到规则
+    if([_userManager getSiginRule:_userManager.user.currCompany.company_no].count == 0) {
+        [self.navigationController.view showMessageTips:@"无法签到，请管理员设置签到规则"];
+        return;
+    }
     UIStoryboard *story = [UIStoryboard storyboardWithName:@"SiginStory" bundle:nil];
     CreateSiginController *sigin = [story instantiateViewControllerWithIdentifier:@"CreateSiginController"];
     [self.navigationController pushViewController:sigin animated:YES];

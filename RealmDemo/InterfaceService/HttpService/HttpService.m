@@ -7,7 +7,6 @@
 //
 
 #import "HttpService.h"
-#import <AFNetworking/AFNetworking.h>
 #import "IdentityManager.h"
 
 @implementation HttpService

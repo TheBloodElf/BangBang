@@ -7,10 +7,14 @@
 //
 
 #import "RYChatController.h"
-#import "UserManager.h"
+#import "WebNonstandarViewController.h"
 #import "BushDetailController.h"
+#import "MineInfoEditController.h"
+#import "IdentityManager.h"
 
-@interface RYChatController ()<RCChatSessionInputBarControlDelegate>
+@interface RYChatController ()<RCChatSessionInputBarControlDelegate> {
+    UserManager *_userManager;
+}
 
 @end
 
@@ -18,14 +22,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _userManager = [UserManager manager];
     [self setMessageAvatarStyle:RC_USER_AVATAR_CYCLE];
     self.chatSessionInputBarControl.delegate = self;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(rightClicked:)];
     // Do any additional setup after loading the view.
 }
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
 - (void)rightClicked:(UIBarButtonItem*)item {
     if (self.conversationType == ConversationType_PRIVATE) {
         //查看对方详情（网页）
+        WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
+        webViewcontroller.showNavigationBar = NO;
+        webViewcontroller.isPrivateChat = YES;
+        webViewcontroller.applicationUrl  = [NSString stringWithFormat:@"%@/Personal/index?showGuid=%@&userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,self.friends.user_guid,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+        [self.navigationController pushViewController:webViewcontroller animated:YES];
     } else if (self.conversationType == ConversationType_GROUP){
         //查看圈子详情
         UserManager *manager = [UserManager manager];
@@ -42,6 +56,24 @@
         [self.navigationController pushViewController:con animated:YES];
     } else if (self.conversationType == ConversationType_DISCUSSION){
         //讨论组设置 需要自己做
+        
+    }
+}
+#pragma mark - OVerride RongCloud Methods
+//头像点击事件
+- (void) didTapCellPortrait:(NSString*)userId{
+    if (self.conversationType != ConversationType_PRIVATE){
+        if ([userId isEqualToString:@(_userManager.user.user_no).stringValue]) {//自己头像被点击  编辑
+            MineInfoEditController *mineInfoVC = [[MineInfoEditController alloc] init];
+            [self.navigationController pushViewController:mineInfoVC animated:YES];
+        }
+        else{//别人头像被点击 查看
+            Employee * emp = [_userManager getEmployeeWithNo:[userId intValue]];
+            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
+            webViewcontroller.showNavigationBar = NO;
+            webViewcontroller.applicationUrl  = [NSString stringWithFormat:@"%@/Personal/index?showGuid=%@&userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,emp.user_guid,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+            [self.navigationController pushViewController:webViewcontroller animated:YES];
+        }
     }
 }
 #pragma mark - RCChatSessionInputBarControlDelegate

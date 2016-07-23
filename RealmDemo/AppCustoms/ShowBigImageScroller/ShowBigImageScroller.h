@@ -21,13 +21,9 @@ typedef void(^ClickedBlock)();
 
 //是否不需要比例，直接放入图像视图
 @property (nonatomic, assign) BOOL noNeedScale;
-//不需要手势
-@property (nonatomic, assign) BOOL noNeedOption;
 
 @property (nonatomic, copy) ClickedBlock clickedBlock;
 
-//操作
-@property (nonatomic, assign) int type;
 
 /**
  *  图像对象

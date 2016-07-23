@@ -6,8 +6,10 @@
 //  Copyright © 2016年 com.luohaifang. All rights reserved.
 //
 
-#import <RongIMKit/RongIMKit.h>
+#import "UserManager.h"
 
 @interface RYChatController : RCConversationViewController
+
+@property (nonatomic,strong)Employee * friends;
 
 @end

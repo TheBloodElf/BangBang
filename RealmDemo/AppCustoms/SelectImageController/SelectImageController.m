@@ -81,7 +81,6 @@
     for (Photo *lo_temp in _photoArr)
     {
         lo_temp.oiginalImage = nil;
-        lo_temp.zoomImage = nil;
     }
 }
 
@@ -179,11 +178,6 @@
     for (Photo * tempPhoto in _photoArr) {
         if(tempPhoto.selected)
         {
-            //这里加载缩略图
-            if(!tempPhoto.zoomImage)
-            {
-                tempPhoto.zoomImage = [UIImage imageWithCGImage:[tempPhoto.alAsset thumbnail]];
-            }
             //这里加载原图
             if(!tempPhoto.oiginalImage)
             {

@@ -10,8 +10,11 @@
 #import "HttpService.h"
 #import "User.h"
 #import "Calendar.h"
+#import "SignIn.h"
 
 @interface UserHttp : NSObject
+#pragma mark -- 上传图片
++ (NSURLSessionDataTask*)updateImageGuid:(NSString*)guid image:(UIImage*)image handler:(completionHandler)handler;
 #pragma mark -- 融云
 //同步群组
 + (NSURLSessionDataTask*)syncRYGroup:(int)userNo handler:(completionHandler)handler;
@@ -58,6 +61,8 @@
 //获取用户所有日程
 + (NSURLSessionDataTask*)getUserCalendar:(NSString*)userGuid handler:(completionHandler)handler;
 #pragma mark -- 签到
+//提交签到信息
++ (NSURLSessionDataTask*)sigin:(SignIn*)sigin handler:(completionHandler)handler;
 //获取今天的签到记录
 + (NSURLSessionDataTask*)getSiginList:(int)companyNo employeeGuid:(NSString*)employeeGuid handler:(completionHandler)handler;
 //获取公司的签到规则
@@ -68,4 +73,6 @@
 + (NSURLSessionDataTask*)updateSiginRule:(NSDictionary*)siginRule handler:(completionHandler)handler;
 //添加公司签到规则
 + (NSURLSessionDataTask*)addSiginRule:(NSDictionary*)siginRule handler:(completionHandler)handler;
+//获取指定年月异常签到记录
++ (NSURLSessionDataTask*)getUsualSigin:(NSString*)userGuid companyNo:(int)companyNo year:(int)year month:(int)month handler:(completionHandler)handler;
 @end

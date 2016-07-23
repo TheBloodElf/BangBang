@@ -10,9 +10,11 @@
 #import "MoreSelectView.h"
 #import "MuliteSelectController.h"
 #import "RYChatController.h"
+#import "UserManager.h"
 
 @interface MessageController ()<MoreSelectViewDelegate,MuliteSelectDelegate> {
     MoreSelectView *_moreSelectView;
+    UserManager *_userManager;
 }
 
 @end
@@ -22,6 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"会话消息";
+    _userManager = [UserManager manager];
     //设置融云聊天界面
     [self setDisplayConversationTypes:@[@(ConversationType_PRIVATE),@(ConversationType_GROUP),@(ConversationType_DISCUSSION)]];
     [self setConversationAvatarStyle:RC_USER_AVATAR_CYCLE];
@@ -50,6 +53,9 @@
 #pragma mark --  MoreSelectViewDelegate
 - (void)moreSelectIndex:(int)index {
     MuliteSelectController *mulite = [MuliteSelectController new];
+    Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
+    if(employee)//没有查询出来说明用户没有选择圈子
+        mulite.outEmployees = [@[employee] mutableCopy];
     mulite.delegate = self;
     mulite.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:mulite animated:YES];

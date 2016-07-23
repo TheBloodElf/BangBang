@@ -137,7 +137,6 @@ static NSString *painlImageIdentifier = @"painlImageIdentifier";
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo {
     Photo *photo = [Photo new];
     photo.oiginalImage = [UIImage imageWithData:[image dataInNoSacleLimitBytes:MaXPicSize]];
-    photo.zoomImage = [photo.oiginalImage scaleToSize:CGSizeMake(210, 0.0f)];
     [picker dismissViewControllerAnimated:YES completion:^{}];
     [self.photoArr addObject:photo];
     [colloctView reloadData];

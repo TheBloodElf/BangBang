@@ -119,11 +119,6 @@
     for (Photo * tempPhoto in self.photoArr) {
         if(tempPhoto.selected)
         {
-            //这里加载缩略图
-            if(!tempPhoto.zoomImage)
-            {
-                tempPhoto.zoomImage = [UIImage imageWithCGImage:[tempPhoto.alAsset thumbnail]];
-            }
             //这里加载原图
             if(!tempPhoto.oiginalImage)
             {
@@ -208,14 +203,12 @@
     if(idnex - 2 >= 0)
     {
         self.photoArr[idnex - 2].oiginalImage = nil;
-        self.photoArr[idnex - 2].zoomImage = nil;
         ShowBigImageScroller *sc = [_scrollView viewWithTag:ImageScrollViewTag + idnex - 2];
         [sc reset];
     }
     if(idnex + 2 <= self.photoArr.count - 1)
     {
         self.photoArr[idnex + 2].oiginalImage = nil;
-        self.photoArr[idnex + 2].zoomImage = nil;
         ShowBigImageScroller *sc = [_scrollView viewWithTag:ImageScrollViewTag + idnex + 2];
         [sc reset];
     }
@@ -226,9 +219,6 @@
 #pragma  mark -- 配置该下标的视图
 - (void)setupIndex:(int)idnex
 {
-    //这里加载缩略图
-    if(!self.photoArr[idnex].zoomImage)
-        self.photoArr[idnex].zoomImage = [UIImage imageWithCGImage:[[self.photoArr[idnex] alAsset] thumbnail]];
     //这里加载原图
     if(!self.photoArr[idnex].oiginalImage)
         self.photoArr[idnex].oiginalImage = [UIImage imageWithData:[[UIImage imageWithCGImage:[self.photoArr[idnex].alAsset aspectRatioThumbnail]] dataInNoSacleLimitBytes:MaXPicSize]];

@@ -11,6 +11,39 @@
 #import "IdentityManager.h"
 
 @implementation UserHttp
++ (NSURLSessionDataTask*)updateImageGuid:(NSString*)guid image:(UIImage*)image handler:(completionHandler)handler {
+    //开始菊花
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:KBSSDKAPIDomain]];
+    UserManager *userManager = [UserManager manager];
+    NSDictionary *parameters = @{@"user_guid":userManager.user.user_guid,@"app_guid":guid,@"access_token":[IdentityManager manager].identity.accessToken,@"company_no":@(userManager.user.currCompany.company_no)};
+    NSURLSessionDataTask * dataTask = [manager POST:@"Attachments/upload_attachment" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData){
+        NSData *currData = [image dataInNoSacleLimitBytes:MaXPicSize];
+        [formData appendPartWithFileData:currData name:@"doc" fileName:[NSString stringWithFormat:@"%@.jpg",@([[NSDate date] timeIntervalSince1970])] mimeType:@"image/jpeg"];
+    }progress:nil success:^(NSURLSessionDataTask * task, id  responseObject) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        //判断结果
+        MError *err = nil;
+        id data = nil;
+        NSDictionary *responseObjectDic = [responseObject mj_keyValues];
+        if([responseObjectDic[@"code"] integerValue] == 0) {
+            data = responseObjectDic[@"data"];
+        } else {
+            err = [MError new];
+        }
+        //主线程执行回调
+        dispatch_async(dispatch_get_main_queue(), ^{
+            handler(data,err);
+        });
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        //开始菊花
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        handler(nil,[MError new]);
+    }];
+    
+    [dataTask resume];
+    return dataTask;
+}
 #pragma mark -- 融云
 //同步群组
 + (NSURLSessionDataTask*)syncRYGroup:(int)userNo handler:(completionHandler)handler {
@@ -306,27 +339,23 @@
     return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_GET URLPath:urlPath parameters:params completionHandler:compleionHandler];
 }
 #pragma mark -- 签到
+//提交签到信息
++ (NSURLSessionDataTask*)sigin:(SignIn*)sigin handler:(completionHandler)handler {
+    NSString *urlPath = @"Calendars/list_v3";
+    NSMutableDictionary *params = [sigin mj_keyValues];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
 //获取今天的签到记录
 + (NSURLSessionDataTask*)getSiginList:(int)companyNo employeeGuid:(NSString*)employeeGuid handler:(completionHandler)handler{
     NSString *urlPath = @"Attendance/search_sign_record_list";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     NSDate *date = [NSDate date];
-    NSDateComponents *dateFirstcomps = [[NSDateComponents alloc] init];
-    [dateFirstcomps setYear:date.year];
-    [dateFirstcomps setMonth:date.month];
-    [dateFirstcomps setDay:date.day];
-    [dateFirstcomps setHour:00];
-    [dateFirstcomps setMinute:00];
-    [dateFirstcomps setSecond:00];
-    NSUInteger dateFirstTime = [[NSCalendar currentCalendar] dateFromComponents:dateFirstcomps].timeIntervalSince1970 * 1000;
-    NSDateComponents *dateLastcomps = [[NSDateComponents alloc] init];
-    [dateLastcomps setYear:date.year];
-    [dateLastcomps setMonth:date.month];
-    [dateLastcomps setDay:date.day];
-    [dateLastcomps setHour:23];
-    [dateLastcomps setMinute:59];
-    [dateLastcomps setSecond:59];
-    NSUInteger dateLastTime = [[NSCalendar currentCalendar] dateFromComponents:dateLastcomps].timeIntervalSince1970 * 1000;
+    NSUInteger dateFirstTime = date.firstTime.timeIntervalSince1970 * 1000;
+    NSUInteger dateLastTime = date.lastTime.timeIntervalSince1970 * 1000;
     [params setObject:@(companyNo) forKey:@"company_no"];
     [params setObject:@(dateFirstTime) forKey:@"begin_utc_time"];
     [params setObject:@(dateLastTime) forKey:@"end_utc_time"];
@@ -381,5 +410,19 @@
         handler(data,error);
     };
     return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
+//获取指定年月异常签到记录
++ (NSURLSessionDataTask*)getUsualSigin:(NSString*)userGuid companyNo:(int)companyNo year:(int)year month:(int)month handler:(completionHandler)handler {
+    NSString *urlPath = @"Attendance/get_exception_punchcard_records";
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:userGuid forKey:@"user_guid"];
+    [params setObject:@(year) forKey:@"year"];
+    [params setObject:@(month) forKey:@"month"];
+    [params setObject:@(companyNo) forKey:@"company_no"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_GET URLPath:urlPath parameters:params completionHandler:compleionHandler];
 }
 @end

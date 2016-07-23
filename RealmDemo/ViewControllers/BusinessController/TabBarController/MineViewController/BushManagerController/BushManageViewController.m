@@ -98,6 +98,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackIndicatorTransitionMaskImage:nil];
+    [self.navigationController.navigationBar setShadowImage:nil];
 }
 - (void)rightBarButtonClicked:(UIBarButtonItem*)item {
     if(_moreSelectView.isHide)

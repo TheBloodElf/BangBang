@@ -12,6 +12,7 @@
 #import "DataCache.h"
 #import <Realm/Realm.h>
 #import <MJExtension/MJExtension.h>
+#import <AFNetworking/AFNetworking.h>
 #import <MJRefresh/MJRefresh.h>
 #import "REFrostedViewController.h"
 #import "NSString+isBlank.h"

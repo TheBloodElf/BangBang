@@ -11,6 +11,8 @@
 #import "UserManager.h"
 #import "UserSettingController.h"
 #import "AboutViewController.h"
+#import "WebNonstandarViewController.h"
+#import "IdentityManager.h"
 
 @interface MineViewController ()<RBQFetchedResultsControllerDelegate> {
     UserManager *_userManager;
@@ -27,7 +29,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
     self.automaticallyAdjustsScrollViewInsets = NO;
     //把视图移动到最顶部 即使有状态栏和导航
     if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
@@ -70,7 +71,11 @@
             bushManager.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:bushManager animated:YES];
         } else {
-            
+            //我的工单
+            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
+            webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@workorder?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+            webViewcontroller.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:webViewcontroller animated:YES];
         }
     } else if (indexPath.section == 2) {
         if(indexPath.row == 0) {
@@ -79,8 +84,17 @@
             UserSettingController *user = [story instantiateViewControllerWithIdentifier:@"UserSettingController"];
             user.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:user animated:YES];
+        } else {
+            //常见问题
+            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
+            webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@feedback?userGuid=%@&access_token=%@&companyNo=%ld",XYFMobileDomain,_userManager.user.user_guid,[IdentityManager manager].identity.accessToken,_userManager.user.currCompany.company_no];
+            webViewcontroller.showNavigationBar = YES;
+            webViewcontroller.title = @"常见问题";
+            webViewcontroller.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:webViewcontroller animated:YES];
         }
     } else {
+        //关于帮帮
         AboutViewController *about = [AboutViewController new];
         about.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:about animated:YES];

@@ -33,26 +33,9 @@
 @property (nonatomic, copy) NSURL *oiginalUrl;
 
 /**
- *  图片的id
- */
-@property (nonatomic, retain) NSString *imageId;
-
-/**
  *  原图
  */
 @property (nonatomic, retain) UIImage *oiginalImage;
-
-/**
- *  缩略图
- */
-@property (nonatomic, retain) UIImage *zoomImage;
-
-/**
- *  缩略图地址
- *
- **/
-@property (nonatomic, retain) NSURL *zoomUrl;
-
 
 /**
  *  从哪个位置进行缩放

@@ -43,19 +43,6 @@
     if(_dataArr.count == 0) {
         _tableView.tableFooterView = _noSiginruleView;
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(rightNavigationBarAction:)];
-        //从服务器获取一次规则
-        [UserHttp getSiginRule:_userManager.user.currCompany.company_no handler:^(id data, MError *error) {
-            if(error) {
-                [self.navigationController.view showFailureTips:error.statsMsg];
-                return ;
-            }
-            NSMutableArray *array = [@[] mutableCopy];
-            for (NSDictionary *dic in data) {
-                SiginRuleSet *set = [[SiginRuleSet alloc] initWithJsonDic:dic];
-                [array addObject:set];
-            }
-            [_userManager updateSiginRule:array companyNo:_userManager.user.currCompany.company_no];
-        }];
     }
     else {
         _tableView.tableFooterView = [UIView new];

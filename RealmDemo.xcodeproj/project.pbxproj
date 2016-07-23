@@ -15,6 +15,16 @@
 		0471C0951D3B262600377178 /* PushMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0471C0931D3B262600377178 /* PushMessageCell.m */; };
 		0471C0961D3B262600377178 /* PushMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0471C0941D3B262600377178 /* PushMessageCell.xib */; };
 		0471C0981D3BBA6000377178 /* Readme.md in Sources */ = {isa = PBXBuildFile; fileRef = 0471C0971D3BBA6000377178 /* Readme.md */; };
+		0482FBD21D42FE4200B1CBB2 /* SiginNoteController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBD11D42FE4200B1CBB2 /* SiginNoteController.m */; settings = {ASSET_TAGS = (); }; };
+		0482FBD61D430AD200B1CBB2 /* WebNonstandarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBD51D430AD200B1CBB2 /* WebNonstandarViewController.m */; settings = {ASSET_TAGS = (); }; };
+		0482FBD91D4316A500B1CBB2 /* RCTransferSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBD81D4316A500B1CBB2 /* RCTransferSelectViewController.m */; settings = {ASSET_TAGS = (); }; };
+		0482FBEE1D436FE500B1CBB2 /* MANaviAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBDC1D436FE500B1CBB2 /* MANaviAnnotation.m */; settings = {ASSET_TAGS = (); }; };
+		0482FBEF1D436FE500B1CBB2 /* MANaviPolyline.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBDE1D436FE500B1CBB2 /* MANaviPolyline.m */; settings = {ASSET_TAGS = (); }; };
+		0482FBF01D436FE500B1CBB2 /* LineDashPolyline.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBE01D436FE500B1CBB2 /* LineDashPolyline.m */; settings = {ASSET_TAGS = (); }; };
+		0482FBF11D436FE500B1CBB2 /* MANaviAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBE21D436FE500B1CBB2 /* MANaviAnnotationView.m */; settings = {ASSET_TAGS = (); }; };
+		0482FBF21D436FE500B1CBB2 /* ReGeocodeAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBE41D436FE500B1CBB2 /* ReGeocodeAnnotation.m */; settings = {ASSET_TAGS = (); }; };
+		0482FBF61D436FE500B1CBB2 /* POIAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBEB1D436FE500B1CBB2 /* POIAnnotation.m */; settings = {ASSET_TAGS = (); }; };
+		0482FBF71D436FE500B1CBB2 /* OrientationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBED1D436FE500B1CBB2 /* OrientationViewController.m */; settings = {ASSET_TAGS = (); }; };
 		049585F41D39C01700544259 /* RequestManagerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 049585F01D39C01700544259 /* RequestManagerCell.m */; };
 		049585F51D39C01700544259 /* RequestManagerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049585F11D39C01700544259 /* RequestManagerCell.xib */; };
 		049585F61D39C01700544259 /* RequestManagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049585F31D39C01700544259 /* RequestManagerController.m */; };
@@ -476,6 +486,26 @@
 		0471C0931D3B262600377178 /* PushMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushMessageCell.m; sourceTree = "<group>"; };
 		0471C0941D3B262600377178 /* PushMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PushMessageCell.xib; sourceTree = "<group>"; };
 		0471C0971D3BBA6000377178 /* Readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
+		0482FBD01D42FE4200B1CBB2 /* SiginNoteController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SiginNoteController.h; sourceTree = "<group>"; };
+		0482FBD11D42FE4200B1CBB2 /* SiginNoteController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SiginNoteController.m; sourceTree = "<group>"; };
+		0482FBD41D430AD200B1CBB2 /* WebNonstandarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebNonstandarViewController.h; sourceTree = "<group>"; };
+		0482FBD51D430AD200B1CBB2 /* WebNonstandarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebNonstandarViewController.m; sourceTree = "<group>"; };
+		0482FBD71D4316A500B1CBB2 /* RCTransferSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTransferSelectViewController.h; sourceTree = "<group>"; };
+		0482FBD81D4316A500B1CBB2 /* RCTransferSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTransferSelectViewController.m; sourceTree = "<group>"; };
+		0482FBDB1D436FE500B1CBB2 /* MANaviAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MANaviAnnotation.h; sourceTree = "<group>"; };
+		0482FBDC1D436FE500B1CBB2 /* MANaviAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MANaviAnnotation.m; sourceTree = "<group>"; };
+		0482FBDD1D436FE500B1CBB2 /* MANaviPolyline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MANaviPolyline.h; sourceTree = "<group>"; };
+		0482FBDE1D436FE500B1CBB2 /* MANaviPolyline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MANaviPolyline.m; sourceTree = "<group>"; };
+		0482FBDF1D436FE500B1CBB2 /* LineDashPolyline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineDashPolyline.h; sourceTree = "<group>"; };
+		0482FBE01D436FE500B1CBB2 /* LineDashPolyline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineDashPolyline.m; sourceTree = "<group>"; };
+		0482FBE11D436FE500B1CBB2 /* MANaviAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MANaviAnnotationView.h; sourceTree = "<group>"; };
+		0482FBE21D436FE500B1CBB2 /* MANaviAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MANaviAnnotationView.m; sourceTree = "<group>"; };
+		0482FBE31D436FE500B1CBB2 /* ReGeocodeAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReGeocodeAnnotation.h; sourceTree = "<group>"; };
+		0482FBE41D436FE500B1CBB2 /* ReGeocodeAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReGeocodeAnnotation.m; sourceTree = "<group>"; };
+		0482FBEA1D436FE500B1CBB2 /* POIAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POIAnnotation.h; sourceTree = "<group>"; };
+		0482FBEB1D436FE500B1CBB2 /* POIAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POIAnnotation.m; sourceTree = "<group>"; };
+		0482FBEC1D436FE500B1CBB2 /* OrientationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrientationViewController.h; sourceTree = "<group>"; };
+		0482FBED1D436FE500B1CBB2 /* OrientationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrientationViewController.m; sourceTree = "<group>"; };
 		049585EF1D39C01700544259 /* RequestManagerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestManagerCell.h; sourceTree = "<group>"; };
 		049585F01D39C01700544259 /* RequestManagerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestManagerCell.m; sourceTree = "<group>"; };
 		049585F11D39C01700544259 /* RequestManagerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RequestManagerCell.xib; sourceTree = "<group>"; };
@@ -1369,6 +1399,45 @@
 			children = (
 			);
 			path = RequestManagerController;
+			sourceTree = "<group>";
+		};
+		0482FBCF1D42FE4200B1CBB2 /* SiginNoteController */ = {
+			isa = PBXGroup;
+			children = (
+				0482FBD01D42FE4200B1CBB2 /* SiginNoteController.h */,
+				0482FBD11D42FE4200B1CBB2 /* SiginNoteController.m */,
+			);
+			path = SiginNoteController;
+			sourceTree = "<group>";
+		};
+		0482FBD31D430AC700B1CBB2 /* WebNonstandarViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0482FBD41D430AD200B1CBB2 /* WebNonstandarViewController.h */,
+				0482FBD51D430AD200B1CBB2 /* WebNonstandarViewController.m */,
+			);
+			path = WebNonstandarViewController;
+			sourceTree = "<group>";
+		};
+		0482FBDA1D436FDA00B1CBB2 /* SiginSelectAdressController */ = {
+			isa = PBXGroup;
+			children = (
+				0482FBDB1D436FE500B1CBB2 /* MANaviAnnotation.h */,
+				0482FBDC1D436FE500B1CBB2 /* MANaviAnnotation.m */,
+				0482FBDD1D436FE500B1CBB2 /* MANaviPolyline.h */,
+				0482FBDE1D436FE500B1CBB2 /* MANaviPolyline.m */,
+				0482FBDF1D436FE500B1CBB2 /* LineDashPolyline.h */,
+				0482FBE01D436FE500B1CBB2 /* LineDashPolyline.m */,
+				0482FBE11D436FE500B1CBB2 /* MANaviAnnotationView.h */,
+				0482FBE21D436FE500B1CBB2 /* MANaviAnnotationView.m */,
+				0482FBE31D436FE500B1CBB2 /* ReGeocodeAnnotation.h */,
+				0482FBE41D436FE500B1CBB2 /* ReGeocodeAnnotation.m */,
+				0482FBEA1D436FE500B1CBB2 /* POIAnnotation.h */,
+				0482FBEB1D436FE500B1CBB2 /* POIAnnotation.m */,
+				0482FBEC1D436FE500B1CBB2 /* OrientationViewController.h */,
+				0482FBED1D436FE500B1CBB2 /* OrientationViewController.m */,
+			);
+			path = SiginSelectAdressController;
 			sourceTree = "<group>";
 		};
 		049585EE1D39C01700544259 /* RequestManagerController */ = {
@@ -2301,6 +2370,8 @@
 			children = (
 				1B119E571D3C8794007CC050 /* RYChatController.h */,
 				1B119E581D3C8794007CC050 /* RYChatController.m */,
+				0482FBD71D4316A500B1CBB2 /* RCTransferSelectViewController.h */,
+				0482FBD81D4316A500B1CBB2 /* RCTransferSelectViewController.m */,
 			);
 			path = RYChatController;
 			sourceTree = "<group>";
@@ -2934,6 +3005,7 @@
 				1BC2AE481D4208DB00842153 /* SiginSelectCell.h */,
 				1BC2AE491D4208DB00842153 /* SiginSelectCell.m */,
 				1BC2AE4A1D4208DB00842153 /* SiginSelectCell.xib */,
+				0482FBDA1D436FDA00B1CBB2 /* SiginSelectAdressController */,
 			);
 			path = CreateSiginController;
 			sourceTree = "<group>";
@@ -3128,6 +3200,7 @@
 				1B0FECC01D40B68400DB4369 /* SigInListCell.m */,
 				1B0FECC11D40B68400DB4369 /* SigInListCell.xib */,
 				1BC2AE3E1D41F46500842153 /* SiginStory.storyboard */,
+				0482FBCF1D42FE4200B1CBB2 /* SiginNoteController */,
 				1BC2AE531D42113800842153 /* AttendanceRollController */,
 				1BC2AE3D1D41F40B00842153 /* CreateSiginController */,
 			);
@@ -3171,6 +3244,7 @@
 			children = (
 				75E5FF591D27A81B00F77961 /* AppCustoms.h */,
 				75E5FF5A1D27A81B00F77961 /* AppCustoms.m */,
+				0482FBD31D430AC700B1CBB2 /* WebNonstandarViewController */,
 				1B9DD17F1D3CDB81008FEC53 /* SelectAdressController */,
 				1B9DD1761D3CD619008FEC53 /* PhotoBrowseController */,
 				1B119E8B1D3CB92B007CC050 /* ShowBigImageScroller */,
@@ -3506,6 +3580,7 @@
 				049588AF1D3A620300544259 /* ZXDataMatrixDecoder.m in Sources */,
 				1B6C70581D361BE60028033D /* NSObject+Tips.m in Sources */,
 				049588B81D3A620300544259 /* ZXDataMatrixErrorCorrection.m in Sources */,
+				0482FBD91D4316A500B1CBB2 /* RCTransferSelectViewController.m in Sources */,
 				049588671D3A620300544259 /* ZXBookmarkDoCoMoResultParser.m in Sources */,
 				049588C81D3A620300544259 /* ZXAI01320xDecoder.m in Sources */,
 				1B5585681D34CF4F00DCD3A0 /* RECommonFunctions.m in Sources */,
@@ -3568,6 +3643,7 @@
 				049588B51D3A620300544259 /* ZXDataMatrixDefaultPlacement.m in Sources */,
 				1B0FECB91D40AD7600DB4369 /* SignIn.m in Sources */,
 				0495885F1D3A620300544259 /* ZXAztecDetectorResult.m in Sources */,
+				0482FBF71D436FE500B1CBB2 /* OrientationViewController.m in Sources */,
 				049589381D3A62B900544259 /* CMQRCode.m in Sources */,
 				049586341D3A1CCA00544259 /* NSDate+Format.m in Sources */,
 				0495890C1D3A620300544259 /* ZXPDF417.m in Sources */,
@@ -3576,6 +3652,7 @@
 				1B4B162A1D37858400E71B3D /* BushManageViewController.m in Sources */,
 				0495887E1D3A620300544259 /* ZXURIResultParser.m in Sources */,
 				1BC2AE7D1D42113800842153 /* AttendanceRollCell.m in Sources */,
+				0482FBD21D42FE4200B1CBB2 /* SiginNoteController.m in Sources */,
 				1B1B9BFD1D3E376200F53EDC /* CalendarSelectAlertTime.m in Sources */,
 				1B1B986F1D3DB50400F53EDC /* CalendarController.m in Sources */,
 				049588761D3A620300544259 /* ZXSMSMMSResultParser.m in Sources */,
@@ -3644,6 +3721,7 @@
 				1BC2AE421D41F48A00842153 /* CreateSiginController.m in Sources */,
 				1B9DD17D1D3CD619008FEC53 /* AvaterBroseController.m in Sources */,
 				049589201D3A620300544259 /* ZXQRCodeAlignmentPattern.m in Sources */,
+				0482FBEE1D436FE500B1CBB2 /* MANaviAnnotation.m in Sources */,
 				1B5585791D34D94100DCD3A0 /* LoginController.m in Sources */,
 				0495890F1D3A620300544259 /* ZXPDF417Dimensions.m in Sources */,
 				0495892D1D3A620300544259 /* ZXQRCodeMultiReader.m in Sources */,
@@ -3696,10 +3774,12 @@
 				049588FE1D3A620300544259 /* ZXModulusPoly.m in Sources */,
 				0495886C1D3A620300544259 /* ZXExpandedProductParsedResult.m in Sources */,
 				04FE7CCB1D3670AD00362702 /* LeftMenuController.m in Sources */,
+				0482FBEF1D436FE500B1CBB2 /* MANaviPolyline.m in Sources */,
 				0495888D1D3A620300544259 /* ZXGenericGFPoly.m in Sources */,
 				049588DB1D3A620300544259 /* ZXRSSExpandedReader.m in Sources */,
 				0495891C1D3A620300544259 /* ZXQRCodeErrorCorrectionLevel.m in Sources */,
 				049588BF1D3A620300544259 /* ZXDataMatrixWriter.m in Sources */,
+				0482FBF61D436FE500B1CBB2 /* POIAnnotation.m in Sources */,
 				049589041D3A620300544259 /* ZXPDF417CodewordDecoder.m in Sources */,
 				049588F21D3A620300544259 /* ZXMultiFormatUPCEANReader.m in Sources */,
 				1B4B160D1D372F7C00E71B3D /* NSString+firstChar.m in Sources */,
@@ -3769,6 +3849,7 @@
 				049588C41D3A620300544259 /* ZXByQuadrantReader.m in Sources */,
 				0495887F1D3A620300544259 /* ZXURLTOResultParser.m in Sources */,
 				1B119E861D3CB8FB007CC050 /* SelectImageViewCell.m in Sources */,
+				0482FBF01D436FE500B1CBB2 /* LineDashPolyline.m in Sources */,
 				1B4B16281D37858400E71B3D /* BushManagerCell.m in Sources */,
 				049588781D3A620300544259 /* ZXSMSTOMMSTOResultParser.m in Sources */,
 				049588FF1D3A620300544259 /* ZXPDF417ECErrorCorrection.m in Sources */,
@@ -3793,6 +3874,7 @@
 				0495891E1D3A620300544259 /* ZXQRCodeMode.m in Sources */,
 				1B4B162E1D3794B800E71B3D /* MoreSelectView.m in Sources */,
 				0471C0981D3BBA6000377178 /* Readme.md in Sources */,
+				0482FBF21D436FE500B1CBB2 /* ReGeocodeAnnotation.m in Sources */,
 				049588A51D3A620300544259 /* ZXErrors.m in Sources */,
 				0495886D1D3A620300544259 /* ZXExpandedProductResultParser.m in Sources */,
 				040A09B11D3D182F00156C16 /* DiscussListViewController.m in Sources */,
@@ -3830,6 +3912,7 @@
 				1B55856B1D34CF4F00DCD3A0 /* UIImage+REFrostedViewController.m in Sources */,
 				1B5585BE1D34F8E000DCD3A0 /* CMDeviceInfo.m in Sources */,
 				049588661D3A620300544259 /* ZXBizcardResultParser.m in Sources */,
+				0482FBD61D430AD200B1CBB2 /* WebNonstandarViewController.m in Sources */,
 				049588771D3A620300544259 /* ZXSMSParsedResult.m in Sources */,
 				049588911D3A620300544259 /* ZXBitMatrix.m in Sources */,
 				049588BB1D3A620300544259 /* ZXDataMatrixSymbolInfo144.m in Sources */,
@@ -3847,6 +3930,7 @@
 				0495892F1D3A620300544259 /* ZXQRCodeWriter.m in Sources */,
 				1B06D5D31D362FA8002D06A7 /* Company.m in Sources */,
 				1B4B16101D3731D900E71B3D /* Employee.m in Sources */,
+				0482FBF11D436FE500B1CBB2 /* MANaviAnnotationView.m in Sources */,
 				1BFBC15C1D3F26B500A5511A /* RepDayView.m in Sources */,
 				049589021D3A620300544259 /* ZXPDF417BoundingBox.m in Sources */,
 				049588ED1D3A620300544259 /* ZXEAN8Writer.m in Sources */,

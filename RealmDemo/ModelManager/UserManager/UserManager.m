@@ -355,6 +355,12 @@
     return fetchedResultsController;
 }
 #pragma mark -- SignIn
+//添加签到记录
+- (void)addSigin:(SignIn*)signIn {
+    [_rlmRealm beginWriteTransaction];
+    [_rlmRealm addObject:signIn];
+    [_rlmRealm commitWriteTransaction];
+}
 //更新今天的签到记录
 - (void)updateTodaySinInList:(NSMutableArray<SignIn*>*)sigInArr guid:(NSString*)employeeGuid{
     [_rlmRealm beginWriteTransaction];

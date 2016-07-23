@@ -23,7 +23,6 @@
     big = [[ShowBigImageScroller alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT)];
     big.backgroundColor = [UIColor blackColor];
     big.photo = _photo;
-    big.type = 1;
     [big setupUI];
     WeakSelf(weakSelf)
     __weak typeof(ShowBigImageScroller*) weakBig = big;
@@ -51,7 +50,6 @@
 {
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     WeakSelf(weakSelf)
-    big.type = 0;
     big.clickedBlock = ^()
     {
         [weakSelf.navigationController popViewControllerAnimated:NO];

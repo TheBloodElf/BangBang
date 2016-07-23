@@ -13,6 +13,9 @@
 #import "SiginController.h"
 #import "PushMessageController.h"
 #import "CalendarController.h"
+#import "WebNonstandarViewController.h"
+#import "IdentityManager.h"
+#import "UserHttp.h"
 
 @interface HomeListController ()<HomeListTopDelegate,HomeListBottomDelegate,RBQFetchedResultsControllerDelegate> {
     UIScrollView *_scrollView;//整体的滚动视图
@@ -52,13 +55,31 @@
     [self.view addSubview:_scrollView];
     [self setLeftNavigationBarItem];
     [self setRightNavigationBarItem];
+    //在这里统一获取一些必须获取的值
+    [self getNeedValueFormNet];
     // Do any additional setup after loading the view.
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.frostedViewController.navigationController setNavigationBarHidden:YES animated:YES];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
-#pragma mark -- 
+- (void)getNeedValueFormNet {
+    //从服务器获取一次规则
+    [UserHttp getSiginRule:_userManager.user.currCompany.company_no handler:^(id data, MError *error) {
+        if(error) {
+            [self.navigationController.view showFailureTips:error.statsMsg];
+            return ;
+        }
+        NSMutableArray *array = [@[] mutableCopy];
+        for (NSDictionary *dic in data) {
+            SiginRuleSet *set = [[SiginRuleSet alloc] initWithJsonDic:dic];
+            [array addObject:set];
+        }
+        [_userManager updateSiginRule:array companyNo:_userManager.user.currCompany.company_no];
+    }];
+}
+#pragma mark --
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
     if(controller == _pushMessageFetchedResultsController) {
@@ -81,12 +102,36 @@
         nameLabel.text = user.real_name;
         if([NSString isBlank:user.currCompany.company_name])
             companyLabel.text = @"未选择圈子";
-        else
+        else {
             companyLabel.text = user.currCompany.company_name;
+            //圈子变了 就要获取一次对应圈子的签到规则
+            //从服务器获取一次规则
+            [UserHttp getSiginRule:_userManager.user.currCompany.company_no handler:^(id data, MError *error) {
+                if(error) {
+                    [self.navigationController.view showFailureTips:error.statsMsg];
+                    return ;
+                }
+                NSMutableArray *array = [@[] mutableCopy];
+                for (NSDictionary *dic in data) {
+                    SiginRuleSet *set = [[SiginRuleSet alloc] initWithJsonDic:dic];
+                    [array addObject:set];
+                }
+                [_userManager updateSiginRule:array companyNo:_userManager.user.currCompany.company_no];
+            }];
+        }
     }
 }
 #pragma mark -- 
 #pragma mark -- HomeListTopDelegate 
+//需要选择圈子后才能操作
+- (void)executeNeedSelectCompany:(void (^)(void))aBlock
+{
+    if(_userManager.user.currCompany.company_no == 0) {
+        [self.navigationController.view showMessageTips:@"请选择一个圈子后再进行此操作"];
+    } else {
+        aBlock();
+    }
+}
 //今天完成日程被点击
 - (void)todayFinishCalendar {
     CalendarController *calendar = [CalendarController new];
@@ -101,24 +146,76 @@
 }
 //我委派的任务被点击
 - (void)createTaskClicked {
-    
+    [self executeNeedSelectCompany:^{
+        
+    }];
 }
 //我负责的任务被点击
 - (void)chargeTaskClicked {
-    
+    [self executeNeedSelectCompany:^{
+        
+    }];
 }
 #pragma mark -- 
 #pragma mark -- HomeListBottomDelegate
 //第几个按钮被点击了
 - (void)homeListBottomClicked:(NSInteger)index {
-    if(index == 0) {
-        
-    } else if (index == 1) {
-        
-    } else if (index == 2) {
-        SiginController *sigin = [SiginController new];
-        sigin.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:sigin animated:YES];
+    if(index == 0) {//公告
+        [self executeNeedSelectCompany:^{
+            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
+            NSString *str = [NSString stringWithFormat:@"%@Notice?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,[UserManager manager].user.user_guid,[UserManager manager].user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+            webViewcontroller.applicationUrl = str;
+            webViewcontroller.hidesBottomBarWhenPushed = YES;
+            [[self navigationController] pushViewController:webViewcontroller animated:YES];
+        }];
+    } else if (index == 1) {//动态
+        [self executeNeedSelectCompany:^{
+            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
+            NSString *str = [NSString stringWithFormat:@"%@Dynamic?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,[UserManager manager].user.user_guid,[UserManager manager].user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+            webViewcontroller.applicationUrl = str;
+            webViewcontroller.hidesBottomBarWhenPushed = YES;
+            [[self navigationController] pushViewController:webViewcontroller animated:YES];
+        }];
+    } else if (index == 2) {//签到
+        [self executeNeedSelectCompany:^{
+            SiginController *sigin = [SiginController new];
+            sigin.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:sigin animated:YES]; 
+        }];
+    } else if(index == 3) {//审批
+        [self executeNeedSelectCompany:^{
+            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
+            NSString *str = [NSString stringWithFormat:@"%@ApprovalByFormBuilder?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,[UserManager manager].user.user_guid,[UserManager manager].user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+            webViewcontroller.applicationUrl = str;
+            webViewcontroller.hidesBottomBarWhenPushed = YES;
+            [[self navigationController] pushViewController:webViewcontroller animated:YES];
+        }];
+    } else if (index == 4) {//邮件
+        [self.navigationController.view showMessageTips:@"开发中，敬请期待！"];
+    } else if (index == 5) {//会议
+        [self executeNeedSelectCompany:^{
+            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
+            NSString *str = [NSString stringWithFormat:@"%@meeting?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,[UserManager manager].user.user_guid,[UserManager manager].user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+            webViewcontroller.applicationUrl = str;
+            webViewcontroller.hidesBottomBarWhenPushed = YES;
+            [[self navigationController] pushViewController:webViewcontroller animated:YES];
+        }];
+    } else if (index == 6) {//投票
+        [self executeNeedSelectCompany:^{
+            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
+            NSString *str = [NSString stringWithFormat:@"%@Vote?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,[UserManager manager].user.user_guid,[UserManager manager].user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+            webViewcontroller.applicationUrl = str;
+            webViewcontroller.hidesBottomBarWhenPushed = YES;
+            [[self navigationController] pushViewController:webViewcontroller animated:YES];
+        }];
+    } else {//通用审批
+        [self executeNeedSelectCompany:^{
+            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
+            NSString *str = [NSString stringWithFormat:@"%@Approval?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,[UserManager manager].user.user_guid,[UserManager manager].user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+            webViewcontroller.applicationUrl = str;
+            webViewcontroller.hidesBottomBarWhenPushed = YES;
+            [[self navigationController] pushViewController:webViewcontroller animated:YES];
+        }];
     }
 }
 #pragma mark --

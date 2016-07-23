@@ -40,7 +40,6 @@
     for (int i = 0; i < self.photoArr.count; i ++) {
         ShowBigImageScroller *imageView = [[ShowBigImageScroller alloc] initWithFrame:CGRectMake(i * _scrollView.frame.size.width, 0, _scrollView.frame.size.width, _scrollView.frame.size.height)];
         imageView.noNeedScale = YES;
-        imageView.noNeedOption = YES;
         imageView.photo = self.photoArr[i];
         imageView.tag = ImageViewTag +i;
         [_scrollView addSubview:imageView];

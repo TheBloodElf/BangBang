@@ -10,6 +10,7 @@
 #import "IdentityManager.h"
 #import "UserHttp.h"
 #import "SelectDateController.h"
+#import "WebNonstandarViewController.h"
 #import "UserManager.h"
 //时间选择器的高度
 #define dataPickerViewHeight  200
@@ -57,6 +58,9 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackIndicatorTransitionMaskImage:nil];
+    [self.navigationController.navigationBar setShadowImage:nil];
 }
 //新消息开关被点击
 - (void)messageClicked:(UISwitch*)sw
@@ -152,7 +156,9 @@
 //账号安全
 - (void)accountSafe
 {
-    
+    WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
+    webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@/security/index?userGuid=%@&access_token=%@&companyNo=%ld",XYFMobileDomain,_userManager.user.user_guid,_identityManager.identity.accessToken,_userManager.user.currCompany.company_no];
+    [self.navigationController pushViewController:webViewcontroller animated:YES];
 }
 //退出帮帮
 - (void)exitSoft

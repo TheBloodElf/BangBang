@@ -110,9 +110,8 @@
 - (void)loadImage
 {
     //设置图像
-    imageView.image = self.photo.oiginalImage ? : self.photo.zoomImage;
+    imageView.image = self.photo.oiginalImage;
     //如果存在缩放位置就进行动画  否者跳过此步骤
-    
     CGRect finishRect;
     //图像应该被放置的位置
     if(self.noNeedScale)
@@ -124,8 +123,6 @@
     {
         if(self.photo.oiginalImage)
             finishRect = [self scaleToScreenSize:self.photo.oiginalImage.size];
-        else if(self.photo.zoomImage)
-            finishRect = [self scaleToScreenSize:self.photo.zoomImage.size];
         else
             finishRect = CGRectZero;
     }
@@ -152,97 +149,26 @@
             imageView.frame = finishRect;
     }
     
-    if(!self.noNeedOption)
-        [self addOpreation];
+    [self addOpreation];
     
     //如果有原图  就直接展示  不需要加载
-    if(self.photo.oiginalImage)
-    {
+    if(self.photo.oiginalImage) {
         //配置已经加载
         isLoaded = YES;
-    }
-    else
-    {
-        WeakSelf(weakSelf)
-        [activityView startAnimating];
-        if(self.photo.zoomImage)
-        {
+    }  else {
+        //下载原图
+        [imageView sd_setImageWithURL:self.photo.oiginalUrl placeholderImage:[UIImage imageNamed:@""] options:SDWebImageHighPriority progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+            
+        } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            self.photo.oiginalImage = image;
+            imageView.image = self.photo.oiginalImage;
+            //停止转动菊花
+            [activityView stopAnimating];
+            //配置已经加载
+            isLoaded = YES;
             if(!self.noNeedScale)
-                imageView.frame = [self scaleToScreenSize:weakSelf.photo.zoomImage.size];
-            if(self.photo.oiginalUrl)
-            {
-                //下载原图
-                [imageView sd_setImageWithURL:weakSelf.photo.oiginalUrl placeholderImage:[UIImage imageNamed:@""] options:SDWebImageHighPriority progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-                    
-                } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                    weakSelf.photo.oiginalImage = image;
-                    imageView.image = weakSelf.photo.oiginalImage;
-                    //停止转动菊花
-                    [activityView stopAnimating];
-                    //配置已经加载
-                    isLoaded = YES;
-                    if(!weakSelf.noNeedScale)
-                        imageView.frame = [weakSelf scaleToScreenSize:weakSelf.photo.oiginalImage.size];
-                }];
-            }
-        }
-        else
-        {
-            //因为本项目没有缩略图地址，所以直接注释掉
-//            if(self.photo.zoomUrl)
-//            {
-//                //先下载缩略图 再下载原图
-//                [imageView sd_setImageWithURL:self.photo.zoomUrl placeholderImage:[UIImage imageNamed:@""] options:SDWebImageHighPriority progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-//                    
-//                    
-//                } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//                    if(error)
-//                    {
-//                        [activityView stopAnimating];
-//                        return;
-//                    }
-//                    weakSelf.photo.zoomImage = image;
-//                    imageView.image = weakSelf.photo.zoomImage;
-//                    if(!weakSelf.noNeedScale)
-//                        imageView.frame = [weakSelf scaleToScreenSize:weakSelf.photo.zoomImage.size];
-//                    if(self.photo.oiginalUrl)
-//                    {
-//                        //下载原图
-//                        [imageView sd_setImageWithURL:weakSelf.photo.oiginalUrl placeholderImage:weakSelf.photo.zoomImage options:SDWebImageHighPriority progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-//                            
-//                        } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//                            weakSelf.photo.oiginalImage = image;
-//                            imageView.image = weakSelf.photo.oiginalImage;
-//                            //停止转动菊花
-//                            [activityView stopAnimating];
-//                            //配置已经加载
-//                            isLoaded = YES;
-//                            if(!weakSelf.noNeedScale)
-//                                imageView.frame = [weakSelf scaleToScreenSize:weakSelf.photo.oiginalImage.size];
-//                        }];
-//                    }
-//                }];
-//            }
-//            else
-//            {
-                if(self.photo.oiginalUrl)
-                {
-                    //下载原图
-                    [imageView sd_setImageWithURL:weakSelf.photo.oiginalUrl placeholderImage:[UIImage imageNamed:@""] options:SDWebImageHighPriority progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-                        
-                    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                        weakSelf.photo.oiginalImage = image;
-                        imageView.image = weakSelf.photo.oiginalImage;
-                        //停止转动菊花
-                        [activityView stopAnimating];
-                        //配置已经加载
-                        isLoaded = YES;
-                        if(!weakSelf.noNeedScale)
-                            imageView.frame = [weakSelf scaleToScreenSize:weakSelf.photo.oiginalImage.size];
-                    }];
-                }
-//            }
-        }
+                imageView.frame = [self scaleToScreenSize:self.photo.oiginalImage.size];
+        }];
     }
 }
 
@@ -283,24 +209,13 @@
 }
 - (void)danJi:(UITapGestureRecognizer*)tgr {
     if(self.clickedBlock)
-    {
-        if(self.type == 1)
+    {//如果存在缩放到的目标位置  就进行缩放  否者 直接调用被点击事件
+        if(!CGRectEqualToRect(self.photo.toRect, CGRectZero))
+            [self loadAnimation];
+        else
         {
             if(self.clickedBlock)
                 self.clickedBlock();
-        }
-        else
-        {
-            //如果存在缩放到的目标位置  就进行缩放  否者 直接调用被点击事件
-            if(!CGRectEqualToRect(self.photo.toRect, CGRectZero))
-            {
-                [self loadAnimation];
-            }
-            else
-            {
-                if(self.clickedBlock)
-                    self.clickedBlock();
-            }
         }
     }
 }
