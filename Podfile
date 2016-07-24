@@ -12,4 +12,6 @@ target 'RealmDemo' do
    pod 'AMap3DMap' #3D地图SDK
    pod 'RongCloudIMKit', '~> 2.6.4'   
    pod 'AMapSearch' #高德地图搜索服务SDK
+   pod 'GTSDK'
+   pod 'Bugtags','~> 1.2.6'
 end

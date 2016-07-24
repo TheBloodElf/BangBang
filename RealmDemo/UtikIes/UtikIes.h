@@ -10,6 +10,9 @@
 #define UtikIes_h
 
 #import "DataCache.h"
+#import "GeTuiSdk.h"
+#import <Bugtags/Bugtags.h>
+#import "BaiduMobStat.h"
 #import <Realm/Realm.h>
 #import <MJExtension/MJExtension.h>
 #import <AFNetworking/AFNetworking.h>
@@ -22,6 +25,7 @@
 #import "NSObject+Tips.h"
 #import "UIImage+scale.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <AVFoundation/AVFoundation.h>
 #import <JTCalendar/JTCalendar.h>
 #import "WebViewJavascriptBridge.h"
 #import "NSDate+Format.h"

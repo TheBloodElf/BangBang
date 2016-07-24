@@ -7,6 +7,7 @@
 //
 
 #import "IdentityManager.h"
+#import "GeTuiSdkManager.h"
 
 @implementation IdentityManager
 
@@ -36,6 +37,14 @@
     [DataCache setCache:self.identity forKey:@"IdentityLocCache"];
 }
 - (void)showLogin {
+    //登录模块重新初始化
+    IdentityManager *manager = [IdentityManager manager];
+    manager.identity = [Identity new];
+    [manager saveAuthorizeData];
+    //停止个推
+    [[GeTuiSdkManager manager] stopGeTuiSdk];
+    //退出融云
+    [[RCIM sharedRCIM] logout];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowLogin" object:nil];
 }
 @end

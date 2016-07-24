@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+//融云管理器
 @interface RYChatManager : NSObject<RCIMUserInfoDataSource,RCIMGroupInfoDataSource,RCIMConnectionStatusDelegate>
 
 + (RYChatManager *) shareInstance;

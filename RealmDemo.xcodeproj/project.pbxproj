@@ -11,6 +11,9 @@
 		040A09AF1D3D182F00156C16 /* DiscussListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 040A09A91D3D182F00156C16 /* DiscussListCell.m */; };
 		040A09B01D3D182F00156C16 /* DiscussListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040A09AA1D3D182F00156C16 /* DiscussListCell.xib */; };
 		040A09B11D3D182F00156C16 /* DiscussListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 040A09AC1D3D182F00156C16 /* DiscussListViewController.m */; };
+		045D8BA41D443E16002E0344 /* GeTuiSdkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 045D8BA31D443E16002E0344 /* GeTuiSdkManager.m */; settings = {ASSET_TAGS = (); }; };
+		045D8BA81D444962002E0344 /* ApnsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 045D8BA71D444962002E0344 /* ApnsManager.m */; settings = {ASSET_TAGS = (); }; };
+		045D8BAC1D444A86002E0344 /* libBaiduMobStat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 045D8BAB1D444A86002E0344 /* libBaiduMobStat.a */; settings = {ASSET_TAGS = (); }; };
 		0471C0911D3B23A700377178 /* NSString+StringSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 0471C0901D3B23A700377178 /* NSString+StringSize.m */; };
 		0471C0951D3B262600377178 /* PushMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0471C0931D3B262600377178 /* PushMessageCell.m */; };
 		0471C0961D3B262600377178 /* PushMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0471C0941D3B262600377178 /* PushMessageCell.xib */; };
@@ -480,6 +483,12 @@
 		040A09AA1D3D182F00156C16 /* DiscussListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscussListCell.xib; sourceTree = "<group>"; };
 		040A09AB1D3D182F00156C16 /* DiscussListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscussListViewController.h; sourceTree = "<group>"; };
 		040A09AC1D3D182F00156C16 /* DiscussListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscussListViewController.m; sourceTree = "<group>"; };
+		045D8BA21D443E16002E0344 /* GeTuiSdkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeTuiSdkManager.h; sourceTree = "<group>"; };
+		045D8BA31D443E16002E0344 /* GeTuiSdkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeTuiSdkManager.m; sourceTree = "<group>"; };
+		045D8BA61D444962002E0344 /* ApnsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApnsManager.h; sourceTree = "<group>"; };
+		045D8BA71D444962002E0344 /* ApnsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApnsManager.m; sourceTree = "<group>"; };
+		045D8BAA1D444A86002E0344 /* BaiduMobStat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaiduMobStat.h; sourceTree = "<group>"; };
+		045D8BAB1D444A86002E0344 /* libBaiduMobStat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBaiduMobStat.a; sourceTree = "<group>"; };
 		0471C08F1D3B23A700377178 /* NSString+StringSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+StringSize.h"; sourceTree = "<group>"; };
 		0471C0901D3B23A700377178 /* NSString+StringSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+StringSize.m"; sourceTree = "<group>"; };
 		0471C0921D3B262600377178 /* PushMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushMessageCell.h; sourceTree = "<group>"; };
@@ -1364,6 +1373,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1BFBC1601D3F2BE300A5511A /* EventKit.framework in Frameworks */,
+				045D8BAC1D444A86002E0344 /* libBaiduMobStat.a in Frameworks */,
 				0495866B1D3A618600544259 /* UIKit.framework in Frameworks */,
 				1B157FFD1D24FFF50081A1A3 /* libc++.tbd in Frameworks */,
 				BF1B0A6965866FA7165750D2 /* libPods-RealmDemo.a in Frameworks */,
@@ -1399,6 +1409,33 @@
 			children = (
 			);
 			path = RequestManagerController;
+			sourceTree = "<group>";
+		};
+		045D8BA11D443DF6002E0344 /* GeTuiSdkManager */ = {
+			isa = PBXGroup;
+			children = (
+				045D8BA21D443E16002E0344 /* GeTuiSdkManager.h */,
+				045D8BA31D443E16002E0344 /* GeTuiSdkManager.m */,
+			);
+			path = GeTuiSdkManager;
+			sourceTree = "<group>";
+		};
+		045D8BA51D44494D002E0344 /* ApnsManager */ = {
+			isa = PBXGroup;
+			children = (
+				045D8BA61D444962002E0344 /* ApnsManager.h */,
+				045D8BA71D444962002E0344 /* ApnsManager.m */,
+			);
+			path = ApnsManager;
+			sourceTree = "<group>";
+		};
+		045D8BA91D444A86002E0344 /* 百度统计 */ = {
+			isa = PBXGroup;
+			children = (
+				045D8BAA1D444A86002E0344 /* BaiduMobStat.h */,
+				045D8BAB1D444A86002E0344 /* libBaiduMobStat.a */,
+			);
+			path = "百度统计";
 			sourceTree = "<group>";
 		};
 		0482FBCF1D42FE4200B1CBB2 /* SiginNoteController */ = {
@@ -2658,6 +2695,7 @@
 		1B5585561D34CB4E00DCD3A0 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				045D8BA91D444A86002E0344 /* 百度统计 */,
 				1B1B9B9D1D3DC46900F53EDC /* RRule */,
 				0495866C1D3A620100544259 /* ZXingObjC */,
 				049586221D3A1A3F00544259 /* WebViewJavascriptBridge */,
@@ -3219,6 +3257,8 @@
 		75E5FF541D27A76F00F77961 /* ModelManager */ = {
 			isa = PBXGroup;
 			children = (
+				045D8BA51D44494D002E0344 /* ApnsManager */,
+				045D8BA11D443DF6002E0344 /* GeTuiSdkManager */,
 				1BDF20B41D3C618800666814 /* RYChatManager */,
 				75E5FF731D27D60500F77961 /* Models */,
 				75E5FF7A1D27D61C00F77961 /* IdentityManager */,
@@ -3549,6 +3589,7 @@
 				1B9DD1891D3CDB81008FEC53 /* NoResultView.m in Sources */,
 				0495891B1D3A620300544259 /* ZXQRCodeDecoderMetaData.m in Sources */,
 				049588C21D3A620300544259 /* ZXMaxiCodeDecoder.m in Sources */,
+				045D8BA41D443E16002E0344 /* GeTuiSdkManager.m in Sources */,
 				1B55856D1D34CF4F00DCD3A0 /* UIViewController+REFrostedViewController.m in Sources */,
 				049588F01D3A620300544259 /* ZXITFWriter.m in Sources */,
 				0495890E1D3A620300544259 /* ZXPDF417BarcodeRow.m in Sources */,
@@ -3684,6 +3725,7 @@
 				049588AC1D3A620300544259 /* ZXDataMatrixBitMatrixParser.m in Sources */,
 				1B119E851D3CB8FB007CC050 /* Photo.m in Sources */,
 				049588631D3A620300544259 /* ZXAddressBookAUResultParser.m in Sources */,
+				045D8BA81D444962002E0344 /* ApnsManager.m in Sources */,
 				1BC2AE461D4208CB00842153 /* SiginImageCell.m in Sources */,
 				049586431D3A303800544259 /* AboutViewController.m in Sources */,
 				75E5FF671D27ADD100F77961 /* MError.m in Sources */,
@@ -4065,6 +4107,7 @@
 					"$(PROJECT_DIR)/RealmDemo/UtikIes/ThirdParty/Thirdparts/libWeiboSDK",
 					"$(PROJECT_DIR)/RealmDemo/UtikIes/ThirdParty/Thirdparts/WeiXinSDK",
 					"$(PROJECT_DIR)/RealmDemo/UtikIes/ThirdParty/Thirdparts/百度统计",
+					"$(PROJECT_DIR)/RealmDemo/UtikIes/ThirdParty/百度统计",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -4164,6 +4207,7 @@
 					"$(PROJECT_DIR)/RealmDemo/UtikIes/ThirdParty/Thirdparts/libWeiboSDK",
 					"$(PROJECT_DIR)/RealmDemo/UtikIes/ThirdParty/Thirdparts/WeiXinSDK",
 					"$(PROJECT_DIR)/RealmDemo/UtikIes/ThirdParty/Thirdparts/百度统计",
+					"$(PROJECT_DIR)/RealmDemo/UtikIes/ThirdParty/百度统计",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",

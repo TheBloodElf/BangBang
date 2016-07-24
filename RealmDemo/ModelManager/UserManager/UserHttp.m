@@ -11,6 +11,8 @@
 #import "IdentityManager.h"
 
 @implementation UserHttp
+#pragma mark -- 上传图片
+//上传图片 得到地址
 + (NSURLSessionDataTask*)updateImageGuid:(NSString*)guid image:(UIImage*)image handler:(completionHandler)handler {
     //开始菊花
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
@@ -43,6 +45,20 @@
     
     [dataTask resume];
     return dataTask;
+}
+#pragma mark -- 个推
+//绑定个推别名
++ (NSURLSessionDataTask*)setupAPNSDevice:(NSString*)clientId userNo:(int)userNo handler:(completionHandler)handler {
+    NSString *urlPath = @"PushMessage/bind_alias";
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:@(userNo) forKey:@"user_no"];
+    [params setObject:clientId forKey:@"client_id"];
+    [params setObject:@"2" forKey:@"client_type"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
 }
 #pragma mark -- 融云
 //同步群组

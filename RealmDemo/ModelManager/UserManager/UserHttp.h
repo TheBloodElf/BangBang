@@ -14,7 +14,11 @@
 
 @interface UserHttp : NSObject
 #pragma mark -- 上传图片
+//上传图片 得到地址
 + (NSURLSessionDataTask*)updateImageGuid:(NSString*)guid image:(UIImage*)image handler:(completionHandler)handler;
+#pragma mark -- 个推
+//绑定个推别名
++ (NSURLSessionDataTask*)setupAPNSDevice:(NSString*)clientId userNo:(int)userNo handler:(completionHandler)handler;
 #pragma mark -- 融云
 //同步群组
 + (NSURLSessionDataTask*)syncRYGroup:(int)userNo handler:(completionHandler)handler;

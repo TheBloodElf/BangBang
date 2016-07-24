@@ -20,6 +20,8 @@
 @property (nonatomic, copy) NSString *QNToken;
 //应用的Guid 上传图片时候用
 @property (nonatomic, copy) NSString *appGuid;
+//推送的设备标示符号
+@property (nonatomic, copy) NSString *deviceIDAPNS;
 //新消息来了是否播放声音
 @property (nonatomic, assign) BOOL canPlayVoice;
 //新消息来了是否震动

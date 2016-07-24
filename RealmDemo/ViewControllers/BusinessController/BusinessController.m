@@ -38,8 +38,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecivePushMessage:) name:@"DidRecivePushMessage" object:nil];
     // Do any additional setup after loading the view.
 }
-//这里接收到通知信息就弹出界面
+//在这里统一处理弹窗
 - (void)didRecivePushMessage:(NSNotification*)noti {
+    
     [_businessNav pushViewController:[UIViewController new] animated:YES];
 }
 @end
