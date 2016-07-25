@@ -15,7 +15,7 @@
 @property (nonatomic, strong) NSString *setting_guid;//地址GUID 删除数据库时按照这个删除
 @property (nonatomic, assign) NSInteger company_no;//圈子编号
 @property (nonatomic, copy) NSString *address_guid;//地址guid，唯一标示
-@property (nonatomic, copy) NSString *setting_id;//地址id，唯一标示
+@property (nonatomic, assign) int setting_id;//地址id，唯一标示
 @property (nonatomic, copy) NSString *name;//CELL上面的名字
 @property (nonatomic, assign) double longitude;//签到位置,经度
 @property (nonatomic, assign) double latitude;//签到位置,纬度

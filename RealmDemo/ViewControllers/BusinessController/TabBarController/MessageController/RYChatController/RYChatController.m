@@ -11,8 +11,9 @@
 #import "BushDetailController.h"
 #import "MineInfoEditController.h"
 #import "IdentityManager.h"
+#import "RYGroupSetController.h"
 
-@interface RYChatController ()<RCChatSessionInputBarControlDelegate> {
+@interface RYChatController ()<RCChatSessionInputBarControlDelegate,RYGroupSetDelegate> {
     UserManager *_userManager;
 }
 
@@ -56,8 +57,21 @@
         [self.navigationController pushViewController:con animated:YES];
     } else if (self.conversationType == ConversationType_DISCUSSION){
         //讨论组设置 需要自己做
-        
+        RYGroupSetController *set = [RYGroupSetController new];
+        set.targetId = self.targetId;
+        set.delegate = self;
+        [self.navigationController pushViewController:set animated:YES];
     }
+}
+#pragma mark --
+#pragma mark -- RYGroupSetDelegate
+//讨论组名字修改了
+- (void)rYGroupSetNameChange:(NSString*)name {
+    self.title = name;
+}
+//讨论组清除聊天记录
+- (void)rYGroupClearChatNote {
+    [self.conversationMessageCollectionView reloadData];
 }
 #pragma mark - OVerride RongCloud Methods
 //头像点击事件

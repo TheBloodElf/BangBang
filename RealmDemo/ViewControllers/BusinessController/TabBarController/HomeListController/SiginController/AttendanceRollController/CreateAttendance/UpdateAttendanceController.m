@@ -389,6 +389,7 @@
         NSMutableDictionary *dic = [_currSiginRule mj_keyValues];
         NSMutableArray *array = [@[] mutableCopy];
         for (PunchCardAddressSetting *setting in _currSiginRule.json_list_address_settings) {
+            setting.setting_guid = _currSiginRule.setting_guid;
             [array addObject:[PunchCardAddressSetting conpyFromPunchCardAddressSetting:setting]];
         }
         [dic setObject:[[NSMutableArray mj_keyValuesArrayWithObjectArray:array] mj_JSONString] forKey:@"json_list_address_settings"];

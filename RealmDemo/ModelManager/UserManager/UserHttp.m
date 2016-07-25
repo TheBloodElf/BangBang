@@ -275,6 +275,31 @@
     };
     return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_GET URLPath:urlPath parameters:params completionHandler:compleionHandler];
 }
+//添加讨论组
++ (NSURLSessionDataTask*)addUserDiscuss:(int)userNo discussId:(NSString*)discussId discussTitle:(NSString*)discussTitle handler:(completionHandler)handler {
+    NSString *urlPath = @"RongClouds/save_discuss_info";
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:@(userNo) forKey:@"user_no"];
+    [params setObject:discussId forKey:@"discuss_id"];
+    [params setObject:discussTitle forKey:@"discuss_title"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
+//删除讨论组
++ (NSURLSessionDataTask*)delUserDiscuss:(int)userNo discussId:(NSString*)discussId handler:(completionHandler)handler {
+    NSString *urlPath = @"RongClouds/delete_discuss";
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:@(userNo) forKey:@"user_no"];
+    [params setObject:discussId forKey:@"discuss_id"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
 #pragma mark -- 日程
 //创建日程
 + (NSURLSessionDataTask*)createUserCalendar:(Calendar*)calendar handler:(completionHandler)handler {

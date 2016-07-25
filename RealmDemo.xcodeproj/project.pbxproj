@@ -11,23 +11,23 @@
 		040A09AF1D3D182F00156C16 /* DiscussListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 040A09A91D3D182F00156C16 /* DiscussListCell.m */; };
 		040A09B01D3D182F00156C16 /* DiscussListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040A09AA1D3D182F00156C16 /* DiscussListCell.xib */; };
 		040A09B11D3D182F00156C16 /* DiscussListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 040A09AC1D3D182F00156C16 /* DiscussListViewController.m */; };
-		045D8BA41D443E16002E0344 /* GeTuiSdkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 045D8BA31D443E16002E0344 /* GeTuiSdkManager.m */; settings = {ASSET_TAGS = (); }; };
-		045D8BA81D444962002E0344 /* ApnsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 045D8BA71D444962002E0344 /* ApnsManager.m */; settings = {ASSET_TAGS = (); }; };
-		045D8BAC1D444A86002E0344 /* libBaiduMobStat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 045D8BAB1D444A86002E0344 /* libBaiduMobStat.a */; settings = {ASSET_TAGS = (); }; };
+		045D8BA41D443E16002E0344 /* GeTuiSdkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 045D8BA31D443E16002E0344 /* GeTuiSdkManager.m */; };
+		045D8BA81D444962002E0344 /* ApnsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 045D8BA71D444962002E0344 /* ApnsManager.m */; };
+		045D8BAC1D444A86002E0344 /* libBaiduMobStat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 045D8BAB1D444A86002E0344 /* libBaiduMobStat.a */; };
 		0471C0911D3B23A700377178 /* NSString+StringSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 0471C0901D3B23A700377178 /* NSString+StringSize.m */; };
 		0471C0951D3B262600377178 /* PushMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0471C0931D3B262600377178 /* PushMessageCell.m */; };
 		0471C0961D3B262600377178 /* PushMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0471C0941D3B262600377178 /* PushMessageCell.xib */; };
 		0471C0981D3BBA6000377178 /* Readme.md in Sources */ = {isa = PBXBuildFile; fileRef = 0471C0971D3BBA6000377178 /* Readme.md */; };
-		0482FBD21D42FE4200B1CBB2 /* SiginNoteController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBD11D42FE4200B1CBB2 /* SiginNoteController.m */; settings = {ASSET_TAGS = (); }; };
-		0482FBD61D430AD200B1CBB2 /* WebNonstandarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBD51D430AD200B1CBB2 /* WebNonstandarViewController.m */; settings = {ASSET_TAGS = (); }; };
-		0482FBD91D4316A500B1CBB2 /* RCTransferSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBD81D4316A500B1CBB2 /* RCTransferSelectViewController.m */; settings = {ASSET_TAGS = (); }; };
-		0482FBEE1D436FE500B1CBB2 /* MANaviAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBDC1D436FE500B1CBB2 /* MANaviAnnotation.m */; settings = {ASSET_TAGS = (); }; };
-		0482FBEF1D436FE500B1CBB2 /* MANaviPolyline.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBDE1D436FE500B1CBB2 /* MANaviPolyline.m */; settings = {ASSET_TAGS = (); }; };
-		0482FBF01D436FE500B1CBB2 /* LineDashPolyline.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBE01D436FE500B1CBB2 /* LineDashPolyline.m */; settings = {ASSET_TAGS = (); }; };
-		0482FBF11D436FE500B1CBB2 /* MANaviAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBE21D436FE500B1CBB2 /* MANaviAnnotationView.m */; settings = {ASSET_TAGS = (); }; };
-		0482FBF21D436FE500B1CBB2 /* ReGeocodeAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBE41D436FE500B1CBB2 /* ReGeocodeAnnotation.m */; settings = {ASSET_TAGS = (); }; };
-		0482FBF61D436FE500B1CBB2 /* POIAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBEB1D436FE500B1CBB2 /* POIAnnotation.m */; settings = {ASSET_TAGS = (); }; };
-		0482FBF71D436FE500B1CBB2 /* OrientationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBED1D436FE500B1CBB2 /* OrientationViewController.m */; settings = {ASSET_TAGS = (); }; };
+		0482FBD21D42FE4200B1CBB2 /* SiginNoteController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBD11D42FE4200B1CBB2 /* SiginNoteController.m */; };
+		0482FBD61D430AD200B1CBB2 /* WebNonstandarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBD51D430AD200B1CBB2 /* WebNonstandarViewController.m */; };
+		0482FBD91D4316A500B1CBB2 /* RCTransferSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBD81D4316A500B1CBB2 /* RCTransferSelectViewController.m */; };
+		0482FBEE1D436FE500B1CBB2 /* MANaviAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBDC1D436FE500B1CBB2 /* MANaviAnnotation.m */; };
+		0482FBEF1D436FE500B1CBB2 /* MANaviPolyline.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBDE1D436FE500B1CBB2 /* MANaviPolyline.m */; };
+		0482FBF01D436FE500B1CBB2 /* LineDashPolyline.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBE01D436FE500B1CBB2 /* LineDashPolyline.m */; };
+		0482FBF11D436FE500B1CBB2 /* MANaviAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBE21D436FE500B1CBB2 /* MANaviAnnotationView.m */; };
+		0482FBF21D436FE500B1CBB2 /* ReGeocodeAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBE41D436FE500B1CBB2 /* ReGeocodeAnnotation.m */; };
+		0482FBF61D436FE500B1CBB2 /* POIAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBEB1D436FE500B1CBB2 /* POIAnnotation.m */; };
+		0482FBF71D436FE500B1CBB2 /* OrientationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBED1D436FE500B1CBB2 /* OrientationViewController.m */; };
 		049585F41D39C01700544259 /* RequestManagerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 049585F01D39C01700544259 /* RequestManagerCell.m */; };
 		049585F51D39C01700544259 /* RequestManagerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049585F11D39C01700544259 /* RequestManagerCell.xib */; };
 		049585F61D39C01700544259 /* RequestManagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049585F31D39C01700544259 /* RequestManagerController.m */; };
@@ -318,6 +318,17 @@
 		1B119E8E1D3CB92B007CC050 /* ShowBigImageScroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B119E8D1D3CB92B007CC050 /* ShowBigImageScroller.m */; };
 		1B119E911D3CB957007CC050 /* UINavigationController+Direction.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B119E901D3CB957007CC050 /* UINavigationController+Direction.m */; };
 		1B157FFD1D24FFF50081A1A3 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B157FFC1D24FFF50081A1A3 /* libc++.tbd */; };
+		1B158A451D45AE21003237A7 /* RYGroupSetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B158A441D45AE21003237A7 /* RYGroupSetController.m */; };
+		1B158A681D45BB4D003237A7 /* RYGroupSetAddUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B158A5D1D45BB4D003237A7 /* RYGroupSetAddUserCell.m */; };
+		1B158A691D45BB4D003237A7 /* RYGroupSetAddUserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B158A5E1D45BB4D003237A7 /* RYGroupSetAddUserCell.xib */; };
+		1B158A6A1D45BB4D003237A7 /* RYGroupSetDelUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B158A601D45BB4D003237A7 /* RYGroupSetDelUserCell.m */; };
+		1B158A6B1D45BB4D003237A7 /* RYGroupSetDelUserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B158A611D45BB4D003237A7 /* RYGroupSetDelUserCell.xib */; };
+		1B158A6C1D45BB4D003237A7 /* RYGroupSetUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B158A631D45BB4D003237A7 /* RYGroupSetUserCell.m */; };
+		1B158A6D1D45BB4D003237A7 /* RYGroupSetUserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B158A641D45BB4D003237A7 /* RYGroupSetUserCell.xib */; };
+		1B158A6E1D45BB4D003237A7 /* RYGroupSetUserImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B158A661D45BB4D003237A7 /* RYGroupSetUserImageCell.m */; };
+		1B158A6F1D45BB4D003237A7 /* RYGroupSetUserImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B158A671D45BB4D003237A7 /* RYGroupSetUserImageCell.xib */; };
+		1B158A721D45DD3F003237A7 /* RYGroupSetName.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B158A711D45DD3F003237A7 /* RYGroupSetName.m */; };
+		1B158A751D4604C3003237A7 /* RCDSelectPersonController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B158A741D4604C3003237A7 /* RCDSelectPersonController.m */; };
 		1B1B986F1D3DB50400F53EDC /* CalendarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1B986E1D3DB50400F53EDC /* CalendarController.m */; };
 		1B1B98721D3DBD0300F53EDC /* Calendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1B98711D3DBD0300F53EDC /* Calendar.m */; };
 		1B1B9BBC1D3DCB8000F53EDC /* NSCalendar+NSCalendar_Atipik.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1B9BB11D3DCB8000F53EDC /* NSCalendar+NSCalendar_Atipik.m */; };
@@ -1094,6 +1105,24 @@
 		1B119E931D3CB9B6007CC050 /* CMMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMMacros.h; sourceTree = "<group>"; };
 		1B119E941D3CB9B6007CC050 /* CMMacros+Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CMMacros+Block.h"; sourceTree = "<group>"; };
 		1B157FFC1D24FFF50081A1A3 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		1B158A431D45AE21003237A7 /* RYGroupSetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RYGroupSetController.h; sourceTree = "<group>"; };
+		1B158A441D45AE21003237A7 /* RYGroupSetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RYGroupSetController.m; sourceTree = "<group>"; };
+		1B158A5C1D45BB4D003237A7 /* RYGroupSetAddUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RYGroupSetAddUserCell.h; sourceTree = "<group>"; };
+		1B158A5D1D45BB4D003237A7 /* RYGroupSetAddUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RYGroupSetAddUserCell.m; sourceTree = "<group>"; };
+		1B158A5E1D45BB4D003237A7 /* RYGroupSetAddUserCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RYGroupSetAddUserCell.xib; sourceTree = "<group>"; };
+		1B158A5F1D45BB4D003237A7 /* RYGroupSetDelUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RYGroupSetDelUserCell.h; sourceTree = "<group>"; };
+		1B158A601D45BB4D003237A7 /* RYGroupSetDelUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RYGroupSetDelUserCell.m; sourceTree = "<group>"; };
+		1B158A611D45BB4D003237A7 /* RYGroupSetDelUserCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RYGroupSetDelUserCell.xib; sourceTree = "<group>"; };
+		1B158A621D45BB4D003237A7 /* RYGroupSetUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RYGroupSetUserCell.h; sourceTree = "<group>"; };
+		1B158A631D45BB4D003237A7 /* RYGroupSetUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RYGroupSetUserCell.m; sourceTree = "<group>"; };
+		1B158A641D45BB4D003237A7 /* RYGroupSetUserCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RYGroupSetUserCell.xib; sourceTree = "<group>"; };
+		1B158A651D45BB4D003237A7 /* RYGroupSetUserImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RYGroupSetUserImageCell.h; sourceTree = "<group>"; };
+		1B158A661D45BB4D003237A7 /* RYGroupSetUserImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RYGroupSetUserImageCell.m; sourceTree = "<group>"; };
+		1B158A671D45BB4D003237A7 /* RYGroupSetUserImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RYGroupSetUserImageCell.xib; sourceTree = "<group>"; };
+		1B158A701D45DD3F003237A7 /* RYGroupSetName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RYGroupSetName.h; sourceTree = "<group>"; };
+		1B158A711D45DD3F003237A7 /* RYGroupSetName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RYGroupSetName.m; sourceTree = "<group>"; };
+		1B158A731D4604C3003237A7 /* RCDSelectPersonController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDSelectPersonController.h; sourceTree = "<group>"; };
+		1B158A741D4604C3003237A7 /* RCDSelectPersonController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDSelectPersonController.m; sourceTree = "<group>"; };
 		1B1B986D1D3DB50400F53EDC /* CalendarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarController.h; sourceTree = "<group>"; };
 		1B1B986E1D3DB50400F53EDC /* CalendarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarController.m; sourceTree = "<group>"; };
 		1B1B98701D3DBD0300F53EDC /* Calendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Calendar.h; sourceTree = "<group>"; };
@@ -2409,6 +2438,9 @@
 				1B119E581D3C8794007CC050 /* RYChatController.m */,
 				0482FBD71D4316A500B1CBB2 /* RCTransferSelectViewController.h */,
 				0482FBD81D4316A500B1CBB2 /* RCTransferSelectViewController.m */,
+				1B158A731D4604C3003237A7 /* RCDSelectPersonController.h */,
+				1B158A741D4604C3003237A7 /* RCDSelectPersonController.m */,
+				1B158A421D45ADD0003237A7 /* RYGroupSetController */,
 			);
 			path = RYChatController;
 			sourceTree = "<group>";
@@ -2487,6 +2519,45 @@
 				1B119E941D3CB9B6007CC050 /* CMMacros+Block.h */,
 			);
 			path = CMMacros;
+			sourceTree = "<group>";
+		};
+		1B158A421D45ADD0003237A7 /* RYGroupSetController */ = {
+			isa = PBXGroup;
+			children = (
+				1B158A431D45AE21003237A7 /* RYGroupSetController.h */,
+				1B158A441D45AE21003237A7 /* RYGroupSetController.m */,
+				1B158A701D45DD3F003237A7 /* RYGroupSetName.h */,
+				1B158A711D45DD3F003237A7 /* RYGroupSetName.m */,
+				1B158A461D45AF76003237A7 /* RYGroupSetCell */,
+			);
+			path = RYGroupSetController;
+			sourceTree = "<group>";
+		};
+		1B158A461D45AF76003237A7 /* RYGroupSetCell */ = {
+			isa = PBXGroup;
+			children = (
+				1B158A5B1D45BB4D003237A7 /* RYGroupSetUserCell */,
+			);
+			path = RYGroupSetCell;
+			sourceTree = "<group>";
+		};
+		1B158A5B1D45BB4D003237A7 /* RYGroupSetUserCell */ = {
+			isa = PBXGroup;
+			children = (
+				1B158A621D45BB4D003237A7 /* RYGroupSetUserCell.h */,
+				1B158A631D45BB4D003237A7 /* RYGroupSetUserCell.m */,
+				1B158A641D45BB4D003237A7 /* RYGroupSetUserCell.xib */,
+				1B158A5C1D45BB4D003237A7 /* RYGroupSetAddUserCell.h */,
+				1B158A5D1D45BB4D003237A7 /* RYGroupSetAddUserCell.m */,
+				1B158A5E1D45BB4D003237A7 /* RYGroupSetAddUserCell.xib */,
+				1B158A5F1D45BB4D003237A7 /* RYGroupSetDelUserCell.h */,
+				1B158A601D45BB4D003237A7 /* RYGroupSetDelUserCell.m */,
+				1B158A611D45BB4D003237A7 /* RYGroupSetDelUserCell.xib */,
+				1B158A651D45BB4D003237A7 /* RYGroupSetUserImageCell.h */,
+				1B158A661D45BB4D003237A7 /* RYGroupSetUserImageCell.m */,
+				1B158A671D45BB4D003237A7 /* RYGroupSetUserImageCell.xib */,
+			);
+			path = RYGroupSetUserCell;
 			sourceTree = "<group>";
 		};
 		1B1B986C1D3DB4F600F53EDC /* CalendarController */ = {
@@ -3479,7 +3550,9 @@
 				1B877F251D178E7D000144B2 /* LaunchScreen.storyboard in Resources */,
 				1BFBC1441D3F0CDC00A5511A /* RepCalendarTime.xib in Resources */,
 				1BC2AE8A1D42113800842153 /* SelectAttendanceRange.xib in Resources */,
+				1B158A691D45BB4D003237A7 /* RYGroupSetAddUserCell.xib in Resources */,
 				049586181D39D3A500544259 /* MuliteSelectCell.xib in Resources */,
+				1B158A6D1D45BB4D003237A7 /* RYGroupSetUserCell.xib in Resources */,
 				1B119E711D3CB89F007CC050 /* PhotoGroupTableCell.xib in Resources */,
 				1B1B9BEF1D3E178F00F53EDC /* ComCalendarDetail.xib in Resources */,
 				1BC2AE851D42113800842153 /* SiginName.xib in Resources */,
@@ -3499,6 +3572,7 @@
 				1B119E731D3CB89F007CC050 /* PhotoImageCollectionCell.xib in Resources */,
 				1B877F221D178E7D000144B2 /* Assets.xcassets in Resources */,
 				1BC2AE3F1D41F46500842153 /* SiginStory.storyboard in Resources */,
+				1B158A6B1D45BB4D003237A7 /* RYGroupSetDelUserCell.xib in Resources */,
 				1B0715ED1D386CBC00D7881D /* MineView.storyboard in Resources */,
 				1B119E751D3CB89F007CC050 /* SelectImageCollectionCell.xib in Resources */,
 				049586391D3A1D2900544259 /* SelectDateController.xib in Resources */,
@@ -3513,6 +3587,7 @@
 				1BC2AE871D42113800842153 /* WorkAdressCell.xib in Resources */,
 				1BFBC15E1D3F26EC00A5511A /* RepDayView.xib in Resources */,
 				1B5585A01D34E2C800DCD3A0 /* ic_welcome_avatar_1_1.png in Resources */,
+				1B158A6F1D45BB4D003237A7 /* RYGroupSetUserImageCell.xib in Resources */,
 				1B1B9BF41D3E18D300F53EDC /* ComCalendarAdress.xib in Resources */,
 				1BC2AE4C1D4208DB00842153 /* SiginSelectCell.xib in Resources */,
 				1BFBC16A1D3F474500A5511A /* RepMonthView.xib in Resources */,
@@ -3608,6 +3683,7 @@
 				1BC2AE4B1D4208DB00842153 /* SiginSelectCell.m in Sources */,
 				049588F41D3A620300544259 /* ZXOneDReader.m in Sources */,
 				75E5FF641D27AA9100F77961 /* HttpService.m in Sources */,
+				1B158A6A1D45BB4D003237A7 /* RYGroupSetDelUserCell.m in Sources */,
 				04E7E5B41D3A7D2500C653B4 /* PushMessage.m in Sources */,
 				049589271D3A620300544259 /* ZXQRCodeBlockPair.m in Sources */,
 				1BC2AE8D1D42113800842153 /* SelectAttendanceTime.m in Sources */,
@@ -3791,10 +3867,12 @@
 				1B5585981D34E29700DCD3A0 /* AppDelegate.m in Sources */,
 				1B1B9BEE1D3E178F00F53EDC /* ComCalendarDetail.m in Sources */,
 				049588D31D3A620300544259 /* ZXRSSExpandedDecodedChar.m in Sources */,
+				1B158A751D4604C3003237A7 /* RCDSelectPersonController.m in Sources */,
 				0495886F1D3A620300544259 /* ZXGeoResultParser.m in Sources */,
 				1B1B9BDA1D3E0FC500F53EDC /* RepCalendarView.m in Sources */,
 				049588601D3A620300544259 /* ZXAztecReader.m in Sources */,
 				04E7E5AA1D3A660800C653B4 /* ChangeUserName.m in Sources */,
+				1B158A681D45BB4D003237A7 /* RYGroupSetAddUserCell.m in Sources */,
 				049588B21D3A620300544259 /* ZXDataMatrixASCIIEncoder.m in Sources */,
 				049586171D39D3A500544259 /* MuliteSelectCell.m in Sources */,
 				1BC2AE4F1D42109E00842153 /* SiginRuleSet.m in Sources */,
@@ -3819,10 +3897,12 @@
 				0482FBEF1D436FE500B1CBB2 /* MANaviPolyline.m in Sources */,
 				0495888D1D3A620300544259 /* ZXGenericGFPoly.m in Sources */,
 				049588DB1D3A620300544259 /* ZXRSSExpandedReader.m in Sources */,
+				1B158A721D45DD3F003237A7 /* RYGroupSetName.m in Sources */,
 				0495891C1D3A620300544259 /* ZXQRCodeErrorCorrectionLevel.m in Sources */,
 				049588BF1D3A620300544259 /* ZXDataMatrixWriter.m in Sources */,
 				0482FBF61D436FE500B1CBB2 /* POIAnnotation.m in Sources */,
 				049589041D3A620300544259 /* ZXPDF417CodewordDecoder.m in Sources */,
+				1B158A6C1D45BB4D003237A7 /* RYGroupSetUserCell.m in Sources */,
 				049588F21D3A620300544259 /* ZXMultiFormatUPCEANReader.m in Sources */,
 				1B4B160D1D372F7C00E71B3D /* NSString+firstChar.m in Sources */,
 				0495886E1D3A620300544259 /* ZXGeoParsedResult.m in Sources */,
@@ -3915,6 +3995,7 @@
 				049589251D3A620300544259 /* ZXQRCodeFinderPatternInfo.m in Sources */,
 				0495891E1D3A620300544259 /* ZXQRCodeMode.m in Sources */,
 				1B4B162E1D3794B800E71B3D /* MoreSelectView.m in Sources */,
+				1B158A451D45AE21003237A7 /* RYGroupSetController.m in Sources */,
 				0471C0981D3BBA6000377178 /* Readme.md in Sources */,
 				0482FBF21D436FE500B1CBB2 /* ReGeocodeAnnotation.m in Sources */,
 				049588A51D3A620300544259 /* ZXErrors.m in Sources */,
@@ -3984,6 +4065,7 @@
 				049589001D3A620300544259 /* ZXPDF417BarcodeMetadata.m in Sources */,
 				0495889E1D3A620300544259 /* ZXStringUtils.m in Sources */,
 				049589241D3A620300544259 /* ZXQRCodeFinderPatternFinder.m in Sources */,
+				1B158A6E1D45BB4D003237A7 /* RYGroupSetUserImageCell.m in Sources */,
 				1BD871ED1D38AFEF0074CDC7 /* CreateBushModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

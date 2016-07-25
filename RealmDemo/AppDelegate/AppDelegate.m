@@ -23,7 +23,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //Realm数据库版本
     RLMRealmConfiguration *config = [RLMRealmConfiguration defaultConfiguration];
-    config.schemaVersion = 7;
+    config.schemaVersion = 8;
     [RLMRealmConfiguration setDefaultConfiguration:config];
     //百度统计
     [self startBDMobStat];
@@ -74,7 +74,7 @@
     [[ApnsManager manager] application:application didReceiveLocalNotification:notification];
 }
 //因为有个推，所以这个函数不用
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
-    
-}
+//- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
+//    
+//}
 @end

@@ -57,6 +57,10 @@
 #pragma mark -- 讨论组
 //获取用户通讯录中的讨论组
 + (NSURLSessionDataTask*)getUserDiscuss:(int)userNo handler:(completionHandler)handler;
+//添加讨论组
++ (NSURLSessionDataTask*)addUserDiscuss:(int)userNo discussId:(NSString*)discussId discussTitle:(NSString*)discussTitle handler:(completionHandler)handler;
+//删除讨论组
++ (NSURLSessionDataTask*)delUserDiscuss:(int)userNo discussId:(NSString*)discussId handler:(completionHandler)handler;
 #pragma mark -- 日程
 //创建日程
 + (NSURLSessionDataTask*)createUserCalendar:(Calendar*)calendar handler:(completionHandler)handler;

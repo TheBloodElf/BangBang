@@ -255,7 +255,7 @@
 //添加通讯录中的讨论组
 - (void)addUserDiscuss:(UserDiscuss*)userDiscuss {
     [_rlmRealm beginWriteTransaction];
-    [_rlmRealm addObject:userDiscuss];
+    [_rlmRealm addOrUpdateObject:userDiscuss];
     [_rlmRealm commitWriteTransaction];
 }
 //删除通讯录中的讨论组

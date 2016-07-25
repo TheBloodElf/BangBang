@@ -70,7 +70,7 @@
         self.setting_guid =  dic[@"setting_guid"];
         self.create_on_utc =  [dic[@"create_on_utc"] integerValue];
         self.update_on_utc =  [dic[@"update_on_utc"] integerValue];
-        self.work_day = dic[@"work_day"];
+        self.work_day = [dic[@"work_day"] componentsJoinedByString:@","];
         self.is_alert =  [dic[@"is_alert"] integerValue];
         self.start_work_time_alert = [dic[@"start_work_time_alert"] integerValue];
         self.end_work_time_alert = [dic[@"end_work_time_alert"] integerValue];
