@@ -110,7 +110,7 @@ static HttpService * __singleton__;
 }
 
 #pragma mark -
-#pragma mark - Ptavite Methods
+#pragma mark - Ptavite Methods  
 
 - (void)initManagers {
     _dataSessionManager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:KBSSDKAPIDomain]];

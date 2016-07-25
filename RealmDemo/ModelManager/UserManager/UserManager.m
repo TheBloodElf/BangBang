@@ -413,7 +413,7 @@
 //添加签到规则
 - (void)addSiginRule:(SiginRuleSet*)siginRule {
     [_rlmRealm beginWriteTransaction];
-    [_rlmRealm addObject:siginRule];
+    [_rlmRealm addOrUpdateObject:siginRule];
     [_rlmRealm commitWriteTransaction];
 }
 //删除签到规则

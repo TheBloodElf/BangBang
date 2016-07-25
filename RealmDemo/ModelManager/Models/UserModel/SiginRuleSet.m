@@ -45,9 +45,9 @@
     temp.update_by = siginRuleSet.update_by;
     NSMutableArray *array = [@[] mutableCopy];
     for (PunchCardAddressSetting *temp in siginRuleSet.json_list_address_settings) {
-        [array addObject:[PunchCardAddressSetting conpyFromPunchCardAddressSetting:temp]];
+        [array addObject:[[PunchCardAddressSetting alloc] initWithJSONDictionary:[temp JSONDictionary]]];
     }
-    temp.json_list_address_settings = array;
+    temp.json_list_address_settings = (id)array;
     return temp;
 }
 - (instancetype)initWithJsonDic:(NSDictionary*)dic {

@@ -281,7 +281,7 @@
     for (Photo *hpoto in photoArr) {
         [array addObject:hpoto.oiginalImage];
     }
-    uploadPhotoNumber = (int)array.count;
+    uploadPhotoNumber = (int)array.count - 1;
     uploadPhotos = array;
     [self.navigationController.view dismissTips];
     [self sendImageArr];

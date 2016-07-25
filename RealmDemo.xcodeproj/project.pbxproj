@@ -11,6 +11,12 @@
 		040A09AF1D3D182F00156C16 /* DiscussListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 040A09A91D3D182F00156C16 /* DiscussListCell.m */; };
 		040A09B01D3D182F00156C16 /* DiscussListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040A09AA1D3D182F00156C16 /* DiscussListCell.xib */; };
 		040A09B11D3D182F00156C16 /* DiscussListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 040A09AC1D3D182F00156C16 /* DiscussListViewController.m */; };
+		0437F4331D4658FF0054077C /* MCJSONDateTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0437F4281D4658FF0054077C /* MCJSONDateTransformer.m */; settings = {ASSET_TAGS = (); }; };
+		0437F4341D4658FF0054077C /* MCJSONNonNullStringTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0437F42A1D4658FF0054077C /* MCJSONNonNullStringTransformer.m */; settings = {ASSET_TAGS = (); }; };
+		0437F4351D4658FF0054077C /* MCJSONPrimaryKeyTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0437F42C1D4658FF0054077C /* MCJSONPrimaryKeyTransformer.m */; settings = {ASSET_TAGS = (); }; };
+		0437F4361D4658FF0054077C /* MCJSONValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0437F42E1D4658FF0054077C /* MCJSONValueTransformer.m */; settings = {ASSET_TAGS = (); }; };
+		0437F4371D4658FF0054077C /* RLMObject+Copying.m in Sources */ = {isa = PBXBuildFile; fileRef = 0437F4301D4658FF0054077C /* RLMObject+Copying.m */; settings = {ASSET_TAGS = (); }; };
+		0437F4381D4658FF0054077C /* RLMObject+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 0437F4321D4658FF0054077C /* RLMObject+JSON.m */; settings = {ASSET_TAGS = (); }; };
 		045D8BA41D443E16002E0344 /* GeTuiSdkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 045D8BA31D443E16002E0344 /* GeTuiSdkManager.m */; };
 		045D8BA81D444962002E0344 /* ApnsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 045D8BA71D444962002E0344 /* ApnsManager.m */; };
 		045D8BAC1D444A86002E0344 /* libBaiduMobStat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 045D8BAB1D444A86002E0344 /* libBaiduMobStat.a */; };
@@ -494,6 +500,18 @@
 		040A09AA1D3D182F00156C16 /* DiscussListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscussListCell.xib; sourceTree = "<group>"; };
 		040A09AB1D3D182F00156C16 /* DiscussListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscussListViewController.h; sourceTree = "<group>"; };
 		040A09AC1D3D182F00156C16 /* DiscussListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscussListViewController.m; sourceTree = "<group>"; };
+		0437F4271D4658FF0054077C /* MCJSONDateTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCJSONDateTransformer.h; sourceTree = "<group>"; };
+		0437F4281D4658FF0054077C /* MCJSONDateTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCJSONDateTransformer.m; sourceTree = "<group>"; };
+		0437F4291D4658FF0054077C /* MCJSONNonNullStringTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCJSONNonNullStringTransformer.h; sourceTree = "<group>"; };
+		0437F42A1D4658FF0054077C /* MCJSONNonNullStringTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCJSONNonNullStringTransformer.m; sourceTree = "<group>"; };
+		0437F42B1D4658FF0054077C /* MCJSONPrimaryKeyTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCJSONPrimaryKeyTransformer.h; sourceTree = "<group>"; };
+		0437F42C1D4658FF0054077C /* MCJSONPrimaryKeyTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCJSONPrimaryKeyTransformer.m; sourceTree = "<group>"; };
+		0437F42D1D4658FF0054077C /* MCJSONValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCJSONValueTransformer.h; sourceTree = "<group>"; };
+		0437F42E1D4658FF0054077C /* MCJSONValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCJSONValueTransformer.m; sourceTree = "<group>"; };
+		0437F42F1D4658FF0054077C /* RLMObject+Copying.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RLMObject+Copying.h"; sourceTree = "<group>"; };
+		0437F4301D4658FF0054077C /* RLMObject+Copying.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RLMObject+Copying.m"; sourceTree = "<group>"; };
+		0437F4311D4658FF0054077C /* RLMObject+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RLMObject+JSON.h"; sourceTree = "<group>"; };
+		0437F4321D4658FF0054077C /* RLMObject+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RLMObject+JSON.m"; sourceTree = "<group>"; };
 		045D8BA21D443E16002E0344 /* GeTuiSdkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeTuiSdkManager.h; sourceTree = "<group>"; };
 		045D8BA31D443E16002E0344 /* GeTuiSdkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeTuiSdkManager.m; sourceTree = "<group>"; };
 		045D8BA61D444962002E0344 /* ApnsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApnsManager.h; sourceTree = "<group>"; };
@@ -1438,6 +1456,25 @@
 			children = (
 			);
 			path = RequestManagerController;
+			sourceTree = "<group>";
+		};
+		0437F4261D4658FF0054077C /* Realm+JSON */ = {
+			isa = PBXGroup;
+			children = (
+				0437F4271D4658FF0054077C /* MCJSONDateTransformer.h */,
+				0437F4281D4658FF0054077C /* MCJSONDateTransformer.m */,
+				0437F4291D4658FF0054077C /* MCJSONNonNullStringTransformer.h */,
+				0437F42A1D4658FF0054077C /* MCJSONNonNullStringTransformer.m */,
+				0437F42B1D4658FF0054077C /* MCJSONPrimaryKeyTransformer.h */,
+				0437F42C1D4658FF0054077C /* MCJSONPrimaryKeyTransformer.m */,
+				0437F42D1D4658FF0054077C /* MCJSONValueTransformer.h */,
+				0437F42E1D4658FF0054077C /* MCJSONValueTransformer.m */,
+				0437F42F1D4658FF0054077C /* RLMObject+Copying.h */,
+				0437F4301D4658FF0054077C /* RLMObject+Copying.m */,
+				0437F4311D4658FF0054077C /* RLMObject+JSON.h */,
+				0437F4321D4658FF0054077C /* RLMObject+JSON.m */,
+			);
+			path = "Realm+JSON";
 			sourceTree = "<group>";
 		};
 		045D8BA11D443DF6002E0344 /* GeTuiSdkManager */ = {
@@ -2766,6 +2803,7 @@
 		1B5585561D34CB4E00DCD3A0 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				0437F4261D4658FF0054077C /* Realm+JSON */,
 				045D8BA91D444A86002E0344 /* 百度统计 */,
 				1B1B9B9D1D3DC46900F53EDC /* RRule */,
 				0495866C1D3A620100544259 /* ZXingObjC */,
@@ -3793,6 +3831,9 @@
 				1B36FCD31D35E750006694E4 /* HomeListBottomView.m in Sources */,
 				1B5585761D34D93800DCD3A0 /* BusinessController.m in Sources */,
 				75E5FF7D1D27D68300F77961 /* User.m in Sources */,
+				0437F4331D4658FF0054077C /* MCJSONDateTransformer.m in Sources */,
+				0437F4361D4658FF0054077C /* MCJSONValueTransformer.m in Sources */,
+				0437F4381D4658FF0054077C /* RLMObject+JSON.m in Sources */,
 				049588811D3A620300544259 /* ZXVEventResultParser.m in Sources */,
 				1B119E741D3CB89F007CC050 /* SelectImageCollectionCell.m in Sources */,
 				1B55857C1D34D94A00DCD3A0 /* WelcomeController.m in Sources */,
@@ -3883,6 +3924,7 @@
 				1B1B9BF81D3E198600F53EDC /* ComCalendarInstruction.m in Sources */,
 				1B1B9BC51D3DF6FA00F53EDC /* CalenderEventTableViewCell.m in Sources */,
 				049588F81D3A620300544259 /* ZXUPCEANExtension5Support.m in Sources */,
+				0437F4351D4658FF0054077C /* MCJSONPrimaryKeyTransformer.m in Sources */,
 				049589281D3A620300544259 /* ZXQRCodeEncoder.m in Sources */,
 				049588EE1D3A620300544259 /* ZXEANManufacturerOrgSupport.m in Sources */,
 				049588BC1D3A620300544259 /* ZXDataMatrixTextEncoder.m in Sources */,
@@ -3945,6 +3987,7 @@
 				1B1B9BCD1D3DFC2600F53EDC /* CalendarListController.m in Sources */,
 				049588CD1D3A620300544259 /* ZXAI01AndOtherAIs.m in Sources */,
 				049588F11D3A620300544259 /* ZXMultiFormatOneDReader.m in Sources */,
+				0437F4371D4658FF0054077C /* RLMObject+Copying.m in Sources */,
 				049588DF1D3A620300544259 /* ZXRSSDataCharacter.m in Sources */,
 				0495889F1D3A620300544259 /* ZXBinarizer.m in Sources */,
 				1B4B16361D37C22600E71B3D /* BushDetailController.m in Sources */,
@@ -3966,6 +4009,7 @@
 				0495888B1D3A620300544259 /* ZXWhiteRectangleDetector.m in Sources */,
 				1B119E761D3CB89F007CC050 /* SelectImageController.m in Sources */,
 				1B1B9BE91D3E151A00F53EDC /* ComCalendarExigence.m in Sources */,
+				0437F4341D4658FF0054077C /* MCJSONNonNullStringTransformer.m in Sources */,
 				049586381D3A1D2900544259 /* SelectDateController.m in Sources */,
 				049588871D3A620300544259 /* ZXCGImageLuminanceSource.m in Sources */,
 				049588C41D3A620300544259 /* ZXByQuadrantReader.m in Sources */,

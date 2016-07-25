@@ -42,5 +42,7 @@
 #import <EventKit/EKRecurrenceRule.h>
 #import "EKRecurrenceRule+RRULE.h"
 #import "Scheduler.h"
+#import "RLMObject+JSON.h"
+#import "RLMObject+Copying.h"
 
 #endif /* UtikIes_h */

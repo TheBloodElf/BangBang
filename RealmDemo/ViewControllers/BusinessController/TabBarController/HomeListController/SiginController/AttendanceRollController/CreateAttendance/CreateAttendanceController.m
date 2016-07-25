@@ -43,6 +43,7 @@
     _userManager = [UserManager manager];
     //初始化数据
     _currSiginRule = [SiginRuleSet new];
+    _currSiginRule.json_list_address_settings = [@[] mutableCopy];
     _currSiginRule.work_day = @"1,2,3,4,5";
     _currSiginRule.start_work_time_alert = 5;
     _currSiginRule.end_work_time_alert = 5;
@@ -364,7 +365,9 @@
     UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *ok = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         //办公地点 地址删除按钮被点击
-        [_currSiginRule.json_list_address_settings delete:setting];
+        NSMutableArray *array = [[_currSiginRule.json_list_address_settings NSArray] mutableCopy];
+        [array removeObject:setting];
+        _currSiginRule.json_list_address_settings = (id)array;
         [_tableView reloadSections:[NSIndexSet indexSetWithIndex:3] withRowAnimation:UITableViewRowAnimationNone];
     }];
     [alert addAction:ok];
@@ -382,6 +385,7 @@
     if([self checkDataValie]) {
         [self.navigationController.view showLoadingTips:@"请稍等..."];
          //把第一个地址填充到签到规则模型
+        Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
         PunchCardAddressSetting *firstAdress = _currSiginRule.json_list_address_settings[0];
         _currSiginRule.latitude = firstAdress.latitude;
         _currSiginRule.longitude = firstAdress.longitude;
@@ -392,14 +396,25 @@
         _currSiginRule.subdistrict = firstAdress.subdistrict;
         _currSiginRule.create_on_utc = [[NSDate new] timeIntervalSince1970];
         _currSiginRule.update_on_utc = [[NSDate new] timeIntervalSince1970];
-        NSMutableDictionary *dic = [_currSiginRule mj_keyValues];
-        
-        NSMutableArray *array = [@[] mutableCopy];
+        _currSiginRule.update_by = employee.employee_guid;
         for (PunchCardAddressSetting *setting in _currSiginRule.json_list_address_settings) {
-            [array addObject:[PunchCardAddressSetting conpyFromPunchCardAddressSetting:setting]];
+            setting.update_by = employee.employee_guid;
         }
-        [dic setObject:[[NSMutableArray mj_keyValuesArrayWithObjectArray:array] mj_JSONString] forKey:@"json_list_address_settings"];
-        [_userManager addSiginRule:_currSiginRule];
+        NSMutableDictionary *dic = [[_currSiginRule JSONDictionary] mutableCopy];
+        NSString *str = [[_currSiginRule.json_list_address_settings JSONArray] mj_JSONString];
+        [dic setObject:str forKey:@"json_list_address_settings"];
+        [self.navigationController.view showLoadingTips:@""];
+        [UserHttp addSiginRule:dic handler:^(id data, MError *error) {
+            [self.navigationController.view dismissTips];
+            if(error) {
+                [self.navigationController.view showFailureTips:error.statsMsg];
+                return ;
+            }
+            _currSiginRule.setting_guid = data;
+           [self.navigationController.view showSuccessTips:@"添加成功"];
+           [_userManager addSiginRule:_currSiginRule];
+           [self.navigationController popViewControllerAnimated:YES];
+        }];
     }
 }
 //检查数据是否可以提交

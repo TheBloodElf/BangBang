@@ -19,9 +19,9 @@
 #import "SiginRuleSet.h"
 
 @interface UserManager : NSObject
+
 //全局的用户信息
 @property (nonatomic, strong) User *user;
-
 + (instancetype)manager;
 #pragma mark -- User
 //更新用户数据
@@ -113,4 +113,5 @@
 - (void)updateSiginRule:(NSMutableArray<SiginRuleSet*>*)sigRules companyNo:(int)companyNo;
 //创建圈子的数据监听
 - (RBQFetchedResultsController*)createSiginRuleFetchedResultsController:(int)companyNo;
+
 @end

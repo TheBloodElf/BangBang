@@ -357,7 +357,9 @@
     UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *ok = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         //办公地点 地址删除按钮被点击
-        [self.currSiginRule.json_list_address_settings delete:setting];
+        NSMutableArray *array = [[_currSiginRule.json_list_address_settings NSArray] mutableCopy];
+        [array removeObject:setting];
+        _currSiginRule.json_list_address_settings = (id)array;
         [_tableView reloadSections:[NSIndexSet indexSetWithIndex:3] withRowAnimation:UITableViewRowAnimationNone];
     }];
     [alert addAction:ok];
@@ -386,14 +388,23 @@
         Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
         _currSiginRule.update_by = employee.employee_guid;
         _currSiginRule.update_on_utc = [[NSDate new] timeIntervalSince1970];
-        NSMutableDictionary *dic = [_currSiginRule mj_keyValues];
-        NSMutableArray *array = [@[] mutableCopy];
         for (PunchCardAddressSetting *setting in _currSiginRule.json_list_address_settings) {
+            setting.update_by = employee.employee_guid;
             setting.setting_guid = _currSiginRule.setting_guid;
-            [array addObject:[PunchCardAddressSetting conpyFromPunchCardAddressSetting:setting]];
         }
-        [dic setObject:[[NSMutableArray mj_keyValuesArrayWithObjectArray:array] mj_JSONString] forKey:@"json_list_address_settings"];
-        [_userManager updateSiginRule:_currSiginRule];
+        NSMutableDictionary *dic = [[_currSiginRule JSONDictionary] mutableCopy];
+        [dic setObject:[[_currSiginRule.json_list_address_settings JSONArray] mj_JSONString] forKey:@"json_list_address_settings"];
+        [self.navigationController.view showLoadingTips:@""];
+        [UserHttp updateSiginRule:dic handler:^(id data, MError *error) {
+            [self.navigationController.view dismissTips];
+            if(error) {
+                [self.navigationController.view showFailureTips:error.statsMsg];
+                return ;
+            }
+            [self.navigationController.view showSuccessTips:@"修改成功"];
+            [_userManager updateSiginRule:_currSiginRule];
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
     }
 }
 //检查数据是否可以提交
