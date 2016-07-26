@@ -25,6 +25,6 @@ typedef void(^finishOrientation)(AMapPOI *pio);
 /**
  *  当前选择的签到类型
  */
-@property (assign,nonatomic)  int64_t category;
+@property (assign,nonatomic)  int category;
 
 @end

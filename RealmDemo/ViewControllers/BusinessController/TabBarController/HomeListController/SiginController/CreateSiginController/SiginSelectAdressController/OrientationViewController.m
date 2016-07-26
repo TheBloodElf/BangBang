@@ -32,15 +32,14 @@
     _mapView.zoomLevel = 13;//地图缩放级别
     _mapView.distanceFilter = 100;
     _mapView.desiredAccuracy = kCLLocationAccuracyBest;
-    
-    //搜索初始化
-    _search = [[AMapSearchAPI alloc]init];
-    _search.delegate = self;
     //是否定位
     _mapView.showsUserLocation = YES;
     //设置定位模式
     [_mapView setUserTrackingMode: MAUserTrackingModeFollow animated:YES];
     [self.view addSubview:_mapView];
+    //搜索初始化
+    _search = [[AMapSearchAPI alloc]init];
+    _search.delegate = self;
     
     //列表初始化
     poiTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 300, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 300) style:UITableViewStylePlain];
@@ -97,6 +96,7 @@
         request.sortrule = 0;
         request.requireExtension = YES;
         request.radius = 300;
+        [_mapView setCenterCoordinate:CLLocationCoordinate2DMake(userLocation.coordinate.latitude, userLocation.coordinate.longitude) animated:YES];
         [_search AMapPOIAroundSearch:request];
     }
 }

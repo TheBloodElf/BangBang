@@ -83,6 +83,8 @@
     _mapView.showsUserLocation = YES;
     _mapView.desiredAccuracy = kCLLocationAccuracyBest;
     [self.view addSubview:_mapView];
+    _search = [[AMapSearchAPI alloc] init];
+    _search.delegate = self;
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];

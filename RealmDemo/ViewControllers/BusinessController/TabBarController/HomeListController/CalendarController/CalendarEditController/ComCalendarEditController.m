@@ -53,7 +53,7 @@
     }];
 }
 - (void)dataDidChange {
-    _currCalendar = [Calendar copyFromCalendar:self.data];
+    _currCalendar = [[Calendar alloc] initWithJSONDictionary:[self.data JSONDictionary]];
 }
 #pragma mark --
 #pragma mark -- ComCalendarViewDelegate

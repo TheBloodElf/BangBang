@@ -47,7 +47,7 @@
     // Do any additional setup after loading the view.
 }
 - (void)dataDidChange {
-    _calendar = [Calendar copyFromCalendar:self.data];
+    _calendar = [[Calendar alloc] initWithJSONDictionary:[self.data JSONDictionary]];
 }
 //完成日程
 - (void)finishCalendarClicked:(UIButton*)btn {

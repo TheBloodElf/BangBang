@@ -31,7 +31,6 @@
     [Bugtags startWithAppKey:BUGTAGSAPPKEY invocationEvent:BugOpen];
     //百度地图注册
     [AMapServices sharedServices].apiKey = @"812f92db9078841bddb73919f07e8d15";
-    [AMapSearchServices sharedServices].apiKey = @"812f92db9078841bddb73919f07e8d15";
     //对应用进行全局的初始化
     [AppCustoms customs];
     //设置融云代理

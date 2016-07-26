@@ -116,7 +116,7 @@
                         if([tempCalendar haveDeleteDate:tempDate]) {
                             continue;
                         } else if([tempCalendar haveFinishDate:tempDate]) {
-                            Calendar *calendar = [Calendar copyFromCalendar:tempCalendar];
+                            Calendar *calendar = [[Calendar alloc] initWithJSONDictionary:[tempCalendar JSONDictionary]];
                             calendar.status = 2;
                             [_todayCalendarArr addObject:calendar];
                         } else {

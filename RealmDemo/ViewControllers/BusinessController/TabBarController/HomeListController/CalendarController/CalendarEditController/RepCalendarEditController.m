@@ -55,7 +55,7 @@
     
 }
 - (void)dataDidChange {
-    _calendar = [Calendar copyFromCalendar:self.data];
+    _calendar = [[Calendar alloc] initWithJSONDictionary:[self.data JSONDictionary]];
 }
 #pragma mark --
 #pragma mark -- RepCalendarViewDelegate

@@ -36,7 +36,7 @@
                   moduleName = "RealmDemo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/pc011/Desktop/%E5%B8%AE%E5%B8%AE%E9%A1%B9%E7%9B%AE%E5%B0%86%E8%A6%81%E4%BD%BF%E7%94%A8%E7%9A%84%E6%96%87%E4%BB%B6/BangBang/RealmDemo/ViewControllers/BusinessController/TabBarController/HomeListController/HomeListController.m"
-                  timestampString = "491192445.954432"
+                  timestampString = "491197199.335991"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "110"
@@ -51,7 +51,7 @@
                   moduleName = "RealmDemo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/pc011/Desktop/%E5%B8%AE%E5%B8%AE%E9%A1%B9%E7%9B%AE%E5%B0%86%E8%A6%81%E4%BD%BF%E7%94%A8%E7%9A%84%E6%96%87%E4%BB%B6/BangBang/RealmDemo/ViewControllers/BusinessController/TabBarController/HomeListController/HomeListController.m"
-                  timestampString = "491192445.95468"
+                  timestampString = "491197199.336127"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "111"
@@ -100,11 +100,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RealmDemo/ViewControllers/BusinessController/TabBarController/HomeListController/SiginController/CreateSiginController/CreateSiginController.m"
-            timestampString = "491192407.420688"
+            timestampString = "491197199.056236"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
             landmarkName = "-onPOISearchDone:response:"
             landmarkType = "5">
          </BreakpointContent>
@@ -116,12 +116,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RealmDemo/ViewControllers/BusinessController/TabBarController/HomeListController/SiginController/CreateSiginController/CreateSiginController.m"
-            timestampString = "491192408.305302"
+            timestampString = "491197593.763109"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
-            landmarkName = "-onPOISearchDone:response:"
+            startingLineNumber = "409"
+            endingLineNumber = "409"
+            landmarkName = "-initCategoryBtn"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -131,12 +131,60 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "RealmDemo/ViewControllers/BusinessController/TabBarController/HomeListController/SiginController/CreateSiginController/CreateSiginController.m"
-            timestampString = "491192481.050001"
+            filePath = "RealmDemo/ViewControllers/BusinessController/TabBarController/HomeListController/SiginController/CreateSiginController/SiginSelectAdressController/OrientationViewController.m"
+            timestampString = "491197685.326445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "135"
-            endingLineNumber = "135"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "-viewDidLoad"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RealmDemo/ViewControllers/BusinessController/TabBarController/HomeListController/SiginController/CreateSiginController/SiginSelectAdressController/OrientationViewController.m"
+            timestampString = "491197704.818038"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "-viewDidLoad"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RealmDemo/ViewControllers/BusinessController/TabBarController/HomeListController/SiginController/CreateSiginController/SiginSelectAdressController/OrientationViewController.m"
+            timestampString = "491197756.211971"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
+            landmarkName = "-mapView:rendererForOverlay:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RealmDemo/ViewControllers/BusinessController/TabBarController/HomeListController/SiginController/CreateSiginController/SiginSelectAdressController/OrientationViewController.m"
+            timestampString = "491197758.025852"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
             landmarkName = "-mapView:didUpdateUserLocation:updatingLocation:"
             landmarkType = "5">
          </BreakpointContent>

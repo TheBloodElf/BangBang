@@ -102,6 +102,4 @@
 //是否有这个完成时间
 - (BOOL)haveFinishDate:(NSDate*)date;
 
-+ (Calendar*)copyFromCalendar:(Calendar*)calendar;
-
 @end

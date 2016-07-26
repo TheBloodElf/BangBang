@@ -60,7 +60,7 @@
     // Do any additional setup after loading the view.
 }
 - (void)dataDidChange {
-    _currSiginRule = [SiginRuleSet conpyFromSiginRuleSet:self.data];
+    _currSiginRule = [[SiginRuleSet alloc] initWithJSONDictionary:[self.data JSONDictionary]];
 }
 - (void)viewWillAppear:(BOOL)animated
 {

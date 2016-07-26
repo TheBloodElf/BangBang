@@ -34,8 +34,6 @@
 @property (nonatomic, assign) NSInteger start_work_time_alert;//上班提醒时间 单位分
 @property (nonatomic, assign) NSInteger end_work_time_alert;//下班提醒时间 单位分
 @property (nonatomic, strong) NSString *update_by;//更新签到规则的员工ID
-@property (nonatomic , strong) RLMArray<PunchCardAddressSetting> *json_list_address_settings;//设置的签到点位置
-
-+ (instancetype)conpyFromSiginRuleSet:(SiginRuleSet*)siginRuleSet;
+@property (nonatomic ,strong) RLMArray<PunchCardAddressSetting> *json_list_address_settings;//设置的签到点位置
 
 @end
