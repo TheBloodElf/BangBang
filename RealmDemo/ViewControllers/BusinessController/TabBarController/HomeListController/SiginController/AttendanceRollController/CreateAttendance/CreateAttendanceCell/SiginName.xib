@@ -18,7 +18,7 @@
                         <rect key="frame" x="15" y="12" width="21" height="20"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ay-pT-kmx">
-                        <rect key="frame" x="57" y="12" width="42" height="20"/>
+                        <rect key="frame" x="46" y="12" width="42" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="nam-96-G8Q"/>
                         </constraints>
@@ -27,7 +27,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入考勤名称" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IRM-r1-gdC">
-                        <rect key="frame" x="109" y="12" width="196" height="20"/>
+                        <rect key="frame" x="98" y="12" width="207" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="DS1-L3-3B2"/>
                         </constraints>
@@ -39,7 +39,7 @@
                     <constraint firstAttribute="trailing" secondItem="IRM-r1-gdC" secondAttribute="trailing" constant="15" id="BQ7-Mh-1Uf"/>
                     <constraint firstItem="IRM-r1-gdC" firstAttribute="leading" secondItem="5Ay-pT-kmx" secondAttribute="trailing" constant="10" id="Lyc-JF-hhq"/>
                     <constraint firstItem="5Ay-pT-kmx" firstAttribute="centerY" secondItem="igF-2b-Y6e" secondAttribute="centerY" id="Uxr-KE-lUN"/>
-                    <constraint firstItem="5Ay-pT-kmx" firstAttribute="leading" secondItem="flN-dB-zXQ" secondAttribute="trailing" constant="21" id="V4V-U7-cOw"/>
+                    <constraint firstItem="5Ay-pT-kmx" firstAttribute="leading" secondItem="flN-dB-zXQ" secondAttribute="trailing" constant="10" id="V4V-U7-cOw"/>
                     <constraint firstItem="flN-dB-zXQ" firstAttribute="centerY" secondItem="igF-2b-Y6e" secondAttribute="centerY" id="azB-N3-kJ8"/>
                     <constraint firstItem="flN-dB-zXQ" firstAttribute="leading" secondItem="igF-2b-Y6e" secondAttribute="leading" constant="15" id="hZY-6W-xw6"/>
                     <constraint firstItem="IRM-r1-gdC" firstAttribute="centerY" secondItem="5Ay-pT-kmx" secondAttribute="centerY" id="wJI-Ha-I1W"/>

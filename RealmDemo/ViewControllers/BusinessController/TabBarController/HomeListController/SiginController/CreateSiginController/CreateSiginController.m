@@ -67,12 +67,12 @@
     //获取用户今天的所有签到记录
     Employee * employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
     _todaySiginArr = [_userManager getTodaySigInListGuid:employee.employee_guid];
-    [self initCategoryBtn];
     _currSignIn = [SignIn new];
     //给模型加上一些确认的值
     _currSignIn.employee_guid = employee.employee_guid;
     _currSignIn.create_name = employee.real_name;
     self.siginTextView.delegate = self;
+    [self initCategoryBtn];
     //开始定位 然后获取离用户最近的签到地址
     //地图初始化
     _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
@@ -276,11 +276,12 @@
     //判断距离
     if (_currSignIn.category < 2) {
         //判断当前选择位置是否在圈内
-        if(!MACircleContainsCoordinate(CLLocationCoordinate2DMake(_currPunchCardAddressSetting.latitude, _currPunchCardAddressSetting.longitude),CLLocationCoordinate2DMake(_currSiginRuleSet.latitude, _currSiginRuleSet.longitude),_currSiginRuleSet.scope)){
+        CGFloat distance = MAMetersBetweenMapPoints(MAMapPointForCoordinate(CLLocationCoordinate2DMake(_currPunchCardAddressSetting.latitude, _currPunchCardAddressSetting.longitude)),MAMapPointForCoordinate(CLLocationCoordinate2DMake(_currSignIn.latitude, _currSignIn.longitude)));
+        if(distance > _currSiginRuleSet.scope){
             [self.navigationController.view showMessageTips:@"当前位置离公司签到点太远啦!"];
             return;
         }
-        _currSignIn.distance = MAMetersBetweenMapPoints(MAMapPointForCoordinate(CLLocationCoordinate2DMake(_currPunchCardAddressSetting.latitude, _currPunchCardAddressSetting.longitude)),MAMapPointForCoordinate(CLLocationCoordinate2DMake(_currSignIn.latitude, _currSignIn.longitude)));
+        _currSignIn.distance = distance;
         _currSignIn.setting_guid = _currPunchCardAddressSetting.setting_guid;
     }
     //判断时间是否迟到或者早退
@@ -295,7 +296,7 @@
             isArrive = YES;
         }
         if (isArrive) {//如果迟到 必须要写详情
-            if([NSString isBlank:self.siginDeatilLabel.text]) {
+            if([NSString isBlank:self.siginTextView.text]) {
                 UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"你迟到超过5分钟，需要写明原因" preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *alertSure = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:nil];
                 [alertVC addAction:alertSure];
@@ -331,7 +332,7 @@
             isLeave = YES;
         }
         if (isLeave) {//如果早退 需要写明原因
-            if([NSString isBlank:self.siginDeatilLabel.text]) {
+            if([NSString isBlank:self.siginTextView.text]) {
                 UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"你属于早退，需要写明原因" preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *alertSure = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:nil];
                 [alertVC addAction:alertSure];
@@ -376,6 +377,7 @@
             [self sendSiginPhoto];
         } else {
             [self.navigationController.view dismissTips];
+            _currSignIn = [_currSignIn mj_setKeyValues:data];
             [_userManager addSigin:_currSignIn];
             [self.navigationController.view showMessageTips:@"签到成功"];
             [self.navigationController popToRootViewControllerAnimated:YES];

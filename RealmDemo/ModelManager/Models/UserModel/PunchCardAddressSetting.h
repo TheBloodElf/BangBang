@@ -27,9 +27,9 @@
 
 @property (nonatomic, copy)  NSString *create_by;//创建人员的员工ID
 @property (nonatomic, copy)  NSString *user_guid;//创建人用户GUID
-@property (nonatomic, assign) NSInteger create_on_utc;//签到规则创建时间
+@property (nonatomic, assign) int64_t create_on_utc;//签到规则创建时间
 @property (nonatomic, copy) NSString *update_by;//更新签到规则的员工ID
-@property (nonatomic, assign) NSInteger update_on_utc;//签到规则更新时间  修改签到规则界面要使用
+@property (nonatomic, assign) int64_t update_on_utc;//签到规则更新时间  修改签到规则界面要使用
 - (instancetype)initWithAMapPOI:(AMapPOI*)aMapPOI;
 
 @end

@@ -26,8 +26,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"讨论组";
-    _userDiscussArr = [_userManager getUserDiscussArr];
     _userManager = [UserManager manager];
+    _userDiscussArr = [_userManager getUserDiscussArr];
     _userDiscussFetchedResultsController = [_userManager createUserDiscusFetchedResultsController];
     _userDiscussFetchedResultsController.delegate = self;
     

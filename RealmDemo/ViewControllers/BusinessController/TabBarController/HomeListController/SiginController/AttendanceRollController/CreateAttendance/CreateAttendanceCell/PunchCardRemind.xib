@@ -30,7 +30,7 @@
                         <rect key="frame" x="256" y="19" width="51" height="31"/>
                     </switch>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="打卡提醒" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Dc-Gy-9qE">
-                        <rect key="frame" x="50" y="10" width="68" height="20"/>
+                        <rect key="frame" x="40" y="10" width="68" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="Owv-An-Si7"/>
                         </constraints>
@@ -40,7 +40,7 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="9Dc-Gy-9qE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="50" id="0R9-aY-Aap"/>
+                    <constraint firstItem="9Dc-Gy-9qE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="40" id="0R9-aY-Aap"/>
                     <constraint firstItem="QUS-9Y-7FW" firstAttribute="centerY" secondItem="9Dc-Gy-9qE" secondAttribute="centerY" id="5hc-FN-gbp"/>
                     <constraint firstItem="QUS-9Y-7FW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="GP8-4h-gvQ"/>
                     <constraint firstItem="KHf-2m-Ley" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailing" constant="-15" id="Lgs-7f-XPg"/>

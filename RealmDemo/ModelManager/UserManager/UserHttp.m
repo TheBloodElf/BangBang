@@ -382,7 +382,7 @@
 #pragma mark -- 签到
 //提交签到信息
 + (NSURLSessionDataTask*)sigin:(SignIn*)sigin handler:(completionHandler)handler {
-    NSString *urlPath = @"Calendars/list_v3";
+    NSString *urlPath = @"Attendance/sign";
     NSMutableDictionary *params = [sigin mj_keyValues];
     [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
     completionHandler compleionHandler = ^(id data,MError *error) {

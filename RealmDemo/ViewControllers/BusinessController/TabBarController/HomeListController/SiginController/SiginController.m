@@ -14,15 +14,15 @@
 #import "IdentityManager.h"
 #import "SigInListCell.h"
 #import "AttendanceRollController.h"
+#import "PlainPhotoBrose.h"
 #import "WebNonstandarViewController.h"
 #import "SiginNoteController.h"
 
-@interface SiginController ()<MoreSelectViewDelegate,UITableViewDelegate,UITableViewDataSource,RBQFetchedResultsControllerDelegate,CLLocationManagerDelegate,AMapSearchDelegate> {
+@interface SiginController ()<MoreSelectViewDelegate,UITableViewDelegate,UITableViewDataSource,RBQFetchedResultsControllerDelegate,CLLocationManagerDelegate,AMapSearchDelegate,SigInListCellDelegate> {
     UIButton *_leftNavigationBarButton;//左边导航的按钮
     UIView *_noDataView;//没有数据的视图
     UserManager *_userManager;//用户管理器
     RBQFetchedResultsController *_userFetchedResultsController;//用户数据库监听
-    RBQFetchedResultsController *_todaySigInFetchedResultsController;//今天签到数据监听
     MoreSelectView *_moreSelectView;//多选视图
     NSMutableArray<SignIn*> *_todaySigInArr;//今天签到的数组
 }
@@ -40,17 +40,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _todaySigInArr = [@[] mutableCopy];
+    [self.tableView registerNib:[UINib nibWithNibName:@"SigInListCell" bundle:nil] forCellReuseIdentifier:@"SigInListCell"];
     self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
     _userManager = [UserManager manager];
-    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateTime) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(updateTime) userInfo:nil repeats:YES];
     //创建表格视图
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
     _todaySigInArr = [_userManager getTodaySigInListGuid:employee.employee_guid];
     _userFetchedResultsController = [_userManager createUserFetchedResultsController];
     _userFetchedResultsController.delegate = self;
-    _todaySigInFetchedResultsController = [_userManager createSigInListFetchedResultsController:employee.employee_guid];
-    _todaySigInFetchedResultsController.delegate = self;
     self.todatSiginNumber.text = [NSString stringWithFormat:@"今日已签到%ld次",_todaySigInArr.count];
     _noDataView = [[UIView alloc] initWithFrame:self.tableView.bounds];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 100, MAIN_SCREEN_WIDTH, 15)];
@@ -65,7 +64,7 @@
         self.tableView.tableFooterView = [UIView new];
     else
         self.tableView.tableFooterView = _noDataView;
-    [self.tableView registerNib:[UINib nibWithNibName:@"SigInListCell" bundle:nil] forCellReuseIdentifier:@"SigInListCell"];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self setLeftNavigationBarItem];
     [self setRightNavigationBarItem];
     //看是否有签到记录数据 没有就从服务器获取
@@ -113,26 +112,16 @@
 #pragma mark --
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
-    if(controller == _todaySigInFetchedResultsController) {
-        _todaySigInArr = (id)controller.fetchedObjects;
-        if(_todaySigInArr.count)
-            self.tableView.tableFooterView = [UIView new];
-        else
-            self.tableView.tableFooterView = _noDataView;
-        [self.tableView reloadData];
-        self.todatSiginNumber.text = [NSString stringWithFormat:@"今日已签到%ld次",_todaySigInArr.count];
-    } else {
-        User *user = controller.fetchedObjects[0];
-        UIImageView *imageView = [_leftNavigationBarButton viewWithTag:1001];
-        UILabel *nameLabel = [_leftNavigationBarButton viewWithTag:1002];
-        UILabel *companyLabel = [_leftNavigationBarButton viewWithTag:1003];
-        [imageView sd_setImageWithURL:[NSURL URLWithString:user.currCompany.logo] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
-        nameLabel.text = user.real_name;
-        if([NSString isBlank:user.currCompany.company_name])
-            companyLabel.text = @"未选择圈子";
-        else
-            companyLabel.text = user.currCompany.company_name;
-    }
+    User *user = controller.fetchedObjects[0];
+    UIImageView *imageView = [_leftNavigationBarButton viewWithTag:1001];
+    UILabel *nameLabel = [_leftNavigationBarButton viewWithTag:1002];
+    UILabel *companyLabel = [_leftNavigationBarButton viewWithTag:1003];
+    [imageView sd_setImageWithURL:[NSURL URLWithString:user.currCompany.logo] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
+    nameLabel.text = user.real_name;
+    if([NSString isBlank:user.currCompany.company_name])
+        companyLabel.text = @"未选择圈子";
+    else
+        companyLabel.text = user.currCompany.company_name;
 }
 #pragma mark -- 
 #pragma mark -- CLLocationManagerDelegate
@@ -171,7 +160,7 @@
         if(response.lives.count == 0)
             return;
         AMapLocalWeatherLive *live = response.lives[0];
-        NSString *addressAndWeatherStr = [NSString stringWithFormat:@"%@ %@",self.weatherLabel.text,live.weather];
+        NSString *addressAndWeatherStr = [NSString stringWithFormat:@"%@ %@ %@°C",self.weatherLabel.text,live.weather,live.temperature];
         self.weatherLabel.text = addressAndWeatherStr;
     }
 }
@@ -179,14 +168,16 @@
 #pragma mark -- UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     SignIn *sigin = _todaySigInArr[indexPath.row];
-    CGFloat height = 95;//没有详情 没有图片的高度
+    CGFloat height = 100;//没有详情 没有图片的高度
     //算出详情占多高 最宽：屏幕宽度－66
     if(![NSString isBlank:sigin.descriptionStr]) {
-        height = height + [sigin.descriptionStr textSizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH - 66, 100000)].height;
+        height = height + [[NSString stringWithFormat:@"说明：%@",sigin.descriptionStr] textSizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH - 66, 100000)].height ;
+    } else {
+        height = height + [@"说明：无" textSizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH - 66, 100000)].height;
     }
-    //如果有附件图片 高度＋90
+    //如果有附件图片 高度＋95
     if(![NSString isBlank:sigin.attachments])
-        height = height + 90;
+        height = height + 95;
     return height;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -195,7 +186,24 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SigInListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SigInListCell" forIndexPath:indexPath];
     cell.data = _todaySigInArr[indexPath.row];
+    cell.delegate = self;
     return cell;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+#pragma mark -- 
+#pragma mark -- SigInListCellDelegate
+//图片被点击
+- (void)SigInListCellPhotoClicked:(NSArray*)photos {
+    PlainPhotoBrose *brose = [PlainPhotoBrose new];
+    brose.photoArr = photos;
+    brose.index = 0;
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:brose] animated:YES completion:nil];
+}
+//地址被点击
+- (void)SigInListCellAdressClicked:(CLLocationCoordinate2D)cLLocationCoordinate2D {
+    
 }
 #pragma mark --
 #pragma mark -- setNavigationBar

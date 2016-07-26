@@ -18,7 +18,7 @@
                         <rect key="frame" x="15" y="12" width="21" height="20"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sxV-AG-ujB">
-                        <rect key="frame" x="57" y="12" width="42" height="20"/>
+                        <rect key="frame" x="46" y="12" width="42" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="rbQ-lB-7je"/>
                         </constraints>
@@ -44,7 +44,7 @@
                     <constraint firstItem="QBF-jn-VdJ" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="P2R-4B-Fhq"/>
                     <constraint firstItem="sRq-QM-D8o" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="bRs-OT-6SV"/>
                     <constraint firstItem="jOx-w4-noK" firstAttribute="leading" secondItem="sxV-AG-ujB" secondAttribute="trailing" constant="147" id="dqq-ZO-0L1"/>
-                    <constraint firstItem="sxV-AG-ujB" firstAttribute="leading" secondItem="sRq-QM-D8o" secondAttribute="trailing" constant="21" id="eYD-dE-P1e"/>
+                    <constraint firstItem="sxV-AG-ujB" firstAttribute="leading" secondItem="sRq-QM-D8o" secondAttribute="trailing" constant="10" id="eYD-dE-P1e"/>
                     <constraint firstAttribute="trailing" secondItem="QBF-jn-VdJ" secondAttribute="trailing" constant="15" id="g1K-t1-kju"/>
                     <constraint firstItem="QBF-jn-VdJ" firstAttribute="leading" secondItem="jOx-w4-noK" secondAttribute="trailing" constant="5" id="pGk-Pn-cBw"/>
                     <constraint firstItem="sRq-QM-D8o" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="pRR-sm-23m"/>

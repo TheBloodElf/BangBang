@@ -37,9 +37,9 @@
 /** 圈子编号 */
 @property (nonatomic, assign) int company_no;
 /** 创建时间 */
-@property (nonatomic, assign) int created;
+@property (nonatomic, assign) int64_t created;
 /** 更新时间 */
-@property (nonatomic, assign) int updated;
+@property (nonatomic, assign) int64_t updated;
 /** 头像 */
 @property (nonatomic, strong) NSString  * avatar;
 /** 心情动态 */

@@ -11,6 +11,7 @@
 #import "Photo.h"
 
 @interface SigInListCell ()
+
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;//时间
 @property (weak, nonatomic) IBOutlet UIImageView *avaterImage;//头像
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;//员工名字
@@ -18,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *adressLabel;//地址
 @property (weak, nonatomic) IBOutlet UILabel *detailLabel;//说明
 @property (weak, nonatomic) IBOutlet UIButton *attemthLabel;//附件图片展示
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *attemthHeight;
 
 @end
 
@@ -29,17 +31,25 @@
 }
 
 - (void)dataDidChange {
-    SignIn *signIn = self.data;
+    SignIn *signIn = [self.data deepCopy];
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:signIn.create_on_utc / 1000];
     self.timeLabel.text = [NSString stringWithFormat:@"%ld/%02ld/%02ld %02ld:%02ld",date.year,date.month,date.day,date.hour,date.minute];
     [self.avaterImage sd_setImageWithURL:[NSURL URLWithString:signIn.create_avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
-    self.categoryLabel.text = signIn.categoryStr;
+    self.categoryLabel.text = [signIn categoryStr];
     [self.adressLabel setTitle:signIn.address forState:UIControlStateNormal];
-    self.detailLabel.text = signIn.descriptionStr;
+    if([NSString isBlank:signIn.descriptionStr])
+        self.detailLabel.text = @"说明：无";
+    else
+        self.detailLabel.text = [NSString stringWithFormat:@"说明：%@",signIn.descriptionStr];
     //得到图片的宽度
     CGFloat width = (MAIN_SCREEN_WIDTH - 66 - 10) / 3.f;
     if(width > 90)
         width = 90;
+    if([NSString isBlank:signIn.attachments]) {
+        self.attemthHeight.constant = 0.01f;
+        return;
+    }
+    self.attemthHeight.constant = 90.f;
     NSArray *imageArr = [signIn.attachments componentsSeparatedByString:@","];
     for (int index = 0; index < imageArr.count; index ++) {
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(index * (width + 5), 0, width, width)];

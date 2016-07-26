@@ -52,7 +52,6 @@
     //根据打卡点设置范围
     if (_setting && _category < 2) {
         MACircle *cicle = [MACircle circleWithCenterCoordinate:CLLocationCoordinate2DMake(_setting.latitude, _setting.longitude) radius:_currSiginRule.scope];
-        [_mapView addOverlay:cicle];
         [_mapView addOverlay:cicle level:MAOverlayLevelAboveRoads];
     }
 }
@@ -101,7 +100,7 @@
     }
 }
 - (MAOverlayPathRenderer *)mapView:(MAMapView *)mapView rendererForOverlay:(id <MAOverlay>)overlay {
-    MAOverlayPathRenderer *circleRenderer = [[MAOverlayPathRenderer alloc] initWithOverlay:overlay];
+    MACircleRenderer *circleRenderer = [[MACircleRenderer alloc] initWithOverlay:overlay];
     circleRenderer.lineWidth   = 2.f;
     circleRenderer.strokeColor = [UIColor colorWithRed:1 green:0 blue:0 alpha:.3];
     circleRenderer.fillColor   = [UIColor colorWithRed:1 green:0 blue:0 alpha:.3];

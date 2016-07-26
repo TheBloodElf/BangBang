@@ -45,14 +45,14 @@
     for (NSString *workDay in array)
         [workArr addObject:_workDic[workDay]];
     NSString * timeStr = [workArr componentsJoinedByString:@","];
-    NSDate *upDate = [NSDate dateWithTimeIntervalSince1970:_siginRuleSet.start_work_time];
-    NSDate *downDate = [NSDate dateWithTimeIntervalSince1970:_siginRuleSet.end_work_time];
-    NSString *dateStr = [NSString stringWithFormat:@"%@:%@-%@:%@",@(upDate.hour),@(upDate.minute),@(downDate.hour),@(downDate.minute)];
+    NSDate *upDate = [NSDate dateWithTimeIntervalSince1970:_siginRuleSet.start_work_time / 1000];
+    NSDate *downDate = [NSDate dateWithTimeIntervalSince1970:_siginRuleSet.end_work_time / 1000];
+    NSString *dateStr = [NSString stringWithFormat:@"%02ld:%02ld-%02ld:%02ld",upDate.hour,upDate.minute,downDate.hour,downDate.minute];
     NSString *allStr = [NSString stringWithFormat:@"时间: %@; %@",timeStr,dateStr];
     self.attendTime.text = allStr;
     NSMutableArray *adressArr = [@[] mutableCopy];
     for (PunchCardAddressSetting *setting in _setting) {
-        [adressArr addObject:setting.address];
+        [adressArr addObject:setting.name];
     }
     self.attendAdress.text = [NSString stringWithFormat:@"地址: %@",[adressArr componentsJoinedByString:@","]];
 }

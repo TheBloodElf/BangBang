@@ -178,32 +178,32 @@
         } else if (indexPath.row == 1) {//上班时间
             palneCell.leftImageView.image = [UIImage imageNamed:@"work_up_time"];
             palneCell.titleLabel.text = @"上班时间";
-            NSDate *upTime = [NSDate dateWithTimeIntervalSince1970:_currSiginRule.start_work_time];
-            palneCell.detailLabel.text = [NSString stringWithFormat:@"%@:%@",@(upTime.hour),@(upTime.minute)];
+            NSDate *upTime = [NSDate dateWithTimeIntervalSince1970:_currSiginRule.start_work_time / 1000];
+            palneCell.detailLabel.text = [NSString stringWithFormat:@"%02ld:%02ld",upTime.hour,upTime.minute];
         } else {//下班时间
             palneCell.leftImageView.image = [UIImage imageNamed:@"work_down_time"];
             palneCell.titleLabel.text = @"下班时间";
-            NSDate *endTime = [NSDate dateWithTimeIntervalSince1970:_currSiginRule.end_work_time];
-            palneCell.detailLabel.text = [NSString stringWithFormat:@"%@:%@",@(endTime.hour),@(endTime.minute)];;
+            NSDate *endTime = [NSDate dateWithTimeIntervalSince1970:_currSiginRule.end_work_time / 1000];
+            palneCell.detailLabel.text = [NSString stringWithFormat:@"%02ld:%02ld",endTime.hour,endTime.minute];;
         }
     } else if (indexPath.section == 2) {
         if(indexPath.row == 0) {//打卡提醒
             PunchCardRemind *remidCell = (id)cell;
             remidCell.delegate = self;
             remidCell.onOffSwitch.on = _currSiginRule.is_alert;
-        } else if(indexPath.row == 1) {//上班时间
+        } else if(indexPath.row == 1) {//上班提醒
             PalneTableViewCell * palneCell = (id)cell;
             palneCell.leftImageView.image = [UIImage imageNamed:@"work_up_time"];
-            palneCell.titleLabel.text = @"上班时间";
+            palneCell.titleLabel.text = @"上班提醒";
             if (_currSiginRule.start_work_time_alert == 0) {
                  palneCell.detailLabel.text = @"准时";
             } else {
                  palneCell.detailLabel.text = [NSString stringWithFormat:@"%@分钟前",@(_currSiginRule.start_work_time_alert)];
             }
-        } else {//下班时间
+        } else {//下班提醒
             PalneTableViewCell * palneCell = (id)cell;
             palneCell.leftImageView.image = [UIImage imageNamed:@"work_down_time"];
-            palneCell.titleLabel.text = @"下班时间";
+            palneCell.titleLabel.text = @"下班提醒";
             if (_currSiginRule.end_work_time_alert == 0) {
                 palneCell.detailLabel.text = @"准时";
             } else {
@@ -255,7 +255,7 @@
             workDay.definesPresentationContext = YES;
             workDay.modalPresentationStyle = UIModalPresentationOverCurrentContext;
             [self presentViewController:workDay animated:NO completion:nil];
-            workDay.selectTimeBlock = ^(NSInteger date) {
+            workDay.selectTimeBlock = ^(int64_t date) {
                 _currSiginRule.start_work_time = date;
                 [_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
             };
@@ -265,7 +265,7 @@
             workDay.definesPresentationContext = YES;
             workDay.modalPresentationStyle = UIModalPresentationOverCurrentContext;
             [self presentViewController:workDay animated:NO completion:nil];
-            workDay.selectTimeBlock = ^(NSInteger date) {
+            workDay.selectTimeBlock = ^(int64_t date) {
                 _currSiginRule.end_work_time = date;
                 [_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
             };

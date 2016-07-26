@@ -86,6 +86,8 @@
     UIAlertAction *ok = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [[RCIMClient sharedRCIMClient] quitDiscussion:self.targetId success:^(RCDiscussion *discussion) {
             for (UserDiscuss *userDiscuss in _userDiscussArr) {
+                NSLog(@"%@---%@",userDiscuss,userDiscuss.discuss_id);
+                
                 if([userDiscuss.discuss_id isEqualToString:discussion.discussionId]) {
                     [_userManager deleteUserDiscuss:userDiscuss];
                     break;

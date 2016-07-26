@@ -67,7 +67,7 @@
     self.calendarContentView = [[JTHorizontalCalendarView alloc] initWithFrame:CGRectMake(0, 64, MAIN_SCREEN_WIDTH, Calendar_Height )];
     self.calendarManager.contentView = self.calendarContentView;
     [self.view addSubview:self.calendarContentView];
-    _rightBarLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 20)];
+    _rightBarLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 20)];
     _rightBarLabel.textColor = [UIColor blackColor];
     _rightBarLabel.textAlignment = NSTextAlignmentRight;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_rightBarLabel];

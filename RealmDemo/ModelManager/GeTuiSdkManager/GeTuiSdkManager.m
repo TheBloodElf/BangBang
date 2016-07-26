@@ -65,6 +65,7 @@
     NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&e];
     PushMessage *message = [PushMessage new];
     [message mj_setKeyValues:dict];
+    message.addTime = [NSDate date];
     message.from_user_no =  [[dict objectForKey:@"from"] intValue];
     message.to_user_no = [[dict objectForKey:@"to"] intValue];
     if ([message.type isEqualToString:@"VOTE"] || [message.type isEqualToString:@"NOTICE"]) {

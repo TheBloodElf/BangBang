@@ -21,8 +21,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.titleName.text = self.titleNameContent;
-    //先初始化第一个被选中
-    [self setSelectedAtIndex:0];
     // Do any additional setup after loading the view from its nib.
 }
 - (void)setSelectedAtIndex:(NSInteger)index {

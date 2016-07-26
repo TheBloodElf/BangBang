@@ -46,6 +46,12 @@
     }
     // Do any additional setup after loading the view.
 }
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackIndicatorTransitionMaskImage:nil];
+    [self.navigationController.navigationBar setShadowImage:nil];
+}
 - (void)dataDidChange {
     _calendar = [[Calendar alloc] initWithJSONDictionary:[self.data JSONDictionary]];
 }

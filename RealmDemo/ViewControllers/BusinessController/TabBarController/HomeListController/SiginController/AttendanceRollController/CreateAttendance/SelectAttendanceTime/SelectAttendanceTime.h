@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-typedef void(^SelectTimeBlock)(NSInteger selectDate);
+typedef void(^SelectTimeBlock)(int64_t selectDate);
 
 @protocol SelectAttendanceTimeDelegate <NSObject>
 
-- (void)selectAttendanceTime:(NSInteger)selectDate;
+- (void)selectAttendanceTime:(int64_t)selectDate;
 
 @end
 

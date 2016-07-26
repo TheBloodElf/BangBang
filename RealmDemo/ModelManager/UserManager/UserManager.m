@@ -297,7 +297,7 @@
 //添加日程
 - (void)addCalendar:(Calendar*)calendar {
     [_rlmRealm beginWriteTransaction];
-    [_rlmRealm addObject:calendar];
+    [_rlmRealm addOrUpdateObject:calendar];
     [_rlmRealm commitWriteTransaction];
 }
 //更新日程
@@ -309,21 +309,20 @@
 //更新所有的日程
 - (void)updateCalendars:(NSMutableArray<Calendar*>*)calendarArr {
     [_rlmRealm beginWriteTransaction];
-    RLMResults *pushMessages = [Calendar allObjectsInRealm:_rlmRealm];
-    while (pushMessages.count)
-        [_rlmRealm deleteObject:pushMessages.firstObject];
-    for (Calendar *calendar in calendarArr) {
-        [_rlmRealm addOrUpdateObject:calendar];
+    RLMResults *rLMResults = [Calendar allObjects];
+    while (rLMResults.count) {
+        [_rlmRealm deleteObject:rLMResults.firstObject];
     }
+    [_rlmRealm addOrUpdateObjectsFromArray:calendarArr];
     [_rlmRealm commitWriteTransaction];
 }
 //获取指定时间的日程 未删除的
 - (NSMutableArray<Calendar*>*)getCalendarArrWithDate:(NSDate*)date {
     NSMutableArray<Calendar*> *pushMessageArr = [@[] mutableCopy];
     [_rlmRealm beginWriteTransaction];
-    NSUInteger dateFirstTime = date.firstTime.timeIntervalSince1970 * 1000;
-    NSUInteger dateLastTime = date.lastTime.timeIntervalSince1970 * 1000;
-    NSString *resultStr = [NSString stringWithFormat:@"((enddate_utc >= %ld and begindate_utc <= %ld ) or (enddate_utc >= %ld and begindate_utc <= %ld ) or (enddate_utc <= %ld and begindate_utc >= %ld ) or (r_end_date_utc >= %ld and r_begin_date_utc <= %ld ) or (r_end_date_utc >= %ld and r_begin_date_utc <= %ld ) or (r_end_date_utc <= %ld and r_begin_date_utc >= %ld ))",dateLastTime,dateLastTime,dateFirstTime,dateFirstTime,dateLastTime,dateFirstTime,dateLastTime,dateLastTime,dateFirstTime,dateFirstTime,dateLastTime,dateFirstTime];
+    int64_t dateFirstTime = date.firstTime.timeIntervalSince1970 * 1000;
+    int64_t dateLastTime = date.lastTime.timeIntervalSince1970 * 1000;
+    NSString *resultStr = [NSString stringWithFormat:@"((enddate_utc >= %lld and begindate_utc <= %lld ) or (enddate_utc >= %lld and begindate_utc <= %lld ) or (enddate_utc <= %lld and begindate_utc >= %lld ) or (r_end_date_utc >= %lld and r_begin_date_utc <= %lld ) or (r_end_date_utc >= %lld and r_begin_date_utc <= %lld ) or (r_end_date_utc <= %lld and r_begin_date_utc >= %lld ))",dateLastTime,dateLastTime,dateFirstTime,dateFirstTime,dateLastTime,dateFirstTime,dateLastTime,dateLastTime,dateFirstTime,dateFirstTime,dateLastTime,dateFirstTime];
     RLMResults *calendarResult = [Calendar objectsInRealm:_rlmRealm where:resultStr];
     for (int index = 0;index < calendarResult.count;index ++) {
         Calendar *company = [calendarResult objectAtIndex:index];
@@ -358,16 +357,16 @@
 //添加签到记录
 - (void)addSigin:(SignIn*)signIn {
     [_rlmRealm beginWriteTransaction];
-    [_rlmRealm addObject:signIn];
+    [_rlmRealm addOrUpdateObject:signIn];
     [_rlmRealm commitWriteTransaction];
 }
 //更新今天的签到记录
 - (void)updateTodaySinInList:(NSMutableArray<SignIn*>*)sigInArr guid:(NSString*)employeeGuid{
     [_rlmRealm beginWriteTransaction];
     NSDate *date = [NSDate date];
-    NSUInteger dateFirstTime = date.firstTime.timeIntervalSince1970 * 1000;
-    NSUInteger dateLastTime = date.lastTime.timeIntervalSince1970 * 1000;
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(employee_guid = %@ and create_on_utc >= %ld and create_on_utc <= %ld)",employeeGuid,dateFirstTime,dateLastTime];
+    int64_t dateFirstTime = date.firstTime.timeIntervalSince1970 * 1000;
+    int64_t dateLastTime = date.lastTime.timeIntervalSince1970 * 1000;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(employee_guid = %@ and create_on_utc >= %lld and create_on_utc <= %lld)",employeeGuid,dateFirstTime,dateLastTime];
     RLMResults *calendarResult = [SignIn objectsInRealm:_rlmRealm withPredicate:predicate];
     while (calendarResult.count) {
         [_rlmRealm deleteObject:calendarResult.firstObject];
@@ -380,9 +379,9 @@
     NSMutableArray<SignIn*> *pushMessageArr = [@[] mutableCopy];
     [_rlmRealm beginWriteTransaction];
     NSDate *date = [NSDate date];
-    NSUInteger dateFirstTime = date.firstTime.timeIntervalSince1970 * 1000;
-    NSUInteger dateLastTime = date.lastTime.timeIntervalSince1970 * 1000;
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(employee_guid = %@ and create_on_utc >= %ld and create_on_utc <= %ld)",employeeGuid,dateFirstTime,dateLastTime];
+    int64_t dateFirstTime = date.firstTime.timeIntervalSince1970 * 1000;
+    int64_t dateLastTime = date.lastTime.timeIntervalSince1970 * 1000;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(employee_guid = %@ and create_on_utc >= %lld and create_on_utc <= %lld)",employeeGuid,dateFirstTime,dateLastTime];
     RLMResults *calendarResult = [SignIn objectsInRealm:_rlmRealm withPredicate:predicate];
     for (int index = 0;index < calendarResult.count;index ++) {
         SignIn *company = [calendarResult objectAtIndex:index];
@@ -395,9 +394,9 @@
 - (RBQFetchedResultsController*)createSigInListFetchedResultsController:(NSString*)employeeGuid {
     RBQFetchedResultsController *fetchedResultsController = nil;
     NSDate *date = [NSDate date];
-    NSUInteger dateFirstTime = date.firstTime.timeIntervalSince1970 * 1000;
-    NSUInteger dateLastTime = date.lastTime.timeIntervalSince1970 * 1000;
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(employee_guid = %@ and create_on_utc >= %ld and create_on_utc <= %ld)",employeeGuid,dateFirstTime,dateLastTime];
+    int64_t dateFirstTime = date.firstTime.timeIntervalSince1970 * 1000;
+    int64_t dateLastTime = date.lastTime.timeIntervalSince1970 * 1000;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(employee_guid = %@ and create_on_utc >= %lld and create_on_utc <= %lld)",employeeGuid,dateFirstTime,dateLastTime];
     RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"SignIn" inRealm:_rlmRealm predicate:predicate];
     fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:@"SignIn"];
     [fetchedResultsController performFetch];

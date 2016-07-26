@@ -30,7 +30,7 @@
     [self setConversationAvatarStyle:RC_USER_AVATAR_CYCLE];
     self.conversationListTableView.tableFooterView = [UIView new];
     
-    _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100 - 15, 64, 100, 40)];
+    _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100, 64, 100, 40)];
     _moreSelectView.selectArr = @[@"发起讨论"];
     [_moreSelectView setupUI];
     _moreSelectView.delegate = self;

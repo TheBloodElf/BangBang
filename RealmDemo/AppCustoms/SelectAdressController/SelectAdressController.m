@@ -150,7 +150,7 @@
 }
 #pragma mark -- 
 #pragma mark -- MAMapViewDelegate
-- (void)mapView:(MAMapView *)mapView regionDidChangeAnimated:(BOOL)animated
+- (void)mapView:(MAMapView *)mapView mapDidMoveByUser:(BOOL)wasUserAction
 {
     //得到当前地图中心点的位置信息
     CLLocationCoordinate2D d2d = [mapView convertPoint:_mapView.center toCoordinateFromView:_mapView];
@@ -173,6 +173,9 @@
 }
 #pragma mark --
 #pragma mark -- AMapSearchDelegate
+- (void)AMapSearchRequest:(id)request didFailWithError:(NSError *)error {
+    
+}
 - (void)onPOISearchDone:(AMapPOIAroundSearchRequest *)request response:(AMapPOISearchResponse *)response
 {
     //POI搜索结果回调

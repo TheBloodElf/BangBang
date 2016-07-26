@@ -25,11 +25,11 @@
 - (IBAction)okBtnAction:(id)sender {
     //通过代理回调
     if(self.delegate && [self.delegate respondsToSelector:@selector(selectAttendanceTime:)]) {
-        [self.delegate selectAttendanceTime:self.datePicker.date.timeIntervalSince1970];
+        [self.delegate selectAttendanceTime:self.datePicker.date.timeIntervalSince1970 * 1000];
     }
     //通过block回调
     if(self.selectTimeBlock) {
-        self.selectTimeBlock(self.datePicker.date.timeIntervalSince1970);
+        self.selectTimeBlock(self.datePicker.date.timeIntervalSince1970 * 1000);
     }
     [self dismissViewControllerAnimated:NO completion:nil];
 }

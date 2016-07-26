@@ -75,6 +75,7 @@
         for (NSDictionary *dic in data) {
             SiginRuleSet *set = [SiginRuleSet new];
             [set mj_setKeyValues:dic];
+            set.work_day = [dic[@"work_day"] componentsJoinedByString:@","];
             [array addObject:set];
         }
         [_userManager updateSiginRule:array companyNo:_userManager.user.currCompany.company_no];
@@ -116,6 +117,7 @@
                 for (NSDictionary *dic in data) {
                     SiginRuleSet *set = [SiginRuleSet new];
                     [set mj_setKeyValues:dic];
+                    set.work_day = [dic[@"work_day"] componentsJoinedByString:@","];
                     [array addObject:set];
                 }
                 [_userManager updateSiginRule:array companyNo:_userManager.user.currCompany.company_no];
