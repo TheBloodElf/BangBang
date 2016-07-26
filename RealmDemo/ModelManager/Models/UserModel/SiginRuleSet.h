@@ -37,6 +37,5 @@
 @property (nonatomic , strong) RLMArray<PunchCardAddressSetting> *json_list_address_settings;//设置的签到点位置
 
 + (instancetype)conpyFromSiginRuleSet:(SiginRuleSet*)siginRuleSet;
-- (instancetype)initWithJsonDic:(NSDictionary*)dic;
 
 @end

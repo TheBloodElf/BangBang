@@ -359,7 +359,11 @@
         //办公地点 地址删除按钮被点击
         NSMutableArray *array = [[_currSiginRule.json_list_address_settings NSArray] mutableCopy];
         [array removeObject:setting];
-        _currSiginRule.json_list_address_settings = (id)array;
+        RLMArray<PunchCardAddressSetting> *temp = [[RLMArray<PunchCardAddressSetting> alloc] initWithObjectClassName:@"PunchCardAddressSetting"];
+        for (PunchCardAddressSetting *setting in array) {
+            [temp addObject:setting];
+        }
+        _currSiginRule.json_list_address_settings = temp;
         [_tableView reloadSections:[NSIndexSet indexSetWithIndex:3] withRowAnimation:UITableViewRowAnimationNone];
     }];
     [alert addAction:ok];

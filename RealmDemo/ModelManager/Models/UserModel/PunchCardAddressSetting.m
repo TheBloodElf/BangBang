@@ -14,6 +14,9 @@
 + (NSString*)primaryKey {
     return @"id";
 }
++ (NSArray *)mj_ignoredPropertyNames {
+    return @[@"update_by"];
+}
 - (instancetype)initWithAMapPOI:(AMapPOI*)aMapPOI
 {
     if (self = [super init]) {

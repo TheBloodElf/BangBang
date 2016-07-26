@@ -17,7 +17,12 @@
 + (NSDictionary *)mj_objectClassInArray {
     return @{@"json_list_address_settings":@"PunchCardAddressSetting"};
 }
-
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{@"json_list_address_settings":@"address_settings"};
+}
++ (NSArray *)mj_ignoredPropertyNames {
+    return @[@"longitude",@"latitude",@"update_by"];
+}
 + (instancetype)conpyFromSiginRuleSet:(SiginRuleSet*)siginRuleSet {
     SiginRuleSet *temp = [SiginRuleSet new];
     temp.id = siginRuleSet.id;
@@ -49,40 +54,5 @@
     }
     temp.json_list_address_settings = (id)array;
     return temp;
-}
-- (instancetype)initWithJsonDic:(NSDictionary*)dic {
-    if(self = [super init]) {
-        self.id = [dic[@"id"] integerValue];
-        self.scope = [dic[@"scope"] integerValue];
-        self.longitude = [dic[@"longitude"] integerValue];
-        self.latitude = [dic[@"latitude"] integerValue];
-        self.address = dic[@"address"];
-        self.start_work_time = [dic[@"start_work_time"] integerValue];
-        self.end_work_time = [dic[@"end_work_time"] integerValue];
-        self.company_no = [dic[@"company_no"] integerValue];
-        self.create_by = dic[@"create_by"];
-        self.user_guid = dic[@"user_guid"];
-        self.country =  dic[@"country"];
-        self.province =  dic[@"province"];
-        self.city =  dic[@"city"];
-        self.subdistrict =  dic[@"subdistrict"];
-        self.setting_name =  dic[@"setting_name"];
-        self.setting_guid =  dic[@"setting_guid"];
-        self.create_on_utc =  [dic[@"create_on_utc"] integerValue];
-        self.update_on_utc =  [dic[@"update_on_utc"] integerValue];
-        self.work_day = [dic[@"work_day"] componentsJoinedByString:@","];
-        self.is_alert =  [dic[@"is_alert"] integerValue];
-        self.start_work_time_alert = [dic[@"start_work_time_alert"] integerValue];
-        self.end_work_time_alert = [dic[@"end_work_time_alert"] integerValue];
-        self.update_by = dic[@"update_by"];
-        NSMutableArray *array = [@[] mutableCopy];
-        for (NSDictionary *temp in dic[@"json_list_address_settings"]) {
-            PunchCardAddressSetting *setting = [PunchCardAddressSetting new];
-            [setting mj_setKeyValues:temp];
-            [array addObject:temp];
-        }
-        self.json_list_address_settings = (id)array;
-    }
-    return self;
 }
 @end

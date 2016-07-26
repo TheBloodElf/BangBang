@@ -442,7 +442,7 @@
     while (calendarResult.count) {
         [_rlmRealm deleteObject:calendarResult.firstObject];
     }
-    [_rlmRealm addObjects:sigRules];
+    [_rlmRealm addOrUpdateObjectsFromArray:sigRules];
     [_rlmRealm commitWriteTransaction];
 }
 //创建圈子的数据监听

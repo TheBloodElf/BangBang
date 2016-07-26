@@ -23,7 +23,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //Realm数据库版本
     RLMRealmConfiguration *config = [RLMRealmConfiguration defaultConfiguration];
-    config.schemaVersion = 10;
+    config.schemaVersion = 11;
     [RLMRealmConfiguration setDefaultConfiguration:config];
     //百度统计
     [self startBDMobStat];
@@ -31,6 +31,7 @@
     [Bugtags startWithAppKey:BUGTAGSAPPKEY invocationEvent:BugOpen];
     //百度地图注册
     [AMapServices sharedServices].apiKey = @"812f92db9078841bddb73919f07e8d15";
+    [AMapSearchServices sharedServices].apiKey = @"812f92db9078841bddb73919f07e8d15";
     //对应用进行全局的初始化
     [AppCustoms customs];
     //设置融云代理
