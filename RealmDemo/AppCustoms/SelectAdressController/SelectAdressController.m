@@ -150,7 +150,7 @@
 }
 #pragma mark -- 
 #pragma mark -- MAMapViewDelegate
-- (void)mapView:(MAMapView *)mapView mapDidMoveByUser:(BOOL)wasUserAction
+- (void)mapView:(MAMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
     //得到当前地图中心点的位置信息
     CLLocationCoordinate2D d2d = [mapView convertPoint:_mapView.center toCoordinateFromView:_mapView];
