@@ -33,8 +33,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"选择位置";
+    self.view.backgroundColor = [UIColor whiteColor];
     //配置百度地图
-    _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 64, MAIN_SCREEN_WIDTH, 250)];
+    _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 250 + 64)];
     _mapView.delegate = self;
     _mapView.showsUserLocation = YES;
     _mapView.zoomLevel = 16.f;
@@ -43,14 +44,14 @@
     centerView.frame = CGRectMake(0.5 * (_mapView.frame.size.width - centerView.frame.size.width), 125 - centerView.frame.size.height, centerView.frame.size.width, centerView.frame.size.height);
     [_mapView addSubview:centerView];
     UIButton *locationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    locationBtn.frame = CGRectMake(5, _mapView.frame.size.height - 5 - 35, 35, 35);
+    locationBtn.frame = CGRectMake(5, 250 - 5 - 35, 35, 35);
     [locationBtn setImage:[UIImage imageNamed:@"start_location_btn"] forState:UIControlStateNormal];
     [locationBtn addTarget:self action:@selector(startLocation) forControlEvents:UIControlEventTouchUpInside];
     _mapView.userInteractionEnabled = YES;
     [_mapView addSubview:locationBtn];
     
     UIButton *smallScaleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    smallScaleBtn.frame = CGRectMake(_mapView.frame.size.width - 5 - 35, _mapView.frame.size.height - 5 - 35, 35, 35);
+    smallScaleBtn.frame = CGRectMake(_mapView.frame.size.width - 5 - 35, 250 - 5 - 35, 35, 35);
     smallScaleBtn.backgroundColor = [UIColor whiteColor];
     [smallScaleBtn setImage:[UIImage imageNamed:@"small_scale_icon"] forState:UIControlStateNormal];
     [smallScaleBtn addTarget:self action:@selector(smallScale) forControlEvents:UIControlEventTouchUpInside];
@@ -58,7 +59,7 @@
     
     UIButton *bigScaleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     bigScaleBtn.backgroundColor = [UIColor whiteColor];
-    bigScaleBtn.frame = CGRectMake(_mapView.frame.size.width - 5 - 35 , _mapView.frame.size.height - 5 - 35 - 36, 35, 35);
+    bigScaleBtn.frame = CGRectMake(_mapView.frame.size.width - 5 - 35 , 250 - 5 - 35 - 36, 35, 35);
     [bigScaleBtn setImage:[UIImage imageNamed:@"big_scale_icon"] forState:UIControlStateNormal];
     [bigScaleBtn addTarget:self action:@selector(bigScale) forControlEvents:UIControlEventTouchUpInside];
     [_mapView addSubview:bigScaleBtn];
@@ -69,7 +70,7 @@
     [_mapView addSubview:spaceView];
     
     //配置表格
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_mapView.frame), MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - CGRectGetMaxY(_mapView.frame)) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 250, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 250 - 64) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.tableFooterView = [UIView new];
@@ -150,6 +151,13 @@
 }
 #pragma mark -- 
 #pragma mark -- MAMapViewDelegate
+- (void)mapView:(MAMapView *)mapView mapDidMoveByUser:(BOOL)wasUserAction {
+    //得到当前地图中心点的位置信息
+    CLLocationCoordinate2D d2d = [mapView convertPoint:_mapView.center toCoordinateFromView:_mapView];
+    //地图中心点发生变化
+    _searchPOIRequest.location = [AMapGeoPoint locationWithLatitude:d2d.latitude longitude:d2d.longitude];
+    [_tableView.mj_header beginRefreshing];
+}
 - (void)mapView:(MAMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
     //得到当前地图中心点的位置信息

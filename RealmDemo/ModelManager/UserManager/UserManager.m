@@ -310,9 +310,11 @@
 - (void)updateCalendars:(NSMutableArray<Calendar*>*)calendarArr {
     [_rlmRealm beginWriteTransaction];
     RLMResults *rLMResults = [Calendar allObjects];
-    while (rLMResults.count) {
-        [_rlmRealm deleteObject:rLMResults.firstObject];
+    NSMutableArray *array = [@[] mutableCopy];
+    for (int i = 0; i < rLMResults.count; i ++) {
+        [array addObject:[rLMResults objectAtIndex:i]];
     }
+    [_rlmRealm deleteObjects:array];
     [_rlmRealm addOrUpdateObjectsFromArray:calendarArr];
     [_rlmRealm commitWriteTransaction];
 }

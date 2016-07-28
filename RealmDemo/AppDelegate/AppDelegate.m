@@ -27,6 +27,10 @@
     [RLMRealmConfiguration setDefaultConfiguration:config];
     //百度统计
     [self startBDMobStat];
+    //注册微信APPID
+    [WXApi registerApp:@"wxbd349c9a6abf20f8" withDescription:@"weixin"];
+    //注册微博APPKEY
+    [WeiboSDK registerApp:@"3837588781"];
     //Bugtags初始化
     [Bugtags startWithAppKey:BUGTAGSAPPKEY invocationEvent:BugOpen];
     //百度地图注册
@@ -45,14 +49,8 @@
     [self.window makeKeyAndVisible];
     return YES;
 }
--(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
-{
-    return [TencentOAuth HandleOpenURL:url];
-}
-
--(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
-{
-    return [TencentOAuth HandleOpenURL:url];
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options {
+    return [TencentOAuth HandleOpenURL:url] || [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]] || [WeiboSDK handleOpenURL:url delegate:[WBApiManager shareManager]];
 }
 //收到推送token
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {

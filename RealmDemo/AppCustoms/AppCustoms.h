@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CMQRCode.h"
 
 @interface AppCustoms : NSObject
 

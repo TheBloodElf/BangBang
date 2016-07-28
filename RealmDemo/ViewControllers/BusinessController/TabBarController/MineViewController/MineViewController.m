@@ -47,6 +47,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+    self.navigationController.navigationBar.translucent = NO;
     [self.frostedViewController.navigationController setNavigationBarHidden:YES animated:YES];
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSFontAttributeName:[UIFont systemFontOfSize:17],

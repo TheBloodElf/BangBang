@@ -45,6 +45,11 @@
     [_businessNav.view willMoveToSuperview:self.view];
     [_businessNav willMoveToParentViewController:self];
     [_businessNav setNavigationBarHidden:YES animated:YES];
+    _businessNav.navigationBar.translucent = NO;
+    _businessNav.navigationBar.barTintColor = [UIColor homeListColor];
+    [_businessNav.navigationBar setTitleTextAttributes:
+     @{NSFontAttributeName:[UIFont systemFontOfSize:17],
+       NSForegroundColorAttributeName:[UIColor whiteColor]}];
     [self.view addSubview:_businessNav.view];
     //加上新消息的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecivePushMessage:) name:@"DidRecivePushMessage" object:nil];

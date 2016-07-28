@@ -42,7 +42,7 @@
     _search.delegate = self;
     
     //列表初始化
-    poiTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 300, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 300) style:UITableViewStylePlain];
+    poiTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 300, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 300 - 64) style:UITableViewStylePlain];
     poiTableView.delegate = self;
     poiTableView.dataSource = self;
     poiTableView.rowHeight = 60.0;

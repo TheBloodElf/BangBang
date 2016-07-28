@@ -120,7 +120,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     UpdateAttendanceController *update = [UpdateAttendanceController new];
-    update.data = _dataArr[indexPath.row];
+    update.data = [_dataArr[indexPath.row] deepCopy];
     [self.navigationController pushViewController:update animated:YES];
 }
 

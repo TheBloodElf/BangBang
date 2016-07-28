@@ -20,6 +20,7 @@
 #import "IdentityManager.h"
 #import "UserHttp.h"
 #import "RCTransferSelectViewController.h"
+#import "CreateMeetingController.h"
 
 @interface WebNonstandarViewController ()<UIWebViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,QLPreviewControllerDataSource,SingleSelectDelegate,MuliteSelectDelegate,MoreSelectViewDelegate,SelectImageDelegate>{
     NSURL *filePath1;
@@ -69,6 +70,8 @@
     //创建会议
     [_bridge registerHandler:@"addMeetingObjc" handler:^(id data, WVJBResponseCallback responseCallback){
         responseCallback(@"Response from testObjcCallback");
+        CreateMeetingController *createMeeting = [CreateMeetingController new];
+        [self.navigationController pushViewController:createMeeting animated:YES];
     }];
     //开始单聊
     [_bridge registerHandler:@"startPrivateChat" handler:^(id data, WVJBResponseCallback responseCallback){
@@ -262,11 +265,6 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:!self.showNavigationBar animated:YES];
-    self.navigationController.navigationBar.translucent = NO;
-    self.navigationController.navigationBar.barTintColor = [UIColor homeListColor];
-    [self.navigationController.navigationBar setTitleTextAttributes:
-     @{NSFontAttributeName:[UIFont systemFontOfSize:17],
-       NSForegroundColorAttributeName:[UIColor whiteColor]}];
 }
 //单选回调
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {

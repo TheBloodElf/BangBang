@@ -42,7 +42,7 @@
     _userFetchedResultsController = [_userManager createUserFetchedResultsController];
     _userFetchedResultsController.delegate = self;
     //创建表格视图
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT- 44) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT- 64) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.tableHeaderView = [self tableViewHeaderView];
@@ -150,11 +150,11 @@
     [_moreSelectView removeFromSuperview];
     //是不是当前圈子的管理员
     if([_userManager.user.currCompany.admin_user_guid isEqualToString:_userManager.user.user_guid]) {
-        _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100 - 15, 64, 100, 120)];
+        _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100 - 15, 0, 100, 120)];
         _moreSelectView.selectArr = @[@"发起群聊",@"邀请同事",@"申请管理"];
     }
     else {
-        _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100 - 15, 64, 100, 80)];
+        _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100 - 15, 0, 100, 80)];
         _moreSelectView.selectArr = @[@"发起群聊",@"邀请同事"];
     }
     _moreSelectView.delegate = self;

@@ -54,7 +54,7 @@
         _lineView.backgroundColor = [UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1];
         [self addSubview:_lineView];
         //创建滚动视图
-        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 32, frame.size.width, 180)];
+        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 32, frame.size.width, MAIN_SCREEN_WIDTH / 2.f)];
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.delegate = self;
         _scrollView.contentSize = CGSizeMake(frame.size.width * 2, _scrollView.frame.size.height);

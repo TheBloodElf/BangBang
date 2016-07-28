@@ -42,7 +42,7 @@
     _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     _scrollView.showsVerticalScrollIndicator = NO;
     //创建头部数据视图
-    CGFloat topViewHeight = 32 + 180;
+    CGFloat topViewHeight = 32 + MAIN_SCREEN_WIDTH / 2.f;
     _homeListTopView = [[HomeListTopView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, topViewHeight)];
     _homeListTopView.delegate = self;
     [_scrollView addSubview:_homeListTopView];

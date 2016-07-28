@@ -244,6 +244,9 @@
     if(self.delegate && [self.delegate respondsToSelector:@selector(muliteSelect:)]) {
         [self.delegate muliteSelect:employeeArr];
     }
+    if(self.muliteSelect) {
+        self.muliteSelect(employeeArr);
+    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 @end

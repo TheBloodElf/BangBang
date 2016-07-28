@@ -15,6 +15,8 @@
 
 @end
 
+typedef void(^MuliteSelect)(NSMutableArray<Employee*>*);
+
 @interface MuliteSelectController : UIViewController
 /**
  *  过滤的员工列表
@@ -35,5 +37,7 @@
 @property (nonatomic, strong) NSMutableArray<Employee*> *discussMember;
 
 @property (nonatomic, weak) id<MuliteSelectDelegate> delegate;
+
+@property (nonatomic, copy) MuliteSelect muliteSelect;
 
 @end

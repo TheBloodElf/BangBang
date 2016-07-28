@@ -158,6 +158,8 @@
     if(self.delegate && [self.delegate respondsToSelector:@selector(singleSelect:)]) {
         [self.delegate singleSelect:employee];
     }
+    if(self.singleSelect)
+        self.singleSelect(employee);
     [self.navigationController popViewControllerAnimated:YES];
 }
 @end

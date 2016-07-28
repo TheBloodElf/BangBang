@@ -28,7 +28,7 @@
             return ;
         }
         NSString * shortUrl = data[@"url_short"];
-        self.qrCodeImage.image = [CMQRCode QRCodeImage:shortUrl];
+        self.qrCodeImage.image = [QRCodeGenerator qrImageForString:shortUrl imageSize:200];
     }];
 }
 - (IBAction)exitVC:(id)sender {

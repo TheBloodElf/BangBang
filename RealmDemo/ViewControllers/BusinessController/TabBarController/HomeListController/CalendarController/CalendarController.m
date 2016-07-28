@@ -94,11 +94,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.barTintColor = [UIColor calendarColor];
-    self.navigationController.navigationBar.translucent = NO;
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    [self.navigationController.navigationBar setTitleTextAttributes:
-     @{NSFontAttributeName:[UIFont systemFontOfSize:17],
-       NSForegroundColorAttributeName:[UIColor whiteColor]}];
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -114,7 +110,7 @@
             }
             NSMutableArray *array = [@[] mutableCopy];
             for (NSDictionary *dic in data[@"list"]) {
-                Calendar *calendar = [Calendar new];
+                Calendar *calendar = [[Calendar alloc] init];
                 [calendar mj_setKeyValues:dic];
                 calendar.descriptionStr = dic[@"description"];
                 [array addObject:calendar];

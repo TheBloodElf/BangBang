@@ -107,8 +107,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     //导航透明
-    self.navigationController.navigationBar.barTintColor = [UIColor siginColor];
-    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.navigationBar.barTintColor = [UIColor homeListColor];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 #pragma mark --
@@ -162,7 +161,7 @@
         if(response.lives.count == 0)
             return;
         AMapLocalWeatherLive *live = response.lives[0];
-        NSString *addressAndWeatherStr = [NSString stringWithFormat:@"%@ %@ %@°C",self.weatherLabel.text,live.weather,live.temperature];
+        NSString *addressAndWeatherStr = [NSString stringWithFormat:@"%@ %@ %@°C",live.city,live.weather,live.temperature];
         self.weatherLabel.text = addressAndWeatherStr;
     }
 }

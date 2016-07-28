@@ -51,7 +51,7 @@
 }
 - (void)createCalendaView
 {
-    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, Calendar_Height + 1 + 64, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - Calendar_Height - 1 - 64)];
+    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, Calendar_Height + 1 , MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - Calendar_Height - 1)];
     [self.view addSubview:_webView];
     [WebViewJavascriptBridge enableLogging];
     _bridge = [WebViewJavascriptBridge bridgeForWebView:_webView webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
@@ -64,7 +64,7 @@
     self.calendarManager = [JTCalendarManager new];
     self.calendarManager.delegate = self;
     [self.calendarManager setDate:_currDate];
-    self.calendarContentView = [[JTHorizontalCalendarView alloc] initWithFrame:CGRectMake(0, 64, MAIN_SCREEN_WIDTH, Calendar_Height )];
+    self.calendarContentView = [[JTHorizontalCalendarView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, Calendar_Height )];
     self.calendarManager.contentView = self.calendarContentView;
     [self.view addSubview:self.calendarContentView];
     _rightBarLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 20)];

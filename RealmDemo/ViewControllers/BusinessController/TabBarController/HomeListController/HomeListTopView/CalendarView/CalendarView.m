@@ -67,7 +67,7 @@
     float tempValue = _todayFinishCount / (float)(_todayNoFinishCount + _todayFinishCount);
     leftLayer = [LineProgressLayer layer];
     leftLayer.bounds = self.leftView.bounds;
-    leftLayer.position = self.leftView.center;
+    leftLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
     leftLayer.contentsScale = [UIScreen mainScreen].scale;
     leftLayer.color = [UIColor colorWithRed:43 / 255.f green:181 / 255.f blue:162 / 255.f alpha:1];
     if (_todayFinishCount + _todayNoFinishCount == 0) {
@@ -82,7 +82,7 @@
     [self.leftView.layer insertSublayer:leftLayer atIndex:0];
     leftScondLayer = [LineProgressLayer layer];
     leftScondLayer.bounds = self.leftView.bounds;
-    leftScondLayer.position = self.leftView.center;
+    leftScondLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
     leftScondLayer.contentsScale = [UIScreen mainScreen].scale;
     leftScondLayer.animationDuration = tempValue * 1.5;
     leftScondLayer.completed = tempValue *leftLayer.total;
@@ -96,7 +96,7 @@
     float finishValue = _weekFinishCount / (float)(_weekNoFinishCount + _weekFinishCount);
     rightLayer = [LineProgressLayer layer];
     rightLayer.bounds = self.rightView.bounds;
-    rightLayer.position = self.leftView.center;
+    rightLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
     rightLayer.contentsScale = [UIScreen mainScreen].scale;
     rightLayer.color = [UIColor colorWithRed:43 / 255.f green:181 / 255.f blue:162 / 255.f alpha:1];
     if (_weekNoFinishCount + _weekFinishCount == 0) {
@@ -112,7 +112,7 @@
     
     rightScondLayer = [LineProgressLayer layer];
     rightScondLayer.bounds = self.rightView.bounds;
-    rightScondLayer.position = self.leftView.center;
+    rightScondLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
     rightScondLayer.contentsScale = [UIScreen mainScreen].scale;
     rightScondLayer.animationDuration = finishValue * 1.5;
     rightScondLayer.completed = finishValue *rightLayer.total;

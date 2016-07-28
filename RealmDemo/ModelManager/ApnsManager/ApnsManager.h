@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+//本地推动管理器
 @interface ApnsManager : NSObject
 
 + (instancetype)manager;

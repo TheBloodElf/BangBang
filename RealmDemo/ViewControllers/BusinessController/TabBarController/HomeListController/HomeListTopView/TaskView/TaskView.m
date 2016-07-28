@@ -86,7 +86,7 @@
     if (_leftWillEndCount == 0 && _leftDidEndCount == 0) {
         leftLayer = [LineProgressLayer layer];
         leftLayer.bounds = self.leftView.bounds;
-        leftLayer.position = self.leftView.center;
+        leftLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
         leftLayer.contentsScale = [UIScreen mainScreen].scale;
         leftLayer.color = [UIColor colorWithRed:43 / 255.f green:181 / 255.f blue:162 / 255.f alpha:1];
         [leftLayer setNeedsDisplay];
@@ -96,7 +96,7 @@
         //第一层
         leftLayer = [LineProgressLayer layer];
         leftLayer.bounds = self.leftView.bounds;
-        leftLayer.position = self.leftView.center;
+        leftLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
         leftLayer.contentsScale = [UIScreen mainScreen].scale;
         leftLayer.color = [UIColor colorWithRed:43 / 255.f green:181 / 255.f blue:162 / 255.f alpha:1];
         leftLayer.animationDuration = tempValueRed * 1.5;
@@ -108,7 +108,7 @@
         //第二层
         greenLayer = [LineProgressLayer layer];
         greenLayer.bounds = self.leftView.bounds;
-        greenLayer.position = self.leftView.center;
+        greenLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
         greenLayer.contentsScale = [UIScreen mainScreen].scale;
         greenLayer.color = [UIColor clearColor];
         greenLayer.animationDuration = tempValueYellow * 1.5;
@@ -120,7 +120,7 @@
         //第三层
         leftThridLayer = [LineProgressLayer layer];
         leftThridLayer.bounds = self.leftView.bounds;
-        leftThridLayer.position = self.leftView.center;
+        leftThridLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
         leftThridLayer.contentsScale = [UIScreen mainScreen].scale;
         leftThridLayer.color = [UIColor clearColor];
         leftThridLayer.animationDuration = tempValueGreen * 1.5;
@@ -140,7 +140,7 @@
         //第一层
         rightLayer = [LineProgressLayer layer];
         rightLayer.bounds = self.rightView.bounds;
-        rightLayer.position = self.leftView.center;
+        rightLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
         rightLayer.contentsScale = [UIScreen mainScreen].scale;
         rightLayer.color = [UIColor colorWithRed:43 / 255.f green:181 / 255.f blue:162 / 255.f alpha:1];
         [rightLayer setNeedsDisplay];
@@ -150,7 +150,7 @@
         //第一层
         rightLayer = [LineProgressLayer layer];
         rightLayer.bounds = self.rightView.bounds;
-        rightLayer.position = self.leftView.center;
+        rightLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
         rightLayer.contentsScale = [UIScreen mainScreen].scale;
         rightLayer.color = [UIColor colorWithRed:43 / 255.f green:181 / 255.f blue:162 / 255.f alpha:1];
         rightLayer.animationDuration = rightValueRed * 1.5;
@@ -162,7 +162,7 @@
         //第二层
         rightGreenLayer = [LineProgressLayer layer];
         rightGreenLayer.bounds = self.rightView.bounds;
-        rightGreenLayer.position = self.leftView.center;
+        rightGreenLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
         rightGreenLayer.contentsScale = [UIScreen mainScreen].scale;
         rightGreenLayer.color = [UIColor clearColor];
         rightGreenLayer.animationDuration = rightValueYellow * 1.5;
@@ -174,7 +174,7 @@
         //第三层
         rightThirdLayer = [LineProgressLayer layer];
         rightThirdLayer.bounds = self.rightView.bounds;
-        rightThirdLayer.position = self.leftView.center;
+        rightThirdLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
         rightThirdLayer.contentsScale = [UIScreen mainScreen].scale;
         rightThirdLayer.color = [UIColor clearColor];
         rightThirdLayer.animationDuration = rightValueGreen * 1.5;

@@ -9,8 +9,10 @@
 #ifndef UtikIes_h
 #define UtikIes_h
 
+#import <UIKit/UIKit.h>
 #import "DataCache.h"
 #import "GeTuiSdk.h"
+#import "QRCodeGenerator.h"
 #import <Bugtags/Bugtags.h>
 #import "BaiduMobStat.h"
 #import <Realm/Realm.h>
@@ -45,5 +47,7 @@
 #import "RLMObject+JSON.h"
 #import "RLMObject+Copying.h"
 #import <TencentOpenAPI/TencentOAuth.h>
+#import "WBApiManager.h"
+#import "WXApiManager.h"
 
 #endif /* UtikIes_h */

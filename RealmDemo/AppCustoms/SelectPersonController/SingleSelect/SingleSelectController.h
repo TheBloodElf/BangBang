@@ -17,6 +17,8 @@
 
 @end
 
+typedef void(^SingleSelect)(Employee*);
+
 //人员单选
 @interface SingleSelectController : UIViewController
 /**
@@ -33,5 +35,7 @@
 @property (nonatomic, strong) NSMutableArray<Employee*> *discussMember;
 
 @property (nonatomic, weak) id<SingleSelectDelegate> delegate;
+
+@property (nonatomic, copy) SingleSelect singleSelect;
 
 @end

@@ -27,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"选择位置";
-    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 64, MAIN_SCREEN_WIDTH, 55)];
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 55)];
     _searchBar.placeholder = @" 输入你要搜索的内容...";
     _searchBar.delegate = self;
     [self.view addSubview:_searchBar];

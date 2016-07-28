@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MeetingAgendaCell" rowHeight="60" id="KGk-i7-Jjw" customClass="MeetingAgendaCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="15" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hMr-vb-a8F">
+                        <rect key="frame" x="15" y="19" width="18" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="CUo-Rr-wB7"/>
+                            <constraint firstAttribute="width" constant="25" id="vAV-oe-XcO"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="CUo-Rr-wB7"/>
+                                <exclude reference="vAV-oe-XcO"/>
+                            </mask>
+                        </variation>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Fd-Af-IWV">
+                        <rect key="frame" x="40" y="8" width="1" height="43"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="1" id="7L5-tE-m3K"/>
+                        </constraints>
+                    </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ebl-sa-b8S">
+                        <rect key="frame" x="285" y="19" width="20" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="20" id="aKN-9n-fWd"/>
+                        </constraints>
+                        <state key="normal" image="chat_discuss_delete_badge"/>
+                        <connections>
+                            <action selector="deleteClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Dv1-Ee-NQQ"/>
+                        </connections>
+                    </button>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="填写议程" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z0t-bm-jFD">
+                        <rect key="frame" x="46" y="12" width="219" height="35"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="35" id="kJx-Hg-D6D"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="ebl-sa-b8S" firstAttribute="leading" secondItem="Z0t-bm-jFD" secondAttribute="trailing" constant="20" id="3v0-S6-6bg"/>
+                    <constraint firstItem="hMr-vb-a8F" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ACq-Ts-ahY"/>
+                    <constraint firstItem="3Fd-Af-IWV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="40" id="Dsj-pT-mBs"/>
+                    <constraint firstAttribute="leading" secondItem="hMr-vb-a8F" secondAttribute="leading" constant="-15" id="HnM-dt-ayI"/>
+                    <constraint firstItem="3Fd-Af-IWV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="QRt-vL-hny"/>
+                    <constraint firstItem="Z0t-bm-jFD" firstAttribute="leading" secondItem="3Fd-Af-IWV" secondAttribute="trailing" constant="5" id="WwQ-d1-JhU"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="3Fd-Af-IWV" secondAttribute="bottom" id="gkf-6l-JB0"/>
+                    <constraint firstItem="Z0t-bm-jFD" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="7" id="iLC-Hs-VhL"/>
+                    <constraint firstAttribute="trailing" secondItem="ebl-sa-b8S" secondAttribute="trailing" constant="15" id="loa-dE-GY6"/>
+                    <constraint firstItem="Z0t-bm-jFD" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="m5A-gD-RzU"/>
+                    <constraint firstItem="Z0t-bm-jFD" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="oqf-0x-Bg5"/>
+                    <constraint firstAttribute="bottom" secondItem="Z0t-bm-jFD" secondAttribute="bottom" constant="8" id="wY1-TL-hAp"/>
+                    <constraint firstItem="ebl-sa-b8S" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="yW5-1d-MuD"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="iLC-Hs-VhL"/>
+                        <exclude reference="m5A-gD-RzU"/>
+                        <exclude reference="wY1-TL-hAp"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="agendaNumber" destination="hMr-vb-a8F" id="2d4-Vj-BkH"/>
+                <outlet property="agendaText" destination="Z0t-bm-jFD" id="YBy-Il-eAU"/>
+                <outlet property="deleteBtn" destination="ebl-sa-b8S" id="7TT-0z-fow"/>
+            </connections>
+            <point key="canvasLocation" x="411" y="294"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="chat_discuss_delete_badge" width="20" height="20"/>
+    </resources>
+</document>

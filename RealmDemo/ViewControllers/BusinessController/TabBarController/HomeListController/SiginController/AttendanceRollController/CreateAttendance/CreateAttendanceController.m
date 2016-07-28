@@ -57,7 +57,7 @@
     _currSiginRule.company_no = _userManager.user.currCompany.company_no;
     _workDic = @{@"1":@"周一",@"2":@"周二",@"3":@"周三",@"4":@"周四",@"5":@"周五",@"6":@"周六",@"7":@"周日",};
     //初始化表格视图
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT) style:UITableViewStyleGrouped];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 64) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.tableFooterView = [UIView new];
@@ -367,11 +367,7 @@
         //办公地点 地址删除按钮被点击
         NSMutableArray *array = [[_currSiginRule.json_list_address_settings NSArray] mutableCopy];
         [array removeObject:setting];
-        RLMArray<PunchCardAddressSetting> *temp = [[RLMArray<PunchCardAddressSetting> alloc] initWithObjectClassName:@"PunchCardAddressSetting"];
-        for (PunchCardAddressSetting *setting in array) {
-            [temp addObject:setting];
-        }
-        _currSiginRule.json_list_address_settings = temp;
+        _currSiginRule.json_list_address_settings = (id)array;
         [_tableView reloadSections:[NSIndexSet indexSetWithIndex:3] withRowAnimation:UITableViewRowAnimationNone];
     }];
     [alert addAction:ok];
@@ -401,8 +397,12 @@
         _currSiginRule.create_on_utc = [[NSDate new] timeIntervalSince1970];
         _currSiginRule.update_on_utc = [[NSDate new] timeIntervalSince1970];
         _currSiginRule.update_by = employee.employee_guid;
+        RLMArray<PunchCardAddressSetting> *punchCardAddressSettingArray = [[RLMArray<PunchCardAddressSetting> alloc] initWithObjectClassName:@"PunchCardAddressSetting"];
+        int idCount = 0;
         for (PunchCardAddressSetting *setting in _currSiginRule.json_list_address_settings) {
             setting.update_by = employee.employee_guid;
+            setting.id = idCount ++;
+            [punchCardAddressSettingArray addObject:[setting deepCopy]];
         }
         NSMutableDictionary *dic = [[_currSiginRule JSONDictionary] mutableCopy];
         NSString *str = [[_currSiginRule.json_list_address_settings JSONArray] mj_JSONString];
@@ -416,6 +416,7 @@
             }
             _currSiginRule.setting_guid = data;
            [self.navigationController.view showSuccessTips:@"添加成功"];
+            _currSiginRule.json_list_address_settings = punchCardAddressSettingArray;
            [_userManager addSiginRule:_currSiginRule];
            [self.navigationController popViewControllerAnimated:YES];
         }];
