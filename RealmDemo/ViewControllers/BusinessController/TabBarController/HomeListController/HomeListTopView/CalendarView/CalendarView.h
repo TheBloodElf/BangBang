@@ -21,4 +21,6 @@
 
 @property (nonatomic, weak) id<CalendarViewDeleagate> delegate;
 
+- (void)setupUI;
+
 @end

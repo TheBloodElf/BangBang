@@ -21,4 +21,6 @@
 
 @property (nonatomic, weak) id<TaskViewDelegate> delegate;
 
+- (void)setupUI;
+
 @end

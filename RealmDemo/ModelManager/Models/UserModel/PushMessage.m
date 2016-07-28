@@ -9,7 +9,7 @@
 #import "PushMessage.h"
 
 #define pushMessageDic @{@"COMPANY":@{@"typeString":@"微圈通知",@"unreadImageName":@"pushMessage_circle.png",@"readImageName":@"pushMessage_circle1.png"},\
-@"TASK":@{@"typeString":@"任务通知",@"unreadImageName":@"pushMessage_task.png",@"readImageName":@"pushMessage_task.png"},\
+@"TASK":@{@"typeString":@"任务通知",@"unreadImageName":@"pushMessage_task.png",@"readImageName":@"pushMessage_task1.png"},\
 @"REQUEST":@{@"typeString":@"请示提醒通知",@"unreadImageName":@"pushMessage_approve.png",@"readImageName":@"pushMessage_approve1.png"},\
 @"NEW_APPROVAL":@{@"typeString":@"审批提醒通知",@"unreadImageName":@"pushMessage_approve.png",@"readImageName":@"pushMessage_approve1.png"},\
 @"SYSTEM":@{@"typeString":@"系统通知",@"unreadImageName":@"ic_notice_system.png",@"readImageName":@"ic_notice_system1.png"},\

@@ -26,7 +26,11 @@
     _userManager = [UserManager manager];
     [self setMessageAvatarStyle:RC_USER_AVATAR_CYCLE];
     self.chatSessionInputBarControl.delegate = self;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(rightClicked:)];
+    NSString *nameStr = @"ic_group";
+    if(self.conversationType == ConversationType_PRIVATE) {
+        nameStr = @"ic_person";
+    }
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:nameStr] style:UIBarButtonItemStylePlain target:self action:@selector(rightClicked:)];
     // Do any additional setup after loading the view.
 }
 - (void)viewWillAppear:(BOOL)animated {

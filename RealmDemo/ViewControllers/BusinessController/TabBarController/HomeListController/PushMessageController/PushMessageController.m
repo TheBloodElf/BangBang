@@ -8,11 +8,18 @@
 
 #import "PushMessageController.h"
 #import "PushMessageCell.h"
+#import "WebNonstandarViewController.h"
+#import "RequestManagerController.h"
+#import "BushManageViewController.h"
+#import "ComCalendarDetailViewController.h"
+#import "RepCalendarDetailController.h"
 #import "PushMessage.h"
 #import "UserManager.h"
+#import "IdentityManager.h"
 
 @interface PushMessageController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,RBQFetchedResultsControllerDelegate> {
     UserManager *_userManager;
+    IdentityManager *_identityManager;
     UITableView *_tableView;//表格视图
     NSMutableArray<PushMessage*> *_pushMessageArr;//搜索视图的数据
     UIView *_noDataView;//没有数据的视图
@@ -28,18 +35,19 @@
     [super viewDidLoad];
     self.title = @"消息";
     _userManager = [UserManager manager];
+    _identityManager = [IdentityManager manager];
     _pushMessageFetchedResultsController = [_userManager createPushMessagesFetchedResultsController];
     _pushMessageFetchedResultsController.delegate = self;
     _pushMessageArr = [@[] mutableCopy];
     //创建搜素视图
     //创建搜索框
-    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 64, MAIN_SCREEN_WIDTH, 55)];
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 55)];
     _searchBar.delegate = self;
     _searchBar.placeholder = @"搜索";
     _searchBar.returnKeyType = UIReturnKeySearch;
     [self.view addSubview:_searchBar];
     //创建表格视图
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64 + 55, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 64 - 55) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 55, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 55) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.tableFooterView = [UIView new];
@@ -61,6 +69,16 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"标记" style:UIBarButtonItemStylePlain target:self action:@selector(biaojiClicked:)];
     [self searchDataFormLoc];
     // Do any additional setup after loading the view.
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+#pragma mark --
+#pragma mark -- RBQFetchedResultsControllerDelegate
+- (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
+    _pushMessageArr = (id)controller.fetchedObjects;
+    [_tableView reloadData];
 }
 //表格视图长按手势
 - (void)longClicked:(UILongPressGestureRecognizer*)lpgr {
@@ -134,11 +152,6 @@
         _tableView.tableFooterView = [UIView new];
     [_tableView reloadData];
 }
-#pragma mark --
-#pragma mark -- RBQFetchedResultsControllerDelegate
-- (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
-    [self searchDataFormLoc];
-}
 #pragma mark -- 
 #pragma mark -- UISearchBarDelegate
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
@@ -159,15 +172,81 @@
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(tableView.editing == NO)
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if(tableView.editing == YES)
+        return;
     else {
-        if(_pushMessageArr[indexPath.row].unread == YES) {
-            PushMessage *message = [PushMessage copyFromPushMessage:_pushMessageArr[indexPath.row]];
-            message.unread = NO;
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        PushMessage *message = [PushMessage copyFromPushMessage:_pushMessageArr[indexPath.row]];
+        if(message.unread == true) {
+            message.unread = false;
             [_userManager updatePushMessage:message];
         }
         //分别进入对应的界面进行操作
+        //如果是圈子操作
+        if([message.type isEqualToString:@"COMPANY"]) {
+            if([message.action isEqualToString:@"GENERAL"]) {
+                [self.navigationController pushViewController:[RequestManagerController new] animated:YES];
+            } else {
+                [self.navigationController pushViewController:[BushManageViewController new] animated:YES];
+            }
+        } else if ([message.type isEqualToString:@"TASK"]) {//如果是任务
+            //进入任务详情
+        } else if ([message.type isEqualToString:@"TASK_COMMENT_STATUS"]) {//如果是任务讨论信息变了
+            //查看任务详情
+        } else if ([message.type isEqualToString:@"CALENDARTIP"] || [message.type isEqualToString:@"CALENDAR"]) {//日程推送：日程分享
+            NSArray<Calendar*> *calendarArr = [[UserManager manager] getCalendarArr];
+            Calendar *calendar = nil;
+            for (Calendar *temp in calendarArr) {
+                if([message.target_id isEqualToString:temp.target_id]) {
+                    calendar = temp;
+                    break;
+                }
+            }
+            if(calendar.repeat_type == 0) {
+                ComCalendarDetailViewController *com = [ComCalendarDetailViewController new];
+                com.data = calendar;
+                [self.navigationController pushViewController:com animated:YES];
+            } else {
+                RepCalendarDetailController *com = [RepCalendarDetailController new];
+                com.data = calendar;
+                [self.navigationController pushViewController:com animated:YES];
+            }
+        } else if ([message.type isEqualToString:@"TASKTIP"]) {//任务提醒推送
+            //进入任务详情
+        }//网页
+        else if ([message.type isEqualToString:@"REQUEST"]){
+            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
+            webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@request/details?id=%@&userGuid=%@&access_token=%@&from=message&companyNo=%d",XYFMobileDomain,message.target_id,_userManager.user.user_guid,_identityManager.identity.accessToken,message.company_no];
+            [self.navigationController pushViewController:webViewcontroller animated:YES];
+        } else if ([message.type isEqualToString:@"APPROVAL"]){
+            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
+            webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@Approval/Details?id=%@&userGuid=%@&access_token=%@&from=message&companyNo=%d",XYFMobileDomain,message.target_id,_userManager.user.user_guid,_identityManager.identity.accessToken,message.company_no];
+            [self.navigationController pushViewController:webViewcontroller animated:YES];
+        } else if ([message.type isEqualToString:@"NEW_APPROVAL"]){
+            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
+            webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@ApprovalByFormBuilder/Details?id=%@&userGuid=%@&access_token=%@&from=message&companyNo=%d",XYFMobileDomain,message.target_id,_userManager.user.user_guid,_identityManager.identity.accessToken,message.company_no];
+            [self.navigationController pushViewController:webViewcontroller animated:YES];
+        } else if([message.type isEqualToString:@"MAIL"]){
+            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
+            webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@Mail/Details?id=%@&isSend=false&userGuid=%@&companyNo=%d&access_token=%@&from=message",XYFMobileDomain,message.target_id,_userManager.user.user_guid,message.company_no,_identityManager.identity.accessToken];
+            [self.navigationController pushViewController:webViewcontroller animated:YES];
+        } else if([message.type isEqualToString:@"MEETING"]){
+            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
+            webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@Meeting/Details?id=%@&userGuid=%@&companyNo=%d&access_token=%@&from=message",XYFMobileDomain,message.target_id,_userManager.user.user_guid,message.company_no,_identityManager.identity.accessToken];
+            [self.navigationController pushViewController:webViewcontroller animated:YES];
+        } else if([message.type isEqualToString:@"VOTE"]){
+            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
+            webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@Vote/Details?id=%@&userGuid=%@&companyNo=%d&access_token=%@&from=message",XYFMobileDomain,message.target_id,_userManager.user.user_guid,message.company_no,_identityManager.identity.accessToken];
+            [self.navigationController pushViewController:webViewcontroller animated:YES];
+        } else if([message.type isEqualToString:@"NOTICE"]){
+            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
+            webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@NOTICE/Details?id=%@&userGuid=%@&companyNo=%d&access_token=%@&from=message",XYFMobileDomain,message.target_id,_userManager.user.user_guid,message.company_no,_identityManager.identity.accessToken];
+            [self.navigationController pushViewController:webViewcontroller animated:YES];
+        } else if ([message.type isEqualToString:@"WORK_ORDER"]) {
+            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
+            webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@workorder/ClientDetails?id=%@&userGuid=%@&companyNo=%d&access_token=%@&from=message",XYFMobileDomain,message.target_id,_userManager.user.user_guid,message.company_no,_identityManager.identity.accessToken];
+            [self.navigationController pushViewController:webViewcontroller animated:YES];
+        }
     }
 }
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath

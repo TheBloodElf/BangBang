@@ -30,7 +30,7 @@
     self.companyName.text = company.company_name;
     self.companyName.textColor = [UIColor whiteColor];
     if(_userManager.user.currCompany.company_no == company.company_no) {
-        self.companyName.textColor = [UIColor orangeColor];
+        self.companyName.textColor = [UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1];
     }
 }
 @end

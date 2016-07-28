@@ -7,41 +7,190 @@
 //
 
 #import "TaskView.h"
+#import "UserManager.h"
+#import "LineProgressLayer.h"
+
+@interface TaskView  ()<RBQFetchedResultsControllerDelegate> {
+    UserManager *_userManager;
+    RBQFetchedResultsController *_userTaskFetchedResultsController;
+    int _leftWillEndCount;//我委派的将到期数量
+    int _leftDidEndCount;//我委派的已到期数量
+    int _leftAllCount;//我委派的总数
+    int _rightWillEndCount;//我负责的讲到期数量
+    int _rightDidEndCount;//我负责的已到期数量
+    int _rightAllCount;//我负责的总数
+    
+    LineProgressLayer *leftLayer;//左边动画图层第一层
+    LineProgressLayer *greenLayer;//左边绿色的画图层第二层
+    LineProgressLayer *leftThridLayer;//左边第三层
+    
+    LineProgressLayer *rightLayer; // 右面动画图层第一层
+    LineProgressLayer *rightGreenLayer;//右边第二层
+    LineProgressLayer *rightThirdLayer;//右边第三层
+}
+//左边视图
+@property (weak, nonatomic) IBOutlet UIView *leftView;
+@property (weak, nonatomic) IBOutlet UILabel *leftWillEnd;
+@property (weak, nonatomic) IBOutlet UILabel *leftDidEnd;
+@property (weak, nonatomic) IBOutlet UILabel *leftAll;
+
+//右边视图
+@property (weak, nonatomic) IBOutlet UIView *rightView;
+@property (weak, nonatomic) IBOutlet UILabel *rightWillEnd;
+@property (weak, nonatomic) IBOutlet UILabel *rightDidEnd;
+@property (weak, nonatomic) IBOutlet UILabel *rightAll;
+
+@end
 
 @implementation TaskView
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        
-    }
-    return self;
+
+- (void)setupUI {
+    self.userInteractionEnabled = YES;
+    _userManager = [UserManager manager];
+    _userTaskFetchedResultsController = [_userManager createUserFetchedResultsController];
+    _userTaskFetchedResultsController.delegate = self;
+    //给这几个数字填充值
+    [self getCurrCount];
+    //添加动画
+    [self createPie];
 }
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        self.userInteractionEnabled = YES;
-        //这里先创建两个按钮玩玩，具体的后面来做
-        UIButton *todayFinish = [UIButton buttonWithType:UIButtonTypeSystem];
-        todayFinish.frame = CGRectMake(0, 0, frame.size.width / 2, frame.size.height);
-        [todayFinish setTitle:@"我委托的" forState:UIControlStateNormal];
-        [todayFinish addTarget:self action:@selector(todayFinishClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:todayFinish];
-        UIButton *weekFinish = [UIButton buttonWithType:UIButtonTypeSystem];
-        weekFinish.frame = CGRectMake(frame.size.width / 2, 0, frame.size.width / 2, frame.size.height);
-        [weekFinish setTitle:@"我负责的" forState:UIControlStateNormal];
-        [weekFinish addTarget:self action:@selector(weekFinishClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:weekFinish];
-    }
-    return self;
+#pragma mark --
+#pragma mark -- RBQFetchedResultsControllerDelegate
+- (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
+    _leftWillEndCount = _leftDidEndCount = _leftAllCount = _rightAllCount = _rightDidEndCount = _rightWillEndCount = 0;
+    [self getCurrCount];
+    [self createPie];
 }
-- (void)todayFinishClicked:(UIButton*)btn {
+- (void)getCurrCount {
+    
+}
+- (void)createPie {
+    [leftLayer removeFromSuperlayer];
+    [leftThridLayer removeFromSuperlayer];
+    [greenLayer removeFromSuperlayer];
+    [rightLayer removeFromSuperlayer];
+    [rightGreenLayer removeFromSuperlayer];
+    [rightThirdLayer removeFromSuperlayer];
+    
+    self.leftAll.text = [NSString stringWithFormat:@"%d",_leftAllCount];
+    self.leftDidEnd.text = [NSString stringWithFormat:@"%d",_leftDidEndCount];
+    self.leftWillEnd.text = [NSString stringWithFormat:@"%d",_leftWillEndCount];
+    self.rightAll.text = [NSString stringWithFormat:@"%d",_rightAllCount];
+    self.rightDidEnd.text = [NSString stringWithFormat:@"%d",_rightDidEndCount];
+    self.rightWillEnd.text = [NSString stringWithFormat:@"%d",_rightWillEndCount];
+    //我委派的任务 数据面板
+    float tempValueRed = 1.0;
+    float tempValueYellow = (_leftAllCount - _leftDidEndCount)/(float)_leftAllCount;
+    float tempValueGreen = (_leftAllCount - _leftDidEndCount - _leftWillEndCount)/(float)_leftAllCount;
+    //我委派的数字动画和动画时间
+    if (_leftWillEndCount == 0 && _leftDidEndCount == 0) {
+        leftLayer = [LineProgressLayer layer];
+        leftLayer.bounds = self.leftView.bounds;
+        leftLayer.position = self.leftView.center;
+        leftLayer.contentsScale = [UIScreen mainScreen].scale;
+        leftLayer.color = [UIColor colorWithRed:43 / 255.f green:181 / 255.f blue:162 / 255.f alpha:1];
+        [leftLayer setNeedsDisplay];
+        [leftLayer showAnimate];
+        [self.leftView.layer insertSublayer:leftLayer atIndex:0];
+    } else {
+        //第一层
+        leftLayer = [LineProgressLayer layer];
+        leftLayer.bounds = self.leftView.bounds;
+        leftLayer.position = self.leftView.center;
+        leftLayer.contentsScale = [UIScreen mainScreen].scale;
+        leftLayer.color = [UIColor colorWithRed:43 / 255.f green:181 / 255.f blue:162 / 255.f alpha:1];
+        leftLayer.animationDuration = tempValueRed * 1.5;
+        leftLayer.completed =  leftLayer.total;
+        leftLayer.completedColor = [UIColor colorWithRed:1 green:105/255.f blue:64/255.f alpha:1];
+        [leftLayer setNeedsDisplay];
+        [leftLayer showAnimate];
+        [self.leftView.layer addSublayer:leftLayer];
+        //第二层
+        greenLayer = [LineProgressLayer layer];
+        greenLayer.bounds = self.leftView.bounds;
+        greenLayer.position = self.leftView.center;
+        greenLayer.contentsScale = [UIScreen mainScreen].scale;
+        greenLayer.color = [UIColor clearColor];
+        greenLayer.animationDuration = tempValueYellow * 1.5;
+        greenLayer.completed = tempValueYellow *leftLayer.total;
+        greenLayer.completedColor = [UIColor colorWithRed:251/255.f green:214/255.f blue:66/255.f alpha:1];
+        [greenLayer setNeedsDisplay];
+        [greenLayer showAnimate];
+        [self.leftView.layer insertSublayer:greenLayer above:leftLayer];
+        //第三层
+        leftThridLayer = [LineProgressLayer layer];
+        leftThridLayer.bounds = self.leftView.bounds;
+        leftThridLayer.position = self.leftView.center;
+        leftThridLayer.contentsScale = [UIScreen mainScreen].scale;
+        leftThridLayer.color = [UIColor clearColor];
+        leftThridLayer.animationDuration = tempValueGreen * 1.5;
+        leftThridLayer.completed = tempValueGreen *leftLayer.total;
+        leftThridLayer.completedColor = [UIColor colorFromHexCode:@"0x0ab499"];
+        [leftThridLayer setNeedsDisplay];
+        [leftThridLayer showAnimate];
+        [self.leftView.layer insertSublayer:leftThridLayer above:greenLayer];
+    }
+    
+    
+    //我接受的任务正常数
+    float rightValueRed = 1.0;
+    float rightValueYellow = (_rightAllCount - _rightWillEndCount)/(float)_rightAllCount;
+    float rightValueGreen = (_rightAllCount - _rightDidEndCount - _rightWillEndCount)/(float)_rightAllCount;
+    if (_rightWillEndCount == 0 && _rightDidEndCount == 0) {
+        //第一层
+        rightLayer = [LineProgressLayer layer];
+        rightLayer.bounds = self.rightView.bounds;
+        rightLayer.position = self.leftView.center;
+        rightLayer.contentsScale = [UIScreen mainScreen].scale;
+        rightLayer.color = [UIColor colorWithRed:43 / 255.f green:181 / 255.f blue:162 / 255.f alpha:1];
+        [rightLayer setNeedsDisplay];
+        [rightLayer showAnimate];
+        [self.rightView.layer insertSublayer:rightLayer atIndex:0];
+    } else {
+        //第一层
+        rightLayer = [LineProgressLayer layer];
+        rightLayer.bounds = self.rightView.bounds;
+        rightLayer.position = self.leftView.center;
+        rightLayer.contentsScale = [UIScreen mainScreen].scale;
+        rightLayer.color = [UIColor colorWithRed:43 / 255.f green:181 / 255.f blue:162 / 255.f alpha:1];
+        rightLayer.animationDuration = rightValueRed * 1.5;
+        rightLayer.completed = rightValueRed *rightLayer.total;
+        rightLayer.completedColor = [UIColor colorWithRed:1 green:105/255.f blue:64/255.f alpha:1];
+        [rightLayer setNeedsDisplay];
+        [rightLayer showAnimate];
+        [self.rightView.layer insertSublayer:rightLayer atIndex:0];
+        //第二层
+        rightGreenLayer = [LineProgressLayer layer];
+        rightGreenLayer.bounds = self.rightView.bounds;
+        rightGreenLayer.position = self.leftView.center;
+        rightGreenLayer.contentsScale = [UIScreen mainScreen].scale;
+        rightGreenLayer.color = [UIColor clearColor];
+        rightGreenLayer.animationDuration = rightValueYellow * 1.5;
+        rightGreenLayer.completed = rightValueYellow *rightLayer.total;
+        rightGreenLayer.completedColor = [UIColor colorWithRed:251/255.f green:214/255.f blue:66/255.f alpha:1];
+        [rightGreenLayer setNeedsDisplay];
+        [rightGreenLayer showAnimate];
+        [self.rightView.layer insertSublayer:rightGreenLayer above:rightLayer];
+        //第三层
+        rightThirdLayer = [LineProgressLayer layer];
+        rightThirdLayer.bounds = self.rightView.bounds;
+        rightThirdLayer.position = self.leftView.center;
+        rightThirdLayer.contentsScale = [UIScreen mainScreen].scale;
+        rightThirdLayer.color = [UIColor clearColor];
+        rightThirdLayer.animationDuration = rightValueGreen * 1.5;
+        rightThirdLayer.completed = rightValueGreen *rightLayer.total;
+        rightThirdLayer.completedColor = [UIColor colorFromHexCode:@"0x0ab499"];
+        [rightThirdLayer setNeedsDisplay];
+        [rightThirdLayer showAnimate];
+        [self.rightView.layer insertSublayer:rightThirdLayer above:rightGreenLayer];
+    }
+}
+- (IBAction)todayClicked:(id)sender {
     if(self.delegate && [self.delegate respondsToSelector:@selector(createTaskClicked)]) {
         [self.delegate createTaskClicked];
     }
 }
-- (void)weekFinishClicked:(UIButton*)btn {
+- (IBAction)weekClicked:(id)sender {
     if(self.delegate && [self.delegate respondsToSelector:@selector(chargeTaskClicked)]) {
         [self.delegate chargeTaskClicked];
     }

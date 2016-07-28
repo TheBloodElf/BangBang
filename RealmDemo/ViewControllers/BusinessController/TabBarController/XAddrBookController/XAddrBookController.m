@@ -57,11 +57,11 @@
     //创建选择视图
     //是不是当前圈子的管理员
     if([_userManager.user.currCompany.admin_user_guid isEqualToString:_userManager.user.user_guid]) {
-        _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100 - 15, 64, 100, 120)];
+        _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100 - 15, 0, 100, 120)];
         _moreSelectView.selectArr = @[@"发起群聊",@"邀请同事",@"申请管理"];
     }
     else {
-        _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100 - 15, 64, 100, 80)];
+        _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100 - 15, 0, 100, 80)];
         _moreSelectView.selectArr = @[@"发起群聊",@"邀请同事"];
     }
     _moreSelectView.delegate = self;
@@ -77,6 +77,11 @@
     [super viewWillAppear:animated];
     [self.frostedViewController.navigationController setNavigationBarHidden:YES animated:YES];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.navigationBar.barTintColor = [UIColor homeListColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSFontAttributeName:[UIFont systemFontOfSize:17],
+       NSForegroundColorAttributeName:[UIColor whiteColor]}];
 }
 - (void)leftClicked:(UIBarButtonItem*)item {
     //先从本地获取一次信息

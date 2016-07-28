@@ -10,4 +10,6 @@
 //找回密码
 @interface FindPasswordViewController : UIViewController
 
+@property (nonatomic,strong) WebViewJavascriptBridge *bridge;//交互中间件
+
 @end

@@ -10,34 +10,13 @@
 
 @interface UIColor (FlatUI)
 
-
-
+//首页导航栏
++ (UIColor *) homeListColor;
+//日程导航栏
++ (UIColor *) calendarColor;
+//签到导航栏
++ (UIColor *) siginColor;
 + (UIColor *) colorFromHexCode:(NSString *)hexString;
-+ (UIColor *) buttonColor_n;
-+ (UIColor *) buttonColor_d;
-+ (UIColor *) turquoiseColor;
-+ (UIColor *) greenSeaColor;
-+ (UIColor *) emerlandColor;
-+ (UIColor *) nephritisColor;
-+ (UIColor *) peterRiverColor;
-+ (UIColor *) belizeHoleColor;
-+ (UIColor *) amethystColor;
-+ (UIColor *) wisteriaColor;
-+ (UIColor *) wetAsphaltColor;
-+ (UIColor *) midnightBlueColor;
-+ (UIColor *) sunflowerColor;
-+ (UIColor *) tangerineColor;
-+ (UIColor *) carrotColor;
-+ (UIColor *) pumpkinColor;
-+ (UIColor *) alizarinColor;
-+ (UIColor *) pomegranateColor;
-+ (UIColor *) cloudsColor;
-+ (UIColor *) silverColor;
-+ (UIColor *) greenGrayColor;
-+ (UIColor *) pinkColor;
-+ (UIColor *) pinkGrayColor;
-+ (UIColor *) concreteColor;
-+ (UIColor *) asbestosColor;
 
 + (UIColor *) blendedColorWithForegroundColor:(UIColor *)foregroundColor
                               backgroundColor:(UIColor *)backgroundColor

@@ -46,6 +46,29 @@
     [dataTask resume];
     return dataTask;
 }
+#pragma mark -- 社会化登录
++ (NSURLSessionDataTask*)socialLogin:(NSString *)social_id
+                          media_type:(NSString *)media_type
+                               token:(NSString *)token
+                          expires_in:(NSString *)expires_in
+                         client_type:(NSString *)client_type
+                                name:(NSString *)name
+                          avatar_url:(NSString *)avatar_url handler:(completionHandler)handler {
+    NSString *urlPath = @"Users/social_login_new";
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:social_id forKey:@"social_id"];
+    [params setObject:media_type forKey:@"media_type"];
+    [params setObject:token forKey:@"token"];
+    [params setObject:expires_in forKey:@"expires_in"];
+    [params setObject:client_type forKey:@"client_type"];
+    [params setObject:name forKey:@"name"];
+    [params setObject:avatar_url forKey:@"avatar_url"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
 #pragma mark -- 个推
 //绑定个推别名
 + (NSURLSessionDataTask*)setupAPNSDevice:(NSString*)clientId userNo:(int)userNo handler:(completionHandler)handler {

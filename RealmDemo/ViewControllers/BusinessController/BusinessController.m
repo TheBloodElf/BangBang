@@ -92,27 +92,27 @@
         [self.frostedViewController.navigationController pushViewController:webViewcontroller animated:NO];
     }else if ([message.type isEqualToString:@"APPROVAL"]){//通用审批
         WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
-        webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@Approval/details?id=%@&userGuid=%@&access_token=%@&from=message&companyNo=%ld",XYFMobileDomain,message.target_id,_userManager.user.user_guid,_identityManager.identity.accessToken,_userManager.user.currCompany.company_no];
+        webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@Approval/details?id=%@&userGuid=%@&access_token=%@&from=message&companyNo=%ld",XYFMobileDomain,message.target_id,_userManager.user.user_guid,_identityManager.identity.accessToken,message.company_no];
         [self.frostedViewController.navigationController pushViewController:webViewcontroller animated:NO];
     } else if ([message.type isEqualToString:@"NEW_APPROVAL"]){//审批
         WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
-        webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@ApprovalByFormBuilder/details?id=%@&userGuid=%@&access_token=%@&from=message&companyNo=%ld",XYFMobileDomain,message.target_id,_userManager.user.user_guid,_identityManager.identity.accessToken,_userManager.user.currCompany.company_no];
+        webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@ApprovalByFormBuilder/details?id=%@&userGuid=%@&access_token=%@&from=message&companyNo=%ld",XYFMobileDomain,message.target_id,_userManager.user.user_guid,_identityManager.identity.accessToken,message.company_no];
         [self.frostedViewController.navigationController pushViewController:webViewcontroller animated:NO];
     } else if([message.type isEqualToString:@"MAIL"]){
         WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
-        webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@Mail/Details?id=%@&isSend=false&userGuid=%@&companyNo=%ld&access_token=%@&from=message",XYFMobileDomain,message.target_id,_userManager.user.user_guid,_userManager.user.currCompany.company_no,_identityManager.identity.accessToken];
+        webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@Mail/Details?id=%@&isSend=false&userGuid=%@&companyNo=%ld&access_token=%@&from=message",XYFMobileDomain,message.target_id,_userManager.user.user_guid,message.company_no,_identityManager.identity.accessToken];
         [self.frostedViewController.navigationController pushViewController:webViewcontroller animated:NO];
     } else if([message.type isEqualToString:@"MEETING"]){
         WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
-        webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@Meeting/Details?id=%@&userGuid=%@&companyNo=%ld&access_token=%@&from=message",XYFMobileDomain,message.target_id,_userManager.user.user_guid,_userManager.user.currCompany.company_no,_identityManager.identity.accessToken];
+        webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@Meeting/Details?id=%@&userGuid=%@&companyNo=%ld&access_token=%@&from=message",XYFMobileDomain,message.target_id,_userManager.user.user_guid,message.company_no,_identityManager.identity.accessToken];
         [self.frostedViewController.navigationController pushViewController:webViewcontroller animated:NO];
     } else if([message.type isEqualToString:@"VOTE"]){
         WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
-        webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@Vote/Details?id=%@&userGuid=%@&companyNo=%ld&access_token=%@&from=message",XYFMobileDomain,message.target_id,_userManager.user.user_guid,_userManager.user.currCompany.company_no,_identityManager.identity.accessToken];
+        webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@Vote/Details?id=%@&userGuid=%@&companyNo=%ld&access_token=%@&from=message",XYFMobileDomain,message.target_id,_userManager.user.user_guid,message.company_no,_identityManager.identity.accessToken];
         [self.frostedViewController.navigationController pushViewController:webViewcontroller animated:NO];
     } else if([message.type isEqualToString:@"NOTICE"]){
         WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
-        webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@NOTICE/Details?id=%@&userGuid=%@&companyNo=%ld&access_token=%@&from=message",XYFMobileDomain,message.target_id,_userManager.user.user_guid,_userManager.user.currCompany.company_no,_identityManager.identity.accessToken];
+        webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@NOTICE/Details?id=%@&userGuid=%@&companyNo=%ld&access_token=%@&from=message",XYFMobileDomain,message.target_id,_userManager.user.user_guid,message.company_no,_identityManager.identity.accessToken];
         [self.frostedViewController.navigationController pushViewController:webViewcontroller animated:NO];
     }
 }

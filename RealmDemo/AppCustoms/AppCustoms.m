@@ -30,7 +30,10 @@ static AppCustoms * __singleton__;
 - (instancetype)init {
     self = [super init];
     if (self) {
-        [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
+        [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+        [[UISearchBar appearance] setTintColor:[UIColor colorWithRed:247/255.f green:247/255.f blue:247/255.f alpha:1]];
+        [[UISearchBar appearance] setBarTintColor:[UIColor colorWithRed:247/255.f green:247/255.f blue:247/255.f alpha:1]];
+        [[UISearchBar appearance] layer].borderColor = [UIColor clearColor].CGColor;
     }
     return self;
 }

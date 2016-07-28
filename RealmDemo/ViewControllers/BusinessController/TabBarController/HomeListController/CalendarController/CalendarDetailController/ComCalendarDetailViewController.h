@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+//一般日程详情
 @interface ComCalendarDetailViewController : UIViewController
 
 @end

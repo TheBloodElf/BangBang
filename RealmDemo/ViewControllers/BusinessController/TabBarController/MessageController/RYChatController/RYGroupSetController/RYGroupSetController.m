@@ -57,7 +57,10 @@
             [_tableView reloadData];
         }
     } error:^(RCErrorCode status) {
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.navigationController.view showFailureTips:@"讨论组不存在！"];
+            [self.navigationController popViewControllerAnimated:YES];
+        });
     }];
     
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT) style:UITableViewStyleGrouped];

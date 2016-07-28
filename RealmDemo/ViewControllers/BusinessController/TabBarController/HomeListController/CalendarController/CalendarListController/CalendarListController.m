@@ -29,12 +29,12 @@
     _userManager = [UserManager manager];
     _dataDic = [@{} mutableCopy];
     //创建搜索框
-    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 64, MAIN_SCREEN_WIDTH, 55)];
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 55)];
     _searchBar.delegate = self;
     _searchBar.placeholder = @"搜索日程";
     [self.view addSubview:_searchBar];
     //创建表格视图
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64 + 55, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 64 - 55) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 55, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 55) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     UILabel *noDataLabel = [[UILabel alloc] initWithFrame:_tableView.bounds];

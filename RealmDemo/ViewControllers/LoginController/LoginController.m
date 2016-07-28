@@ -7,7 +7,7 @@
 //
 
 #import "LoginController.h"
-#import "LoginViewController.h"
+#import "UserLoginController.h"
 
 @interface LoginController () {
     UINavigationController *_loginNavigationVC;//登录相关导航控制器
@@ -20,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     //初始化登录控制器
-    LoginViewController *login = [LoginViewController new];
+    UserLoginController *login = [UserLoginController new];
     _loginNavigationVC = [[UINavigationController alloc] initWithRootViewController:login];
     [self.view addSubview:_loginNavigationVC.view];
     [_loginNavigationVC.view willMoveToSuperview:self.view];

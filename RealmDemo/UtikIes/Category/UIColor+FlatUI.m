@@ -34,109 +34,18 @@
     
     return [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
 }
-
-+ (UIColor *) buttonColor_n
-{
-    return [UIColor colorFromHexCode:@"a0d8ff"];
+//首页导航栏
++ (UIColor *) homeListColor {
+    return [UIColor colorWithRed:8/255.f green:21/255.f blue:63/255.f alpha:1];
 }
-
-+ (UIColor *) buttonColor_d
-{
-    return [UIColor colorFromHexCode:@"d0ecff"];
+//日程导航栏
++ (UIColor *) calendarColor {
+    return [UIColor colorFromHexCode:@"0x5995f5"];
 }
-
-+ (UIColor *) turquoiseColor {
-    return [UIColor colorFromHexCode:@"1ABC9C"];
+//签到导航栏
++ (UIColor *) siginColor {
+    return [UIColor colorWithRed:233/255.0 green: 182/255.0 blue: 77/255.0 alpha: 1.0];
 }
-
-+ (UIColor *) greenSeaColor {
-    return [UIColor colorFromHexCode:@"16A085"];
-}
-
-+ (UIColor *) emerlandColor {
-    return [UIColor colorFromHexCode:@"2ECC71"];
-}
-
-+ (UIColor *) nephritisColor {
-    return [UIColor colorFromHexCode:@"27AE60"];
-}
-
-+ (UIColor *) peterRiverColor {
-    return [UIColor colorFromHexCode:@"3498DB"];
-}
-
-+ (UIColor *) belizeHoleColor {
-    return [UIColor colorFromHexCode:@"2980B9"];
-}
-
-+ (UIColor *) amethystColor {
-    return [UIColor colorFromHexCode:@"9B59B6"];
-}
-
-+ (UIColor *) wisteriaColor {
-    return [UIColor colorFromHexCode:@"8E44AD"];
-}
-
-+ (UIColor *) wetAsphaltColor {
-    return [UIColor colorFromHexCode:@"34495E"];
-}
-
-+ (UIColor *) midnightBlueColor {
-    return [UIColor colorFromHexCode:@"2C3E50"];
-}
-
-+ (UIColor *) sunflowerColor {
-    return [UIColor colorFromHexCode:@"F1C40F"];
-}
-
-+ (UIColor *) tangerineColor {
-    return [UIColor colorFromHexCode:@"F39C12"];
-}
-
-+ (UIColor *) carrotColor {
-    return [UIColor colorFromHexCode:@"E67E22"];
-}
-
-+ (UIColor *) pumpkinColor {
-    return [UIColor colorFromHexCode:@"D35400"];
-}
-
-+ (UIColor *) alizarinColor {
-    return [UIColor colorFromHexCode:@"E74C3C"];
-}
-
-+ (UIColor *) pomegranateColor {
-    return [UIColor colorFromHexCode:@"C0392B"];
-}
-
-+ (UIColor *) cloudsColor {
-    return [UIColor colorFromHexCode:@"ECF0F1"];
-}
-
-+ (UIColor *) silverColor {
-    return [UIColor colorFromHexCode:@"BDC3C7"];
-}
-
-+ (UIColor *) greenGrayColor {
-    return [UIColor colorFromHexCode:@"5DD874"];
-}
-
-+ (UIColor *) pinkColor {
-    return [UIColor colorFromHexCode:@"fb6b6b"];
-}
-
-+ (UIColor *) pinkGrayColor {
-    return [UIColor colorFromHexCode:@"fc9393"];
-}
-
-+ (UIColor *) concreteColor {
-    return [UIColor colorFromHexCode:@"95A5A6"];
-}
-
-+ (UIColor *) asbestosColor {
-    return [UIColor colorFromHexCode:@"7F8C8D"];
-}
-
 + (UIColor *) blendedColorWithForegroundColor:(UIColor *)foregroundColor
                               backgroundColor:(UIColor *)backgroundColor
                                  percentBlend:(CGFloat) percentBlend {

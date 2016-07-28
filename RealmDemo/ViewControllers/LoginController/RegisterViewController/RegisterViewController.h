@@ -10,4 +10,6 @@
 //注册
 @interface RegisterViewController : UIViewController
 
+@property (nonatomic,strong) WebViewJavascriptBridge *bridge;//交互中间件
+
 @end

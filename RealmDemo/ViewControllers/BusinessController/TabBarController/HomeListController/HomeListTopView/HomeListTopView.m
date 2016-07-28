@@ -33,35 +33,41 @@
     if(self = [super initWithFrame:frame]) {
         //创建按钮
         _calendarBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-        _calendarBtn.frame = CGRectMake(0, 0, frame.size.width / 2.f, 30);
+        _calendarBtn.frame = CGRectMake(0, 0, frame.size.width / 2.f, 32);
         [_calendarBtn setTitle:@"个人日程" forState:UIControlStateNormal];
-        [_calendarBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_calendarBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _calendarBtn.backgroundColor = [UIColor homeListColor];
         _calendarBtn.titleLabel.font = [UIFont systemFontOfSize:15];
         [_calendarBtn addTarget:self action:@selector(btnClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_calendarBtn];
         
         _taskBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-        _taskBtn.frame = CGRectMake(frame.size.width / 2.f, 0, frame.size.width / 2.f, 30);
+        _taskBtn.frame = CGRectMake(frame.size.width / 2.f, 0, frame.size.width / 2.f, 32);
         [_taskBtn setTitle:@"团队任务" forState:UIControlStateNormal];
-        [_taskBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_taskBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _taskBtn.backgroundColor = [UIColor homeListColor];
         _taskBtn.titleLabel.font = [UIFont systemFontOfSize:15];
         [_taskBtn addTarget:self action:@selector(btnClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_taskBtn];
         //创建线
         _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 30, frame.size.width / 2, 2)];
-        _lineView.backgroundColor = [UIColor blackColor];
+        _lineView.backgroundColor = [UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1];
         [self addSubview:_lineView];
         //创建滚动视图
-        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 32, frame.size.width, frame.size.height - 32)];
+        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 32, frame.size.width, 180)];
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.delegate = self;
         _scrollView.contentSize = CGSizeMake(frame.size.width * 2, _scrollView.frame.size.height);
         _scrollView.pagingEnabled = YES;
-        CalendarView *calendarView = [[CalendarView alloc] initWithFrame:CGRectMake(0, 0, _scrollView.frame.size.width, _scrollView.frame.size.height)];
+        CalendarView *calendarView = [[NSBundle mainBundle] loadNibNamed:@"CalendarView" owner:nil options:nil][0];
+        calendarView.frame = CGRectMake(0, 0, _scrollView.frame.size.width, _scrollView.frame.size.height);
         calendarView.delegate = self;
+        [calendarView setupUI];
         [_scrollView addSubview:calendarView];
-        TaskView *taskView = [[TaskView alloc] initWithFrame:CGRectMake(_scrollView.frame.size.width, 0, _scrollView.frame.size.width, _scrollView.frame.size.height)];
+        TaskView *taskView = [[NSBundle mainBundle] loadNibNamed:@"TaskView" owner:nil options:nil][0];
+        taskView.frame = CGRectMake(_scrollView.frame.size.width, 0, _scrollView.frame.size.width, _scrollView.frame.size.height);
         taskView.delegate = self;
+        [taskView setupUI];
         [_scrollView addSubview:taskView];
         [self addSubview:_scrollView];
     }

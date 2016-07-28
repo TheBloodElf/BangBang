@@ -42,7 +42,10 @@
     _todaySigInArr = [@[] mutableCopy];
     [self.tableView registerNib:[UINib nibWithNibName:@"SigInListCell" bundle:nil] forCellReuseIdentifier:@"SigInListCell"];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    //把视图移动到最顶部 即使有状态栏和导航
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
     _userManager = [UserManager manager];
     [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(updateTime) userInfo:nil repeats:YES];
     //创建表格视图
@@ -103,11 +106,10 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
     //导航透明
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage colorImg:[UIColor clearColor]] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setBackIndicatorTransitionMaskImage:[UIImage colorImg:[UIColor clearColor]]];
-    [self.navigationController.navigationBar setShadowImage:[UIImage colorImg:[UIColor clearColor]]];
+    self.navigationController.navigationBar.barTintColor = [UIColor siginColor];
+    self.navigationController.navigationBar.translucent = YES;
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 #pragma mark --
 #pragma mark -- RBQFetchedResultsControllerDelegate
@@ -220,13 +222,13 @@
     [_leftNavigationBarButton addSubview:imageView];
     UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(38, 2, 100, 12)];
     nameLabel.font = [UIFont systemFontOfSize:12];
-    nameLabel.textColor = [UIColor blackColor];
+    nameLabel.textColor = [UIColor whiteColor];
     nameLabel.text = user.real_name;
     nameLabel.tag = 1002;
     [_leftNavigationBarButton addSubview:nameLabel];
     UILabel *companyLabel = [[UILabel alloc] initWithFrame:CGRectMake(38, 23, 100, 10)];
     companyLabel.font = [UIFont systemFontOfSize:10];
-    companyLabel.textColor = [UIColor blackColor];
+    companyLabel.textColor = [UIColor whiteColor];
     if([NSString isBlank:user.currCompany.company_name])
         companyLabel.text = @"未选择圈子";
     else
@@ -243,7 +245,7 @@
     //是不是当前圈子的管理员或者创建者
     if([_userManager.user.currCompany.admin_user_guid isEqualToString:_userManager.user.user_guid]) {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"更多" style:UIBarButtonItemStylePlain target:self action:@selector(rightClicked:)];
-        _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100, 64, 100, 120)];
+        _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100, 0, 100, 120)];
         _moreSelectView.selectArr = @[@"我的签到",@"签到统计",@"签到设置"];
         _moreSelectView.delegate = self;
         [_moreSelectView setupUI];

@@ -61,8 +61,7 @@
                                             encoding:NSUTF8StringEncoding];
     }
     NSData *jsonData = [payloadMsg dataUsingEncoding:NSUTF8StringEncoding];
-    NSError *e;
-    NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&e];
+    NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
     PushMessage *message = [PushMessage new];
     [message mj_setKeyValues:dict];
     message.addTime = [NSDate date];
@@ -71,10 +70,18 @@
     if ([message.type isEqualToString:@"VOTE"] || [message.type isEqualToString:@"NOTICE"]) {
         message.to_user_no = _userManager.user.user_no;
     }
-    message.unread = YES;
+    //如果程序处于前台，就未读状态
+    if([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
+        message.unread = NO;
+    } else {
+        message.unread = YES;
+    }
+    //接受会议
     if ([message.action isEqualToString:@"MEETING_RECEIVE"]) {
-    }else if ([message.action isEqualToString:@"VOTE_ADD"]&& message.from_user_no == _userManager.user.user_no){}
-    else{
+        
+    } else if ([message.action isEqualToString:@"VOTE_ADD"]&& message.from_user_no == _userManager.user.user_no){
+        
+    } else {
         [_userManager addPushMessage:message];
         if (message.unread == YES) {
             //未读的 不是接受会议推送的和自己发起的投票推送 播放声音

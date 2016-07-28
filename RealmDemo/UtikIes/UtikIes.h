@@ -44,5 +44,6 @@
 #import "Scheduler.h"
 #import "RLMObject+JSON.h"
 #import "RLMObject+Copying.h"
+#import <TencentOpenAPI/TencentOAuth.h>
 
 #endif /* UtikIes_h */

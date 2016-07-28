@@ -39,6 +39,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *currAdressName;//当前地址名字
 @property (weak, nonatomic) IBOutlet UILabel *currAdressDetail;//当前地址详情
 @property (weak, nonatomic) IBOutlet UILabel *currCompanyName;//当前圈子名字
+@property (weak, nonatomic) IBOutlet UIButton *submitBtn;
 
 @end
 
@@ -47,6 +48,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"创建签到";
+    self.upWorkBtn.layer.cornerRadius = 5;
+    self.upWorkBtn.clipsToBounds = YES;
+    self.downWorkBtn.layer.cornerRadius = 5;
+    self.downWorkBtn.clipsToBounds = YES;
+    self.outWorkBtn.layer.cornerRadius = 5;
+    self.outWorkBtn.clipsToBounds = YES;
+    self.otherWorkBtn.layer.cornerRadius = 5;
+    self.otherWorkBtn.clipsToBounds = YES;
+    self.submitBtn.clipsToBounds = YES;
+    self.submitBtn.layer.cornerRadius = 25.f;
     _userManager = [UserManager manager];
     _siginImageArr = [@[] mutableCopy];
     _siginImageNameArr = [@[] mutableCopy];
@@ -259,7 +270,7 @@
         self.otherWorkBtn.backgroundColor = [UIColor whiteColor];
         [self.otherWorkBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     }
-    sender.backgroundColor = [UIColor blackColor];
+    sender.backgroundColor = [UIColor siginColor];
     [sender setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _currSignIn.category = (int)sender.tag - 1000;
 }
@@ -411,21 +422,23 @@
     if([self todayHaveUpWork]) {
         self.upWorkBtn.backgroundColor = [UIColor groupTableViewBackgroundColor];
         self.upWorkBtn.enabled = NO;
+        [self.upWorkBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         if([self todayHaveDownWork]) {//如果下班过了，下班按钮变灰不可用
             self.downWorkBtn.backgroundColor = [UIColor groupTableViewBackgroundColor];
             self.downWorkBtn.enabled = NO;
+            [self.downWorkBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             //默认选中外勤按钮
-            self.outWorkBtn.backgroundColor = [UIColor blackColor];
+            self.outWorkBtn.backgroundColor = [UIColor siginColor];
             [self.outWorkBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             _currSignIn.category = 2;
         } else {//默认选中下班按钮
-            self.downWorkBtn.backgroundColor = [UIColor blackColor];
+            self.downWorkBtn.backgroundColor = [UIColor siginColor];
             [self.downWorkBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             _currSignIn.category = 1;
         }
     } else {//默认选中上班按钮
         _currSignIn.category = 0;
-        self.upWorkBtn.backgroundColor = [UIColor blackColor];
+        self.upWorkBtn.backgroundColor = [UIColor siginColor];
         [self.upWorkBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }
 }

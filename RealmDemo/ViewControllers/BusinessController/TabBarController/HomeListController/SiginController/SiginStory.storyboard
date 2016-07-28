@@ -257,6 +257,7 @@
                         <outlet property="siginDeatilLabel" destination="iNE-2t-ulk" id="nZp-ZH-Ozb"/>
                         <outlet property="siginImageCollection" destination="IZA-x3-j6u" id="r4o-rd-Wld"/>
                         <outlet property="siginTextView" destination="DZE-Th-tEB" id="oqb-W7-baj"/>
+                        <outlet property="submitBtn" destination="R0t-TZ-Tb6" id="EqJ-QQ-QoX"/>
                         <outlet property="upWorkBtn" destination="URL-W9-QZK" id="Ktq-LE-01r"/>
                     </connections>
                 </tableViewController>

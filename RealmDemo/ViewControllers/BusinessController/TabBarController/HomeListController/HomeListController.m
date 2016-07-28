@@ -11,9 +11,9 @@
 #import "HomeListBottomView.h"
 #import "UserManager.h"
 #import "SiginController.h"
-#import "PushMessageController.h"
 #import "CalendarController.h"
 #import "WebNonstandarViewController.h"
+#import "PushMessageController.h"
 #import "IdentityManager.h"
 #import "UserHttp.h"
 
@@ -42,7 +42,7 @@
     _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     _scrollView.showsVerticalScrollIndicator = NO;
     //创建头部数据视图
-    CGFloat topViewHeight = 32 + MAIN_SCREEN_WIDTH / 2;
+    CGFloat topViewHeight = 32 + 180;
     _homeListTopView = [[HomeListTopView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, topViewHeight)];
     _homeListTopView.delegate = self;
     [_scrollView addSubview:_homeListTopView];
@@ -62,7 +62,12 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.frostedViewController.navigationController setNavigationBarHidden:YES animated:YES];
+    self.navigationController.navigationBar.barTintColor = [UIColor homeListColor];
+    self.navigationController.navigationBar.translucent = NO;
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSFontAttributeName:[UIFont systemFontOfSize:17],
+       NSForegroundColorAttributeName:[UIColor whiteColor]}];
 }
 - (void)getNeedValueFormNet {
     //从服务器获取一次规则
@@ -237,13 +242,13 @@
     [_leftNavigationBarButton addSubview:imageView];
     UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(38, 2, 100, 12)];
     nameLabel.font = [UIFont systemFontOfSize:12];
-    nameLabel.textColor = [UIColor blackColor];
+    nameLabel.textColor = [UIColor whiteColor];
     nameLabel.text = user.real_name;
     nameLabel.tag = 1002;
     [_leftNavigationBarButton addSubview:nameLabel];
     UILabel *companyLabel = [[UILabel alloc] initWithFrame:CGRectMake(38, 23, 100, 10)];
     companyLabel.font = [UIFont systemFontOfSize:10];
-    companyLabel.textColor = [UIColor blackColor];
+    companyLabel.textColor = [UIColor whiteColor];
     if([NSString isBlank:user.currCompany.company_name])
         companyLabel.text = @"未选择圈子";
     else
@@ -259,7 +264,7 @@
 - (void)setRightNavigationBarItem {
     _rightNavigationBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _rightNavigationBarButton.frame = CGRectMake(0, 0, 40, 40);
-    [_rightNavigationBarButton setImage:[UIImage imageNamed:@"pushMessage_Email1"] forState:UIControlStateNormal];
+    [_rightNavigationBarButton setImage:[UIImage imageNamed:@"home_remind_icon"] forState:UIControlStateNormal];
     [_rightNavigationBarButton addTarget:self action:@selector(rightNavigationBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     _rightNavigationBarButton.clipsToBounds = NO;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_rightNavigationBarButton];
@@ -273,15 +278,15 @@
         label.text = [NSString stringWithFormat:@"%d",count];
     else
         label.text = nil;
-    label.textColor = [UIColor redColor];
+    label.textColor = [UIColor whiteColor];
     label.font = [UIFont systemFontOfSize:15];
     label.textAlignment = NSTextAlignmentLeft;
     label.tag = 1001;
     [_rightNavigationBarButton addSubview:label];
 }
 - (void)rightNavigationBtnClicked:(UIButton*)item {
-    PushMessageController *push = [PushMessageController new];
-    push.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:push animated:YES];
+    PushMessageController *view = [PushMessageController new];
+    view.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:view animated:YES];
 }
 @end

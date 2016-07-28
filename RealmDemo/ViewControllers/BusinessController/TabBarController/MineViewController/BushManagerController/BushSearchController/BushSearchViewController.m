@@ -33,14 +33,14 @@
     _companyArr = [@[] mutableCopy];
     _userManager = [UserManager manager];
     //创建搜索框
-    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 64, MAIN_SCREEN_WIDTH, 55)];
+    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 55)];
     self.searchBar.delegate = self;
     self.searchBar.placeholder = @"使用圈子名称搜索圈子";
     self.searchBar.text = @"琅拓科";
     self.searchBar.returnKeyType = UIReturnKeySearch;
     [self.view addSubview:self.searchBar];
     //创建表格视图
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64 + 55, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 55 - 64) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,  55, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 55) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.tableFooterView = [UIView new];

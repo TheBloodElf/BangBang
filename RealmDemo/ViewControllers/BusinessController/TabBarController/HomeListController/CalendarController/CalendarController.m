@@ -42,7 +42,7 @@
     _calendarFetchedResultsController = [_userManager createCalendarFetchedResultsController];
     _calendarFetchedResultsController.delegate = self;
     //创建周视图时上面显示的视图
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, MAIN_SCREEN_WIDTH, 200)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 200)];
     imageView.image = [UIImage imageNamed:@"calendar_list_background"];
     [self.view addSubview:imageView];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 87.5, MAIN_SCREEN_WIDTH, 25)];
@@ -56,14 +56,14 @@
     _calendarManager = [JTCalendarManager new];
     _calendarManager.delegate = self;
     _calendarManager.settings.weekModeEnabled = YES;
-    _calendarContentView = [[JTHorizontalCalendarView alloc] initWithFrame:CGRectMake(0, 264, MAIN_SCREEN_WIDTH, 85)];
+    _calendarContentView = [[JTHorizontalCalendarView alloc] initWithFrame:CGRectMake(0, 200, MAIN_SCREEN_WIDTH, 85)];
     _calendarContentView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_calendarContentView];
     _calendarManager.settings.weekDayFormat = JTCalendarWeekDayFormatSingle;
     _calendarManager.contentView = _calendarContentView;
     [_calendarManager setDate:_userSelectedDate];
     //创建当天事件的表格视图
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 349, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 349) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 349 - 64, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 349 + 64) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     UILabel *noDataLabel = [[UILabel alloc] initWithFrame:_tableView.bounds];
@@ -79,16 +79,26 @@
     _centerNavLabel.font = [UIFont systemFontOfSize:17];
     _centerNavLabel.textAlignment = NSTextAlignmentCenter;
     _centerNavLabel.text = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@年%@月",@(_userSelectedDate.year),@(_userSelectedDate.month)]];
+    _centerNavLabel.textColor = [UIColor whiteColor];
     self.navigationItem.titleView = _centerNavLabel;
     //创建右边导航
     self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(moreClicked:)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addCalendarClicked:)],[[UIBarButtonItem alloc] initWithTitle:@"今" style:UIBarButtonItemStylePlain target:self action:@selector(todayClicked:)]];
     //创建多选视图
-    _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100, 64, 100, 120)];
+    _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100, 0, 100, 120)];
     _moreSelectView.selectArr = @[@"周视图",@"月视图",@"列表"];
     _moreSelectView.delegate = self;
     [_moreSelectView setupUI];
     [self.view addSubview:_moreSelectView];
     [self.view bringSubviewToFront:_moreSelectView];
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.barTintColor = [UIColor calendarColor];
+    self.navigationController.navigationBar.translucent = NO;
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSFontAttributeName:[UIFont systemFontOfSize:17],
+       NSForegroundColorAttributeName:[UIColor whiteColor]}];
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -229,11 +239,11 @@
 - (void)moreSelectIndex:(int)index {
     if(index == 0) {
         _calendarManager.settings.weekModeEnabled = YES;
-        _calendarContentView.frame = CGRectMake(0, 264, MAIN_SCREEN_WIDTH, 85);
+        _calendarContentView.frame = CGRectMake(0, 200, MAIN_SCREEN_WIDTH, 85);
         [_calendarManager reload];
     } else if(index == 1) {
         _calendarManager.settings.weekModeEnabled = NO;
-        _calendarContentView.frame = CGRectMake(0, 64, MAIN_SCREEN_WIDTH, 285);
+        _calendarContentView.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 285);
         [_calendarManager reload];
     } else {
         CalendarListController *calendar = [CalendarListController new];

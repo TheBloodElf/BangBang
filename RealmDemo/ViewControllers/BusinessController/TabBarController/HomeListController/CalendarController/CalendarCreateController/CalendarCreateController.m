@@ -56,13 +56,13 @@
     _currCalendar.member_names= @"";
     //创建分段控件
     _segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"一般事务",@"例行事务"]];
-    _segmentedControl.frame = CGRectMake(0, 64, MAIN_SCREEN_WIDTH, 36);
-    _segmentedControl.tintColor = [UIColor blackColor];
+    _segmentedControl.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 36);
+    _segmentedControl.tintColor = [UIColor calendarColor];
     _segmentedControl.selectedSegmentIndex = 0;
     [_segmentedControl addTarget:self action:@selector(segmentClicked:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:_segmentedControl];
     //创建表格视图
-    _bottomScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 100, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 100)];
+    _bottomScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 36, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 36)];
     _bottomScrollView.showsVerticalScrollIndicator = _bottomScrollView.showsHorizontalScrollIndicator = NO;
     _bottomScrollView.contentSize = CGSizeMake(MAIN_SCREEN_WIDTH * 2, MAIN_SCREEN_HEIGHT - 100);
     _bottomScrollView.pagingEnabled = YES;
@@ -80,6 +80,9 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightClicked:)];
     // Do any additional setup after loading the view.
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 }
 - (void)segmentClicked:(UISegmentedControl*)seControl {
     [_bottomScrollView setContentOffset:CGPointMake(seControl.selectedSegmentIndex * _bottomScrollView.frame.size.width, 0) animated:YES];
