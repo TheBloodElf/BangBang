@@ -53,7 +53,6 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBar.barTintColor = [UIColor homeListColor];
 }
 #pragma mark -- 
 #pragma mark -- RBQFetchedResultsControllerDelegate
@@ -98,6 +97,10 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if([_companyArr[indexPath.row] company_no] == _userManager.user.currCompany.company_no) {
+        [self.frostedViewController hideMenuViewController];
+        return;
+    }
     //改变用户当前圈子
     Company *company = [Company copyFromCompany:_companyArr[indexPath.row]];
     User *user = [User copyFromUser:_userManager.user];

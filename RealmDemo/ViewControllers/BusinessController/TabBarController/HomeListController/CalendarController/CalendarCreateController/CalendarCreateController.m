@@ -34,7 +34,6 @@
     self.title = @"新建事务";
     self.view.backgroundColor = [UIColor whiteColor];
     _userManager = [UserManager manager];
-    self.automaticallyAdjustsScrollViewInsets = NO;
     //初始化日程模型
     _currCalendar = [Calendar new];
     _currCalendar.company_no = _userManager.user.currCompany.company_no;

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="Mxn-xN-XKX">
+                    <rect key="frame" x="131" y="129" width="113" height="112"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_logo_word" translatesAutoresizingMaskIntoConstraints="NO" id="Wdj-GN-Umb">
+                    <rect key="frame" x="75" y="263" width="225" height="26"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_logo_cn.png" translatesAutoresizingMaskIntoConstraints="NO" id="cyY-v4-ajZ">
+                    <rect key="frame" x="56" y="378" width="263" height="75"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_logo_59" translatesAutoresizingMaskIntoConstraints="NO" id="dqb-H7-ubX">
+                    <rect key="frame" x="163" y="616" width="49" height="21"/>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lLX-yq-FtM" userLabel="referenceLine">
+                    <rect key="frame" x="0.0" y="333" width="375" height="1"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="TG1-2Z-hQR"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="cyY-v4-ajZ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="1rP-d6-nED"/>
+                <constraint firstItem="dqb-H7-ubX" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" constant="-30" id="40P-d6-nZM"/>
+                <constraint firstItem="dqb-H7-ubX" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="4tp-hf-7of"/>
+                <constraint firstItem="Mxn-xN-XKX" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.3" id="AFM-nB-ecc"/>
+                <constraint firstItem="lLX-yq-FtM" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="BNN-PN-5Xq"/>
+                <constraint firstItem="Wdj-GN-Umb" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="IbW-3T-1rH"/>
+                <constraint firstItem="lLX-yq-FtM" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="O1B-nl-c14"/>
+                <constraint firstItem="Mxn-xN-XKX" firstAttribute="bottom" secondItem="Wdj-GN-Umb" secondAttribute="top" constant="-22" id="Sog-Vj-qqy"/>
+                <constraint firstItem="cyY-v4-ajZ" firstAttribute="top" secondItem="lLX-yq-FtM" secondAttribute="bottom" constant="44" id="WLj-TO-pqJ"/>
+                <constraint firstItem="Mxn-xN-XKX" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Yih-dm-gdX"/>
+                <constraint firstItem="cyY-v4-ajZ" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.7" id="aYi-Qg-g95"/>
+                <constraint firstItem="Wdj-GN-Umb" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.6" id="bj1-nC-TLJ"/>
+                <constraint firstItem="lLX-yq-FtM" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="daN-1A-8rd"/>
+                <constraint firstItem="Wdj-GN-Umb" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.07" id="lD3-iZ-ICG"/>
+                <constraint firstItem="cyY-v4-ajZ" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.2" id="mZG-4D-KGg"/>
+                <constraint firstItem="Wdj-GN-Umb" firstAttribute="bottom" secondItem="lLX-yq-FtM" secondAttribute="top" constant="-44" id="pPO-7l-7Dh"/>
+                <constraint firstItem="Mxn-xN-XKX" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.3" id="tt5-wm-Nqp"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+            <point key="canvasLocation" x="288.5" y="406.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ic_logo.png" width="126" height="124"/>
+        <image name="ic_logo_59" width="49" height="21"/>
+        <image name="ic_logo_cn.png" width="211" height="56"/>
+        <image name="ic_logo_word" width="254" height="30"/>
+    </resources>
+</document>

@@ -11,6 +11,7 @@
 		040A09AF1D3D182F00156C16 /* DiscussListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 040A09A91D3D182F00156C16 /* DiscussListCell.m */; };
 		040A09B01D3D182F00156C16 /* DiscussListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040A09AA1D3D182F00156C16 /* DiscussListCell.xib */; };
 		040A09B11D3D182F00156C16 /* DiscussListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 040A09AC1D3D182F00156C16 /* DiscussListViewController.m */; };
+		040BB6051D4A44FD00511FFC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040BB6041D4A44FC00511FFC /* LaunchScreen.xib */; settings = {ASSET_TAGS = (); }; };
 		0437F4331D4658FF0054077C /* MCJSONDateTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0437F4281D4658FF0054077C /* MCJSONDateTransformer.m */; };
 		0437F4341D4658FF0054077C /* MCJSONNonNullStringTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0437F42A1D4658FF0054077C /* MCJSONNonNullStringTransformer.m */; };
 		0437F4351D4658FF0054077C /* MCJSONPrimaryKeyTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0437F42C1D4658FF0054077C /* MCJSONPrimaryKeyTransformer.m */; };
@@ -243,7 +244,6 @@
 		1B6D16821D48AA8A0070D2E5 /* read_me.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1B6D167E1D48AA8A0070D2E5 /* read_me.txt */; };
 		1B877F171D178E7D000144B2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B877F161D178E7D000144B2 /* main.m */; };
 		1B877F221D178E7D000144B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B877F211D178E7D000144B2 /* Assets.xcassets */; };
-		1B877F251D178E7D000144B2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B877F231D178E7D000144B2 /* LaunchScreen.storyboard */; };
 		1B9DD17D1D3CD619008FEC53 /* AvaterBroseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9DD1791D3CD619008FEC53 /* AvaterBroseController.m */; };
 		1B9DD17E1D3CD619008FEC53 /* PlainPhotoBrose.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9DD17C1D3CD619008FEC53 /* PlainPhotoBrose.m */; };
 		1B9DD1891D3CDB81008FEC53 /* NoResultView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9DD1811D3CDB81008FEC53 /* NoResultView.m */; };
@@ -359,6 +359,7 @@
 		040A09AA1D3D182F00156C16 /* DiscussListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscussListCell.xib; sourceTree = "<group>"; };
 		040A09AB1D3D182F00156C16 /* DiscussListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscussListViewController.h; sourceTree = "<group>"; };
 		040A09AC1D3D182F00156C16 /* DiscussListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscussListViewController.m; sourceTree = "<group>"; };
+		040BB6041D4A44FC00511FFC /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		0437F4271D4658FF0054077C /* MCJSONDateTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCJSONDateTransformer.h; sourceTree = "<group>"; };
 		0437F4281D4658FF0054077C /* MCJSONDateTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCJSONDateTransformer.m; sourceTree = "<group>"; };
 		0437F4291D4658FF0054077C /* MCJSONNonNullStringTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCJSONNonNullStringTransformer.h; sourceTree = "<group>"; };
@@ -747,7 +748,6 @@
 		1B877F121D178E7D000144B2 /* 帮帮管理助手.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "帮帮管理助手.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B877F161D178E7D000144B2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1B877F211D178E7D000144B2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		1B877F241D178E7D000144B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1B877F261D178E7D000144B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1B9DD1781D3CD619008FEC53 /* AvaterBroseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvaterBroseController.h; sourceTree = "<group>"; };
 		1B9DD1791D3CD619008FEC53 /* AvaterBroseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvaterBroseController.m; sourceTree = "<group>"; };
@@ -1973,7 +1973,7 @@
 				75E5FF551D27A76F00F77961 /* ViewControllers */,
 				1B5585941D34E27D00DCD3A0 /* ImagesIcon */,
 				1B877F211D178E7D000144B2 /* Assets.xcassets */,
-				1B877F231D178E7D000144B2 /* LaunchScreen.storyboard */,
+				040BB6041D4A44FC00511FFC /* LaunchScreen.xib */,
 				1B877F261D178E7D000144B2 /* Info.plist */,
 				1B877F151D178E7D000144B2 /* Supporting Files */,
 			);
@@ -2576,6 +2576,7 @@
 				1B6D165D1D48A8D00070D2E5 /* login_botton@2x.png in Resources */,
 				04FE7CCF1D36725A00362702 /* menu_background.png in Resources */,
 				1B6D16421D48A8D00070D2E5 /* btn_qq_login_active.png in Resources */,
+				040BB6051D4A44FD00511FFC /* LaunchScreen.xib in Resources */,
 				1B6D16511D48A8D00070D2E5 /* ic_logo_cn@2x.png in Resources */,
 				04FE7CD51D367CE000362702 /* LeftMenuCell.xib in Resources */,
 				0495862A1D3A1A3F00544259 /* WebViewJavascriptBridge.js.txt in Resources */,
@@ -2592,7 +2593,6 @@
 				1B0FECC31D40B68400DB4369 /* SigInListCell.xib in Resources */,
 				1B4B16291D37858400E71B3D /* BushManagerCell.xib in Resources */,
 				1B1B9BEA1D3E151A00F53EDC /* ComCalendarExigence.xib in Resources */,
-				1B877F251D178E7D000144B2 /* LaunchScreen.storyboard in Resources */,
 				1BFBC1441D3F0CDC00A5511A /* RepCalendarTime.xib in Resources */,
 				1BC2AE8A1D42113800842153 /* SelectAttendanceRange.xib in Resources */,
 				1B158A691D45BB4D003237A7 /* RYGroupSetAddUserCell.xib in Resources */,
@@ -2969,17 +2969,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXVariantGroup section */
-		1B877F231D178E7D000144B2 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1B877F241D178E7D000144B2 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
 		1B877F271D178E7D000144B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -3070,6 +3059,7 @@
 			baseConfigurationReference = 21CA8CCC01D73A106F99FB12 /* Pods-RealmDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
@@ -3176,6 +3166,7 @@
 			baseConfigurationReference = 94C9F3FC7EC4F91DCDE0BD85 /* Pods-RealmDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;

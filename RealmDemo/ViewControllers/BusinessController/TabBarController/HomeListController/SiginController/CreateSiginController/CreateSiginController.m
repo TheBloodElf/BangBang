@@ -99,9 +99,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setBackIndicatorTransitionMaskImage:nil];
-    [self.navigationController.navigationBar setShadowImage:nil];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 #pragma mark -- 
 #pragma mark -- UITableViewDelegate
@@ -378,6 +376,7 @@
 //统一一个签到方法 还要上传图片 很是蛋疼
 - (void)siginMethod {
     [self.navigationController.view showLoadingTips:@""];
+    _currSignIn.create_on_utc = [[NSDate date] timeIntervalSince1970] * 1000;
     [UserHttp sigin:_currSignIn handler:^(id data, MError *error) {
         if(error) {
             [self.navigationController.view dismissTips];

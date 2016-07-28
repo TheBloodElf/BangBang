@@ -32,7 +32,6 @@
     _selectEmployees = [@[] mutableCopy];
     _employeekeyArr = [@[] mutableCopy];
     _employeeDataArr = [@[] mutableCopy];
-    self.automaticallyAdjustsScrollViewInsets = NO;
     self.title = @"人员选择";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightBarButtomItemAction:)];
     _muliteSelectTopView = [[MuliteSelectTopView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 44)];

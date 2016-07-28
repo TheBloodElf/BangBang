@@ -29,7 +29,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.automaticallyAdjustsScrollViewInsets = NO;
     //把视图移动到最顶部 即使有状态栏和导航
     if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -49,6 +48,7 @@
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     self.navigationController.navigationBar.translucent = NO;
     [self.frostedViewController.navigationController setNavigationBarHidden:YES animated:YES];
+    self.navigationController.navigationBar.barTintColor = [UIColor homeListColor];
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSFontAttributeName:[UIFont systemFontOfSize:17],
        NSForegroundColorAttributeName:[UIColor whiteColor]}];

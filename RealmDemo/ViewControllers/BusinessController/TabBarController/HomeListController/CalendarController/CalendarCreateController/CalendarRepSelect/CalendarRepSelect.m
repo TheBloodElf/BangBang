@@ -29,7 +29,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.automaticallyAdjustsScrollViewInsets = NO;
     CGFloat width = _centerView.frame.size.width;
     CGFloat height = _centerView.frame.size.height;
     _repDayView = [[NSBundle mainBundle] loadNibNamed:@"RepDayView" owner:nil options:nil][0];

@@ -33,7 +33,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"签到记录";
-    self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor whiteColor];
     _userManager = [UserManager manager];
     _currDate = [NSDate date];
@@ -45,9 +44,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setBackIndicatorTransitionMaskImage:nil];
-    [self.navigationController.navigationBar setShadowImage:nil];
 }
 - (void)createCalendaView
 {

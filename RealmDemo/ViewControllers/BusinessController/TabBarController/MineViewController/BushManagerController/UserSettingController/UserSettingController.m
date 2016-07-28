@@ -41,7 +41,7 @@
     _identityManager = [IdentityManager manager];
     //获取存储的需要屏蔽的开始时间和结束时间  服务器没有存储 只有自己本地来了
     BOOL messageNoBool = _identityManager.identity.ryDisturb;
-    self.messageSwitch.on = [[RCIM sharedRCIM] disableMessageNotificaiton];
+    self.messageSwitch.on = ![[RCIM sharedRCIM] disableMessageNotificaiton];
     self.messageNoSwitch.on = messageNoBool;
     //初始化开始显示的值
     self.voiceSwitch.on = _identityManager.identity.canPlayVoice != 1;

@@ -54,9 +54,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setBackIndicatorTransitionMaskImage:nil];
-    [self.navigationController.navigationBar setShadowImage:nil];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 #pragma mark --
 #pragma mark -- RBQFetchedResultsControllerDelegate
