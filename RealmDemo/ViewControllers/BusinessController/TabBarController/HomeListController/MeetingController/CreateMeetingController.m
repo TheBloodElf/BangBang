@@ -21,6 +21,7 @@
 #import "MeetingAgendaTitle.h"
 #import "MeetingAgendaCell.h"
 
+#import "MeetingRoomController.h"
 #import "SingleSelectController.h"
 #import "MuliteSelectController.h"
 
@@ -66,6 +67,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [_tableView reloadData];
 }
 
 #pragma mark -- 
@@ -199,7 +201,10 @@
         
     } else if (indexPath.section == 1) {
         if(indexPath.row == 0) {//选择会议室
-            
+            MeetingRoomController *room = [MeetingRoomController new];
+            room.meeting = _meeting;
+            room.meetingRoomModel = _meetingRoomModel;
+            [self.navigationController pushViewController:room animated:YES];
         }
     } else if (indexPath.section == 2) {
         if(indexPath.row == 0) {//选择主持人

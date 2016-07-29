@@ -489,4 +489,29 @@
     };
     return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_GET URLPath:urlPath parameters:params completionHandler:compleionHandler];
 }
+#pragma mark -- 会议
+//获取会议室列表
++ (NSURLSessionDataTask*)getMeetRoomList:(int)companyNo handler:(completionHandler)handler {
+    NSString *urlPath = @"Meeting/get_room_list";
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:@(companyNo) forKey:@"company_no"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_GET URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
+//获取会议室时间空闲设备列表
++ (NSURLSessionDataTask*)getMeetEquipments:(int)companyNo begin:(int64_t)begin end:(int64_t)end handler:(completionHandler)handler {
+    NSString *urlPath = @"Meeting/get_public_equipments";
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:@(companyNo) forKey:@"company_no"];
+    [params setObject:@(begin) forKey:@"begin"];
+    [params setObject:@(end) forKey:@"end"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_GET URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
 @end

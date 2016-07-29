@@ -100,8 +100,7 @@
             [self.navigationController.view showFailureTips:error.statsMsg];
             return ;
         }
-        Calendar *calendar = [[Calendar alloc] init];
-        [calendar mj_setKeyValues:data];
+        Calendar *calendar = [[Calendar alloc] initWithJSONDictionary:data];
         calendar.descriptionStr = data[@"description"];
         [_userManager addCalendar:calendar];
         [self.navigationController showSuccessTips:@"添加成功"];

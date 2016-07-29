@@ -91,4 +91,9 @@
 + (NSURLSessionDataTask*)addSiginRule:(NSDictionary*)siginRule handler:(completionHandler)handler;
 //获取指定年月异常签到记录
 + (NSURLSessionDataTask*)getUsualSigin:(NSString*)userGuid companyNo:(int)companyNo year:(int)year month:(int)month handler:(completionHandler)handler;
+#pragma mark -- 会议
+//获取会议室列表
++ (NSURLSessionDataTask*)getMeetRoomList:(int)companyNo handler:(completionHandler)handler;
+//获取会议室时间空闲设备列表
++ (NSURLSessionDataTask*)getMeetEquipments:(int)companyNo begin:(int64_t)begin end:(int64_t)end handler:(completionHandler)handler;
 @end

@@ -82,7 +82,7 @@
     _centerNavLabel.textColor = [UIColor whiteColor];
     self.navigationItem.titleView = _centerNavLabel;
     //创建右边导航
-    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(moreClicked:)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addCalendarClicked:)],[[UIBarButtonItem alloc] initWithTitle:@"今" style:UIBarButtonItemStylePlain target:self action:@selector(todayClicked:)]];
+    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(moreClicked:)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addCalendarClicked:)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refushClicked:)],[[UIBarButtonItem alloc] initWithTitle:@"今" style:UIBarButtonItemStylePlain target:self action:@selector(todayClicked:)]];
     //创建多选视图
     _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100, 0, 100, 120)];
     _moreSelectView.selectArr = @[@"周视图",@"月视图",@"列表"];
@@ -110,8 +110,7 @@
             }
             NSMutableArray *array = [@[] mutableCopy];
             for (NSDictionary *dic in data[@"list"]) {
-                Calendar *calendar = [[Calendar alloc] init];
-                [calendar mj_setKeyValues:dic];
+                Calendar *calendar = [[Calendar alloc] initWithJSONDictionary:dic];
                 calendar.descriptionStr = dic[@"description"];
                 [array addObject:calendar];
             }
@@ -129,6 +128,24 @@
         _tableView.tableFooterView = [UIView new];
         [_tableView reloadData];
     }
+}
+- (void)refushClicked:(UIBarButtonItem*)item {
+    [self.navigationController.view showLoadingTips:@"正在同步..."];
+    [UserHttp getUserCalendar:_userManager.user.user_guid handler:^(id data, MError *error) {
+        [self.navigationController.view dismissTips];
+        if(error) {
+            [self.navigationController.view showFailureTips:error.statsMsg];
+            return ;
+        }
+        NSMutableArray *array = [@[] mutableCopy];
+        for (NSDictionary *dic in data[@"list"]) {
+            Calendar *calendar = [[Calendar alloc] initWithJSONDictionary:dic];
+            calendar.descriptionStr = dic[@"description"];
+            [array addObject:calendar];
+        }
+        [_userManager updateCalendars:array];
+        [self.navigationController.view showSuccessTips:@"同步成功"];
+    }];
 }
 - (void)todayClicked:(UIBarButtonItem*)item {
     _userSelectedDate = [NSDate date];

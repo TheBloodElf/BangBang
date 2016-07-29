@@ -11,7 +11,7 @@
 		040A09AF1D3D182F00156C16 /* DiscussListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 040A09A91D3D182F00156C16 /* DiscussListCell.m */; };
 		040A09B01D3D182F00156C16 /* DiscussListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040A09AA1D3D182F00156C16 /* DiscussListCell.xib */; };
 		040A09B11D3D182F00156C16 /* DiscussListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 040A09AC1D3D182F00156C16 /* DiscussListViewController.m */; };
-		040BB6051D4A44FD00511FFC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040BB6041D4A44FC00511FFC /* LaunchScreen.xib */; settings = {ASSET_TAGS = (); }; };
+		040BB6051D4A44FD00511FFC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040BB6041D4A44FC00511FFC /* LaunchScreen.xib */; };
 		0437F4331D4658FF0054077C /* MCJSONDateTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0437F4281D4658FF0054077C /* MCJSONDateTransformer.m */; };
 		0437F4341D4658FF0054077C /* MCJSONNonNullStringTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0437F42A1D4658FF0054077C /* MCJSONNonNullStringTransformer.m */; };
 		0437F4351D4658FF0054077C /* MCJSONPrimaryKeyTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0437F42C1D4658FF0054077C /* MCJSONPrimaryKeyTransformer.m */; };
@@ -289,6 +289,25 @@
 		1BD872291D38DD6C0074CDC7 /* BushSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD872251D38DD6C0074CDC7 /* BushSearchViewController.m */; };
 		1BD8722A1D38DD6C0074CDC7 /* BushSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD872271D38DD6C0074CDC7 /* BushSearchCell.m */; };
 		1BD8722B1D38DD6C0074CDC7 /* BushSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BD872281D38DD6C0074CDC7 /* BushSearchCell.xib */; };
+		1BDCBFD01D4AE6A50097CDA1 /* MeetingRoomController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDCBFCF1D4AE6A50097CDA1 /* MeetingRoomController.m */; };
+		1BDCBFE01D4AEFE30097CDA1 /* MeetingDeviceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDCBFDD1D4AEFE30097CDA1 /* MeetingDeviceCell.m */; };
+		1BDCBFE11D4AEFE30097CDA1 /* MeetingDeviceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BDCBFDE1D4AEFE30097CDA1 /* MeetingDeviceCell.xib */; };
+		1BDCBFFD1D4B24BB0097CDA1 /* MeetingRoomDeviceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDCBFFB1D4B24BB0097CDA1 /* MeetingRoomDeviceCell.m */; };
+		1BDCBFFE1D4B24BB0097CDA1 /* MeetingRoomDeviceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BDCBFFC1D4B24BB0097CDA1 /* MeetingRoomDeviceCell.xib */; };
+		1BDCC0021D4B25950097CDA1 /* MeetingRoomTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDCC0001D4B25950097CDA1 /* MeetingRoomTimeCell.m */; };
+		1BDCC0031D4B25950097CDA1 /* MeetingRoomTimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BDCC0011D4B25950097CDA1 /* MeetingRoomTimeCell.xib */; };
+		1BDCC0071D4B2EBF0097CDA1 /* MeetingRoomTimeCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDCC0051D4B2EBF0097CDA1 /* MeetingRoomTimeCollectionCell.m */; };
+		1BDCC0081D4B2EBF0097CDA1 /* MeetingRoomTimeCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BDCC0061D4B2EBF0097CDA1 /* MeetingRoomTimeCollectionCell.xib */; };
+		1BDCC00B1D4B388C0097CDA1 /* MeetingRoomCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDCC00A1D4B388C0097CDA1 /* MeetingRoomCellModel.m */; };
+		1BDCC00F1D4B57470097CDA1 /* MeetingDeviceSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDCC00E1D4B57470097CDA1 /* MeetingDeviceSelectController.m */; };
+		1BDCC0131D4B5A750097CDA1 /* MeetingDeviceSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDCC0111D4B5A750097CDA1 /* MeetingDeviceSelectCell.m */; };
+		1BDCC0141D4B5A750097CDA1 /* MeetingDeviceSelectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BDCC0121D4B5A750097CDA1 /* MeetingDeviceSelectCell.xib */; };
+		1BDCC0181D4B5B330097CDA1 /* MeetingSelectPresonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDCC0161D4B5B330097CDA1 /* MeetingSelectPresonCell.m */; };
+		1BDCC0191D4B5B330097CDA1 /* MeetingSelectPresonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BDCC0171D4B5B330097CDA1 /* MeetingSelectPresonCell.xib */; };
+		1BDCC0221D4B5FF90097CDA1 /* MeetingDeviceTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDCC01C1D4B5FF90097CDA1 /* MeetingDeviceTableCell.m */; };
+		1BDCC0231D4B5FF90097CDA1 /* MeetingDeviceTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BDCC01D1D4B5FF90097CDA1 /* MeetingDeviceTableCell.xib */; };
+		1BDCC0241D4B5FF90097CDA1 /* MeetingTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDCC0201D4B5FF90097CDA1 /* MeetingTimeCell.m */; };
+		1BDCC0251D4B5FF90097CDA1 /* MeetingTimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BDCC0211D4B5FF90097CDA1 /* MeetingTimeCell.xib */; };
 		1BDF20B71D3C61BF00666814 /* RYChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDF20B61D3C61BF00666814 /* RYChatManager.m */; };
 		1BF5DFA41D4995DE0039704E /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF5DFA31D4995DE0039704E /* WXApiManager.m */; };
 		1BF5DFA71D4995E50039704E /* WBApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF5DFA61D4995E50039704E /* WBApiManager.m */; };
@@ -824,6 +843,36 @@
 		1BD872261D38DD6C0074CDC7 /* BushSearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BushSearchCell.h; sourceTree = "<group>"; };
 		1BD872271D38DD6C0074CDC7 /* BushSearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BushSearchCell.m; sourceTree = "<group>"; };
 		1BD872281D38DD6C0074CDC7 /* BushSearchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BushSearchCell.xib; sourceTree = "<group>"; };
+		1BDCBFCE1D4AE6A50097CDA1 /* MeetingRoomController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingRoomController.h; sourceTree = "<group>"; };
+		1BDCBFCF1D4AE6A50097CDA1 /* MeetingRoomController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetingRoomController.m; sourceTree = "<group>"; };
+		1BDCBFDC1D4AEFE30097CDA1 /* MeetingDeviceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingDeviceCell.h; sourceTree = "<group>"; };
+		1BDCBFDD1D4AEFE30097CDA1 /* MeetingDeviceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetingDeviceCell.m; sourceTree = "<group>"; };
+		1BDCBFDE1D4AEFE30097CDA1 /* MeetingDeviceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeetingDeviceCell.xib; sourceTree = "<group>"; };
+		1BDCBFFA1D4B24BB0097CDA1 /* MeetingRoomDeviceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingRoomDeviceCell.h; sourceTree = "<group>"; };
+		1BDCBFFB1D4B24BB0097CDA1 /* MeetingRoomDeviceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetingRoomDeviceCell.m; sourceTree = "<group>"; };
+		1BDCBFFC1D4B24BB0097CDA1 /* MeetingRoomDeviceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeetingRoomDeviceCell.xib; sourceTree = "<group>"; };
+		1BDCBFFF1D4B25950097CDA1 /* MeetingRoomTimeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingRoomTimeCell.h; sourceTree = "<group>"; };
+		1BDCC0001D4B25950097CDA1 /* MeetingRoomTimeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetingRoomTimeCell.m; sourceTree = "<group>"; };
+		1BDCC0011D4B25950097CDA1 /* MeetingRoomTimeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeetingRoomTimeCell.xib; sourceTree = "<group>"; };
+		1BDCC0041D4B2EBF0097CDA1 /* MeetingRoomTimeCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingRoomTimeCollectionCell.h; sourceTree = "<group>"; };
+		1BDCC0051D4B2EBF0097CDA1 /* MeetingRoomTimeCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetingRoomTimeCollectionCell.m; sourceTree = "<group>"; };
+		1BDCC0061D4B2EBF0097CDA1 /* MeetingRoomTimeCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeetingRoomTimeCollectionCell.xib; sourceTree = "<group>"; };
+		1BDCC0091D4B388C0097CDA1 /* MeetingRoomCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingRoomCellModel.h; sourceTree = "<group>"; };
+		1BDCC00A1D4B388C0097CDA1 /* MeetingRoomCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetingRoomCellModel.m; sourceTree = "<group>"; };
+		1BDCC00D1D4B57470097CDA1 /* MeetingDeviceSelectController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingDeviceSelectController.h; sourceTree = "<group>"; };
+		1BDCC00E1D4B57470097CDA1 /* MeetingDeviceSelectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetingDeviceSelectController.m; sourceTree = "<group>"; };
+		1BDCC0101D4B5A750097CDA1 /* MeetingDeviceSelectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingDeviceSelectCell.h; sourceTree = "<group>"; };
+		1BDCC0111D4B5A750097CDA1 /* MeetingDeviceSelectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetingDeviceSelectCell.m; sourceTree = "<group>"; };
+		1BDCC0121D4B5A750097CDA1 /* MeetingDeviceSelectCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeetingDeviceSelectCell.xib; sourceTree = "<group>"; };
+		1BDCC0151D4B5B330097CDA1 /* MeetingSelectPresonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingSelectPresonCell.h; sourceTree = "<group>"; };
+		1BDCC0161D4B5B330097CDA1 /* MeetingSelectPresonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetingSelectPresonCell.m; sourceTree = "<group>"; };
+		1BDCC0171D4B5B330097CDA1 /* MeetingSelectPresonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeetingSelectPresonCell.xib; sourceTree = "<group>"; };
+		1BDCC01B1D4B5FF90097CDA1 /* MeetingDeviceTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingDeviceTableCell.h; sourceTree = "<group>"; };
+		1BDCC01C1D4B5FF90097CDA1 /* MeetingDeviceTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetingDeviceTableCell.m; sourceTree = "<group>"; };
+		1BDCC01D1D4B5FF90097CDA1 /* MeetingDeviceTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeetingDeviceTableCell.xib; sourceTree = "<group>"; };
+		1BDCC01F1D4B5FF90097CDA1 /* MeetingTimeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingTimeCell.h; sourceTree = "<group>"; };
+		1BDCC0201D4B5FF90097CDA1 /* MeetingTimeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetingTimeCell.m; sourceTree = "<group>"; };
+		1BDCC0211D4B5FF90097CDA1 /* MeetingTimeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeetingTimeCell.xib; sourceTree = "<group>"; };
 		1BDF20B51D3C61BF00666814 /* RYChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RYChatManager.h; sourceTree = "<group>"; };
 		1BDF20B61D3C61BF00666814 /* RYChatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RYChatManager.m; sourceTree = "<group>"; };
 		1BF5DFA21D4995DE0039704E /* WXApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiManager.h; sourceTree = "<group>"; };
@@ -1804,6 +1853,8 @@
 			children = (
 				1B5585C31D34FA7D00DCD3A0 /* HomeListController.h */,
 				1B5585C41D34FA7D00DCD3A0 /* HomeListController.m */,
+				1BDCC00C1D4B57470097CDA1 /* MeetingDeviceSelect */,
+				1BDCBFCD1D4AE6A50097CDA1 /* MeetingRoomController */,
 				1BF5DFE81D49DA300039704E /* MeetingController */,
 				1BFBC1831D3F80E000A5511A /* SiginController */,
 				1B1B986C1D3DB4F600F53EDC /* CalendarController */,
@@ -2168,6 +2219,84 @@
 				1BD872281D38DD6C0074CDC7 /* BushSearchCell.xib */,
 			);
 			path = BushSearchController;
+			sourceTree = "<group>";
+		};
+		1BDCBFCD1D4AE6A50097CDA1 /* MeetingRoomController */ = {
+			isa = PBXGroup;
+			children = (
+				1BDCBFCE1D4AE6A50097CDA1 /* MeetingRoomController.h */,
+				1BDCBFCF1D4AE6A50097CDA1 /* MeetingRoomController.m */,
+				1BDCC01A1D4B5FF90097CDA1 /* MeetingDeviceTableCell */,
+				1BDCC01E1D4B5FF90097CDA1 /* MeetingTimeCell */,
+				1BDCBFE21D4AEFF10097CDA1 /* MeetingTime */,
+				1BDCBFD91D4AEFE30097CDA1 /* MeetingDevice */,
+			);
+			name = MeetingRoomController;
+			path = MeetingController/MeetingRoomController;
+			sourceTree = "<group>";
+		};
+		1BDCBFD91D4AEFE30097CDA1 /* MeetingDevice */ = {
+			isa = PBXGroup;
+			children = (
+				1BDCBFFA1D4B24BB0097CDA1 /* MeetingRoomDeviceCell.h */,
+				1BDCBFFB1D4B24BB0097CDA1 /* MeetingRoomDeviceCell.m */,
+				1BDCBFFC1D4B24BB0097CDA1 /* MeetingRoomDeviceCell.xib */,
+				1BDCBFDC1D4AEFE30097CDA1 /* MeetingDeviceCell.h */,
+				1BDCBFDD1D4AEFE30097CDA1 /* MeetingDeviceCell.m */,
+				1BDCBFDE1D4AEFE30097CDA1 /* MeetingDeviceCell.xib */,
+			);
+			path = MeetingDevice;
+			sourceTree = "<group>";
+		};
+		1BDCBFE21D4AEFF10097CDA1 /* MeetingTime */ = {
+			isa = PBXGroup;
+			children = (
+				1BDCC0091D4B388C0097CDA1 /* MeetingRoomCellModel.h */,
+				1BDCC00A1D4B388C0097CDA1 /* MeetingRoomCellModel.m */,
+				1BDCBFFF1D4B25950097CDA1 /* MeetingRoomTimeCell.h */,
+				1BDCC0001D4B25950097CDA1 /* MeetingRoomTimeCell.m */,
+				1BDCC0011D4B25950097CDA1 /* MeetingRoomTimeCell.xib */,
+				1BDCC0041D4B2EBF0097CDA1 /* MeetingRoomTimeCollectionCell.h */,
+				1BDCC0051D4B2EBF0097CDA1 /* MeetingRoomTimeCollectionCell.m */,
+				1BDCC0061D4B2EBF0097CDA1 /* MeetingRoomTimeCollectionCell.xib */,
+			);
+			path = MeetingTime;
+			sourceTree = "<group>";
+		};
+		1BDCC00C1D4B57470097CDA1 /* MeetingDeviceSelect */ = {
+			isa = PBXGroup;
+			children = (
+				1BDCC00D1D4B57470097CDA1 /* MeetingDeviceSelectController.h */,
+				1BDCC00E1D4B57470097CDA1 /* MeetingDeviceSelectController.m */,
+				1BDCC0101D4B5A750097CDA1 /* MeetingDeviceSelectCell.h */,
+				1BDCC0111D4B5A750097CDA1 /* MeetingDeviceSelectCell.m */,
+				1BDCC0121D4B5A750097CDA1 /* MeetingDeviceSelectCell.xib */,
+				1BDCC0151D4B5B330097CDA1 /* MeetingSelectPresonCell.h */,
+				1BDCC0161D4B5B330097CDA1 /* MeetingSelectPresonCell.m */,
+				1BDCC0171D4B5B330097CDA1 /* MeetingSelectPresonCell.xib */,
+			);
+			name = MeetingDeviceSelect;
+			path = MeetingController/MeetingRoomController/MeetingDeviceSelect;
+			sourceTree = "<group>";
+		};
+		1BDCC01A1D4B5FF90097CDA1 /* MeetingDeviceTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				1BDCC01B1D4B5FF90097CDA1 /* MeetingDeviceTableCell.h */,
+				1BDCC01C1D4B5FF90097CDA1 /* MeetingDeviceTableCell.m */,
+				1BDCC01D1D4B5FF90097CDA1 /* MeetingDeviceTableCell.xib */,
+			);
+			path = MeetingDeviceTableCell;
+			sourceTree = "<group>";
+		};
+		1BDCC01E1D4B5FF90097CDA1 /* MeetingTimeCell */ = {
+			isa = PBXGroup;
+			children = (
+				1BDCC01F1D4B5FF90097CDA1 /* MeetingTimeCell.h */,
+				1BDCC0201D4B5FF90097CDA1 /* MeetingTimeCell.m */,
+				1BDCC0211D4B5FF90097CDA1 /* MeetingTimeCell.xib */,
+			);
+			path = MeetingTimeCell;
 			sourceTree = "<group>";
 		};
 		1BDF20B41D3C618800666814 /* RYChatManager */ = {
@@ -2615,6 +2744,7 @@
 				1BFBC1651D3F455500A5511A /* RepWeekView.xib in Resources */,
 				1B6D16581D48A8D00070D2E5 /* login_background@3x.png in Resources */,
 				0471C0961D3B262600377178 /* PushMessageCell.xib in Resources */,
+				1BDCC0191D4B5B330097CDA1 /* MeetingSelectPresonCell.xib in Resources */,
 				1B55859E1D34E2C800DCD3A0 /* ic_welcome_avatar_3_3.png in Resources */,
 				1B1B9BFE1D3E376200F53EDC /* CalendarSelectAlertTime.xib in Resources */,
 				1B1B9BC61D3DF6FA00F53EDC /* CalenderEventTableViewCell.xib in Resources */,
@@ -2629,6 +2759,7 @@
 				1B6D164E1D48A8D00070D2E5 /* ic_logo.png in Resources */,
 				1BD871E51D3882510074CDC7 /* ic_setting_bg_default.jpg in Resources */,
 				1B6D16571D48A8D00070D2E5 /* login_background@2x.png in Resources */,
+				1BDCC0081D4B2EBF0097CDA1 /* MeetingRoomTimeCollectionCell.xib in Resources */,
 				1B119E731D3CB89F007CC050 /* PhotoImageCollectionCell.xib in Resources */,
 				1B6D16411D48A8D00070D2E5 /* btn_qq_login.png in Resources */,
 				1B877F221D178E7D000144B2 /* Assets.xcassets in Resources */,
@@ -2654,6 +2785,7 @@
 				1BF5E0101D49E7740039704E /* MeetingAgendaTitle.xib in Resources */,
 				1B6D164F1D48A8D00070D2E5 /* ic_logo@2x.png in Resources */,
 				1BF5E0011D49E14F0039704E /* MeetingAgendaCell.xib in Resources */,
+				1BDCBFE11D4AEFE30097CDA1 /* MeetingDeviceCell.xib in Resources */,
 				1BC2AE871D42113800842153 /* WorkAdressCell.xib in Resources */,
 				1B6D16681D48A8D00070D2E5 /* login_weixin@1x.png in Resources */,
 				1BFBC15E1D3F26EC00A5511A /* RepDayView.xib in Resources */,
@@ -2665,6 +2797,7 @@
 				1B6D16671D48A8D00070D2E5 /* login_weibo@3x.png in Resources */,
 				1B6D16491D48A8D00070D2E5 /* ic_check_off@2x.png in Resources */,
 				1B158A6F1D45BB4D003237A7 /* RYGroupSetUserImageCell.xib in Resources */,
+				1BDCC0141D4B5A750097CDA1 /* MeetingDeviceSelectCell.xib in Resources */,
 				1B6D16611D48A8D00070D2E5 /* login_line@3x.png in Resources */,
 				1B1B9BF41D3E18D300F53EDC /* ComCalendarAdress.xib in Resources */,
 				1BC2AE4C1D4208DB00842153 /* SiginSelectCell.xib in Resources */,
@@ -2673,6 +2806,7 @@
 				049586211D39D3A500544259 /* SingleSelectController.xib in Resources */,
 				1B6D165B1D48A8D00070D2E5 /* login_botton1@2x.png in Resources */,
 				1B6D167B1D48AA840070D2E5 /* WeiboSDK.bundle in Resources */,
+				1BDCC0251D4B5FF90097CDA1 /* MeetingTimeCell.xib in Resources */,
 				1BF5E00B1D49E6DA0039704E /* MeetingAttendanceCell.xib in Resources */,
 				1BC2AE471D4208CB00842153 /* SiginImageCell.xib in Resources */,
 				1B6D16481D48A8D00070D2E5 /* ic_check_off.png in Resources */,
@@ -2687,8 +2821,11 @@
 				1BF5DFF61D49DC070039704E /* MeetingDevice.xib in Resources */,
 				1B6D16531D48A8D00070D2E5 /* ic_reg_name.png in Resources */,
 				1BFBC1491D3F0F0100A5511A /* RepCalendarRep.xib in Resources */,
+				1BDCBFFE1D4B24BB0097CDA1 /* MeetingRoomDeviceCell.xib in Resources */,
 				040A09B01D3D182F00156C16 /* DiscussListCell.xib in Resources */,
 				1BC2AE901D42113800842153 /* SelectAttendanceWorkDay.xib in Resources */,
+				1BDCC0031D4B25950097CDA1 /* MeetingRoomTimeCell.xib in Resources */,
+				1BDCC0231D4B5FF90097CDA1 /* MeetingDeviceTableCell.xib in Resources */,
 				0495864D1D3A348200544259 /* FaceInviteColleague.xib in Resources */,
 				1BF5DFF11D49DAB10039704E /* MeetingName.xib in Resources */,
 			);
@@ -2753,10 +2890,12 @@
 				045D8BA41D443E16002E0344 /* GeTuiSdkManager.m in Sources */,
 				1B55856D1D34CF4F00DCD3A0 /* UIViewController+REFrostedViewController.m in Sources */,
 				1B1B9BD21D3E07B300F53EDC /* CalendarCreateController.m in Sources */,
+				1BDCC00B1D4B388C0097CDA1 /* MeetingRoomCellModel.m in Sources */,
 				1BFBC1821D3F7B3D00A5511A /* RepCalendarEditController.m in Sources */,
 				1BFBC1481D3F0F0100A5511A /* RepCalendarRep.m in Sources */,
 				1BF5DFD61D49A90A0039704E /* bitstream.c in Sources */,
 				1B119E591D3C8794007CC050 /* RYChatController.m in Sources */,
+				1BDCC0221D4B5FF90097CDA1 /* MeetingDeviceTableCell.m in Sources */,
 				1B119E8A1D3CB907007CC050 /* ImageScrollView.m in Sources */,
 				0495861B1D39D3A500544259 /* SelectEmployeeModel.m in Sources */,
 				1B119E6F1D3CB89F007CC050 /* PhotoGroupController.m in Sources */,
@@ -2811,7 +2950,9 @@
 				1B4B162A1D37858400E71B3D /* BushManageViewController.m in Sources */,
 				1BC2AE7D1D42113800842153 /* AttendanceRollCell.m in Sources */,
 				0482FBD21D42FE4200B1CBB2 /* SiginNoteController.m in Sources */,
+				1BDCC0131D4B5A750097CDA1 /* MeetingDeviceSelectCell.m in Sources */,
 				1B1B9BFD1D3E376200F53EDC /* CalendarSelectAlertTime.m in Sources */,
+				1BDCC0241D4B5FF90097CDA1 /* MeetingTimeCell.m in Sources */,
 				1B1B986F1D3DB50400F53EDC /* CalendarController.m in Sources */,
 				1BC2AE881D42113800842153 /* CreateAttendanceController.m in Sources */,
 				1BF5E0001D49E14F0039704E /* MeetingAgendaCell.m in Sources */,
@@ -2897,10 +3038,13 @@
 				1BD8722A1D38DD6C0074CDC7 /* BushSearchCell.m in Sources */,
 				1BF5DFE11D49A91F0039704E /* DataCache.m in Sources */,
 				1BF5DFEB1D49DA3D0039704E /* CreateMeetingController.m in Sources */,
+				1BDCC00F1D4B57470097CDA1 /* MeetingDeviceSelectController.m in Sources */,
+				1BDCC0071D4B2EBF0097CDA1 /* MeetingRoomTimeCollectionCell.m in Sources */,
 				1B5585A71D34F1DF00DCD3A0 /* FindPasswordViewController.m in Sources */,
 				1BF5E0051D49E4E60039704E /* MeetingMembersCell.m in Sources */,
 				1B9DD17E1D3CD619008FEC53 /* PlainPhotoBrose.m in Sources */,
 				049586161D39D3A500544259 /* AllSelectBtn.m in Sources */,
+				1BDCBFFD1D4B24BB0097CDA1 /* MeetingRoomDeviceCell.m in Sources */,
 				1B1B9BC11D3DCB8000F53EDC /* EKRecurrenceRule+RRULE.m in Sources */,
 				1B119E721D3CB89F007CC050 /* PhotoImageCollectionCell.m in Sources */,
 				1BC2AE921D42113800842153 /* NoSiginruleView.m in Sources */,
@@ -2909,6 +3053,7 @@
 				1B119E821D3CB8FB007CC050 /* AllowDeletePhotoBrose.m in Sources */,
 				0495864E1D3A348200544259 /* InviteColleagueController.m in Sources */,
 				1BD871F01D38BECD0074CDC7 /* UIImage+scale.m in Sources */,
+				1BDCC0021D4B25950097CDA1 /* MeetingRoomTimeCell.m in Sources */,
 				1B9DD18C1D3CDB81008FEC53 /* SelectAdressTableCell.m in Sources */,
 				1B4B16141D37398600E71B3D /* XAddrBookCell.m in Sources */,
 				1B119E8E1D3CB92B007CC050 /* ShowBigImageScroller.m in Sources */,
@@ -2922,6 +3067,7 @@
 				0437F4341D4658FF0054077C /* MCJSONNonNullStringTransformer.m in Sources */,
 				049586381D3A1D2900544259 /* SelectDateController.m in Sources */,
 				1B119E861D3CB8FB007CC050 /* SelectImageViewCell.m in Sources */,
+				1BDCBFD01D4AE6A50097CDA1 /* MeetingRoomController.m in Sources */,
 				0482FBF01D436FE500B1CBB2 /* LineDashPolyline.m in Sources */,
 				1B4B16281D37858400E71B3D /* BushManagerCell.m in Sources */,
 				1BC2AE911D42113800842153 /* UpdateAttendanceController.m in Sources */,
@@ -2944,6 +3090,7 @@
 				1BF5DFF51D49DC070039704E /* MeetingDevice.m in Sources */,
 				1BD872221D38C8010074CDC7 /* UpdateBushController.m in Sources */,
 				1B6D16021D4846E60070D2E5 /* PushMessageController.m in Sources */,
+				1BDCBFE01D4AEFE30097CDA1 /* MeetingDeviceCell.m in Sources */,
 				0495861E1D39D3A500544259 /* SigleSelectCell.m in Sources */,
 				1BFBC1681D3F473B00A5511A /* RepMonthView.m in Sources */,
 				1BC2AE521D4210C700842153 /* PunchCardAddressSetting.m in Sources */,
@@ -2963,6 +3110,7 @@
 				0471C0911D3B23A700377178 /* NSString+StringSize.m in Sources */,
 				1B158A6E1D45BB4D003237A7 /* RYGroupSetUserImageCell.m in Sources */,
 				1BF5DFF91D49DE440039704E /* MeetingEquipmentsModel.m in Sources */,
+				1BDCC0181D4B5B330097CDA1 /* MeetingSelectPresonCell.m in Sources */,
 				1BD871ED1D38AFEF0074CDC7 /* CreateBushModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MeetingTimeCell" rowHeight="60" id="KGk-i7-Jjw" customClass="MeetingTimeCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="会议时间" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xMt-tb-ahp">
+                        <rect key="frame" x="15" y="19" width="68" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="68" id="gCw-0I-3a5"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kgS-jp-OBQ">
+                        <rect key="frame" x="93" y="21" width="142" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s5I-dh-886">
+                        <rect key="frame" x="245" y="15" width="60" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="60" id="UAg-KC-uon"/>
+                        </constraints>
+                        <state key="normal" title="会议设备">
+                            <color key="titleColor" red="0.08235294118" green="0.51372549020000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="deviceClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="kjz-Up-pn6"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="xMt-tb-ahp" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="5XF-vi-KOI"/>
+                    <constraint firstAttribute="leading" secondItem="xMt-tb-ahp" secondAttribute="leading" constant="-15" id="Iwa-e2-zKZ"/>
+                    <constraint firstAttribute="trailing" secondItem="s5I-dh-886" secondAttribute="trailing" constant="15" id="L0q-2C-laD"/>
+                    <constraint firstItem="kgS-jp-OBQ" firstAttribute="centerY" secondItem="xMt-tb-ahp" secondAttribute="centerY" id="Qyv-Jp-MM8"/>
+                    <constraint firstItem="s5I-dh-886" firstAttribute="centerY" secondItem="kgS-jp-OBQ" secondAttribute="centerY" id="bml-ho-Yxx"/>
+                    <constraint firstItem="s5I-dh-886" firstAttribute="leading" secondItem="kgS-jp-OBQ" secondAttribute="trailing" constant="10" id="ocP-gb-cC5"/>
+                    <constraint firstItem="kgS-jp-OBQ" firstAttribute="leading" secondItem="xMt-tb-ahp" secondAttribute="trailing" constant="10" id="tQD-Fk-jyA"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="deviceBtn" destination="s5I-dh-886" id="tmS-bR-6be"/>
+                <outlet property="meetingTime" destination="kgS-jp-OBQ" id="Gbm-uc-dqU"/>
+            </connections>
+            <point key="canvasLocation" x="587" y="248"/>
+        </tableViewCell>
+    </objects>
+</document>

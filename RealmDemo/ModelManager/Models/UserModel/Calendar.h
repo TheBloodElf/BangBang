@@ -51,7 +51,7 @@
 /** 0-已删除，1-正常，2-已完成 */
 @property (nonatomic, assign) int status;
 /**  */
-@property (nonatomic, strong) NSString      * finishedon_utc;
+@property (nonatomic, assign) int64_t     finishedon_utc;
 /**
  *  RRule字符串
  */
