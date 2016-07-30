@@ -27,14 +27,15 @@
     [super viewDidLoad];
     self.title = @"日程详情";
     _userManager = [UserManager manager];
-    if(_calendar.status == 1)//未完成就有下面的操作按钮
+    if(_calendar.status == 1 && [_calendar.user_guid isEqualToString:_userManager.user.user_guid])//未完成就有下面的操作按钮 如果是自己创建的
         _comCalendarView = [[ComCalendarView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 50)];
     else
         _comCalendarView = [[ComCalendarView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT)];
     _comCalendarView.data = _calendar;
     [self.view addSubview:_comCalendarView];
-    if(_calendar.status == 1) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(rightClicked:)];
+    if(_calendar.status == 1 && [_calendar.user_guid isEqualToString:_userManager.user.user_guid]) {//如果是自己创建的
+        if([_calendar.user_guid isEqualToString:_userManager.user.user_guid])//如果是自己创建的 就可以修改
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(rightClicked:)];
         UIToolbar *bottomBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, MAIN_SCREEN_HEIGHT - 50 - 64, MAIN_SCREEN_WIDTH, 50)];
         UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
         UIBarButtonItem *deleteItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"ic_delete"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(deleteCalendarClicked:)];

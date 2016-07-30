@@ -15,3 +15,9 @@ target 'RealmDemo' do
    pod 'GTSDK'
    pod 'Bugtags','~> 1.2.6'
 end
+
+target 'RealmShare' do
+   pod 'MBProgressHUD', '~> 0.9.2'
+   pod 'AFNetworking', '~> 3.1.0'
+   pod 'SDWebImage', '~> 3.7.6' 
+end

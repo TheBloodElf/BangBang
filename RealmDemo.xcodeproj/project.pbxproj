@@ -54,6 +54,30 @@
 		046DAF821D4C3EB500718F2A /* MeetingRoomTimeCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF5F1D4C3EB500718F2A /* MeetingRoomTimeCollectionCell.xib */; settings = {ASSET_TAGS = (); }; };
 		046DAF831D4C3EB500718F2A /* MeetingTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF621D4C3EB500718F2A /* MeetingTimeCell.m */; settings = {ASSET_TAGS = (); }; };
 		046DAF841D4C3EB500718F2A /* MeetingTimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF631D4C3EB500718F2A /* MeetingTimeCell.xib */; settings = {ASSET_TAGS = (); }; };
+		046DAF8D1D4C812C00718F2A /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF8C1D4C812C00718F2A /* ShareViewController.m */; };
+		046DAF901D4C812C00718F2A /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF8E1D4C812C00718F2A /* MainInterface.storyboard */; };
+		046DAF941D4C812C00718F2A /* RealmShare.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 046DAF891D4C812C00718F2A /* RealmShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		046DB0431D4C847C00718F2A /* UtikIesTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0421D4C847C00718F2A /* UtikIesTool.m */; settings = {ASSET_TAGS = (); }; };
+		046DB0461D4C84C700718F2A /* NSObject+Tips.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0451D4C84C700718F2A /* NSObject+Tips.m */; settings = {ASSET_TAGS = (); }; };
+		046DB06A1D4C85FD00718F2A /* ShareErrorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0491D4C85FD00718F2A /* ShareErrorController.m */; settings = {ASSET_TAGS = (); }; };
+		046DB06B1D4C85FD00718F2A /* person_deselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 046DB04C1D4C85FD00718F2A /* person_deselect@2x.png */; settings = {ASSET_TAGS = (); }; };
+		046DB06C1D4C85FD00718F2A /* person_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 046DB04D1D4C85FD00718F2A /* person_selected@2x.png */; settings = {ASSET_TAGS = (); }; };
+		046DB06D1D4C85FD00718F2A /* SelectCompanyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB04F1D4C85FD00718F2A /* SelectCompanyCell.m */; settings = {ASSET_TAGS = (); }; };
+		046DB06E1D4C85FD00718F2A /* SelectCompanyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DB0501D4C85FD00718F2A /* SelectCompanyCell.xib */; settings = {ASSET_TAGS = (); }; };
+		046DB06F1D4C85FD00718F2A /* SelectCompanyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0521D4C85FD00718F2A /* SelectCompanyController.m */; settings = {ASSET_TAGS = (); }; };
+		046DB0701D4C85FD00718F2A /* ShareSelectDepartController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0551D4C85FD00718F2A /* ShareSelectDepartController.m */; settings = {ASSET_TAGS = (); }; };
+		046DB0711D4C85FD00718F2A /* ShareSelectPersonController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0571D4C85FD00718F2A /* ShareSelectPersonController.m */; settings = {ASSET_TAGS = (); }; };
+		046DB0721D4C85FD00718F2A /* appicon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 046DB0591D4C85FD00718F2A /* appicon@3x.png */; settings = {ASSET_TAGS = (); }; };
+		046DB0731D4C85FD00718F2A /* ShareContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB05B1D4C85FD00718F2A /* ShareContentController.m */; settings = {ASSET_TAGS = (); }; };
+		046DB0741D4C85FD00718F2A /* ShareContentTopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB05D1D4C85FD00718F2A /* ShareContentTopCell.m */; settings = {ASSET_TAGS = (); }; };
+		046DB0751D4C85FD00718F2A /* ShareContentTopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DB05E1D4C85FD00718F2A /* ShareContentTopCell.xib */; settings = {ASSET_TAGS = (); }; };
+		046DB0761D4C85FD00718F2A /* ShareSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0601D4C85FD00718F2A /* ShareSelectController.m */; settings = {ASSET_TAGS = (); }; };
+		046DB0771D4C85FD00718F2A /* CompanyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0631D4C85FD00718F2A /* CompanyModel.m */; settings = {ASSET_TAGS = (); }; };
+		046DB0781D4C85FD00718F2A /* ShareModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0651D4C85FD00718F2A /* ShareModel.m */; settings = {ASSET_TAGS = (); }; };
+		046DB0791D4C85FD00718F2A /* ShareSelectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0671D4C85FD00718F2A /* ShareSelectModel.m */; settings = {ASSET_TAGS = (); }; };
+		046DB07D1D4C887500718F2A /* UserCompany.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB07C1D4C887500718F2A /* UserCompany.m */; settings = {ASSET_TAGS = (); }; };
+		046DB0801D4C888800718F2A /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB07F1D4C888800718F2A /* UserInfo.m */; settings = {ASSET_TAGS = (); }; };
+		046DB0841D4C896B00718F2A /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0831D4C896B00718F2A /* UserInfo.m */; settings = {ASSET_TAGS = (); }; };
 		0471C0911D3B23A700377178 /* NSString+StringSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 0471C0901D3B23A700377178 /* NSString+StringSize.m */; };
 		0471C0951D3B262600377178 /* PushMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0471C0931D3B262600377178 /* PushMessageCell.m */; };
 		0471C0961D3B262600377178 /* PushMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0471C0941D3B262600377178 /* PushMessageCell.xib */; };
@@ -359,6 +383,7 @@
 		1BFBC1821D3F7B3D00A5511A /* RepCalendarEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFBC1811D3F7B3D00A5511A /* RepCalendarEditController.m */; };
 		1BFBC1871D3F811900A5511A /* SiginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFBC1851D3F811900A5511A /* SiginController.m */; };
 		1BFBC1881D3F811900A5511A /* SiginController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BFBC1861D3F811900A5511A /* SiginController.xib */; };
+		472366F962A662ECAFC40E17 /* libPods-RealmShare.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 713F92DC8FC461BCE3C12F66 /* libPods-RealmShare.a */; };
 		75E5FF5B1D27A81B00F77961 /* AppCustoms.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E5FF5A1D27A81B00F77961 /* AppCustoms.m */; };
 		75E5FF601D27A97500F77961 /* InterfaceConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E5FF5F1D27A97500F77961 /* InterfaceConfig.m */; };
 		75E5FF641D27AA9100F77961 /* HttpService.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E5FF631D27AA9100F77961 /* HttpService.m */; };
@@ -369,6 +394,30 @@
 		75E5FF801D27D68C00F77961 /* Identity.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E5FF7F1D27D68C00F77961 /* Identity.m */; };
 		BF1B0A6965866FA7165750D2 /* libPods-RealmDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5741F96C8DE18CC807FD69E /* libPods-RealmDemo.a */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		046DAF921D4C812C00718F2A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1B877F0A1D178E7C000144B2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 046DAF881D4C812C00718F2A;
+			remoteInfo = RealmShare;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		046DAF981D4C812D00718F2A /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				046DAF941D4C812C00718F2A /* RealmShare.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		040A09A41D3D171B00156C16 /* UserDiscuss.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDiscuss.h; sourceTree = "<group>"; };
@@ -449,6 +498,48 @@
 		046DAF611D4C3EB500718F2A /* MeetingTimeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingTimeCell.h; sourceTree = "<group>"; };
 		046DAF621D4C3EB500718F2A /* MeetingTimeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetingTimeCell.m; sourceTree = "<group>"; };
 		046DAF631D4C3EB500718F2A /* MeetingTimeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeetingTimeCell.xib; sourceTree = "<group>"; };
+		046DAF891D4C812C00718F2A /* RealmShare.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RealmShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		046DAF8B1D4C812C00718F2A /* ShareViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
+		046DAF8C1D4C812C00718F2A /* ShareViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
+		046DAF8F1D4C812C00718F2A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		046DAF911D4C812C00718F2A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		046DB0411D4C847C00718F2A /* UtikIesTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtikIesTool.h; sourceTree = "<group>"; };
+		046DB0421D4C847C00718F2A /* UtikIesTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UtikIesTool.m; sourceTree = "<group>"; };
+		046DB0441D4C84C700718F2A /* NSObject+Tips.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Tips.h"; sourceTree = "<group>"; };
+		046DB0451D4C84C700718F2A /* NSObject+Tips.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Tips.m"; sourceTree = "<group>"; };
+		046DB0481D4C85FD00718F2A /* ShareErrorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareErrorController.h; sourceTree = "<group>"; };
+		046DB0491D4C85FD00718F2A /* ShareErrorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareErrorController.m; sourceTree = "<group>"; };
+		046DB04C1D4C85FD00718F2A /* person_deselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "person_deselect@2x.png"; sourceTree = "<group>"; };
+		046DB04D1D4C85FD00718F2A /* person_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "person_selected@2x.png"; sourceTree = "<group>"; };
+		046DB04E1D4C85FD00718F2A /* SelectCompanyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectCompanyCell.h; sourceTree = "<group>"; };
+		046DB04F1D4C85FD00718F2A /* SelectCompanyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectCompanyCell.m; sourceTree = "<group>"; };
+		046DB0501D4C85FD00718F2A /* SelectCompanyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectCompanyCell.xib; sourceTree = "<group>"; };
+		046DB0511D4C85FD00718F2A /* SelectCompanyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectCompanyController.h; sourceTree = "<group>"; };
+		046DB0521D4C85FD00718F2A /* SelectCompanyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectCompanyController.m; sourceTree = "<group>"; };
+		046DB0541D4C85FD00718F2A /* ShareSelectDepartController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareSelectDepartController.h; sourceTree = "<group>"; };
+		046DB0551D4C85FD00718F2A /* ShareSelectDepartController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareSelectDepartController.m; sourceTree = "<group>"; };
+		046DB0561D4C85FD00718F2A /* ShareSelectPersonController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareSelectPersonController.h; sourceTree = "<group>"; };
+		046DB0571D4C85FD00718F2A /* ShareSelectPersonController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareSelectPersonController.m; sourceTree = "<group>"; };
+		046DB0591D4C85FD00718F2A /* appicon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appicon@3x.png"; sourceTree = "<group>"; };
+		046DB05A1D4C85FD00718F2A /* ShareContentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareContentController.h; sourceTree = "<group>"; };
+		046DB05B1D4C85FD00718F2A /* ShareContentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareContentController.m; sourceTree = "<group>"; };
+		046DB05C1D4C85FD00718F2A /* ShareContentTopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareContentTopCell.h; sourceTree = "<group>"; };
+		046DB05D1D4C85FD00718F2A /* ShareContentTopCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareContentTopCell.m; sourceTree = "<group>"; };
+		046DB05E1D4C85FD00718F2A /* ShareContentTopCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareContentTopCell.xib; sourceTree = "<group>"; };
+		046DB05F1D4C85FD00718F2A /* ShareSelectController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareSelectController.h; sourceTree = "<group>"; };
+		046DB0601D4C85FD00718F2A /* ShareSelectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareSelectController.m; sourceTree = "<group>"; };
+		046DB0621D4C85FD00718F2A /* CompanyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyModel.h; sourceTree = "<group>"; };
+		046DB0631D4C85FD00718F2A /* CompanyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyModel.m; sourceTree = "<group>"; };
+		046DB0641D4C85FD00718F2A /* ShareModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareModel.h; sourceTree = "<group>"; };
+		046DB0651D4C85FD00718F2A /* ShareModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareModel.m; sourceTree = "<group>"; };
+		046DB0661D4C85FD00718F2A /* ShareSelectModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareSelectModel.h; sourceTree = "<group>"; };
+		046DB0671D4C85FD00718F2A /* ShareSelectModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareSelectModel.m; sourceTree = "<group>"; };
+		046DB07B1D4C887500718F2A /* UserCompany.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserCompany.h; sourceTree = "<group>"; };
+		046DB07C1D4C887500718F2A /* UserCompany.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserCompany.m; sourceTree = "<group>"; };
+		046DB07E1D4C888800718F2A /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
+		046DB07F1D4C888800718F2A /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
+		046DB0821D4C896B00718F2A /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
+		046DB0831D4C896B00718F2A /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
 		0471C08F1D3B23A700377178 /* NSString+StringSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+StringSize.h"; sourceTree = "<group>"; };
 		0471C0901D3B23A700377178 /* NSString+StringSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+StringSize.m"; sourceTree = "<group>"; };
 		0471C0921D3B262600377178 /* PushMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushMessageCell.h; sourceTree = "<group>"; };
@@ -959,6 +1050,7 @@
 		1BFBC1851D3F811900A5511A /* SiginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SiginController.m; sourceTree = "<group>"; };
 		1BFBC1861D3F811900A5511A /* SiginController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SiginController.xib; sourceTree = "<group>"; };
 		21CA8CCC01D73A106F99FB12 /* Pods-RealmDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RealmDemo/Pods-RealmDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		713F92DC8FC461BCE3C12F66 /* libPods-RealmShare.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RealmShare.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		75E5FF581D27A7FE00F77961 /* UtikIes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtikIes.h; sourceTree = "<group>"; };
 		75E5FF591D27A81B00F77961 /* AppCustoms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppCustoms.h; sourceTree = "<group>"; };
 		75E5FF5A1D27A81B00F77961 /* AppCustoms.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppCustoms.m; sourceTree = "<group>"; };
@@ -979,9 +1071,19 @@
 		75E5FF7F1D27D68C00F77961 /* Identity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Identity.m; sourceTree = "<group>"; };
 		94C9F3FC7EC4F91DCDE0BD85 /* Pods-RealmDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-RealmDemo/Pods-RealmDemo.release.xcconfig"; sourceTree = "<group>"; };
 		B5741F96C8DE18CC807FD69E /* libPods-RealmDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RealmDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BDCCFA4801BE9447932EE558 /* Pods-RealmShare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmShare.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RealmShare/Pods-RealmShare.debug.xcconfig"; sourceTree = "<group>"; };
+		CE86E50974ABDF753A29430B /* Pods-RealmShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmShare.release.xcconfig"; path = "Pods/Target Support Files/Pods-RealmShare/Pods-RealmShare.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		046DAF861D4C812C00718F2A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				472366F962A662ECAFC40E17 /* libPods-RealmShare.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1B877F0F1D178E7D000144B2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1188,6 +1290,117 @@
 				046DAF631D4C3EB500718F2A /* MeetingTimeCell.xib */,
 			);
 			path = MeetingTimeCell;
+			sourceTree = "<group>";
+		};
+		046DAF8A1D4C812C00718F2A /* RealmShare */ = {
+			isa = PBXGroup;
+			children = (
+				046DB0471D4C85FD00718F2A /* ShareError */,
+				046DB04A1D4C85FD00718F2A /* ShareSelectMethod */,
+				046DB0611D4C85FD00718F2A /* ShareSelectModel */,
+				046DB0401D4C846700718F2A /* Utikles */,
+				046DAF8B1D4C812C00718F2A /* ShareViewController.h */,
+				046DAF8C1D4C812C00718F2A /* ShareViewController.m */,
+				046DAF8E1D4C812C00718F2A /* MainInterface.storyboard */,
+				046DAF911D4C812C00718F2A /* Info.plist */,
+			);
+			path = RealmShare;
+			sourceTree = "<group>";
+		};
+		046DB0401D4C846700718F2A /* Utikles */ = {
+			isa = PBXGroup;
+			children = (
+				046DB0411D4C847C00718F2A /* UtikIesTool.h */,
+				046DB0421D4C847C00718F2A /* UtikIesTool.m */,
+				046DB0441D4C84C700718F2A /* NSObject+Tips.h */,
+				046DB0451D4C84C700718F2A /* NSObject+Tips.m */,
+				046DB07B1D4C887500718F2A /* UserCompany.h */,
+				046DB07C1D4C887500718F2A /* UserCompany.m */,
+				046DB07E1D4C888800718F2A /* UserInfo.h */,
+				046DB07F1D4C888800718F2A /* UserInfo.m */,
+			);
+			path = Utikles;
+			sourceTree = "<group>";
+		};
+		046DB0471D4C85FD00718F2A /* ShareError */ = {
+			isa = PBXGroup;
+			children = (
+				046DB0481D4C85FD00718F2A /* ShareErrorController.h */,
+				046DB0491D4C85FD00718F2A /* ShareErrorController.m */,
+			);
+			path = ShareError;
+			sourceTree = "<group>";
+		};
+		046DB04A1D4C85FD00718F2A /* ShareSelectMethod */ = {
+			isa = PBXGroup;
+			children = (
+				046DB04B1D4C85FD00718F2A /* SelectCompanyController */,
+				046DB0531D4C85FD00718F2A /* SelectPresonController */,
+				046DB0581D4C85FD00718F2A /* ShareContentController */,
+				046DB05F1D4C85FD00718F2A /* ShareSelectController.h */,
+				046DB0601D4C85FD00718F2A /* ShareSelectController.m */,
+			);
+			path = ShareSelectMethod;
+			sourceTree = "<group>";
+		};
+		046DB04B1D4C85FD00718F2A /* SelectCompanyController */ = {
+			isa = PBXGroup;
+			children = (
+				046DB04C1D4C85FD00718F2A /* person_deselect@2x.png */,
+				046DB04D1D4C85FD00718F2A /* person_selected@2x.png */,
+				046DB04E1D4C85FD00718F2A /* SelectCompanyCell.h */,
+				046DB04F1D4C85FD00718F2A /* SelectCompanyCell.m */,
+				046DB0501D4C85FD00718F2A /* SelectCompanyCell.xib */,
+				046DB0511D4C85FD00718F2A /* SelectCompanyController.h */,
+				046DB0521D4C85FD00718F2A /* SelectCompanyController.m */,
+			);
+			path = SelectCompanyController;
+			sourceTree = "<group>";
+		};
+		046DB0531D4C85FD00718F2A /* SelectPresonController */ = {
+			isa = PBXGroup;
+			children = (
+				046DB0541D4C85FD00718F2A /* ShareSelectDepartController.h */,
+				046DB0551D4C85FD00718F2A /* ShareSelectDepartController.m */,
+				046DB0561D4C85FD00718F2A /* ShareSelectPersonController.h */,
+				046DB0571D4C85FD00718F2A /* ShareSelectPersonController.m */,
+			);
+			path = SelectPresonController;
+			sourceTree = "<group>";
+		};
+		046DB0581D4C85FD00718F2A /* ShareContentController */ = {
+			isa = PBXGroup;
+			children = (
+				046DB0591D4C85FD00718F2A /* appicon@3x.png */,
+				046DB05A1D4C85FD00718F2A /* ShareContentController.h */,
+				046DB05B1D4C85FD00718F2A /* ShareContentController.m */,
+				046DB05C1D4C85FD00718F2A /* ShareContentTopCell.h */,
+				046DB05D1D4C85FD00718F2A /* ShareContentTopCell.m */,
+				046DB05E1D4C85FD00718F2A /* ShareContentTopCell.xib */,
+			);
+			path = ShareContentController;
+			sourceTree = "<group>";
+		};
+		046DB0611D4C85FD00718F2A /* ShareSelectModel */ = {
+			isa = PBXGroup;
+			children = (
+				046DB0621D4C85FD00718F2A /* CompanyModel.h */,
+				046DB0631D4C85FD00718F2A /* CompanyModel.m */,
+				046DB0641D4C85FD00718F2A /* ShareModel.h */,
+				046DB0651D4C85FD00718F2A /* ShareModel.m */,
+				046DB0661D4C85FD00718F2A /* ShareSelectModel.h */,
+				046DB0671D4C85FD00718F2A /* ShareSelectModel.m */,
+			);
+			path = ShareSelectModel;
+			sourceTree = "<group>";
+		};
+		046DB0811D4C895800718F2A /* ShareModel */ = {
+			isa = PBXGroup;
+			children = (
+				046DB0821D4C896B00718F2A /* UserInfo.h */,
+				046DB0831D4C896B00718F2A /* UserInfo.m */,
+			);
+			path = ShareModel;
 			sourceTree = "<group>";
 		};
 		0482FBCF1D42FE4200B1CBB2 /* SiginNoteController */ = {
@@ -1847,10 +2060,10 @@
 				1BD871EF1D38BECD0074CDC7 /* UIImage+scale.m */,
 				1B4B160B1D372F7C00E71B3D /* NSString+firstChar.h */,
 				1B4B160C1D372F7C00E71B3D /* NSString+firstChar.m */,
-				1B6C70561D361BE60028033D /* NSObject+Tips.h */,
-				1B6C70571D361BE60028033D /* NSObject+Tips.m */,
 				1B36FCE31D360B9F006694E4 /* NSObject+data.h */,
 				1B36FCE41D360B9F006694E4 /* NSObject+data.m */,
+				1B6C70561D361BE60028033D /* NSObject+Tips.h */,
+				1B6C70571D361BE60028033D /* NSObject+Tips.m */,
 				1B55857E1D34DD4E00DCD3A0 /* NSString+isBlank.h */,
 				1B55857F1D34DD4E00DCD3A0 /* NSString+isBlank.m */,
 				049586321D3A1CCA00544259 /* NSDate+Format.h */,
@@ -2111,6 +2324,7 @@
 			isa = PBXGroup;
 			children = (
 				1B877F141D178E7D000144B2 /* RealmDemo */,
+				046DAF8A1D4C812C00718F2A /* RealmShare */,
 				1B877F131D178E7D000144B2 /* Products */,
 				4D6CC168BC56EB689405D00C /* Pods */,
 				AE1CB48D1985A705EE5EEAD9 /* Frameworks */,
@@ -2121,6 +2335,7 @@
 			isa = PBXGroup;
 			children = (
 				1B877F121D178E7D000144B2 /* 帮帮管理助手.app */,
+				046DAF891D4C812C00718F2A /* RealmShare.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2472,6 +2687,8 @@
 			children = (
 				21CA8CCC01D73A106F99FB12 /* Pods-RealmDemo.debug.xcconfig */,
 				94C9F3FC7EC4F91DCDE0BD85 /* Pods-RealmDemo.release.xcconfig */,
+				BDCCFA4801BE9447932EE558 /* Pods-RealmShare.debug.xcconfig */,
+				CE86E50974ABDF753A29430B /* Pods-RealmShare.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -2611,6 +2828,7 @@
 				1BF5DFE61D49D90F0039704E /* Meeting.m */,
 				1BF5DFF71D49DE440039704E /* MeetingEquipmentsModel.h */,
 				1BF5DFF81D49DE440039704E /* MeetingEquipmentsModel.m */,
+				046DB0811D4C895800718F2A /* ShareModel */,
 			);
 			path = UserModel;
 			sourceTree = "<group>";
@@ -2635,6 +2853,7 @@
 				0495866A1D3A618600544259 /* UIKit.framework */,
 				1B157FFC1D24FFF50081A1A3 /* libc++.tbd */,
 				B5741F96C8DE18CC807FD69E /* libPods-RealmDemo.a */,
+				713F92DC8FC461BCE3C12F66 /* libPods-RealmShare.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2642,6 +2861,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		046DAF881D4C812C00718F2A /* RealmShare */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 046DAF951D4C812D00718F2A /* Build configuration list for PBXNativeTarget "RealmShare" */;
+			buildPhases = (
+				16762825F0477ACB16C3D78D /* [CP] Check Pods Manifest.lock */,
+				046DAF851D4C812C00718F2A /* Sources */,
+				046DAF861D4C812C00718F2A /* Frameworks */,
+				046DAF871D4C812C00718F2A /* Resources */,
+				F81108E44241937308581855 /* [CP] Embed Pods Frameworks */,
+				0EF51438D6E2858F0D6120FE /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RealmShare;
+			productName = RealmShare;
+			productReference = 046DAF891D4C812C00718F2A /* RealmShare.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		1B877F111D178E7D000144B2 /* RealmDemo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1B877F291D178E7D000144B2 /* Build configuration list for PBXNativeTarget "RealmDemo" */;
@@ -2652,10 +2891,12 @@
 				1B877F101D178E7D000144B2 /* Resources */,
 				53E8252D672F7E92B97C2711 /* [CP] Embed Pods Frameworks */,
 				E3273935CCBB4127820A904F /* [CP] Copy Pods Resources */,
+				046DAF981D4C812D00718F2A /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				046DAF931D4C812C00718F2A /* PBXTargetDependency */,
 			);
 			name = RealmDemo;
 			productName = RealmDemo;
@@ -2671,6 +2912,10 @@
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = com.luohaifang;
 				TargetAttributes = {
+					046DAF881D4C812C00718F2A = {
+						CreatedOnToolsVersion = 7.0.1;
+						DevelopmentTeam = W488V5C95D;
+					};
 					1B877F111D178E7D000144B2 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = W488V5C95D;
@@ -2691,11 +2936,25 @@
 			projectRoot = "";
 			targets = (
 				1B877F111D178E7D000144B2 /* RealmDemo */,
+				046DAF881D4C812C00718F2A /* RealmShare */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		046DAF871D4C812C00718F2A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				046DB06C1D4C85FD00718F2A /* person_selected@2x.png in Resources */,
+				046DB06E1D4C85FD00718F2A /* SelectCompanyCell.xib in Resources */,
+				046DB06B1D4C85FD00718F2A /* person_deselect@2x.png in Resources */,
+				046DB0751D4C85FD00718F2A /* ShareContentTopCell.xib in Resources */,
+				046DAF901D4C812C00718F2A /* MainInterface.storyboard in Resources */,
+				046DB0721D4C85FD00718F2A /* appicon@3x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1B877F101D178E7D000144B2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2832,6 +3091,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0EF51438D6E2858F0D6120FE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RealmShare/Pods-RealmShare-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		16762825F0477ACB16C3D78D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		53E8252D672F7E92B97C2711 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2877,9 +3166,47 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RealmDemo/Pods-RealmDemo-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		F81108E44241937308581855 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RealmShare/Pods-RealmShare-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		046DAF851D4C812C00718F2A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				046DB0801D4C888800718F2A /* UserInfo.m in Sources */,
+				046DB07D1D4C887500718F2A /* UserCompany.m in Sources */,
+				046DB0431D4C847C00718F2A /* UtikIesTool.m in Sources */,
+				046DB06F1D4C85FD00718F2A /* SelectCompanyController.m in Sources */,
+				046DB0461D4C84C700718F2A /* NSObject+Tips.m in Sources */,
+				046DB0761D4C85FD00718F2A /* ShareSelectController.m in Sources */,
+				046DB06D1D4C85FD00718F2A /* SelectCompanyCell.m in Sources */,
+				046DB0731D4C85FD00718F2A /* ShareContentController.m in Sources */,
+				046DB06A1D4C85FD00718F2A /* ShareErrorController.m in Sources */,
+				046DAF8D1D4C812C00718F2A /* ShareViewController.m in Sources */,
+				046DB0781D4C85FD00718F2A /* ShareModel.m in Sources */,
+				046DB0741D4C85FD00718F2A /* ShareContentTopCell.m in Sources */,
+				046DB0771D4C85FD00718F2A /* CompanyModel.m in Sources */,
+				046DB0711D4C85FD00718F2A /* ShareSelectPersonController.m in Sources */,
+				046DB0701D4C85FD00718F2A /* ShareSelectDepartController.m in Sources */,
+				046DB0791D4C85FD00718F2A /* ShareSelectModel.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1B877F0E1D178E7D000144B2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3010,6 +3337,7 @@
 				1B5585981D34E29700DCD3A0 /* AppDelegate.m in Sources */,
 				1B1B9BEE1D3E178F00F53EDC /* ComCalendarDetail.m in Sources */,
 				1B158A751D4604C3003237A7 /* RCDSelectPersonController.m in Sources */,
+				046DB0841D4C896B00718F2A /* UserInfo.m in Sources */,
 				1B1B9BDA1D3E0FC500F53EDC /* RepCalendarView.m in Sources */,
 				04E7E5AA1D3A660800C653B4 /* ChangeUserName.m in Sources */,
 				1B158A681D45BB4D003237A7 /* RYGroupSetAddUserCell.m in Sources */,
@@ -3115,7 +3443,58 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		046DAF931D4C812C00718F2A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 046DAF881D4C812C00718F2A /* RealmShare */;
+			targetProxy = 046DAF921D4C812C00718F2A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		046DAF8E1D4C812C00718F2A /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				046DAF8F1D4C812C00718F2A /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		046DAF961D4C812D00718F2A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BDCCFA4801BE9447932EE558 /* Pods-RealmShare.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = RealmShare/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lottak.BangBang.share;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		046DAF971D4C812D00718F2A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CE86E50974ABDF753A29430B /* Pods-RealmShare.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = RealmShare/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lottak.BangBang.share;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		1B877F271D178E7D000144B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3205,7 +3584,6 @@
 			baseConfigurationReference = 21CA8CCC01D73A106F99FB12 /* Pods-RealmDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
@@ -3312,7 +3690,6 @@
 			baseConfigurationReference = 94C9F3FC7EC4F91DCDE0BD85 /* Pods-RealmDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
@@ -3417,6 +3794,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		046DAF951D4C812D00718F2A /* Build configuration list for PBXNativeTarget "RealmShare" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				046DAF961D4C812D00718F2A /* Debug */,
+				046DAF971D4C812D00718F2A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		1B877F0D1D178E7C000144B2 /* Build configuration list for PBXProject "RealmDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

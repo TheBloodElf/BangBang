@@ -34,6 +34,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-RealmShare.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>RBQFetchedResultsController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -83,6 +88,11 @@
 			<true/>
 		</dict>
 		<key>9EAB3E42EF957541E6C3C76D35FD008E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A59697D01800AB6067CD051D27710F75</key>
 		<dict>
 			<key>primary</key>
 			<true/>

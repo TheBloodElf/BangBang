@@ -7,7 +7,7 @@
 //
 
 #import "UserManager.h"
-
+#import "UserInfo.h"
 @interface UserManager () {
     RLMRealm *_rlmRealm;
 }
@@ -42,7 +42,9 @@
     [_rlmRealm commitWriteTransaction];
     //把用户数据放到应用组间共享数据
     NSUserDefaults *sharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.lottak.bangbang"];
-    [sharedDefaults setValue:[NSKeyedArchiver archivedDataWithRootObject:self.user] forKey:@"group.com.lottak.bangbang"];
+    UserInfo *userInfo = [UserInfo new];
+    userInfo.user_guid = _user.user_guid;
+    [sharedDefaults setValue:[NSKeyedArchiver archivedDataWithRootObject:userInfo] forKey:@"GroupUserInfo"];
     [sharedDefaults synchronize];
 }
 //通过用户guid加载用户
