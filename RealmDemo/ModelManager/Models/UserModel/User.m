@@ -10,6 +10,8 @@
 
 @implementation User
 
+MJExtensionCodingImplementation
+
 + (NSString*)primaryKey {
     return @"user_guid";
 }

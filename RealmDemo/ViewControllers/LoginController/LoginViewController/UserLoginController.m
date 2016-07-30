@@ -32,6 +32,10 @@
     [super viewDidLoad];
     [WXApiManager sharedManager].delegate = self;
     [WBApiManager shareManager].delegate = self;
+    //把视图移动到最顶部 即使有状态栏和导航
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
     _userManager = [UserManager manager];
     _identityManager = [IdentityManager manager];
     _tencentOAuth = [[TencentOAuth alloc] initWithAppId:@"1103790262" andDelegate:self];

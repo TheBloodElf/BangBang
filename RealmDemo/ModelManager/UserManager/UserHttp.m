@@ -490,6 +490,16 @@
     return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_GET URLPath:urlPath parameters:params completionHandler:compleionHandler];
 }
 #pragma mark -- 会议
+//创建会议
++ (NSURLSessionDataTask*)createMeet:(NSDictionary*)meetDic handler:(completionHandler)handler {
+    NSString *urlPath = @"Meeting/add";
+    NSMutableDictionary *params = [meetDic mutableCopy];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
 //获取会议室列表
 + (NSURLSessionDataTask*)getMeetRoomList:(int)companyNo handler:(completionHandler)handler {
     NSString *urlPath = @"Meeting/get_room_list";

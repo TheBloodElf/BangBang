@@ -24,10 +24,9 @@
     Meeting *meeting = self.data;
     self.meetingName.text = meeting.title;
 }
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
     Meeting *meeting = self.data;
-    NSString *currStr = [textField.text stringByReplacingCharactersInRange:range withString:string];
-    meeting.title = currStr;
+    meeting.title = textField.text;
     return YES;
 }
 

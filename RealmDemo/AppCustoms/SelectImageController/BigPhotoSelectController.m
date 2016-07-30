@@ -86,7 +86,7 @@
     //创建标签后面的红色图像
     UIView *iamgeView = [[UIView alloc] initWithFrame:CGRectMake(_bottomView.frame.size.width - btnWidth - labelWidth - 2 * btnRight, 0.5 * (_bottomView.frame.size.height - labelHeight), labelWidth, labelHeight)];
     iamgeView.tag = 1101;
-    iamgeView.backgroundColor = [UIColor redColor];
+    iamgeView.backgroundColor = [UIColor blackColor];
     iamgeView.layer.cornerRadius = labelHeight / 2;
     iamgeView.clipsToBounds = YES;
     [_bottomView addSubview:iamgeView];

@@ -9,11 +9,20 @@
 #import <UIKit/UIKit.h>
 #import "MeetingRoomModel.h"
 #import "Meeting.h"
+#import "MeetingEquipmentsModel.h"
+#import "MeetingRoomCellModel.h"
+#import "UserManager.h"
 
 //会议室选择
+
+@protocol MeetingRoomDelegate <NSObject>
+
+- (void)MeetingRoomDeviceSelect:(NSArray<MeetingEquipmentsModel*>*)array meetingRoom:( MeetingRoomModel*)meetingRoom employee:(Employee*)employee meetingRoomTime:(MeetingRoomCellModel*)meetingRoomTime;
+
+@end
+
 @interface MeetingRoomController : UIViewController
 
-@property (nonatomic, strong) MeetingRoomModel *meetingRoomModel;//已经选择的会议室模型
-@property (nonatomic, strong) Meeting *meeting;//会议模型
+@property (nonatomic, weak) id<MeetingRoomDelegate> delegate;
 
 @end

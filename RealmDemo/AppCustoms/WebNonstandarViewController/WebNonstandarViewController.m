@@ -71,6 +71,12 @@
     [_bridge registerHandler:@"addMeetingObjc" handler:^(id data, WVJBResponseCallback responseCallback){
         responseCallback(@"Response from testObjcCallback");
         CreateMeetingController *createMeeting = [CreateMeetingController new];
+        createMeeting.createFinish = ^() {
+            //调用JS刷新会议列表
+            [_bridge callHandler:@"onSaveCallback" data:@"" responseCallback:^(id response) {
+                NSLog(@"xyf-----------: %@", response);
+            }];
+        };
         [self.navigationController pushViewController:createMeeting animated:YES];
     }];
     //开始单聊

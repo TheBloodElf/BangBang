@@ -87,6 +87,9 @@
 //转让圈子
 - (void)transCompanyClicked:(UIButton*)btn {
     SingleSelectController *select = [SingleSelectController new];
+    Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_currCompany.company_no];
+    select.outEmployees = [@[employee] mutableCopy];
+    select.companyNo = _currCompany.company_no;
     select.delegate = self;
     [self.navigationController pushViewController:select animated:YES];
 }
@@ -94,7 +97,7 @@
 #pragma mark -- SingleSelectDelegate
 - (void)singleSelect:(Employee *)employee {
     [self.navigationController.view showLoadingTips:@"请稍等..."];
-    Employee *ownerInThisCompany = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_currCompany.company_no];
+    Employee *ownerInThisCompany = [[_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_currCompany.company_no] deepCopy];
     [UserHttp transCompany:_currCompany.company_no ownerGuid:ownerInThisCompany.user_guid toGuid:employee.user_guid handler:^(id data, MError *error) {
         [self.navigationController.view dismissTips];
         if(error) {

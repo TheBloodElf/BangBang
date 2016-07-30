@@ -28,10 +28,8 @@
     _calendar = self.data;
     self.adressLabel.text = _calendar.address;
 }
-#pragma mark --
-#pragma mark -- UITextFieldDelegate
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    _calendar.address = [textField.text stringByReplacingCharactersInRange:range withString:string];
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    _calendar.address = textField.text;
     return YES;
 }
 @end

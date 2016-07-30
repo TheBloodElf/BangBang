@@ -35,6 +35,10 @@
 }
 - (void)saveAuthorizeData {
     [DataCache setCache:self.identity forKey:@"IdentityLocCache"];
+    //把登录信息放到应用组间共享数据
+    NSUserDefaults *sharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.lottak.bangbang"];
+    [sharedDefaults setValue:[NSKeyedArchiver archivedDataWithRootObject:self.identity] forKey:@"group.com.lottak.bangbang"];
+    [sharedDefaults synchronize];
 }
 - (void)showLogin {
     //登录模块重新初始化

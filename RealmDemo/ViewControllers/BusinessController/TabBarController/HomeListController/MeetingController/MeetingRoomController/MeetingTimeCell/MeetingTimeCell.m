@@ -30,7 +30,7 @@
         return;
     }
     self.deviceBtn.enabled = YES;
-    NSString *timeStr = [NSString stringWithFormat:@"%ld/%02ld/%02ld %02ld:%02ld-%02ld:%02ld",meeting.begin.year,meeting.begin.month,meeting.begin.day,meeting.begin.hour,meeting.begin.minute,meeting.end.hour,meeting.end.minute];
+    NSString *timeStr = [NSString stringWithFormat:@"%02ld/%02ld %02ld:%02ld-%02ld:%02ld",meeting.begin.month,meeting.begin.day,meeting.begin.hour,meeting.begin.minute,meeting.end.hour,meeting.end.minute];
     self.meetingTime.text = timeStr;
 }
 - (IBAction)deviceClicked:(id)sender {

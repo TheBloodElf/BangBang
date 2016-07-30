@@ -29,14 +29,9 @@
     self.agendaText.text = meetingAgenda.title;
     self.agendaNumber.text = [NSString stringWithFormat:@"%d",meetingAgenda.index];
 }
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-     MeetingAgenda *meetingAgenda = self.data;
-    meetingAgenda.title = textField.text;
-}
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
     MeetingAgenda *meetingAgenda = self.data;
-    NSString *currStr = [textField.text stringByReplacingCharactersInRange:range withString:string];
-    meetingAgenda.title = currStr;
+    meetingAgenda.title = textField.text;
     return YES;
 }
 - (IBAction)deleteClicked:(id)sender {

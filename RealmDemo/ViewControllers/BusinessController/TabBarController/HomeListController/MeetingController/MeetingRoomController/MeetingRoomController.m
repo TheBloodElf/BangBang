@@ -13,18 +13,17 @@
 #import "MeetingRoomTimeCell.h"
 #import "MeetingTimeCell.h"
 #import "UserHttp.h"
-#import "UserManager.h"
-#import "MeetingRoomCellModel.h"
 #import "MeetingDeviceSelectController.h"
 
 @interface MeetingRoomController ()<UITableViewDelegate,UITableViewDataSource,MeetingTimeCellDelegate,MeetingDeviceTableCellDelegate,MeetingDeviceDelegate,MeetingRoomTimeCellDelegate,MeetingDeviceSelectDelegate> {
     UITableView *_tableView;
     UserManager *_userManager;//用户管理器
+    Employee *_employee;//会议准备人
     MeetingRoomCellModel *_userSelectDate;//用户选择的开始/结束时间
     NSMutableArray<MeetingRoomModel*> *_allMeetingRoomArr;//所有的会议室
     NSMutableArray<MeetingEquipmentsModel*> *_meetingEquipmentsArr;//已经选择的会议室设备列表
 }
-
+@property (nonatomic, strong) MeetingRoomModel *meetingRoomModel;//已经选择的会议室模型
 @end
 
 @implementation MeetingRoomController
@@ -71,7 +70,18 @@
     // Do any additional setup after loading the view.
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
-    
+    if(_userSelectDate.end.timeIntervalSince1970 == 0) {
+        [self.navigationController.view showMessageTips:@"请选择时间"];
+        return;
+    }
+    if(_employee.id == 0) {
+        [self.navigationController.view showMessageTips:@"请选择会议室准备人"];
+        return;
+    }
+    if(self.delegate && [self.delegate respondsToSelector:@selector(MeetingRoomDeviceSelect: meetingRoom:employee:meetingRoomTime:)]) {
+        [self.delegate MeetingRoomDeviceSelect:_meetingEquipmentsArr meetingRoom:_meetingRoomModel employee:_employee meetingRoomTime:_userSelectDate];
+    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark -- 
 #pragma mark -- UITableViewDelegate
@@ -80,7 +90,7 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if(section == 1)
-        if(_meetingEquipmentsArr.count)
+        if(_employee.id != 0)
             return 2;
     return 1;
 }
@@ -157,6 +167,7 @@
 //会议设备被点击
 - (void)MeetingTimeDevice {
     MeetingDeviceSelectController *select = [MeetingDeviceSelectController new];
+    select.delegate = self;
     [self.navigationController pushViewController:select animated:YES];
 }
 #pragma mark -- MeetingDeviceSelectDelegate
@@ -165,10 +176,8 @@
     for (MeetingEquipmentsModel *model in array) {
         [idArray addObject:@(model.id).stringValue];
     }
-    //加上设备ID
-    _meeting.equipments = [idArray componentsJoinedByString:@","];
-    //准备人写上
-    _meeting.ready_man = employee.employee_guid;
+    _meetingEquipmentsArr = [array mutableCopy];
+    _employee = employee;
     [_tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
 }
 #pragma mark -- MeetingDeviceTableCellDelegate

@@ -64,7 +64,20 @@
     // Do any additional setup after loading the view.
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
-    
+    if(_employee.id == 0) {
+        [self.navigationController.view showMessageTips:@"选择准备人"];
+        return;
+    }
+    NSMutableArray<MeetingEquipmentsModel*> *array = [@[] mutableCopy];
+    [array addObjectsFromArray:_sureEquipmentsArr];
+    for (MeetingEquipmentsModel *model in _publicEquipmentsArr) {
+        if(model.isSelect == YES)
+            [array addObject:model];
+    }
+    if(self.delegate && [self.delegate respondsToSelector:@selector(MeetingDeviceSelect:employee:)]) {
+        [self.delegate MeetingDeviceSelect:array employee:_employee];
+    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)dataDidChange {
     _userSelectDate = self.data;

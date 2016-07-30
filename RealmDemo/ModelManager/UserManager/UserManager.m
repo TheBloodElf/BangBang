@@ -40,6 +40,10 @@
     [_rlmRealm addOrUpdateObject:user];
     self.user = user;
     [_rlmRealm commitWriteTransaction];
+    //把用户数据放到应用组间共享数据
+    NSUserDefaults *sharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.lottak.bangbang"];
+    [sharedDefaults setValue:[NSKeyedArchiver archivedDataWithRootObject:self.user] forKey:@"group.com.lottak.bangbang"];
+    [sharedDefaults synchronize];
 }
 //通过用户guid加载用户
 - (void)loadUserWithGuid:(NSString*)userGuid {
@@ -73,9 +77,7 @@
     RLMResults *results = [Employee objectsInRealm:_rlmRealm withPredicate:pred];
     [_rlmRealm commitWriteTransaction];
     //如果有值就返回 没有就算了
-    if(results.count)
-        return [results objectAtIndex:0];
-    return nil;
+    return [results objectAtIndex:0];
 }
 //根据UserNO获取员工
 - (Employee*)getEmployeeWithNo:(int)userNo {

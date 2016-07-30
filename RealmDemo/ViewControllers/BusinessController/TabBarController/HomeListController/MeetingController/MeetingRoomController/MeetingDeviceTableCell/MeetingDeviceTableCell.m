@@ -24,7 +24,7 @@
 - (void)dataDidChange {
     NSArray<MeetingEquipmentsModel*> *array = self.data;
     if(array.count == 0) {
-        self.meetingDevice.text = @"请选择";
+        self.meetingDevice.text = @"无设备";
         self.moreBtn.enabled = NO;
         return;
     }

@@ -11,6 +11,7 @@
 #import "MeetingRoomModel.h"
 #import "Meeting.h"
 #import "Employee.h"
+#import "UserManager.h"
 #import "UserHttp.h"
 #import "MeetingAgenda.h"
 
@@ -25,7 +26,8 @@
 #import "SingleSelectController.h"
 #import "MuliteSelectController.h"
 
-@interface CreateMeetingController ()<UITableViewDelegate,UITableViewDataSource,MeetingDeviceDelegate,MeetingAgendaDelegate> {
+@interface CreateMeetingController ()<UITableViewDelegate,UITableViewDataSource,MeetingDeviceDelegate,MeetingAgendaDelegate,MeetingRoomDelegate> {
+    UserManager *_userManager;
     UITableView *_tableView;//表格视图
     Meeting *_meeting;//会议模型
     MeetingRoomModel *_meetingRoomModel;//会议室模型
@@ -43,6 +45,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"新建会议";
+    _userManager = [UserManager manager];
     _meeting = [Meeting new];
     _meetingRoomModel = [MeetingRoomModel new];
     _meetingEquipmentsArr = [@[] mutableCopy];
@@ -62,6 +65,7 @@
     [_tableView registerNib:[UINib nibWithNibName:@"MeetingAgendaTitle" bundle:nil] forCellReuseIdentifier:@"MeetingAgendaTitle"];
      [_tableView registerNib:[UINib nibWithNibName:@"MeetingAgendaCell" bundle:nil] forCellReuseIdentifier:@"MeetingAgendaCell"];
     [self.view addSubview:_tableView];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightClicked:)];
     // Do any additional setup after loading the view.
 }
 - (void)viewWillAppear:(BOOL)animated {
@@ -69,7 +73,78 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [_tableView reloadData];
 }
-
+- (void)rightClicked:(UIBarButtonItem*)item {
+    if([NSString isBlank:_meeting.title]) {
+        [self.navigationController.view showMessageTips:@"请填写会议主题"];
+        return;
+    }
+    if(_meetingRoomModel.room_id == 0) {
+        [self.navigationController.view showMessageTips:@"请选择会议室"];
+        return;
+    }
+    if(_incharge.id == 0) {
+        [self.navigationController.view showMessageTips:@"请选择主持人"];
+        return;
+    }
+    if(_membersArr.count == 0) {
+        [self.navigationController.view showMessageTips:@"请选择参与人"];
+        return;
+    }
+    BOOL isAllNull = YES;
+    for (MeetingAgenda *agenda in _meetingAgendaArr) {
+        if(![NSString isBlank:agenda.title]) {
+            isAllNull = NO;
+            break;
+        }
+    }
+    if(isAllNull == YES) {
+        [self.navigationController.view showMessageTips:@"请填写议程"];
+        return;
+    }
+    //在这里把模型填充好
+    Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
+    _meeting.create_by = employee.employee_guid;
+    _meeting.incharge = _incharge.employee_guid;
+    _meeting.room_id = _meetingRoomModel.room_id;
+    //议题列表
+    NSMutableArray<NSString*> *nameArr = [@[] mutableCopy];
+    for (MeetingAgenda *agenda in _meetingAgendaArr) {
+        if(![NSString isBlank:agenda.title]) {
+            [nameArr addObject:agenda.title];
+        }
+    }
+    _meeting.topic = [nameArr componentsJoinedByString:@"^"];
+    //参与人guid数组
+    NSMutableArray *membersGuidArr = [@[] mutableCopy];
+    for (Employee *employee in membersGuidArr) {
+        [membersGuidArr addObject:employee.employee_guid];
+    }
+    _meeting.members = [membersGuidArr componentsJoinedByString:@"^"];
+    //公用设备id数组
+    NSMutableArray *equipmentIdArr = [@[] mutableCopy];
+    for (MeetingEquipmentsModel *model in _meetingEquipmentsArr) {
+        [equipmentIdArr addObject:@(model.id).stringValue];
+    }
+    _meeting.equipments = [equipmentIdArr componentsJoinedByString:@"^"];
+    //列席人guid数组
+    NSMutableArray *attendanceGuidArr = [@[] mutableCopy];
+    for (Employee *employee in _attendanceArr) {
+        [attendanceGuidArr addObject:employee.employee_guid];
+    }
+    _meeting.attendance = [membersGuidArr componentsJoinedByString:@"^"];
+    [self.navigationController.view showLoadingTips:@"请稍等..."];
+    [UserHttp createMeet:[_meeting mj_keyValues] handler:^(id data, MError *error) {
+        [self.navigationController.view dismissTips];
+        if(error) {
+            [self.navigationController.view showFailureTips:error.statsMsg];
+            return ;
+        }
+        if(self.createFinish)
+            self.createFinish();
+        [self.navigationController.view showSuccessTips:@"创建成功"];
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+}
 #pragma mark -- 
 #pragma mark -- UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -91,7 +166,7 @@
     if(section == 0)
         return 1;
     if(section == 1) {
-        if(_meeting.room_id == 0)
+        if(_meetingRoomModel.room_id == 0)
             return 1;
         return 3;
     }
@@ -160,7 +235,7 @@
             cell.detailTextLabel.text = timeStr;
         } else {//设备
             MeetingDevice *device = (id)cell;
-            device.data = _meeting;
+            device.data = _meetingEquipmentsArr;
             device.delegate = self;
         }
     } else if (indexPath.section == 2) {
@@ -202,8 +277,7 @@
     } else if (indexPath.section == 1) {
         if(indexPath.row == 0) {//选择会议室
             MeetingRoomController *room = [MeetingRoomController new];
-            room.meeting = _meeting;
-            room.meetingRoomModel = _meetingRoomModel;
+            room.delegate = self;
             [self.navigationController pushViewController:room animated:YES];
         }
     } else if (indexPath.section == 2) {
@@ -303,6 +377,15 @@
         [alertVC addAction:ok720];
         [self presentViewController:alertVC animated:YES completion:nil];
     }
+}
+#pragma mark -- MeetingRoomDelegate
+- (void)MeetingRoomDeviceSelect:(NSArray<MeetingEquipmentsModel*>*)array meetingRoom:( MeetingRoomModel*)meetingRoom employee:(Employee*)employee meetingRoomTime:(MeetingRoomCellModel*)meetingRoomTime {
+    _meetingEquipmentsArr = [array mutableCopy];
+    _meetingRoomModel = meetingRoom;
+    _meeting.ready_man = employee.employee_guid;
+    _meeting.begin = [meetingRoomTime.begin timeIntervalSince1970] * 1000;
+    _meeting.end = [meetingRoomTime.end timeIntervalSince1970] * 1000;
+    [_tableView reloadData];
 }
 #pragma mark -- MeetingDeviceDelegate
 //更多按钮被点击

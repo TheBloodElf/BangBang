@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+//创建会议
+typedef void(^CreateFinish)();
 @interface CreateMeetingController : UIViewController
+
+@property (nonatomic, copy) CreateFinish createFinish;
 
 @end
