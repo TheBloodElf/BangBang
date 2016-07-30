@@ -13,7 +13,6 @@
 + (NSString*)primaryKey {
     return @"id";
 }
-
 - (BOOL)haveDeleteDate:(NSDate*)date {
     NSArray *timeArr = [self.deleted_dates componentsSeparatedByString:@","];
     for (NSString *timeStr in timeArr) {

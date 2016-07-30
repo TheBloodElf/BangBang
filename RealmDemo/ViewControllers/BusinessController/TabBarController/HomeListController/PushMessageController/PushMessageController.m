@@ -124,7 +124,7 @@
     UIAlertAction *ok = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         NSMutableArray *array = [_userManager getPushMessageArr];
         for (PushMessage *pushMessage in array) {
-            PushMessage *temp = [PushMessage copyFromPushMessage:pushMessage];
+            PushMessage *temp = [pushMessage deepCopy];
             temp.unread = NO;
             [_userManager updatePushMessage:temp];
         }
@@ -176,7 +176,7 @@
         return;
     else {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        PushMessage *message = [PushMessage copyFromPushMessage:_pushMessageArr[indexPath.row]];
+        PushMessage *message = [_pushMessageArr[indexPath.row] deepCopy];
         if(message.unread == true) {
             message.unread = false;
             [_userManager updatePushMessage:message];

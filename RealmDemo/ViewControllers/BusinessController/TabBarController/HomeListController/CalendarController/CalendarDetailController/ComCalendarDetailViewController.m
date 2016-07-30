@@ -11,7 +11,7 @@
 #import "ComCalendarView.h"
 #import "Calendar.h"
 #import "UserManager.h"
-#import "UserHttp.h"
+//#import "UserHttp.h"
 
 @interface ComCalendarDetailViewController ()<ComCalendarEditDelegate> {
     Calendar *_calendar;
@@ -63,17 +63,19 @@
     UIAlertAction *alertSure = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         //status 状态0-已删除，1-正常，2-已完成
         _calendar.status = 2;
-        [self.navigationController.view showLoadingTips:@""];
-        [UserHttp updateUserCalendar:_calendar handler:^(id data, MError *error) {
-            [self.navigationController.view dismissTips];
-            if(error) {
-                [self.navigationController.view showFailureTips:error.statsMsg];
-                return ;
-            }
-            [_userManager updateCalendar:_calendar];
-            [self.navigationController.view showSuccessTips:@"完成成功"];
-            [self.navigationController popViewControllerAnimated:YES];
-        }];
+//        [self.navigationController.view showLoadingTips:@""];
+//        [UserHttp updateUserCalendar:_calendar handler:^(id data, MError *error) {
+//            [self.navigationController.view dismissTips];
+//            if(error) {
+//                [self.navigationController.view showFailureTips:error.statsMsg];
+//                return ;
+//            }
+//            [_userManager updateCalendar:_calendar];
+//            [self.navigationController.view showSuccessTips:@"完成成功"];
+//            [self.navigationController popViewControllerAnimated:YES];
+//        }];
+        [_userManager updateCalendar:_calendar];
+        [self.navigationController popViewControllerAnimated:YES];
     }];
     [alertVC addAction:alertCancel];
     [alertVC addAction:alertSure];
@@ -86,17 +88,19 @@
     UIAlertAction *alertSure = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         //status 状态0-已删除，1-正常，2-已完成
         _calendar.status = 0;
-        [self.navigationController.view showLoadingTips:@""];
-        [UserHttp updateUserCalendar:_calendar handler:^(id data, MError *error) {
-            [self.navigationController.view dismissTips];
-            if(error) {
-                [self.navigationController.view showFailureTips:error.statsMsg];
-                return ;
-            }
-            [_userManager updateCalendar:_calendar];
-            [self.navigationController.view showSuccessTips:@"删除成功"];
-            [self.navigationController popViewControllerAnimated:YES];
-        }];
+//        [self.navigationController.view showLoadingTips:@""];
+//        [UserHttp updateUserCalendar:_calendar handler:^(id data, MError *error) {
+//            [self.navigationController.view dismissTips];
+//            if(error) {
+//                [self.navigationController.view showFailureTips:error.statsMsg];
+//                return ;
+//            }
+//            [_userManager updateCalendar:_calendar];
+//            [self.navigationController.view showSuccessTips:@"删除成功"];
+//            [self.navigationController popViewControllerAnimated:YES];
+//        }];
+        [_userManager updateCalendar:_calendar];
+        [self.navigationController popViewControllerAnimated:YES];
     }];
     [alertVC addAction:alertCancel];
     [alertVC addAction:alertSure];

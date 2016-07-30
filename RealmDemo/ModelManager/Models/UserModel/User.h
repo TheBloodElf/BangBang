@@ -38,8 +38,5 @@
 /** 用户当前所在圈子编号 */
 @property (nonatomic, strong) Company *currCompany;
 
-- (instancetype)initWithJsonDic:(NSDictionary*)dic;
-+ (User*)copyFromUser:(User*)user;
-
 @end
 

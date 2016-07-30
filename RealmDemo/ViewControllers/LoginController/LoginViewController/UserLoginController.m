@@ -80,7 +80,7 @@
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
-            User *user = [[User alloc] initWithJsonDic:data];
+            User *user = [[User alloc] initWithJSONDictionary:data];
             UserManager *manager = [UserManager manager];
             [manager loadUserWithGuid:user.user_guid];
             NSMutableArray *companys = [@[] mutableCopy];
@@ -222,7 +222,7 @@
                                 [self.navigationController.view showFailureTips:error.statsMsg];
                                 return ;
                             }
-                            User *user = [[User alloc] initWithJsonDic:data];
+                            User *user = [[User alloc] initWithJSONDictionary:data];
                             UserManager *manager = [UserManager manager];
                             [manager loadUserWithGuid:user.user_guid];
                             NSMutableArray *companys = [@[] mutableCopy];
@@ -298,7 +298,7 @@
             [self.navigationController.view showFailureTips:error.statsMsg];
             return ;
         }
-        User *user = [[User alloc] initWithJsonDic:data];
+        User *user = [[User alloc] initWithJSONDictionary:data];
         UserManager *manager = [UserManager manager];
         [manager loadUserWithGuid:user.user_guid];
         NSMutableArray *companys = [@[] mutableCopy];
@@ -391,7 +391,7 @@
                         [self.navigationController.view showFailureTips:error.statsMsg];
                         return ;
                     }
-                    User *user = [[User alloc] initWithJsonDic:data];
+                    User *user = [[User alloc] initWithJSONDictionary:data];
                     UserManager *manager = [UserManager manager];
                     [manager loadUserWithGuid:user.user_guid];
                     NSMutableArray *companys = [@[] mutableCopy];

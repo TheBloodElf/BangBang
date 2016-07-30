@@ -39,7 +39,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(rightButtonClicked:)];
 }
 - (void)dataDidChange {
-    _currCompany = [Company copyFromCompany:self.data];
+    _currCompany = [self.data deepCopy];
 }
 - (void)rightButtonClicked:(UIBarButtonItem*)item {
     //有图片就要上传图片 然后得到url再修改

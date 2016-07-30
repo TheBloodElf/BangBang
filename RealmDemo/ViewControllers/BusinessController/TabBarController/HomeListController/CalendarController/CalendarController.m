@@ -102,6 +102,7 @@
     IdentityManager *identity = [IdentityManager manager];
     if(identity.identity.firstLoadCalendar == YES) {
         [self.navigationController.view showLoadingTips:@"正在同步..."];
+        //这里是软件自动从服务器拉取数据
         [UserHttp getUserCalendar:_userManager.user.user_guid handler:^(id data, MError *error) {
             [self.navigationController.view dismissTips];
             if(error) {
@@ -130,22 +131,23 @@
     }
 }
 - (void)refushClicked:(UIBarButtonItem*)item {
-    [self.navigationController.view showLoadingTips:@"正在同步..."];
-    [UserHttp getUserCalendar:_userManager.user.user_guid handler:^(id data, MError *error) {
-        [self.navigationController.view dismissTips];
-        if(error) {
-            [self.navigationController.view showFailureTips:error.statsMsg];
-            return ;
-        }
-        NSMutableArray *array = [@[] mutableCopy];
-        for (NSDictionary *dic in data[@"list"]) {
-            Calendar *calendar = [[Calendar alloc] initWithJSONDictionary:dic];
-            calendar.descriptionStr = dic[@"description"];
-            [array addObject:calendar];
-        }
-        [_userManager updateCalendars:array];
-        [self.navigationController.view showSuccessTips:@"同步成功"];
-    }];
+//    [self.navigationController.view showLoadingTips:@"正在同步..."];
+    //这里是用户向服务器提交数据
+//    [UserHttp getUserCalendar:_userManager.user.user_guid handler:^(id data, MError *error) {
+//        [self.navigationController.view dismissTips];
+//        if(error) {
+//            [self.navigationController.view showFailureTips:error.statsMsg];
+//            return ;
+//        }
+//        NSMutableArray *array = [@[] mutableCopy];
+//        for (NSDictionary *dic in data[@"list"]) {
+//            Calendar *calendar = [[Calendar alloc] initWithJSONDictionary:dic];
+//            calendar.descriptionStr = dic[@"description"];
+//            [array addObject:calendar];
+//        }
+//        [_userManager updateCalendars:array];
+//        [self.navigationController.view showSuccessTips:@"同步成功"];
+//    }];
 }
 - (void)todayClicked:(UIBarButtonItem*)item {
     _userSelectedDate = [NSDate date];

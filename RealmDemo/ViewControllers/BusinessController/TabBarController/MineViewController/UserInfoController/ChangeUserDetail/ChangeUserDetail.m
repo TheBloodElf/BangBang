@@ -21,7 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _currUser = [User copyFromUser:[UserManager manager].user];
+    _currUser = [[UserManager manager].user deepCopy];
     self.title = @"修改签名";
     self.view.backgroundColor = [UIColor whiteColor];
     _scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;

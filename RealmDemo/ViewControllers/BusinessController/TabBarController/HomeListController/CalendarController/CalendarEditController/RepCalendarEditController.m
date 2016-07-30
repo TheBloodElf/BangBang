@@ -15,7 +15,7 @@
 #import "CalendarRepSelect.h"
 #import "Calendar.h"
 #import "UserManager.h"
-#import "UserHttp.h"
+//#import "UserHttp.h"
 
 @interface RepCalendarEditController ()<MuliteSelectDelegate,CalendarRepSelectDelegate,RepCalendarViewDelegate>{
     RepCalendarView *_repCalendarView;
@@ -40,19 +40,22 @@
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
     //修改日程
-    [self.navigationController.view showLoadingTips:@"请稍等..."];
-    [UserHttp updateUserCalendar:_calendar handler:^(id data, MError *error) {
-        [self.navigationController.view dismissTips];
-        if(error) {
-            [self.navigationController.view showFailureTips:error.statsMsg];
-            return ;
-        }
-        [self.navigationController.view showSuccessTips:@"修改成功"];
-        if(self.delegate && [self.delegate respondsToSelector:@selector(RepCalendarEdit:)])
-            [self.delegate RepCalendarEdit:_calendar];
-        [self.navigationController popViewControllerAnimated:YES];
-    }];
-    
+//    [self.navigationController.view showLoadingTips:@"请稍等..."];
+//    [UserHttp updateUserCalendar:_calendar handler:^(id data, MError *error) {
+//        [self.navigationController.view dismissTips];
+//        if(error) {
+//            [self.navigationController.view showFailureTips:error.statsMsg];
+//            return ;
+//        }
+//        [self.navigationController.view showSuccessTips:@"修改成功"];
+//        if(self.delegate && [self.delegate respondsToSelector:@selector(RepCalendarEdit:)])
+//            [self.delegate RepCalendarEdit:_calendar];
+//        [self.navigationController popViewControllerAnimated:YES];
+//    }];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(RepCalendarEdit:)])
+        [self.delegate RepCalendarEdit:_calendar];
+    [_userManager updateCalendar:_calendar];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)dataDidChange {
     _calendar = [[Calendar alloc] initWithJSONDictionary:[self.data JSONDictionary]];

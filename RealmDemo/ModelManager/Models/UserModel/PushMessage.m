@@ -29,21 +29,6 @@
 + (NSString*)primaryKey {
     return @"target_id";
 }
-+ (PushMessage*)copyFromPushMessage:(PushMessage*)pushMessage {
-    PushMessage *temp = [PushMessage new];
-    temp.target_id = pushMessage.target_id;
-    temp.type = pushMessage.type;
-    temp.content = pushMessage.content;
-    temp.icon = pushMessage.icon;
-    temp.addTime = pushMessage.addTime;
-    temp.company_no = pushMessage.company_no;
-    temp.from_user_no = pushMessage.from_user_no;
-    temp.to_user_no = pushMessage.to_user_no;
-    temp.unread = pushMessage.unread;
-    temp.entity = pushMessage.entity;
-    temp.action = pushMessage.action;
-    return temp;
-}
 - (NSString*)readImageName {
     NSString *type = self.type;
     NSDictionary *dic = pushMessageDic[type];

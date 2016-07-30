@@ -75,7 +75,7 @@
     self.companyType.text = [_currCompany companyTypeStr];
 }
 - (void)dataDidChange {
-    _currCompany = [Company copyFromCompany:self.data];
+    _currCompany = [self.data deepCopy];
 }
 //修改圈子信息
 - (void)updateCompanyInfo:(UIBarButtonItem*)item {

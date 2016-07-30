@@ -19,6 +19,5 @@
 
 - (NSString*)companyTypeStr;//圈子类型
 
-+ (Company*)copyFromCompany:(Company*)company;
 
 @end

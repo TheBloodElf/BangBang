@@ -168,7 +168,7 @@
         }
     }
     else {
-        User *_tempUser = [User copyFromUser:[UserManager manager].user];
+        User *_tempUser = [[UserManager manager].user deepCopy];
         if (indexPath.row == 0) {
             //选择性别
             UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"选择性别" message:nil preferredStyle:UIAlertControllerStyleActionSheet];

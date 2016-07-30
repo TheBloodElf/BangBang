@@ -102,8 +102,8 @@
         return;
     }
     //改变用户当前圈子
-    Company *company = [Company copyFromCompany:_companyArr[indexPath.row]];
-    User *user = [User copyFromUser:_userManager.user];
+    Company *company = [_companyArr[indexPath.row] deepCopy];
+    User *user = [_userManager.user deepCopy];
     user.currCompany = company;
     [_userManager updateUser:user];
     //刷新表格视图

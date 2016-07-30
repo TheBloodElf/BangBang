@@ -155,14 +155,7 @@
 #pragma mark -- 修改用户信息
 + (NSURLSessionDataTask*)updateUserInfo:(User*)user handler:(completionHandler)handler {
     NSString *urlPath = @"Users/update_user";
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    [params setObject:user.user_guid forKey:@"user_guid"];
-    [params setObject:user.real_name forKey:@"real_name"];
-    [params setObject:@(user.sex) forKey:@"sex"];
-    [params setObject:user.mobile forKey:@"mobile"];
-    [params setObject:user.QQ forKey:@"QQ"];
-    [params setObject:user.weixin forKey:@"weixin"];
-    [params setObject:user.mood forKey:@"mood"];
+    NSMutableDictionary *params = [user.JSONDictionary mutableCopy];
     [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
     completionHandler compleionHandler = ^(id data,MError *error) {
         handler(data,error);

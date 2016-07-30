@@ -36,8 +36,6 @@
 @property (nonatomic,strong) NSString *action;
 @property (nonatomic,strong) NSString *entity;
 
-+ (PushMessage*)copyFromPushMessage:(PushMessage*)pushMessage;
-
 - (NSString*)unreadImageName;//未读图片名称
 - (NSString*)readImageName;//已读的图片名称
 - (NSString*)typeString;//类型中文名字

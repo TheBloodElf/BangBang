@@ -11,7 +11,7 @@
 @interface Calendar : RLMObject
 
 /** 事务编号 */
-@property (nonatomic, assign) int id;
+@property (nonatomic, assign) int64_t id;
 /** 当前工作圈编号，如果没有输入0 */
 @property (nonatomic, assign) int  company_no;
 /** 事务名称 */
@@ -48,7 +48,7 @@
 @property (nonatomic, strong) NSString      * updated_by;
 /**  */
 @property (nonatomic, assign) int64_t      updatedon_utc;
-/** 0-已删除，1-正常，2-已完成 */
+/** 0-已删除，1-正常，2-已完成 3-本地正常 4-本地已完成*/
 @property (nonatomic, assign) int status;
 /**  */
 @property (nonatomic, assign) int64_t     finishedon_utc;
