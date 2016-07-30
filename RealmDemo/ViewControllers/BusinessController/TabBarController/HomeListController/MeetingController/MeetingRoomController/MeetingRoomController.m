@@ -14,6 +14,7 @@
 #import "MeetingTimeCell.h"
 #import "UserHttp.h"
 #import "MeetingDeviceSelectController.h"
+#import "MeetDeviceDetailController.h"
 
 @interface MeetingRoomController ()<UITableViewDelegate,UITableViewDataSource,MeetingTimeCellDelegate,MeetingDeviceTableCellDelegate,MeetingDeviceDelegate,MeetingRoomTimeCellDelegate,MeetingDeviceSelectDelegate> {
     UITableView *_tableView;
@@ -90,7 +91,7 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if(section == 1)
-        if(_employee.id != 0)
+        if(_meetingEquipmentsArr.count)
             return 2;
     return 1;
 }
@@ -183,6 +184,9 @@
 #pragma mark -- MeetingDeviceTableCellDelegate
 //更多按钮被点击
 - (void)MeetingDeviceTableMore {
-    
+    MeetDeviceDetailController *meet = [MeetDeviceDetailController new];
+    meet.employee = _employee;
+    meet.meetingEquipments = _meetingEquipmentsArr;
+    [self.navigationController pushViewController:meet animated:YES];
 }
 @end

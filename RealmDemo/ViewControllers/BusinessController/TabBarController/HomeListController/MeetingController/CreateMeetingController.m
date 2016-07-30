@@ -23,6 +23,7 @@
 #import "MeetingAgendaCell.h"
 
 #import "MeetingRoomController.h"
+#import "MeetDeviceDetailController.h"
 #import "SingleSelectController.h"
 #import "MuliteSelectController.h"
 
@@ -32,6 +33,7 @@
     Meeting *_meeting;//会议模型
     MeetingRoomModel *_meetingRoomModel;//会议室模型
     NSMutableArray<MeetingEquipmentsModel*> *_meetingEquipmentsArr;//会议设备数组
+    Employee *_meetingEmployee;//会议室准备人
     Employee *_incharge;//主持人
     NSMutableArray<MeetingAgenda*> *_meetingAgendaArr;//议程数组
     NSMutableArray<Employee*> *_membersArr;//参与人数组
@@ -106,6 +108,7 @@
     _meeting.create_by = employee.employee_guid;
     _meeting.incharge = _incharge.employee_guid;
     _meeting.room_id = _meetingRoomModel.room_id;
+    _meeting.ready_man = _meetingEmployee.employee_guid;
     //议题列表
     NSMutableArray<NSString*> *nameArr = [@[] mutableCopy];
     for (MeetingAgenda *agenda in _meetingAgendaArr) {
@@ -382,7 +385,7 @@
 - (void)MeetingRoomDeviceSelect:(NSArray<MeetingEquipmentsModel*>*)array meetingRoom:( MeetingRoomModel*)meetingRoom employee:(Employee*)employee meetingRoomTime:(MeetingRoomCellModel*)meetingRoomTime {
     _meetingEquipmentsArr = [array mutableCopy];
     _meetingRoomModel = meetingRoom;
-    _meeting.ready_man = employee.employee_guid;
+    _meetingEmployee = employee;
     _meeting.begin = [meetingRoomTime.begin timeIntervalSince1970] * 1000;
     _meeting.end = [meetingRoomTime.end timeIntervalSince1970] * 1000;
     [_tableView reloadData];
@@ -390,7 +393,10 @@
 #pragma mark -- MeetingDeviceDelegate
 //更多按钮被点击
 - (void)MeetingDeviceMore {
-    
+    MeetDeviceDetailController *meet = [MeetDeviceDetailController new];
+    meet.employee = _meetingEmployee;
+    meet.meetingEquipments = _meetingEquipmentsArr;
+    [self.navigationController pushViewController:meet animated:YES];
 }
 #pragma mark -- MeetingAgendaDelegate
 //议程删除按钮被点击

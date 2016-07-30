@@ -8,7 +8,7 @@
 
 #import "RepDayView.h"
 
-@interface RepDayView ()
+@interface RepDayView ()<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *topBtn;
 @property (weak, nonatomic) IBOutlet UIButton *bottomBtn;
@@ -17,15 +17,9 @@
 @end
 
 @implementation RepDayView
-
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        self.dayField.returnKeyType = UIReturnKeyDone;
-        self.dayField.keyboardType = UIKeyboardTypeNamePhonePad;
-    }
-    return self;
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self endEditing:YES];
+    return YES;
 }
 - (EKRecurrenceRule*)eKRecurrenceRule {
     NSInteger interval = 1;
@@ -39,12 +33,6 @@
     }
     EKRecurrenceRule *rule = [[EKRecurrenceRule alloc] initRecurrenceWithFrequency:EKRecurrenceFrequencyDaily interval:interval daysOfTheWeek:days daysOfTheMonth:nil monthsOfTheYear:nil weeksOfTheYear:nil daysOfTheYear:nil setPositions:nil end:nil];
     return rule;
-}
-- (void)resetUI {
-    [self endEditing:YES];
-    self.topBtn.selected = YES;
-    self.bottomBtn.selected = NO;
-    self.dayField.text = @"1";
 }
 - (IBAction)topClicked:(id)sender {
     self.topBtn.selected = YES;

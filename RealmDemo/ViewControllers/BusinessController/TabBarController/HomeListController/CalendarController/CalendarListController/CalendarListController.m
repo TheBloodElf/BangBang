@@ -12,11 +12,12 @@
 #import "ComCalendarDetailViewController.h"
 #import "RepCalendarDetailController.h"
 
-@interface CalendarListController ()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource> {
+@interface CalendarListController ()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource,RBQFetchedResultsControllerDelegate> {
     UITableView *_tableView;//表格视图
     UserManager *_userManager;//用户管理器
     UISearchBar *_searchBar;//搜索控件
     UIView *_noDataView;//没有数据的视图
+    RBQFetchedResultsController *_calendarFetchedResultsController;
     NSMutableDictionary<NSDate*,NSMutableArray<Calendar*>*> *_dataDic;//展示数据的字典
 }
 @end
@@ -27,6 +28,8 @@
     [super viewDidLoad];
     self.title = @"事务列表";
     _userManager = [UserManager manager];
+    _calendarFetchedResultsController = [_userManager createCalendarFetchedResultsController];
+    _calendarFetchedResultsController.delegate = self;
     _dataDic = [@{} mutableCopy];
     //创建搜索框
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 55)];
@@ -51,6 +54,11 @@
     [super viewDidAppear:animated];
     [self searchTextFromLoc];
     _tableView.tableFooterView = [UIView new];
+    [_tableView reloadData];
+}
+#pragma mark -- RBQFetchedResultsControllerDelegate
+- (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
+    [self searchTextFromLoc];
     [_tableView reloadData];
 }
 //本地加载所有事件

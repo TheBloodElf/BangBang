@@ -71,6 +71,7 @@
     _noDataView = [[UIView alloc] initWithFrame:_tableView.bounds];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0.5 * (_tableView.frame.size.height - 10), MAIN_SCREEN_WIDTH, 10)];
     label.text = @"您当前还没有加入任何的圈子，请尝试加入一个吧";
+    label.font = [UIFont systemFontOfSize:12];
     label.textColor = [UIColor grayColor];
     [_noDataView addSubview:label];
     //获取当前用户所有的圈子

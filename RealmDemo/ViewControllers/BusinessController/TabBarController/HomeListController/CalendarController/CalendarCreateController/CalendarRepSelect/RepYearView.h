@@ -11,6 +11,5 @@
 @interface RepYearView : UIView
 
 - (EKRecurrenceRule*)eKRecurrenceRule;
-- (void)resetUI;
 
 @end

@@ -8,7 +8,7 @@
 
 #import "RepYearView.h"
 
-@interface RepYearView ()
+@interface RepYearView ()<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *monthTextField;
 @property (weak, nonatomic) IBOutlet UITextField *dayTextField;
@@ -17,10 +17,9 @@
 
 @implementation RepYearView
 
-- (void)resetUI {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [self endEditing:YES];
-    self.monthTextField.text = @"1";
-    self.dayTextField.text = @"1";
+    return YES;
 }
 - (EKRecurrenceRule*)eKRecurrenceRule {
     NSInteger interval = self.monthTextField.text.integerValue ?: 1;

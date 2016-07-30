@@ -29,7 +29,7 @@
                         <constraints>
                             <constraint firstAttribute="width" constant="50" id="qwq-af-maI"/>
                         </constraints>
-                        <state key="normal" title="更多"/>
+                        <state key="normal" title="查看"/>
                         <connections>
                             <action selector="moreClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="fF2-Xf-uys"/>
                         </connections>

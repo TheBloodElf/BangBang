@@ -54,15 +54,7 @@
         btn.selected = NO;
     }
     sender.selected = YES;
-    if(_currIndex == 0) {
-        [_repDayView resetUI];
-    } else if (_currIndex == 1) {
-        [_repWeekView resetUI];
-    } else if (_currIndex == 2) {
-        [_repMonthView resetUI];
-    } else if (_currIndex == 3) {
-        [_repYearView resetUI];
-    }
+    [self.view endEditing:YES];
     [_centerView setContentOffset:CGPointMake(_currIndex * _centerView.frame.size.width, 0) animated:NO];
 }
 

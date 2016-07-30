@@ -15,8 +15,5 @@ MJExtensionCodingImplementation
 + (NSString*)primaryKey {
     return @"user_guid";
 }
-+ (NSArray *)ignoredProperties {
-    return @[@"currCompany"];
-}
 
 @end

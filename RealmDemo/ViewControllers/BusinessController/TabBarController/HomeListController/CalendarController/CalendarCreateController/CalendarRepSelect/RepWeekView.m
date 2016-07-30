@@ -8,7 +8,7 @@
 
 #import "RepWeekView.h"
 
-@interface RepWeekView ()
+@interface RepWeekView ()<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *weekTextField;
 
@@ -18,6 +18,10 @@
 
 - (IBAction)weekBtnClicked:(UIButton*)btn {
     btn.selected = !btn.selected;
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self endEditing:YES];
+    return YES;
 }
 - (EKRecurrenceRule*)eKRecurrenceRule {
     NSInteger interval = [self.weekTextField.text integerValue] ?: 1;
@@ -54,16 +58,6 @@
     ///////////
     EKRecurrenceRule *rule = [[EKRecurrenceRule alloc] initRecurrenceWithFrequency:EKRecurrenceFrequencyWeekly interval:interval daysOfTheWeek:days daysOfTheMonth:nil monthsOfTheYear:nil weeksOfTheYear:nil daysOfTheYear:nil setPositions:nil end:nil];
     return rule;
-}
-- (void)resetUI {
-    [self endEditing:YES];
-    self.weekTextField.text = @"1";
-    for (int i = 1;i <= 7;i ++) {
-        UIButton *btn = [self viewWithTag:1000 + i];
-        btn.selected = NO;
-    }
-    UIButton *btn = [self viewWithTag:1000 + 1];
-    btn.selected = YES;
 }
 
 @end

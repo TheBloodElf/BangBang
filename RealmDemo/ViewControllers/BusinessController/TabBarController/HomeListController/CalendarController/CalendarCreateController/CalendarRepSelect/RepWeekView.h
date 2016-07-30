@@ -11,6 +11,5 @@
 @interface RepWeekView : UIView
 
 - (EKRecurrenceRule*)eKRecurrenceRule;
-- (void)resetUI;
 
 @end

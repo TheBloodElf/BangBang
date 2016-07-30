@@ -8,7 +8,7 @@
 
 #import "RepMonthView.h"
 
-@interface RepMonthView ()
+@interface RepMonthView ()<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *monthTextField;
 @property (weak, nonatomic) IBOutlet UITextField *dayTextField;
@@ -18,16 +18,15 @@
 
 @implementation RepMonthView
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self endEditing:YES];
+    return YES;
+}
 - (EKRecurrenceRule*)eKRecurrenceRule {
     NSInteger interval = self.monthTextField.text.integerValue ?: 1;
     NSArray *days = @[@(self.dayTextField.text.integerValue ?: 1)];
     EKRecurrenceRule *rule = [[EKRecurrenceRule alloc] initRecurrenceWithFrequency:EKRecurrenceFrequencyMonthly interval:interval daysOfTheWeek:nil daysOfTheMonth:days monthsOfTheYear:nil weeksOfTheYear:nil daysOfTheYear:nil setPositions:nil end:nil];
     return rule;
-}
-- (void)resetUI {
-    [self endEditing:YES];
-    self.monthTextField.text = @"1";
-    self.dayTextField.text = @"1";
 }
 
 @end

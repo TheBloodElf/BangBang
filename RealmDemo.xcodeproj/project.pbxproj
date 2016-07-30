@@ -78,6 +78,7 @@
 		046DB07D1D4C887500718F2A /* UserCompany.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB07C1D4C887500718F2A /* UserCompany.m */; settings = {ASSET_TAGS = (); }; };
 		046DB0801D4C888800718F2A /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB07F1D4C888800718F2A /* UserInfo.m */; settings = {ASSET_TAGS = (); }; };
 		046DB0841D4C896B00718F2A /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0831D4C896B00718F2A /* UserInfo.m */; settings = {ASSET_TAGS = (); }; };
+		046DB0881D4CA12800718F2A /* MeetDeviceDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0871D4CA12800718F2A /* MeetDeviceDetailController.m */; settings = {ASSET_TAGS = (); }; };
 		0471C0911D3B23A700377178 /* NSString+StringSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 0471C0901D3B23A700377178 /* NSString+StringSize.m */; };
 		0471C0951D3B262600377178 /* PushMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0471C0931D3B262600377178 /* PushMessageCell.m */; };
 		0471C0961D3B262600377178 /* PushMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0471C0941D3B262600377178 /* PushMessageCell.xib */; };
@@ -540,6 +541,8 @@
 		046DB07F1D4C888800718F2A /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
 		046DB0821D4C896B00718F2A /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
 		046DB0831D4C896B00718F2A /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
+		046DB0861D4CA12800718F2A /* MeetDeviceDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetDeviceDetailController.h; sourceTree = "<group>"; };
+		046DB0871D4CA12800718F2A /* MeetDeviceDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetDeviceDetailController.m; sourceTree = "<group>"; };
 		0471C08F1D3B23A700377178 /* NSString+StringSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+StringSize.h"; sourceTree = "<group>"; };
 		0471C0901D3B23A700377178 /* NSString+StringSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+StringSize.m"; sourceTree = "<group>"; };
 		0471C0921D3B262600377178 /* PushMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushMessageCell.h; sourceTree = "<group>"; };
@@ -1218,6 +1221,7 @@
 		046DAF401D4C3EB500718F2A /* MeetingRoomController */ = {
 			isa = PBXGroup;
 			children = (
+				046DB0851D4CA0FD00718F2A /* MeetDeviceDetailController */,
 				046DAF481D4C3EB500718F2A /* MeetingDeviceSelect */,
 				046DAF551D4C3EB500718F2A /* MeetingRoomController.h */,
 				046DAF561D4C3EB500718F2A /* MeetingRoomController.m */,
@@ -1401,6 +1405,15 @@
 				046DB0831D4C896B00718F2A /* UserInfo.m */,
 			);
 			path = ShareModel;
+			sourceTree = "<group>";
+		};
+		046DB0851D4CA0FD00718F2A /* MeetDeviceDetailController */ = {
+			isa = PBXGroup;
+			children = (
+				046DB0861D4CA12800718F2A /* MeetDeviceDetailController.h */,
+				046DB0871D4CA12800718F2A /* MeetDeviceDetailController.m */,
+			);
+			path = MeetDeviceDetailController;
 			sourceTree = "<group>";
 		};
 		0482FBCF1D42FE4200B1CBB2 /* SiginNoteController */ = {
@@ -3392,6 +3405,7 @@
 				1B119E861D3CB8FB007CC050 /* SelectImageViewCell.m in Sources */,
 				0482FBF01D436FE500B1CBB2 /* LineDashPolyline.m in Sources */,
 				1B4B16281D37858400E71B3D /* BushManagerCell.m in Sources */,
+				046DB0881D4CA12800718F2A /* MeetDeviceDetailController.m in Sources */,
 				1BC2AE911D42113800842153 /* UpdateAttendanceController.m in Sources */,
 				0495862B1D3A1A3F00544259 /* WebViewJavascriptBridge.m in Sources */,
 				1B5585691D34CF4F00DCD3A0 /* REFrostedContainerViewController.m in Sources */,

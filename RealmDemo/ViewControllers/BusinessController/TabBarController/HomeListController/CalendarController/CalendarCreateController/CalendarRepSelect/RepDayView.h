@@ -11,6 +11,5 @@
 @interface RepDayView : UIView
 
 - (EKRecurrenceRule*)eKRecurrenceRule;
-- (void)resetUI;
 
 @end

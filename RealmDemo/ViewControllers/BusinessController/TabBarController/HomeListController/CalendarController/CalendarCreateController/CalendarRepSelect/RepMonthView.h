@@ -11,6 +11,5 @@
 @interface RepMonthView : UIView
 
 - (EKRecurrenceRule*)eKRecurrenceRule;
-- (void)resetUI;
 
 @end
