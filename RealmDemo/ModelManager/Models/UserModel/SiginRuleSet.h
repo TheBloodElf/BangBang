@@ -13,8 +13,6 @@
 
 @property (nonatomic, assign) NSInteger id;//主键
 @property (nonatomic, assign) NSInteger scope;//误差范围 单位米
-@property (nonatomic, assign) CGFloat longitude;//签到位置,经度
-@property (nonatomic, assign) CGFloat latitude;//签到位置,纬度
 @property (nonatomic, copy) NSString *address;// 综合信息
 @property (nonatomic, assign) int64_t start_work_time;//上班时间 时间戳 单位秒
 @property (nonatomic, assign) int64_t end_work_time;//下班时间 时间戳 单位秒

@@ -22,7 +22,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_background.png" translatesAutoresizingMaskIntoConstraints="NO" id="cFR-qa-ZEZ">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="481"/>
                         </imageView>
                         <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="ic_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="u8p-gr-iEb">
                             <rect key="frame" x="110" y="50" width="100" height="100"/>
@@ -92,7 +92,7 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="第三方登录" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pnh-js-kWF">
-                            <rect key="frame" x="128" y="368" width="65" height="22"/>
+                            <rect key="frame" x="128" y="369" width="65" height="22"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="22" id="gX2-Bd-efg"/>
                             </constraints>
@@ -101,7 +101,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jzi-2q-tys">
-                            <rect key="frame" x="138" y="405" width="45" height="45"/>
+                            <rect key="frame" x="138" y="406" width="45" height="45"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="45" id="R6Y-b7-2wR"/>
                                 <constraint firstAttribute="width" constant="45" id="UHg-0u-Jae"/>
@@ -114,7 +114,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eny-9r-tWh" userLabel="weiboLogin">
-                            <rect key="frame" x="213" y="405" width="45" height="45"/>
+                            <rect key="frame" x="213" y="406" width="45" height="45"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="45" id="Ego-c8-Gr8"/>
                                 <constraint firstAttribute="height" constant="45" id="r9X-or-wwz"/>
@@ -126,7 +126,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sdr-Ip-MvH" userLabel="weixinLogin">
-                            <rect key="frame" x="63" y="405" width="45" height="45"/>
+                            <rect key="frame" x="63" y="406" width="45" height="45"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="45" id="Z7T-Dc-E0Q"/>
                                 <constraint firstAttribute="height" constant="45" id="gmV-R1-Vtv"/>
@@ -191,7 +191,7 @@
                 <constraint firstItem="77Z-z0-Bdl" firstAttribute="top" secondItem="jXj-Et-9WN" secondAttribute="top" id="inI-Qc-jZK"/>
                 <constraint firstItem="cFR-qa-ZEZ" firstAttribute="width" secondItem="jXj-Et-9WN" secondAttribute="width" id="ipK-Ww-IR7"/>
                 <constraint firstAttribute="trailing" secondItem="77Z-z0-Bdl" secondAttribute="trailing" id="sJn-QI-aiz"/>
-                <constraint firstItem="cFR-qa-ZEZ" firstAttribute="height" secondItem="jXj-Et-9WN" secondAttribute="height" id="uby-zg-U1r"/>
+                <constraint firstItem="cFR-qa-ZEZ" firstAttribute="height" secondItem="jXj-Et-9WN" secondAttribute="height" constant="1" id="uby-zg-U1r"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
@@ -200,7 +200,7 @@
                     <exclude reference="ipK-Ww-IR7"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="226" y="236"/>
+            <point key="canvasLocation" x="338" y="219"/>
         </view>
     </objects>
     <resources>

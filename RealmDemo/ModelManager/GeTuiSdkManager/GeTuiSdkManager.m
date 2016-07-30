@@ -62,8 +62,7 @@
     }
     NSData *jsonData = [payloadMsg dataUsingEncoding:NSUTF8StringEncoding];
     NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
-    PushMessage *message = [PushMessage new];
-    [message mj_setKeyValues:dict];
+    PushMessage *message = [[PushMessage alloc] initWithJSONDictionary:dict];
     message.addTime = [NSDate date];
     message.from_user_no =  [[dict objectForKey:@"from"] intValue];
     message.to_user_no = [[dict objectForKey:@"to"] intValue];
@@ -98,8 +97,7 @@
     if ([message.type isEqualToString:@"CALENDAR"] && ![NSString isBlank:message.entity]) {
         NSData *calendarData = [[dict objectForKey:@"entity"] dataUsingEncoding:NSUTF8StringEncoding];
         NSMutableDictionary *calendarDic = [NSJSONSerialization JSONObjectWithData:calendarData options:NSJSONReadingMutableContainers error:nil];
-        Calendar *sharedCalendar = [Calendar new];
-        [sharedCalendar mj_setKeyValues:calendarDic];
+        Calendar *sharedCalendar = [[Calendar alloc] initWithJSONDictionary:calendarDic];
         if (sharedCalendar) {
             [_userManager addCalendar:sharedCalendar];
         }
@@ -108,8 +106,7 @@
     if ([message.action rangeOfString:@"COMPANY_ALLOW_JOIN"].location != NSNotFound) {
         NSData *calendarData = [[dict objectForKey:@"entity"] dataUsingEncoding:NSUTF8StringEncoding];
         NSMutableDictionary *companyDic = [NSJSONSerialization JSONObjectWithData:calendarData options:NSJSONReadingMutableContainers error:nil];
-        Company *company = [Company new];
-        [company mj_setKeyValues:companyDic];
+        Company *company = [[Company alloc] initWithJSONDictionary:companyDic];
         [_userManager addCompany:company];
     }else if([message.action rangeOfString:@"COMPANY_ALLOW_LEAVE"].location != NSNotFound){//同意退出圈子
         int companyNo = message.company_no;
@@ -125,8 +122,7 @@
     } else if ([message.action isEqualToString:@"MEETING_RECEIVE"]){//接受会议
         NSData *calendarData = [[dict objectForKey:@"entity"] dataUsingEncoding:NSUTF8StringEncoding];
         NSMutableDictionary *calendarDic = [NSJSONSerialization JSONObjectWithData:calendarData options:NSJSONReadingMutableContainers error:nil];
-        Calendar *meetingCalendar = [Calendar new];
-        [meetingCalendar mj_setKeyValues:calendarDic];
+        Calendar *meetingCalendar = [[Calendar alloc] initWithJSONDictionary:calendarDic];
         if (meetingCalendar) {
             [_userManager addCalendar:meetingCalendar];
         }

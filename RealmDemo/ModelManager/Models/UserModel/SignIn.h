@@ -54,12 +54,12 @@
 /**
  *  经度
  */
-@property(nonatomic,assign)double longitude;
+@property(nonatomic,assign)CGFloat longitude;
 
 /**
  *  纬度
  */
-@property(nonatomic,assign)double latitude;
+@property(nonatomic,assign)CGFloat latitude;
 
 /**
  *  地址详情

@@ -78,9 +78,16 @@
         }
         NSMutableArray *array = [@[] mutableCopy];
         for (NSDictionary *dic in data) {
-            SiginRuleSet *set = [SiginRuleSet new];
-            [set mj_setKeyValues:dic];
-            set.work_day = [dic[@"work_day"] componentsJoinedByString:@","];
+            NSMutableDictionary *dicDic = [dic mutableCopy];
+            dicDic[@"work_day"] = [dicDic[@"work_day"] componentsJoinedByString:@","];
+            SiginRuleSet *set = [[SiginRuleSet alloc] initWithJSONDictionary:dicDic];
+            //这里动态添加签到地址
+            RLMArray<PunchCardAddressSetting> *settingArr = [[RLMArray<PunchCardAddressSetting> alloc] initWithObjectClassName:@"PunchCardAddressSetting"];
+            for (NSDictionary *settingDic in dicDic[@"address_settings"]) {
+                PunchCardAddressSetting *setting = [[PunchCardAddressSetting alloc] initWithJSONDictionary:settingDic];
+                [settingArr addObject:setting];
+            }
+            set.json_list_address_settings = settingArr;
             [array addObject:set];
         }
         [_userManager updateSiginRule:array companyNo:_userManager.user.currCompany.company_no];
@@ -120,9 +127,16 @@
                 }
                 NSMutableArray *array = [@[] mutableCopy];
                 for (NSDictionary *dic in data) {
-                    SiginRuleSet *set = [SiginRuleSet new];
-                    [set mj_setKeyValues:dic];
-                    set.work_day = [dic[@"work_day"] componentsJoinedByString:@","];
+                    NSMutableDictionary *dicDic = [dic mutableCopy];
+                    dicDic[@"work_day"] = [dicDic[@"work_day"] componentsJoinedByString:@","];
+                    SiginRuleSet *set = [[SiginRuleSet alloc] initWithJSONDictionary:dicDic];
+                    //这里动态添加签到地址
+                    RLMArray<PunchCardAddressSetting> *settingArr = [[RLMArray<PunchCardAddressSetting> alloc] initWithObjectClassName:@"PunchCardAddressSetting"];
+                    for (NSDictionary *settingDic in dicDic[@"address_settings"]) {
+                        PunchCardAddressSetting *setting = [[PunchCardAddressSetting alloc] initWithJSONDictionary:settingDic];
+                        [settingArr addObject:setting];
+                    }
+                    set.json_list_address_settings = settingArr;
                     [array addObject:set];
                 }
                 [_userManager updateSiginRule:array companyNo:_userManager.user.currCompany.company_no];

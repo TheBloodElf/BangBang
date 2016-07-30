@@ -182,8 +182,7 @@
             }
             NSMutableArray *array = [@[] mutableCopy];
             for (NSDictionary *dic in data[@"list"]) {
-                Employee *employee = [Employee new];
-                [employee mj_setKeyValues:[dic mj_keyValues]];
+                Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
                 [array addObject:employee];
             }
             //存入本地数据库

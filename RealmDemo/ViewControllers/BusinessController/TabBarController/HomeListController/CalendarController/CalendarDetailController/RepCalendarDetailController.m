@@ -58,10 +58,10 @@
 - (void)finishCalendarClicked:(UIButton*)btn {
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"你确定要完成该日程?" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *alertCancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    UIAlertAction *currAlertSure = [UIAlertAction actionWithTitle:@"当天" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *currAlertSure = [UIAlertAction actionWithTitle:@"本次" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         //status 状态0-已删除，1-正常，2-已完成
         NSMutableArray *array = [[_calendar.finished_dates componentsSeparatedByString:@","] mutableCopy];
-        [array addObject:@([NSDate date].timeIntervalSince1970 * 1000).stringValue];
+        [array addObject:@(_calendar.rdate).stringValue];
         _calendar.finished_dates = [array componentsJoinedByString:@","];
 //        [self.navigationController.view showLoadingTips:@""];
 //        [UserHttp updateUserCalendar:_calendar handler:^(id data, MError *error) {
@@ -91,6 +91,7 @@
 //            [self.navigationController.view showSuccessTips:@"完成成功"];
 //            [self.navigationController popViewControllerAnimated:YES];
 //        }];
+
         [_userManager updateCalendar:_calendar];
         [self.navigationController popViewControllerAnimated:YES];
     }];
@@ -103,10 +104,10 @@
 - (void)deleteCalendarClicked:(UIButton*)btn {
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"你确定要删除该日程?" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *alertCancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    UIAlertAction *currAlertSure = [UIAlertAction actionWithTitle:@"当天" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *currAlertSure = [UIAlertAction actionWithTitle:@"本次" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         //status 状态0-已删除，1-正常，2-已完成
         NSMutableArray *array = [[_calendar.deleted_dates componentsSeparatedByString:@","] mutableCopy];
-        [array addObject:@([NSDate date].timeIntervalSince1970 * 1000).stringValue];
+        [array addObject:@(_calendar.rdate).stringValue];
         _calendar.deleted_dates = [array componentsJoinedByString:@","];
 //        [self.navigationController.view showLoadingTips:@""];
 //        [UserHttp updateUserCalendar:_calendar handler:^(id data, MError *error) {

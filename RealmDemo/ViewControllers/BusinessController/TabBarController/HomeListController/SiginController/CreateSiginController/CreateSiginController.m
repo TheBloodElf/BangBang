@@ -387,8 +387,8 @@
             [self sendSiginPhoto];
         } else {
             [self.navigationController.view dismissTips];
-            _currSignIn = [_currSignIn mj_setKeyValues:data];
-            [_userManager addSigin:_currSignIn];
+            _currSignIn = [[SignIn alloc] initWithJSONDictionary:data];
+            _currSignIn.descriptionStr = data[@"description"];
             [self.navigationController.view showMessageTips:@"签到成功"];
             [self.navigationController popToRootViewControllerAnimated:YES];
         }

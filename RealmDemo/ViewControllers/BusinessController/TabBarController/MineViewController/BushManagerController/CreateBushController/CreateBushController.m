@@ -50,8 +50,7 @@
                 return ;
             }
             [self.navigationController.view showSuccessTips:@"创建成功"];
-            Company *company = [Company new];
-            [company mj_setKeyValues:[data mj_keyValues]];
+            Company *company = [[Company alloc] initWithJSONDictionary:data];
             [_userManager addCompany:company];
             [self.navigationController popViewControllerAnimated:YES];
         }];

@@ -62,8 +62,7 @@
         }
     }
     if([notification.alertBody hasPrefix:@"任务提醒:"]||[notification.alertBody hasPrefix:@"事务提醒:"]) {
-        PushMessage *pushMessage = [PushMessage new];
-        [pushMessage mj_setKeyValues:notification.userInfo];
+        PushMessage *pushMessage = [[PushMessage alloc] initWithJSONDictionary:notification.userInfo];
         pushMessage.addTime = [NSDate date];
         [_userManager addPushMessage:pushMessage];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"DidRecivePushMessage" object:pushMessage];

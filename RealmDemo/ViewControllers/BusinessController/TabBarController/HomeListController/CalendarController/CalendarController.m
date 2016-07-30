@@ -111,7 +111,10 @@
             }
             NSMutableArray *array = [@[] mutableCopy];
             for (NSDictionary *dic in data[@"list"]) {
-                Calendar *calendar = [[Calendar alloc] initWithJSONDictionary:dic];
+                NSMutableDictionary *tempDic = [dic mutableCopy];
+                [tempDic setValue:nil forKey:@"description"];
+                Calendar *calendar = [Calendar new];
+                [calendar mj_setKeyValues:tempDic];
                 calendar.descriptionStr = dic[@"description"];
                 [array addObject:calendar];
             }
@@ -214,13 +217,16 @@
                 NSArray * occurences = [s occurencesBetween:[NSDate dateWithTimeIntervalSince1970:tempCalendar.r_begin_date_utc/1000] andDate:[NSDate dateWithTimeIntervalSince1970:tempCalendar.r_end_date_utc/1000]];
                 for (NSDate *tempDate in occurences) {
                     if(tempDate.year == _userSelectedDate.year && tempDate.month == _userSelectedDate.month && tempDate.day == _userSelectedDate.day) {
-                        if([tempCalendar haveDeleteDate:tempDate]) {
+                        if([tempCalendar haveDeleteDate:_userSelectedDate]) {
                             continue;
-                        } else if([tempCalendar haveFinishDate:tempDate]) {
+                        } else if([tempCalendar haveFinishDate:_userSelectedDate]) {
                             Calendar *calendar = [[Calendar alloc] initWithJSONDictionary:[tempCalendar JSONDictionary]];
+                            calendar.rdate = _userSelectedDate.timeIntervalSince1970 / 1000;
                             calendar.status = 2;
                             [_todayCalendarArr addObject:calendar];
                         } else {
+                            //这里把本次的触发时间加上
+                            tempCalendar.rdate = _userSelectedDate.timeIntervalSince1970 / 1000;
                             [_todayCalendarArr addObject:tempCalendar];
                         }
                     }

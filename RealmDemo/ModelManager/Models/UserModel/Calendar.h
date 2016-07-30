@@ -56,7 +56,7 @@
  *  RRule字符串
  */
 @property (nonatomic, strong) NSString *rrule;
-@property (nonatomic, strong) NSString *rdate;
+@property (nonatomic, assign) int64_t rdate;
 /**
  *  日程的紧急程度 0普通 1紧急 2非常紧急
  */

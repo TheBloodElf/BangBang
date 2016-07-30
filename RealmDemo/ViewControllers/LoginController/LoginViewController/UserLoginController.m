@@ -85,8 +85,7 @@
             [manager loadUserWithGuid:user.user_guid];
             NSMutableArray *companys = [@[] mutableCopy];
             for (NSDictionary *tempDic in data[@"user_companies"]) {
-                Company *company = [Company new];
-                [company mj_setKeyValues:tempDic];
+                Company *company = [[Company alloc] initWithJSONDictionary:tempDic];
                 [companys addObject:company];
             }
             [manager updateCompanyArr:companys];
@@ -105,8 +104,7 @@
                 }
                 NSMutableArray *array = [@[] mutableCopy];
                 for (NSDictionary *dic in data[@"list"]) {
-                    Employee *employee = [Employee new];
-                    [employee mj_setKeyValues:[dic mj_keyValues]];
+                    Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
                     [array addObject:employee];
                 }
                 [manager updateEmployee:array companyNo:0];
@@ -227,8 +225,7 @@
                             [manager loadUserWithGuid:user.user_guid];
                             NSMutableArray *companys = [@[] mutableCopy];
                             for (NSDictionary *tempDic in data[@"user_companies"]) {
-                                Company *company = [Company new];
-                                [company mj_setKeyValues:tempDic];
+                                Company *company = [[Company alloc] initWithJSONDictionary:tempDic];
                                 [companys addObject:company];
                             }
                             [manager updateCompanyArr:companys];
@@ -247,8 +244,7 @@
                                 }
                                 NSMutableArray *array = [@[] mutableCopy];
                                 for (NSDictionary *dic in data[@"list"]) {
-                                    Employee *employee = [Employee new];
-                                    [employee mj_setKeyValues:[dic mj_keyValues]];
+                                    Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
                                     [array addObject:employee];
                                 }
                                 [manager updateEmployee:array companyNo:0];
@@ -303,8 +299,7 @@
         [manager loadUserWithGuid:user.user_guid];
         NSMutableArray *companys = [@[] mutableCopy];
         for (NSDictionary *tempDic in data[@"user_companies"]) {
-            Company *company = [Company new];
-            [company mj_setKeyValues:tempDic];
+            Company *company = [[Company alloc] initWithJSONDictionary:tempDic];
             [companys addObject:company];
         }
         [manager updateCompanyArr:companys];
@@ -323,8 +318,7 @@
             }
             NSMutableArray *array = [@[] mutableCopy];
             for (NSDictionary *dic in data[@"list"]) {
-                Employee *employee = [Employee new];
-                [employee mj_setKeyValues:[dic mj_keyValues]];
+                Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
                 [array addObject:employee];
             }
             [manager updateEmployee:array companyNo:0];
@@ -396,8 +390,7 @@
                     [manager loadUserWithGuid:user.user_guid];
                     NSMutableArray *companys = [@[] mutableCopy];
                     for (NSDictionary *tempDic in data[@"user_companies"]) {
-                        Company *company = [Company new];
-                        [company mj_setKeyValues:tempDic];
+                        Company *company = [[Company alloc] initWithJSONDictionary:tempDic];
                         [companys addObject:company];
                     }
                     [manager updateCompanyArr:companys];
@@ -416,8 +409,7 @@
                         }
                         NSMutableArray *array = [@[] mutableCopy];
                         for (NSDictionary *dic in data[@"list"]) {
-                            Employee *employee = [Employee new];
-                            [employee mj_setKeyValues:[dic mj_keyValues]];
+                            Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
                             [array addObject:employee];
                         }
                         [manager updateEmployee:array companyNo:0];

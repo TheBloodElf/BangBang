@@ -86,8 +86,7 @@
         if(currentPage == 1)
             [_companyArr removeAllObjects];
         for (NSDictionary *dic in data[@"list"]) {
-            Company *company = [Company new];
-            [company mj_setKeyValues:[dic mj_keyValues]];
+            Company *company = [[Company alloc] initWithJSONDictionary:dic];
             [_companyArr addObject:company];
         }
         if(_companyArr.count == 0) {

@@ -378,8 +378,6 @@
         [self.navigationController.view showLoadingTips:@""];
         //把第一个地址填充到签到规则模型
         PunchCardAddressSetting *firstAdress = self.currSiginRule.json_list_address_settings[0];
-        _currSiginRule.latitude = firstAdress.latitude;
-        _currSiginRule.longitude = firstAdress.longitude;
         _currSiginRule.address = firstAdress.address;
         _currSiginRule.country = firstAdress.country;
         _currSiginRule.province = firstAdress.province;

@@ -18,7 +18,7 @@
 /**
  *  用户编号
  */
-@property(nonatomic,strong)NSString *user_no;
+@property(nonatomic,assign)int user_no;
 /**
  *  用户唯一标识
  */

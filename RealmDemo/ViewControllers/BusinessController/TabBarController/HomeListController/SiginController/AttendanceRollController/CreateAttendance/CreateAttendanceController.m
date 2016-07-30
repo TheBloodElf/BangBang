@@ -387,8 +387,6 @@
          //把第一个地址填充到签到规则模型
         Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
         PunchCardAddressSetting *firstAdress = _currSiginRule.json_list_address_settings[0];
-        _currSiginRule.latitude = firstAdress.latitude;
-        _currSiginRule.longitude = firstAdress.longitude;
         _currSiginRule.address = firstAdress.address;
         _currSiginRule.country = firstAdress.country;
         _currSiginRule.province = firstAdress.province;

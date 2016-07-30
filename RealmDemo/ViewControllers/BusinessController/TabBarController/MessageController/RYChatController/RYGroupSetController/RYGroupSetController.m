@@ -81,7 +81,11 @@
 }
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
-    _userDiscussArr = (id)controller.fetchedObjects;
+    [_userDiscussArr removeAllObjects];
+    for (UserDiscuss *userDiscuss in controller.fetchedObjects) {
+        [_userDiscussArr addObject:[userDiscuss deepCopy]];
+    }
+    [_tableView reloadData];
 }
 - (void)buttonAction:(UIButton*)btn {
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"删除并且退出讨论组？" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
@@ -312,8 +316,7 @@
         if(sw.on == YES) {//添加
             [UserHttp addUserDiscuss:_userManager.user.user_no discussId:_currRCDiscussion.discussionId discussTitle:_currRCDiscussion.discussionName handler:^(id data, MError *error) {
                 if(error) return ;
-                UserDiscuss *currDiscuss = [UserDiscuss new];
-                [currDiscuss mj_setKeyValues:data];
+                UserDiscuss *currDiscuss = [[UserDiscuss alloc] initWithJSONDictionary:data];
                 [_userManager addUserDiscuss:currDiscuss];
             }];
         } else {//删除

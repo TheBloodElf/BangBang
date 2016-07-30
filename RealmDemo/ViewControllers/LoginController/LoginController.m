@@ -22,6 +22,11 @@
     //初始化登录控制器
     UserLoginController *login = [UserLoginController new];
     _loginNavigationVC = [[UINavigationController alloc] initWithRootViewController:login];
+    _loginNavigationVC.navigationBar.translucent = NO;
+    _loginNavigationVC.navigationBar.barTintColor = [UIColor homeListColor];
+    [_loginNavigationVC.navigationBar setTitleTextAttributes:
+     @{NSFontAttributeName:[UIFont systemFontOfSize:17],
+       NSForegroundColorAttributeName:[UIColor whiteColor]}];
     [self.view addSubview:_loginNavigationVC.view];
     [_loginNavigationVC.view willMoveToSuperview:self.view];
     [self addChildViewController:_loginNavigationVC];

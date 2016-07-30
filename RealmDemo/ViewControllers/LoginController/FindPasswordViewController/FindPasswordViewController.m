@@ -19,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"找回密码";
-    _webView  = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 64)];
+    _webView  = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT)];
     NSURL *nsurl =[NSURL URLWithString:[NSString stringWithFormat:@"%@user/find",BBHOMEURL]];
     NSURLRequest *request =[NSURLRequest requestWithURL:nsurl];
     [_webView loadRequest:request];

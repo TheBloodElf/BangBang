@@ -16,7 +16,6 @@
 @interface BushDetailController ()<SingleSelectDelegate> {
     Company *_currCompany;//当前圈子
     UserManager *_userManager;//用户管理器
-    Employee *_currCompanyOwner;//当前圈子的创建者
 }
 @property (strong, nonatomic) UIImageView *companyAvater;
 @property (weak, nonatomic) IBOutlet UILabel *companyName;
@@ -31,7 +30,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"圈子详情";
-    _currCompanyOwner = [Employee new];
     self.tableView.tableFooterView = [UIView new];
     self.companyAvater = [[UIImageView alloc] initWithFrame:CGRectMake(10, 170, 60, 60)];
     self.companyAvater.layer.cornerRadius = 30.f;
@@ -62,10 +60,8 @@
             [self.navigationController.view showFailureTips:@"圈主信息获取失败,请重新进入此页面获取"];
             return ;
         }
-        _currCompanyOwner = [Employee new];
-        [_currCompanyOwner mj_setKeyValues:[data mj_keyValues]];
-        self.companyOwer.text = _currCompanyOwner.real_name;
-        self.companyOwerPhone.text = _currCompanyOwner.email;
+        self.companyOwer.text = data[@"real_name"];
+        self.companyOwerPhone.text = data[@"email"];
     }];
 }
 - (void)viewWillAppear:(BOOL)animated {
@@ -123,7 +119,7 @@
             field.text = [NSString stringWithFormat:@"我是%@，请求退出圈子",_userManager.user.real_name];
         }
         [self.navigationController.view showLoadingTips:@"请稍等..."];
-        Employee *currEmployee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_currCompany.company_no];
+        Employee *currEmployee = [[_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_currCompany.company_no] deepCopy];
         [UserHttp updateEmployeeStatus:currEmployee.employee_guid status:4 reason:field.text handler:^(id data, MError *error) {
             [self.navigationController.view dismissTips];
             if(error) {

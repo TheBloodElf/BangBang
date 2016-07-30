@@ -81,8 +81,7 @@
             }
             NSMutableArray *array = [@[] mutableCopy];
             for (NSDictionary *dic in data) {
-                SignIn *sigIn = [SignIn new];
-                [sigIn mj_setKeyValues:dic];
+                SignIn *sigIn = [[SignIn alloc] initWithJSONDictionary:dic];
                 sigIn.descriptionStr = dic[@"description"];
                 [array addObject:sigIn];
             }

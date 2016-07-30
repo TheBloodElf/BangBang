@@ -14,14 +14,4 @@
     return @"id";
 }
 
-+ (NSDictionary *)mj_objectClassInArray {
-    return @{@"json_list_address_settings":@"PunchCardAddressSetting"};
-}
-+ (NSDictionary *)mj_replacedKeyFromPropertyName {
-    return @{@"json_list_address_settings":@"address_settings"};
-}
-+ (NSArray *)mj_ignoredPropertyNames {
-    return @[@"longitude",@"latitude",@"update_by"];
-}
-
 @end
