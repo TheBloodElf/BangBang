@@ -59,8 +59,7 @@
 - (void)moreSelectIndex:(int)index {
     MuliteSelectController *mulite = [MuliteSelectController new];
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
-    if(employee)//没有查询出来说明用户没有选择圈子
-        mulite.outEmployees = [@[employee] mutableCopy];
+    mulite.outEmployees = [@[employee] mutableCopy];
     mulite.delegate = self;
     mulite.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:mulite animated:YES];

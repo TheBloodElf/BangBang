@@ -61,7 +61,7 @@
     UIAlertAction *currAlertSure = [UIAlertAction actionWithTitle:@"本次" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         //status 状态0-已删除，1-正常，2-已完成
         NSMutableArray *array = [[_calendar.finished_dates componentsSeparatedByString:@","] mutableCopy];
-        [array addObject:@(_calendar.rdate).stringValue];
+        [array addObject:_calendar.rdate];
         _calendar.finished_dates = [array componentsJoinedByString:@","];
 //        [self.navigationController.view showLoadingTips:@""];
 //        [UserHttp updateUserCalendar:_calendar handler:^(id data, MError *error) {
@@ -107,7 +107,7 @@
     UIAlertAction *currAlertSure = [UIAlertAction actionWithTitle:@"本次" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         //status 状态0-已删除，1-正常，2-已完成
         NSMutableArray *array = [[_calendar.deleted_dates componentsSeparatedByString:@","] mutableCopy];
-        [array addObject:@(_calendar.rdate).stringValue];
+        [array addObject:_calendar.rdate];
         _calendar.deleted_dates = [array componentsJoinedByString:@","];
 //        [self.navigationController.view showLoadingTips:@""];
 //        [UserHttp updateUserCalendar:_calendar handler:^(id data, MError *error) {

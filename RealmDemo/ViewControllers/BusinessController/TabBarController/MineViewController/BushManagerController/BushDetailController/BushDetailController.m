@@ -40,7 +40,7 @@
     self.opertionBtn.hidden = NO;
     Employee *ownerInThisCompany = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_currCompany.company_no];
     //如果自己在这个圈子中，说明可以进行如下操作
-    if(ownerInThisCompany) {
+    if(ownerInThisCompany.id != 0) {
         self.opertionBtn.hidden = NO;
         //如果是圈子的创建者 就可以修改和转让
         if([_userManager.user.user_guid isEqualToString:_currCompany.admin_user_guid]) {

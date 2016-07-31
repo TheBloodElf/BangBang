@@ -13,7 +13,7 @@
 #import "CalendarSelectAlertTime.h"
 #import "MuliteSelectController.h"
 #import "UserManager.h"
-//#import "UserHttp.h"
+#import "UserHttp.h"
 
 @interface ComCalendarEditController ()<ComCalendarViewDelegate,MuliteSelectDelegate> {
     Calendar *_currCalendar;
@@ -38,23 +38,23 @@
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
     //修改日程
-//    [self.navigationController.view showLoadingTips:@"请稍等..."];
-//    [UserHttp updateUserCalendar:_currCalendar handler:^(id data, MError *error) {
-//        [self.navigationController.view dismissTips];
-//        if(error) {
-//            [self.navigationController.view showFailureTips:error.statsMsg];
-//            return ;
-//        }
-//        [self.navigationController.view showSuccessTips:@"修改成功"];
-//        if(self.delegate && [self.delegate respondsToSelector:@selector(ComCalendarEdit:)])
-//            [self.delegate ComCalendarEdit:_currCalendar];
-//        [_userManager updateCalendar:_currCalendar];
-//        [self.navigationController popViewControllerAnimated:YES];
-//    }];
-    if(self.delegate && [self.delegate respondsToSelector:@selector(ComCalendarEdit:)])
+    [self.navigationController.view showLoadingTips:@"请稍等..."];
+    [UserHttp updateUserCalendar:_currCalendar handler:^(id data, MError *error) {
+        [self.navigationController.view dismissTips];
+        if(error) {
+            [self.navigationController.view showFailureTips:error.statsMsg];
+            return ;
+        }
+        [self.navigationController.view showSuccessTips:@"修改成功"];
+        if(self.delegate && [self.delegate respondsToSelector:@selector(ComCalendarEdit:)])
             [self.delegate ComCalendarEdit:_currCalendar];
-    [_userManager updateCalendar:_currCalendar];
-    [self.navigationController popViewControllerAnimated:YES];
+        [_userManager updateCalendar:_currCalendar];
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+//    if(self.delegate && [self.delegate respondsToSelector:@selector(ComCalendarEdit:)])
+//            [self.delegate ComCalendarEdit:_currCalendar];
+//    [_userManager updateCalendar:_currCalendar];
+//    [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)dataDidChange {
     _currCalendar = [[Calendar alloc] initWithJSONDictionary:[self.data JSONDictionary]];

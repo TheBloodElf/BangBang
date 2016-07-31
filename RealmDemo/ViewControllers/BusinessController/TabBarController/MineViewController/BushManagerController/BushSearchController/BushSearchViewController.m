@@ -32,6 +32,7 @@
     self.navigationItem.title = @"加入圈子";
     _companyArr = [@[] mutableCopy];
     _userManager = [UserManager manager];
+    self.view.backgroundColor = [UIColor whiteColor];
     //创建搜索框
     self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 55)];
     self.searchBar.delegate = self;

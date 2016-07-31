@@ -148,6 +148,7 @@
             MuliteSelectController *choseJoinController = [[MuliteSelectController alloc]init];
             choseJoinController.selectedEmployees = selectedDataArr;
             choseJoinController.outEmployees = outEmployees;
+            choseJoinController.delegate = self;
             [self.navigationController pushViewController:choseJoinController animated:YES];
         }
     }];
@@ -156,7 +157,7 @@
     [_bridge registerHandler:@"pickerFileObjc" handler:^(id data, WVJBResponseCallback responseCallback){
         app_guid = [data objectForKey:@"appGuid"];
         BOOL isMulti = [[data objectForKey:@"isMulti"] boolValue];
-        NSInteger chooseNum = [[data objectForKey:@"chooseNum"] integerValue];
+        NSInteger chooseNum = [[data objectForKey:@"chooseNum"] integerValue] ?: 9;
         UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"选择图片" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
         UIAlertAction *select = [UIAlertAction actionWithTitle:@"选取相册图片" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {

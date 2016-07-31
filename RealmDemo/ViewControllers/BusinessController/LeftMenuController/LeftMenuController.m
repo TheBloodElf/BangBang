@@ -49,10 +49,8 @@
     //设置圈子信息
     _companyArr = [_userManager getCompanyArr];
     [self.tableView reloadData];
+    self.view.backgroundColor = [UIColor clearColor];
     // Do any additional setup after loading the view from its nib.
-}
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
 }
 #pragma mark -- 
 #pragma mark -- RBQFetchedResultsControllerDelegate

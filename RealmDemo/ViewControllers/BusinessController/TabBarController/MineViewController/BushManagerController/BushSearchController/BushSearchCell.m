@@ -47,7 +47,7 @@
     self.joinBtn.enabled = YES;
     //获取在当前圈子中的自己（员工）
     _employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:model.company_no];
-    if(!_employee)
+    if(_employee.id == 0)
         return;
     //查看自己的状态 设置按钮
     if (_employee.status == 1) {

@@ -8,7 +8,7 @@
 
 #import "CalendarCreateController.h"
 #import "UserManager.h"
-//#import "UserHttp.h"
+#import "UserHttp.h"
 #import "ComCalendarView.h"
 #import "RepCalendarView.h"
 #import "SelectDateController.h"
@@ -94,21 +94,21 @@
     }
     //创建日程
     [self.navigationController.view showLoadingTips:@"请稍等..."];
-//    [UserHttp createUserCalendar:_currCalendar handler:^(id data, MError *error) {
-//        [self.navigationController.view dismissTips];
-//        if(error) {
-//            [self.navigationController.view showFailureTips:error.statsMsg];
-//            return ;
-//        }
-//        Calendar *calendar = [[Calendar alloc] initWithJSONDictionary:data];
-//        calendar.descriptionStr = data[@"description"];
-//        [_userManager addCalendar:calendar];
-//        [self.navigationController showSuccessTips:@"添加成功"];
-//        [self.navigationController popViewControllerAnimated:YES];
-//    }];
-    _currCalendar.id = [[NSDate date] timeIntervalSince1970];
-    [_userManager addCalendar:_currCalendar];
-    [self.navigationController popViewControllerAnimated:YES];
+    [UserHttp createUserCalendar:_currCalendar handler:^(id data, MError *error) {
+        [self.navigationController.view dismissTips];
+        if(error) {
+            [self.navigationController.view showFailureTips:error.statsMsg];
+            return ;
+        }
+        Calendar *calendar = [[Calendar alloc] initWithJSONDictionary:data];
+        calendar.descriptionStr = data[@"description"];
+        [_userManager addCalendar:calendar];
+        [self.navigationController showSuccessTips:@"添加成功"];
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+//    _currCalendar.id = [[NSDate date] timeIntervalSince1970];
+//    [_userManager addCalendar:_currCalendar];
+//    [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark --
 #pragma mark -- RepCalendarViewDelegate

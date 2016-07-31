@@ -338,7 +338,6 @@
     [params setObject:calendar.created_by forKey:@"created_by"];
     [params setObject:@(calendar.emergency_status) forKey:@"emergency_status"];
     [params setObject:calendar.rrule forKey:@"rrule"];
-    [params setObject:@(calendar.rdate) forKey:@"rdate"];
     [params setObject:@(calendar.r_begin_date_utc) forKey:@"r_begin_date_utc"];
     [params setObject:@(calendar.r_end_date_utc) forKey:@"r_end_date_utc"];
     [params setObject:calendar.members forKey:@"members"];
@@ -369,7 +368,6 @@
     [params setObject:calendar.created_by forKey:@"created_by"];
     [params setObject:@(calendar.emergency_status) forKey:@"emergency_status"];
     [params setObject:calendar.rrule forKey:@"rrule"];
-    [params setObject:@(calendar.rdate) forKey:@"rdate"];
     [params setObject:@(calendar.r_begin_date_utc) forKey:@"r_begin_date_utc"];
     [params setObject:@(calendar.r_end_date_utc) forKey:@"r_end_date_utc"];
     [params setObject:calendar.members forKey:@"members"];

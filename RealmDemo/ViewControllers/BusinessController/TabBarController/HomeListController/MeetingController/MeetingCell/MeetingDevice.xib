@@ -16,11 +16,11 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="设备" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SkE-yO-uog">
-                        <rect key="frame" x="15" y="21" width="34" height="17"/>
+                        <rect key="frame" x="15" y="19" width="34" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="34" id="Zco-1P-ydO"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -61,7 +61,7 @@
                 <outlet property="meetingDevice" destination="Deo-XF-L6q" id="c8c-IO-Ww6"/>
                 <outlet property="moreBtn" destination="AyR-fq-Bfb" id="Qja-rh-f9A"/>
             </connections>
-            <point key="canvasLocation" x="269" y="269"/>
+            <point key="canvasLocation" x="377" y="270"/>
         </tableViewCell>
     </objects>
 </document>

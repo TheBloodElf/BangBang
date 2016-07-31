@@ -43,14 +43,17 @@
             self.title = discussion.discussionName;
             //填充用户信息
             for (NSString *targetId in discussion.memberIdList) {
-                Employee *employee = [_userManager getEmployeeWithNo:targetId.intValue];
-                RCUserInfo *user = [RCUserInfo new];
-                if (employee) {
-                    user.portraitUri = employee.avatar;
-                    user.name = employee.user_real_name;
-                } else {
-                    user.name = targetId;
+                NSMutableArray *array = [_userManager getEmployeeArr];
+                Employee * emp = [Employee new];
+                for (Employee *employee in array) {
+                    if(employee.user_no == [targetId integerValue]) {
+                        emp = employee;
+                        break;
+                    }
                 }
+                RCUserInfo *user = [RCUserInfo new];
+                user.portraitUri = emp.avatar;
+                user.name = emp.user_real_name;
                 user.userId = targetId;
                 [_rCUserArr addObject:user];
             }
@@ -138,8 +141,15 @@
     RCDSelectPersonController *muliteSelect = [RCDSelectPersonController new];
     NSMutableArray *array = [@[] mutableCopy];
     for (RCUserInfo *rCUserInfo in _rCUserArr) {
-        Employee *temp = [_userManager getEmployeeWithNo:[rCUserInfo.userId intValue]];
-        [array addObject:temp];
+        NSMutableArray *tempArray = [_userManager getEmployeeArr];
+        Employee * emp = [Employee new];
+        for (Employee *employee in tempArray) {
+            if(employee.user_no == [rCUserInfo.userId integerValue]) {
+                emp = employee;
+                break;
+            }
+        }
+        [array addObject:emp];
     }
     muliteSelect.selectedEmployees = [array mutableCopy];
     muliteSelect.delegate = self;
@@ -302,12 +312,16 @@
 #pragma mark -- 
 #pragma mark -- RYGroupSetNameDelegate
 - (void)RYGroupSetName:(NSString *)name {
+    [self.navigationController.view showLoadingTips:@""];
     [[RCIMClient sharedRCIMClient] setDiscussionName:self.targetId name:name success:^{
         _currRCDiscussion.discussionName = name;
         [_tableView reloadData];
         if(self.delegate && [self.delegate respondsToSelector:@selector(rYGroupSetNameChange:)]) {
             [self.delegate rYGroupSetNameChange:name];
         }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.navigationController.view dismissTips];
+        });
     } error:nil];
 
 }

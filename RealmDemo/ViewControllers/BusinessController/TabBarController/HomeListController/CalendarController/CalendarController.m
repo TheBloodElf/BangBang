@@ -98,6 +98,10 @@
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    //是不是第一次加载这个页面
+    if(![NSString isBlank:self.data])
+        return;
+    self.data = @"NO";
     //看是不是第一次加载日程
     IdentityManager *identity = [IdentityManager manager];
     if(identity.identity.firstLoadCalendar == YES) {
@@ -111,10 +115,7 @@
             }
             NSMutableArray *array = [@[] mutableCopy];
             for (NSDictionary *dic in data[@"list"]) {
-                NSMutableDictionary *tempDic = [dic mutableCopy];
-                [tempDic setValue:nil forKey:@"description"];
-                Calendar *calendar = [Calendar new];
-                [calendar mj_setKeyValues:tempDic];
+                Calendar *calendar = [[Calendar alloc] initWithJSONDictionary:dic];
                 calendar.descriptionStr = dic[@"description"];
                 [array addObject:calendar];
             }
@@ -134,23 +135,23 @@
     }
 }
 - (void)refushClicked:(UIBarButtonItem*)item {
-//    [self.navigationController.view showLoadingTips:@"正在同步..."];
-    //这里是用户向服务器提交数据
-//    [UserHttp getUserCalendar:_userManager.user.user_guid handler:^(id data, MError *error) {
-//        [self.navigationController.view dismissTips];
-//        if(error) {
-//            [self.navigationController.view showFailureTips:error.statsMsg];
-//            return ;
-//        }
-//        NSMutableArray *array = [@[] mutableCopy];
-//        for (NSDictionary *dic in data[@"list"]) {
-//            Calendar *calendar = [[Calendar alloc] initWithJSONDictionary:dic];
-//            calendar.descriptionStr = dic[@"description"];
-//            [array addObject:calendar];
-//        }
-//        [_userManager updateCalendars:array];
-//        [self.navigationController.view showSuccessTips:@"同步成功"];
-//    }];
+    [self.navigationController.view showLoadingTips:@"正在同步..."];
+//    这里是用户向服务器提交数据 现在还没有改
+    [UserHttp getUserCalendar:_userManager.user.user_guid handler:^(id data, MError *error) {
+        [self.navigationController.view dismissTips];
+        if(error) {
+            [self.navigationController.view showFailureTips:error.statsMsg];
+            return ;
+        }
+        NSMutableArray *array = [@[] mutableCopy];
+        for (NSDictionary *dic in data[@"list"]) {
+            Calendar *calendar = [[Calendar alloc] initWithJSONDictionary:dic];
+            calendar.descriptionStr = dic[@"description"];
+            [array addObject:calendar];
+        }
+        [_userManager updateCalendars:array];
+        [self.navigationController.view showSuccessTips:@"同步成功"];
+    }];
 }
 - (void)todayClicked:(UIBarButtonItem*)item {
     _userSelectedDate = [NSDate date];
@@ -221,13 +222,14 @@
                             continue;
                         } else if([tempCalendar haveFinishDate:_userSelectedDate]) {
                             Calendar *calendar = [[Calendar alloc] initWithJSONDictionary:[tempCalendar JSONDictionary]];
-                            calendar.rdate = _userSelectedDate.timeIntervalSince1970 / 1000;
+                            calendar.rdate = @(_userSelectedDate.timeIntervalSince1970 * 1000).stringValue;
                             calendar.status = 2;
                             [_todayCalendarArr addObject:calendar];
                         } else {
                             //这里把本次的触发时间加上
-                            tempCalendar.rdate = _userSelectedDate.timeIntervalSince1970 / 1000;
-                            [_todayCalendarArr addObject:tempCalendar];
+                            Calendar *calendar = [tempCalendar deepCopy];
+                            calendar.rdate = @(_userSelectedDate.timeIntervalSince1970 * 1000).stringValue;
+                            [_todayCalendarArr addObject:calendar];
                         }
                     }
                 }
@@ -319,7 +321,7 @@
             if(dayView.date.day == _userSelectedDate.day)
             {
                 dayView.circleView.hidden = NO;
-                dayView.circleView.backgroundColor = [UIColor grayColor];
+                dayView.circleView.backgroundColor = [UIColor homeListColor];
                 return;
             }
 }

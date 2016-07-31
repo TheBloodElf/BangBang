@@ -30,7 +30,7 @@
             <connections>
                 <outlet property="meetingName" destination="tT3-pv-Ju3" id="jyN-Em-xd0"/>
             </connections>
-            <point key="canvasLocation" x="199" y="292"/>
+            <point key="canvasLocation" x="355" y="292"/>
         </tableViewCell>
     </objects>
 </document>

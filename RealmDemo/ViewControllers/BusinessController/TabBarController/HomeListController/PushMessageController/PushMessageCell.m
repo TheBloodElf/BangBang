@@ -27,8 +27,8 @@
 
 - (void)dataDidChange {
     PushMessage *pushMessage = self.data;
-    self.yearMonth.text = [NSString stringWithFormat:@"%d/%d",pushMessage.addTime.year,pushMessage.addTime.month];
-    self.timeLabel.text = [NSString stringWithFormat:@"%d:%d",pushMessage.addTime.hour,pushMessage.addTime.minute];
+    self.yearMonth.text = [NSString stringWithFormat:@"%02ld/%02ld",pushMessage.addTime.month,pushMessage.addTime.day];
+    self.timeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld",pushMessage.addTime.hour,pushMessage.addTime.minute];
     self.titleName.text = [pushMessage typeString];
     self.contentLabel.text = pushMessage.content;
     if(pushMessage.unread == YES)

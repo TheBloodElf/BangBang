@@ -223,13 +223,14 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"PailCell"];
     }
     
-    
+    cell.accessoryType = UITableViewCellAccessoryNone;
     if(indexPath.section == 0) {//会议主题
         cell.data = _meeting;
     } else if (indexPath.section == 1) {
         if(indexPath.row == 0) {//会议室
             cell.textLabel.text = @"会议室";
             cell.detailTextLabel.text = _meetingRoomModel.room_name ?: @"请选择 （必填）";
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         } else if (indexPath.row == 1) {//会议时间
             cell.textLabel.text = @"会议时间";
             NSDate *begin = [NSDate dateWithTimeIntervalSince1970:_meeting.begin / 1000];
@@ -245,12 +246,15 @@
         if(indexPath.row == 0) {//主持人
             cell.textLabel.text = @"主持人";
             cell.detailTextLabel.text = _incharge.real_name ?: @"请选择（必填）";
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         } else if (indexPath.row == 1) {//参与人
             MeetingMembersCell *member = (id)cell;
             member.data = _membersArr;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         } else {//列席人
             MeetingAttendanceCell *attendance = (id)cell;
             attendance.data = _attendanceArr;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
     } else if (indexPath.section == 3) {
         if(indexPath.row == 0) {//议程

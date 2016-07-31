@@ -23,7 +23,10 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    
+    self.beginTime.titleLabel.numberOfLines = 0;
+    self.endTime.titleLabel.numberOfLines = 0;
+    self.beginTime.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.endTime.titleLabel.textAlignment = NSTextAlignmentCenter;
 }
 - (IBAction)beginTime:(id)sender {
     if(_calendar.is_allday == YES)
@@ -56,8 +59,8 @@
         [self.allDayBtn setBackgroundColor:[UIColor blackColor]];
         [self.allDayBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     } else {
-        [self.beginTime setTitle:[NSString stringWithFormat:@"%d:%d",beginTime.hour,beginTime.minute] forState:UIControlStateNormal];
-        [self.endTime setTitle:[NSString stringWithFormat:@"%d:%d",endTime.hour,endTime.minute] forState:UIControlStateNormal];
+        [self.beginTime setTitle:[NSString stringWithFormat:@"%02ld:%02ld",beginTime.hour,beginTime.minute] forState:UIControlStateNormal];
+        [self.endTime setTitle:[NSString stringWithFormat:@"%02ld:%02ld",endTime.hour,endTime.minute] forState:UIControlStateNormal];
         [self.allDayBtn setBackgroundColor:[UIColor whiteColor]];
         [self.allDayBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     }

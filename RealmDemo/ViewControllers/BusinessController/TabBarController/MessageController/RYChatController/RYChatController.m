@@ -86,7 +86,14 @@
             [self.navigationController pushViewController:mineInfoVC animated:YES];
         }
         else{//别人头像被点击 查看
-            Employee * emp = [_userManager getEmployeeWithNo:[userId intValue]];
+            NSMutableArray *array = [_userManager getEmployeeArr];
+            Employee * emp = [Employee new];
+            for (Employee *employee in array) {
+                if(employee.user_no == [userId integerValue]) {
+                    emp = employee;
+                    break;
+                }
+            }
             WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
             webViewcontroller.showNavigationBar = NO;
             webViewcontroller.applicationUrl  = [NSString stringWithFormat:@"%@/Personal/index?showGuid=%@&userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,emp.user_guid,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];

@@ -72,6 +72,17 @@
     [fetchedResultsController performFetch];
     return fetchedResultsController;
 }
+//获取所有员工
+- (NSMutableArray<Employee*>*)getEmployeeArr {
+    [_rlmRealm beginWriteTransaction];
+    RLMResults *results = [Employee objectsInRealm:_rlmRealm withPredicate:nil];
+    [_rlmRealm commitWriteTransaction];
+    NSMutableArray *array = [@[] mutableCopy];
+    for (int index = 0; index < results.count; index ++) {
+        [array addObject:[results objectAtIndex:index]];
+    }
+    return array;
+}
 //根据Guid和圈子ID获取员工
 - (Employee*)getEmployeeWithGuid:(NSString*)userGuid companyNo:(int)companyNo {
     [_rlmRealm beginWriteTransaction];
@@ -79,22 +90,9 @@
     RLMResults *results = [Employee objectsInRealm:_rlmRealm withPredicate:pred];
     [_rlmRealm commitWriteTransaction];
     //如果有值就返回 没有就算了
-    return [results objectAtIndex:0];
-}
-//根据UserNO获取员工
-- (Employee*)getEmployeeWithNo:(int)userNo {
-    [_rlmRealm beginWriteTransaction];
-    RLMResults *results = [Employee objectsInRealm:_rlmRealm withPredicate:nil];
-    [_rlmRealm commitWriteTransaction];
-    //如果有值就返回 没有就算了
-    if(results.count) {
-        for (int i = 0;i < results.count;i ++) {
-            Employee *employee = [results objectAtIndex:i];
-            if(employee.user_no == userNo)
-                return employee;
-        }
-    }
-    return nil;
+    if(results.count)
+        return [results objectAtIndex:0];
+    return [Employee new];
 }
 #pragma mark -- Company
 //更新某个圈子信息

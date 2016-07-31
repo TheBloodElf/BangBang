@@ -73,11 +73,18 @@
 {
      dispatch_async(dispatch_get_main_queue(), ^{
         UserManager *manager = [UserManager manager];
-        Employee * it = [manager getEmployeeWithNo:[userId intValue]];
+         NSMutableArray *array = [manager getEmployeeArr];
+         Employee * emp = [Employee new];
+         for (Employee *employee in array) {
+             if(employee.user_no == [userId integerValue]) {
+                 emp = employee;
+                 break;
+             }
+         }
         RCUserInfo * user = [[RCUserInfo alloc] init];
         user.userId = userId;
-        user.name = it.user_real_name;
-        user.portraitUri = it.avatar;
+        user.name = emp.user_real_name;
+        user.portraitUri = emp.avatar;
         completion(user);
      });
 }
