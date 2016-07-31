@@ -11,9 +11,7 @@
  */
 @interface WebNonstandarViewController : UIViewController
 
-@property (nonatomic,strong) WebViewJavascriptBridge *bridge;//交互中间件
 @property (nonatomic,strong) NSString *applicationUrl;//需要加载的url
 @property (nonatomic,assign) BOOL showNavigationBar;//是否使用自带的导航条
-@property (nonatomic,assign) BOOL isPrivateChat;//是否是单聊
 
 @end

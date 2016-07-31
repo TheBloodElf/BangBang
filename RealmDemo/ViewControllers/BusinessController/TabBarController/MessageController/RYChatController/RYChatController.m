@@ -42,7 +42,6 @@
         //查看对方详情（网页）
         WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
         webViewcontroller.showNavigationBar = NO;
-        webViewcontroller.isPrivateChat = YES;
         webViewcontroller.applicationUrl  = [NSString stringWithFormat:@"%@/Personal/index?showGuid=%@&userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,self.friends.user_guid,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
         [self.navigationController pushViewController:webViewcontroller animated:YES];
     } else if (self.conversationType == ConversationType_GROUP){

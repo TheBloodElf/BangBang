@@ -83,6 +83,10 @@
 		0471C0951D3B262600377178 /* PushMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0471C0931D3B262600377178 /* PushMessageCell.m */; };
 		0471C0961D3B262600377178 /* PushMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0471C0941D3B262600377178 /* PushMessageCell.xib */; };
 		0471C0981D3BBA6000377178 /* Readme.md in Sources */ = {isa = PBXBuildFile; fileRef = 0471C0971D3BBA6000377178 /* Readme.md */; };
+		047DBCBE1D4E37B50049354F /* UserQRCameraSwitchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 047DBCB81D4E37B50049354F /* UserQRCameraSwitchButton.m */; settings = {ASSET_TAGS = (); }; };
+		047DBCBF1D4E37B50049354F /* UserQRCodeReaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047DBCBA1D4E37B50049354F /* UserQRCodeReaderController.m */; settings = {ASSET_TAGS = (); }; };
+		047DBCC01D4E37B50049354F /* UserQRCodeReaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 047DBCBD1D4E37B50049354F /* UserQRCodeReaderView.m */; settings = {ASSET_TAGS = (); }; };
+		047DBCC31D4E39600049354F /* UINavigationController+Direction.m in Sources */ = {isa = PBXBuildFile; fileRef = 047DBCC21D4E395F0049354F /* UINavigationController+Direction.m */; settings = {ASSET_TAGS = (); }; };
 		0482FBD21D42FE4200B1CBB2 /* SiginNoteController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBD11D42FE4200B1CBB2 /* SiginNoteController.m */; };
 		0482FBD61D430AD200B1CBB2 /* WebNonstandarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBD51D430AD200B1CBB2 /* WebNonstandarViewController.m */; };
 		0482FBD91D4316A500B1CBB2 /* RCTransferSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBD81D4316A500B1CBB2 /* RCTransferSelectViewController.m */; };
@@ -159,7 +163,6 @@
 		1B119E861D3CB8FB007CC050 /* SelectImageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B119E811D3CB8FB007CC050 /* SelectImageViewCell.m */; };
 		1B119E8A1D3CB907007CC050 /* ImageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B119E891D3CB907007CC050 /* ImageScrollView.m */; };
 		1B119E8E1D3CB92B007CC050 /* ShowBigImageScroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B119E8D1D3CB92B007CC050 /* ShowBigImageScroller.m */; };
-		1B119E911D3CB957007CC050 /* UINavigationController+Direction.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B119E901D3CB957007CC050 /* UINavigationController+Direction.m */; };
 		1B157FFD1D24FFF50081A1A3 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B157FFC1D24FFF50081A1A3 /* libc++.tbd */; };
 		1B158A451D45AE21003237A7 /* RYGroupSetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B158A441D45AE21003237A7 /* RYGroupSetController.m */; };
 		1B158A681D45BB4D003237A7 /* RYGroupSetAddUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B158A5D1D45BB4D003237A7 /* RYGroupSetAddUserCell.m */; };
@@ -549,6 +552,15 @@
 		0471C0931D3B262600377178 /* PushMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushMessageCell.m; sourceTree = "<group>"; };
 		0471C0941D3B262600377178 /* PushMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PushMessageCell.xib; sourceTree = "<group>"; };
 		0471C0971D3BBA6000377178 /* Readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
+		047DBCB71D4E37B40049354F /* UserQRCameraSwitchButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserQRCameraSwitchButton.h; sourceTree = "<group>"; };
+		047DBCB81D4E37B50049354F /* UserQRCameraSwitchButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserQRCameraSwitchButton.m; sourceTree = "<group>"; };
+		047DBCB91D4E37B50049354F /* UserQRCodeReaderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserQRCodeReaderController.h; sourceTree = "<group>"; };
+		047DBCBA1D4E37B50049354F /* UserQRCodeReaderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserQRCodeReaderController.m; sourceTree = "<group>"; };
+		047DBCBB1D4E37B50049354F /* UserQRCodeReaderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserQRCodeReaderDelegate.h; sourceTree = "<group>"; };
+		047DBCBC1D4E37B50049354F /* UserQRCodeReaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserQRCodeReaderView.h; sourceTree = "<group>"; };
+		047DBCBD1D4E37B50049354F /* UserQRCodeReaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserQRCodeReaderView.m; sourceTree = "<group>"; };
+		047DBCC11D4E395F0049354F /* UINavigationController+Direction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Direction.h"; sourceTree = "<group>"; };
+		047DBCC21D4E395F0049354F /* UINavigationController+Direction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Direction.m"; sourceTree = "<group>"; };
 		0482FBD01D42FE4200B1CBB2 /* SiginNoteController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SiginNoteController.h; sourceTree = "<group>"; };
 		0482FBD11D42FE4200B1CBB2 /* SiginNoteController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SiginNoteController.m; sourceTree = "<group>"; };
 		0482FBD41D430AD200B1CBB2 /* WebNonstandarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebNonstandarViewController.h; sourceTree = "<group>"; };
@@ -684,8 +696,6 @@
 		1B119E891D3CB907007CC050 /* ImageScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageScrollView.m; sourceTree = "<group>"; };
 		1B119E8C1D3CB92B007CC050 /* ShowBigImageScroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowBigImageScroller.h; sourceTree = "<group>"; };
 		1B119E8D1D3CB92B007CC050 /* ShowBigImageScroller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowBigImageScroller.m; sourceTree = "<group>"; };
-		1B119E8F1D3CB957007CC050 /* UINavigationController+Direction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Direction.h"; sourceTree = "<group>"; };
-		1B119E901D3CB957007CC050 /* UINavigationController+Direction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Direction.m"; sourceTree = "<group>"; };
 		1B119E931D3CB9B6007CC050 /* CMMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMMacros.h; sourceTree = "<group>"; };
 		1B119E941D3CB9B6007CC050 /* CMMacros+Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CMMacros+Block.h"; sourceTree = "<group>"; };
 		1B157FFC1D24FFF50081A1A3 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
@@ -1183,6 +1193,7 @@
 		046DAF281D4C3EB500718F2A /* MeetingController */ = {
 			isa = PBXGroup;
 			children = (
+				047DBCB61D4E36DE0049354F /* MeetingSiginController */,
 				046DAF291D4C3EB500718F2A /* CreateMeetingController.h */,
 				046DAF2A1D4C3EB500718F2A /* CreateMeetingController.m */,
 				046DAF2B1D4C3EB500718F2A /* MeetingAgenda.h */,
@@ -1414,6 +1425,20 @@
 				046DB0871D4CA12800718F2A /* MeetDeviceDetailController.m */,
 			);
 			path = MeetDeviceDetailController;
+			sourceTree = "<group>";
+		};
+		047DBCB61D4E36DE0049354F /* MeetingSiginController */ = {
+			isa = PBXGroup;
+			children = (
+				047DBCB71D4E37B40049354F /* UserQRCameraSwitchButton.h */,
+				047DBCB81D4E37B50049354F /* UserQRCameraSwitchButton.m */,
+				047DBCB91D4E37B50049354F /* UserQRCodeReaderController.h */,
+				047DBCBA1D4E37B50049354F /* UserQRCodeReaderController.m */,
+				047DBCBB1D4E37B50049354F /* UserQRCodeReaderDelegate.h */,
+				047DBCBC1D4E37B50049354F /* UserQRCodeReaderView.h */,
+				047DBCBD1D4E37B50049354F /* UserQRCodeReaderView.m */,
+			);
+			path = MeetingSiginController;
 			sourceTree = "<group>";
 		};
 		0482FBCF1D42FE4200B1CBB2 /* SiginNoteController */ = {
@@ -2065,10 +2090,10 @@
 		1B55857D1D34DD3C00DCD3A0 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				047DBCC11D4E395F0049354F /* UINavigationController+Direction.h */,
+				047DBCC21D4E395F0049354F /* UINavigationController+Direction.m */,
 				1B1B9BC71D3DF75F00F53EDC /* UIColor+FlatUI.h */,
 				1B1B9BC81D3DF75F00F53EDC /* UIColor+FlatUI.m */,
-				1B119E8F1D3CB957007CC050 /* UINavigationController+Direction.h */,
-				1B119E901D3CB957007CC050 /* UINavigationController+Direction.m */,
 				1BD871EE1D38BECD0074CDC7 /* UIImage+scale.h */,
 				1BD871EF1D38BECD0074CDC7 /* UIImage+scale.m */,
 				1B4B160B1D372F7C00E71B3D /* NSString+firstChar.h */,
@@ -3237,6 +3262,7 @@
 				0495861B1D39D3A500544259 /* SelectEmployeeModel.m in Sources */,
 				1B119E6F1D3CB89F007CC050 /* PhotoGroupController.m in Sources */,
 				1BC2AE4B1D4208DB00842153 /* SiginSelectCell.m in Sources */,
+				047DBCBE1D4E37B50049354F /* UserQRCameraSwitchButton.m in Sources */,
 				75E5FF641D27AA9100F77961 /* HttpService.m in Sources */,
 				1B158A6A1D45BB4D003237A7 /* RYGroupSetDelUserCell.m in Sources */,
 				04E7E5B41D3A7D2500C653B4 /* PushMessage.m in Sources */,
@@ -3274,9 +3300,9 @@
 				1BFBC17F1D3F7B3100A5511A /* ComCalendarEditController.m in Sources */,
 				049586191D39D3A500544259 /* MuliteSelectController.m in Sources */,
 				0495862D1D3A1A3F00544259 /* WKWebViewJavascriptBridge.m in Sources */,
+				047DBCBF1D4E37B50049354F /* UserQRCodeReaderController.m in Sources */,
 				046DAF721D4C3EB500718F2A /* MeetingDeviceCell.m in Sources */,
 				04FE7CD41D367CE000362702 /* LeftMenuCell.m in Sources */,
-				1B119E911D3CB957007CC050 /* UINavigationController+Direction.m in Sources */,
 				049586311D3A1B3800544259 /* UserSettingController.m in Sources */,
 				1B1B9BC01D3DCB8000F53EDC /* Scheduler.m in Sources */,
 				1B0FECB91D40AD7600DB4369 /* SignIn.m in Sources */,
@@ -3325,6 +3351,7 @@
 				1B1B9BBE1D3DCB8000F53EDC /* NSString+Atipik.m in Sources */,
 				1BF5DFDA1D49A90A0039704E /* qrspec.c in Sources */,
 				1B877F171D178E7D000144B2 /* main.m in Sources */,
+				047DBCC31D4E39600049354F /* UINavigationController+Direction.m in Sources */,
 				1BF5DFD91D49A90A0039704E /* qrinput.c in Sources */,
 				046DAF791D4C3EB500718F2A /* MeetingSelectPresonCell.m in Sources */,
 				1B36FCD81D35EC90006694E4 /* CalendarView.m in Sources */,
@@ -3440,6 +3467,7 @@
 				046DAF6E1D4C3EB500718F2A /* MeetingMembersCell.m in Sources */,
 				1B1B9BBF1D3DCB8000F53EDC /* NSArray+Atipik.m in Sources */,
 				1BFBC1431D3F0CDC00A5511A /* RepCalendarTime.m in Sources */,
+				047DBCC01D4E37B50049354F /* UserQRCodeReaderView.m in Sources */,
 				1B119E6E1D3CB89F007CC050 /* BigPhotoSelectController.m in Sources */,
 				1B1B9BD71D3E0FB700F53EDC /* ComCalendarView.m in Sources */,
 				046DAF6A1D4C3EB500718F2A /* MeetingAttendanceCell.m in Sources */,

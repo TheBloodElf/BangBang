@@ -21,6 +21,7 @@
 #import "UserHttp.h"
 #import "RCTransferSelectViewController.h"
 #import "CreateMeetingController.h"
+#import "UserQRCodeReaderController.h"
 
 @interface WebNonstandarViewController ()<UIWebViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,QLPreviewControllerDataSource,SingleSelectDelegate,MuliteSelectDelegate,MoreSelectViewDelegate,SelectImageDelegate>{
     NSURL *filePath1;
@@ -32,7 +33,7 @@
     NSArray *uploadPhotos;
     MoreSelectView *_moreSelectView;//多选视图
 }
-
+@property (nonatomic,strong) WebViewJavascriptBridge *bridge;//交互中间件
 @end
 
 @implementation WebNonstandarViewController
@@ -81,22 +82,20 @@
     }];
     //开始单聊
     [_bridge registerHandler:@"startPrivateChat" handler:^(id data, WVJBResponseCallback responseCallback){
-        if (_isPrivateChat) {
-            [self.navigationController popViewControllerAnimated:YES];
-        } else {
-            NSString *userNo = [data objectForKey:@"userno"];
-            NSString *userName = [data objectForKey:@"realname"];
-            //单聊
-            RYChatController *conversationVC = [[RYChatController alloc]init];
-            conversationVC.conversationType =ConversationType_PRIVATE; //会话类型，这里设置为 PRIVATE 即发起单聊会话。
-            conversationVC.targetId = userNo; // 接收者的 targetId，这里为举例。
-            conversationVC.title = userName; // 会话的 title。
-            [self.navigationController pushViewController:conversationVC animated:YES];
-        }
+        NSString *userNo = [data objectForKey:@"userno"];
+        NSString *userName = [data objectForKey:@"realname"];
+        //单聊
+        RYChatController *conversationVC = [[RYChatController alloc]init];
+        conversationVC.conversationType =ConversationType_PRIVATE; //会话类型，这里设置为 PRIVATE 即发起单聊会话。
+        conversationVC.targetId = userNo; // 接收者的 targetId，这里为举例。
+        conversationVC.title = userName; // 会话的 title。
+        [self.navigationController pushViewController:conversationVC animated:YES];
     }];
     
     //会议签到
     [_bridge registerHandler:@"signinMeetingObjc" handler:^(id data, WVJBResponseCallback responseCallback){
+        UserQRCodeReaderController *sigin = [UserQRCodeReaderController new];
+        [self.navigationController pushViewController:sigin animated:YES];
         responseCallback(@"Response from testObjcCallback");
     }];
     

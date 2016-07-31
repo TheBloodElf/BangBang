@@ -321,7 +321,7 @@
             if(dayView.date.day == _userSelectedDate.day)
             {
                 dayView.circleView.hidden = NO;
-                dayView.circleView.backgroundColor = [UIColor homeListColor];
+                dayView.circleView.backgroundColor = [UIColor calendarColor];
                 return;
             }
 }

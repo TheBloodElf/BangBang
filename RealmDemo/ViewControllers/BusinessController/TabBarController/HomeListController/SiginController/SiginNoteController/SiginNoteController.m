@@ -120,7 +120,7 @@
             if(dayView.date.day == _currDate.day)
             {
                 dayView.circleView.hidden = NO;
-                dayView.circleView.backgroundColor = [UIColor orangeColor];
+                dayView.circleView.backgroundColor = [UIColor siginColor];
                 return;
             }
     NSDate *date = [NSDate date];

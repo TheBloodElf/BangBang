@@ -29,7 +29,7 @@
     [_tableView reloadData];
 }
 - (void)showSelectView {
-   [UIView animateWithDuration:0.5 animations:^{
+   [UIView animateWithDuration:0.2 animations:^{
        self.alpha = 1;
    } completion:^(BOOL finished) {
        self.hidden = NO;
@@ -37,7 +37,7 @@
    }];
 }
 - (void)hideSelectView {
-    [UIView animateWithDuration:0.5 animations:^{
+    [UIView animateWithDuration:0.2 animations:^{
         self.alpha = 0;
     } completion:^(BOOL finished) {
         self.hidden = YES;
