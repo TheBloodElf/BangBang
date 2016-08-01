@@ -36,10 +36,14 @@
 #pragma mark --
 #pragma mark -- UITextViewDelegate
 - (void)textViewDidChange:(UITextView *)textView {
-    _calendar.descriptionStr = textView.text;
     if([NSString isBlank:_calendar.descriptionStr])
         self.detailInstruction.hidden = NO;
     else
         self.detailInstruction.hidden = YES;
+}
+- (BOOL)textViewShouldEndEditing:(UITextView *)textView {
+    _calendar.descriptionStr = textView.text;
+    [textView resignFirstResponder];
+    return YES;
 }
 @end

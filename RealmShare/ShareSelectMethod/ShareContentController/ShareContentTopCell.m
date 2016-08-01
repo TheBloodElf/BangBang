@@ -21,7 +21,7 @@
 
 - (void)awakeFromNib
 {
-    [self.text becomeFirstResponder];
+    [super awakeFromNib];
     self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
     self.webView.hidden = YES;
     [self.contentView addSubview:self.webView];
@@ -29,14 +29,17 @@
     self.webView.delegate = self;
     [self setModel];
 }
+- (BOOL)textViewShouldEndEditing:(UITextView *)textView {
+    ShareModel *model = [ShareModel shareInstance];
+    model.shareUserText = textView.text;
+    return YES;
+}
 - (void)textViewDidChange:(UITextView *)textView
 {
     if([self isBlankStr:textView.text])
         self.phLabel.hidden = NO;
     else
         self.phLabel.hidden = YES;
-    if(self.delegate && [self.delegate respondsToSelector:@selector(textDidChange:)])
-        [self.delegate textDidChange:textView];
 }
 - (void)setModel
 {

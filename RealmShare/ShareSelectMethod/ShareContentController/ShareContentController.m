@@ -10,7 +10,7 @@
 #import "ShareModel.h"
 #import "UtikIesTool.h"
 #import "ShareContentTopCell.h"
-@interface ShareContentController ()<UITableViewDelegate,UITableViewDataSource,ShareContentTopCellDelegate>
+@interface ShareContentController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *_tableView;
     ShareModel *model;
@@ -28,6 +28,7 @@
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 250, 330) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     _tableView.showsVerticalScrollIndicator = NO;
     [_tableView registerNib:[UINib nibWithNibName:@"ShareContentTopCell" bundle:nil] forCellReuseIdentifier:@"ShareContentTopCell"];
     _tableView.tableFooterView = [UIView new];
@@ -72,16 +73,6 @@
     [alert addAction:alertAction];
     [self presentViewController:alert animated:YES completion:nil];
 }
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    [self.view endEditing:YES];
-}
-#pragma mark -- 
-#pragma mark ShareContentTopCellDelegate
-- (void)textDidChange:(UITextView *)textView
-{
-    model.shareUserText = textView.text;
-}
 #pragma mark --
 #pragma mark UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -91,7 +82,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ShareContentTopCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShareContentTopCell" forIndexPath:indexPath];
-    cell.delegate = self;
     return cell;
 }
 #pragma mark --

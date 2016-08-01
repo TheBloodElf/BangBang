@@ -24,8 +24,8 @@
  *
  */
 
-#import "UserQRCodeReaderView.h"
-@interface UserQRCodeReaderView ()
+#import "MeetingSiginReaderView.h"
+@interface MeetingSiginReaderView ()
 {
     //扫描二维码框
     UIImageView *imageQRView;
@@ -41,7 +41,7 @@
 
 @end
 
-@implementation UserQRCodeReaderView
+@implementation MeetingSiginReaderView
 
 - (id)initWithFrame:(CGRect)frame
 {

@@ -8,7 +8,7 @@
  */
 
 
-@interface UserQRCodeReaderView : UIView
+@interface MeetingSiginReaderView : UIView
 
 @end
 

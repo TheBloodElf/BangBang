@@ -30,6 +30,7 @@
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     _calendar.address = textField.text;
+    [textField resignFirstResponder];
     return YES;
 }
 @end

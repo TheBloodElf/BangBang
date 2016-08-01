@@ -503,6 +503,19 @@
     };
     return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_GET URLPath:urlPath parameters:params completionHandler:compleionHandler];
 }
+//根据传入时间获取会议室预约时间
++ (NSURLSessionDataTask*)getMeetHandlerTime:(int)roomId begin:(int64_t)begin end:(int64_t)end handler:(completionHandler)handler {
+    NSString *urlPath = @"Meeting/get_handler_time";
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:@(roomId) forKey:@"room_id"];
+    [params setObject:@(begin) forKey:@"begin"];
+    [params setObject:@(end) forKey:@"end"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_GET URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
 //获取会议室时间空闲设备列表
 + (NSURLSessionDataTask*)getMeetEquipments:(int)companyNo begin:(int64_t)begin end:(int64_t)end handler:(completionHandler)handler {
     NSString *urlPath = @"Meeting/get_public_equipments";

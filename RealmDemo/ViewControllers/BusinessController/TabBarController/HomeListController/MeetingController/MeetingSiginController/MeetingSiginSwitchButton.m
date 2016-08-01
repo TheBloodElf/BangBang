@@ -24,9 +24,9 @@
  *
  */
 
-#import "UserQRCameraSwitchButton.h"
+#import "MeetingSiginSwitchButton.h"
 
-@implementation UserQRCameraSwitchButton
+@implementation MeetingSiginSwitchButton
 
 - (id)initWithFrame:(CGRect)frame
 {

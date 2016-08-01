@@ -40,7 +40,7 @@
     //设置融云代理
     [[RYChatManager shareInstance] registerRYChat];
     //清空应用红点
-    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;  
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     //注册远程推送
     [[ApnsManager manager] registerNotification];
     //创建根视图控制器

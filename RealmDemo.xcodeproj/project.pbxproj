@@ -21,72 +21,72 @@
 		045D8BA41D443E16002E0344 /* GeTuiSdkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 045D8BA31D443E16002E0344 /* GeTuiSdkManager.m */; };
 		045D8BA81D444962002E0344 /* ApnsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 045D8BA71D444962002E0344 /* ApnsManager.m */; };
 		045D8BAC1D444A86002E0344 /* libBaiduMobStat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 045D8BAB1D444A86002E0344 /* libBaiduMobStat.a */; };
-		046DAF641D4C3EB500718F2A /* CreateMeetingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF2A1D4C3EB500718F2A /* CreateMeetingController.m */; settings = {ASSET_TAGS = (); }; };
-		046DAF651D4C3EB500718F2A /* MeetingAgenda.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF2C1D4C3EB500718F2A /* MeetingAgenda.m */; settings = {ASSET_TAGS = (); }; };
-		046DAF661D4C3EB500718F2A /* MeetingAgendaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF2F1D4C3EB500718F2A /* MeetingAgendaCell.m */; settings = {ASSET_TAGS = (); }; };
-		046DAF671D4C3EB500718F2A /* MeetingAgendaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF301D4C3EB500718F2A /* MeetingAgendaCell.xib */; settings = {ASSET_TAGS = (); }; };
-		046DAF681D4C3EB500718F2A /* MeetingAgendaTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF321D4C3EB500718F2A /* MeetingAgendaTitle.m */; settings = {ASSET_TAGS = (); }; };
-		046DAF691D4C3EB500718F2A /* MeetingAgendaTitle.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF331D4C3EB500718F2A /* MeetingAgendaTitle.xib */; settings = {ASSET_TAGS = (); }; };
-		046DAF6A1D4C3EB500718F2A /* MeetingAttendanceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF351D4C3EB500718F2A /* MeetingAttendanceCell.m */; settings = {ASSET_TAGS = (); }; };
-		046DAF6B1D4C3EB500718F2A /* MeetingAttendanceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF361D4C3EB500718F2A /* MeetingAttendanceCell.xib */; settings = {ASSET_TAGS = (); }; };
-		046DAF6C1D4C3EB500718F2A /* MeetingDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF381D4C3EB500718F2A /* MeetingDevice.m */; settings = {ASSET_TAGS = (); }; };
-		046DAF6D1D4C3EB500718F2A /* MeetingDevice.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF391D4C3EB500718F2A /* MeetingDevice.xib */; settings = {ASSET_TAGS = (); }; };
-		046DAF6E1D4C3EB500718F2A /* MeetingMembersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF3B1D4C3EB500718F2A /* MeetingMembersCell.m */; settings = {ASSET_TAGS = (); }; };
-		046DAF6F1D4C3EB500718F2A /* MeetingMembersCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF3C1D4C3EB500718F2A /* MeetingMembersCell.xib */; settings = {ASSET_TAGS = (); }; };
-		046DAF701D4C3EB500718F2A /* MeetingName.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF3E1D4C3EB500718F2A /* MeetingName.m */; settings = {ASSET_TAGS = (); }; };
-		046DAF711D4C3EB500718F2A /* MeetingName.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF3F1D4C3EB500718F2A /* MeetingName.xib */; settings = {ASSET_TAGS = (); }; };
-		046DAF721D4C3EB500718F2A /* MeetingDeviceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF431D4C3EB500718F2A /* MeetingDeviceCell.m */; settings = {ASSET_TAGS = (); }; };
-		046DAF731D4C3EB500718F2A /* MeetingDeviceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF441D4C3EB500718F2A /* MeetingDeviceCell.xib */; settings = {ASSET_TAGS = (); }; };
-		046DAF741D4C3EB500718F2A /* MeetingRoomDeviceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF461D4C3EB500718F2A /* MeetingRoomDeviceCell.m */; settings = {ASSET_TAGS = (); }; };
-		046DAF751D4C3EB500718F2A /* MeetingRoomDeviceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF471D4C3EB500718F2A /* MeetingRoomDeviceCell.xib */; settings = {ASSET_TAGS = (); }; };
-		046DAF761D4C3EB500718F2A /* MeetingDeviceSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF4A1D4C3EB500718F2A /* MeetingDeviceSelectCell.m */; settings = {ASSET_TAGS = (); }; };
-		046DAF771D4C3EB500718F2A /* MeetingDeviceSelectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF4B1D4C3EB500718F2A /* MeetingDeviceSelectCell.xib */; settings = {ASSET_TAGS = (); }; };
-		046DAF781D4C3EB500718F2A /* MeetingDeviceSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF4D1D4C3EB500718F2A /* MeetingDeviceSelectController.m */; settings = {ASSET_TAGS = (); }; };
-		046DAF791D4C3EB500718F2A /* MeetingSelectPresonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF4F1D4C3EB500718F2A /* MeetingSelectPresonCell.m */; settings = {ASSET_TAGS = (); }; };
-		046DAF7A1D4C3EB500718F2A /* MeetingSelectPresonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF501D4C3EB500718F2A /* MeetingSelectPresonCell.xib */; settings = {ASSET_TAGS = (); }; };
-		046DAF7B1D4C3EB500718F2A /* MeetingDeviceTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF531D4C3EB500718F2A /* MeetingDeviceTableCell.m */; settings = {ASSET_TAGS = (); }; };
-		046DAF7C1D4C3EB500718F2A /* MeetingDeviceTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF541D4C3EB500718F2A /* MeetingDeviceTableCell.xib */; settings = {ASSET_TAGS = (); }; };
-		046DAF7D1D4C3EB500718F2A /* MeetingRoomController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF561D4C3EB500718F2A /* MeetingRoomController.m */; settings = {ASSET_TAGS = (); }; };
-		046DAF7E1D4C3EB500718F2A /* MeetingRoomCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF591D4C3EB500718F2A /* MeetingRoomCellModel.m */; settings = {ASSET_TAGS = (); }; };
-		046DAF7F1D4C3EB500718F2A /* MeetingRoomTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF5B1D4C3EB500718F2A /* MeetingRoomTimeCell.m */; settings = {ASSET_TAGS = (); }; };
-		046DAF801D4C3EB500718F2A /* MeetingRoomTimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF5C1D4C3EB500718F2A /* MeetingRoomTimeCell.xib */; settings = {ASSET_TAGS = (); }; };
-		046DAF811D4C3EB500718F2A /* MeetingRoomTimeCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF5E1D4C3EB500718F2A /* MeetingRoomTimeCollectionCell.m */; settings = {ASSET_TAGS = (); }; };
-		046DAF821D4C3EB500718F2A /* MeetingRoomTimeCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF5F1D4C3EB500718F2A /* MeetingRoomTimeCollectionCell.xib */; settings = {ASSET_TAGS = (); }; };
-		046DAF831D4C3EB500718F2A /* MeetingTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF621D4C3EB500718F2A /* MeetingTimeCell.m */; settings = {ASSET_TAGS = (); }; };
-		046DAF841D4C3EB500718F2A /* MeetingTimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF631D4C3EB500718F2A /* MeetingTimeCell.xib */; settings = {ASSET_TAGS = (); }; };
+		046DAF641D4C3EB500718F2A /* CreateMeetingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF2A1D4C3EB500718F2A /* CreateMeetingController.m */; };
+		046DAF651D4C3EB500718F2A /* MeetingAgenda.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF2C1D4C3EB500718F2A /* MeetingAgenda.m */; };
+		046DAF661D4C3EB500718F2A /* MeetingAgendaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF2F1D4C3EB500718F2A /* MeetingAgendaCell.m */; };
+		046DAF671D4C3EB500718F2A /* MeetingAgendaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF301D4C3EB500718F2A /* MeetingAgendaCell.xib */; };
+		046DAF681D4C3EB500718F2A /* MeetingAgendaTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF321D4C3EB500718F2A /* MeetingAgendaTitle.m */; };
+		046DAF691D4C3EB500718F2A /* MeetingAgendaTitle.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF331D4C3EB500718F2A /* MeetingAgendaTitle.xib */; };
+		046DAF6A1D4C3EB500718F2A /* MeetingAttendanceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF351D4C3EB500718F2A /* MeetingAttendanceCell.m */; };
+		046DAF6B1D4C3EB500718F2A /* MeetingAttendanceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF361D4C3EB500718F2A /* MeetingAttendanceCell.xib */; };
+		046DAF6C1D4C3EB500718F2A /* MeetingDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF381D4C3EB500718F2A /* MeetingDevice.m */; };
+		046DAF6D1D4C3EB500718F2A /* MeetingDevice.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF391D4C3EB500718F2A /* MeetingDevice.xib */; };
+		046DAF6E1D4C3EB500718F2A /* MeetingMembersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF3B1D4C3EB500718F2A /* MeetingMembersCell.m */; };
+		046DAF6F1D4C3EB500718F2A /* MeetingMembersCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF3C1D4C3EB500718F2A /* MeetingMembersCell.xib */; };
+		046DAF701D4C3EB500718F2A /* MeetingName.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF3E1D4C3EB500718F2A /* MeetingName.m */; };
+		046DAF711D4C3EB500718F2A /* MeetingName.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF3F1D4C3EB500718F2A /* MeetingName.xib */; };
+		046DAF721D4C3EB500718F2A /* MeetingDeviceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF431D4C3EB500718F2A /* MeetingDeviceCell.m */; };
+		046DAF731D4C3EB500718F2A /* MeetingDeviceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF441D4C3EB500718F2A /* MeetingDeviceCell.xib */; };
+		046DAF741D4C3EB500718F2A /* MeetingRoomDeviceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF461D4C3EB500718F2A /* MeetingRoomDeviceCell.m */; };
+		046DAF751D4C3EB500718F2A /* MeetingRoomDeviceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF471D4C3EB500718F2A /* MeetingRoomDeviceCell.xib */; };
+		046DAF761D4C3EB500718F2A /* MeetingDeviceSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF4A1D4C3EB500718F2A /* MeetingDeviceSelectCell.m */; };
+		046DAF771D4C3EB500718F2A /* MeetingDeviceSelectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF4B1D4C3EB500718F2A /* MeetingDeviceSelectCell.xib */; };
+		046DAF781D4C3EB500718F2A /* MeetingDeviceSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF4D1D4C3EB500718F2A /* MeetingDeviceSelectController.m */; };
+		046DAF791D4C3EB500718F2A /* MeetingSelectPresonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF4F1D4C3EB500718F2A /* MeetingSelectPresonCell.m */; };
+		046DAF7A1D4C3EB500718F2A /* MeetingSelectPresonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF501D4C3EB500718F2A /* MeetingSelectPresonCell.xib */; };
+		046DAF7B1D4C3EB500718F2A /* MeetingDeviceTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF531D4C3EB500718F2A /* MeetingDeviceTableCell.m */; };
+		046DAF7C1D4C3EB500718F2A /* MeetingDeviceTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF541D4C3EB500718F2A /* MeetingDeviceTableCell.xib */; };
+		046DAF7D1D4C3EB500718F2A /* MeetingRoomController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF561D4C3EB500718F2A /* MeetingRoomController.m */; };
+		046DAF7E1D4C3EB500718F2A /* MeetingRoomCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF591D4C3EB500718F2A /* MeetingRoomCellModel.m */; };
+		046DAF7F1D4C3EB500718F2A /* MeetingRoomTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF5B1D4C3EB500718F2A /* MeetingRoomTimeCell.m */; };
+		046DAF801D4C3EB500718F2A /* MeetingRoomTimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF5C1D4C3EB500718F2A /* MeetingRoomTimeCell.xib */; };
+		046DAF811D4C3EB500718F2A /* MeetingRoomTimeCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF5E1D4C3EB500718F2A /* MeetingRoomTimeCollectionCell.m */; };
+		046DAF821D4C3EB500718F2A /* MeetingRoomTimeCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF5F1D4C3EB500718F2A /* MeetingRoomTimeCollectionCell.xib */; };
+		046DAF831D4C3EB500718F2A /* MeetingTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF621D4C3EB500718F2A /* MeetingTimeCell.m */; };
+		046DAF841D4C3EB500718F2A /* MeetingTimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF631D4C3EB500718F2A /* MeetingTimeCell.xib */; };
 		046DAF8D1D4C812C00718F2A /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF8C1D4C812C00718F2A /* ShareViewController.m */; };
 		046DAF901D4C812C00718F2A /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF8E1D4C812C00718F2A /* MainInterface.storyboard */; };
-		046DAF941D4C812C00718F2A /* RealmShare.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 046DAF891D4C812C00718F2A /* RealmShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		046DB0431D4C847C00718F2A /* UtikIesTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0421D4C847C00718F2A /* UtikIesTool.m */; settings = {ASSET_TAGS = (); }; };
-		046DB0461D4C84C700718F2A /* NSObject+Tips.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0451D4C84C700718F2A /* NSObject+Tips.m */; settings = {ASSET_TAGS = (); }; };
-		046DB06A1D4C85FD00718F2A /* ShareErrorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0491D4C85FD00718F2A /* ShareErrorController.m */; settings = {ASSET_TAGS = (); }; };
-		046DB06B1D4C85FD00718F2A /* person_deselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 046DB04C1D4C85FD00718F2A /* person_deselect@2x.png */; settings = {ASSET_TAGS = (); }; };
-		046DB06C1D4C85FD00718F2A /* person_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 046DB04D1D4C85FD00718F2A /* person_selected@2x.png */; settings = {ASSET_TAGS = (); }; };
-		046DB06D1D4C85FD00718F2A /* SelectCompanyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB04F1D4C85FD00718F2A /* SelectCompanyCell.m */; settings = {ASSET_TAGS = (); }; };
-		046DB06E1D4C85FD00718F2A /* SelectCompanyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DB0501D4C85FD00718F2A /* SelectCompanyCell.xib */; settings = {ASSET_TAGS = (); }; };
-		046DB06F1D4C85FD00718F2A /* SelectCompanyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0521D4C85FD00718F2A /* SelectCompanyController.m */; settings = {ASSET_TAGS = (); }; };
-		046DB0701D4C85FD00718F2A /* ShareSelectDepartController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0551D4C85FD00718F2A /* ShareSelectDepartController.m */; settings = {ASSET_TAGS = (); }; };
-		046DB0711D4C85FD00718F2A /* ShareSelectPersonController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0571D4C85FD00718F2A /* ShareSelectPersonController.m */; settings = {ASSET_TAGS = (); }; };
-		046DB0721D4C85FD00718F2A /* appicon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 046DB0591D4C85FD00718F2A /* appicon@3x.png */; settings = {ASSET_TAGS = (); }; };
-		046DB0731D4C85FD00718F2A /* ShareContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB05B1D4C85FD00718F2A /* ShareContentController.m */; settings = {ASSET_TAGS = (); }; };
-		046DB0741D4C85FD00718F2A /* ShareContentTopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB05D1D4C85FD00718F2A /* ShareContentTopCell.m */; settings = {ASSET_TAGS = (); }; };
-		046DB0751D4C85FD00718F2A /* ShareContentTopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DB05E1D4C85FD00718F2A /* ShareContentTopCell.xib */; settings = {ASSET_TAGS = (); }; };
-		046DB0761D4C85FD00718F2A /* ShareSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0601D4C85FD00718F2A /* ShareSelectController.m */; settings = {ASSET_TAGS = (); }; };
-		046DB0771D4C85FD00718F2A /* CompanyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0631D4C85FD00718F2A /* CompanyModel.m */; settings = {ASSET_TAGS = (); }; };
-		046DB0781D4C85FD00718F2A /* ShareModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0651D4C85FD00718F2A /* ShareModel.m */; settings = {ASSET_TAGS = (); }; };
-		046DB0791D4C85FD00718F2A /* ShareSelectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0671D4C85FD00718F2A /* ShareSelectModel.m */; settings = {ASSET_TAGS = (); }; };
-		046DB07D1D4C887500718F2A /* UserCompany.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB07C1D4C887500718F2A /* UserCompany.m */; settings = {ASSET_TAGS = (); }; };
-		046DB0801D4C888800718F2A /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB07F1D4C888800718F2A /* UserInfo.m */; settings = {ASSET_TAGS = (); }; };
-		046DB0841D4C896B00718F2A /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0831D4C896B00718F2A /* UserInfo.m */; settings = {ASSET_TAGS = (); }; };
-		046DB0881D4CA12800718F2A /* MeetDeviceDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0871D4CA12800718F2A /* MeetDeviceDetailController.m */; settings = {ASSET_TAGS = (); }; };
+		046DAF941D4C812C00718F2A /* 帮帮.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 046DAF891D4C812C00718F2A /* 帮帮.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		046DB0431D4C847C00718F2A /* UtikIesTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0421D4C847C00718F2A /* UtikIesTool.m */; };
+		046DB0461D4C84C700718F2A /* NSObject+Tips.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0451D4C84C700718F2A /* NSObject+Tips.m */; };
+		046DB06A1D4C85FD00718F2A /* ShareErrorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0491D4C85FD00718F2A /* ShareErrorController.m */; };
+		046DB06B1D4C85FD00718F2A /* person_deselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 046DB04C1D4C85FD00718F2A /* person_deselect@2x.png */; };
+		046DB06C1D4C85FD00718F2A /* person_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 046DB04D1D4C85FD00718F2A /* person_selected@2x.png */; };
+		046DB06D1D4C85FD00718F2A /* SelectCompanyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB04F1D4C85FD00718F2A /* SelectCompanyCell.m */; };
+		046DB06E1D4C85FD00718F2A /* SelectCompanyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DB0501D4C85FD00718F2A /* SelectCompanyCell.xib */; };
+		046DB06F1D4C85FD00718F2A /* SelectCompanyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0521D4C85FD00718F2A /* SelectCompanyController.m */; };
+		046DB0701D4C85FD00718F2A /* ShareSelectDepartController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0551D4C85FD00718F2A /* ShareSelectDepartController.m */; };
+		046DB0711D4C85FD00718F2A /* ShareSelectPersonController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0571D4C85FD00718F2A /* ShareSelectPersonController.m */; };
+		046DB0721D4C85FD00718F2A /* appicon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 046DB0591D4C85FD00718F2A /* appicon@3x.png */; };
+		046DB0731D4C85FD00718F2A /* ShareContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB05B1D4C85FD00718F2A /* ShareContentController.m */; };
+		046DB0741D4C85FD00718F2A /* ShareContentTopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB05D1D4C85FD00718F2A /* ShareContentTopCell.m */; };
+		046DB0751D4C85FD00718F2A /* ShareContentTopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DB05E1D4C85FD00718F2A /* ShareContentTopCell.xib */; };
+		046DB0761D4C85FD00718F2A /* ShareSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0601D4C85FD00718F2A /* ShareSelectController.m */; };
+		046DB0771D4C85FD00718F2A /* CompanyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0631D4C85FD00718F2A /* CompanyModel.m */; };
+		046DB0781D4C85FD00718F2A /* ShareModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0651D4C85FD00718F2A /* ShareModel.m */; };
+		046DB0791D4C85FD00718F2A /* ShareSelectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0671D4C85FD00718F2A /* ShareSelectModel.m */; };
+		046DB07D1D4C887500718F2A /* UserCompany.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB07C1D4C887500718F2A /* UserCompany.m */; };
+		046DB0801D4C888800718F2A /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB07F1D4C888800718F2A /* UserInfo.m */; };
+		046DB0841D4C896B00718F2A /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0831D4C896B00718F2A /* UserInfo.m */; };
+		046DB0881D4CA12800718F2A /* MeetDeviceDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0871D4CA12800718F2A /* MeetDeviceDetailController.m */; };
 		0471C0911D3B23A700377178 /* NSString+StringSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 0471C0901D3B23A700377178 /* NSString+StringSize.m */; };
 		0471C0951D3B262600377178 /* PushMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0471C0931D3B262600377178 /* PushMessageCell.m */; };
 		0471C0961D3B262600377178 /* PushMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0471C0941D3B262600377178 /* PushMessageCell.xib */; };
 		0471C0981D3BBA6000377178 /* Readme.md in Sources */ = {isa = PBXBuildFile; fileRef = 0471C0971D3BBA6000377178 /* Readme.md */; };
-		047DBCBE1D4E37B50049354F /* UserQRCameraSwitchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 047DBCB81D4E37B50049354F /* UserQRCameraSwitchButton.m */; settings = {ASSET_TAGS = (); }; };
-		047DBCBF1D4E37B50049354F /* UserQRCodeReaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047DBCBA1D4E37B50049354F /* UserQRCodeReaderController.m */; settings = {ASSET_TAGS = (); }; };
-		047DBCC01D4E37B50049354F /* UserQRCodeReaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 047DBCBD1D4E37B50049354F /* UserQRCodeReaderView.m */; settings = {ASSET_TAGS = (); }; };
-		047DBCC31D4E39600049354F /* UINavigationController+Direction.m in Sources */ = {isa = PBXBuildFile; fileRef = 047DBCC21D4E395F0049354F /* UINavigationController+Direction.m */; settings = {ASSET_TAGS = (); }; };
+		047DBCBE1D4E37B50049354F /* MeetingSiginSwitchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 047DBCB81D4E37B50049354F /* MeetingSiginSwitchButton.m */; };
+		047DBCBF1D4E37B50049354F /* MeetingSiginReaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047DBCBA1D4E37B50049354F /* MeetingSiginReaderController.m */; };
+		047DBCC01D4E37B50049354F /* MeetingSiginReaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 047DBCBD1D4E37B50049354F /* MeetingSiginReaderView.m */; };
+		047DBCC31D4E39600049354F /* UINavigationController+Direction.m in Sources */ = {isa = PBXBuildFile; fileRef = 047DBCC21D4E395F0049354F /* UINavigationController+Direction.m */; };
 		0482FBD21D42FE4200B1CBB2 /* SiginNoteController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBD11D42FE4200B1CBB2 /* SiginNoteController.m */; };
 		0482FBD61D430AD200B1CBB2 /* WebNonstandarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBD51D430AD200B1CBB2 /* WebNonstandarViewController.m */; };
 		0482FBD91D4316A500B1CBB2 /* RCTransferSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482FBD81D4316A500B1CBB2 /* RCTransferSelectViewController.m */; };
@@ -211,6 +211,8 @@
 		1B36FCDF1D35F01B006694E4 /* BottomViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B36FCDE1D35F01B006694E4 /* BottomViewItem.m */; };
 		1B36FCE21D360A4D006694E4 /* BottomItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B36FCE11D360A4D006694E4 /* BottomItemModel.m */; };
 		1B36FCE51D360B9F006694E4 /* NSObject+data.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B36FCE41D360B9F006694E4 /* NSObject+data.m */; };
+		1B46862F1D4EDDAE00F3C068 /* MeetingRoomHandlerTimeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B46862E1D4EDDAE00F3C068 /* MeetingRoomHandlerTimeModel.m */; };
+		1B4686371D4EF31D00F3C068 /* Identity.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4686361D4EF31D00F3C068 /* Identity.m */; };
 		1B4B160D1D372F7C00E71B3D /* NSString+firstChar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4B160C1D372F7C00E71B3D /* NSString+firstChar.m */; };
 		1B4B16101D3731D900E71B3D /* Employee.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4B160F1D3731D900E71B3D /* Employee.m */; };
 		1B4B16141D37398600E71B3D /* XAddrBookCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4B16121D37398600E71B3D /* XAddrBookCell.m */; };
@@ -416,7 +418,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				046DAF941D4C812C00718F2A /* RealmShare.appex in Embed App Extensions */,
+				046DAF941D4C812C00718F2A /* 帮帮.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -502,7 +504,7 @@
 		046DAF611D4C3EB500718F2A /* MeetingTimeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingTimeCell.h; sourceTree = "<group>"; };
 		046DAF621D4C3EB500718F2A /* MeetingTimeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetingTimeCell.m; sourceTree = "<group>"; };
 		046DAF631D4C3EB500718F2A /* MeetingTimeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeetingTimeCell.xib; sourceTree = "<group>"; };
-		046DAF891D4C812C00718F2A /* RealmShare.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RealmShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		046DAF891D4C812C00718F2A /* 帮帮.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "帮帮.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		046DAF8B1D4C812C00718F2A /* ShareViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
 		046DAF8C1D4C812C00718F2A /* ShareViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
 		046DAF8F1D4C812C00718F2A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -552,13 +554,13 @@
 		0471C0931D3B262600377178 /* PushMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushMessageCell.m; sourceTree = "<group>"; };
 		0471C0941D3B262600377178 /* PushMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PushMessageCell.xib; sourceTree = "<group>"; };
 		0471C0971D3BBA6000377178 /* Readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
-		047DBCB71D4E37B40049354F /* UserQRCameraSwitchButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserQRCameraSwitchButton.h; sourceTree = "<group>"; };
-		047DBCB81D4E37B50049354F /* UserQRCameraSwitchButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserQRCameraSwitchButton.m; sourceTree = "<group>"; };
-		047DBCB91D4E37B50049354F /* UserQRCodeReaderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserQRCodeReaderController.h; sourceTree = "<group>"; };
-		047DBCBA1D4E37B50049354F /* UserQRCodeReaderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserQRCodeReaderController.m; sourceTree = "<group>"; };
-		047DBCBB1D4E37B50049354F /* UserQRCodeReaderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserQRCodeReaderDelegate.h; sourceTree = "<group>"; };
-		047DBCBC1D4E37B50049354F /* UserQRCodeReaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserQRCodeReaderView.h; sourceTree = "<group>"; };
-		047DBCBD1D4E37B50049354F /* UserQRCodeReaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserQRCodeReaderView.m; sourceTree = "<group>"; };
+		047DBCB71D4E37B40049354F /* MeetingSiginSwitchButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingSiginSwitchButton.h; sourceTree = "<group>"; };
+		047DBCB81D4E37B50049354F /* MeetingSiginSwitchButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetingSiginSwitchButton.m; sourceTree = "<group>"; };
+		047DBCB91D4E37B50049354F /* MeetingSiginReaderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingSiginReaderController.h; sourceTree = "<group>"; };
+		047DBCBA1D4E37B50049354F /* MeetingSiginReaderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetingSiginReaderController.m; sourceTree = "<group>"; };
+		047DBCBB1D4E37B50049354F /* MeetingSiginReaderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingSiginReaderDelegate.h; sourceTree = "<group>"; };
+		047DBCBC1D4E37B50049354F /* MeetingSiginReaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingSiginReaderView.h; sourceTree = "<group>"; };
+		047DBCBD1D4E37B50049354F /* MeetingSiginReaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetingSiginReaderView.m; sourceTree = "<group>"; };
 		047DBCC11D4E395F0049354F /* UINavigationController+Direction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Direction.h"; sourceTree = "<group>"; };
 		047DBCC21D4E395F0049354F /* UINavigationController+Direction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Direction.m"; sourceTree = "<group>"; };
 		0482FBD01D42FE4200B1CBB2 /* SiginNoteController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SiginNoteController.h; sourceTree = "<group>"; };
@@ -781,6 +783,12 @@
 		1B36FCE11D360A4D006694E4 /* BottomItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomItemModel.m; sourceTree = "<group>"; };
 		1B36FCE31D360B9F006694E4 /* NSObject+data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+data.h"; sourceTree = "<group>"; };
 		1B36FCE41D360B9F006694E4 /* NSObject+data.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+data.m"; sourceTree = "<group>"; };
+		1B46862D1D4EDDAE00F3C068 /* MeetingRoomHandlerTimeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingRoomHandlerTimeModel.h; sourceTree = "<group>"; };
+		1B46862E1D4EDDAE00F3C068 /* MeetingRoomHandlerTimeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetingRoomHandlerTimeModel.m; sourceTree = "<group>"; };
+		1B4686301D4EEBFE00F3C068 /* 帮帮管理助手.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "帮帮管理助手.entitlements"; sourceTree = "<group>"; };
+		1B4686311D4EEC0C00F3C068 /* RealmShare.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = RealmShare.entitlements; sourceTree = "<group>"; };
+		1B4686351D4EF31D00F3C068 /* Identity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Identity.h; sourceTree = "<group>"; };
+		1B4686361D4EF31D00F3C068 /* Identity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Identity.m; sourceTree = "<group>"; };
 		1B4B160B1D372F7C00E71B3D /* NSString+firstChar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+firstChar.h"; sourceTree = "<group>"; };
 		1B4B160C1D372F7C00E71B3D /* NSString+firstChar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+firstChar.m"; sourceTree = "<group>"; };
 		1B4B160E1D3731D900E71B3D /* Employee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Employee.h; sourceTree = "<group>"; };
@@ -1310,6 +1318,7 @@
 		046DAF8A1D4C812C00718F2A /* RealmShare */ = {
 			isa = PBXGroup;
 			children = (
+				1B4686311D4EEC0C00F3C068 /* RealmShare.entitlements */,
 				046DB0471D4C85FD00718F2A /* ShareError */,
 				046DB04A1D4C85FD00718F2A /* ShareSelectMethod */,
 				046DB0611D4C85FD00718F2A /* ShareSelectModel */,
@@ -1325,6 +1334,8 @@
 		046DB0401D4C846700718F2A /* Utikles */ = {
 			isa = PBXGroup;
 			children = (
+				1B4686351D4EF31D00F3C068 /* Identity.h */,
+				1B4686361D4EF31D00F3C068 /* Identity.m */,
 				046DB0411D4C847C00718F2A /* UtikIesTool.h */,
 				046DB0421D4C847C00718F2A /* UtikIesTool.m */,
 				046DB0441D4C84C700718F2A /* NSObject+Tips.h */,
@@ -1430,13 +1441,13 @@
 		047DBCB61D4E36DE0049354F /* MeetingSiginController */ = {
 			isa = PBXGroup;
 			children = (
-				047DBCB71D4E37B40049354F /* UserQRCameraSwitchButton.h */,
-				047DBCB81D4E37B50049354F /* UserQRCameraSwitchButton.m */,
-				047DBCB91D4E37B50049354F /* UserQRCodeReaderController.h */,
-				047DBCBA1D4E37B50049354F /* UserQRCodeReaderController.m */,
-				047DBCBB1D4E37B50049354F /* UserQRCodeReaderDelegate.h */,
-				047DBCBC1D4E37B50049354F /* UserQRCodeReaderView.h */,
-				047DBCBD1D4E37B50049354F /* UserQRCodeReaderView.m */,
+				047DBCB71D4E37B40049354F /* MeetingSiginSwitchButton.h */,
+				047DBCB81D4E37B50049354F /* MeetingSiginSwitchButton.m */,
+				047DBCB91D4E37B50049354F /* MeetingSiginReaderController.h */,
+				047DBCBA1D4E37B50049354F /* MeetingSiginReaderController.m */,
+				047DBCBB1D4E37B50049354F /* MeetingSiginReaderDelegate.h */,
+				047DBCBC1D4E37B50049354F /* MeetingSiginReaderView.h */,
+				047DBCBD1D4E37B50049354F /* MeetingSiginReaderView.m */,
 			);
 			path = MeetingSiginController;
 			sourceTree = "<group>";
@@ -2373,7 +2384,7 @@
 			isa = PBXGroup;
 			children = (
 				1B877F121D178E7D000144B2 /* 帮帮管理助手.app */,
-				046DAF891D4C812C00718F2A /* RealmShare.appex */,
+				046DAF891D4C812C00718F2A /* 帮帮.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2381,6 +2392,7 @@
 		1B877F141D178E7D000144B2 /* RealmDemo */ = {
 			isa = PBXGroup;
 			children = (
+				1B4686301D4EEBFE00F3C068 /* 帮帮管理助手.entitlements */,
 				0471C0971D3BBA6000377178 /* Readme.md */,
 				1B5585951D34E29700DCD3A0 /* AppDelegate */,
 				75E5FF571D27A7B300F77961 /* UtikIes */,
@@ -2864,6 +2876,8 @@
 				1BF5DFE31D49D8480039704E /* MeetingRoomModel.m */,
 				1BF5DFE51D49D90F0039704E /* Meeting.h */,
 				1BF5DFE61D49D90F0039704E /* Meeting.m */,
+				1B46862D1D4EDDAE00F3C068 /* MeetingRoomHandlerTimeModel.h */,
+				1B46862E1D4EDDAE00F3C068 /* MeetingRoomHandlerTimeModel.m */,
 				1BF5DFF71D49DE440039704E /* MeetingEquipmentsModel.h */,
 				1BF5DFF81D49DE440039704E /* MeetingEquipmentsModel.m */,
 				046DB0811D4C895800718F2A /* ShareModel */,
@@ -2916,7 +2930,7 @@
 			);
 			name = RealmShare;
 			productName = RealmShare;
-			productReference = 046DAF891D4C812C00718F2A /* RealmShare.appex */;
+			productReference = 046DAF891D4C812C00718F2A /* 帮帮.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		1B877F111D178E7D000144B2 /* RealmDemo */ = {
@@ -2953,10 +2967,20 @@
 					046DAF881D4C812C00718F2A = {
 						CreatedOnToolsVersion = 7.0.1;
 						DevelopmentTeam = W488V5C95D;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					1B877F111D178E7D000144B2 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = W488V5C95D;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -3242,6 +3266,7 @@
 				046DB0711D4C85FD00718F2A /* ShareSelectPersonController.m in Sources */,
 				046DB0701D4C85FD00718F2A /* ShareSelectDepartController.m in Sources */,
 				046DB0791D4C85FD00718F2A /* ShareSelectModel.m in Sources */,
+				1B4686371D4EF31D00F3C068 /* Identity.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3262,7 +3287,7 @@
 				0495861B1D39D3A500544259 /* SelectEmployeeModel.m in Sources */,
 				1B119E6F1D3CB89F007CC050 /* PhotoGroupController.m in Sources */,
 				1BC2AE4B1D4208DB00842153 /* SiginSelectCell.m in Sources */,
-				047DBCBE1D4E37B50049354F /* UserQRCameraSwitchButton.m in Sources */,
+				047DBCBE1D4E37B50049354F /* MeetingSiginSwitchButton.m in Sources */,
 				75E5FF641D27AA9100F77961 /* HttpService.m in Sources */,
 				1B158A6A1D45BB4D003237A7 /* RYGroupSetDelUserCell.m in Sources */,
 				04E7E5B41D3A7D2500C653B4 /* PushMessage.m in Sources */,
@@ -3300,7 +3325,7 @@
 				1BFBC17F1D3F7B3100A5511A /* ComCalendarEditController.m in Sources */,
 				049586191D39D3A500544259 /* MuliteSelectController.m in Sources */,
 				0495862D1D3A1A3F00544259 /* WKWebViewJavascriptBridge.m in Sources */,
-				047DBCBF1D4E37B50049354F /* UserQRCodeReaderController.m in Sources */,
+				047DBCBF1D4E37B50049354F /* MeetingSiginReaderController.m in Sources */,
 				046DAF721D4C3EB500718F2A /* MeetingDeviceCell.m in Sources */,
 				04FE7CD41D367CE000362702 /* LeftMenuCell.m in Sources */,
 				049586311D3A1B3800544259 /* UserSettingController.m in Sources */,
@@ -3381,6 +3406,7 @@
 				1B1B9BDA1D3E0FC500F53EDC /* RepCalendarView.m in Sources */,
 				04E7E5AA1D3A660800C653B4 /* ChangeUserName.m in Sources */,
 				1B158A681D45BB4D003237A7 /* RYGroupSetAddUserCell.m in Sources */,
+				1B46862F1D4EDDAE00F3C068 /* MeetingRoomHandlerTimeModel.m in Sources */,
 				049586171D39D3A500544259 /* MuliteSelectCell.m in Sources */,
 				1BC2AE4F1D42109E00842153 /* SiginRuleSet.m in Sources */,
 				1BC2AE7F1D42113800842153 /* AttendanceRollController.m in Sources */,
@@ -3467,7 +3493,7 @@
 				046DAF6E1D4C3EB500718F2A /* MeetingMembersCell.m in Sources */,
 				1B1B9BBF1D3DCB8000F53EDC /* NSArray+Atipik.m in Sources */,
 				1BFBC1431D3F0CDC00A5511A /* RepCalendarTime.m in Sources */,
-				047DBCC01D4E37B50049354F /* UserQRCodeReaderView.m in Sources */,
+				047DBCC01D4E37B50049354F /* MeetingSiginReaderView.m in Sources */,
 				1B119E6E1D3CB89F007CC050 /* BigPhotoSelectController.m in Sources */,
 				1B1B9BD71D3E0FB700F53EDC /* ComCalendarView.m in Sources */,
 				046DAF6A1D4C3EB500718F2A /* MeetingAttendanceCell.m in Sources */,
@@ -3510,13 +3536,14 @@
 			baseConfigurationReference = BDCCFA4801BE9447932EE558 /* Pods-RealmShare.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = RealmShare/RealmShare.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = RealmShare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lottak.BangBang.share;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "帮帮";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -3526,13 +3553,14 @@
 			baseConfigurationReference = CE86E50974ABDF753A29430B /* Pods-RealmShare.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = RealmShare/RealmShare.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = RealmShare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lottak.BangBang.share;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "帮帮";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -3626,6 +3654,7 @@
 			baseConfigurationReference = 21CA8CCC01D73A106F99FB12 /* Pods-RealmDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "RealmDemo/帮帮管理助手.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
@@ -3732,6 +3761,7 @@
 			baseConfigurationReference = 94C9F3FC7EC4F91DCDE0BD85 /* Pods-RealmDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "RealmDemo/帮帮管理助手.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;

@@ -29,6 +29,7 @@
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     _calendar.event_name = textField.text;
+    [textField resignFirstResponder];
     return YES;
 }
 @end

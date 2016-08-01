@@ -41,13 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "RealmDemo/ViewControllers/BusinessController/TabBarController/HomeListController/MeetingController/MeetingCell/MeetingAgendaCell.m"
-            timestampString = "491390548.734909"
+            filePath = "RealmShare/ShareSelectMethod/SelectCompanyController/SelectCompanyController.m"
+            timestampString = "491713848.195368"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
-            landmarkName = "-textField:shouldChangeCharactersInRange:replacementString:"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

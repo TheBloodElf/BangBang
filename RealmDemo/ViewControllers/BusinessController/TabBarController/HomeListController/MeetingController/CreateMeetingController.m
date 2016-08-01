@@ -119,7 +119,7 @@
     _meeting.topic = [nameArr componentsJoinedByString:@"^"];
     //参与人guid数组
     NSMutableArray *membersGuidArr = [@[] mutableCopy];
-    for (Employee *employee in membersGuidArr) {
+    for (Employee *employee in _membersArr) {
         [membersGuidArr addObject:employee.employee_guid];
     }
     _meeting.members = [membersGuidArr componentsJoinedByString:@"^"];

@@ -24,37 +24,47 @@
  *
  */
 
-@class UserQRCodeReaderController;
+#import <UIKit/UIKit.h>
 
 /**
- * This protocol defines delegate methods for objects that implements the
- * `UserQRCodeReaderDelegate`. The methods of the protocol allow the delegate to be
- * notified when the reader did scan result and or when the user wants to stop
- * to read some QRCodes.
+ * The camera switch button.
+ * @since 2.0.0
  */
-@protocol UserQRCodeReaderDelegate <NSObject>
+@interface MeetingSiginSwitchButton : UIButton
 
-@optional
-
-#pragma mark - Listening for Reader Status
-/** @name Listening for Reader Status */
+#pragma mark - Managing Properties
+/** @name Managing Properties */
 
 /**
- * @abstract Tells the delegate that the reader did scan a QRCode.
- * @param reader The reader view controller that scanned a QRCode.
- * @param result The content of the QRCode as a string.
- * @since 1.0.0
+ * @abstract The edge color of the drawing.
+ * @discussion The default color is the white.
+ * @since 2.0.0
  */
-- (void)reader:(UserQRCodeReaderController *)reader didScanResult:(NSString *)result;
+@property (nonatomic, strong) UIColor *edgeColor;
 
 /**
- * @abstract Tells the delegate that the user wants to stop scanning QRCodes.
- * @param reader The reader view controller that the user wants to stop.
- * @since 1.0.0
+ * @abstract The fill color of the drawing.
+ * @discussion The default color is the darkgray.
+ * @since 2.0.0
  */
-- (void)readerDidCancel:(UserQRCodeReaderController *)reader;
+@property (nonatomic, strong) UIColor *fillColor;
+
+/**
+ * @abstract The edge color of the drawing when the button is touched.
+ * @discussion The default color is the white.
+ * @since 2.0.0
+ */
+@property (nonatomic, strong) UIColor *edgeHighlightedColor;
+
+/**
+ * @abstract The fill color of the drawing when the button is touched.
+ * @discussion The default color is the black.
+ * @since 2.0.0
+ */
+@property (nonatomic, strong) UIColor *fillHighlightedColor;
 
 @end
+
 // 版权属于原作者
 // http://code4app.com (cn) http://code4app.net (en)
 // 发布代码于最专业的源码分享网站: Code4App.com 

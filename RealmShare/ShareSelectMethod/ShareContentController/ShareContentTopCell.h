@@ -8,14 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol ShareContentTopCellDelegate <NSObject>
-
-- (void)textDidChange:(UITextView*)textView;
-
-@end
 
 @interface ShareContentTopCell : UITableViewCell
-
-@property (nonatomic, weak) id<ShareContentTopCellDelegate> delegate;
 
 @end

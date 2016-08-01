@@ -56,7 +56,9 @@
     }
     //应用组间共享数据
     NSUserDefaults *sharedDefault = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.lottak.bangbang"];
-    Identity *identity = [sharedDefault valueForKey:@"GroupIdentityInfo"];
+    NSData *identityDate = [sharedDefault valueForKey:@"GroupIdentityInfo"];
+    [NSKeyedUnarchiver setClass:[Identity class] forClassName:@"Identity"];
+    Identity *identity = [NSKeyedUnarchiver unarchiveObjectWithData:identityDate];
     if(identity.accessToken)
     {
         shareNav = [[UINavigationController alloc] initWithRootViewController:[ShareSelectController new]];
@@ -64,7 +66,7 @@
     }
     else
         shareNav = [[UINavigationController alloc] initWithRootViewController:[ShareErrorController new]];
-    shareNav.view.frame = CGRectMake(0.5 * (CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT).size.width - 250), 0.5 * (CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT).size.height - 330), MAIN_SCREEN_WIDTH, 330);
+    shareNav.view.frame = CGRectMake(0.5 * (MAIN_SCREEN_WIDTH - 250), 0.5 * (MAIN_SCREEN_HEIGHT - 330), 250, 330);
     [self addChildViewController:shareNav];
     [self.view addSubview:shareNav.view];
 }

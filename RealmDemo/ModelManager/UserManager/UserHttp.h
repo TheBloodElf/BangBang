@@ -96,6 +96,8 @@
 + (NSURLSessionDataTask*)createMeet:(NSDictionary*)meetDic handler:(completionHandler)handler;
 //获取会议室列表
 + (NSURLSessionDataTask*)getMeetRoomList:(int)companyNo handler:(completionHandler)handler;
+//根据传入时间获取会议室预约时间
++ (NSURLSessionDataTask*)getMeetHandlerTime:(int)roomId begin:(int64_t)begin end:(int64_t)end handler:(completionHandler)handler;
 //获取会议室时间空闲设备列表
 + (NSURLSessionDataTask*)getMeetEquipments:(int)companyNo begin:(int64_t)begin end:(int64_t)end handler:(completionHandler)handler;
 @end

@@ -27,6 +27,7 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     Meeting *meeting = self.data;
     meeting.title = textField.text;
+    [textField resignFirstResponder];
     return YES;
 }
 

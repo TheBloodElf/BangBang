@@ -6,54 +6,53 @@
 	<dict>
 		<key>AFNetworking.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>4</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>JTCalendar.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>9</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>MBProgressHUD.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>5</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>MJExtension.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>6</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>MJRefresh.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>7</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>Pods-RealmDemo.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>1</integer>
+		</dict>
+		<key>Pods-RealmShare.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>RBQFetchedResultsController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>2</integer>
 		</dict>
 		<key>Realm.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>3</integer>
 		</dict>
 		<key>SDWebImage.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>8</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -63,32 +62,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1B6FA83DCEB5A61903101F822F367B5E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>2918D52741887592110589A76D2981DD</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>2E6C5277DE3B189FECEF9AB25A2AAE07</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>3C521C93593F0F3B5B97466C556C974F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>4A7B1F380A3F16E55346CD6AD0009E2D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>50A2CA0CE6CC009993ABCB7191FDCDF1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -108,22 +82,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>77A23B73C3AF383D79B0F215917CA19B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>854F62F57C055BB40887F5FE36E6D680</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>928353533005A4198EBDA5B700D37B64</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>9EAB3E42EF957541E6C3C76D35FD008E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AAEF500FF5E0EA215C72239D507D6D1C</key>
 		<dict>
 			<key>primary</key>
 			<true/>

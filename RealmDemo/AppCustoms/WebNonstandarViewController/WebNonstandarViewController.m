@@ -21,9 +21,9 @@
 #import "UserHttp.h"
 #import "RCTransferSelectViewController.h"
 #import "CreateMeetingController.h"
-#import "UserQRCodeReaderController.h"
+#import "MeetingSiginReaderController.h"
 
-@interface WebNonstandarViewController ()<UIWebViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,QLPreviewControllerDataSource,SingleSelectDelegate,MuliteSelectDelegate,MoreSelectViewDelegate,SelectImageDelegate>{
+@interface WebNonstandarViewController ()<UIWebViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,QLPreviewControllerDataSource,SingleSelectDelegate,MuliteSelectDelegate,MoreSelectViewDelegate,SelectImageDelegate,MeetingSiginReaderDelegate>{
     NSURL *filePath1;
     NSString *title;
     NSString *detail;
@@ -94,7 +94,8 @@
     
     //会议签到
     [_bridge registerHandler:@"signinMeetingObjc" handler:^(id data, WVJBResponseCallback responseCallback){
-        UserQRCodeReaderController *sigin = [UserQRCodeReaderController new];
+        MeetingSiginReaderController *sigin = [MeetingSiginReaderController new];
+        sigin.delegate = self;
         [self.navigationController pushViewController:sigin animated:YES];
         responseCallback(@"Response from testObjcCallback");
     }];
@@ -271,6 +272,14 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:!self.showNavigationBar animated:YES];
+}
+#pragma mark -- MeetingSiginReaderDelegate
+- (void)reader:(MeetingSiginReaderController *)reader didScanResult:(NSString *)result {
+    [self.navigationController popViewControllerAnimated:YES];
+    //调用JS刷新会议列表
+    [_bridge callHandler:@"getScanningUrl" data:result responseCallback:^(id response) {
+        NSLog(@"xyf-----------: %@", response);
+    }];
 }
 //单选回调
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {

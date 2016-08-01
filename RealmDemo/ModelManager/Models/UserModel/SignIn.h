@@ -105,7 +105,7 @@
 /**
  *  精度
  */
-@property(nonatomic,strong) NSString *precision;
+@property(nonatomic,assign) CGFloat precision;
 
 /**
  *  附件列表，已“;”分割

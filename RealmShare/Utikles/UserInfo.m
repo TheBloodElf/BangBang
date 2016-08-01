@@ -7,7 +7,10 @@
 //
 
 #import "UserInfo.h"
+#import <MJExtension/MJExtension.h>
 
 @implementation UserInfo
+
+MJExtensionCodingImplementation
 
 @end

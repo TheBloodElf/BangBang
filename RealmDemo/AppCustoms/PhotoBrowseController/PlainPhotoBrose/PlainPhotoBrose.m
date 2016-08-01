@@ -27,7 +27,6 @@
     [self configScrollViewData];
     [self scrollToIndex:self.index];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
     // Do any additional setup after loading the view.
 }
 #pragma mark -- 配置滚动视图

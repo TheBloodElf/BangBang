@@ -32,6 +32,7 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     MeetingAgenda *meetingAgenda = self.data;
     meetingAgenda.title = textField.text;
+    [textField resignFirstResponder];
     return YES;
 }
 - (IBAction)deleteClicked:(id)sender {

@@ -24,11 +24,11 @@
  *
  */
 
-#import "UserQRCodeReaderController.h"
-#import "UserQRCameraSwitchButton.h"
+#import "MeetingSiginReaderController.h"
+#import "MeetingSiginSwitchButton.h"
 
-@interface UserQRCodeReaderController () <AVCaptureMetadataOutputObjectsDelegate,UserQRCodeReaderDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
-@property (strong, nonatomic) UserQRCameraSwitchButton *switchCameraButton;
+@interface MeetingSiginReaderController () <AVCaptureMetadataOutputObjectsDelegate,MeetingSiginReaderDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@property (strong, nonatomic) MeetingSiginSwitchButton *switchCameraButton;
 //@property (strong, nonatomic) UIButton             *cancelButton;
 
 @property (strong, nonatomic) AVCaptureDevice            *defaultDevice;
@@ -43,7 +43,7 @@
 
 @end
 
-@implementation UserQRCodeReaderController
+@implementation MeetingSiginReaderController
 
 - (id)init
 {
@@ -55,7 +55,6 @@
     if ((self = [super init])) {
         self.view.backgroundColor = [UIColor blackColor];
         self.title = @"扫描二维码";
-        self.delegate = self;
         [self setupAVComponents];
         [self configureDefaultComponents];
         [self setupUIComponentsWithCancelButtonTitle:cancelTitle];
@@ -121,16 +120,6 @@
     }
 }
 
-- (void)reader:(UserQRCodeReaderController *)reader didScanResult:(NSString *)result
-{
-    [reader stopScanning];
-}
-
-- (void)readerDidCancel:(UserQRCodeReaderController *)reader
-{
-    
-}
-
 #pragma mark - Managing the Block
 
 - (void)setCompletionWithBlock:(void (^) (NSString *resultAsString))completionBlock
@@ -142,14 +131,14 @@
 
 - (void)setupUIComponentsWithCancelButtonTitle:(NSString *)cancelButtonTitle
 {
-    self.cameraView                                       = [[UserQRCodeReaderView alloc] initWithFrame:self.view.frame];
+    self.cameraView                                       = [[MeetingSiginReaderView alloc] initWithFrame:self.view.frame];
     _cameraView.translatesAutoresizingMaskIntoConstraints = NO;
     _cameraView.clipsToBounds                             = YES;
     [self.view addSubview:_cameraView];
     
     //前后摄像头
     if (_frontDevice) {
-        _switchCameraButton = [[UserQRCameraSwitchButton alloc] init];
+        _switchCameraButton = [[MeetingSiginSwitchButton alloc] init];
         [_switchCameraButton setTranslatesAutoresizingMaskIntoConstraints:false];
         [_switchCameraButton addTarget:self action:@selector(switchCameraAction:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_switchCameraButton];

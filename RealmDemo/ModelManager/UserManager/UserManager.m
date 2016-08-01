@@ -44,6 +44,7 @@
     NSUserDefaults *sharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.lottak.bangbang"];
     UserInfo *userInfo = [UserInfo new];
     userInfo.user_guid = _user.user_guid;
+    [NSKeyedArchiver setClassName:@"UserInfo" forClass:[UserInfo class]];
     [sharedDefaults setValue:[NSKeyedArchiver archivedDataWithRootObject:userInfo] forKey:@"GroupUserInfo"];
     [sharedDefaults synchronize];
 }

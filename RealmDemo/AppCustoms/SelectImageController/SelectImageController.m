@@ -42,8 +42,6 @@
     [self configBottomView];
     
     self.title = @"相机胶卷";
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
-
     [self setupLeftNavigationButton];
     [self setupRightNavigationButton];
     // Do any additional setup after loading the view.

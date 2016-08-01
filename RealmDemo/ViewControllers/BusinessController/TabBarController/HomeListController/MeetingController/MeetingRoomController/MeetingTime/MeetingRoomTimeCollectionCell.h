@@ -17,7 +17,6 @@
 
 @interface MeetingRoomTimeCollectionCell : UICollectionViewCell
 
-@property (nonatomic, strong) MeetingRoomCellModel *userSelectDate;//用户选择的开始/结束时间
 @property (nonatomic, weak) id<MeetingRoomTimeDelegate> delegate;
 
 @end

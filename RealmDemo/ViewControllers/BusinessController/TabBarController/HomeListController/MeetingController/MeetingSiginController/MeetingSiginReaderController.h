@@ -26,14 +26,14 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
-#import "UserQRCodeReaderDelegate.h"
-#import "UserQRCodeReaderView.h"
+#import "MeetingSiginReaderDelegate.h"
+#import "MeetingSiginReaderView.h"
 /**
  * The `UserQRCodeReaderController` is a simple QRCode Reader/Scanner based on
  * the `AVFoundation` framework from Apple. It aims to replace ZXing or ZBar
  * for iOS 7 and over.
  */
-@interface UserQRCodeReaderController : UIViewController
+@interface MeetingSiginReaderController : UIViewController
 
 #pragma mark - Managing the Delegate
 /** @name Managing the Delegate */
@@ -44,14 +44,14 @@
  * @since 1.0.0
  */
 
-@property (nonatomic, weak) id<UserQRCodeReaderDelegate> delegate;
+@property (nonatomic, weak) id<MeetingSiginReaderDelegate> delegate;
 
 
 
 /**
  *  二维码扫描框
  */
-@property (strong, nonatomic) UserQRCodeReaderView     *cameraView;
+@property (strong, nonatomic) MeetingSiginReaderView     *cameraView;
 
 
 #pragma mark - Creating and Inializing QRCode Readers

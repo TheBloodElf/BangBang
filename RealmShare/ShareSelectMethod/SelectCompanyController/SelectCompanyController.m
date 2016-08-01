@@ -41,13 +41,16 @@
     //应用组间共享数据
     NSUserDefaults *sharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.lottak.bangbang"];
     NSData *userData = [sharedDefaults valueForKey:@"GroupUserInfo"];
+    [NSKeyedUnarchiver setClass:[UserInfo class] forClassName:@"UserInfo"];
     user = [NSKeyedUnarchiver unarchiveObjectWithData:userData];
     [ShareModel shareInstance].shareUserGuid = user.user_guid;
     //应用组间共享数据
     NSUserDefaults *sharedDefault = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.lottak.bangbang"];
-    NSString *accToken = [[sharedDefault valueForKey:@"GroupIdentityInfo"] accessToken];
+    NSData *identityDate = [sharedDefault valueForKey:@"GroupIdentityInfo"];
+    [NSKeyedUnarchiver setClass:[Identity class] forClassName:@"Identity"];
+    Identity *identity = [NSKeyedUnarchiver unarchiveObjectWithData:identityDate];
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:KBSSDKAPIDomain]];
-    NSDictionary *parameters = @{@"user_guid":user.user_guid,@"access_token":accToken};
+    NSDictionary *parameters = @{@"user_guid":user.user_guid,@"access_token":identity.accessToken};
     [self.navigationController.view showLoadingTips:@""];
     [manager GET:@"Companies/user_companies" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [self.navigationController.view dismissTips];

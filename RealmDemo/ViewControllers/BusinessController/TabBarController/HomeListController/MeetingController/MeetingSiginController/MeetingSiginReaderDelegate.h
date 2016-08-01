@@ -24,47 +24,37 @@
  *
  */
 
-#import <UIKit/UIKit.h>
+@class MeetingSiginReaderController;
 
 /**
- * The camera switch button.
- * @since 2.0.0
+ * This protocol defines delegate methods for objects that implements the
+ * `UserQRCodeReaderDelegate`. The methods of the protocol allow the delegate to be
+ * notified when the reader did scan result and or when the user wants to stop
+ * to read some QRCodes.
  */
-@interface UserQRCameraSwitchButton : UIButton
+@protocol MeetingSiginReaderDelegate <NSObject>
 
-#pragma mark - Managing Properties
-/** @name Managing Properties */
+@optional
 
-/**
- * @abstract The edge color of the drawing.
- * @discussion The default color is the white.
- * @since 2.0.0
- */
-@property (nonatomic, strong) UIColor *edgeColor;
+#pragma mark - Listening for Reader Status
+/** @name Listening for Reader Status */
 
 /**
- * @abstract The fill color of the drawing.
- * @discussion The default color is the darkgray.
- * @since 2.0.0
+ * @abstract Tells the delegate that the reader did scan a QRCode.
+ * @param reader The reader view controller that scanned a QRCode.
+ * @param result The content of the QRCode as a string.
+ * @since 1.0.0
  */
-@property (nonatomic, strong) UIColor *fillColor;
+- (void)reader:(MeetingSiginReaderController *)reader didScanResult:(NSString *)result;
 
 /**
- * @abstract The edge color of the drawing when the button is touched.
- * @discussion The default color is the white.
- * @since 2.0.0
+ * @abstract Tells the delegate that the user wants to stop scanning QRCodes.
+ * @param reader The reader view controller that the user wants to stop.
+ * @since 1.0.0
  */
-@property (nonatomic, strong) UIColor *edgeHighlightedColor;
-
-/**
- * @abstract The fill color of the drawing when the button is touched.
- * @discussion The default color is the black.
- * @since 2.0.0
- */
-@property (nonatomic, strong) UIColor *fillHighlightedColor;
+- (void)readerDidCancel:(MeetingSiginReaderController *)reader;
 
 @end
-
 // 版权属于原作者
 // http://code4app.com (cn) http://code4app.net (en)
 // 发布代码于最专业的源码分享网站: Code4App.com 
