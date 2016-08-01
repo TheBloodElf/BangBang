@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="FZLTH_GBK.TTF">
@@ -335,7 +335,7 @@
                 <outlet property="rightView" destination="Sip-ti-rNk" id="XRL-y0-0T8"/>
                 <outlet property="rightWillEnd" destination="e3o-rz-ZnF" id="woh-kz-tH2"/>
             </connections>
-            <point key="canvasLocation" x="355" y="321"/>
+            <point key="canvasLocation" x="584" y="254"/>
         </view>
     </objects>
 </document>

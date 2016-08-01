@@ -17,6 +17,7 @@
 #import "Calendar.h"
 #import "SignIn.h"
 #import "SiginRuleSet.h"
+#import "TaskModel.h"
 
 @interface UserManager : NSObject
 
@@ -113,5 +114,21 @@
 - (void)updateSiginRule:(NSMutableArray<SiginRuleSet*>*)sigRules companyNo:(int)companyNo;
 //创建圈子的数据监听
 - (RBQFetchedResultsController*)createSiginRuleFetchedResultsController:(int)companyNo;
-
+#pragma mark -- TaskModel
+//添加任务
+- (void)addTask:(TaskModel*)model;
+//更新任务
+- (void)upadteTask:(TaskModel*)model;
+//更新圈子的任务
+- (void)updateTask:(NSMutableArray<TaskModel*>*)taskArr companyNo:(int)companyNo;
+//获取所有的任务列表
+- (NSMutableArray<TaskModel*>*)getTaskArr:(int)companyNo;
+//我负责的任务数据监听
+- (RBQFetchedResultsController*)createInchargeTaskFetchedResultsController:(int)companyNo;
+//我委派的任务数据监听
+- (RBQFetchedResultsController*)createCreateTaskFetchedResultsController:(int)companyNo;
+//我知悉的任务数据监听
+- (RBQFetchedResultsController*)createMemberTaskFetchedResultsController:(int)companyNo;
+//完结的任务数据监听
+- (RBQFetchedResultsController*)createFinishTaskFetchedResultsController:(int)companyNo;
 @end

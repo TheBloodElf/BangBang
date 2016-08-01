@@ -9,10 +9,13 @@
 #import "TaskView.h"
 #import "UserManager.h"
 #import "LineProgressLayer.h"
+//前几天算将要到期
+#define NumberOfDealy 5
 
 @interface TaskView  ()<RBQFetchedResultsControllerDelegate> {
     UserManager *_userManager;
-    RBQFetchedResultsController *_userTaskFetchedResultsController;
+    RBQFetchedResultsController *_inchargeFetchedResultsController;
+    RBQFetchedResultsController *_createFetchedResultsController;
     int _leftWillEndCount;//我委派的将到期数量
     int _leftDidEndCount;//我委派的已到期数量
     int _leftAllCount;//我委派的总数
@@ -47,8 +50,10 @@
 - (void)setupUI {
     self.userInteractionEnabled = YES;
     _userManager = [UserManager manager];
-    _userTaskFetchedResultsController = [_userManager createUserFetchedResultsController];
-    _userTaskFetchedResultsController.delegate = self;
+    _createFetchedResultsController = [_userManager createCreateTaskFetchedResultsController:_userManager.user.currCompany.company_no];
+    _createFetchedResultsController.delegate = self;
+    _inchargeFetchedResultsController = [_userManager createInchargeTaskFetchedResultsController:_userManager.user.currCompany.company_no];
+    _inchargeFetchedResultsController.delegate = self;
     //给这几个数字填充值
     [self getCurrCount];
     //添加动画
@@ -62,7 +67,30 @@
     [self createPie];
 }
 - (void)getCurrCount {
-    
+    NSMutableArray<TaskModel*> *taskArr = [_userManager getTaskArr:_userManager.user.currCompany.company_no];
+    Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
+    for (TaskModel *model in taskArr) {
+        if(model.status == 0) continue;
+        if([model.createdby isEqualToString:employee.employee_guid]) {//我委派的
+            _leftAllCount ++;
+            if(model.status == 2) {
+                if(model.enddate_utc < [NSDate date].timeIntervalSince1970 * 1000) {//已经延期的
+                    _leftDidEndCount ++;
+                } else if(model.enddate_utc > ([NSDate date].timeIntervalSince1970 * 1000 + (NumberOfDealy * 24 * 60 * 60 * 1000))){//将要到期的
+                    _leftWillEndCount ++;
+                }
+            }
+        } else if ([model.incharge isEqualToString:employee.employee_guid]) {//我负责的
+            _rightAllCount ++;
+            if(model.status == 2) {
+                if(model.enddate_utc < [NSDate date].timeIntervalSince1970 * 1000) {//已经延期的
+                    _rightDidEndCount ++;
+                } else if(model.enddate_utc > ([NSDate date].timeIntervalSince1970 * 1000 + (NumberOfDealy * 24 * 60 * 60 * 1000))){//将要到期的
+                    _rightWillEndCount ++;
+                }
+            }
+        }
+    }
 }
 - (void)createPie {
     [leftLayer removeFromSuperlayer];
@@ -104,7 +132,7 @@
         leftLayer.completedColor = [UIColor colorWithRed:1 green:105/255.f blue:64/255.f alpha:1];
         [leftLayer setNeedsDisplay];
         [leftLayer showAnimate];
-        [self.leftView.layer addSublayer:leftLayer];
+        [self.leftView.layer insertSublayer:leftLayer atIndex:0];
         //第二层
         greenLayer = [LineProgressLayer layer];
         greenLayer.bounds = self.leftView.bounds;

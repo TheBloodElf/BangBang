@@ -100,4 +100,7 @@
 + (NSURLSessionDataTask*)getMeetHandlerTime:(int)roomId begin:(int64_t)begin end:(int64_t)end handler:(completionHandler)handler;
 //获取会议室时间空闲设备列表
 + (NSURLSessionDataTask*)getMeetEquipments:(int)companyNo begin:(int64_t)begin end:(int64_t)end handler:(completionHandler)handler;
+#pragma mark -- 任务
+//获取圈子所有的任务数据
++ (NSURLSessionDataTask*)getTaskList:(NSString*)employeeGuid Handler:(completionHandler)handler;
 @end

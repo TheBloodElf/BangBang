@@ -50,6 +50,7 @@
 }
 //账号密码登录
 - (IBAction)palinLoginClicked:(id)sender {
+    [self.view endEditing:YES];
     //判断值是否填满
     if([NSString isBlank:self.accountField.text]) {
         [self.navigationController.view showFailureTips:@"请输入账号"];
@@ -130,6 +131,7 @@
 }
 //微信登录
 - (IBAction)wxLoginClicked:(id)sender {
+    [self.view endEditing:YES];
     SendAuthReq *req = [[SendAuthReq alloc]init];
     req.scope = @"snsapi_base,snsapi_userinfo";
     req.state = @"bangbang";
@@ -138,7 +140,7 @@
 }
 //QQ登录
 - (IBAction)qqLoginClicked:(id)sender {
-//    获取token
+    [self.view endEditing:YES];
     [self.navigationController.view showLoadingTips:@"获取token..."];
     [IdentityHttp getAccessTokenhandler:^(id data, MError *error) {
         [self.navigationController dismissTips];

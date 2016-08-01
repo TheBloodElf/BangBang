@@ -456,4 +456,80 @@
     [fetchedResultsController performFetch];
     return fetchedResultsController;
 }
+#pragma mark -- TaskModel
+//添加任务
+- (void)addTask:(TaskModel*)model {
+    [_rlmRealm beginWriteTransaction];
+    [_rlmRealm addOrUpdateObject:model];
+    [_rlmRealm commitWriteTransaction];
+}
+//更新任务
+- (void)upadteTask:(TaskModel*)model {
+    [_rlmRealm beginWriteTransaction];
+    [_rlmRealm addOrUpdateObject:model];
+    [_rlmRealm commitWriteTransaction];
+}
+//更新圈子的任务
+- (void)updateTask:(NSMutableArray<TaskModel*>*)taskArr companyNo:(int)companyNo {
+    [_rlmRealm beginWriteTransaction];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(company_no = %d )",companyNo];
+    RLMResults *calendarResult = [TaskModel objectsInRealm:_rlmRealm withPredicate:predicate];
+    while (calendarResult.count) {
+        [_rlmRealm deleteObject:calendarResult.firstObject];
+    }
+    [_rlmRealm addOrUpdateObjectsFromArray:taskArr];
+    [_rlmRealm commitWriteTransaction];
+}
+//获取所有的任务列表
+- (NSMutableArray<TaskModel*>*)getTaskArr:(int)companyNo {
+    NSMutableArray<TaskModel*> *pushMessageArr = [@[] mutableCopy];
+    [_rlmRealm beginWriteTransaction];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"company_no = %d and status != 0",companyNo];
+    RLMResults *results = [TaskModel objectsInRealm:_rlmRealm withPredicate:pred];
+    for (int index = 0;index < results.count;index ++) {
+        TaskModel *company = [results objectAtIndex:index];
+        [pushMessageArr addObject:company];
+    }
+    [_rlmRealm commitWriteTransaction];
+    return pushMessageArr;
+}
+//我负责的任务数据监听
+- (RBQFetchedResultsController*)createInchargeTaskFetchedResultsController:(int)companyNo {
+    RBQFetchedResultsController *fetchedResultsController = nil;
+    Employee *employee = [self getEmployeeWithGuid:_user.user_guid companyNo:companyNo];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(company_no = %d and incharge = %@ and status != 7 and status != 8 and status != 0)",companyNo,employee.employee_guid];
+    RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"TaskModel" inRealm:_rlmRealm predicate:predicate];
+    fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:@"TaskModel"];
+    [fetchedResultsController performFetch];
+    return fetchedResultsController;
+}
+//我委派的任务数据监听
+- (RBQFetchedResultsController*)createCreateTaskFetchedResultsController:(int)companyNo {
+    RBQFetchedResultsController *fetchedResultsController = nil;
+    Employee *employee = [self getEmployeeWithGuid:_user.user_guid companyNo:companyNo];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(company_no = %d and createdby = %@ and status != 7 and status != 8 and status != 0)",companyNo,employee.employee_guid];
+    RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"TaskModel" inRealm:_rlmRealm predicate:predicate];
+    fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:@"TaskModel"];
+    [fetchedResultsController performFetch];
+    return fetchedResultsController;
+}
+//我知悉的任务数据监听
+- (RBQFetchedResultsController*)createMemberTaskFetchedResultsController:(int)companyNo {
+    RBQFetchedResultsController *fetchedResultsController = nil;
+    Employee *employee = [self getEmployeeWithGuid:_user.user_guid companyNo:companyNo];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(company_no = %d and (members contains %@) and status != 7 and status != 8 and status != 0)",companyNo,employee.employee_guid];
+    RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"TaskModel" inRealm:_rlmRealm predicate:predicate];
+    fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:@"TaskModel"];
+    [fetchedResultsController performFetch];
+    return fetchedResultsController;
+}
+//完结的任务数据监听
+- (RBQFetchedResultsController*)createFinishTaskFetchedResultsController:(int)companyNo {
+    RBQFetchedResultsController *fetchedResultsController = nil;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(company_no = %d and status = 7 and status = 8 and status != 0)",companyNo];
+    RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"TaskModel" inRealm:_rlmRealm predicate:predicate];
+    fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:@"TaskModel"];
+    [fetchedResultsController performFetch];
+    return fetchedResultsController;
+}
 @end

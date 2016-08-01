@@ -529,4 +529,21 @@
     };
     return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_GET URLPath:urlPath parameters:params completionHandler:compleionHandler];
 }
+#pragma mark -- 任务
+//获取所有的任务数据
++ (NSURLSessionDataTask*)getTaskList:(NSString*)employeeGuid Handler:(completionHandler)handler; {
+    NSString *urlPath = @"Tasks/task_list_v3";
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:@(-1) forKey:@"status"];
+    [params setObject:employeeGuid forKey:@"created_by"];
+    [params setObject:employeeGuid forKey:@"in_charge"];
+    [params setObject:employeeGuid forKey:@"member"];
+    [params setObject:@(NSIntegerMax) forKey:@"end_date"];
+    [params setObject:@(NSIntegerMax) forKey:@"page_size"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_GET URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
 @end

@@ -14,6 +14,7 @@
 #import "CalendarController.h"
 #import "WebNonstandarViewController.h"
 #import "PushMessageController.h"
+#import "TaskListController.h"
 #import "IdentityManager.h"
 #import "UserHttp.h"
 
@@ -170,13 +171,17 @@
 //我委派的任务被点击
 - (void)createTaskClicked {
     [self executeNeedSelectCompany:^{
-        
+        TaskListController *list = [TaskListController new];
+        list.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:list animated:YES];
     }];
 }
 //我负责的任务被点击
 - (void)chargeTaskClicked {
     [self executeNeedSelectCompany:^{
-        
+        TaskListController *list = [TaskListController new];
+        list.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:list animated:YES];
     }];
 }
 #pragma mark -- 

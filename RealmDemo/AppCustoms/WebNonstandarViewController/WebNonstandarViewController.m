@@ -301,7 +301,7 @@
     }
     uploadPhotoNumber = (int)array.count - 1;
     uploadPhotos = array;
-    [self.navigationController.view dismissTips];
+    [self.navigationController.view showLoadingTips:@""];
     [self sendImageArr];
 }
 #pragma mark - SingleSelectDelegate
