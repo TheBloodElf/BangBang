@@ -111,11 +111,6 @@
 @property(nonatomic,strong) NSString *attachments;
 
 /**
- *  距离
- */
-@property(nonatomic,assign)double distance;
-
-/**
  *  是否有效 迟到早退算无效
  */
 @property(nonatomic, assign)BOOL validity;

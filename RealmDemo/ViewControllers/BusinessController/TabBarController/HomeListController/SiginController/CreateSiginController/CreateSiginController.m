@@ -290,7 +290,6 @@
             [self.navigationController.view showMessageTips:@"当前位置离公司签到点太远啦!"];
             return;
         }
-        _currSignIn.distance = distance;
         _currSignIn.setting_guid = _currPunchCardAddressSetting.setting_guid;
     }
     //判断时间是否迟到或者早退
@@ -377,6 +376,7 @@
 - (void)siginMethod {
     [self.navigationController.view showLoadingTips:@""];
     _currSignIn.create_on_utc = [[NSDate date] timeIntervalSince1970] * 1000;
+    _currSignIn.descriptionStr = _currSignIn.descriptionStr ?: @"";
     [UserHttp sigin:_currSignIn handler:^(id data, MError *error) {
         if(error) {
             [self.navigationController.view dismissTips];
