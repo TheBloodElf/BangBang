@@ -13,6 +13,7 @@
 @interface FaceInviteColleague ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *qrCodeImage;
+@property (weak, nonatomic) IBOutlet UIButton *companyName;
 
 @end
 
@@ -30,6 +31,7 @@
         NSString * shortUrl = data[@"url_short"];
         self.qrCodeImage.image = [QRCodeGenerator qrImageForString:shortUrl imageSize:200];
     }];
+    [self.companyName setTitle:[UserManager manager].user.currCompany.company_name forState:UIControlStateNormal];
 }
 - (IBAction)exitVC:(id)sender {
     [self dismissViewControllerAnimated:NO completion:nil];

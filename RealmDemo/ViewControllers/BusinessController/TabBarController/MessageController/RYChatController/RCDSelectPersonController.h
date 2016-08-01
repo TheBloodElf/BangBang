@@ -22,6 +22,7 @@
  *  已经被选中的员工列表 然后不显示这些人
  */
 @property (nonatomic, strong) NSMutableArray<Employee*> *selectedEmployees;
-
+@property (nonatomic, assign) int companyNo;
 @property (nonatomic, weak) id<MuliteSelectDelegate> delegate;
+
 @end

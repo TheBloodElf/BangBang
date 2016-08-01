@@ -69,7 +69,7 @@
 - (void)getSureDataArr {
     NSMutableArray<Employee*> *employeeArr = [@[] mutableCopy];
     //获取应该显示的员工数组
-    employeeArr = [[UserManager manager] getEmployeeWithCompanyNo:[UserManager manager].user.currCompany.company_no status:1];
+    employeeArr = [[UserManager manager] getEmployeeWithCompanyNo:self.companyNo ?: [UserManager manager].user.currCompany.company_no status:1];
     //获取已经被选中的用户NO 不显示这些人
     NSMutableArray<NSString*> *selectedUserNoArr = [@[] mutableCopy];
     for (Employee *employee in self.selectedEmployees) {

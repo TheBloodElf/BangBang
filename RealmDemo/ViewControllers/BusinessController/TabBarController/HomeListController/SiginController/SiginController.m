@@ -43,6 +43,7 @@
     _todaySigInArr = [@[] mutableCopy];
     [self.tableView registerNib:[UINib nibWithNibName:@"SigInListCell" bundle:nil] forCellReuseIdentifier:@"SigInListCell"];
     self.view.backgroundColor = [UIColor whiteColor];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     //把视图移动到最顶部 即使有状态栏和导航
     if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -64,11 +65,12 @@
     [_noDataView addSubview:label];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    if(_todaySigInArr.count)
+    if(_todaySigInArr.count) {
         self.tableView.tableFooterView = [UIView new];
+        [_tableView reloadData];
+    }
     else
         self.tableView.tableFooterView = _noDataView;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self setLeftNavigationBarItem];
     [self setRightNavigationBarItem];
     //看是否有签到记录数据 没有就从服务器获取
@@ -86,6 +88,8 @@
                 [array addObject:sigIn];
             }
             [_userManager updateTodaySinInList:array guid:employee.employee_guid];
+            _todaySigInArr = array;
+            [_tableView reloadData];
         }];
     }
     //使用原生定位

@@ -47,7 +47,7 @@
 }
 - (void)createCalendaView
 {
-    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, Calendar_Height + 1 , MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - Calendar_Height - 1)];
+    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, Calendar_Height + 1 , MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - Calendar_Height - 1 - 64)];
     [self.view addSubview:_webView];
     [WebViewJavascriptBridge enableLogging];
     _bridge = [WebViewJavascriptBridge bridgeForWebView:_webView webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {

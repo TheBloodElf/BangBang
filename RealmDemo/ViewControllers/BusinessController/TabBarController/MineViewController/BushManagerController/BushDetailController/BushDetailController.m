@@ -137,4 +137,7 @@
     [alertVC addAction:okAction];
     [self presentViewController:alertVC animated:YES completion:nil];
 }
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
 @end

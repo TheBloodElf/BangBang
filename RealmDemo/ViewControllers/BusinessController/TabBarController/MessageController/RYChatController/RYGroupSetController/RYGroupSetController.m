@@ -139,6 +139,7 @@
 - (void)RYGroupSetAddClicked {
     //人员多选界面
     RCDSelectPersonController *muliteSelect = [RCDSelectPersonController new];
+    //得到当前圈子的编号
     NSMutableArray *array = [@[] mutableCopy];
     for (RCUserInfo *rCUserInfo in _rCUserArr) {
         NSMutableArray *tempArray = [_userManager getEmployeeArr];

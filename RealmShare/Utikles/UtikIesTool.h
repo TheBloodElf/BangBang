@@ -19,9 +19,9 @@
 #endif
 
 //测试
-//#define KBSSDKAPIDomain        @"http://open.test.59bang.com/api/"
+#define KBSSDKAPIDomain        @"http://open.test.59bang.com/api/"
 //正式
-#define KBSSDKAPIDomain        @"http://open.59bang.com/api/"
+//#define KBSSDKAPIDomain        @"http://open.59bang.com/api/"
 
 @interface UtikIesTool : NSObject
 
