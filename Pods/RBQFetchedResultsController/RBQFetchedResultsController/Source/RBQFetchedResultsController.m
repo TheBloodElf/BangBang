@@ -589,7 +589,7 @@ static void * RBQArrayFetchRequestContext = &RBQArrayFetchRequestContext;
 
 - (void)updateFetchRequest:(RBQFetchRequest *)fetchRequest
         sectionNameKeyPath:(NSString *)sectionNameKeyPath
-            andPerformFetch:(BOOL)performFetch
+           andPerformFetch:(BOOL)performFetch
 {
     @synchronized(self) {
         // Turn off change notifications since we are replacing fetch request
@@ -809,14 +809,14 @@ static void * RBQArrayFetchRequestContext = &RBQArrayFetchRequestContext;
         
         RBQSectionChangesObject *sectionChanges = [self createSectionChangesWithChangeSets:changeSets
                                                                                      state:state];
-
+        
         if ([self.delegate respondsToSelector:@selector(controllerWillChangeContent:)]) {
-
+            
             [self runOnMainThread:^(){
                 [weakSelf.delegate controllerWillChangeContent:weakSelf];
             }];
         }
-
+        
         [state.cacheRealm beginWriteTransaction];
         
         // Create Object To Gather Up Derived Changes
@@ -1621,7 +1621,7 @@ static void * RBQArrayFetchRequestContext = &RBQArrayFetchRequestContext;
                 [insertedObjectChangesBySection setObject:insertedChangesInSection
                                                    forKey:@(objectChange.updatedIndexpath.section)];
             }
-
+            
             [insertedChangesInSection addObject:objectChange];
         }
         // For all objectChanges that are not inserts/deletes, store them to process next
@@ -1881,7 +1881,7 @@ static void * RBQArrayFetchRequestContext = &RBQArrayFetchRequestContext;
 - (RLMRealm *)cacheRealm
 {
     if (self.cacheName) {
-
+        
         if ([NSThread isMainThread] &&
             self.realmForMainThread) {
             

@@ -35,6 +35,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     _userManager = [UserManager manager];
     _userFetchedResultsController = [_userManager createUserFetchedResultsController];
     _userFetchedResultsController.delegate = self;

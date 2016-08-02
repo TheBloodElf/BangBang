@@ -45,6 +45,7 @@
  *  打卡时间
  */
 @property(nonatomic,assign)int64_t create_on_utc;
+@property (nonatomic, assign) CGFloat distance;
 /**
  *  签到详情
  */

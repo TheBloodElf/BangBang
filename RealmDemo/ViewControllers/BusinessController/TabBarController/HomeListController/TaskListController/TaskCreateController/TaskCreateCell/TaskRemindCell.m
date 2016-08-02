@@ -8,17 +8,26 @@
 
 #import "TaskRemindCell.h"
 
+@interface TaskRemindCell  ()
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+
+@end
+
 @implementation TaskRemindCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
 }
+- (void)dataDidChange {
+    NSDate *date = self.data;
+    self.dateLabel.text = [NSString stringWithFormat:@"%d-%02ld-%02ld %02ld:%02ld",date.year,date.month,date.day,date.hour,date.minute];;
+}
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (IBAction)deleClicked:(id)sender {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(TaskRemindDeleteDate:)]) {
+        [self.delegate TaskRemindDeleteDate:self.data];
+    }
 }
 
 @end

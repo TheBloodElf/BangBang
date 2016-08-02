@@ -7,18 +7,34 @@
 //
 
 #import "TaskTitleCell.h"
+#import "TaskModel.h"
+
+@interface TaskTitleCell ()<UITextFieldDelegate>
+@property (weak, nonatomic) IBOutlet UITextField *taskTitle;
+
+@end
 
 @implementation TaskTitleCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.taskTitle.delegate = self;
 }
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
+    TaskModel *model = self.data;
+    model.task_name = textField.text;
+    return YES;
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    TaskModel *model = self.data;
+    model.task_name = textField.text;
+    [self.contentView endEditing:YES];
+    return YES;
+}
+- (void)dataDidChange {
+    TaskModel *model = self.data;
+    self.taskTitle.text = model.task_name;
 }
 
 @end

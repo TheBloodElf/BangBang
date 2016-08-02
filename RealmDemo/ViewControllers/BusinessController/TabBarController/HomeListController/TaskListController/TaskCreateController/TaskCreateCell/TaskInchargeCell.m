@@ -7,18 +7,32 @@
 //
 
 #import "TaskInchargeCell.h"
+#import "Employee.h"
+
+@interface TaskInchargeCell ()
+@property (weak, nonatomic) IBOutlet UIImageView *inchargeImage;
+@property (weak, nonatomic) IBOutlet UILabel *detailLabel;
+@end
 
 @implementation TaskInchargeCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.inchargeImage.layer.cornerRadius = 13.5f;
+    self.inchargeImage.clipsToBounds = YES;
     // Initialization code
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (void)dataDidChange {
+    Employee *employee = self.data;
+    if(employee.id == 0) {
+        self.detailLabel.hidden = NO;
+        self.inchargeImage.hidden = YES;
+    } else {
+        self.detailLabel.hidden = YES;
+        self.inchargeImage.hidden = NO;
+        [self.inchargeImage sd_setImageWithURL:[NSURL URLWithString:employee.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
+    }
 }
 
 @end

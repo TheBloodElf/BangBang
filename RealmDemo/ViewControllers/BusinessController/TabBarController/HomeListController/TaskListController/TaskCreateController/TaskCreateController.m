@@ -19,11 +19,20 @@
 
 #import "UserManager.h"
 #import "UserHttp.h"
+#import "SelectDateController.h"
+#import "SingleSelectController.h"
+#import "MuliteSelectController.h"
+#import "SelectImageController.h"
 
-@interface TaskCreateController ()<UITableViewDataSource,UITableViewDelegate> {
+@interface TaskCreateController ()<UITableViewDataSource,UITableViewDelegate,MuliteSelectDelegate,SingleSelectDelegate,TaskRemindCellDelegate,SelectImageDelegate,TaskAttenmentDelegate> {
     UITableView *_tableView;//表格视图
     UserManager *_userManager;//用户管理器
     TaskModel *_taskModel;//任务模型
+    NSMutableArray<UIImage*> *_attanmentArr;//附件数组
+    int _attanmantIndex;//任务上传数量下标
+    NSMutableArray<NSDate*> *_alertDateArr;//提醒时间数组
+    Employee *_incharge;//负责人
+    NSMutableArray<Employee*> *_memberArr;//参与人数组
 }
 
 @end
@@ -33,6 +42,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"任务创建";
+    _attanmentArr = [@[] mutableCopy];
+    _incharge = [Employee new];
+    _alertDateArr = [@[] mutableCopy];
+    _memberArr = [@[] mutableCopy];
+    
     _userManager = [UserManager manager];
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
     //初始化模型
@@ -48,6 +62,7 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.tableFooterView = [UIView new];
+    _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [_tableView registerNib:[UINib nibWithNibName:@"TaskTitleCell" bundle:nil] forCellReuseIdentifier:@"TaskTitleCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"TaskDetailCell" bundle:nil] forCellReuseIdentifier:@"TaskDetailCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"TaskFinishCell" bundle:nil] forCellReuseIdentifier:@"TaskFinishCell"];
@@ -63,7 +78,65 @@
     // Do any additional setup after loading the view.
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
-    
+    if([NSString isBlank:_taskModel.task_name]) {
+        [self.navigationController.view showMessageTips:@"请填写名称"];
+        return;
+    }
+    if(_taskModel.enddate_utc == 0) {
+        [self.navigationController.view showMessageTips:@"请选择结束时间"];
+        return;
+    }
+    if(_incharge.id == 0) {
+        [self.navigationController.view showMessageTips:@"请选择负责人"];
+        return;
+    }
+    _taskModel.incharge = _incharge.employee_guid;
+    _taskModel.incharge_name = _incharge.real_name;
+    NSMutableArray<NSString*> *members = [@[] mutableCopy];
+    for (Employee * employee in _memberArr) {
+        [members addObject:employee.employee_guid];
+    }
+    _taskModel.members = [members componentsJoinedByString:@","];
+    NSMutableArray<NSString*> *alerts = [@[] mutableCopy];
+    for (NSDate *date in _alertDateArr) {
+        [alerts addObject:@(date.timeIntervalSince1970 * 1000).stringValue];
+    }
+    _taskModel.alert_date_list = [alerts componentsJoinedByString:@","];
+    _taskModel.begindate_utc = [NSDate date].timeIntervalSince1970 * 1000;
+    _taskModel.attachment_count = _attanmentArr.count;
+    //提交任务数据后上传任务附件
+    _attanmantIndex = 0;
+    [self.navigationController.view showLoadingTips:@"创建任务..."];
+    [UserHttp createTask:[_taskModel JSONDictionary] handler:^(id data, MError *error) {
+        [self.navigationController.view dismissTips];
+        if(error) {
+            [self.navigationController.view dismissTips];
+            return ;
+        }
+        _taskModel = [[TaskModel alloc] initWithJSONDictionary:data];
+        _taskModel.descriptionStr = data[@"description"];
+        [_userManager addTask:_taskModel];
+        [self.navigationController.view showLoadingTips:@"上传附件..."];
+        [self uploadAttanment];
+    }];
+}
+//上传任务附件
+- (void)uploadAttanment {
+    if(_attanmantIndex == _attanmentArr.count) {
+        [self.navigationController.view dismissTips];
+        [self.navigationController.view showSuccessTips:@"任务创建成功"];
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [UserHttp uploadAttachment:_userManager.user.user_guid taskId:_taskModel.id doc:_attanmentArr[_attanmantIndex] handler:^(id data, MError *error) {
+            if(error) {
+                [self.navigationController.view dismissTips];
+                [self.navigationController.view showFailureTips:@"有图片上传失败，请去任务详情继续上传"];
+                return ;
+            }
+            _attanmantIndex ++;
+            [self uploadAttanment];
+        }];
+    }
 }
 #pragma mark -- 
 #pragma mark -- UITableViewDelegate
@@ -71,21 +144,165 @@
     return 0.001f;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 20.f;
+    return 10.f;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 20.F;
+    if(indexPath.section == 1)
+        return 88;
+    return 44;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    if(section == 3)
+        return 2;
+    if(section == 4)
+        return _attanmentArr.count + 1;
+    if(section == 5)
+        return _alertDateArr.count + 1;
+    return 1;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 4;
+    return 6;
 }
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return nil;
+    UITableViewCell *cell = nil;
+    if(indexPath.section == 0) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"TaskTitleCell" forIndexPath:indexPath];
+    } else if (indexPath.section == 1) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"TaskDetailCell" forIndexPath:indexPath];
+    } else if (indexPath.section == 2) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"TaskFinishCell" forIndexPath:indexPath];
+    } else if (indexPath.section == 3) {
+        if(indexPath.row == 0) {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"TaskInchargeCell" forIndexPath:indexPath];
+        } else {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"TaskMemberCell" forIndexPath:indexPath];
+        }
+    } else if (indexPath.section == 4) {
+        if(indexPath.row == 0) {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"AddAttenmentCell" forIndexPath:indexPath];
+        } else {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"TaskAttenmentCell" forIndexPath:indexPath];
+        }
+    } else if (indexPath.section == 5) {
+        if(indexPath.row == 0) {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"AddRemindCell" forIndexPath:indexPath];
+        } else {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"TaskRemindCell" forIndexPath:indexPath];
+        }
+    }
+    
+    if(indexPath.section == 0) {//任务标题
+        cell.data = _taskModel;
+    } else if(indexPath.section == 1) {//任务详情
+        cell.data = _taskModel;
+    } else if (indexPath.section == 2) {//结束时间
+        cell.data = _taskModel;
+    } else if (indexPath.section == 3) {
+        if(indexPath.row == 0) {//负责人
+            cell.data = _incharge;
+        } else {//参与人
+            cell.data = _memberArr;
+        }
+    } else if (indexPath.section == 4) {
+        if(indexPath.row == 0) {//添加附件
+            
+        } else {//附件列表
+            TaskAttenmentCell *task = (id)cell;
+            cell.data = _attanmentArr[indexPath.row - 1];
+            task.delegate = self;
+        }
+    } else {
+        if(indexPath.row == 0) {//添加提醒
+            
+        } else {//提醒时间
+            TaskRemindCell *remind = (id)cell;
+            remind.data = _alertDateArr[indexPath.row - 1];
+            remind.delegate = self;
+        }
+    }
+    
+    return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if(indexPath.section == 0) {
+        
+    } else if (indexPath.section == 1) {
+        
+    } else if (indexPath.section == 2) {//结束时间
+        SelectDateController *select = [SelectDateController new];
+        select.selectDateBlock = ^(NSDate *date) {
+            _taskModel.enddate_utc = date.timeIntervalSince1970 * 1000;
+            [_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        };
+        select.datePickerMode = UIDatePickerModeDateAndTime;
+        select.providesPresentationContextTransitionStyle = YES;
+        select.definesPresentationContext = YES;
+        select.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+        [self presentViewController:select animated:NO completion:nil];
+    } else if (indexPath.section == 3) {
+        if(indexPath.row == 0) {//负责人
+            SingleSelectController *single = [SingleSelectController new];
+            single.outEmployees = _memberArr;
+            single.delegate = self;
+            [self.navigationController pushViewController:single animated:YES];
+        } else {//参与人
+            MuliteSelectController *mulite = [MuliteSelectController new];
+            if(_incharge.id != 0)
+                mulite.outEmployees = [@[_incharge] mutableCopy];
+            mulite.selectedEmployees = _memberArr;
+            mulite.delegate = self;
+            [self.navigationController pushViewController:mulite animated:YES];
+        }
+    } else if(indexPath.section == 4) {//附件
+        if(indexPath.row == 0) {
+            SelectImageController *select = [SelectImageController new];
+            select.maxSelect = 9 - _attanmentArr.count;
+            select.delegate = self;
+            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:select] animated:YES completion:nil];
+        }
+    } else {
+        if(indexPath.row == 0) {//添加提醒时间
+            SelectDateController *select = [SelectDateController new];
+            select.selectDateBlock = ^(NSDate *date) {
+                [_alertDateArr addObject:date];
+                [_tableView reloadSections:[NSIndexSet indexSetWithIndex:5] withRowAnimation:UITableViewRowAnimationNone];
+            };
+            select.datePickerMode = UIDatePickerModeDateAndTime;
+            select.providesPresentationContextTransitionStyle = YES;
+            select.definesPresentationContext = YES;
+            select.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+            [self presentViewController:select animated:NO completion:nil];
+        }
+    }
+}
+#pragma mark -- TaskRemindCellDelegate
+- (void)TaskRemindDeleteDate:(NSDate*)date {
+    [_alertDateArr removeObject:date];
+    [_tableView reloadSections:[NSIndexSet indexSetWithIndex:5] withRowAnimation:UITableViewRowAnimationNone];
+}
+#pragma mark -- TaskAttenmentDelegate
+- (void)TaskAttenmentDelete:(UIImage*)photo {
+    [_attanmentArr removeObject:photo];
+    [_tableView reloadSections:[NSIndexSet indexSetWithIndex:4] withRowAnimation:UITableViewRowAnimationNone];
+}
+#pragma mark -- SelectImageDelegate
+- (void)selectImageFinish:(NSMutableArray<Photo*>*)photoArr {
+    for (Photo *photo in photoArr) {
+        [_attanmentArr addObject:photo.oiginalImage];
+    }
+    [_tableView reloadSections:[NSIndexSet indexSetWithIndex:4] withRowAnimation:UITableViewRowAnimationNone];
+}
+#pragma mark -- SingleSelectDelegate
+//单选回调
+- (void)singleSelect:(Employee*)employee {
+    _incharge = employee;
+    [_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:3]] withRowAnimation:UITableViewRowAnimationNone];
+}
+#pragma mark -- MuliteSelectDelegate
+//多选回调
+- (void)muliteSelect:(NSMutableArray<Employee*>*)employeeArr {
+    _memberArr = employeeArr;
+    [_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:3]] withRowAnimation:UITableViewRowAnimationNone];
 }
 @end

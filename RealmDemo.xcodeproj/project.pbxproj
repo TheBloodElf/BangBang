@@ -127,7 +127,7 @@
 		0495864E1D3A348200544259 /* InviteColleagueController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495864A1D3A348200544259 /* InviteColleagueController.m */; };
 		0495864F1D3A348200544259 /* InviteColleagueController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0495864B1D3A348200544259 /* InviteColleagueController.storyboard */; };
 		0495866B1D3A618600544259 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0495866A1D3A618600544259 /* UIKit.framework */; };
-		049CDF951D4F896D00F8890F /* TaskUpdateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049CDF941D4F896D00F8890F /* TaskUpdateController.m */; settings = {ASSET_TAGS = (); }; };
+		049CDF951D4F896D00F8890F /* TaskUpdateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049CDF941D4F896D00F8890F /* TaskUpdateController.m */; };
 		04A817771D3525D700011DA1 /* IdentityHttp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A817761D3525D700011DA1 /* IdentityHttp.m */; };
 		04E7E5A81D3A660800C653B4 /* ChangeUserBBH.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E7E59C1D3A660800C653B4 /* ChangeUserBBH.m */; };
 		04E7E5A91D3A660800C653B4 /* ChangeUserDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E7E59F1D3A660800C653B4 /* ChangeUserDetail.m */; };
@@ -139,6 +139,24 @@
 		04FE7CCF1D36725A00362702 /* menu_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 04FE7CCE1D36725A00362702 /* menu_background.png */; };
 		04FE7CD41D367CE000362702 /* LeftMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FE7CD21D367CE000362702 /* LeftMenuCell.m */; };
 		04FE7CD51D367CE000362702 /* LeftMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04FE7CD31D367CE000362702 /* LeftMenuCell.xib */; };
+		1B0388661D5074BF00D0B7D0 /* TaskAttenmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0388641D5074BF00D0B7D0 /* TaskAttenmentCell.m */; };
+		1B0388671D5074BF00D0B7D0 /* TaskAttenmentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B0388651D5074BF00D0B7D0 /* TaskAttenmentCell.xib */; };
+		1B03886B1D50810C00D0B7D0 /* TaskDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0388691D50810C00D0B7D0 /* TaskDetailController.m */; };
+		1B03886C1D50810C00D0B7D0 /* TaskDetailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B03886A1D50810C00D0B7D0 /* TaskDetailController.xib */; };
+		1B0388721D508FCC00D0B7D0 /* TaskDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0388711D508FCC00D0B7D0 /* TaskDetailView.m */; };
+		1B0388751D508FD300D0B7D0 /* TaskDiscussView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0388741D508FD300D0B7D0 /* TaskDiscussView.m */; };
+		1B0388781D508FDA00D0B7D0 /* TaskFileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0388771D508FDA00D0B7D0 /* TaskFileView.m */; };
+		1B03887C1D5093FD00D0B7D0 /* TaskDetailBottomOpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B03887B1D5093FD00D0B7D0 /* TaskDetailBottomOpView.m */; };
+		1B0388801D509A4B00D0B7D0 /* TaskDetailCellCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B03887E1D509A4B00D0B7D0 /* TaskDetailCellCell.m */; };
+		1B0388811D509A4B00D0B7D0 /* TaskDetailCellCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B03887F1D509A4B00D0B7D0 /* TaskDetailCellCell.xib */; };
+		1B0388851D509B7900D0B7D0 /* TaskInchargeCellCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0388831D509B7900D0B7D0 /* TaskInchargeCellCell.m */; };
+		1B0388861D509B7900D0B7D0 /* TaskInchargeCellCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B0388841D509B7900D0B7D0 /* TaskInchargeCellCell.xib */; };
+		1B03888A1D509C6F00D0B7D0 /* TaskMemberCellCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0388881D509C6F00D0B7D0 /* TaskMemberCellCell.m */; };
+		1B03888B1D509C6F00D0B7D0 /* TaskMemberCellCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B0388891D509C6F00D0B7D0 /* TaskMemberCellCell.xib */; };
+		1B03888F1D509D4200D0B7D0 /* TaskFinishCellCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B03888D1D509D4200D0B7D0 /* TaskFinishCellCell.m */; };
+		1B0388901D509D4200D0B7D0 /* TaskFinishCellCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B03888E1D509D4200D0B7D0 /* TaskFinishCellCell.xib */; };
+		1B0388941D509DF800D0B7D0 /* TaskRemindCellCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0388921D509DF800D0B7D0 /* TaskRemindCellCell.m */; };
+		1B0388951D509DF800D0B7D0 /* TaskRemindCellCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B0388931D509DF800D0B7D0 /* TaskRemindCellCell.xib */; };
 		1B03E8FF1D4075EF00FB6E1E /* RepCalendarDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B03E8FE1D4075EF00FB6E1E /* RepCalendarDetailController.m */; };
 		1B03E9081D4078E400FB6E1E /* ComCalendarDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B03E9071D4078E400FB6E1E /* ComCalendarDetailViewController.m */; };
 		1B06D5D31D362FA8002D06A7 /* Company.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B06D5D21D362FA8002D06A7 /* Company.m */; };
@@ -317,7 +335,6 @@
 		1B89FF6D1D4F50BF00466F6D /* TaskListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B89FF651D4F50BF00466F6D /* TaskListCell.xib */; };
 		1B89FF6E1D4F50BF00466F6D /* TaskListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B89FF671D4F50BF00466F6D /* TaskListController.m */; };
 		1B89FF711D4F50D100466F6D /* TaskCreateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B89FF701D4F50D100466F6D /* TaskCreateController.m */; };
-		1B89FF751D4F511E00466F6D /* TaskDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B89FF741D4F511E00466F6D /* TaskDetailController.m */; };
 		1B89FF7A1D4F535500466F6D /* TaskTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B89FF781D4F535500466F6D /* TaskTitleCell.m */; };
 		1B89FF7B1D4F535500466F6D /* TaskTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B89FF791D4F535500466F6D /* TaskTitleCell.xib */; };
 		1B89FF7F1D4F536A00466F6D /* TaskDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B89FF7D1D4F536A00466F6D /* TaskDetailCell.m */; };
@@ -328,8 +345,6 @@
 		1B89FF8A1D4F53A500466F6D /* TaskInchargeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B89FF881D4F53A500466F6D /* TaskInchargeCell.xib */; };
 		1B89FF8E1D4F53BF00466F6D /* TaskMemberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B89FF8C1D4F53BF00466F6D /* TaskMemberCell.m */; };
 		1B89FF8F1D4F53BF00466F6D /* TaskMemberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B89FF8D1D4F53BF00466F6D /* TaskMemberCell.xib */; };
-		1B89FF931D4F53CE00466F6D /* TaskAttenmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B89FF911D4F53CE00466F6D /* TaskAttenmentCell.m */; };
-		1B89FF941D4F53CE00466F6D /* TaskAttenmentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B89FF921D4F53CE00466F6D /* TaskAttenmentCell.xib */; };
 		1B89FF981D4F53DC00466F6D /* AddAttenmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B89FF961D4F53DC00466F6D /* AddAttenmentCell.m */; };
 		1B89FF991D4F53DC00466F6D /* AddAttenmentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B89FF971D4F53DC00466F6D /* AddAttenmentCell.xib */; };
 		1B89FF9D1D4F541D00466F6D /* AddRemindCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B89FF9B1D4F541D00466F6D /* AddRemindCell.m */; };
@@ -684,6 +699,35 @@
 		04FE7CD11D367CE000362702 /* LeftMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftMenuCell.h; sourceTree = "<group>"; };
 		04FE7CD21D367CE000362702 /* LeftMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftMenuCell.m; sourceTree = "<group>"; };
 		04FE7CD31D367CE000362702 /* LeftMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeftMenuCell.xib; sourceTree = "<group>"; };
+		1B0388631D5074BF00D0B7D0 /* TaskAttenmentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskAttenmentCell.h; sourceTree = "<group>"; };
+		1B0388641D5074BF00D0B7D0 /* TaskAttenmentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskAttenmentCell.m; sourceTree = "<group>"; };
+		1B0388651D5074BF00D0B7D0 /* TaskAttenmentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskAttenmentCell.xib; sourceTree = "<group>"; };
+		1B0388681D50810C00D0B7D0 /* TaskDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskDetailController.h; sourceTree = "<group>"; };
+		1B0388691D50810C00D0B7D0 /* TaskDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskDetailController.m; sourceTree = "<group>"; };
+		1B03886A1D50810C00D0B7D0 /* TaskDetailController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskDetailController.xib; sourceTree = "<group>"; };
+		1B0388701D508FCC00D0B7D0 /* TaskDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskDetailView.h; sourceTree = "<group>"; };
+		1B0388711D508FCC00D0B7D0 /* TaskDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskDetailView.m; sourceTree = "<group>"; };
+		1B0388731D508FD300D0B7D0 /* TaskDiscussView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskDiscussView.h; sourceTree = "<group>"; };
+		1B0388741D508FD300D0B7D0 /* TaskDiscussView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskDiscussView.m; sourceTree = "<group>"; };
+		1B0388761D508FDA00D0B7D0 /* TaskFileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskFileView.h; sourceTree = "<group>"; };
+		1B0388771D508FDA00D0B7D0 /* TaskFileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskFileView.m; sourceTree = "<group>"; };
+		1B03887A1D5093FD00D0B7D0 /* TaskDetailBottomOpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskDetailBottomOpView.h; sourceTree = "<group>"; };
+		1B03887B1D5093FD00D0B7D0 /* TaskDetailBottomOpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskDetailBottomOpView.m; sourceTree = "<group>"; };
+		1B03887D1D509A4B00D0B7D0 /* TaskDetailCellCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskDetailCellCell.h; sourceTree = "<group>"; };
+		1B03887E1D509A4B00D0B7D0 /* TaskDetailCellCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskDetailCellCell.m; sourceTree = "<group>"; };
+		1B03887F1D509A4B00D0B7D0 /* TaskDetailCellCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskDetailCellCell.xib; sourceTree = "<group>"; };
+		1B0388821D509B7900D0B7D0 /* TaskInchargeCellCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskInchargeCellCell.h; sourceTree = "<group>"; };
+		1B0388831D509B7900D0B7D0 /* TaskInchargeCellCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskInchargeCellCell.m; sourceTree = "<group>"; };
+		1B0388841D509B7900D0B7D0 /* TaskInchargeCellCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskInchargeCellCell.xib; sourceTree = "<group>"; };
+		1B0388871D509C6F00D0B7D0 /* TaskMemberCellCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskMemberCellCell.h; sourceTree = "<group>"; };
+		1B0388881D509C6F00D0B7D0 /* TaskMemberCellCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskMemberCellCell.m; sourceTree = "<group>"; };
+		1B0388891D509C6F00D0B7D0 /* TaskMemberCellCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskMemberCellCell.xib; sourceTree = "<group>"; };
+		1B03888C1D509D4200D0B7D0 /* TaskFinishCellCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskFinishCellCell.h; sourceTree = "<group>"; };
+		1B03888D1D509D4200D0B7D0 /* TaskFinishCellCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskFinishCellCell.m; sourceTree = "<group>"; };
+		1B03888E1D509D4200D0B7D0 /* TaskFinishCellCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskFinishCellCell.xib; sourceTree = "<group>"; };
+		1B0388911D509DF800D0B7D0 /* TaskRemindCellCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskRemindCellCell.h; sourceTree = "<group>"; };
+		1B0388921D509DF800D0B7D0 /* TaskRemindCellCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskRemindCellCell.m; sourceTree = "<group>"; };
+		1B0388931D509DF800D0B7D0 /* TaskRemindCellCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskRemindCellCell.xib; sourceTree = "<group>"; };
 		1B03E8FD1D4075EF00FB6E1E /* RepCalendarDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepCalendarDetailController.h; sourceTree = "<group>"; };
 		1B03E8FE1D4075EF00FB6E1E /* RepCalendarDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepCalendarDetailController.m; sourceTree = "<group>"; };
 		1B03E9061D4078E400FB6E1E /* ComCalendarDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComCalendarDetailViewController.h; sourceTree = "<group>"; };
@@ -981,8 +1025,6 @@
 		1B89FF671D4F50BF00466F6D /* TaskListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskListController.m; sourceTree = "<group>"; };
 		1B89FF6F1D4F50D100466F6D /* TaskCreateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskCreateController.h; sourceTree = "<group>"; };
 		1B89FF701D4F50D100466F6D /* TaskCreateController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskCreateController.m; sourceTree = "<group>"; };
-		1B89FF731D4F511E00466F6D /* TaskDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskDetailController.h; sourceTree = "<group>"; };
-		1B89FF741D4F511E00466F6D /* TaskDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskDetailController.m; sourceTree = "<group>"; };
 		1B89FF771D4F535500466F6D /* TaskTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskTitleCell.h; sourceTree = "<group>"; };
 		1B89FF781D4F535500466F6D /* TaskTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskTitleCell.m; sourceTree = "<group>"; };
 		1B89FF791D4F535500466F6D /* TaskTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskTitleCell.xib; sourceTree = "<group>"; };
@@ -998,9 +1040,6 @@
 		1B89FF8B1D4F53BF00466F6D /* TaskMemberCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskMemberCell.h; sourceTree = "<group>"; };
 		1B89FF8C1D4F53BF00466F6D /* TaskMemberCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskMemberCell.m; sourceTree = "<group>"; };
 		1B89FF8D1D4F53BF00466F6D /* TaskMemberCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskMemberCell.xib; sourceTree = "<group>"; };
-		1B89FF901D4F53CE00466F6D /* TaskAttenmentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskAttenmentCell.h; sourceTree = "<group>"; };
-		1B89FF911D4F53CE00466F6D /* TaskAttenmentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskAttenmentCell.m; sourceTree = "<group>"; };
-		1B89FF921D4F53CE00466F6D /* TaskAttenmentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskAttenmentCell.xib; sourceTree = "<group>"; };
 		1B89FF951D4F53DC00466F6D /* AddAttenmentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAttenmentCell.h; sourceTree = "<group>"; };
 		1B89FF961D4F53DC00466F6D /* AddAttenmentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAttenmentCell.m; sourceTree = "<group>"; };
 		1B89FF971D4F53DC00466F6D /* AddAttenmentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddAttenmentCell.xib; sourceTree = "<group>"; };
@@ -1781,6 +1820,58 @@
 				04FE7CD31D367CE000362702 /* LeftMenuCell.xib */,
 			);
 			path = LeftMenuCell;
+			sourceTree = "<group>";
+		};
+		1B03886D1D508F3B00D0B7D0 /* TaskDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				1B0388701D508FCC00D0B7D0 /* TaskDetailView.h */,
+				1B0388711D508FCC00D0B7D0 /* TaskDetailView.m */,
+				1B03887A1D5093FD00D0B7D0 /* TaskDetailBottomOpView.h */,
+				1B03887B1D5093FD00D0B7D0 /* TaskDetailBottomOpView.m */,
+				1B0388791D50913B00D0B7D0 /* TaskDetailCell */,
+			);
+			path = TaskDetailView;
+			sourceTree = "<group>";
+		};
+		1B03886E1D508F3B00D0B7D0 /* TaskDiscussView */ = {
+			isa = PBXGroup;
+			children = (
+				1B0388731D508FD300D0B7D0 /* TaskDiscussView.h */,
+				1B0388741D508FD300D0B7D0 /* TaskDiscussView.m */,
+			);
+			path = TaskDiscussView;
+			sourceTree = "<group>";
+		};
+		1B03886F1D508F3B00D0B7D0 /* TaskFileView */ = {
+			isa = PBXGroup;
+			children = (
+				1B0388761D508FDA00D0B7D0 /* TaskFileView.h */,
+				1B0388771D508FDA00D0B7D0 /* TaskFileView.m */,
+			);
+			path = TaskFileView;
+			sourceTree = "<group>";
+		};
+		1B0388791D50913B00D0B7D0 /* TaskDetailCell */ = {
+			isa = PBXGroup;
+			children = (
+				1B03887D1D509A4B00D0B7D0 /* TaskDetailCellCell.h */,
+				1B03887E1D509A4B00D0B7D0 /* TaskDetailCellCell.m */,
+				1B03887F1D509A4B00D0B7D0 /* TaskDetailCellCell.xib */,
+				1B0388821D509B7900D0B7D0 /* TaskInchargeCellCell.h */,
+				1B0388831D509B7900D0B7D0 /* TaskInchargeCellCell.m */,
+				1B0388841D509B7900D0B7D0 /* TaskInchargeCellCell.xib */,
+				1B0388871D509C6F00D0B7D0 /* TaskMemberCellCell.h */,
+				1B0388881D509C6F00D0B7D0 /* TaskMemberCellCell.m */,
+				1B0388891D509C6F00D0B7D0 /* TaskMemberCellCell.xib */,
+				1B03888C1D509D4200D0B7D0 /* TaskFinishCellCell.h */,
+				1B03888D1D509D4200D0B7D0 /* TaskFinishCellCell.m */,
+				1B03888E1D509D4200D0B7D0 /* TaskFinishCellCell.xib */,
+				1B0388911D509DF800D0B7D0 /* TaskRemindCellCell.h */,
+				1B0388921D509DF800D0B7D0 /* TaskRemindCellCell.m */,
+				1B0388931D509DF800D0B7D0 /* TaskRemindCellCell.xib */,
+			);
+			path = TaskDetailCell;
 			sourceTree = "<group>";
 		};
 		1B119E561D3C8776007CC050 /* RYChatController */ = {
@@ -2583,8 +2674,12 @@
 		1B89FF721D4F511500466F6D /* TaskDetailController */ = {
 			isa = PBXGroup;
 			children = (
-				1B89FF731D4F511E00466F6D /* TaskDetailController.h */,
-				1B89FF741D4F511E00466F6D /* TaskDetailController.m */,
+				1B0388681D50810C00D0B7D0 /* TaskDetailController.h */,
+				1B0388691D50810C00D0B7D0 /* TaskDetailController.m */,
+				1B03886A1D50810C00D0B7D0 /* TaskDetailController.xib */,
+				1B03886D1D508F3B00D0B7D0 /* TaskDetailView */,
+				1B03886E1D508F3B00D0B7D0 /* TaskDiscussView */,
+				1B03886F1D508F3B00D0B7D0 /* TaskFileView */,
 			);
 			path = TaskDetailController;
 			sourceTree = "<group>";
@@ -2607,9 +2702,9 @@
 				1B89FF8B1D4F53BF00466F6D /* TaskMemberCell.h */,
 				1B89FF8C1D4F53BF00466F6D /* TaskMemberCell.m */,
 				1B89FF8D1D4F53BF00466F6D /* TaskMemberCell.xib */,
-				1B89FF901D4F53CE00466F6D /* TaskAttenmentCell.h */,
-				1B89FF911D4F53CE00466F6D /* TaskAttenmentCell.m */,
-				1B89FF921D4F53CE00466F6D /* TaskAttenmentCell.xib */,
+				1B0388631D5074BF00D0B7D0 /* TaskAttenmentCell.h */,
+				1B0388641D5074BF00D0B7D0 /* TaskAttenmentCell.m */,
+				1B0388651D5074BF00D0B7D0 /* TaskAttenmentCell.xib */,
 				1B89FF951D4F53DC00466F6D /* AddAttenmentCell.h */,
 				1B89FF961D4F53DC00466F6D /* AddAttenmentCell.m */,
 				1B89FF971D4F53DC00466F6D /* AddAttenmentCell.xib */,
@@ -3257,6 +3352,7 @@
 				1BC2AE8A1D42113800842153 /* SelectAttendanceRange.xib in Resources */,
 				1B89FF8A1D4F53A500466F6D /* TaskInchargeCell.xib in Resources */,
 				1B158A691D45BB4D003237A7 /* RYGroupSetAddUserCell.xib in Resources */,
+				1B0388811D509A4B00D0B7D0 /* TaskDetailCellCell.xib in Resources */,
 				049586181D39D3A500544259 /* MuliteSelectCell.xib in Resources */,
 				1B158A6D1D45BB4D003237A7 /* RYGroupSetUserCell.xib in Resources */,
 				1B89FF8F1D4F53BF00466F6D /* TaskMemberCell.xib in Resources */,
@@ -3269,6 +3365,8 @@
 				1B1B9BEF1D3E178F00F53EDC /* ComCalendarDetail.xib in Resources */,
 				1BC2AE851D42113800842153 /* SiginName.xib in Resources */,
 				1B6D16641D48A8D00070D2E5 /* login_qq@3x.png in Resources */,
+				1B0388861D509B7900D0B7D0 /* TaskInchargeCellCell.xib in Resources */,
+				1B0388671D5074BF00D0B7D0 /* TaskAttenmentCell.xib in Resources */,
 				1B6D16441D48A8D00070D2E5 /* ic_action_back_normal.png in Resources */,
 				1BC2AE8E1D42113800842153 /* SelectAttendanceTime.xib in Resources */,
 				1B6D16661D48A8D00070D2E5 /* login_weibo@2x.png in Resources */,
@@ -3282,10 +3380,13 @@
 				1B55859E1D34E2C800DCD3A0 /* ic_welcome_avatar_3_3.png in Resources */,
 				1B1B9BFE1D3E376200F53EDC /* CalendarSelectAlertTime.xib in Resources */,
 				1B1B9BC61D3DF6FA00F53EDC /* CalenderEventTableViewCell.xib in Resources */,
+				1B0388901D509D4200D0B7D0 /* TaskFinishCellCell.xib in Resources */,
 				1BFBC16F1D3F4C2300A5511A /* RepYearView.xib in Resources */,
 				1B6D166A1D48A8D00070D2E5 /* login_weixin@3x.png in Resources */,
 				1B6D16651D48A8D00070D2E5 /* login_weibo.png in Resources */,
+				1B03886C1D50810C00D0B7D0 /* TaskDetailController.xib in Resources */,
 				1B1B9BF91D3E198600F53EDC /* ComCalendarInstruction.xib in Resources */,
+				1B03888B1D509C6F00D0B7D0 /* TaskMemberCellCell.xib in Resources */,
 				0495861F1D39D3A500544259 /* SigleSelectCell.xib in Resources */,
 				1B89FF801D4F536A00466F6D /* TaskDetailCell.xib in Resources */,
 				046DAF821D4C3EB500718F2A /* MeetingRoomTimeCollectionCell.xib in Resources */,
@@ -3314,7 +3415,6 @@
 				1BD8722B1D38DD6C0074CDC7 /* BushSearchCell.xib in Resources */,
 				1B6D165F1D48A8D00070D2E5 /* login_line.png in Resources */,
 				1B89FF851D4F538300466F6D /* TaskFinishCell.xib in Resources */,
-				1B89FF941D4F53CE00466F6D /* TaskAttenmentCell.xib in Resources */,
 				1BC2AE831D42113800842153 /* PunchCardRemind.xib in Resources */,
 				1B1B9BE01D3E11FA00F53EDC /* ComCalendarName.xib in Resources */,
 				0495861A1D39D3A500544259 /* MuliteSelectController.xib in Resources */,
@@ -3338,6 +3438,7 @@
 				1B158A6F1D45BB4D003237A7 /* RYGroupSetUserImageCell.xib in Resources */,
 				1B6D16611D48A8D00070D2E5 /* login_line@3x.png in Resources */,
 				1B1B9BF41D3E18D300F53EDC /* ComCalendarAdress.xib in Resources */,
+				1B0388951D509DF800D0B7D0 /* TaskRemindCellCell.xib in Resources */,
 				1BC2AE4C1D4208DB00842153 /* SiginSelectCell.xib in Resources */,
 				1BFBC16A1D3F474500A5511A /* RepMonthView.xib in Resources */,
 				0495864F1D3A348200544259 /* InviteColleagueController.storyboard in Resources */,
@@ -3494,7 +3595,6 @@
 				1B9DD1891D3CDB81008FEC53 /* NoResultView.m in Sources */,
 				045D8BA41D443E16002E0344 /* GeTuiSdkManager.m in Sources */,
 				1B55856D1D34CF4F00DCD3A0 /* UIViewController+REFrostedViewController.m in Sources */,
-				1B89FF751D4F511E00466F6D /* TaskDetailController.m in Sources */,
 				1B1B9BD21D3E07B300F53EDC /* CalendarCreateController.m in Sources */,
 				1BFBC1821D3F7B3D00A5511A /* RepCalendarEditController.m in Sources */,
 				1BFBC1481D3F0F0100A5511A /* RepCalendarRep.m in Sources */,
@@ -3509,6 +3609,7 @@
 				047DBCBE1D4E37B50049354F /* MeetingSiginSwitchButton.m in Sources */,
 				75E5FF641D27AA9100F77961 /* HttpService.m in Sources */,
 				1B158A6A1D45BB4D003237A7 /* RYGroupSetDelUserCell.m in Sources */,
+				1B0388801D509A4B00D0B7D0 /* TaskDetailCellCell.m in Sources */,
 				04E7E5B41D3A7D2500C653B4 /* PushMessage.m in Sources */,
 				1BC2AE8D1D42113800842153 /* SelectAttendanceTime.m in Sources */,
 				0495862C1D3A1A3F00544259 /* WebViewJavascriptBridgeBase.m in Sources */,
@@ -3538,6 +3639,7 @@
 				049585F61D39C01700544259 /* RequestManagerController.m in Sources */,
 				1B89FF711D4F50D100466F6D /* TaskCreateController.m in Sources */,
 				040A09A61D3D171B00156C16 /* UserDiscuss.m in Sources */,
+				1B03887C1D5093FD00D0B7D0 /* TaskDetailBottomOpView.m in Sources */,
 				1B5585551D34CA2C00DCD3A0 /* IdentityManager.m in Sources */,
 				04E7E5A81D3A660800C653B4 /* ChangeUserBBH.m in Sources */,
 				046DAF701D4C3EB500718F2A /* MeetingName.m in Sources */,
@@ -3555,11 +3657,12 @@
 				1B0FECB91D40AD7600DB4369 /* SignIn.m in Sources */,
 				0482FBF71D436FE500B1CBB2 /* OrientationViewController.m in Sources */,
 				1BF5DFD71D49A90A0039704E /* mask.c in Sources */,
+				1B0388941D509DF800D0B7D0 /* TaskRemindCellCell.m in Sources */,
 				049586341D3A1CCA00544259 /* NSDate+Format.m in Sources */,
+				1B03886B1D50810C00D0B7D0 /* TaskDetailController.m in Sources */,
 				1B36FCDB1D35EC96006694E4 /* TaskView.m in Sources */,
 				1B36FCDF1D35F01B006694E4 /* BottomViewItem.m in Sources */,
 				1B4B162A1D37858400E71B3D /* BushManageViewController.m in Sources */,
-				1B89FF931D4F53CE00466F6D /* TaskAttenmentCell.m in Sources */,
 				1BC2AE7D1D42113800842153 /* AttendanceRollCell.m in Sources */,
 				0482FBD21D42FE4200B1CBB2 /* SiginNoteController.m in Sources */,
 				1B89FF891D4F53A500466F6D /* TaskInchargeCell.m in Sources */,
@@ -3567,6 +3670,7 @@
 				1B1B986F1D3DB50400F53EDC /* CalendarController.m in Sources */,
 				046DAF831D4C3EB500718F2A /* MeetingTimeCell.m in Sources */,
 				1BC2AE881D42113800842153 /* CreateAttendanceController.m in Sources */,
+				1B03888F1D509D4200D0B7D0 /* TaskFinishCellCell.m in Sources */,
 				1BC2AE821D42113800842153 /* PunchCardRemind.m in Sources */,
 				1BFBC16D1D3F4C0100A5511A /* RepYearView.m in Sources */,
 				1B55856C1D34CF4F00DCD3A0 /* UIView+REFrostedViewController.m in Sources */,
@@ -3603,7 +3707,10 @@
 				1B877F171D178E7D000144B2 /* main.m in Sources */,
 				047DBCC31D4E39600049354F /* UINavigationController+Direction.m in Sources */,
 				1BF5DFD91D49A90A0039704E /* qrinput.c in Sources */,
+				1B0388851D509B7900D0B7D0 /* TaskInchargeCellCell.m in Sources */,
 				046DAF791D4C3EB500718F2A /* MeetingSelectPresonCell.m in Sources */,
+				1B0388751D508FD300D0B7D0 /* TaskDiscussView.m in Sources */,
+				1B03888A1D509C6F00D0B7D0 /* TaskMemberCellCell.m in Sources */,
 				1B36FCD81D35EC90006694E4 /* CalendarView.m in Sources */,
 				049586201D39D3A500544259 /* SingleSelectController.m in Sources */,
 				1BF5DFA41D4995DE0039704E /* WXApiManager.m in Sources */,
@@ -3616,6 +3723,7 @@
 				0482FBEE1D436FE500B1CBB2 /* MANaviAnnotation.m in Sources */,
 				1B5585791D34D94100DCD3A0 /* LoginController.m in Sources */,
 				1BC2AE891D42113800842153 /* SelectAttendanceRange.m in Sources */,
+				1B0388721D508FCC00D0B7D0 /* TaskDetailView.m in Sources */,
 				1BD871EA1D38AE200074CDC7 /* CreateBushController.m in Sources */,
 				75E5FF801D27D68C00F77961 /* Identity.m in Sources */,
 				0495864C1D3A348200544259 /* FaceInviteColleague.m in Sources */,
@@ -3661,6 +3769,7 @@
 				1B89FF6E1D4F50BF00466F6D /* TaskListController.m in Sources */,
 				1B9DD18A1D3CDB81008FEC53 /* SearchAdressController.m in Sources */,
 				1BD8722A1D38DD6C0074CDC7 /* BushSearchCell.m in Sources */,
+				1B0388781D508FDA00D0B7D0 /* TaskFileView.m in Sources */,
 				1BF5DFE11D49A91F0039704E /* DataCache.m in Sources */,
 				1B5585A71D34F1DF00DCD3A0 /* FindPasswordViewController.m in Sources */,
 				1B9DD17E1D3CD619008FEC53 /* PlainPhotoBrose.m in Sources */,
@@ -3710,6 +3819,7 @@
 				046DAF641D4C3EB500718F2A /* CreateMeetingController.m in Sources */,
 				1BC2AE8B1D42113800842153 /* SelectAttendanceSpaceTime.m in Sources */,
 				0471C0951D3B262600377178 /* PushMessageCell.m in Sources */,
+				1B0388661D5074BF00D0B7D0 /* TaskAttenmentCell.m in Sources */,
 				1B03E9081D4078E400FB6E1E /* ComCalendarDetailViewController.m in Sources */,
 				1B55856A1D34CF4F00DCD3A0 /* REFrostedViewController.m in Sources */,
 				046DAF7F1D4C3EB500718F2A /* MeetingRoomTimeCell.m in Sources */,

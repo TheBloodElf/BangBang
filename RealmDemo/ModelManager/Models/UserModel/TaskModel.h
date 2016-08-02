@@ -13,7 +13,7 @@
 @property (nonatomic, strong) NSString *task_name;//任务名称
 @property (nonatomic, strong) NSString *descriptionStr;//任务描述
 @property (nonatomic, assign) int64_t begindate_utc;//开始时间
-@property (nonatomic, assign) int64_t enddate_utc;//开始时间
+@property (nonatomic, assign) int64_t enddate_utc;//结束时间
 @property (nonatomic, strong) NSString *incharge;//负责人员工编号employee_guid
 @property (nonatomic, strong) NSString *incharge_name;//负责人名称
 @property (nonatomic, assign) int status;//0-已删除，1-新建，2-进行中，4-待审批,6-审批拒绝,7-已完成,8-已终止

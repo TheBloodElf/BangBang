@@ -102,5 +102,11 @@
 + (NSURLSessionDataTask*)getMeetEquipments:(int)companyNo begin:(int64_t)begin end:(int64_t)end handler:(completionHandler)handler;
 #pragma mark -- 任务
 //获取圈子所有的任务数据
-+ (NSURLSessionDataTask*)getTaskList:(NSString*)employeeGuid Handler:(completionHandler)handler;
++ (NSURLSessionDataTask*)getTaskList:(NSString*)employeeGuid handler:(completionHandler)handler;
+//创建任务
++ (NSURLSessionDataTask*)createTask:(NSDictionary*)taskDic handler:(completionHandler)handler;
+//上传任务附件
++ (NSURLSessionDataTask*)uploadAttachment:(NSString*)userGuid taskId:(int)taskId doc:(UIImage*)doc handler:(completionHandler)handler;
+//获取任务详情
++ (NSURLSessionDataTask*)getTaskInfo:(int)taskId handler:(completionHandler)handler;
 @end

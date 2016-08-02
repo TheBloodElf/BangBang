@@ -145,7 +145,7 @@
         }
         NSMutableArray *array = [@[] mutableCopy];
         for (NSDictionary *dic in data[@"list"]) {
-            Calendar *calendar = [[Calendar alloc] initWithJSONDictionary:dic];
+            Calendar *calendar = [[Calendar new] initWithJSONDictionary:dic];
             calendar.descriptionStr = dic[@"description"];
             [array addObject:calendar];
         }

@@ -1,19 +1,53 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskInchargeCell" id="KGk-i7-Jjw" customClass="TaskInchargeCell">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="TaskInchargeCell" id="d82-Pl-6D0" customClass="TaskInchargeCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="d82-Pl-6D0" id="9UT-Xv-Bb2">
+                <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="负责人" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WyZ-v8-EeU">
+                        <rect key="frame" x="10" y="11" width="51" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请选择" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LtS-Rn-rHg">
+                        <rect key="frame" x="237" y="13" width="45" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IrC-Ue-YXT">
+                        <rect key="frame" x="255" y="8" width="27" height="27"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="27" id="2Si-MO-7oA"/>
+                            <constraint firstAttribute="height" constant="27" id="4en-Tl-CwM"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="IrC-Ue-YXT" secondAttribute="trailing" constant="5" id="EHh-YJ-ndW"/>
+                    <constraint firstItem="IrC-Ue-YXT" firstAttribute="centerY" secondItem="9UT-Xv-Bb2" secondAttribute="centerY" id="FXX-OZ-JTL"/>
+                    <constraint firstAttribute="trailing" secondItem="LtS-Rn-rHg" secondAttribute="trailing" constant="5" id="HdW-5G-6si"/>
+                    <constraint firstItem="WyZ-v8-EeU" firstAttribute="leading" secondItem="9UT-Xv-Bb2" secondAttribute="leading" constant="10" id="L00-Dm-RGa"/>
+                    <constraint firstItem="LtS-Rn-rHg" firstAttribute="centerY" secondItem="9UT-Xv-Bb2" secondAttribute="centerY" id="l6B-TM-e1t"/>
+                    <constraint firstItem="WyZ-v8-EeU" firstAttribute="centerY" secondItem="9UT-Xv-Bb2" secondAttribute="centerY" id="lF7-0H-GaC"/>
+                </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="detailLabel" destination="LtS-Rn-rHg" id="br4-mn-ECb"/>
+                <outlet property="inchargeImage" destination="IrC-Ue-YXT" id="T7i-ZA-7Z7"/>
+            </connections>
+            <point key="canvasLocation" x="285" y="235"/>
         </tableViewCell>
     </objects>
 </document>

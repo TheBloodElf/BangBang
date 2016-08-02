@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 //任务提醒时间
+@protocol TaskRemindCellDelegate <NSObject>
+
+- (void)TaskRemindDeleteDate:(NSDate*)date;
+
+@end
+
 @interface TaskRemindCell : UITableViewCell
+
+@property (nonatomic, weak) id<TaskRemindCellDelegate> delegate;
 
 @end

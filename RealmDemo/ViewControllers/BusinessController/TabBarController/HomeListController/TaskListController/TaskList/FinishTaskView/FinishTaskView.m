@@ -30,7 +30,7 @@
     if (self) {
         _taskArr = [@[] mutableCopy];
         _userManager = [UserManager manager];
-        _inchargeFetchedResultsController = [_userManager createFinishTaskFetchedResultsController:_userManager.user.currCompany.company_no];
+        _inchargeFetchedResultsController = [_userManager createTaskFetchedResultsController:_userManager.user.currCompany.company_no];
         _inchargeFetchedResultsController.delegate = self;
         //创建搜索框
         _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 55)];
@@ -51,6 +51,7 @@
     return self;
 }
 - (void)getCurrData {
+    [_taskArr removeAllObjects];
     //获取完结的数据
     NSArray *array = [_userManager getTaskArr:_userManager.user.currCompany.company_no];
     for (TaskModel *model in array) {
@@ -67,7 +68,6 @@
 }
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
-    _taskArr = (id)controller.fetchedObjects;
     [self getCurrData];
     [_tableView reloadData];
 }

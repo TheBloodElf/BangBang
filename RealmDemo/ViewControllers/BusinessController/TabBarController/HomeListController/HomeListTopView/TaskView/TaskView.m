@@ -14,8 +14,8 @@
 
 @interface TaskView  ()<RBQFetchedResultsControllerDelegate> {
     UserManager *_userManager;
-    RBQFetchedResultsController *_inchargeFetchedResultsController;
-    RBQFetchedResultsController *_createFetchedResultsController;
+    RBQFetchedResultsController *_userFetchedResultsController;
+    RBQFetchedResultsController *_taskFetchedResultsController;
     int _leftWillEndCount;//我委派的将到期数量
     int _leftDidEndCount;//我委派的已到期数量
     int _leftAllCount;//我委派的总数
@@ -50,10 +50,11 @@
 - (void)setupUI {
     self.userInteractionEnabled = YES;
     _userManager = [UserManager manager];
-    _createFetchedResultsController = [_userManager createCreateTaskFetchedResultsController:_userManager.user.currCompany.company_no];
-    _createFetchedResultsController.delegate = self;
-    _inchargeFetchedResultsController = [_userManager createInchargeTaskFetchedResultsController:_userManager.user.currCompany.company_no];
-    _inchargeFetchedResultsController.delegate = self;
+    _userFetchedResultsController = [_userManager createUserFetchedResultsController];
+    _userFetchedResultsController.delegate = self;
+    
+    _taskFetchedResultsController = [_userManager createTaskFetchedResultsController:_userManager.user.currCompany.company_no];
+    _taskFetchedResultsController.delegate = self;
     //给这几个数字填充值
     [self getCurrCount];
     //添加动画
@@ -62,9 +63,14 @@
 #pragma mark --
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
+    if(_userFetchedResultsController == controller) {
+        _taskFetchedResultsController = [_userManager createTaskFetchedResultsController:_userManager.user.currCompany.company_no];
+        _taskFetchedResultsController.delegate = self;
+    }
     _leftWillEndCount = _leftDidEndCount = _leftAllCount = _rightAllCount = _rightDidEndCount = _rightWillEndCount = 0;
     [self getCurrCount];
     [self createPie];
+
 }
 - (void)getCurrCount {
     NSMutableArray<TaskModel*> *taskArr = [_userManager getTaskArr:_userManager.user.currCompany.company_no];

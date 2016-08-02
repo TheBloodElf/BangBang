@@ -82,6 +82,7 @@
     //给模型加上一些确认的值
     _currSignIn.employee_guid = employee.employee_guid;
     _currSignIn.create_name = employee.real_name;
+    _currSignIn.company_no = _userManager.user.currCompany.company_no;
     self.siginTextView.delegate = self;
     [self initCategoryBtn];
     //开始定位 然后获取离用户最近的签到地址
@@ -290,6 +291,7 @@
             [self.navigationController.view showMessageTips:@"当前位置离公司签到点太远啦!"];
             return;
         }
+        _currSignIn.distance = distance;
         _currSignIn.setting_guid = _currPunchCardAddressSetting.setting_guid;
     }
     //判断时间是否迟到或者早退
@@ -389,6 +391,7 @@
             [self.navigationController.view dismissTips];
             _currSignIn = [[SignIn alloc] initWithJSONDictionary:data];
             _currSignIn.descriptionStr = data[@"description"];
+            [_userManager addSigin:_currSignIn];
             [self.navigationController.view showMessageTips:@"签到成功"];
             [self.navigationController popToRootViewControllerAnimated:YES];
         }

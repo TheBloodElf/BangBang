@@ -396,7 +396,7 @@
 #pragma mark -- 签到
 //提交签到信息
 + (NSURLSessionDataTask*)sigin:(SignIn*)sigin handler:(completionHandler)handler {
-    NSString *urlPath = @"Attendance/sign";
+    NSString *urlPath = @"Attendance/sign_v3_2";
     NSMutableDictionary *params = [[sigin JSONDictionary] mutableCopy];
     [params setObject:sigin.descriptionStr forKey:@"description"];
     [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
@@ -531,7 +531,7 @@
 }
 #pragma mark -- 任务
 //获取所有的任务数据
-+ (NSURLSessionDataTask*)getTaskList:(NSString*)employeeGuid Handler:(completionHandler)handler; {
++ (NSURLSessionDataTask*)getTaskList:(NSString*)employeeGuid handler:(completionHandler)handler; {
     NSString *urlPath = @"Tasks/task_list_v3";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params setObject:@(-1) forKey:@"status"];
@@ -540,6 +540,46 @@
     [params setObject:employeeGuid forKey:@"member"];
     [params setObject:@(NSIntegerMax) forKey:@"end_date"];
     [params setObject:@(NSIntegerMax) forKey:@"page_size"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_GET URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
+//创建任务
++ (NSURLSessionDataTask*)createTask:(NSDictionary*)taskDic handler:(completionHandler)handler {
+    NSString *urlPath = @"Tasks/add_v3";
+    NSMutableDictionary *params = [taskDic mutableCopy];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
+//上传任务附件
++ (NSURLSessionDataTask*)uploadAttachment:(NSString*)userGuid taskId:(int)taskId doc:(UIImage*)doc handler:(completionHandler)handler {
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:KBSSDKAPIDomain]];
+    NSDictionary *parameters = @{@"user_guid":userGuid,@"task_id":@(taskId),@"access_token":[IdentityManager manager].identity.accessToken};
+    NSURLSessionDataTask * dataTask = [manager POST:@"Tasks/upload_attachment" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        [formData appendPartWithFileData:[doc dataInNoSacleLimitBytes:MaXPicSize] name:@"doc" fileName:[NSString stringWithFormat:@"%@.jpg",@([NSDate date].timeIntervalSince1970 * 1000)] mimeType:@"image/jpeg"];
+    } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if([responseObject[@"code"] integerValue] == 0) {
+            handler(responseObject,nil);
+        } else {
+            handler(nil,[[MError alloc] initWithCode:task.error.code statsMsg:task.error.domain]);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        handler(nil,[[MError alloc] initWithCode:error.code statsMsg:error.domain]);
+    }];
+    
+    [dataTask resume];
+    return dataTask;
+}
+//获取任务详情
++ (NSURLSessionDataTask*)getTaskInfo:(int)taskId handler:(completionHandler)handler {
+    NSString *urlPath = @"Tasks/task_info_v3";
+    NSMutableDictionary *params = [@{} mutableCopy];
+    [params setObject:@(taskId) forKey:@"task_id"];
     [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
     completionHandler compleionHandler = ^(id data,MError *error) {
         handler(data,error);

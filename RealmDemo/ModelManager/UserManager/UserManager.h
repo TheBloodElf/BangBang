@@ -123,12 +123,6 @@
 - (void)updateTask:(NSMutableArray<TaskModel*>*)taskArr companyNo:(int)companyNo;
 //获取所有的任务列表
 - (NSMutableArray<TaskModel*>*)getTaskArr:(int)companyNo;
-//我负责的任务数据监听
-- (RBQFetchedResultsController*)createInchargeTaskFetchedResultsController:(int)companyNo;
-//我委派的任务数据监听
-- (RBQFetchedResultsController*)createCreateTaskFetchedResultsController:(int)companyNo;
-//我知悉的任务数据监听
-- (RBQFetchedResultsController*)createMemberTaskFetchedResultsController:(int)companyNo;
-//完结的任务数据监听
-- (RBQFetchedResultsController*)createFinishTaskFetchedResultsController:(int)companyNo;
+//任务数据监听
+- (RBQFetchedResultsController*)createTaskFetchedResultsController:(int)companyNo;
 @end

@@ -69,7 +69,7 @@
     NSArray *array = [_userManager getTaskArr:_userManager.user.currCompany.company_no];
     if(array.count == 0) {
         [self.navigationController.view showLoadingTips:@"获取任务..."];
-        [UserHttp getTaskList:employee.employee_guid Handler:^(id data, MError *error) {
+        [UserHttp getTaskList:employee.employee_guid handler:^(id data, MError *error) {
             [self.navigationController.view dismissTips];
             if(error) {
                 [self.navigationController.view showFailureTips:error.statsMsg];
@@ -108,6 +108,8 @@
     else
         self.navigationItem.rightBarButtonItem = nil;
     [_bottomScrollView setContentOffset:CGPointMake(control.selectedSegmentIndex * _bottomScrollView.frame.size.width, 0) animated:NO];
+    
+    [self.view endEditing:YES];
 }
 #pragma mark -- UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -118,5 +120,6 @@
     else
         self.navigationItem.rightBarButtonItem = nil;
     
+    [self.view endEditing:YES];
 }
 @end
