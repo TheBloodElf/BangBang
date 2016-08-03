@@ -27,7 +27,7 @@
                             <constraint firstAttribute="height" constant="20" id="ieu-6K-71g"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Xd-Jg-lpU">
@@ -39,7 +39,7 @@
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="company_owner_icon" translatesAutoresizingMaskIntoConstraints="NO" id="Vb0-Lj-bQ1">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="company_owner_icon" translatesAutoresizingMaskIntoConstraints="NO" id="Vb0-Lj-bQ1">
                         <rect key="frame" x="10" y="5" width="14" height="13"/>
                     </imageView>
                 </subviews>
@@ -60,7 +60,7 @@
                 <outlet property="userImage" destination="n0T-L3-hqY" id="nWa-sX-Pcr"/>
                 <outlet property="userName" destination="hXk-3k-eTG" id="mY7-mX-mo5"/>
             </connections>
-            <point key="canvasLocation" x="-372" y="205"/>
+            <point key="canvasLocation" x="-745" y="205"/>
         </tableViewCell>
     </objects>
     <resources>

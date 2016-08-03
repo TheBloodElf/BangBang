@@ -31,9 +31,10 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.backgroundColor = [UIColor whiteColor];
         _userManager = [UserManager manager];
         
-        _taskDetailBottomOpView = [[TaskDetailBottomOpView alloc] initWithFrame:CGRectMake(0, frame.size.height - 50, MAIN_SCREEN_WIDTH, 50)];
+        _taskDetailBottomOpView = [[TaskDetailBottomOpView alloc] initWithFrame:CGRectMake(0, frame.size.height - 40, MAIN_SCREEN_WIDTH, 40)];
         _taskDetailBottomOpView.delegate = self;
         [self addSubview:_taskDetailBottomOpView];
         
@@ -54,7 +55,7 @@
 - (void)dataDidChange {
     _taskModel = self.data;
     //获取任务详情
-    [self showLoadingTips:@"获取任务详情..."];
+//    [self showLoadingTips:@"获取任务详情..."];
     [UserHttp getTaskInfo:_taskModel.id handler:^(id data, MError *error) {
         [self dismissTips];
         if(error) {
@@ -80,7 +81,7 @@
         }
         //调整表格视图和操作视图的位置
         if(haveOpertion == YES) {
-            _tableView.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, self.frame.size.height - 50);
+            _tableView.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, self.frame.size.height - 40);
             _taskDetailBottomOpView.data = _taskModel;
         } else {
             _tableView.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, self.frame.size.height);
@@ -90,26 +91,41 @@
 #pragma mark -- TaskDetailBottomOpDelegate
 //接收
 - (void)acceptClicked:(UIButton*)btn {
-    
+    if(self.delegate && [self.delegate respondsToSelector:@selector(acceptClicked:task:)]) {
+        [self.delegate acceptClicked:btn task:_taskModel];
+    }
 }
 //终止
 - (void)stopClicked:(UIButton*)btn {
-    
+    if(self.delegate && [self.delegate respondsToSelector:@selector(stopClicked:task:)]) {
+        [self.delegate stopClicked:btn task:_taskModel];
+    }
 }
 //退回
 - (void)returnClicked:(UIButton*)btn {
-    
+    if(self.delegate && [self.delegate respondsToSelector:@selector(returnClicked:task:)]) {
+        [self.delegate returnClicked:btn task:_taskModel];
+    }
 }
 //通过
 - (void)passClicked:(UIButton*)btn {
-    
+    if(self.delegate && [self.delegate respondsToSelector:@selector(passClicked:task:)]) {
+        [self.delegate passClicked:btn task:_taskModel];
+    }
 }
 //提交
 - (void)submitClicked:(UIButton*)btn {
-    
+    if(self.delegate && [self.delegate respondsToSelector:@selector(submitClicked:task:)]) {
+        [self.delegate submitClicked:btn task:_taskModel];
+    }
 }
 #pragma mark -- UITableViewDelegate
-
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 10.f;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 0.001f;
+}
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 4;
 }
@@ -119,25 +135,30 @@
     return 1;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat height = 63;
+    CGFloat height = 0;
     if(indexPath.section == 0) {
-        height = 45 + [_taskModel.descriptionStr textSizeWithFont:[UIFont systemFontOfSize:15] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH - 20, 100000)].height;
-    } else if (indexPath.section == 2) {
-        if(indexPath.row == 0)
-            height = 53;
-        else {
-            if([NSString isBlank:_taskModel.members])
-                height = 0.001f;
+        if([NSString isBlank:_taskModel.descriptionStr]) {
+            height = 45 + [@"无任务描述" textSizeWithFont:[UIFont systemFontOfSize:15] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH - 20, 100000)].height + 5;
+        } else {
+            height = 45 + [_taskModel.descriptionStr textSizeWithFont:[UIFont systemFontOfSize:15] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH - 20, 100000)].height + 5;
         }
+    } else if (indexPath.section == 1) {
+        if(indexPath.row == 0)//负责人
+            height = 63;
+        else {//知悉人
+            height = 63;
+        }
+    } else if (indexPath.section == 2) {
+        height = 63;
     } else if (indexPath.section == 3) {
         if([NSString isBlank:_taskModel.alert_date_list])
-            height = 0.001f;
+            height = 63;
         else {
             NSArray *array = [_taskModel.alert_date_list componentsSeparatedByString:@","];
-            int number = array.count / 2;
-            if(number % 2 != 0)
-                number ++;
-            height = number * 15 + (number - 1) * 15 + 48;
+            int count = array.count / 2;
+            if(array.count % 2 != 0)
+                count ++;
+            height = count * 15 + (count - 1) * 15 + 48;
         }
     }
     return height;
@@ -162,5 +183,12 @@
     
     return cell;
 }
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if(indexPath.section == 1 && indexPath.row == 1) {
+        if(self.delegate && [self.delegate respondsToSelector:@selector(lookMember)]) {
+            [self.delegate lookMember];
+        }
+    }
+}
 @end

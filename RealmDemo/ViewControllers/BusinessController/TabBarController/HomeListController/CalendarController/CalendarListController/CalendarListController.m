@@ -124,7 +124,7 @@
                         if([tempCalendar haveDeleteDate:tempDate]) {
                             continue;
                         } else if([tempCalendar haveFinishDate:tempDate]) {
-                            Calendar *calendar = [[Calendar alloc] initWithJSONDictionary:[tempCalendar JSONDictionary]];
+                            Calendar *calendar = [tempCalendar deepCopy];
                             calendar.status = 2;
                             [_todayCalendarArr addObject:calendar];
                         } else {

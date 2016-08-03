@@ -27,6 +27,7 @@
     UserManager *_userManager;//用户管理器
     RBQFetchedResultsController *_userFetchedResultsController;//用户数据库监听
     RBQFetchedResultsController *_pushMessageFetchedResultsController;//推送消息数据监听
+    RBQFetchedResultsController *_sigRuleFetchedResultsController;//签到规则数据监听
 }
 
 @end
@@ -41,6 +42,7 @@
     _userFetchedResultsController.delegate = self;
     _pushMessageFetchedResultsController = [_userManager createPushMessagesFetchedResultsController];
     _pushMessageFetchedResultsController.delegate = self;
+    
     _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     _scrollView.showsVerticalScrollIndicator = NO;
     //创建头部数据视图
@@ -93,6 +95,7 @@
             [array addObject:set];
         }
         [_userManager updateSiginRule:array companyNo:_userManager.user.currCompany.company_no];
+        [_userManager addSiginRuleNotfition];
     }];
 }
 #pragma mark --
@@ -142,6 +145,7 @@
                     [array addObject:set];
                 }
                 [_userManager updateSiginRule:array companyNo:_userManager.user.currCompany.company_no];
+                [_userManager addSiginRuleNotfition];
             }];
         }
     }
@@ -252,7 +256,7 @@
 - (void)setLeftNavigationBarItem {
     User *user = _userManager.user;
     _leftNavigationBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _leftNavigationBarButton.frame = CGRectMake(0, 0, 100, 38);
+    _leftNavigationBarButton.frame = CGRectMake(0, 0, 100, 28);
     //创建头像
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 2, 33, 33)];
     imageView.layer.cornerRadius = 33 / 2.f;

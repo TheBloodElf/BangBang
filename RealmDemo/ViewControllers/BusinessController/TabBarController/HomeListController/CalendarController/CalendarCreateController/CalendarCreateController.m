@@ -40,6 +40,8 @@
     _currCalendar.begindate_utc = [[NSDate date] timeIntervalSince1970] * 1000;
     _currCalendar.enddate_utc = _currCalendar.begindate_utc;
     _currCalendar.repeat_type = 0;//先不重复
+    _currCalendar.alert_minutes_after = 10;
+    _currCalendar.alert_minutes_before = 10;
     _currCalendar.is_alert = NO;
     _currCalendar.user_guid = _userManager.user.user_guid;
     _currCalendar.created_by = _userManager.user.user_guid;

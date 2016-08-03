@@ -109,4 +109,14 @@
 + (NSURLSessionDataTask*)uploadAttachment:(NSString*)userGuid taskId:(int)taskId doc:(UIImage*)doc handler:(completionHandler)handler;
 //获取任务详情
 + (NSURLSessionDataTask*)getTaskInfo:(int)taskId handler:(completionHandler)handler;
+//获取任务附件列表
++ (NSURLSessionDataTask*)getTaskAttachment:(int)taskId handler:(completionHandler)handler;
+//删除任务附件
++ (NSURLSessionDataTask*)delTaskAttachment:(int)attachmentId handler:(completionHandler)handler;
+//获取任务评论列表
++ (NSURLSessionDataTask*)getTaskComment:(int)taskId handler:(completionHandler)handler;
+//添加评论
++ (NSURLSessionDataTask*)addTaskComment:(int)taskId taskStatus:(int)taskStatus comment:(NSString*)comment createdby:(NSString*)createdby createdRealname:(NSString*)createdRealname handler:(completionHandler)handler;
+//更新任务状态和原因
++ (NSURLSessionDataTask*)updateTask:(int)taskId status:(int)status comment:(NSString*)comment updatedby:(NSString*)updatedby handler:(completionHandler)handler;
 @end

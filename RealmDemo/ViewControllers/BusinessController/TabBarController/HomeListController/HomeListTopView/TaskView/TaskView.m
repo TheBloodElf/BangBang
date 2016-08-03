@@ -59,6 +59,7 @@
     [self getCurrCount];
     //添加动画
     [self createPie];
+    [_userManager addTaskNotfition];
 }
 #pragma mark --
 #pragma mark -- RBQFetchedResultsControllerDelegate
@@ -70,7 +71,7 @@
     _leftWillEndCount = _leftDidEndCount = _leftAllCount = _rightAllCount = _rightDidEndCount = _rightWillEndCount = 0;
     [self getCurrCount];
     [self createPie];
-
+    [_userManager addTaskNotfition];
 }
 - (void)getCurrCount {
     NSMutableArray<TaskModel*> *taskArr = [_userManager getTaskArr:_userManager.user.currCompany.company_no];

@@ -58,7 +58,7 @@
             <connections>
                 <outlet property="attenmentName" destination="Uko-Vo-FFe" id="eH0-OV-rTw"/>
             </connections>
-            <point key="canvasLocation" x="257" y="247"/>
+            <point key="canvasLocation" x="482" y="246"/>
         </tableViewCell>
     </objects>
     <resources>

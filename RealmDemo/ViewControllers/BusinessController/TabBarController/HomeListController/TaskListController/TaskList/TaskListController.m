@@ -53,15 +53,15 @@
     [_bottomScrollView addSubview:incharge];
     //委派的
     CreateTaskView *create = [[CreateTaskView alloc] initWithFrame:CGRectMake(_bottomScrollView.frame.size.width, 0, _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height)];
-    incharge.delegate = self;
+    create.delegate = self;
     [_bottomScrollView addSubview:create];
     //知悉的
     MemberTaskView *member = [[MemberTaskView alloc] initWithFrame:CGRectMake(2 * _bottomScrollView.frame.size.width, 0, _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height)];
-    incharge.delegate = self;
+    member.delegate = self;
     [_bottomScrollView addSubview:member];
     //完结的
     FinishTaskView *finish = [[FinishTaskView alloc] initWithFrame:CGRectMake(3 * _bottomScrollView.frame.size.width, 0, _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height)];
-    incharge.delegate = self;
+    finish.delegate = self;
     [_bottomScrollView addSubview:finish];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addTaskClicked:)];
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];

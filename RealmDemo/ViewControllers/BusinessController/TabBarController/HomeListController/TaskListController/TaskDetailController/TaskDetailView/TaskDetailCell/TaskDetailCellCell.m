@@ -22,7 +22,10 @@
 }
 - (void)dataDidChange {
     TaskModel *model = self.data;
-    self.teakDetail.text = model.descriptionStr;
+    if([NSString isBlank:model.descriptionStr])
+        self.teakDetail.text = @"无任务描述";
+    else
+        self.teakDetail.text = model.descriptionStr;
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

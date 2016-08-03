@@ -24,6 +24,10 @@
 //全局的用户信息
 @property (nonatomic, strong) User *user;
 + (instancetype)manager;
+#pragma makr -- 本地推送
+- (void)addSiginRuleNotfition;
+- (void)addCalendarNotfition;
+- (void)addTaskNotfition;
 #pragma mark -- User
 //更新用户数据
 - (void)updateUser:(User*)user;

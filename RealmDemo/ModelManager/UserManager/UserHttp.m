@@ -586,4 +586,67 @@
     };
     return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_GET URLPath:urlPath parameters:params completionHandler:compleionHandler];
 }
+//获取任务附件列表
++ (NSURLSessionDataTask*)getTaskAttachment:(int)taskId handler:(completionHandler)handler {
+    NSString *urlPath = @"Tasks/attachment_list";
+    NSMutableDictionary *params = [@{} mutableCopy];
+    [params setObject:@(taskId) forKey:@"task_id"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_GET URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
+//删除任务附件
++ (NSURLSessionDataTask*)delTaskAttachment:(int)attachmentId handler:(completionHandler)handler {
+    NSString *urlPath = @"Tasks/delete_attachment";
+    NSMutableDictionary *params = [@{} mutableCopy];
+    [params setObject:@(attachmentId) forKey:@"id"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
+//获取任务评论列表
++ (NSURLSessionDataTask*)getTaskComment:(int)taskId handler:(completionHandler)handler {
+    NSString *urlPath = @"Tasks/comment_list";
+    NSMutableDictionary *params = [@{} mutableCopy];
+    [params setObject:@(taskId) forKey:@"task_id"];
+    [params setObject:@(10000) forKey:@"page_size"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_GET URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
+//添加评论
++ (NSURLSessionDataTask*)addTaskComment:(int)taskId taskStatus:(int)taskStatus comment:(NSString*)comment createdby:(NSString*)createdby createdRealname:(NSString*)createdRealname handler:(completionHandler)handler {
+    NSString *urlPath = @"Tasks/comment";
+    NSMutableDictionary *params = [@{} mutableCopy];
+    [params setObject:@(taskId) forKey:@"task_id"];
+    [params setObject:@(taskStatus) forKey:@"task_status"];
+    [params setObject:comment forKey:@"comment"];
+    [params setObject:createdby forKey:@"createdby"];
+    [params setObject:createdRealname forKey:@"created_realname"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
+//更新任务状态和原因
++ (NSURLSessionDataTask*)updateTask:(int)taskId status:(int)status comment:(NSString*)comment updatedby:(NSString*)updatedby handler:(completionHandler)handler {
+    NSString *urlPath = @"Tasks/update_state";
+    NSMutableDictionary *params = [@{} mutableCopy];
+    [params setObject:@(taskId) forKey:@"id"];
+    [params setObject:@(status) forKey:@"status"];
+    [params setObject:comment forKey:@"comment"];
+    [params setObject:updatedby forKey:@"updatedby"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
 @end

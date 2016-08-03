@@ -230,7 +230,6 @@
 		1B36FCDF1D35F01B006694E4 /* BottomViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B36FCDE1D35F01B006694E4 /* BottomViewItem.m */; };
 		1B36FCE21D360A4D006694E4 /* BottomItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B36FCE11D360A4D006694E4 /* BottomItemModel.m */; };
 		1B36FCE51D360B9F006694E4 /* NSObject+data.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B36FCE41D360B9F006694E4 /* NSObject+data.m */; };
-		1B46862F1D4EDDAE00F3C068 /* MeetingRoomHandlerTimeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B46862E1D4EDDAE00F3C068 /* MeetingRoomHandlerTimeModel.m */; };
 		1B4686371D4EF31D00F3C068 /* Identity.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4686361D4EF31D00F3C068 /* Identity.m */; };
 		1B46863A1D4EFD4F00F3C068 /* TaskModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4686391D4EFD4F00F3C068 /* TaskModel.m */; };
 		1B4B160D1D372F7C00E71B3D /* NSString+firstChar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4B160C1D372F7C00E71B3D /* NSString+firstChar.m */; };
@@ -397,6 +396,21 @@
 		1BD8722A1D38DD6C0074CDC7 /* BushSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD872271D38DD6C0074CDC7 /* BushSearchCell.m */; };
 		1BD8722B1D38DD6C0074CDC7 /* BushSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BD872281D38DD6C0074CDC7 /* BushSearchCell.xib */; };
 		1BDF20B71D3C61BF00666814 /* RYChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDF20B61D3C61BF00666814 /* RYChatManager.m */; };
+		1BED8BF81D517C8900340809 /* TaskFileImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BED8BF61D517C8900340809 /* TaskFileImageCell.m */; };
+		1BED8BF91D517C8900340809 /* TaskFileImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BED8BF71D517C8900340809 /* TaskFileImageCell.xib */; };
+		1BED8BFC1D517D9B00340809 /* TaskAttachModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BED8BFB1D517D9B00340809 /* TaskAttachModel.m */; };
+		1BED8C051D517DDD00340809 /* Meeting.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BED8BFE1D517DDD00340809 /* Meeting.m */; };
+		1BED8C061D517DDD00340809 /* MeetingEquipmentsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BED8C001D517DDD00340809 /* MeetingEquipmentsModel.m */; };
+		1BED8C071D517DDD00340809 /* MeetingRoomHandlerTimeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BED8C021D517DDD00340809 /* MeetingRoomHandlerTimeModel.m */; };
+		1BED8C081D517DDD00340809 /* MeetingRoomModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BED8C041D517DDD00340809 /* MeetingRoomModel.m */; };
+		1BED8C0B1D517E3100340809 /* AttachmentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BED8C0A1D517E3100340809 /* AttachmentModel.m */; };
+		1BED8C0E1D518A0400340809 /* LookMemberController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BED8C0D1D518A0400340809 /* LookMemberController.m */; };
+		1BED8C111D5191DC00340809 /* TaskCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BED8C101D5191DC00340809 /* TaskCommentModel.m */; };
+		1BED8C151D51962A00340809 /* TaskOtherCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BED8C131D51962A00340809 /* TaskOtherCommentCell.m */; };
+		1BED8C161D51962A00340809 /* TaskOtherCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BED8C141D51962A00340809 /* TaskOtherCommentCell.xib */; };
+		1BED8C1A1D51963F00340809 /* TaskOwnerCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BED8C181D51963F00340809 /* TaskOwnerCommentCell.m */; };
+		1BED8C1B1D51963F00340809 /* TaskOwnerCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BED8C191D51963F00340809 /* TaskOwnerCommentCell.xib */; };
+		1BED8C231D51C6E900340809 /* InputTextController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BED8C221D51C6E900340809 /* InputTextController.m */; };
 		1BF5DFA41D4995DE0039704E /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF5DFA31D4995DE0039704E /* WXApiManager.m */; };
 		1BF5DFA71D4995E50039704E /* WBApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF5DFA61D4995E50039704E /* WBApiManager.m */; };
 		1BF5DFC31D49A89A0039704E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BF5DFC21D49A89A0039704E /* Foundation.framework */; };
@@ -409,9 +423,6 @@
 		1BF5DFDC1D49A90A0039704E /* split.c in Sources */ = {isa = PBXBuildFile; fileRef = 1BF5DFD21D49A90A0039704E /* split.c */; };
 		1BF5DFDD1D49A90A0039704E /* QRCodeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF5DFD51D49A90A0039704E /* QRCodeGenerator.m */; };
 		1BF5DFE11D49A91F0039704E /* DataCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF5DFE01D49A91F0039704E /* DataCache.m */; };
-		1BF5DFE41D49D8480039704E /* MeetingRoomModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF5DFE31D49D8480039704E /* MeetingRoomModel.m */; };
-		1BF5DFE71D49D90F0039704E /* Meeting.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF5DFE61D49D90F0039704E /* Meeting.m */; };
-		1BF5DFF91D49DE440039704E /* MeetingEquipmentsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF5DFF81D49DE440039704E /* MeetingEquipmentsModel.m */; };
 		1BFBC1431D3F0CDC00A5511A /* RepCalendarTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFBC1411D3F0CDC00A5511A /* RepCalendarTime.m */; };
 		1BFBC1441D3F0CDC00A5511A /* RepCalendarTime.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BFBC1421D3F0CDC00A5511A /* RepCalendarTime.xib */; };
 		1BFBC1481D3F0F0100A5511A /* RepCalendarRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFBC1461D3F0F0100A5511A /* RepCalendarRep.m */; };
@@ -858,8 +869,6 @@
 		1B36FCE11D360A4D006694E4 /* BottomItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomItemModel.m; sourceTree = "<group>"; };
 		1B36FCE31D360B9F006694E4 /* NSObject+data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+data.h"; sourceTree = "<group>"; };
 		1B36FCE41D360B9F006694E4 /* NSObject+data.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+data.m"; sourceTree = "<group>"; };
-		1B46862D1D4EDDAE00F3C068 /* MeetingRoomHandlerTimeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingRoomHandlerTimeModel.h; sourceTree = "<group>"; };
-		1B46862E1D4EDDAE00F3C068 /* MeetingRoomHandlerTimeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetingRoomHandlerTimeModel.m; sourceTree = "<group>"; };
 		1B4686301D4EEBFE00F3C068 /* 帮帮管理助手.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "帮帮管理助手.entitlements"; sourceTree = "<group>"; };
 		1B4686311D4EEC0C00F3C068 /* RealmShare.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = RealmShare.entitlements; sourceTree = "<group>"; };
 		1B4686351D4EF31D00F3C068 /* Identity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Identity.h; sourceTree = "<group>"; };
@@ -1126,6 +1135,33 @@
 		1BD872281D38DD6C0074CDC7 /* BushSearchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BushSearchCell.xib; sourceTree = "<group>"; };
 		1BDF20B51D3C61BF00666814 /* RYChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RYChatManager.h; sourceTree = "<group>"; };
 		1BDF20B61D3C61BF00666814 /* RYChatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RYChatManager.m; sourceTree = "<group>"; };
+		1BED8BF51D517C8900340809 /* TaskFileImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskFileImageCell.h; sourceTree = "<group>"; };
+		1BED8BF61D517C8900340809 /* TaskFileImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskFileImageCell.m; sourceTree = "<group>"; };
+		1BED8BF71D517C8900340809 /* TaskFileImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskFileImageCell.xib; sourceTree = "<group>"; };
+		1BED8BFA1D517D9B00340809 /* TaskAttachModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskAttachModel.h; sourceTree = "<group>"; };
+		1BED8BFB1D517D9B00340809 /* TaskAttachModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskAttachModel.m; sourceTree = "<group>"; };
+		1BED8BFD1D517DDD00340809 /* Meeting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Meeting.h; sourceTree = "<group>"; };
+		1BED8BFE1D517DDD00340809 /* Meeting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Meeting.m; sourceTree = "<group>"; };
+		1BED8BFF1D517DDD00340809 /* MeetingEquipmentsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingEquipmentsModel.h; sourceTree = "<group>"; };
+		1BED8C001D517DDD00340809 /* MeetingEquipmentsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetingEquipmentsModel.m; sourceTree = "<group>"; };
+		1BED8C011D517DDD00340809 /* MeetingRoomHandlerTimeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingRoomHandlerTimeModel.h; sourceTree = "<group>"; };
+		1BED8C021D517DDD00340809 /* MeetingRoomHandlerTimeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetingRoomHandlerTimeModel.m; sourceTree = "<group>"; };
+		1BED8C031D517DDD00340809 /* MeetingRoomModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingRoomModel.h; sourceTree = "<group>"; };
+		1BED8C041D517DDD00340809 /* MeetingRoomModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetingRoomModel.m; sourceTree = "<group>"; };
+		1BED8C091D517E3100340809 /* AttachmentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttachmentModel.h; sourceTree = "<group>"; };
+		1BED8C0A1D517E3100340809 /* AttachmentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttachmentModel.m; sourceTree = "<group>"; };
+		1BED8C0C1D518A0400340809 /* LookMemberController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LookMemberController.h; sourceTree = "<group>"; };
+		1BED8C0D1D518A0400340809 /* LookMemberController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LookMemberController.m; sourceTree = "<group>"; };
+		1BED8C0F1D5191DC00340809 /* TaskCommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskCommentModel.h; sourceTree = "<group>"; };
+		1BED8C101D5191DC00340809 /* TaskCommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskCommentModel.m; sourceTree = "<group>"; };
+		1BED8C121D51962A00340809 /* TaskOtherCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskOtherCommentCell.h; sourceTree = "<group>"; };
+		1BED8C131D51962A00340809 /* TaskOtherCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskOtherCommentCell.m; sourceTree = "<group>"; };
+		1BED8C141D51962A00340809 /* TaskOtherCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskOtherCommentCell.xib; sourceTree = "<group>"; };
+		1BED8C171D51963F00340809 /* TaskOwnerCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskOwnerCommentCell.h; sourceTree = "<group>"; };
+		1BED8C181D51963F00340809 /* TaskOwnerCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskOwnerCommentCell.m; sourceTree = "<group>"; };
+		1BED8C191D51963F00340809 /* TaskOwnerCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskOwnerCommentCell.xib; sourceTree = "<group>"; };
+		1BED8C211D51C6E900340809 /* InputTextController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputTextController.h; sourceTree = "<group>"; };
+		1BED8C221D51C6E900340809 /* InputTextController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputTextController.m; sourceTree = "<group>"; };
 		1BF5DFA21D4995DE0039704E /* WXApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiManager.h; sourceTree = "<group>"; };
 		1BF5DFA31D4995DE0039704E /* WXApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiManager.m; sourceTree = "<group>"; };
 		1BF5DFA51D4995E50039704E /* WBApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBApiManager.h; sourceTree = "<group>"; };
@@ -1149,12 +1185,6 @@
 		1BF5DFD51D49A90A0039704E /* QRCodeGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCodeGenerator.m; sourceTree = "<group>"; };
 		1BF5DFDF1D49A91F0039704E /* DataCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataCache.h; sourceTree = "<group>"; };
 		1BF5DFE01D49A91F0039704E /* DataCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataCache.m; sourceTree = "<group>"; };
-		1BF5DFE21D49D8480039704E /* MeetingRoomModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingRoomModel.h; sourceTree = "<group>"; };
-		1BF5DFE31D49D8480039704E /* MeetingRoomModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetingRoomModel.m; sourceTree = "<group>"; };
-		1BF5DFE51D49D90F0039704E /* Meeting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Meeting.h; sourceTree = "<group>"; };
-		1BF5DFE61D49D90F0039704E /* Meeting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Meeting.m; sourceTree = "<group>"; };
-		1BF5DFF71D49DE440039704E /* MeetingEquipmentsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingEquipmentsModel.h; sourceTree = "<group>"; };
-		1BF5DFF81D49DE440039704E /* MeetingEquipmentsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetingEquipmentsModel.m; sourceTree = "<group>"; };
 		1BFBC1401D3F0CDC00A5511A /* RepCalendarTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepCalendarTime.h; sourceTree = "<group>"; };
 		1BFBC1411D3F0CDC00A5511A /* RepCalendarTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepCalendarTime.m; sourceTree = "<group>"; };
 		1BFBC1421D3F0CDC00A5511A /* RepCalendarTime.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RepCalendarTime.xib; sourceTree = "<group>"; };
@@ -1318,6 +1348,14 @@
 		046DAF281D4C3EB500718F2A /* MeetingController */ = {
 			isa = PBXGroup;
 			children = (
+				1BED8BFD1D517DDD00340809 /* Meeting.h */,
+				1BED8BFE1D517DDD00340809 /* Meeting.m */,
+				1BED8BFF1D517DDD00340809 /* MeetingEquipmentsModel.h */,
+				1BED8C001D517DDD00340809 /* MeetingEquipmentsModel.m */,
+				1BED8C011D517DDD00340809 /* MeetingRoomHandlerTimeModel.h */,
+				1BED8C021D517DDD00340809 /* MeetingRoomHandlerTimeModel.m */,
+				1BED8C031D517DDD00340809 /* MeetingRoomModel.h */,
+				1BED8C041D517DDD00340809 /* MeetingRoomModel.m */,
 				046DAF401D4C3EB500718F2A /* MeetingRoomController */,
 				047DBCB61D4E36DE0049354F /* MeetingSiginController */,
 				046DAF291D4C3EB500718F2A /* CreateMeetingController.h */,
@@ -1839,6 +1877,14 @@
 			children = (
 				1B0388731D508FD300D0B7D0 /* TaskDiscussView.h */,
 				1B0388741D508FD300D0B7D0 /* TaskDiscussView.m */,
+				1BED8C0F1D5191DC00340809 /* TaskCommentModel.h */,
+				1BED8C101D5191DC00340809 /* TaskCommentModel.m */,
+				1BED8C121D51962A00340809 /* TaskOtherCommentCell.h */,
+				1BED8C131D51962A00340809 /* TaskOtherCommentCell.m */,
+				1BED8C141D51962A00340809 /* TaskOtherCommentCell.xib */,
+				1BED8C171D51963F00340809 /* TaskOwnerCommentCell.h */,
+				1BED8C181D51963F00340809 /* TaskOwnerCommentCell.m */,
+				1BED8C191D51963F00340809 /* TaskOwnerCommentCell.xib */,
 			);
 			path = TaskDiscussView;
 			sourceTree = "<group>";
@@ -1848,6 +1894,13 @@
 			children = (
 				1B0388761D508FDA00D0B7D0 /* TaskFileView.h */,
 				1B0388771D508FDA00D0B7D0 /* TaskFileView.m */,
+				1BED8BF51D517C8900340809 /* TaskFileImageCell.h */,
+				1BED8BF61D517C8900340809 /* TaskFileImageCell.m */,
+				1BED8BF71D517C8900340809 /* TaskFileImageCell.xib */,
+				1BED8BFA1D517D9B00340809 /* TaskAttachModel.h */,
+				1BED8BFB1D517D9B00340809 /* TaskAttachModel.m */,
+				1BED8C091D517E3100340809 /* AttachmentModel.h */,
+				1BED8C0A1D517E3100340809 /* AttachmentModel.m */,
 			);
 			path = TaskFileView;
 			sourceTree = "<group>";
@@ -2677,6 +2730,10 @@
 				1B0388681D50810C00D0B7D0 /* TaskDetailController.h */,
 				1B0388691D50810C00D0B7D0 /* TaskDetailController.m */,
 				1B03886A1D50810C00D0B7D0 /* TaskDetailController.xib */,
+				1BED8C211D51C6E900340809 /* InputTextController.h */,
+				1BED8C221D51C6E900340809 /* InputTextController.m */,
+				1BED8C0C1D518A0400340809 /* LookMemberController.h */,
+				1BED8C0D1D518A0400340809 /* LookMemberController.m */,
 				1B03886D1D508F3B00D0B7D0 /* TaskDetailView */,
 				1B03886E1D508F3B00D0B7D0 /* TaskDiscussView */,
 				1B03886F1D508F3B00D0B7D0 /* TaskFileView */,
@@ -3174,14 +3231,6 @@
 				1BC2AE511D4210C700842153 /* PunchCardAddressSetting.m */,
 				1B4686381D4EFD4F00F3C068 /* TaskModel.h */,
 				1B4686391D4EFD4F00F3C068 /* TaskModel.m */,
-				1BF5DFE21D49D8480039704E /* MeetingRoomModel.h */,
-				1BF5DFE31D49D8480039704E /* MeetingRoomModel.m */,
-				1BF5DFE51D49D90F0039704E /* Meeting.h */,
-				1BF5DFE61D49D90F0039704E /* Meeting.m */,
-				1B46862D1D4EDDAE00F3C068 /* MeetingRoomHandlerTimeModel.h */,
-				1B46862E1D4EDDAE00F3C068 /* MeetingRoomHandlerTimeModel.m */,
-				1BF5DFF71D49DE440039704E /* MeetingEquipmentsModel.h */,
-				1BF5DFF81D49DE440039704E /* MeetingEquipmentsModel.m */,
 				046DB0811D4C895800718F2A /* ShareModel */,
 			);
 			path = UserModel;
@@ -3356,6 +3405,7 @@
 				049586181D39D3A500544259 /* MuliteSelectCell.xib in Resources */,
 				1B158A6D1D45BB4D003237A7 /* RYGroupSetUserCell.xib in Resources */,
 				1B89FF8F1D4F53BF00466F6D /* TaskMemberCell.xib in Resources */,
+				1BED8C161D51962A00340809 /* TaskOtherCommentCell.xib in Resources */,
 				1B6D16821D48AA8A0070D2E5 /* read_me.txt in Resources */,
 				1B119E711D3CB89F007CC050 /* PhotoGroupTableCell.xib in Resources */,
 				1B6D164C1D48A8D00070D2E5 /* ic_check_on@2x.png in Resources */,
@@ -3448,8 +3498,10 @@
 				1B6D167B1D48AA840070D2E5 /* WeiboSDK.bundle in Resources */,
 				1BC2AE471D4208CB00842153 /* SiginImageCell.xib in Resources */,
 				1B6D16481D48A8D00070D2E5 /* ic_check_off.png in Resources */,
+				1BED8C1B1D51963F00340809 /* TaskOwnerCommentCell.xib in Resources */,
 				046DAF6F1D4C3EB500718F2A /* MeetingMembersCell.xib in Resources */,
 				1B1B9BE51D3E126100F53EDC /* ComCalendarTime.xib in Resources */,
+				1BED8BF91D517C8900340809 /* TaskFileImageCell.xib in Resources */,
 				1B9DD18D1D3CDB81008FEC53 /* SelectAdressTableCell.xib in Resources */,
 				1B6D16521D48A8D00070D2E5 /* ic_reg_email.png in Resources */,
 				1B6D16601D48A8D00070D2E5 /* login_line@2x.png in Resources */,
@@ -3619,6 +3671,7 @@
 				0482FBD91D4316A500B1CBB2 /* RCTransferSelectViewController.m in Sources */,
 				1B5585681D34CF4F00DCD3A0 /* RECommonFunctions.m in Sources */,
 				046DAF761D4C3EB500718F2A /* MeetingDeviceSelectCell.m in Sources */,
+				1BED8C051D517DDD00340809 /* Meeting.m in Sources */,
 				1BF5DFDC1D49A90A0039704E /* split.c in Sources */,
 				1B1B9BBD1D3DCB8000F53EDC /* NSMutableArray+Atipik.m in Sources */,
 				1B6D16141D48A8970070D2E5 /* UserLoginController.m in Sources */,
@@ -3650,11 +3703,13 @@
 				0495862D1D3A1A3F00544259 /* WKWebViewJavascriptBridge.m in Sources */,
 				047DBCBF1D4E37B50049354F /* MeetingSiginReaderController.m in Sources */,
 				046DAF721D4C3EB500718F2A /* MeetingDeviceCell.m in Sources */,
+				1BED8C071D517DDD00340809 /* MeetingRoomHandlerTimeModel.m in Sources */,
 				04FE7CD41D367CE000362702 /* LeftMenuCell.m in Sources */,
 				049586311D3A1B3800544259 /* UserSettingController.m in Sources */,
 				1B1B9BC01D3DCB8000F53EDC /* Scheduler.m in Sources */,
 				1B89FF6B1D4F50BF00466F6D /* MemberTaskView.m in Sources */,
 				1B0FECB91D40AD7600DB4369 /* SignIn.m in Sources */,
+				1BED8C231D51C6E900340809 /* InputTextController.m in Sources */,
 				0482FBF71D436FE500B1CBB2 /* OrientationViewController.m in Sources */,
 				1BF5DFD71D49A90A0039704E /* mask.c in Sources */,
 				1B0388941D509DF800D0B7D0 /* TaskRemindCellCell.m in Sources */,
@@ -3691,6 +3746,7 @@
 				75E5FF7D1D27D68300F77961 /* User.m in Sources */,
 				0437F4331D4658FF0054077C /* MCJSONDateTransformer.m in Sources */,
 				0437F4361D4658FF0054077C /* MCJSONValueTransformer.m in Sources */,
+				1BED8C151D51962A00340809 /* TaskOtherCommentCell.m in Sources */,
 				0437F4381D4658FF0054077C /* RLMObject+JSON.m in Sources */,
 				1B119E741D3CB89F007CC050 /* SelectImageCollectionCell.m in Sources */,
 				1B55857C1D34D94A00DCD3A0 /* WelcomeController.m in Sources */,
@@ -3705,6 +3761,7 @@
 				1B1B9BBE1D3DCB8000F53EDC /* NSString+Atipik.m in Sources */,
 				1BF5DFDA1D49A90A0039704E /* qrspec.c in Sources */,
 				1B877F171D178E7D000144B2 /* main.m in Sources */,
+				1BED8C1A1D51963F00340809 /* TaskOwnerCommentCell.m in Sources */,
 				047DBCC31D4E39600049354F /* UINavigationController+Direction.m in Sources */,
 				1BF5DFD91D49A90A0039704E /* qrinput.c in Sources */,
 				1B0388851D509B7900D0B7D0 /* TaskInchargeCellCell.m in Sources */,
@@ -3718,14 +3775,15 @@
 				1B119E841D3CB8FB007CC050 /* ImageSelectView.m in Sources */,
 				04A817771D3525D700011DA1 /* IdentityHttp.m in Sources */,
 				1BC2AE421D41F48A00842153 /* CreateSiginController.m in Sources */,
-				1BF5DFE71D49D90F0039704E /* Meeting.m in Sources */,
 				1B9DD17D1D3CD619008FEC53 /* AvaterBroseController.m in Sources */,
 				0482FBEE1D436FE500B1CBB2 /* MANaviAnnotation.m in Sources */,
 				1B5585791D34D94100DCD3A0 /* LoginController.m in Sources */,
 				1BC2AE891D42113800842153 /* SelectAttendanceRange.m in Sources */,
+				1BED8BFC1D517D9B00340809 /* TaskAttachModel.m in Sources */,
 				1B0388721D508FCC00D0B7D0 /* TaskDetailView.m in Sources */,
 				1BD871EA1D38AE200074CDC7 /* CreateBushController.m in Sources */,
 				75E5FF801D27D68C00F77961 /* Identity.m in Sources */,
+				1BED8C061D517DDD00340809 /* MeetingEquipmentsModel.m in Sources */,
 				0495864C1D3A348200544259 /* FaceInviteColleague.m in Sources */,
 				046DAF661D4C3EB500718F2A /* MeetingAgendaCell.m in Sources */,
 				1B1B9BF31D3E18D300F53EDC /* ComCalendarAdress.m in Sources */,
@@ -3741,23 +3799,25 @@
 				1B1B9BDA1D3E0FC500F53EDC /* RepCalendarView.m in Sources */,
 				04E7E5AA1D3A660800C653B4 /* ChangeUserName.m in Sources */,
 				1B158A681D45BB4D003237A7 /* RYGroupSetAddUserCell.m in Sources */,
-				1B46862F1D4EDDAE00F3C068 /* MeetingRoomHandlerTimeModel.m in Sources */,
 				049586171D39D3A500544259 /* MuliteSelectCell.m in Sources */,
 				1BC2AE4F1D42109E00842153 /* SiginRuleSet.m in Sources */,
 				1BC2AE7F1D42113800842153 /* AttendanceRollController.m in Sources */,
 				046DAF651D4C3EB500718F2A /* MeetingAgenda.m in Sources */,
+				1BED8C081D517DDD00340809 /* MeetingRoomModel.m in Sources */,
+				1BED8C111D5191DC00340809 /* TaskCommentModel.m in Sources */,
 				1B119E701D3CB89F007CC050 /* PhotoGroupTableCell.m in Sources */,
 				1B1B9BF81D3E198600F53EDC /* ComCalendarInstruction.m in Sources */,
 				1B1B9BC51D3DF6FA00F53EDC /* CalenderEventTableViewCell.m in Sources */,
 				1B46863A1D4EFD4F00F3C068 /* TaskModel.m in Sources */,
 				0437F4351D4658FF0054077C /* MCJSONPrimaryKeyTransformer.m in Sources */,
+				1BED8C0E1D518A0400340809 /* LookMemberController.m in Sources */,
 				1B03E8FF1D4075EF00FB6E1E /* RepCalendarDetailController.m in Sources */,
 				1BC2AE8F1D42113800842153 /* SelectAttendanceWorkDay.m in Sources */,
 				1BC2AE801D42113800842153 /* PalneTableViewCell.m in Sources */,
 				046DAF7E1D4C3EB500718F2A /* MeetingRoomCellModel.m in Sources */,
 				1B89FFA21D4F542900466F6D /* TaskRemindCell.m in Sources */,
+				1BED8BF81D517C8900340809 /* TaskFileImageCell.m in Sources */,
 				1B6D160E1D4853930070D2E5 /* XYFAnimateLabel.m in Sources */,
-				1BF5DFE41D49D8480039704E /* MeetingRoomModel.m in Sources */,
 				04FE7CCB1D3670AD00362702 /* LeftMenuController.m in Sources */,
 				0482FBEF1D436FE500B1CBB2 /* MANaviPolyline.m in Sources */,
 				046DAF781D4C3EB500718F2A /* MeetingDeviceSelectController.m in Sources */,
@@ -3815,6 +3875,7 @@
 				0471C0981D3BBA6000377178 /* Readme.md in Sources */,
 				0482FBF21D436FE500B1CBB2 /* ReGeocodeAnnotation.m in Sources */,
 				040A09B11D3D182F00156C16 /* DiscussListViewController.m in Sources */,
+				1BED8C0B1D517E3100340809 /* AttachmentModel.m in Sources */,
 				1B9DD18B1D3CDB81008FEC53 /* SelectAdressController.m in Sources */,
 				046DAF641D4C3EB500718F2A /* CreateMeetingController.m in Sources */,
 				1BC2AE8B1D42113800842153 /* SelectAttendanceSpaceTime.m in Sources */,
@@ -3850,7 +3911,6 @@
 				1BFBC1871D3F811900A5511A /* SiginController.m in Sources */,
 				0471C0911D3B23A700377178 /* NSString+StringSize.m in Sources */,
 				1B158A6E1D45BB4D003237A7 /* RYGroupSetUserImageCell.m in Sources */,
-				1BF5DFF91D49DE440039704E /* MeetingEquipmentsModel.m in Sources */,
 				1BD871ED1D38AFEF0074CDC7 /* CreateBushModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,6 +8,10 @@
 
 #import "UserManager.h"
 #import "UserInfo.h"
+
+//本地推送需要最近几天的内容
+#define LocNotifotionDays 4
+
 @interface UserManager () {
     RLMRealm *_rlmRealm;
 }
@@ -32,6 +36,225 @@
         manager = [[UserManager alloc] init];
     });
     return manager;
+}
+#pragma makr -- 本地推送
+- (void)addSiginRuleNotfition {
+    //清除本地签到规则推送
+    NSArray<UILocalNotification *> *scheduledLocalNotifications = [[UIApplication sharedApplication] scheduledLocalNotifications];
+    for (UILocalNotification *cation in scheduledLocalNotifications) {
+        if([cation.alertBody containsString:@"上下班提醒"]) {
+            [[UIApplication sharedApplication] cancelLocalNotification:cation];
+        }
+    }
+    //获取签到规则
+    NSArray<SiginRuleSet*> *siginModelArr = [self getSiginRule:_user.currCompany.company_no];
+    if(siginModelArr.count == 0) return;
+    dispatch_sync(dispatch_queue_create(0, 0), ^{
+        //只取第一个 因为目前一个圈子只有一个
+        SiginRuleSet *model = siginModelArr[0];
+        if(model.is_alert == 0) return;
+        NSLog(@"有上下班提醒通知");
+        //得到一天开始后上班多少时间提醒
+        NSUInteger begin = (model.start_work_time / 1000 - model.start_work_time_alert * 60) % (24 * 60 * 60);
+        //得到一天开始后下班多少时间提醒
+        NSUInteger end = (model.end_work_time / 1000 + model.end_work_time_alert * 60) % (24 * 60 * 60);
+        //得到今天凌晨的时间戳（小技巧，有其他方法的）
+        NSUInteger time = [[NSDate date] timeIntervalSince1970];
+        NSUInteger today = (time / (24 * 60 * 60)) * (24 * 60 * 60);
+        //得到需要提醒的星期数组
+        NSArray *weekArr = [model.work_day componentsSeparatedByString:@","];
+        //循环着创建最近5天的本地通知
+        for (NSUInteger index = 0; index < LocNotifotionDays; index ++) {
+            //今天上班时间
+            NSDate *currUpTime = [NSDate dateWithTimeIntervalSince1970:today + index * 24 * 60 * 60 + begin];
+            //如果设置了今天提醒
+            if([weekArr containsObject:[NSString stringWithFormat:@"%ld",currUpTime.weekday]]) {
+                //如果小于现在 去掉
+                if([currUpTime timeIntervalSinceDate:[NSDate date]] < 0) {}
+                else [self addUpDownWorkLocNoti:model date:currUpTime type:0];
+            }
+            //今天下班时间
+            NSDate *currEndTime = [NSDate dateWithTimeIntervalSince1970:today + index * 24 * 60 * 60 + end];
+            //如果设置了今天提醒
+            if([weekArr containsObject:[NSString stringWithFormat:@"%ld",currEndTime.weekday]]) {
+                //如果小于现在 去掉
+                if([currEndTime timeIntervalSinceDate:[NSDate date]] < 0) {}
+                else [self addUpDownWorkLocNoti:model date:currEndTime type:1];
+            }
+        }
+    });
+}
+//添加上下班时间提醒 type:0（上班） 1（下班） date:提醒的时间
+- (void)addUpDownWorkLocNoti:(SiginRuleSet *)siginRule date:(NSDate*)date type:(NSInteger)type{
+    // 初始化本地通知对象
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    notification.timeZone = [NSTimeZone defaultTimeZone]; // 使用本地时区
+    notification.fireDate = date;
+    // 设置重复间隔
+    notification.repeatInterval = 0;
+    // 设置提醒的文字内容
+    NSString *alertBody = nil;
+    if(type == 0) {
+        alertBody = @"上下班提醒：上班了";
+        if(siginRule.end_work_time_alert != 0)
+            alertBody = [NSString stringWithFormat:@"上下班提醒：还有 %@分钟上班了",@(siginRule.start_work_time_alert)];
+    } else {
+        alertBody = @"上下班提醒：下班了";
+        if(siginRule.end_work_time_alert != 0)
+            alertBody = [NSString stringWithFormat:@"上下班提醒：下班%@分钟了",@(siginRule.end_work_time_alert)];
+    }
+    notification.alertBody  = alertBody;
+    notification.alertAction = NSLocalizedString(@"帮帮管理助手", nil);
+    // 通知提示音 使用默认的
+    notification.soundName= @"notification_ring.mp3";
+    // 设置应用程序右上角的提醒个数 上下班不需要加数字
+    //    notification.applicationIconBadgeNumber++;
+    // 设定通知的userInfo，用来标识该通知
+    NSMutableDictionary *aUserInfo = [[NSMutableDictionary alloc] init];
+    [aUserInfo setObject:@"WORKTIP" forKey:@"type"];
+    [aUserInfo setObject:alertBody forKey:@"content"];
+    [aUserInfo setObject:[NSString stringWithFormat:@"%@",@([date timeIntervalSince1970] * 1000)] forKey:@"time"];
+    [aUserInfo setObject:@"GENERAL" forKey:@"action"];
+    notification.userInfo = aUserInfo;
+    // 将通知添加到系统中
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+}
+- (void)addCalendarNotfition {
+    //清除本地日程推送
+    NSArray<UILocalNotification *> *scheduledLocalNotifications = [[UIApplication sharedApplication] scheduledLocalNotifications];
+    for (UILocalNotification *cation in scheduledLocalNotifications) {
+        if([cation.alertBody containsString:@"事务提醒"]) {
+            [[UIApplication sharedApplication] cancelLocalNotification:cation];
+        }
+    }
+    //获取本地5天的日程
+    NSDate *date = [NSDate date];
+    for (int index = 0; index < LocNotifotionDays; index ++) {
+        NSDate *currDate = [date dateByAddingTimeInterval:index * 24 * 60 * 60];
+        NSMutableArray<Calendar*> *calendarArr =  [self getCalendarArrWithDate:currDate];
+         dispatch_sync(dispatch_queue_create(0, 0), ^{
+                //一天一天的加本地推送
+                for (Calendar *calendar in calendarArr) {
+                    if(calendar.status == 2) continue;//如果已经完成就不添加本地推送
+                    if(calendar.repeat_type == 0) {//如果是不重复的日程
+                        NSDate *alertBeforeDate = [NSDate dateWithTimeIntervalSince1970:calendar.begindate_utc / 1000 - calendar.alert_minutes_before * 60];
+                        if(alertBeforeDate.timeIntervalSince1970 < date.timeIntervalSince1970) { } else {
+                            //添加到本地推送
+                            [self addCalendarAlertToLocNoti:calendar date:alertBeforeDate];
+                        }
+                        
+                        NSDate *alertAfterDate = [NSDate dateWithTimeIntervalSince1970:calendar.enddate_utc / 1000 + calendar.alert_minutes_after * 60];
+                        if(alertAfterDate.timeIntervalSince1970 < date.timeIntervalSince1970) { } else {
+                            //添加到本地推送
+                            [self addCalendarAlertToLocNoti:calendar date:alertAfterDate];
+                        }
+                    } else {//如果是重复的日程
+                        if(calendar.rrule.length > 0 && calendar.r_begin_date_utc>0 && calendar.r_end_date_utc > 0) {
+                            Scheduler * scheduler = [[Scheduler alloc] initWithDate:[NSDate dateWithTimeIntervalSince1970:calendar.begindate_utc/1000] andRule:calendar.rrule];
+                            //得到所有的时间
+                            NSArray * occurences = [scheduler occurencesBetween:currDate.firstTime andDate:currDate.lastTime];
+                            //遍历所有的时间
+                            for (NSDate *dddd in occurences) {
+                                if([dddd timeIntervalSince1970] < calendar.r_begin_date_utc/1000) {
+                                    continue;
+                                } else if ([calendar haveDeleteDate:currDate]) {
+                                    continue;
+                                } else if ([calendar haveFinishDate:currDate]) {
+                                    continue;
+                                } else if(dddd.timeIntervalSince1970 < date.timeIntervalSince1970) {
+                                } else {
+                                    [self addCalendarAlertToLocNoti:calendar date:dddd];
+                                }
+                            }
+                        }
+                    }
+                }
+         });
+    }
+}
+-(void)addCalendarAlertToLocNoti:(Calendar*)calendar date:(NSDate*)date{
+    // 初始化本地通知对象
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    if (notification) {
+        notification.timeZone = [NSTimeZone defaultTimeZone]; // 使用本地时区
+        notification.fireDate = date;
+        // 设置重复间隔
+        notification.repeatInterval = 0;
+        // 设置提醒的文字内容
+        notification.alertBody   = [NSString stringWithFormat:@"事务提醒: %@",calendar.event_name];
+        notification.alertAction = NSLocalizedString(@"帮帮管理助手", nil);
+        notification.soundName = @"notification_ring.mp3";
+        // 设置应用程序右上角的提醒个数
+        notification.applicationIconBadgeNumber++;
+        // 设定通知的userInfo，用来标识该通知
+        NSMutableDictionary *aUserInfo = [[NSMutableDictionary alloc] init];
+        [aUserInfo setObject:@(calendar.id) forKey:@"target_id"];
+        [aUserInfo setObject:@"CALENDARTIP" forKey:@"type"];
+        [aUserInfo setObject:[NSString stringWithFormat:@"事务提醒: %@", calendar.event_name] forKey:@"content"];
+        [aUserInfo setObject:[NSString stringWithFormat:@"%lld",calendar.begindate_utc] forKey:@"time"];
+        [aUserInfo setObject:@"0" forKey:@"company_no"];
+        [aUserInfo setObject:calendar.created_by forKey:@"from_user_no"];
+        [aUserInfo setObject:@(_user.user_no) forKey:@"to_user_no"];
+        [aUserInfo setObject:@"GENERAL" forKey:@"action"];
+        notification.userInfo = aUserInfo;
+        // 将通知添加到系统中
+        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+    }
+}
+- (void)addTaskNotfition {
+    //清除本地任务推送
+    NSArray<UILocalNotification *> *scheduledLocalNotifications = [[UIApplication sharedApplication] scheduledLocalNotifications];
+    for (UILocalNotification *cation in scheduledLocalNotifications) {
+        if([cation.alertBody containsString:@"任务提醒"]) {
+            [[UIApplication sharedApplication] cancelLocalNotification:cation];
+        }
+    }
+    //添加5天内的任务推送
+    NSArray<TaskModel*> *taskArr = [self getTaskArr:_user.currCompany.company_no];
+    dispatch_sync(dispatch_queue_create(0, 0), ^{
+        NSDate *currDate = [NSDate date];
+        for (TaskModel *model in taskArr) {
+            if(model.status == 0 || model.status == 1 || model.status == 7 || model.status == 8) continue;//去掉不提醒的
+            if([NSString isBlank:model.alert_date_list]) continue;//去掉没有提醒时间的
+            
+            NSArray *alertStrArr = [model.alert_date_list componentsSeparatedByString:@","];
+            for (NSString *str in alertStrArr) {
+                NSDate *currAlertDate = [NSDate dateWithTimeIntervalSince1970:str.integerValue / 1000];
+                if(currAlertDate.timeIntervalSince1970 > currDate.timeIntervalSince1970 && currAlertDate.timeIntervalSince1970 < [currDate dateByAddingTimeInterval:LocNotifotionDays * 24 * 60 * 60].timeIntervalSince1970) {//得到在提醒天数之内的时间
+                    [self addTaskAlertToLocNoti:model date:currAlertDate];
+                }
+            }
+        }
+    });
+}
+- (void)addTaskAlertToLocNoti:(TaskModel*)task date:(NSDate*)date
+{
+    // 初始化本地通知对象
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    notification.timeZone = [NSTimeZone defaultTimeZone]; // 使用本地时区
+    notification.fireDate = date;
+    // 设置重复间隔
+    notification.repeatInterval = 0;
+    // 设置提醒的文字内容
+    notification.alertBody   = [NSString stringWithFormat:@"任务提醒: %@还有", task.task_name];
+    notification.alertAction = NSLocalizedString(@"帮帮管理助手", nil);
+    // 通知提示音 使用默认的
+    notification.soundName= @"notification_ring.mp3";
+    // 设置应用程序右上角的提醒个数
+    notification.applicationIconBadgeNumber++;
+    // 设定通知的userInfo，用来标识该通知
+    NSMutableDictionary *aUserInfo = [[NSMutableDictionary alloc] init];
+    [aUserInfo setObject:@(task.id) forKey:@"target_id"];
+    [aUserInfo setObject:@"TASKTIP" forKey:@"type"];
+    [aUserInfo setObject:[NSString stringWithFormat:@"任务提醒: %@", task.task_name] forKey:@"content"];
+    [aUserInfo setObject:[NSString stringWithFormat:@"%@",@([date timeIntervalSince1970] * 1000)] forKey:@"time"];
+    [aUserInfo setObject:@(task.company_no) forKey:@"company_no"];
+    [aUserInfo setObject:task.user_guid forKey:@"from_user_no"];
+    [aUserInfo setObject:@(_user.user_no) forKey:@"to_user_no"];
+    [aUserInfo setObject:@"GENERAL" forKey:@"action"];
+    notification.userInfo = aUserInfo;
+    // 将通知添加到系统中
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 }
 #pragma mark -- User
 //更新用户数据

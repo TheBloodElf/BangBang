@@ -107,7 +107,9 @@
     //提交任务数据后上传任务附件
     _attanmantIndex = 0;
     [self.navigationController.view showLoadingTips:@"创建任务..."];
-    [UserHttp createTask:[_taskModel JSONDictionary] handler:^(id data, MError *error) {
+    NSMutableDictionary *dicc = [[_taskModel JSONDictionary] mutableCopy];
+    [dicc setObject:_taskModel.descriptionStr forKey:@"description"];
+    [UserHttp createTask:dicc handler:^(id data, MError *error) {
         [self.navigationController.view dismissTips];
         if(error) {
             [self.navigationController.view dismissTips];
@@ -243,13 +245,22 @@
     } else if (indexPath.section == 3) {
         if(indexPath.row == 0) {//负责人
             SingleSelectController *single = [SingleSelectController new];
-            single.outEmployees = _memberArr;
+            NSMutableArray *array = [@[] mutableCopy];
+            //负责人还要去掉自己
+            [array addObjectsFromArray:_memberArr];
+            Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
+            [array addObject:employee];
+            single.outEmployees = array;
             single.delegate = self;
             [self.navigationController pushViewController:single animated:YES];
         } else {//参与人
             MuliteSelectController *mulite = [MuliteSelectController new];
+            NSMutableArray *array = [@[] mutableCopy];
             if(_incharge.id != 0)
-                mulite.outEmployees = [@[_incharge] mutableCopy];
+                array = [@[_incharge] mutableCopy];
+            Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
+            [array addObject:employee];
+            mulite.outEmployees = array;
             mulite.selectedEmployees = _memberArr;
             mulite.delegate = self;
             [self.navigationController pushViewController:mulite animated:YES];

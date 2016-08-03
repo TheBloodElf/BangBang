@@ -29,12 +29,13 @@
     for (int index = 0; index < array.count; index ++) {
         NSDate *createDate = [NSDate dateWithTimeIntervalSince1970:[array[index] integerValue] / 1000];
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+        [btn setTitleColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1] forState:UIControlStateNormal];
         btn.frame = CGRectMake((self.remindTime.frame.size.width / 2.f) * (index % 2), (index / 2) * 30, (self.remindTime.frame.size.width / 2.f), 15);
-        if(createDate.timeIntervalSince1970 < [NSDate date].timeIntervalSince1970)
-            [btn setImage:[UIImage imageNamed:@"btn_select_icon"] forState:UIControlStateNormal];
-        else
-            [btn setImage:[UIImage imageNamed:@"btn_nomaril_icon"] forState:UIControlStateNormal];
+        if(createDate.timeIntervalSince1970 > [NSDate date].timeIntervalSince1970)
+            [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        
         [btn setTitle:[NSString stringWithFormat:@"%d-%02ld-%02ld %02ld:%02ld",createDate.year,createDate.month,createDate.day,createDate.hour,createDate.minute] forState:UIControlStateNormal];
+        [self.remindTime addSubview:btn];
     }
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

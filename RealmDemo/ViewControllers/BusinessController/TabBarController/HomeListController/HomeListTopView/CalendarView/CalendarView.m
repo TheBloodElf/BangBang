@@ -48,6 +48,7 @@
     [self getCurrCount];
     //添加动画
     [self createPie];
+    [_userManager addCalendarNotfition];
 }
 #pragma mark --
 #pragma mark -- RBQFetchedResultsControllerDelegate
@@ -57,6 +58,7 @@
     [self getCurrCount];
     //添加动画
     [self createPie];
+    [_userManager addCalendarNotfition];
 }
 - (void)createPie {
     [leftLayer removeFromSuperlayer];

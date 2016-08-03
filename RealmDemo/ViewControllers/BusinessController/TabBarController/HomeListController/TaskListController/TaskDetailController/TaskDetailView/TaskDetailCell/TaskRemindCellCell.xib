@@ -21,7 +21,7 @@
                             <constraint firstAttribute="width" constant="51" id="smC-tt-FIi"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                         <variation key="default">
                             <mask key="constraints">
@@ -30,7 +30,7 @@
                         </variation>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="86a-fW-rfy">
-                        <rect key="frame" x="32" y="38" width="278" height="79"/>
+                        <rect key="frame" x="10" y="38" width="300" height="79"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </subviews>
@@ -39,7 +39,7 @@
                     <constraint firstAttribute="bottom" secondItem="86a-fW-rfy" secondAttribute="bottom" constant="15" id="LnS-Ud-Wpq"/>
                     <constraint firstItem="86a-fW-rfy" firstAttribute="top" secondItem="Cuj-oK-3TC" secondAttribute="bottom" constant="13" id="SRh-Gz-pnr"/>
                     <constraint firstItem="Cuj-oK-3TC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="gPW-pV-00o"/>
-                    <constraint firstItem="86a-fW-rfy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="32" id="kK6-eU-nnt"/>
+                    <constraint firstItem="86a-fW-rfy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="kK6-eU-nnt"/>
                     <constraint firstItem="Cuj-oK-3TC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="lLR-2a-e6C"/>
                 </constraints>
             </tableViewCellContentView>
