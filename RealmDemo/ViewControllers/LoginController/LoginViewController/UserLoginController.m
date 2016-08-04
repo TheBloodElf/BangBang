@@ -84,46 +84,70 @@
             User *user = [[User alloc] initWithJSONDictionary:data];
             UserManager *manager = [UserManager manager];
             [manager loadUserWithGuid:user.user_guid];
-            NSMutableArray *companys = [@[] mutableCopy];
-            for (NSDictionary *tempDic in data[@"user_companies"]) {
-                Company *company = [[Company alloc] initWithJSONDictionary:tempDic];
-                [companys addObject:company];
-            }
-            [manager updateCompanyArr:companys];
             [manager updateUser:user];
             _identityManager.identity.user_guid = user.user_guid;
             [_identityManager saveAuthorizeData];
-            //获取所有圈子的员工信息
-            [self.navigationController showLoadingTips:@"获取员工信息..."];
-            [UserHttp getEmployeeCompnyNo:0 status:5 userGuid:user.user_guid handler:^(id data, MError *error) {
+            //获取所有圈子 所有状态员工
+            [self.navigationController showLoadingTips:@"获取圈子信息..."];
+            [UserHttp getCompanysUserGuid:user.user_guid handler:^(id data, MError *error) {
                 if(error) {
                     [self.navigationController dismissTips];
                     _identityManager.identity.user_guid = @"";
                     [_identityManager saveAuthorizeData];
-                    [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
+                    [self.navigationController.view showFailureTips:error.statsMsg];
                     return ;
                 }
-                NSMutableArray *array = [@[] mutableCopy];
-                for (NSDictionary *dic in data[@"list"]) {
-                    Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
-                    [array addObject:employee];
+                NSMutableArray *companys = [@[] mutableCopy];
+                for (NSDictionary *tempDic in data) {
+                    Company *company = [[Company alloc] initWithJSONDictionary:tempDic];
+                    [companys addObject:company];
                 }
-                [manager updateEmployee:array companyNo:0];
-                //获取融云token
-                [self.navigationController showLoadingTips:@"获取token..."];
-                [UserHttp getRYToken:user.user_no handler:^(id data, MError *error) {
-                    [self.navigationController dismissTips];
+                [manager updateCompanyArr:companys];
+                //获取所有圈子的员工信息
+                [self.navigationController showLoadingTips:@"获取员工信息..."];
+                [UserHttp getEmployeeCompnyNo:0 status:5 userGuid:user.user_guid handler:^(id data, MError *error) {
                     if(error) {
+                        [self.navigationController dismissTips];
                         _identityManager.identity.user_guid = @"";
                         [_identityManager saveAuthorizeData];
                         [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
                         return ;
                     }
-                    _identityManager.identity.RYToken = data;
-                    [_identityManager saveAuthorizeData];
-                    [self.navigationController.view showFailureTips:@"登陆成功"];
-                    //发通知 登录成功
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginDidFinish" object:nil];
+                    NSMutableArray *array = [@[] mutableCopy];
+                    for (NSDictionary *dic in data[@"list"]) {
+                        Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
+                        [array addObject:employee];
+                    }
+                    [UserHttp getEmployeeCompnyNo:0 status:0 userGuid:user.user_guid handler:^(id data, MError *error) {
+                        if(error) {
+                            [self.navigationController dismissTips];
+                            _identityManager.identity.user_guid = @"";
+                            [_identityManager saveAuthorizeData];
+                            [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
+                            return ;
+                        }
+                        for (NSDictionary *dic in data[@"list"]) {
+                            Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
+                            [array addObject:employee];
+                        }
+                        [manager updateEmployee:array companyNo:0];
+                        //获取融云token
+                        [self.navigationController showLoadingTips:@"获取token..."];
+                        [UserHttp getRYToken:user.user_no handler:^(id data, MError *error) {
+                            [self.navigationController dismissTips];
+                            if(error) {
+                                _identityManager.identity.user_guid = @"";
+                                [_identityManager saveAuthorizeData];
+                                [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
+                                return ;
+                            }
+                            _identityManager.identity.RYToken = data;
+                            [_identityManager saveAuthorizeData];
+                            [self.navigationController.view showFailureTips:@"登陆成功"];
+                            //发通知 登录成功
+                            [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginDidFinish" object:nil];
+                        }];
+                    }];
                 }];
             }];
         }];
@@ -225,46 +249,70 @@
                             User *user = [[User alloc] initWithJSONDictionary:data];
                             UserManager *manager = [UserManager manager];
                             [manager loadUserWithGuid:user.user_guid];
-                            NSMutableArray *companys = [@[] mutableCopy];
-                            for (NSDictionary *tempDic in data[@"user_companies"]) {
-                                Company *company = [[Company alloc] initWithJSONDictionary:tempDic];
-                                [companys addObject:company];
-                            }
-                            [manager updateCompanyArr:companys];
-                            [manager updateUser:user];
                             _identityManager.identity.user_guid = user.user_guid;
                             [_identityManager saveAuthorizeData];
-                            //获取所有圈子的员工信息
-                            [self.navigationController showLoadingTips:@"获取员工信息..."];
-                            [UserHttp getEmployeeCompnyNo:0 status:5 userGuid:user.user_guid handler:^(id data, MError *error) {
+                            //获取所有圈子 所有状态员工
+                            [self.navigationController showLoadingTips:@"获取圈子信息..."];
+                            [UserHttp getCompanysUserGuid:user.user_guid handler:^(id data, MError *error) {
                                 if(error) {
                                     [self.navigationController dismissTips];
                                     _identityManager.identity.user_guid = @"";
                                     [_identityManager saveAuthorizeData];
-                                    [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
+                                    [self.navigationController.view showFailureTips:error.statsMsg];
                                     return ;
                                 }
-                                NSMutableArray *array = [@[] mutableCopy];
-                                for (NSDictionary *dic in data[@"list"]) {
-                                    Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
-                                    [array addObject:employee];
+                                NSMutableArray *companys = [@[] mutableCopy];
+                                for (NSDictionary *tempDic in data) {
+                                    Company *company = [[Company alloc] initWithJSONDictionary:tempDic];
+                                    [companys addObject:company];
                                 }
-                                [manager updateEmployee:array companyNo:0];
-                                //获取融云token
-                                [self.navigationController showLoadingTips:@"获取token..."];
-                                [UserHttp getRYToken:user.user_no handler:^(id data, MError *error) {
-                                    [self.navigationController dismissTips];
+                                [manager updateCompanyArr:companys];
+                                [manager updateUser:user];
+                                //获取所有圈子的员工信息
+                                [self.navigationController showLoadingTips:@"获取员工信息..."];
+                                [UserHttp getEmployeeCompnyNo:0 status:5 userGuid:user.user_guid handler:^(id data, MError *error) {
                                     if(error) {
+                                        [self.navigationController dismissTips];
                                         _identityManager.identity.user_guid = @"";
                                         [_identityManager saveAuthorizeData];
                                         [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
                                         return ;
                                     }
-                                    _identityManager.identity.RYToken = data;
-                                    [_identityManager saveAuthorizeData];
-                                    [self.navigationController.view showFailureTips:@"登陆成功"];
-                                    //发通知 登录成功
-                                    [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginDidFinish" object:nil];
+                                    NSMutableArray *array = [@[] mutableCopy];
+                                    for (NSDictionary *dic in data[@"list"]) {
+                                        Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
+                                        [array addObject:employee];
+                                    }
+                                    [UserHttp getEmployeeCompnyNo:0 status:0 userGuid:user.user_guid handler:^(id data, MError *error) {
+                                        if(error) {
+                                            [self.navigationController dismissTips];
+                                            _identityManager.identity.user_guid = @"";
+                                            [_identityManager saveAuthorizeData];
+                                            [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
+                                            return ;
+                                        }
+                                        for (NSDictionary *dic in data[@"list"]) {
+                                            Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
+                                            [array addObject:employee];
+                                        }
+                                        [manager updateEmployee:array companyNo:0];
+                                        //获取融云token
+                                        [self.navigationController showLoadingTips:@"获取token..."];
+                                        [UserHttp getRYToken:user.user_no handler:^(id data, MError *error) {
+                                            [self.navigationController dismissTips];
+                                            if(error) {
+                                                _identityManager.identity.user_guid = @"";
+                                                [_identityManager saveAuthorizeData];
+                                                [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
+                                                return ;
+                                            }
+                                            _identityManager.identity.RYToken = data;
+                                            [_identityManager saveAuthorizeData];
+                                            [self.navigationController.view showFailureTips:@"登陆成功"];
+                                            //发通知 登录成功
+                                            [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginDidFinish" object:nil];
+                                        }];
+                                    }];
                                 }];
                             }];
                         }];
@@ -299,46 +347,63 @@
         User *user = [[User alloc] initWithJSONDictionary:data];
         UserManager *manager = [UserManager manager];
         [manager loadUserWithGuid:user.user_guid];
-        NSMutableArray *companys = [@[] mutableCopy];
-        for (NSDictionary *tempDic in data[@"user_companies"]) {
-            Company *company = [[Company alloc] initWithJSONDictionary:tempDic];
-            [companys addObject:company];
-        }
-        [manager updateCompanyArr:companys];
-        [manager updateUser:user];
         _identityManager.identity.user_guid = user.user_guid;
         [_identityManager saveAuthorizeData];
-        //获取所有圈子员工
-        [self.navigationController.view showLoadingTips:@"获取员工信息..."];
-        [UserHttp getEmployeeCompnyNo:0 status:5 userGuid:user.user_guid handler:^(id data, MError *error) {
-            if(error) {
-                [self.navigationController dismissTips];
-                _identityManager.identity.user_guid = @"";
-                [_identityManager saveAuthorizeData];
-                [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
-                return ;
+        //获取所有圈子 所有状态员工
+        [self.navigationController showLoadingTips:@"获取圈子信息..."];
+        [UserHttp getCompanysUserGuid:user.user_guid handler:^(id data, MError *error) {
+            NSMutableArray *companys = [@[] mutableCopy];
+            for (NSDictionary *tempDic in data) {
+                Company *company = [[Company alloc] initWithJSONDictionary:tempDic];
+                [companys addObject:company];
             }
-            NSMutableArray *array = [@[] mutableCopy];
-            for (NSDictionary *dic in data[@"list"]) {
-                Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
-                [array addObject:employee];
-            }
-            [manager updateEmployee:array companyNo:0];
-            //获取融云token
-            [self.navigationController.view showLoadingTips:@"获取token..."];
-            [UserHttp getRYToken:user.user_no handler:^(id data, MError *error) {
-                [self.navigationController dismissTips];
+            [manager updateCompanyArr:companys];
+            [manager updateUser:user];
+            //获取所有圈子的员工信息
+            [self.navigationController showLoadingTips:@"获取员工信息..."];
+            [UserHttp getEmployeeCompnyNo:0 status:5 userGuid:user.user_guid handler:^(id data, MError *error) {
                 if(error) {
+                    [self.navigationController dismissTips];
                     _identityManager.identity.user_guid = @"";
                     [_identityManager saveAuthorizeData];
                     [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
                     return ;
                 }
-                _identityManager.identity.RYToken = data;
-                [_identityManager saveAuthorizeData];
-                [self.navigationController.view showFailureTips:@"登陆成功"];
-                //发通知 登录成功
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginDidFinish" object:nil];
+                NSMutableArray *array = [@[] mutableCopy];
+                for (NSDictionary *dic in data[@"list"]) {
+                    Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
+                    [array addObject:employee];
+                }
+                [UserHttp getEmployeeCompnyNo:0 status:0 userGuid:user.user_guid handler:^(id data, MError *error) {
+                    if(error) {
+                        [self.navigationController dismissTips];
+                        _identityManager.identity.user_guid = @"";
+                        [_identityManager saveAuthorizeData];
+                        [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
+                        return ;
+                    }
+                    for (NSDictionary *dic in data[@"list"]) {
+                        Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
+                        [array addObject:employee];
+                    }
+                    [manager updateEmployee:array companyNo:0];
+                    //获取融云token
+                    [self.navigationController showLoadingTips:@"获取token..."];
+                    [UserHttp getRYToken:user.user_no handler:^(id data, MError *error) {
+                        [self.navigationController dismissTips];
+                        if(error) {
+                            _identityManager.identity.user_guid = @"";
+                            [_identityManager saveAuthorizeData];
+                            [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
+                            return ;
+                        }
+                        _identityManager.identity.RYToken = data;
+                        [_identityManager saveAuthorizeData];
+                        [self.navigationController.view showFailureTips:@"登陆成功"];
+                        //发通知 登录成功
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginDidFinish" object:nil];
+                    }];
+                }];
             }];
         }];
     }];
@@ -390,46 +455,62 @@
                     User *user = [[User alloc] initWithJSONDictionary:data];
                     UserManager *manager = [UserManager manager];
                     [manager loadUserWithGuid:user.user_guid];
-                    NSMutableArray *companys = [@[] mutableCopy];
-                    for (NSDictionary *tempDic in data[@"user_companies"]) {
-                        Company *company = [[Company alloc] initWithJSONDictionary:tempDic];
-                        [companys addObject:company];
-                    }
-                    [manager updateCompanyArr:companys];
-                    [manager updateUser:user];
                     _identityManager.identity.user_guid = user.user_guid;
                     [_identityManager saveAuthorizeData];
-                    //获取所有圈子员工
-                    [self.navigationController.view showLoadingTips:@"获取员工信息..."];
-                    [UserHttp getEmployeeCompnyNo:0 status:5 userGuid:user.user_guid handler:^(id data, MError *error) {
-                        if(error) {
-                            [self.navigationController dismissTips];
-                            _identityManager.identity.user_guid = @"";
-                            [_identityManager saveAuthorizeData];
-                            [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
-                            return ;
+                    //获取所有圈子 所有状态员工
+                    [UserHttp getCompanysUserGuid:user.user_guid handler:^(id data, MError *error) {
+                        NSMutableArray *companys = [@[] mutableCopy];
+                        for (NSDictionary *tempDic in data) {
+                            Company *company = [[Company alloc] initWithJSONDictionary:tempDic];
+                            [companys addObject:company];
                         }
-                        NSMutableArray *array = [@[] mutableCopy];
-                        for (NSDictionary *dic in data[@"list"]) {
-                            Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
-                            [array addObject:employee];
-                        }
-                        [manager updateEmployee:array companyNo:0];
-                        //获取融云token
-                        [self.navigationController.view showLoadingTips:@"获取token..."];
-                        [UserHttp getRYToken:user.user_no handler:^(id data, MError *error) {
-                            [self.navigationController dismissTips];
+                        [manager updateCompanyArr:companys];
+                        [manager updateUser:user];
+                        //获取所有圈子的员工信息
+                        [self.navigationController showLoadingTips:@"获取员工信息..."];
+                        [UserHttp getEmployeeCompnyNo:0 status:5 userGuid:user.user_guid handler:^(id data, MError *error) {
                             if(error) {
+                                [self.navigationController dismissTips];
                                 _identityManager.identity.user_guid = @"";
                                 [_identityManager saveAuthorizeData];
                                 [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
                                 return ;
                             }
-                            _identityManager.identity.RYToken = data;
-                            [_identityManager saveAuthorizeData];
-                            [self.navigationController.view showFailureTips:@"登陆成功"];
-                            //发通知 登录成功
-                            [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginDidFinish" object:nil];
+                            NSMutableArray *array = [@[] mutableCopy];
+                            for (NSDictionary *dic in data[@"list"]) {
+                                Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
+                                [array addObject:employee];
+                            }
+                            [UserHttp getEmployeeCompnyNo:0 status:0 userGuid:user.user_guid handler:^(id data, MError *error) {
+                                if(error) {
+                                    [self.navigationController dismissTips];
+                                    _identityManager.identity.user_guid = @"";
+                                    [_identityManager saveAuthorizeData];
+                                    [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
+                                    return ;
+                                }
+                                for (NSDictionary *dic in data[@"list"]) {
+                                    Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
+                                    [array addObject:employee];
+                                }
+                                [manager updateEmployee:array companyNo:0];
+                                //获取融云token
+                                [self.navigationController showLoadingTips:@"获取token..."];
+                                [UserHttp getRYToken:user.user_no handler:^(id data, MError *error) {
+                                    [self.navigationController dismissTips];
+                                    if(error) {
+                                        _identityManager.identity.user_guid = @"";
+                                        [_identityManager saveAuthorizeData];
+                                        [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
+                                        return ;
+                                    }
+                                    _identityManager.identity.RYToken = data;
+                                    [_identityManager saveAuthorizeData];
+                                    [self.navigationController.view showFailureTips:@"登陆成功"];
+                                    //发通知 登录成功
+                                    [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginDidFinish" object:nil];
+                                }];
+                            }];
                         }];
                     }];
                 }];

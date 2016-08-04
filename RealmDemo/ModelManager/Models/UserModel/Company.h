@@ -7,6 +7,7 @@
 //
 @class Employee;
 //圈子
+//这里要注意：只存当前用户在此圈子中状态为在职或者申请离职的  其他状态的不存
 @interface Company : RLMObject
 
 @property (nonatomic, strong) NSString *admin_user_guid;//管理员guid

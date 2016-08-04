@@ -163,6 +163,17 @@
     return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
 }
 #pragma mark -- 工作圈
+//获取工作圈信息
++ (NSURLSessionDataTask*)getCompanyInfo:(int)companyId handler:(completionHandler)handler {
+    NSString *urlPath = @"Companies/company_info";
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:@(companyId) forKey:@"company_no"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_GET URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
 //转让工作圈
 + (NSURLSessionDataTask*)transCompany:(int)companyNo ownerGuid:(NSString*)ownerGuid toGuid:(NSString*)toGuid handler:(completionHandler)handler {
     NSString *urlPath = @"Companies/transfer";
@@ -217,9 +228,9 @@
     };
     return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_GET URLPath:urlPath parameters:params completionHandler:compleionHandler];
 }
-//获取用户所在工作圈
+//获取用户所在工作圈 所有状态
 + (NSURLSessionDataTask*)getCompanysUserGuid:(NSString*)userGuid handler:(completionHandler)handler {
-    NSString *urlPath = @"Companies/user_companies";
+    NSString *urlPath = @"Companies/user_all_companies";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params setObject:userGuid forKey:@"user_guid"];
     [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];

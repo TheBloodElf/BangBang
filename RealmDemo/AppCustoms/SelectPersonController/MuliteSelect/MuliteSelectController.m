@@ -69,9 +69,9 @@
     if(self.discussMember) {//显示讨论组的员工
         employeeArr = self.discussMember;
     } else if (self.companyNo) {//显示某个圈子的员工
-         employeeArr = [_userManager getEmployeeWithCompanyNo:self.companyNo status:1];
+         employeeArr = [_userManager getEmployeeWithCompanyNo:self.companyNo status:5];
     } else {//显示当前圈子员工
-        employeeArr = [_userManager getEmployeeWithCompanyNo:_userManager.user.currCompany.company_no status:1];
+        employeeArr = [_userManager getEmployeeWithCompanyNo:_userManager.user.currCompany.company_no status:5];
     }
     //排除掉不显示的员工
     NSMutableArray<NSString*> *outIdArr = [@[] mutableCopy];

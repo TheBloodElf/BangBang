@@ -48,7 +48,8 @@
 @property (nonatomic, strong) NSString  * join_reason;
 /** 离职理由 */
 @property (nonatomic, strong) NSString  * leave_reason;
-/** status 员工状态:0-待审核(申请加入)，1-在职，2-已离职，3-已拒绝加入，4-申请离职中(默认在职)，5-包括在职和申请离职中 */
+/** status 员工状态:0-待审核(申请加入)，1-在职，2-已离职，3-拒绝加入 4-申请离职中(默认在职） */
+//本地：-1（所有）, 5（0/4）
 @property (nonatomic, assign) int status;
 /** 是不是管理员 */
 @property (nonatomic, assign) int is_admin;

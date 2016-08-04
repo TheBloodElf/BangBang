@@ -19,13 +19,157 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "RealmDemo/ModelManager/UserManager/UserManager.m"
-            timestampString = "491911666.122942"
+            filePath = "RealmDemo/ViewControllers/BusinessController/TabBarController/MineViewController/BushManagerController/BushSearchController/BushSearchViewController.m"
+            timestampString = "491990260.462087"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
-            landmarkName = "-addSiginRuleNotfition"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
+            landmarkName = "-bushSearchCellJoin:"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__47-[BushSearchViewController bushSearchCellJoin:]_block_invoke_2"
+                  moduleName = "&#x5e2e;&#x5e2e;&#x7ba1;&#x7406;&#x52a9;&#x624b;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/pc011/Desktop/%E5%B8%AE%E5%B8%AE%E9%A1%B9%E7%9B%AE%E5%B0%86%E8%A6%81%E4%BD%BF%E7%94%A8%E7%9A%84%E6%96%87%E4%BB%B6/BangBang/RealmDemo/ViewControllers/BusinessController/TabBarController/MineViewController/BushManagerController/BushSearchController/BushSearchViewController.m"
+                  timestampString = "491995766.30067"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "131"
+                  endingLineNumber = "131"
+                  offsetFromSymbolStart = "498">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__47-[BushSearchViewController bushSearchCellJoin:]_block_invoke_3"
+                  moduleName = "&#x5e2e;&#x5e2e;&#x7ba1;&#x7406;&#x52a9;&#x624b;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/pc011/Desktop/%E5%B8%AE%E5%B8%AE%E9%A1%B9%E7%9B%AE%E5%B0%86%E8%A6%81%E4%BD%BF%E7%94%A8%E7%9A%84%E6%96%87%E4%BB%B6/BangBang/RealmDemo/ViewControllers/BusinessController/TabBarController/MineViewController/BushManagerController/BushSearchController/BushSearchViewController.m"
+                  timestampString = "491995766.300827"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "132"
+                  endingLineNumber = "132"
+                  offsetFromSymbolStart = "68">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RealmDemo/ViewControllers/BusinessController/TabBarController/MineViewController/BushManagerController/BushSearchController/BushSearchViewController.m"
+            timestampString = "491990458.791528"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
+            landmarkName = "-bushSearchCellJoin:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RealmDemo/ModelManager/GeTuiSdkManager/GeTuiSdkManager.m"
+            timestampString = "491991169.016737"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "-GeTuiSdkDidReceivePayload:andTaskId:andMessageId:andOffLine:fromApplication:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RealmDemo/ModelManager/GeTuiSdkManager/GeTuiSdkManager.m"
+            timestampString = "491992803.749079"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "-GeTuiSdkDidReceivePayload:andTaskId:andMessageId:andOffLine:fromApplication:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RealmDemo/ViewControllers/BusinessController/LeftMenuController/LeftMenuController.m"
+            timestampString = "491994244.390904"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "-controllerDidChangeContent:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RealmDemo/ModelManager/GeTuiSdkManager/GeTuiSdkManager.m"
+            timestampString = "491995181.950299"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "132"
+            endingLineNumber = "132"
+            landmarkName = "-GeTuiSdkDidReceivePayload:andTaskId:andMessageId:andOffLine:fromApplication:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RealmDemo/ModelManager/GeTuiSdkManager/GeTuiSdkManager.m"
+            timestampString = "491995151.080492"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
+            landmarkName = "-GeTuiSdkDidReceivePayload:andTaskId:andMessageId:andOffLine:fromApplication:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RealmDemo/ModelManager/GeTuiSdkManager/GeTuiSdkManager.m"
+            timestampString = "491995720.461142"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "145"
+            endingLineNumber = "145"
+            landmarkName = "-GeTuiSdkDidReceivePayload:andTaskId:andMessageId:andOffLine:fromApplication:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

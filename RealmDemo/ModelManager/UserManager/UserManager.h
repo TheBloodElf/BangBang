@@ -60,7 +60,7 @@
 //根据圈子NO获取员工数组 状态为－1查询所有状态
 - (NSMutableArray<Employee*>*)getEmployeeWithCompanyNo:(int)companNo status:(int)status;
 //根据圈子和状态创建数据库监听 主要用于申请管理用
-- (RBQFetchedResultsController*)createEmployeesFetchedResultsControllerWithCompanyNo:(int)companyNo status:(int)status;
+- (RBQFetchedResultsController*)createEmployeesFetchedResultsControllerWithCompanyNo:(int)companyNo;
 #pragma mark -- PushMessage
 //添加某个推送消息
 - (void)addPushMessage:(PushMessage*)pushMessage;

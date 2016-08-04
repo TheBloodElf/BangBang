@@ -328,7 +328,7 @@
 //添加某个圈子
 - (void)addCompany:(Company*)company {
     [_rlmRealm beginWriteTransaction];
-    [_rlmRealm addObject:company];
+    [_rlmRealm addOrUpdateObject:company];
     [_rlmRealm commitWriteTransaction];
 }
 //删除某个圈子
@@ -393,16 +393,20 @@
     NSMutableArray *array = [@[] mutableCopy];
     [_rlmRealm beginWriteTransaction];
     NSPredicate *pred = nil;
-    //如果有圈子id就查询指定圈子员工 如果有状态就查询状态
+    //如果有圈子id就查询指定圈子员工 如果有状态就查询状态 5查询在职 -1 查询所有
     if(companyNo) {
         if(status == -1) {
             pred = [NSPredicate predicateWithFormat:@"company_no = %d",companyNo];
+        } else if(status == 5) {
+            pred = [NSPredicate predicateWithFormat:@"company_no = %d and (status = 1 or status = 4)",companyNo];
         } else {
             pred = [NSPredicate predicateWithFormat:@"company_no = %d and status = %d",companyNo,status];
         }
     } else {
         if(status == -1) {
-           
+            
+        } else if(status == 5) {
+            pred = [NSPredicate predicateWithFormat:@"status = 1 or status = 4"];
         } else {
             pred = [NSPredicate predicateWithFormat:@"status = %d",status];
         }
@@ -416,23 +420,10 @@
     return array;
 }
 //根据圈子和状态创建数据库监听
-- (RBQFetchedResultsController*)createEmployeesFetchedResultsControllerWithCompanyNo:(int)companyNo status:(int)status {
+- (RBQFetchedResultsController*)createEmployeesFetchedResultsControllerWithCompanyNo:(int)companyNo {
     RBQFetchedResultsController *fetchedResultsController = nil;
     NSPredicate *pred = nil;
-    //如果有圈子id就查询指定圈子员工 如果有状态就查询状态
-    if(companyNo) {
-        if(status == -1) {
-            pred = [NSPredicate predicateWithFormat:@"company_no = %d",companyNo];
-        } else {
-            pred = [NSPredicate predicateWithFormat:@"company_no = %d and status = %d",companyNo,status];
-        }
-    } else {
-        if(status == -1) {
-            
-        } else {
-            pred = [NSPredicate predicateWithFormat:@"status = %d",status];
-        }
-    }
+    pred = [NSPredicate predicateWithFormat:@"company_no = %d",companyNo];
     RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"Employee" inRealm:_rlmRealm predicate:pred];
     fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:@"Employee"];
     [fetchedResultsController performFetch];
@@ -442,7 +433,7 @@
 //添加某个推送消息
 - (void)addPushMessage:(PushMessage*)pushMessage {
     [_rlmRealm beginWriteTransaction];
-    [_rlmRealm addObject:pushMessage];
+    [_rlmRealm addOrUpdateObject:pushMessage];
     [_rlmRealm commitWriteTransaction];
 }
 //修改某个推送消息

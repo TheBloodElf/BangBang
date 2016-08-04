@@ -73,6 +73,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTaskInfo:) name:@"ReloadTaskInfo" object:nil];
     // Do any additional setup after loading the view from its nib.
 }
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
 - (void)dataDidChange {
     _taskModel = [self.data deepCopy];
 }

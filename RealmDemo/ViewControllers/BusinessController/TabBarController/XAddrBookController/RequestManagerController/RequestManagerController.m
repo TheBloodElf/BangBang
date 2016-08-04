@@ -17,7 +17,6 @@
     NSMutableArray<Employee*> *_joinDataArr;//申请加入的员工数组
     RBQFetchedResultsController *_joinFetchedResultsController;//状态为0的员工数据监听
     NSMutableArray<Employee*> *_exitDataArr;//申请退出的员工数组
-    RBQFetchedResultsController *_exitFetchedResultsController;//状态为4的员工数据监听
 }
 
 @end
@@ -29,12 +28,17 @@
     self.title = @"申请管理";
     //创建数据监听
     _userManager = [UserManager manager];
-    _joinFetchedResultsController = [_userManager createEmployeesFetchedResultsControllerWithCompanyNo:_userManager.user.currCompany.company_no status:0];
+    _joinFetchedResultsController = [_userManager createEmployeesFetchedResultsControllerWithCompanyNo:_userManager.user.currCompany.company_no];
     _joinFetchedResultsController.delegate = self;
-    _exitFetchedResultsController = [_userManager createEmployeesFetchedResultsControllerWithCompanyNo:_userManager.user.currCompany.company_no status:4];
-    _exitFetchedResultsController.delegate = self;
-    _joinDataArr = [_userManager getEmployeeWithCompanyNo:_userManager.user.currCompany.company_no status:0];
-    _exitDataArr = [_userManager getEmployeeWithCompanyNo:_userManager.user.currCompany.company_no status:4];
+    _joinDataArr = [@[] mutableCopy];
+    _exitDataArr = [@[] mutableCopy];
+    for (Employee *employee in [_userManager getEmployeeWithCompanyNo:_userManager.user.currCompany.company_no status:-1]) {
+        if(employee.status == 0) {
+            [_joinDataArr addObject:employee];
+        } else if (employee.status == 4) {
+            [_exitDataArr addObject:employee];
+        }
+    }
     //创建表格视图
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     _tableView.delegate = self;
@@ -42,7 +46,7 @@
     _tableView.tableFooterView = [UIView new];
     [_tableView registerNib:[UINib nibWithNibName:@"RequestManagerCell" bundle:nil] forCellReuseIdentifier:@"RequestManagerCell"];
     _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [UserHttp getEmployeeCompnyNo:_userManager.user.currCompany.company_no status:-1 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+        [UserHttp getEmployeeCompnyNo:_userManager.user.currCompany.company_no status:0 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
             [_tableView.mj_header endRefreshing];
             if(error) {
                 [self.navigationController.view showFailureTips:@"获取失败，请重试"];
@@ -53,24 +57,43 @@
                 Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
                 [array addObject:employee];
             }
-            //存入本地数据库
-            [_userManager updateEmployee:array companyNo:_userManager.user.currCompany.company_no];
+            [UserHttp getEmployeeCompnyNo:_userManager.user.currCompany.company_no status:4 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+                [_tableView.mj_header endRefreshing];
+                if(error) {
+                    [self.navigationController.view showFailureTips:@"获取失败，请重试"];
+                    return ;
+                }
+                for (NSDictionary *dic in data[@"list"]) {
+                    Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
+                    [array addObject:employee];
+                }
+                //存入本地数据库
+                for (Employee *employee in array) {
+                    [_userManager updateEmployee:employee];
+                }
+            }];
         }];
     }];
     [self.view addSubview:_tableView];
     // Do any additional setup after loading the view.
 }
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
 #pragma mark --
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
-    if(controller == _joinFetchedResultsController) {
-        _joinDataArr = (id)_joinFetchedResultsController.fetchedObjects;
-        [_tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+    [_joinDataArr removeAllObjects];
+    [_exitDataArr removeAllObjects];
+    for (Employee *employee in (id)_joinFetchedResultsController.fetchedObjects) {
+        if(employee.status == 0) {
+            [_joinDataArr addObject:employee];
+        } else if (employee.status == 4) {
+            [_exitDataArr addObject:employee];
+        }
     }
-    else {
-        _exitDataArr = (id)_exitFetchedResultsController.fetchedObjects;
-        [_tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
-    }
+    [_tableView reloadData];
 }
 #pragma mark --
 #pragma mark -- RequestManagerCellDelegate
@@ -81,14 +104,15 @@
     UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self.navigationController.view showLoadingTips:@"请稍等..."];
-        [UserHttp updateEmployeeStatus:employee.employee_guid status:status reason:nil handler:^(id data, MError *error) {
+        [UserHttp updateEmployeeStatus:employee.employee_guid status:status reason:@"" handler:^(id data, MError *error) {
             if(error) {
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
             //更新用户信息
-            employee.status = status;
-            [_userManager updateEmployee:employee];
+            Employee *tempEmployee = [employee deepCopy];
+            tempEmployee.status = status;
+            [_userManager updateEmployee:tempEmployee];
             //这里要调用加入/退出群租聊天
             if(status == 1) {
                 [UserHttp joinRYGroup:employee.user_no companyNo:_userManager.user.currCompany.company_no handler:^(id data, MError *error) {
@@ -122,15 +146,16 @@
     UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self.navigationController.view showLoadingTips:@"请稍等..."];
-        [UserHttp updateEmployeeStatus:employee.employee_guid status:status reason:nil handler:^(id data, MError *error) {
+        [UserHttp updateEmployeeStatus:employee.employee_guid status:status reason:@"" handler:^(id data, MError *error) {
             [self.navigationController.view dismissTips];
             if(error) {
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
             //更新用户信息
-            employee.status = status;
-            [_userManager updateEmployee:employee];
+            Employee *tempEmployee = [employee deepCopy];
+            tempEmployee.status = status;
+            [_userManager updateEmployee:tempEmployee];
             [self.navigationController.view showSuccessTips:@"操作成功"];
         }];
     }];

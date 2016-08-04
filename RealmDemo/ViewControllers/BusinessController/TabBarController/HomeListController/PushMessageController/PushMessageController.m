@@ -16,6 +16,8 @@
 #import "PushMessage.h"
 #import "UserManager.h"
 #import "IdentityManager.h"
+#import "TaskDetailController.h"
+#import "UserHttp.h"
 
 @interface PushMessageController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,RBQFetchedResultsControllerDelegate> {
     UserManager *_userManager;
@@ -191,8 +193,30 @@
             }
         } else if ([message.type isEqualToString:@"TASK"]) {//如果是任务
             //进入任务详情
+            //获取任务详情 弹窗
+            [UserHttp getTaskInfo:[message.target_id intValue] handler:^(id data, MError *error) {
+                [self dismissTips];
+                if(error) {
+                    [self showFailureTips:error.statsMsg];
+                    return ;
+                }
+                TaskModel *taskModel = [[TaskModel alloc] initWithJSONDictionary:data];
+                taskModel.descriptionStr = data[@"description"];
+                [_userManager upadteTask:taskModel];
+                
+                TaskDetailController *task = [TaskDetailController new];
+                task.data = taskModel;
+                [self.navigationController pushViewController:task animated:YES];
+            }];
         } else if ([message.type isEqualToString:@"TASK_COMMENT_STATUS"]) {//如果是任务讨论信息变了
-            //查看任务详情
+            for (TaskModel *model in [_userManager getTaskArr:message.company_no]) {
+                if(model.id == message.target_id.intValue) {
+                    TaskDetailController *task = [TaskDetailController new];
+                    task.data = task;
+                    [self.navigationController pushViewController:task animated:YES];
+                    break;
+                }
+            }
         } else if ([message.type isEqualToString:@"CALENDARTIP"] || [message.type isEqualToString:@"CALENDAR"]) {//日程推送：日程分享
             NSArray<Calendar*> *calendarArr = [[UserManager manager] getCalendarArr];
             Calendar *calendar = nil;
@@ -213,6 +237,14 @@
             }
         } else if ([message.type isEqualToString:@"TASKTIP"]) {//任务提醒推送
             //进入任务详情
+            for (TaskModel *model in [_userManager getTaskArr:message.company_no]) {
+                if(model.id == message.target_id.intValue) {
+                    TaskDetailController *task = [TaskDetailController new];
+                    task.data = task;
+                    [self.navigationController pushViewController:task animated:YES];
+                    break;
+                }
+            }
         }//网页
         else if ([message.type isEqualToString:@"REQUEST"]){
             WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];

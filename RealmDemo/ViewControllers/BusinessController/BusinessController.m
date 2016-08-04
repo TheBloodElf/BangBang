@@ -17,7 +17,9 @@
 #import "TabBarController.h"
 #import "UserHttp.h"
 #import "UserManager.h"
+#import "TaskModel.h"
 #import "IdentityManager.h"
+#import "TaskDetailController.h"
 
 @interface BusinessController () {
     UserManager *_userManager;
@@ -67,11 +69,48 @@
             [_businessNav pushViewController:[BushManageViewController new] animated:YES];
         }
     } else if ([message.type isEqualToString:@"TASK"]) {//任务推送
-        
+        //获取任务详情 弹窗
+        [UserHttp getTaskInfo:[message.target_id intValue] handler:^(id data, MError *error) {
+            [self dismissTips];
+            if(error) {
+                [self showFailureTips:error.statsMsg];
+                return ;
+            }
+            TaskModel *taskModel = [[TaskModel alloc] initWithJSONDictionary:data];
+            taskModel.descriptionStr = data[@"description"];
+            [_userManager upadteTask:taskModel];
+            
+            TaskDetailController *task = [TaskDetailController new];
+            task.data = taskModel;
+            [_businessNav pushViewController:task animated:YES];
+        }];
     } else if([message.type isEqualToString:@"TASK_COMMENT_STATUS"]){//任务评论推送
-        
-    } else if([message.type isEqualToString:@"TASKTIP"]) { //任务提醒推送
-        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadTaskInfo" object:nil];
+    } else if([message.type isEqualToString:@"TASKTIP"]) { //任务提醒推送 进入任务详情
+        for (TaskModel *taskModel in [_userManager getTaskArr:message.company_no]) {
+            if(message.target_id.intValue == taskModel.id) {
+                TaskDetailController *task = [TaskDetailController new];
+                task.data = taskModel;
+                [_businessNav pushViewController:task animated:YES];
+                break;
+            }
+        }
+    } else if([message.type isEqualToString:@"CALENDARTIP"]) {//日程提醒 进入日程详情
+        for (Calendar *calendar in [_userManager getCalendarArr]) {
+            if(calendar.id == [message.target_id intValue]) {
+                //展示详情
+                if(calendar.repeat_type == 0) {
+                    ComCalendarDetailViewController *com = [ComCalendarDetailViewController new];
+                    com.data = calendar;
+                    [_businessNav pushViewController:com animated:YES];
+                } else {
+                    RepCalendarDetailController *com = [RepCalendarDetailController new];
+                    com.data = calendar;
+                    [_businessNav pushViewController:com animated:YES];
+                }
+                break;
+            }
+        }
     } else if([message.type isEqualToString:@"CALENDAR"]){ //日程推送 分享日程
         NSArray *array = [_userManager getCalendarArr];
         Calendar *calendar = nil;

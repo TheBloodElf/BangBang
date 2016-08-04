@@ -29,7 +29,7 @@
     _userManager = [UserManager manager];
     _employeeArr = [@[] mutableCopy];
     NSArray *idArr = [_taskModel.members componentsSeparatedByString:@","];
-    NSArray *employeeArr = [_userManager getEmployeeWithCompanyNo:_taskModel.company_no status:-1];
+    NSArray *employeeArr = [_userManager getEmployeeWithCompanyNo:_taskModel.company_no status:5];
     for (NSString *guid in idArr) {
         for (Employee *employee in employeeArr) {
             if([guid isEqualToString:employee.employee_guid]) {

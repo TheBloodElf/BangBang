@@ -39,7 +39,7 @@
     _companyFetchedResultsController = [_userManager createCompanyFetchedResultsController];
     _companyFetchedResultsController.delegate = self;
     //设置标签的位置和约束
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 64) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.tableFooterView = [UIView new];
@@ -47,8 +47,8 @@
     [self.view addSubview:_tableView];
     _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [UserHttp getCompanysUserGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+            [_tableView.mj_header endRefreshing];
             if(error) {
-                [_tableView.mj_header endRefreshing];
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
@@ -58,12 +58,6 @@
                 [companys addObject:company];
             }
             [_userManager updateCompanyArr:companys];
-            _companyArr = companys;
-            [_tableView.mj_header endRefreshing];
-            if(_companyArr.count == 0)
-                _tableView.tableFooterView = _noDataView;
-            else
-                _tableView.tableFooterView = [UIView new];
         }];
     }];
     //创建空太图
@@ -73,8 +67,13 @@
     label.font = [UIFont systemFontOfSize:12];
     label.textColor = [UIColor grayColor];
     [_noDataView addSubview:label];
-    //获取当前用户所有的圈子
-    _companyArr = [_userManager getCompanyArr];
+    //只显示自己状态为4或者1的
+    for (Company *company in [_userManager getCompanyArr]) {
+        Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:company.company_no];
+        if(employee.status == 1 || employee.status == 4) {
+            [_companyArr addObject:company];
+        }
+    }
     if(_companyArr.count == 0)
         _tableView.tableFooterView = _noDataView;
     [_tableView reloadData];
@@ -123,7 +122,14 @@
 #pragma mark -- 
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
-    _companyArr = (id)controller.fetchedObjects;
+    [_companyArr removeAllObjects];
+    //只显示自己状态为4或者1的
+    for (Company *company in (id)controller.fetchedObjects) {
+        Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:company.company_no];
+        if(employee.status == 1 || employee.status == 4) {
+            [_companyArr addObject:company];
+        }
+    }
     if(_companyArr.count == 0)
         _tableView.tableFooterView = _noDataView;
     else

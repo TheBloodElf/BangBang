@@ -44,6 +44,8 @@
 #pragma mark -- 修改用户信息
 + (NSURLSessionDataTask*)updateUserInfo:(User*)user handler:(completionHandler)handler;
 #pragma mark -- 工作圈
+//获取工作圈信息
++ (NSURLSessionDataTask*)getCompanyInfo:(int)companyId handler:(completionHandler)handler;
 //转让工作圈
 + (NSURLSessionDataTask*)transCompany:(int)companyNo ownerGuid:(NSString*)ownerGuid toGuid:(NSString*)toGuid handler:(completionHandler)handler;
 //加入工作圈

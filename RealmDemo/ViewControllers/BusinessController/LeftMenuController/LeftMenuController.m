@@ -46,8 +46,13 @@
     [self.avaterImageView sd_setImageWithURL:[NSURL URLWithString:user.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
     self.userName.text = user.real_name;
     self.userMood.text = user.mood;
-    //设置圈子信息
-    _companyArr = [_userManager getCompanyArr];
+    //设置圈子信息 只显示自己状态为1或者4的
+    for (Company *company in [_userManager getCompanyArr]) {
+        Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:company.company_no];
+        if(employee.status == 1 || employee.status == 4) {
+            [_companyArr addObject:company];
+        }
+    }
     [self.tableView reloadData];
     self.view.backgroundColor = [UIColor clearColor];
     // Do any additional setup after loading the view from its nib.
@@ -62,7 +67,13 @@
         self.userMood.text = user.mood;
     } else {
         [_companyArr removeAllObjects];
-        [_companyArr addObjectsFromArray:(id)controller.fetchedObjects];
+        //只显示自己状态为4或者1的
+        for (Company *company in (id)controller.fetchedObjects) {
+            Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:company.company_no];
+            if(employee.status == 1 || employee.status == 4) {
+                [_companyArr addObject:company];
+            }
+        }
         [_tableView reloadData];
     }
 }

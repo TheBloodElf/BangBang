@@ -30,7 +30,7 @@
 - (void)dataDidChange {
     Company *model = self.data;
     //设置模型值 cell没有重新新建  所以里面写着不是很规范 不要模仿
-    [self.bushImage sd_setImageWithURL:[NSURL URLWithString:model.logo] placeholderImage:[UIImage imageNamed:@""]];
+    [self.bushImage sd_setImageWithURL:[NSURL URLWithString:model.logo] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
     self.bushName.text =[NSString stringWithFormat:@"%@（%@）",model.company_name,@(model.company_no)];
     self.bushTitle.text = [NSString stringWithFormat:@"%@",model.companyTypeStr];
 }

@@ -39,6 +39,7 @@
     //操作按钮应该显示什么内容
     self.opertionBtn.hidden = NO;
     Employee *ownerInThisCompany = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_currCompany.company_no];
+    self.opertionBtn.hidden = YES;
     //如果自己在这个圈子中，说明可以进行如下操作
     if(ownerInThisCompany.id != 0) {
         self.opertionBtn.hidden = NO;
@@ -47,12 +48,15 @@
             [self.opertionBtn setTitle:@"转让圈子" forState:UIControlStateNormal];
             [self.opertionBtn addTarget:self action:@selector(transCompanyClicked:) forControlEvents:UIControlEventTouchUpInside];
             self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(updateCompanyInfo:)];
-        } else {//只能退出圈子
-            [self.opertionBtn setTitle:@"退出圈子" forState:UIControlStateNormal];
-            [self.opertionBtn addTarget:self action:@selector(exitCompanyClicked:) forControlEvents:UIControlEventTouchUpInside];
+        } else {
+            //如果正在申请离职或者正在申请加入 就不添加按钮
+            if(ownerInThisCompany.status == 0 || ownerInThisCompany.status == 4 ||ownerInThisCompany.status == 2)  {
+                self.opertionBtn.hidden = YES;
+            } else {//只能退出圈子
+                [self.opertionBtn setTitle:@"退出圈子" forState:UIControlStateNormal];
+                [self.opertionBtn addTarget:self action:@selector(exitCompanyClicked:) forControlEvents:UIControlEventTouchUpInside];
+            }
         }
-    } else {
-        self.opertionBtn.hidden = YES;
     }
      //用圈主信息来填充内容
     [UserHttp getCompanyOwner:_currCompany.company_no handler:^(id data, MError *error) {
@@ -101,7 +105,9 @@
             return ;
         }
         [self.navigationController.view showSuccessTips:@"转让已发出，请等待"];
-        ownerInThisCompany.status = 4;
+        _currCompany.admin_user_guid = employee.user_guid;
+        [_userManager updateCompany:_currCompany];
+        ownerInThisCompany.status = 1;
         [_userManager updateEmployee:ownerInThisCompany];
         [self.navigationController popViewControllerAnimated:YES];
     }];

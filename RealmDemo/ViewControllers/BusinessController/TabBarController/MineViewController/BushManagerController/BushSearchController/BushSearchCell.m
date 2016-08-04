@@ -39,7 +39,7 @@
 }
 - (void)dataDidChange {
     Company *model = self.data;
-    [self.bushImage sd_setImageWithURL:[NSURL URLWithString:model.logo] placeholderImage:[UIImage imageNamed:@"soft_logo_icon"]];
+    [self.bushImage sd_setImageWithURL:[NSURL URLWithString:model.logo] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
     self.bushName.text = model.company_name;
     self.bushType.text = [model companyTypeStr];
     [self.joinBtn setTitle:@"申请加入" forState:UIControlStateNormal];
@@ -55,7 +55,11 @@
         self.joinBtn.enabled = NO;
         [self.joinBtn setBackgroundColor:[UIColor lightGrayColor]];
     }else if (_employee.status == 0){
-        [self.joinBtn setTitle:@"等待审核" forState:UIControlStateNormal];
+        [self.joinBtn setTitle:@"等待加入" forState:UIControlStateNormal];
+        self.joinBtn.enabled = NO;
+        [self.joinBtn setBackgroundColor:[UIColor lightGrayColor]];
+    }else if (_employee.status == 4){
+        [self.joinBtn setTitle:@"离职中" forState:UIControlStateNormal];
         self.joinBtn.enabled = NO;
         [self.joinBtn setBackgroundColor:[UIColor lightGrayColor]];
     }

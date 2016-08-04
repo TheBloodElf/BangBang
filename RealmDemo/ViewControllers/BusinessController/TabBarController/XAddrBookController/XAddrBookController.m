@@ -21,6 +21,7 @@
     UITableView *_tableView;//展示数据的表格视图
     UserManager *_userManager;//用户管理器
     RBQFetchedResultsController *_userFetchedResultsController;//用户数据监听
+    RBQFetchedResultsController *_employeeFetchedResultsController;//员工数据监听
     
     NSMutableArray<Employee*> *_employeeArr;//当前圈子员工数组
     NSMutableArray *_employeekeyArr;//都有的首字母数组
@@ -41,6 +42,8 @@
     _userManager = [UserManager manager];
     _userFetchedResultsController = [_userManager createUserFetchedResultsController];
     _userFetchedResultsController.delegate = self;
+    _employeeFetchedResultsController = [_userManager createEmployeesFetchedResultsControllerWithCompanyNo:_userManager.user.currCompany.company_no];
+    _employeeFetchedResultsController.delegate = self;
     //创建表格视图
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT- 64) style:UITableViewStylePlain];
     _tableView.delegate = self;
@@ -49,11 +52,6 @@
     _tableView.tableFooterView = [UIView new];
     [_tableView registerNib:[UINib nibWithNibName:@"XAddrBookCell" bundle:nil] forCellReuseIdentifier:@"XAddrBookCell"];
     [self.view addSubview:_tableView];
-    //先从本地获取一次信息
-    if(_userManager.user.currCompany)
-        [self getEmployeeWithCompanyNo:_userManager.user.currCompany.company_no];
-    else
-        [self getEmployeeWithCompanyNo:0];
     //创建选择视图
     //是不是当前圈子的管理员
     if([_userManager.user.currCompany.admin_user_guid isEqualToString:_userManager.user.user_guid]) {
@@ -71,6 +69,12 @@
     //创建导航按钮
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(leftClicked:)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"更多" style:UIBarButtonItemStylePlain target:self action:@selector(rightClicked:)];
+    //从本地读取一次信息
+    if(_userManager.user.currCompany.company_no) {
+        _employeeArr = [_userManager getEmployeeWithCompanyNo:_userManager.user.currCompany.company_no status:5];
+        [self sortEmployee];
+    }
+    [_tableView reloadData];
     // Do any additional setup after loading the view.
 }
 - (void)viewWillAppear:(BOOL)animated {
@@ -84,11 +88,40 @@
        NSForegroundColorAttributeName:[UIColor whiteColor]}];
 }
 - (void)leftClicked:(UIBarButtonItem*)item {
-    //先从本地获取一次信息
-    if(_userManager.user.currCompany)
-        [self getEmployeeWithCompanyNo:_userManager.user.currCompany.company_no];
-    else
-        [self getEmployeeWithCompanyNo:0];
+    if(_userManager.user.currCompany.company_no == 0) {
+        _employeeArr = [@[] mutableCopy];
+        [_tableView reloadData];
+    } else {
+        //从网络上获取最新的员工数据
+        [UserHttp getEmployeeCompnyNo:_userManager.user.currCompany.company_no status:5 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+            [self.navigationController.view dismissTips];
+            if(error) {
+                [self.navigationController.view showFailureTips:@"获取失败，请重试"];
+                return ;
+            }
+            NSMutableArray *array = [@[] mutableCopy];
+            for (NSDictionary *dic in data[@"list"]) {
+                Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
+                [array addObject:employee];
+            }
+            [UserHttp getEmployeeCompnyNo:_userManager.user.currCompany.company_no status:0 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+                [self.navigationController.view dismissTips];
+                if(error) {
+                    [self.navigationController.view showFailureTips:@"获取失败，请重试"];
+                    return ;
+                }
+                for (NSDictionary *dic in data[@"list"]) {
+                    Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
+                    [array addObject:employee];
+                }
+                //存入本地数据库
+                [_userManager updateEmployee:array companyNo:_userManager.user.currCompany.company_no];
+                _employeeArr = array;
+                [self sortEmployee];
+                [_tableView reloadData];
+            }];
+        }];
+    }
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
     if(_moreSelectView.isHide)
@@ -141,56 +174,37 @@
 #pragma mark --
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
-    User *user = controller.fetchedObjects[0];
-    if(user.currCompany)
-        [self getEmployeeWithCompanyNo:user.currCompany.company_no];
-    else
-        [self getEmployeeWithCompanyNo:0];
-    //创建选择视图
-    [_moreSelectView removeFromSuperview];
-    //是不是当前圈子的管理员
-    if([_userManager.user.currCompany.admin_user_guid isEqualToString:_userManager.user.user_guid]) {
-        _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100 - 15, 0, 100, 120)];
-        _moreSelectView.selectArr = @[@"发起群聊",@"邀请同事",@"申请管理"];
-    }
-    else {
-        _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100 - 15, 0, 100, 80)];
-        _moreSelectView.selectArr = @[@"发起群聊",@"邀请同事"];
-    }
-    _moreSelectView.delegate = self;
-    [_moreSelectView setupUI];
-    [self.view addSubview:_moreSelectView];
-    [self.view bringSubviewToFront:_moreSelectView];
-}
-//根据圈子ID填充员工数组
-- (void)getEmployeeWithCompanyNo:(int)companyNo {
-    if(companyNo == 0) {
-        _employeeArr = [@[] mutableCopy];
-        [self sortEmployee];
+    if(controller == _employeeFetchedResultsController) {
+        [_employeeArr removeAllObjects];
+        if(_userManager.user.currCompany.company_no) {
+            _employeeArr = [_userManager getEmployeeWithCompanyNo:_userManager.user.currCompany.company_no status:5];
+            [self sortEmployee];
+        }
         [_tableView reloadData];
     } else {
-        //从本地加载数据，如果没有数据就转菊花
-        _employeeArr = [_userManager getEmployeeWithCompanyNo:companyNo status:1];
-        [self sortEmployee];
-        [_tableView reloadData];
-        //从网络上获取最新的员工数据
-        [UserHttp getEmployeeCompnyNo:companyNo status:5 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
-            [self.navigationController.view dismissTips];
-            if(error) {
-                [self.navigationController.view showFailureTips:@"获取失败，请重试"];
-                return ;
-            }
-            NSMutableArray *array = [@[] mutableCopy];
-            for (NSDictionary *dic in data[@"list"]) {
-                Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
-                [array addObject:employee];
-            }
-            //存入本地数据库
-            [_userManager updateEmployee:array companyNo:companyNo];
-            _employeeArr = array;
+        [_employeeArr removeAllObjects];
+        if(_userManager.user.currCompany.company_no) {
+            _employeeArr = [_userManager getEmployeeWithCompanyNo:_userManager.user.currCompany.company_no status:5];
             [self sortEmployee];
-            [_tableView reloadData];
-        }];
+        }
+        [_tableView reloadData];
+        //创建选择视图
+        [_moreSelectView removeFromSuperview];
+        //是不是当前圈子的管理员
+        if([_userManager.user.currCompany.admin_user_guid isEqualToString:_userManager.user.user_guid]) {
+            _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100 - 15, 0, 100, 120)];
+            _moreSelectView.selectArr = @[@"发起群聊",@"邀请同事",@"申请管理"];
+        }
+        else {
+            _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100 - 15, 0, 100, 80)];
+            _moreSelectView.selectArr = @[@"发起群聊",@"邀请同事"];
+        }
+        _moreSelectView.delegate = self;
+        [_moreSelectView setupUI];
+        [self.view addSubview:_moreSelectView];
+        [self.view bringSubviewToFront:_moreSelectView];
+        _employeeFetchedResultsController = [_userManager createEmployeesFetchedResultsControllerWithCompanyNo:_userManager.user.currCompany.company_no];
+        _employeeFetchedResultsController.delegate = self;
     }
 }
 //对员工数组进行排序

@@ -126,8 +126,32 @@
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
-            [self.navigationController showMessageTips:@"请求已发出，请等待"];
-            [self.navigationController popViewControllerAnimated:YES];
+            //这里要把这个圈子加入到本地 员工信息加入到本地
+            [_userManager addCompany:model];
+            [UserHttp getEmployeeCompnyNo:model.company_no status:0 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+                if(error) {
+                    [self.navigationController.view showFailureTips:error.statsMsg];
+                    return ;
+                }
+                NSMutableArray *array = [@[] mutableCopy];
+                for (NSDictionary *dic in data[@"list"]) {
+                    Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
+                    [array addObject:employee];
+                }
+                [UserHttp getEmployeeCompnyNo:model.company_no status:5 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+                    if(error) {
+                        [self.navigationController.view showFailureTips:error.statsMsg];
+                        return ;
+                    }
+                    for (NSDictionary *dic in data[@"list"]) {
+                        Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
+                        [array addObject:employee];
+                    }
+                    [_userManager updateEmployee:array companyNo:model.company_no];
+                    [self.navigationController showSuccessTips:@"请求已发出，请等待"];
+                    [self.navigationController popViewControllerAnimated:YES];
+                }];
+            }];
         }];
     }];
     UIAlertAction *cancleActio = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
