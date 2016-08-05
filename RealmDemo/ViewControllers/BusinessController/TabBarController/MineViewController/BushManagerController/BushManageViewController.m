@@ -92,7 +92,7 @@
     [self.view addSubview:_moreSelectView];
     [self.view bringSubviewToFront:_moreSelectView];
     //创建右边导航按钮
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"更多" style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonClicked:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar_menu"] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonClicked:)];
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];

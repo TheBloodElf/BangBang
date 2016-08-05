@@ -21,7 +21,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.navigationController.view showLoadingTips:@""];
     [UserHttp getReferrerURL:[UserManager manager].user.user_no handler:^(id data, MError *error) {
         [self.navigationController.view dismissTips];
         if(error) {

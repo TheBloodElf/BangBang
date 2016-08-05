@@ -43,6 +43,8 @@
 + (NSURLSessionDataTask*)getReferrerURL:(int)userNo handler:(completionHandler)handler;
 #pragma mark -- 修改用户信息
 + (NSURLSessionDataTask*)updateUserInfo:(User*)user handler:(completionHandler)handler;
+//修改用户头像
++ (NSURLSessionDataTask*)updateUserAvater:(UIImage*)image userGuid:(NSString*)userGuid handler:(completionHandler)handler;
 #pragma mark -- 工作圈
 //获取工作圈信息
 + (NSURLSessionDataTask*)getCompanyInfo:(int)companyId handler:(completionHandler)handler;
@@ -58,6 +60,8 @@
 + (NSURLSessionDataTask*)getCompanysUserGuid:(NSString*)userGuid handler:(completionHandler)handler;
 //修改工作圈信息
 + (NSURLSessionDataTask*)updateCompany:(int)companyNo companyName:(NSString*)companyName companyType:(int)companyType logo:(NSString*)logo handler:(completionHandler)handler;
+//修改工作圈logo
++ (NSURLSessionDataTask*)updateConpanyAvater:(UIImage*)image companyNo:(int)companyNo userGuid:(NSString*)userGuid handler:(completionHandler)handler;
 //获取工作圈列表
 + (NSURLSessionDataTask*)getCompanyList:(NSString*)companyName pageSize:(int)pageSize pageIndex:(int)pageIndex handler:(completionHandler)handler;
 //获取工作圈创建者信息
@@ -79,6 +83,8 @@
 //获取用户所有日程
 + (NSURLSessionDataTask*)getUserCalendar:(NSString*)userGuid handler:(completionHandler)handler;
 #pragma mark -- 签到
+//上传签到附件
++ (NSURLSessionDataTask*)uploadSiginPic:(UIImage*)image siginId:(int)siginId userGuid:(NSString*)userGuid companyNo:(int)companyNo handler:(completionHandler)handler;
 //提交签到信息
 + (NSURLSessionDataTask*)sigin:(SignIn*)sigin handler:(completionHandler)handler;
 //获取今天的签到记录

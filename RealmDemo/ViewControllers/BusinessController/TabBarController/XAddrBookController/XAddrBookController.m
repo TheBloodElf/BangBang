@@ -68,7 +68,7 @@
     [self.view bringSubviewToFront:_moreSelectView];
     //创建导航按钮
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(leftClicked:)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"更多" style:UIBarButtonItemStylePlain target:self action:@selector(rightClicked:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar_menu"] style:UIBarButtonItemStylePlain target:self action:@selector(rightClicked:)];
     //从本地读取一次信息
     if(_userManager.user.currCompany.company_no) {
         _employeeArr = [_userManager getEmployeeWithCompanyNo:_userManager.user.currCompany.company_no status:5];

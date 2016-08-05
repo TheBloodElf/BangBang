@@ -40,7 +40,6 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(rightClicked:)];
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
-    [self.navigationController.view showLoadingTips:@"请稍等..."];
     [UserHttp getUserDiscuss:_userManager.user.user_no handler:^(id data, MError *error) {
         [self.navigationController.view dismissTips];
         if(error) {

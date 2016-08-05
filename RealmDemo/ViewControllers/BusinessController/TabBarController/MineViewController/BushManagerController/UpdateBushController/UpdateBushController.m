@@ -44,9 +44,32 @@
 - (void)rightButtonClicked:(UIBarButtonItem*)item {
     //有图片就要上传图片 然后得到url再修改
     if(_currCompanyImage) {
-        
+        [self.navigationController.view showLoadingTips:@"修改logo..."];
+        [UserHttp updateConpanyAvater:_currCompanyImage companyNo:_currCompany.company_no userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+            if(error) {
+                [self.navigationController.view showFailureTips:error.statsMsg];
+                return ;
+            }
+            _currCompany.logo = data[@"logo"];
+            [self.navigationController.view showLoadingTips:@"修改信息..."];
+            [UserHttp updateCompany:_currCompany.company_no companyName:_currCompany.company_name companyType:_currCompany.company_type logo:_currCompany.logo handler:^(id data, MError *error) {
+                [self.navigationController.view dismissTips];
+                if(error) {
+                    [self.navigationController.view showFailureTips:error.statsMsg];
+                    return ;
+                }
+                [self.navigationController.view showSuccessTips:@"修改成功"];
+                [_userManager updateCompany:_currCompany];
+                //改变圈子详情的内容
+                Company *company = self.data;
+                company.company_name = _currCompany.company_name;
+                company.company_type = _currCompany.company_type;
+                company.logo = _currCompany.logo;
+                [self.navigationController popViewControllerAnimated:YES];
+            }];
+        }];
     } else {
-        [self.navigationController.view showLoadingTips:@"请稍等..."];
+        [self.navigationController.view showLoadingTips:@"修改信息..."];
         [UserHttp updateCompany:_currCompany.company_no companyName:_currCompany.company_name companyType:_currCompany.company_type logo:_currCompany.logo handler:^(id data, MError *error) {
             [self.navigationController.view dismissTips];
             if(error) {

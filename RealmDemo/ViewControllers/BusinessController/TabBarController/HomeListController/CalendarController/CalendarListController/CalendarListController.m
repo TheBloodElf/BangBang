@@ -63,9 +63,12 @@
 }
 //本地加载所有事件
 - (void)searchTextFromLoc {
+    _dataDic = [@{} mutableCopy];
     NSMutableArray *_haveCalendarArr = [@[] mutableCopy];
     NSMutableArray *calendarArr = [_userManager getCalendarArr];
     for (Calendar *tempCalendar in calendarArr) {
+        if(![NSString isBlank:_searchBar.text])
+            if([tempCalendar.event_name rangeOfString:_searchBar.text].location == NSNotFound) continue;
         if(tempCalendar.repeat_type == 0) {//如果是不重复的日程
             //先把今天加上
             NSDate *startTimeTemp = [NSDate dateWithTimeIntervalSince1970:tempCalendar.begindate_utc / 1000];

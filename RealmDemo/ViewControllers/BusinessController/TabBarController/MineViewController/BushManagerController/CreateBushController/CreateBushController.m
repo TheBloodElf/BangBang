@@ -42,7 +42,7 @@
     } else if (!_createBushModel.hasImage) {
         [self.navigationController.view showFailureTips:@"必须上传图标"];
     } else {
-        [self.navigationController.view showLoadingTips:@"请稍等..."];
+        [self.navigationController.view showLoadingTips:@""];
         [UserHttp createCompany:_createBushModel.name userGuid:_userManager.user.user_guid image:_createBushModel.hasImage companyType:(int)_createBushModel.type handler:^(id data, MError *error) {
             [self.navigationController.view dismissTips];
             if(error) {

@@ -61,6 +61,15 @@
     _userManager = [UserManager manager];
     _siginImageArr = [@[] mutableCopy];
     _siginImageNameArr = [@[] mutableCopy];
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if([self.data isEqualToString:@"YES"]) return;
+    self.data = @"YES";
     //获取签到规则
     _currSiginRuleSet = [_userManager getSiginRule:_userManager.user.currCompany.company_no][0];
     self.tableView.tableFooterView = [UIView new];
@@ -97,10 +106,6 @@
     [self.view addSubview:_mapView];
     _search = [[AMapSearchAPI alloc] init];
     _search.delegate = self;
-}
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 #pragma mark -- 
 #pragma mark -- UITableViewDelegate
@@ -221,7 +226,7 @@
 #pragma mark --
 #pragma mark -- SiginImageDelegate
 - (void)SiginImageDelete:(UIImage *)image {
-    [_siginImageArr delete:image];
+    [_siginImageArr removeObject:image];
     [self.siginImageCollection reloadData];
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -385,15 +390,17 @@
             [self.navigationController.view showFailureTips:error.statsMsg];
             return ;
         }
-        if(_siginImageArr.count) {//进入上传图片逻辑
-            [self sendSiginPhoto];
-        } else {
+        _currSignIn = [[SignIn alloc] initWithJSONDictionary:data];
+        _currSignIn.descriptionStr = data[@"description"];
+        if(_siginImageArr.count == 0) {
             [self.navigationController.view dismissTips];
-            _currSignIn = [[SignIn alloc] initWithJSONDictionary:data];
-            _currSignIn.descriptionStr = data[@"description"];
             [_userManager addSigin:_currSignIn];
-            [self.navigationController.view showMessageTips:@"签到成功"];
+            [self.navigationController.view showSuccessTips:@"签到成功"];
             [self.navigationController popToRootViewControllerAnimated:YES];
+        } else {
+            //进入上传图片逻辑
+            [_siginImageNameArr removeAllObjects];
+            [self sendSiginPhoto];
         }
     }];
 }
@@ -403,15 +410,17 @@
         [self.navigationController.view dismissTips];
         _currSignIn.attachments = [_siginImageNameArr componentsJoinedByString:@","];
         [_userManager addSigin:_currSignIn];
-        [self.navigationController.view showMessageTips:@"签到成功"];
+        [self.navigationController.view showSuccessTips:@"签到成功"];
         [self.navigationController popToRootViewControllerAnimated:YES];
     } else {
-        [UserHttp updateImageGuid:@"" image:_siginImageArr[_siginImageNameArr.count] handler:^(id data, MError *error) {
+        //上传图片
+        [UserHttp uploadSiginPic:_siginImageArr[_siginImageNameArr.count] siginId:_currSignIn.id userGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no handler:^(id data, MError *error) {
             if(error) {
+                [self.navigationController.view dismissTips];
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
-            [_siginImageNameArr addObject:data[@"file_path"]];
+            [_siginImageNameArr addObject:data[@"file_url"]];
             [self sendSiginPhoto];
         }];
     }

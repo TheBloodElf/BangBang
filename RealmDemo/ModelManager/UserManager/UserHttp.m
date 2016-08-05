@@ -162,6 +162,39 @@
     };
     return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
 }
+//修改用户头像
++ (NSURLSessionDataTask*)updateUserAvater:(UIImage*)image userGuid:(NSString*)userGuid handler:(completionHandler)handler {
+    //开始菊花
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:KBSSDKAPIDomain]];
+    NSDictionary *parameters = @{@"user_guid":userGuid,@"access_token":[IdentityManager manager].identity.accessToken};
+    NSURLSessionDataTask * dataTask = [manager POST:@"Users/update_avatar" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData){
+        NSData *currData = [image dataInNoSacleLimitBytes:MaXPicSize];
+        [formData appendPartWithFileData:currData name:@"doc" fileName:[NSString stringWithFormat:@"%@.jpg",@([[NSDate date] timeIntervalSince1970])] mimeType:@"image/jpeg"];
+    }progress:nil success:^(NSURLSessionDataTask * task, id  responseObject) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        //判断结果
+        MError *err = nil;
+        id data = nil;
+        NSDictionary *responseObjectDic = [responseObject mj_keyValues];
+        if([responseObjectDic[@"code"] integerValue] == 0) {
+            data = responseObjectDic[@"data"];
+        } else {
+            err = [MError new];
+        }
+        //主线程执行回调
+        dispatch_async(dispatch_get_main_queue(), ^{
+            handler(data,err);
+        });
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        //开始菊花
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        handler(nil,[MError new]);
+    }];
+    
+    [dataTask resume];
+    return dataTask;
+}
 #pragma mark -- 工作圈
 //获取工作圈信息
 + (NSURLSessionDataTask*)getCompanyInfo:(int)companyId handler:(completionHandler)handler {
@@ -205,7 +238,6 @@
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params setObject:companyName forKey:@"company_name"];
     [params setObject:userGuid forKey:@"user_guid"];
-    //把图片压缩 然后弄成data
     [params setObject:image forKey:@"image"];
     [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
     [params setObject:@(companyType) forKey:@"company_type"];
@@ -252,6 +284,39 @@
         handler(data,error);
     };
     return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
+//修改工作圈logo
++ (NSURLSessionDataTask*)updateConpanyAvater:(UIImage*)image companyNo:(int)companyNo userGuid:(NSString*)userGuid handler:(completionHandler)handler {
+    //开始菊花
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:KBSSDKAPIDomain]];
+    NSDictionary *parameters = @{@"user_guid":userGuid,@"access_token":[IdentityManager manager].identity.accessToken,@"company_no":@(companyNo)};
+    NSURLSessionDataTask * dataTask = [manager POST:@"Companies/company_logo" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData){
+        NSData *currData = [image dataInNoSacleLimitBytes:MaXPicSize];
+        [formData appendPartWithFileData:currData name:@"doc" fileName:[NSString stringWithFormat:@"%@.jpg",@([[NSDate date] timeIntervalSince1970])] mimeType:@"image/jpeg"];
+    }progress:nil success:^(NSURLSessionDataTask * task, id  responseObject) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        //判断结果
+        MError *err = nil;
+        id data = nil;
+        NSDictionary *responseObjectDic = [responseObject mj_keyValues];
+        if([responseObjectDic[@"code"] integerValue] == 0) {
+            data = responseObjectDic[@"data"];
+        } else {
+            err = [MError new];
+        }
+        //主线程执行回调
+        dispatch_async(dispatch_get_main_queue(), ^{
+            handler(data,err);
+        });
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        //开始菊花
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        handler(nil,[MError new]);
+    }];
+    
+    [dataTask resume];
+    return dataTask;
 }
 //获取工作圈列表
 + (NSURLSessionDataTask*)getCompanyList:(NSString*)companyName pageSize:(int)pageSize pageIndex:(int)pageIndex handler:(completionHandler)handler {
@@ -405,6 +470,39 @@
     return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_GET URLPath:urlPath parameters:params completionHandler:compleionHandler];
 }
 #pragma mark -- 签到
+//上传签到附件
++ (NSURLSessionDataTask*)uploadSiginPic:(UIImage*)image siginId:(int)siginId userGuid:(NSString*)userGuid companyNo:(int)companyNo handler:(completionHandler)handler {
+    //开始菊花
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:KBSSDKAPIDomain]];
+    NSDictionary *parameters = @{@"user_guid":userGuid,@"access_token":[IdentityManager manager].identity.accessToken,@"attendance_id":@(siginId),@"company_no":@(companyNo)};
+    NSURLSessionDataTask * dataTask = [manager POST:@"Attachments/upload_attachment" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData){
+        NSData *currData = [image dataInNoSacleLimitBytes:MaXPicSize];
+        [formData appendPartWithFileData:currData name:@"doc" fileName:[NSString stringWithFormat:@"%@.jpg",@([[NSDate date] timeIntervalSince1970])] mimeType:@"image/jpeg"];
+    }progress:nil success:^(NSURLSessionDataTask * task, id  responseObject) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        //判断结果
+        MError *err = nil;
+        id data = nil;
+        NSDictionary *responseObjectDic = [responseObject mj_keyValues];
+        if([responseObjectDic[@"code"] integerValue] == 0) {
+            data = responseObjectDic[@"data"];
+        } else {
+            err = [MError new];
+        }
+        //主线程执行回调
+        dispatch_async(dispatch_get_main_queue(), ^{
+            handler(data,err);
+        });
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        //开始菊花
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        handler(nil,[MError new]);
+    }];
+    
+    [dataTask resume];
+    return dataTask;
+}
 //提交签到信息
 + (NSURLSessionDataTask*)sigin:(SignIn*)sigin handler:(completionHandler)handler {
     NSString *urlPath = @"Attendance/sign_v3_2";

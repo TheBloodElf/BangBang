@@ -135,7 +135,6 @@
 //推荐给好友
 - (void)recommendToFriend
 {
-    [self.navigationController.view showLoadingTips:@""];
     //获取邀请链接
     [UserHttp getInviteURL:_userManager.user.user_no companyNo:_userManager.user.currCompany.company_no handler:^(id data, MError *error) {
         [self.navigationController.view dismissTips];

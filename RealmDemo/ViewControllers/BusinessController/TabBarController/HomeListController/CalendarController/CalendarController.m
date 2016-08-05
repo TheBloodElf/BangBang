@@ -63,9 +63,10 @@
     _calendarManager.contentView = _calendarContentView;
     [_calendarManager setDate:_userSelectedDate];
     //创建当天事件的表格视图
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 349 - 64, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 349 + 64) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 349 - 64, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 349) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    _tableView.showsVerticalScrollIndicator = NO;
     UILabel *noDataLabel = [[UILabel alloc] initWithFrame:_tableView.bounds];
     noDataLabel.textAlignment = NSTextAlignmentCenter;
     noDataLabel.text = @"正在加载数据...";
@@ -82,7 +83,7 @@
     _centerNavLabel.textColor = [UIColor whiteColor];
     self.navigationItem.titleView = _centerNavLabel;
     //创建右边导航
-    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(moreClicked:)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addCalendarClicked:)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refushClicked:)],[[UIBarButtonItem alloc] initWithTitle:@"今" style:UIBarButtonItemStylePlain target:self action:@selector(todayClicked:)]];
+    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar_menu"] style:UIBarButtonItemStylePlain target:self action:@selector(moreClicked:)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addCalendarClicked:)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refushClicked:)],[[UIBarButtonItem alloc] initWithTitle:@"今" style:UIBarButtonItemStylePlain target:self action:@selector(todayClicked:)]];
     //创建多选视图
     _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100, 0, 100, 120)];
     _moreSelectView.selectArr = @[@"周视图",@"月视图",@"列表"];

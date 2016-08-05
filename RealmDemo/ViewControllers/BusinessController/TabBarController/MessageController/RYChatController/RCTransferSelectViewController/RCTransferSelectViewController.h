@@ -6,9 +6,7 @@
 //  Copyright © 2016年 Lottak. All rights reserved.
 //
 
-
+//URL转发到融云聊天信息中去
 @interface RCTransferSelectViewController : UIViewController
-
-@property (nonatomic,strong)RCMessageContent *messageContent;
 
 @end

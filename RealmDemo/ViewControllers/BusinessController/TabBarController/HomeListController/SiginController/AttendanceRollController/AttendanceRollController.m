@@ -77,7 +77,6 @@
     UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *ok = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         //办公地点 地址删除按钮被点击
-        [self.navigationController.view showLoadingTips:@""];
         [UserHttp deleteSiginRule:set.setting_guid handler:^(id data, MError *error) {
             [self.navigationController.view dismissTips];
             if(error) {

@@ -383,7 +383,6 @@
 - (void)rightNavigationBarAction:(UIBarButtonItem*)item {
     //提交考勤规则数据
     if([self checkDataValie]) {
-        [self.navigationController.view showLoadingTips:@"请稍等..."];
          //把第一个地址填充到签到规则模型
         Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
         PunchCardAddressSetting *firstAdress = _currSiginRule.json_list_address_settings[0];
@@ -405,7 +404,6 @@
         NSMutableDictionary *dic = [[_currSiginRule JSONDictionary] mutableCopy];
         NSString *str = [[_currSiginRule.json_list_address_settings JSONArray] mj_JSONString];
         [dic setObject:str forKey:@"json_list_address_settings"];
-        [self.navigationController.view showLoadingTips:@""];
         [UserHttp addSiginRule:dic handler:^(id data, MError *error) {
             [self.navigationController.view dismissTips];
             if(error) {

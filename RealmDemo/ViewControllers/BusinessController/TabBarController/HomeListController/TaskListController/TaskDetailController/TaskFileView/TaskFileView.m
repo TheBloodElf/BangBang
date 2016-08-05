@@ -83,7 +83,6 @@
 }
 #pragma mark -- TaskFileImageDelegate
 - (void)TaskFileImageDelete:(TaskAttachModel*)file {
-    [self showLoadingTips:@""];
     [UserHttp delTaskAttachment:file.id handler:^(id data, MError *error) {
         if(error) {
             [self showFailureTips:error.statsMsg];

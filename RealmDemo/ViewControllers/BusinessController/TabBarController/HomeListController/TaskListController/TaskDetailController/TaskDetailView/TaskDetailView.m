@@ -55,7 +55,6 @@
 - (void)dataDidChange {
     _taskModel = self.data;
     //获取任务详情
-//    [self showLoadingTips:@"获取任务详情..."];
     [UserHttp getTaskInfo:_taskModel.id handler:^(id data, MError *error) {
         [self dismissTips];
         if(error) {

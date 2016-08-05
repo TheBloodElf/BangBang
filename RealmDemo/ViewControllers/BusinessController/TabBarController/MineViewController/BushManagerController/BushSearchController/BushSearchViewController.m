@@ -119,9 +119,7 @@
         if([NSString isBlank:field.text]) {
            field.text = [NSString stringWithFormat:@"我是%@，请求加入圈子",_userManager.user.real_name];
         }
-        [self.navigationController.view showLoadingTips:@"请稍等..."];
         [UserHttp joinCompany:model.company_no userGuid:_userManager.user.user_guid joinReason:field.text handler:^(id data, MError *error) {
-            [self.navigationController.view dismissTips];
             if(error) {
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;

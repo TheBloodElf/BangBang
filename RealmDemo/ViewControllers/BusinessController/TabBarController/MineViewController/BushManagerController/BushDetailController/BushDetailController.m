@@ -96,10 +96,8 @@
 #pragma mark --
 #pragma mark -- SingleSelectDelegate
 - (void)singleSelect:(Employee *)employee {
-    [self.navigationController.view showLoadingTips:@"请稍等..."];
     Employee *ownerInThisCompany = [[_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_currCompany.company_no] deepCopy];
     [UserHttp transCompany:_currCompany.company_no ownerGuid:ownerInThisCompany.user_guid toGuid:employee.user_guid handler:^(id data, MError *error) {
-        [self.navigationController.view dismissTips];
         if(error) {
             [self.navigationController.view showFailureTips:error.statsMsg];
             return ;
@@ -124,7 +122,6 @@
         if([NSString isBlank:field.text]) {
             field.text = [NSString stringWithFormat:@"我是%@，请求退出圈子",_userManager.user.real_name];
         }
-        [self.navigationController.view showLoadingTips:@"请稍等..."];
         Employee *currEmployee = [[_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_currCompany.company_no] deepCopy];
         [UserHttp updateEmployeeStatus:currEmployee.employee_guid status:4 reason:field.text handler:^(id data, MError *error) {
             [self.navigationController.view dismissTips];

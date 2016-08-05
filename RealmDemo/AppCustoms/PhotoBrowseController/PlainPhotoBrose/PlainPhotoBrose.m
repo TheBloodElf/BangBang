@@ -22,19 +22,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"图片浏览";
+    [self.view addSubview:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)]];
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self configScrollView];
     [self configScrollViewData];
     [self scrollToIndex:self.index];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
     // Do any additional setup after loading the view.
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 #pragma mark -- 配置滚动视图
 
 - (void)configScrollView
 {
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT)];
-    _scrollView.contentSize = CGSizeMake(MAIN_SCREEN_WIDTH * self.photoArr.count, MAIN_SCREEN_HEIGHT);
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 64)];
+    _scrollView.contentSize = CGSizeMake(MAIN_SCREEN_WIDTH * self.photoArr.count, MAIN_SCREEN_HEIGHT - 64);
     _scrollView.showsVerticalScrollIndicator = _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.pagingEnabled = YES;
     _scrollView.delegate = self;
@@ -51,7 +56,7 @@
         WeakSelf(weakSelf)
         sc.clickedBlock = ^()
         {
-            [weakSelf.navigationController popViewControllerAnimated:NO];
+            [weakSelf.navigationController popViewControllerAnimated:YES];
         };
         [_scrollView addSubview:sc];
     }

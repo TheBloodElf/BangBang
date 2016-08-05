@@ -31,7 +31,6 @@
     //为了做到同步 我也是蛮拼的 最笨的方法
     __block int uploadPhotoNumber;
     NSArray *uploadPhotos;
-    MoreSelectView *_moreSelectView;//多选视图
 }
 @property (nonatomic,strong) WebViewJavascriptBridge *bridge;//交互中间件
 @end
@@ -259,14 +258,6 @@
     NSURL *nsurl =[NSURL URLWithString:_applicationUrl];
     NSURLRequest *request =[NSURLRequest requestWithURL:nsurl];
     [wb loadRequest:request];
-    
-    _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100, 64, 100, 120)];
-    _moreSelectView.selectArr = @[@"我的签到",@"签到统计",@"签到设置"];
-    _moreSelectView.delegate = self;
-    [_moreSelectView setupUI];
-    [self.view addSubview:_moreSelectView];
-    [self.view bringSubviewToFront:_moreSelectView];
-    
 }
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -287,7 +278,7 @@
     UIImage * img = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
     uploadPhotoNumber = 0;
     uploadPhotos = @[img];
-    [self.navigationController.view showLoadingTips:@""];
+    [self.navigationController.view showLoadingTips:@"上传附件..."];
     [self sendImageArr];
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
@@ -302,7 +293,7 @@
     }
     uploadPhotoNumber = (int)array.count - 1;
     uploadPhotos = array;
-    [self.navigationController.view showLoadingTips:@""];
+    [self.navigationController.view showLoadingTips:@"上传附件..."];
     [self sendImageArr];
 }
 #pragma mark - SingleSelectDelegate
@@ -373,16 +364,10 @@
     return YES;
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
-    if(_moreSelectView.isHide)
-        [_moreSelectView showSelectView];
-    else
-        [_moreSelectView hideSelectView];
-}
-#pragma mark -- MoreSelectViewDelegate
-- (void)moreSelectIndex:(int)index {
+    //弹出分享视图
     RCRichContentMessage *richContentMessage = [RCRichContentMessage messageWithTitle:title digest:detail imageURL:@"http://img2.anzhi.com/data3/icon/201510/02/com.lottak.bangbang_26403600_72.png" url:_applicationUrl extra:nil];
     RCTransferSelectViewController *selectVC = [[RCTransferSelectViewController alloc] init];
-    selectVC.messageContent = richContentMessage;
+    selectVC.data = richContentMessage;
     [self.navigationController pushViewController:selectVC animated:YES];
 }
 //多张图片上传函数

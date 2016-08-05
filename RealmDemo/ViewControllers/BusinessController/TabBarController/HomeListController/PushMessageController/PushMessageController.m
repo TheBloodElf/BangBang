@@ -36,18 +36,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"消息";
+    self.view.backgroundColor = [UIColor whiteColor];
     _userManager = [UserManager manager];
-    _identityManager = [IdentityManager manager];
-    _pushMessageFetchedResultsController = [_userManager createPushMessagesFetchedResultsController];
-    _pushMessageFetchedResultsController.delegate = self;
-    _pushMessageArr = [@[] mutableCopy];
-    //创建搜素视图
     //创建搜索框
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 55)];
     _searchBar.delegate = self;
     _searchBar.placeholder = @"搜索";
     _searchBar.returnKeyType = UIReturnKeySearch;
     [self.view addSubview:_searchBar];
+    //创建导航栏
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"标记" style:UIBarButtonItemStylePlain target:self action:@selector(biaojiClicked:)];
+    // Do any additional setup after loading the view.
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if([self.data isEqualToString:@"YES"]) return;
+    self.data = @"YES";
+    
+    _identityManager = [IdentityManager manager];
+    _pushMessageFetchedResultsController = [_userManager createPushMessagesFetchedResultsController];
+    _pushMessageFetchedResultsController.delegate = self;
+    _pushMessageArr = [@[] mutableCopy];
     //创建表格视图
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 55, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 55 - 64) style:UITableViewStylePlain];
     _tableView.delegate = self;
@@ -67,19 +80,14 @@
     label.textColor = [UIColor grayColor];
     _noDataView = [[UIView alloc] initWithFrame:_tableView.bounds];
     [_noDataView addSubview:label];
-    //创建导航栏
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"标记" style:UIBarButtonItemStylePlain target:self action:@selector(biaojiClicked:)];
     [self searchDataFormLoc];
-    // Do any additional setup after loading the view.
-}
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [_tableView reloadData];
 }
 #pragma mark --
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
     _pushMessageArr = (id)controller.fetchedObjects;
+    [self searchDataFormLoc];
     [_tableView reloadData];
 }
 //表格视图长按手势
@@ -155,13 +163,13 @@
         _tableView.tableFooterView = _noDataView;
     else
         _tableView.tableFooterView = [UIView new];
-    [_tableView reloadData];
 }
 #pragma mark -- 
 #pragma mark -- UISearchBarDelegate
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [_searchBar endEditing:YES];
     [self searchDataFormLoc];
+    [_tableView reloadData];
 }
 #pragma mark --
 #pragma mark -- UITableViewDelegate
@@ -222,7 +230,7 @@
             for (TaskModel *model in [_userManager getTaskArr:message.company_no]) {
                 if(model.id == message.target_id.intValue) {
                     TaskDetailController *task = [TaskDetailController new];
-                    task.data = task;
+                    task.data = model;
                     [self.navigationController pushViewController:task animated:YES];
                     break;
                 }

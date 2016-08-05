@@ -106,10 +106,8 @@
 #pragma mark -- TaskDetailDelegate
 //接收
 - (void)acceptClicked:(UIButton*)btn task:(id)task{
-    [self.navigationController.view showLoadingTips:@""];
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_taskModel.company_no];
     [UserHttp updateTask:_taskModel.id status:2 comment:@"" updatedby:employee.employee_guid handler:^(id data, MError *error) {
-        [self.navigationController.view dismissTips];
         if(error) {
             [self.navigationController.view showFailureTips:error.statsMsg];
             return ;
@@ -124,10 +122,8 @@
 - (void)stopClicked:(UIButton*)btn task:(id)task{
     InputTextController *input = [InputTextController new];
     input.inputTextBlock = ^(NSString *content) {
-        [self.navigationController.view showLoadingTips:@""];
         Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_taskModel.company_no];
         [UserHttp updateTask:_taskModel.id status:8 comment:content updatedby:employee.employee_guid handler:^(id data, MError *error) {
-            [self.navigationController.view dismissTips];
             if(error) {
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
@@ -147,10 +143,8 @@
 - (void)returnClicked:(UIButton*)btn task:(id)task{
     InputTextController *input = [InputTextController new];
     input.inputTextBlock = ^(NSString *content) {
-        [self.navigationController.view showLoadingTips:@""];
         Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_taskModel.company_no];
         [UserHttp updateTask:_taskModel.id status:6 comment:content updatedby:employee.employee_guid handler:^(id data, MError *error) {
-            [self.navigationController.view dismissTips];
             if(error) {
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
@@ -170,10 +164,8 @@
 - (void)passClicked:(UIButton*)btn task:(id)task{
     InputTextController *input = [InputTextController new];
     input.inputTextBlock = ^(NSString *content) {
-        [self.navigationController.view showLoadingTips:@""];
         Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_taskModel.company_no];
         [UserHttp updateTask:_taskModel.id status:7 comment:content updatedby:employee.employee_guid handler:^(id data, MError *error) {
-            [self.navigationController.view dismissTips];
             if(error) {
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
@@ -193,10 +185,8 @@
 - (void)submitClicked:(UIButton*)btn task:(id)task{
     InputTextController *input = [InputTextController new];
     input.inputTextBlock = ^(NSString *content) {
-        [self.navigationController.view showLoadingTips:@""];
         Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_taskModel.company_no];
         [UserHttp updateTask:_taskModel.id status:4 comment:content updatedby:employee.employee_guid handler:^(id data, MError *error) {
-            [self.navigationController.view dismissTips];
             if(error) {
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;

@@ -39,7 +39,6 @@
         [self presentViewController:face animated:NO completion:nil];
     } else {//分享
         if([NSString isBlank:_shortUrl]) {
-            [self.navigationController.view showLoadingTips:@""];
             [UserHttp getInviteURL:_userManager.user.user_no companyNo:_userManager.user.currCompany.company_no handler:^(id data, MError *error) {
                 [self.navigationController.view dismissTips];
                 if(error) {

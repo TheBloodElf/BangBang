@@ -50,9 +50,6 @@
                                     <state key="normal" title="0">
                                         <color key="titleColor" red="0.082352941176470587" green="0.51372549019607838" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
-                                    <connections>
-                                        <action selector="todayClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="9LD-uI-vrH"/>
-                                    </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今天完成" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z6a-Th-DFf">
                                     <rect key="frame" x="48" y="40" width="68" height="21"/>
@@ -63,10 +60,18 @@
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L1H-oT-BcP">
+                                    <rect key="frame" x="0.0" y="0.0" width="165" height="180"/>
+                                    <connections>
+                                        <action selector="todayClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="hQA-wM-AXn"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" red="0.0" green="0.050980392159999999" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstItem="Z6a-Th-DFf" firstAttribute="centerX" secondItem="kOn-7N-S0r" secondAttribute="centerX" id="2uP-9r-XJy"/>
+                                <constraint firstAttribute="bottom" secondItem="L1H-oT-BcP" secondAttribute="bottom" id="4lT-NT-JIX"/>
+                                <constraint firstAttribute="trailing" secondItem="L1H-oT-BcP" secondAttribute="trailing" id="6tp-01-3Q3"/>
                                 <constraint firstItem="oUm-kX-2Up" firstAttribute="leading" secondItem="wGZ-3l-hvw" secondAttribute="trailing" constant="2" id="AJ9-b7-i6f"/>
                                 <constraint firstItem="oUm-kX-2Up" firstAttribute="centerY" secondItem="wGZ-3l-hvw" secondAttribute="centerY" id="EvO-iQ-iz7"/>
                                 <constraint firstItem="7oc-WY-pYM" firstAttribute="centerX" secondItem="wGZ-3l-hvw" secondAttribute="centerX" id="OG1-m6-T6L"/>
@@ -74,11 +79,13 @@
                                 <constraint firstItem="YEv-OR-08N" firstAttribute="centerY" secondItem="7oc-WY-pYM" secondAttribute="centerY" id="UNy-B0-3Tk"/>
                                 <constraint firstItem="UUR-Vk-K8q" firstAttribute="centerY" secondItem="kOn-7N-S0r" secondAttribute="centerY" constant="5" id="Ujd-yu-mDm"/>
                                 <constraint firstItem="YEv-OR-08N" firstAttribute="top" secondItem="oUm-kX-2Up" secondAttribute="bottom" constant="6" id="e8L-yv-ivo"/>
+                                <constraint firstItem="L1H-oT-BcP" firstAttribute="top" secondItem="kOn-7N-S0r" secondAttribute="top" id="itM-8t-eD4"/>
                                 <constraint firstItem="YEv-OR-08N" firstAttribute="top" secondItem="oUm-kX-2Up" secondAttribute="bottom" constant="4" id="l7P-xz-GTw"/>
                                 <constraint firstItem="UUR-Vk-K8q" firstAttribute="centerX" secondItem="kOn-7N-S0r" secondAttribute="centerX" id="ptW-il-edI"/>
                                 <constraint firstAttribute="bottom" secondItem="YEv-OR-08N" secondAttribute="bottom" constant="16" id="qiK-0Y-gdG"/>
                                 <constraint firstAttribute="bottom" secondItem="7oc-WY-pYM" secondAttribute="bottom" constant="16" id="tC9-r1-yel"/>
                                 <constraint firstItem="YEv-OR-08N" firstAttribute="leading" secondItem="7oc-WY-pYM" secondAttribute="trailing" constant="2" id="v4l-q0-X0A"/>
+                                <constraint firstItem="L1H-oT-BcP" firstAttribute="leading" secondItem="kOn-7N-S0r" secondAttribute="leading" id="wJq-bG-ygk"/>
                                 <constraint firstItem="7oc-WY-pYM" firstAttribute="top" secondItem="wGZ-3l-hvw" secondAttribute="bottom" constant="6" id="x2L-Cu-P1L"/>
                                 <constraint firstItem="Z6a-Th-DFf" firstAttribute="top" secondItem="kOn-7N-S0r" secondAttribute="top" constant="40" id="xih-Bb-yoz"/>
                             </constraints>
@@ -135,13 +142,17 @@
                                     <state key="normal" title="0">
                                         <color key="titleColor" red="0.082352941176470587" green="0.51372549019607838" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UxR-dV-CtF">
+                                    <rect key="frame" x="0.0" y="0.0" width="165" height="180"/>
                                     <connections>
-                                        <action selector="weekClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="o86-xX-DAk"/>
+                                        <action selector="weekClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="Mjb-wQ-CLS"/>
                                     </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" red="0.0" green="0.050980392159999999" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
+                                <constraint firstAttribute="trailing" secondItem="UxR-dV-CtF" secondAttribute="trailing" id="490-Nt-RqV"/>
                                 <constraint firstItem="JSS-LT-r9I" firstAttribute="centerY" secondItem="b2N-F8-tNA" secondAttribute="centerY" id="49c-YP-0E0"/>
                                 <constraint firstItem="JSS-LT-r9I" firstAttribute="leading" secondItem="b2N-F8-tNA" secondAttribute="trailing" constant="2" id="57b-yB-7zT"/>
                                 <constraint firstItem="VRs-Ee-vOK" firstAttribute="top" secondItem="b2N-F8-tNA" secondAttribute="bottom" constant="6" id="6mD-ZK-lqs"/>
@@ -149,16 +160,23 @@
                                 <constraint firstItem="xcz-R9-9y6" firstAttribute="top" secondItem="eSi-Ja-biD" secondAttribute="top" constant="40" id="Amu-gs-DW4"/>
                                 <constraint firstItem="zyL-aV-GKA" firstAttribute="centerX" secondItem="eSi-Ja-biD" secondAttribute="centerX" id="Ch6-pz-5z9"/>
                                 <constraint firstItem="zyL-aV-GKA" firstAttribute="centerY" secondItem="eSi-Ja-biD" secondAttribute="centerY" constant="5" id="E9R-F3-xXe"/>
+                                <constraint firstItem="UxR-dV-CtF" firstAttribute="leading" secondItem="eSi-Ja-biD" secondAttribute="leading" id="FLq-WO-3vE"/>
                                 <constraint firstItem="EL7-qj-Q4f" firstAttribute="centerY" secondItem="VRs-Ee-vOK" secondAttribute="centerY" id="Ip7-nV-yjD"/>
+                                <constraint firstAttribute="bottom" secondItem="UxR-dV-CtF" secondAttribute="bottom" id="KeN-qY-IIY"/>
+                                <constraint firstItem="JSS-LT-r9I" firstAttribute="top" secondItem="UxR-dV-CtF" secondAttribute="bottom" id="Ult-A3-gLs"/>
                                 <constraint firstAttribute="bottom" secondItem="VRs-Ee-vOK" secondAttribute="bottom" constant="16" id="bJL-4I-DZa"/>
                                 <constraint firstItem="EL7-qj-Q4f" firstAttribute="leading" secondItem="VRs-Ee-vOK" secondAttribute="trailing" constant="2" id="clv-4s-h9L"/>
                                 <constraint firstItem="VRs-Ee-vOK" firstAttribute="centerX" secondItem="xcz-R9-9y6" secondAttribute="centerX" constant="-2" id="f21-HQ-noW"/>
+                                <constraint firstItem="UxR-dV-CtF" firstAttribute="top" secondItem="xcz-R9-9y6" secondAttribute="bottom" id="j43-GQ-uQG"/>
+                                <constraint firstItem="UxR-dV-CtF" firstAttribute="top" secondItem="eSi-Ja-biD" secondAttribute="top" id="jFQ-Vm-mCN"/>
                                 <constraint firstAttribute="bottom" secondItem="EL7-qj-Q4f" secondAttribute="bottom" constant="16" id="vMA-Zk-WgI"/>
                                 <constraint firstItem="xcz-R9-9y6" firstAttribute="centerX" secondItem="eSi-Ja-biD" secondAttribute="centerX" id="whW-cm-poA"/>
                                 <constraint firstItem="EL7-qj-Q4f" firstAttribute="top" secondItem="JSS-LT-r9I" secondAttribute="bottom" constant="6" id="x3c-st-M3q"/>
                             </constraints>
                             <variation key="default">
                                 <mask key="constraints">
+                                    <exclude reference="j43-GQ-uQG"/>
+                                    <exclude reference="Ult-A3-gLs"/>
                                     <exclude reference="vMA-Zk-WgI"/>
                                     <exclude reference="x3c-st-M3q"/>
                                 </mask>
@@ -196,7 +214,7 @@
                 <outlet property="weekFinish" destination="zyL-aV-GKA" id="vX5-Qo-KgX"/>
                 <outlet property="weekNoFinish" destination="JSS-LT-r9I" id="OQi-QW-YNN"/>
             </connections>
-            <point key="canvasLocation" x="381" y="297"/>
+            <point key="canvasLocation" x="181" y="324"/>
         </view>
     </objects>
 </document>

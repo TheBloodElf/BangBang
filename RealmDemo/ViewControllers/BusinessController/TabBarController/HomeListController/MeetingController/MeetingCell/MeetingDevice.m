@@ -23,6 +23,9 @@
     [self.moreBtn setTitleColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1] forState:UIControlStateNormal];
     self.moreBtn.layer.borderWidth = 1;
     self.moreBtn.clipsToBounds = YES;
+    self.moreBtn.layer.cornerRadius = 5;
+    self.moreBtn.clipsToBounds = YES;
+    
     // Initialization code
 }
 - (void)dataDidChange {

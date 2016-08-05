@@ -38,7 +38,6 @@
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
     //修改日程
-    [self.navigationController.view showLoadingTips:@"请稍等..."];
     [UserHttp updateUserCalendar:_currCalendar handler:^(id data, MError *error) {
         [self.navigationController.view dismissTips];
         if(error) {

@@ -202,18 +202,26 @@
 #pragma mark -- PrivateMethod
 - (void)changeUserInfo:(User *)user
 {
-    [self.navigationController.view showLoadingTips:@"请稍等..."];
     [UserHttp updateUserInfo:user handler:^(id data, MError *error) {
         [self.navigationController.view dismissTips];
         if(error) {
             [self.navigationController.view showFailureTips:error.statsMsg];
             return ;
         }
-        [self.navigationController.view showSuccessTips:@"修改成功"];
         [[UserManager manager] updateUser:user];
     }];
 }
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(nullable NSDictionary<NSString *,id> *)editingInfo {
+    [UserHttp updateUserAvater:image userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+        [self.navigationController.view dismissTips];
+        if(error) {
+            [self.navigationController.view showFailureTips:error.statsMsg];
+            return ;
+        }
+        User *user = [_userManager.user deepCopy];
+        user.avatar = data[@"avatar"];
+        [_userManager updateUser:user];
+    }];
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {

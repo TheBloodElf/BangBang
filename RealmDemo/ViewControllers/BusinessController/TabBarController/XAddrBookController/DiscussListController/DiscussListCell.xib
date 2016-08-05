@@ -14,6 +14,12 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U0Y-1x-9c1">
+                        <rect key="frame" x="80" y="19" width="225" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ffK-QT-VSh">
                         <rect key="frame" x="15" y="5" width="50" height="50"/>
                         <constraints>
@@ -21,12 +27,6 @@
                             <constraint firstAttribute="height" constant="50" id="vK9-TZ-9ZV"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U0Y-1x-9c1">
-                        <rect key="frame" x="80" y="19" width="225" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="ffK-QT-VSh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="07a-Bk-1B9"/>
@@ -46,7 +46,7 @@
                 <outlet property="discussImage" destination="ffK-QT-VSh" id="HK8-G1-9lo"/>
                 <outlet property="discussName" destination="U0Y-1x-9c1" id="Qvk-nr-8ay"/>
             </connections>
-            <point key="canvasLocation" x="131" y="312"/>
+            <point key="canvasLocation" x="231" y="305"/>
         </tableViewCell>
     </objects>
 </document>

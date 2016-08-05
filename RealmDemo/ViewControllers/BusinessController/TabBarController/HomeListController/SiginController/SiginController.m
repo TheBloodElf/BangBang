@@ -17,6 +17,7 @@
 #import "PlainPhotoBrose.h"
 #import "WebNonstandarViewController.h"
 #import "SiginNoteController.h"
+#import "ShowAdressController.h"
 
 @interface SiginController ()<MoreSelectViewDelegate,UITableViewDelegate,UITableViewDataSource,RBQFetchedResultsControllerDelegate,CLLocationManagerDelegate,AMapSearchDelegate,SigInListCellDelegate> {
     UIButton *_leftNavigationBarButton;//左边导航的按钮
@@ -49,6 +50,20 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     _userManager = [UserManager manager];
+    [self setLeftNavigationBarItem];
+    [self setRightNavigationBarItem];
+    // Do any additional setup after loading the view from its nib.
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    //导航透明
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if([self.data isEqualToString:@"YES"]) return;
+    self.data = @"YES";
+    self.navigationController.navigationBar.barTintColor = [UIColor siginColor];
     [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(updateTime) userInfo:nil repeats:YES];
     //创建表格视图
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
@@ -65,14 +80,13 @@
     [_noDataView addSubview:label];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.showsVerticalScrollIndicator = NO;
     if(_todaySigInArr.count) {
         self.tableView.tableFooterView = [UIView new];
         [_tableView reloadData];
     }
     else
         self.tableView.tableFooterView = _noDataView;
-    [self setLeftNavigationBarItem];
-    [self setRightNavigationBarItem];
     //看是否有签到记录数据 没有就从服务器获取
     if(_todaySigInArr.count == 0) {
         [UserHttp getSiginList:_userManager.user.currCompany.company_no employeeGuid:employee.employee_guid handler:^(id data, MError *error) {
@@ -100,22 +114,12 @@
     //初始化检索对象
     _search = [[AMapSearchAPI alloc] init];
     _search.delegate = self;
-    // Do any additional setup after loading the view from its nib.
 }
 //一直刷新时间
 - (void)updateTime {
     NSDate *currDate = [NSDate date];
     self.dateLabel.text = [NSString stringWithFormat:@"%02ld月%02ld日 %@",currDate.month,currDate.day,currDate.weekdayStr];
     self.timeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld",currDate.hour,currDate.minute];
-}
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    //导航透明
-     [self.navigationController setNavigationBarHidden:YES animated:YES];
-}
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    self.navigationController.navigationBar.barTintColor = [UIColor siginColor];
 }
 #pragma mark --
 #pragma mark -- RBQFetchedResultsControllerDelegate
@@ -185,7 +189,7 @@
     }
     //如果有附件图片 高度＋95
     if(![NSString isBlank:sigin.attachments])
-        height = height + 95;
+        height = height + (MAIN_SCREEN_WIDTH - 66 - 10) / 3.f + 5;
     return height;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -207,11 +211,13 @@
     PlainPhotoBrose *brose = [PlainPhotoBrose new];
     brose.photoArr = photos;
     brose.index = 0;
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:brose] animated:YES completion:nil];
+    [self.navigationController pushViewController:brose animated:YES];
 }
 //地址被点击
 - (void)SigInListCellAdressClicked:(CLLocationCoordinate2D)cLLocationCoordinate2D {
-    
+    ShowAdressController *show = [ShowAdressController new];
+    show.cLLocationCoordinate2D = cLLocationCoordinate2D;
+    [self.navigationController pushViewController:show animated:YES];
 }
 #pragma mark --
 #pragma mark -- setNavigationBar

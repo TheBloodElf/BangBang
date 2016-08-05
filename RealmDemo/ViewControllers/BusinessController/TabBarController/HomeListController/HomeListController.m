@@ -108,10 +108,13 @@
             if(push.unread == YES)
                 count ++;
         }
-        if(count )
+        label.backgroundColor = [UIColor redColor];
+        if(count)
             label.text = [NSString stringWithFormat:@"%d",count];
-        else
+        else {
             label.text = nil;
+            label.backgroundColor = [UIColor clearColor];
+        }
     } else {
         User *user = controller.fetchedObjects[0];
         UIImageView *imageView = [_leftNavigationBarButton viewWithTag:1001];
@@ -292,19 +295,24 @@
     [_rightNavigationBarButton addTarget:self action:@selector(rightNavigationBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     _rightNavigationBarButton.clipsToBounds = NO;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_rightNavigationBarButton];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(30, -5, 20, 15)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, -5, 15, 15)];
     int count = 0;
     for (PushMessage *push in [_userManager getPushMessageArr]) {
         if(push.unread == YES)
             count ++;
     }
-    if(count )
+    label.backgroundColor = [UIColor redColor];
+    if(count)
         label.text = [NSString stringWithFormat:@"%d",count];
-    else
+    else {
         label.text = nil;
+        label.backgroundColor = [UIColor clearColor];
+    }
+    label.layer.cornerRadius = 7.5;
+    label.clipsToBounds = YES;
     label.textColor = [UIColor whiteColor];
-    label.font = [UIFont systemFontOfSize:15];
-    label.textAlignment = NSTextAlignmentLeft;
+    label.font = [UIFont systemFontOfSize:10];
+    label.textAlignment = NSTextAlignmentCenter;
     label.tag = 1001;
     [_rightNavigationBarButton addSubview:label];
 }

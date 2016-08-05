@@ -44,13 +44,11 @@
         self.detailLabel.text = [NSString stringWithFormat:@"说明：%@",signIn.descriptionStr];
     //得到图片的宽度
     CGFloat width = (MAIN_SCREEN_WIDTH - 66 - 10) / 3.f;
-    if(width > 90)
-        width = 90;
     if([NSString isBlank:signIn.attachments]) {
         self.attemthHeight.constant = 0.01f;
         return;
     }
-    self.attemthHeight.constant = 90.f;
+    self.attemthHeight.constant = width;
     NSArray *imageArr = [signIn.attachments componentsSeparatedByString:@","];
     for (int index = 0; index < imageArr.count; index ++) {
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(index * (width + 5), 0, width, width)];
@@ -68,7 +66,6 @@
         photo.oiginalImage = imageView.image;
         UIWindow * window=[[[UIApplication sharedApplication] delegate] window];
         CGRect rect=[imageView convertRect: imageView.bounds toView:window];
-        photo.toRect = rect;
         photo.index = index;
         if(index == 0) {
             photo.fromRect = rect;

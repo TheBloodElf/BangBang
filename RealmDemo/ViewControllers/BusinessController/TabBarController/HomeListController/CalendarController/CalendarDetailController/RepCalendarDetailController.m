@@ -38,8 +38,8 @@
             self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(rightClicked:)];
         UIToolbar *bottomBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, MAIN_SCREEN_HEIGHT - 50 - 64, MAIN_SCREEN_WIDTH, 50)];
         UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-        UIBarButtonItem *deleteItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteCalendarClicked:)];
-        UIBarButtonItem *finishItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(finishCalendarClicked:)];
+        UIBarButtonItem *deleteItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_delete"] style:UIBarButtonItemStylePlain target:self action:@selector(deleteCalendarClicked:)];
+        UIBarButtonItem *finishItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_complete"] style:UIBarButtonItemStylePlain target:self action:@selector(finishCalendarClicked:)];
         bottomBar.items = @[spaceItem,deleteItem,spaceItem,finishItem,spaceItem];
         [self.view addSubview:bottomBar];
     }

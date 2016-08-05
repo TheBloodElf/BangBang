@@ -103,7 +103,6 @@
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:topStr message:nil preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self.navigationController.view showLoadingTips:@"请稍等..."];
         [UserHttp updateEmployeeStatus:employee.employee_guid status:status reason:@"" handler:^(id data, MError *error) {
             if(error) {
                 [self.navigationController.view showFailureTips:error.statsMsg];
@@ -147,7 +146,6 @@
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:topStr message:nil preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self.navigationController.view showLoadingTips:@"请稍等..."];
         [UserHttp updateEmployeeStatus:employee.employee_guid status:status reason:@"" handler:^(id data, MError *error) {
             [self.navigationController.view dismissTips];
             if(error) {
