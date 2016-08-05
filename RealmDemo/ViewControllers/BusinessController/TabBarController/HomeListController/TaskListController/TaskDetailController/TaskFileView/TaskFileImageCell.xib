@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -22,21 +22,21 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hRL-6r-51d">
-                        <rect key="frame" x="55" y="11" width="225" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <rect key="frame" x="55" y="13" width="195" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3xb-cN-gYE">
-                        <rect key="frame" x="290" y="12" width="20" height="20"/>
+                        <rect key="frame" x="260" y="12" width="50" height="20"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="20" id="4bg-sq-3Ec"/>
+                            <constraint firstAttribute="width" constant="50" id="4bg-sq-3Ec"/>
                             <constraint firstAttribute="height" constant="20" id="rWf-F1-mVn"/>
                         </constraints>
-                        <state key="normal" image="ic_task_delete"/>
-                        <connections>
-                            <action selector="attachDelete:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="dYE-b1-vEa"/>
-                        </connections>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <state key="normal" title="下载">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
                     </button>
                 </subviews>
                 <constraints>
@@ -51,12 +51,12 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="fileName" destination="hRL-6r-51d" id="WiD-cw-Oey"/>
+                <outlet property="rightBtn" destination="3xb-cN-gYE" id="Wdc-kb-NaH"/>
             </connections>
-            <point key="canvasLocation" x="417" y="271"/>
+            <point key="canvasLocation" x="424" y="331"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="ic_task_delete" width="37" height="37"/>
         <image name="ic_task_image" width="136" height="136"/>
     </resources>
 </document>

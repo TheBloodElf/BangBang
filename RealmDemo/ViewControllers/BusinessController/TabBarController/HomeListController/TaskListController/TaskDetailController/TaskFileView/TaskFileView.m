@@ -12,12 +12,13 @@
 #import "TaskModel.h"
 #import "UserHttp.h"
 
-@interface TaskFileView ()<UITableViewDelegate,UITableViewDataSource,TaskFileImageDelegate> {
+@interface TaskFileView ()<UITableViewDelegate,UITableViewDataSource,TaskFileImageDelegate,UIDocumentInteractionControllerDelegate> {
     TaskModel *_taskModel;
     UITableView *_tableView;
     NSMutableArray<TaskAttachModel*> *_taskAttachModelArr;
 }
 
+@property (nonatomic, strong) UIDocumentInteractionController *documentInteractionController;
 @end
 
 @implementation TaskFileView
@@ -81,16 +82,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
-#pragma mark -- TaskFileImageDelegate
-- (void)TaskFileImageDelete:(TaskAttachModel*)file {
-    [UserHttp delTaskAttachment:file.id handler:^(id data, MError *error) {
-        if(error) {
-            [self showFailureTips:error.statsMsg];
-            return ;
-        }
-        [self showSuccessTips:@"删除成功"];
-        self.data = _taskModel;
-    }];
+#pragma mark -- TaskFileDown
+//文件预览
+- (void)TaskFileLook:(TaskAttachModel*)file {
+    //url 为需要调用第三方打开的文件地址
+    NSURL *url = file.attachment.locFilePath;
+    _documentInteractionController = [UIDocumentInteractionController
+                                      interactionControllerWithURL:url];
+    [_documentInteractionController setDelegate:self];
+    [_documentInteractionController presentOpenInMenuFromRect:CGRectZero inView:self animated:YES];
 }
 
 @end

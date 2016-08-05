@@ -29,4 +29,7 @@
 @property (nonatomic, assign) int status;//附件状态：0-不可用，1-可用
 @property (nonatomic, assign) int64_t createdate_utc;//上传日期
 
+//自己添加的
+@property (nonatomic, strong) NSURL *locFilePath;//本地与其对应的文件路径
+
 @end

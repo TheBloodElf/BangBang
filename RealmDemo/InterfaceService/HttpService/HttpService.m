@@ -87,7 +87,36 @@ static HttpService * __singleton__;
     [task resume];
     return task;
 }
-
+//下载文件
+- (NSURLSessionDownloadTask *)downRequesURLPath:(NSString *)pathStr  locFilePath:(NSString*)locFilePath completionHandler:(completionHandler)completionHandler{
+    //开始菊花
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:pathStr]];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    NSURLSessionDownloadTask * dataTask = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
+        return [NSURL fileURLWithPath:[locFilePath stringByAppendingPathComponent:response.suggestedFilename]];
+    } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
+        //判断结果
+        MError *err = nil;
+        id data;
+        if(error) {
+            err = [[MError alloc] initWithCode:error.code statsMsg:error.domain];
+        } else {
+            data = [response mj_keyValues];
+        }
+        //主线程执行回调
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completionHandler(data, err);
+        });
+        
+    }];
+    
+    //发起请求任务
+    [dataTask resume];
+    return dataTask;
+}
 - (NSString *)stringWithMethod:(HTTP_REQUEST_METHOD)method {
     switch (method) {
         case E_HTTP_REQUEST_METHOD_GET:     return @"GET";      break;

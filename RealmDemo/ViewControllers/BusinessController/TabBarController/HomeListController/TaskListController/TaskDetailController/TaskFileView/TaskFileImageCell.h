@@ -10,7 +10,7 @@
 
 @protocol TaskFileImageDelegate <NSObject>
 
-- (void)TaskFileImageDelete:(id)file;
+- (void)TaskFileLook:(id)file;
 
 @end
 

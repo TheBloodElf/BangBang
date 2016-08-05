@@ -128,6 +128,7 @@
 		0495866B1D3A618600544259 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0495866A1D3A618600544259 /* UIKit.framework */; };
 		049CDF951D4F896D00F8890F /* TaskUpdateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049CDF941D4F896D00F8890F /* TaskUpdateController.m */; };
 		04A817771D3525D700011DA1 /* IdentityHttp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A817761D3525D700011DA1 /* IdentityHttp.m */; };
+		04AF45B41D54C17E0064FC45 /* FileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AF45B31D54C17E0064FC45 /* FileManager.m */; settings = {ASSET_TAGS = (); }; };
 		04E7E5A81D3A660800C653B4 /* ChangeUserBBH.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E7E59C1D3A660800C653B4 /* ChangeUserBBH.m */; };
 		04E7E5A91D3A660800C653B4 /* ChangeUserDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E7E59F1D3A660800C653B4 /* ChangeUserDetail.m */; };
 		04E7E5AA1D3A660800C653B4 /* ChangeUserName.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E7E5A21D3A660800C653B4 /* ChangeUserName.m */; };
@@ -697,6 +698,8 @@
 		049CDF941D4F896D00F8890F /* TaskUpdateController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskUpdateController.m; sourceTree = "<group>"; };
 		04A817751D3525D700011DA1 /* IdentityHttp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdentityHttp.h; sourceTree = "<group>"; };
 		04A817761D3525D700011DA1 /* IdentityHttp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentityHttp.m; sourceTree = "<group>"; };
+		04AF45B21D54C17E0064FC45 /* FileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileManager.h; sourceTree = "<group>"; };
+		04AF45B31D54C17E0064FC45 /* FileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileManager.m; sourceTree = "<group>"; };
 		04E7E59B1D3A660800C653B4 /* ChangeUserBBH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeUserBBH.h; sourceTree = "<group>"; };
 		04E7E59C1D3A660800C653B4 /* ChangeUserBBH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeUserBBH.m; sourceTree = "<group>"; };
 		04E7E59E1D3A660800C653B4 /* ChangeUserDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeUserDetail.h; sourceTree = "<group>"; };
@@ -1805,6 +1808,15 @@
 				049CDF941D4F896D00F8890F /* TaskUpdateController.m */,
 			);
 			path = TaskUpdateController;
+			sourceTree = "<group>";
+		};
+		04AF45B11D54C16A0064FC45 /* FileManager */ = {
+			isa = PBXGroup;
+			children = (
+				04AF45B21D54C17E0064FC45 /* FileManager.h */,
+				04AF45B31D54C17E0064FC45 /* FileManager.m */,
+			);
+			path = FileManager;
 			sourceTree = "<group>";
 		};
 		04E7E5991D3A660800C653B4 /* UserInfoController */ = {
@@ -3135,6 +3147,7 @@
 		75E5FF541D27A76F00F77961 /* ModelManager */ = {
 			isa = PBXGroup;
 			children = (
+				04AF45B11D54C16A0064FC45 /* FileManager */,
 				1BF5DFA01D4995C60039704E /* WBApiManager */,
 				1BF5DFA11D4995C60039704E /* WXApiManager */,
 				045D8BA51D44494D002E0344 /* ApnsManager */,
@@ -3778,6 +3791,7 @@
 				1B5585AA1D34F1E700DCD3A0 /* RegisterViewController.m in Sources */,
 				1B36FCD31D35E750006694E4 /* HomeListBottomView.m in Sources */,
 				1B5585761D34D93800DCD3A0 /* BusinessController.m in Sources */,
+				04AF45B41D54C17E0064FC45 /* FileManager.m in Sources */,
 				75E5FF7D1D27D68300F77961 /* User.m in Sources */,
 				0437F4331D4658FF0054077C /* MCJSONDateTransformer.m in Sources */,
 				0437F4361D4658FF0054077C /* MCJSONValueTransformer.m in Sources */,

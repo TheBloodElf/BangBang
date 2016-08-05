@@ -28,4 +28,6 @@ typedef void(^completionHandler)(id data,MError *error);
                                             URLPath:(NSString *)pathStr
                                          parameters:(id)parameters
                                   completionHandler:(completionHandler)completionHandler;
+//下载文件
+- (NSURLSessionDownloadTask *)downRequesURLPath:(NSString *)pathStr locFilePath:(NSString*)locFilePath completionHandler:(completionHandler)completionHandler;
 @end
