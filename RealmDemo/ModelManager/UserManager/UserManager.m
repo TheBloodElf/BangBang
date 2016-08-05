@@ -260,7 +260,7 @@
 //更新用户数据
 - (void)updateUser:(User*)user {
     [_rlmRealm beginWriteTransaction];
-    [_rlmRealm addOrUpdateObject:user];
+    [User createOrUpdateInRealm:_rlmRealm withValue:user];
     self.user = user;
     [_rlmRealm commitWriteTransaction];
     //把用户数据放到应用组间共享数据
@@ -292,7 +292,7 @@
     RBQFetchedResultsController *fetchedResultsController = nil;
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user_guid = %@",_user.user_guid];
     RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"User" inRealm:_rlmRealm predicate:predicate];
-    fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:@"User"];
+    fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:nil];
     [fetchedResultsController performFetch];
     return fetchedResultsController;
 }
@@ -343,7 +343,9 @@
     RLMResults *companys = [Company allObjectsInRealm:_rlmRealm];
     while (companys.count)
         [_rlmRealm deleteObject:companys.firstObject];
-    [_rlmRealm addObjects:companyArr];
+    for (Company *company in companyArr) {
+        [Company createOrUpdateInRealm:_rlmRealm withValue:company];
+    }
     [_rlmRealm commitWriteTransaction];
 }
 //获取圈子数组
@@ -362,7 +364,7 @@
 - (RBQFetchedResultsController*)createCompanyFetchedResultsController {
     RBQFetchedResultsController *fetchedResultsController = nil;
     RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"Company" inRealm:_rlmRealm predicate:nil];
-    fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:@"Company"];
+    fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:nil];
     [fetchedResultsController performFetch];
     return fetchedResultsController;
 }
@@ -370,7 +372,7 @@
 //更新某个员工
 - (void)updateEmployee:(Employee*)emplyee {
     [_rlmRealm beginWriteTransaction];
-    [_rlmRealm addOrUpdateObject:emplyee];
+    [Employee createOrUpdateInRealm:_rlmRealm withValue:emplyee];
     [_rlmRealm commitWriteTransaction];
 }
 //根据圈子ID更新所有员工信息
@@ -384,7 +386,7 @@
     while (results.count)
         [_rlmRealm deleteObject:results.firstObject];
     for (Employee * employee in employeeArr) {
-        [_rlmRealm addOrUpdateObject:employee];
+        [Employee createOrUpdateInRealm:_rlmRealm withValue:employee];
     }
     [_rlmRealm commitWriteTransaction];
 }
@@ -425,7 +427,7 @@
     NSPredicate *pred = nil;
     pred = [NSPredicate predicateWithFormat:@"company_no = %d",companyNo];
     RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"Employee" inRealm:_rlmRealm predicate:pred];
-    fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:@"Employee"];
+    fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:nil];
     [fetchedResultsController performFetch];
     return fetchedResultsController;
 }
@@ -464,7 +466,7 @@
 - (RBQFetchedResultsController*)createPushMessagesFetchedResultsController {
     RBQFetchedResultsController *fetchedResultsController = nil;
     RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"PushMessage" inRealm:_rlmRealm predicate:nil];
-    fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:@"PushMessage"];
+    fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:nil];
     [fetchedResultsController performFetch];
     return fetchedResultsController;
 }
@@ -487,7 +489,9 @@
     RLMResults *pushMessages = [UserDiscuss allObjectsInRealm:_rlmRealm];
     while (pushMessages.count)
         [_rlmRealm deleteObject:pushMessages.firstObject];
-    [_rlmRealm addOrUpdateObjectsFromArray:userDiscussArr];
+    for (UserDiscuss *userDiscuss in userDiscussArr) {
+        [UserDiscuss createOrUpdateInRealm:_rlmRealm withValue:userDiscuss];
+    }
     [_rlmRealm commitWriteTransaction];
 }
 //获取所有的讨论组
@@ -506,7 +510,7 @@
 - (RBQFetchedResultsController*)createUserDiscusFetchedResultsController {
     RBQFetchedResultsController *fetchedResultsController = nil;
     RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"UserDiscuss" inRealm:_rlmRealm predicate:nil];
-    fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:@"UserDiscuss"];
+    fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:nil];
     [fetchedResultsController performFetch];
     return fetchedResultsController;
 }
@@ -530,7 +534,9 @@
     while (rLMResults.count) {
         [_rlmRealm deleteObject:[rLMResults objectAtIndex:0]];
     }
-    [_rlmRealm addOrUpdateObjectsFromArray:calendarArr];
+    for (Calendar *calendar in calendarArr) {
+        [Calendar createOrUpdateInRealm:_rlmRealm withValue:calendar];
+    }
     [_rlmRealm commitWriteTransaction];
 }
 //获取指定时间的日程 未删除的
@@ -566,7 +572,7 @@
 - (RBQFetchedResultsController*)createCalendarFetchedResultsController {
     RBQFetchedResultsController *fetchedResultsController = nil;
     RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"Calendar" inRealm:_rlmRealm predicate:nil];
-    fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:@"Calendar"];
+    fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:nil];
     [fetchedResultsController performFetch];
     return fetchedResultsController;
 }
@@ -588,7 +594,9 @@
     while (calendarResult.count) {
         [_rlmRealm deleteObject:calendarResult.firstObject];
     }
-    [_rlmRealm addOrUpdateObjectsFromArray:sigInArr];
+    for (SignIn *signIn in sigInArr) {
+        [SignIn createOrUpdateInRealm:_rlmRealm withValue:signIn];
+    }
     [_rlmRealm commitWriteTransaction];
 }
 //获取今天的签到记录
@@ -615,7 +623,7 @@
     int64_t dateLastTime = date.lastTime.timeIntervalSince1970 * 1000;
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(employee_guid = %@ and create_on_utc >= %lld and create_on_utc <= %lld)",employeeGuid,dateFirstTime,dateLastTime];
     RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"SignIn" inRealm:_rlmRealm predicate:predicate];
-    fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:@"SignIn"];
+    fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:nil];
     [fetchedResultsController performFetch];
     return fetchedResultsController;
 }
@@ -658,7 +666,9 @@
     while (calendarResult.count) {
         [_rlmRealm deleteObject:calendarResult.firstObject];
     }
-    [_rlmRealm addOrUpdateObjectsFromArray:sigRules];
+    for (SiginRuleSet *siginRuleSet in sigRules) {
+        [SiginRuleSet createOrUpdateInRealm:_rlmRealm withValue:siginRuleSet];
+    }
     [_rlmRealm commitWriteTransaction];
 }
 //创建圈子的数据监听
@@ -666,7 +676,7 @@
     RBQFetchedResultsController *fetchedResultsController = nil;
      NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(company_no = %d )",companyNo];
     RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"SiginRuleSet" inRealm:_rlmRealm predicate:predicate];
-    fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:@"SiginRuleSet"];
+    fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:nil];
     [fetchedResultsController performFetch];
     return fetchedResultsController;
 }
@@ -691,7 +701,9 @@
     while (calendarResult.count) {
         [_rlmRealm deleteObject:calendarResult.firstObject];
     }
-    [_rlmRealm addOrUpdateObjectsFromArray:taskArr];
+    for (TaskModel *model in taskArr) {
+        [TaskModel createOrUpdateInRealm:_rlmRealm withValue:model];
+    }
     [_rlmRealm commitWriteTransaction];
 }
 //获取所有的任务列表
@@ -712,7 +724,7 @@
     RBQFetchedResultsController *fetchedResultsController = nil;
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(company_no = %d and status != 0)",companyNo];
     RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"TaskModel" inRealm:_rlmRealm predicate:predicate];
-    fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:@"TaskModel"];
+    fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:nil];
     [fetchedResultsController performFetch];
     return fetchedResultsController;
 }
