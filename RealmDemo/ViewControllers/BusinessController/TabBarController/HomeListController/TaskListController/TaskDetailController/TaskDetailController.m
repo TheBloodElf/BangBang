@@ -59,14 +59,14 @@
     self.taskTitle.text = _taskModel.task_name;
     
     self.bottomScrollView.contentSize = CGSizeMake(3 * MAIN_SCREEN_WIDTH, self.bottomScrollView.frame.size.height);
-    _taskDetailView = [[TaskDetailView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, self.bottomScrollView.frame.size.height + 20)];
+    _taskDetailView = [[TaskDetailView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 150 - 64)];
     _taskDetailView.data = _taskModel;
     _taskDetailView.delegate = self;
     [self.bottomScrollView addSubview:_taskDetailView];
-    _taskDiscussView = [[TaskDiscussView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH, 0, MAIN_SCREEN_WIDTH, self.bottomScrollView.frame.size.height + 20)];
+    _taskDiscussView = [[TaskDiscussView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 150 - 64)];
     _taskDiscussView.data = _taskModel;
     [self.bottomScrollView addSubview:_taskDiscussView];
-    _taskFileView = [[TaskFileView alloc] initWithFrame:CGRectMake(2 *MAIN_SCREEN_WIDTH, 0, MAIN_SCREEN_WIDTH, self.bottomScrollView.frame.size.height + 20)];
+    _taskFileView = [[TaskFileView alloc] initWithFrame:CGRectMake(2 *MAIN_SCREEN_WIDTH, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 150 - 64)];
     _taskFileView.delegate = self;
     _taskFileView.data = _taskModel;
     [self.bottomScrollView addSubview:_taskFileView];

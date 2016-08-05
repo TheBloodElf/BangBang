@@ -22,16 +22,16 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hRL-6r-51d">
-                        <rect key="frame" x="55" y="11" width="220" height="21"/>
+                        <rect key="frame" x="55" y="11" width="225" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3xb-cN-gYE">
-                        <rect key="frame" x="285" y="9" width="25" height="25"/>
+                        <rect key="frame" x="290" y="12" width="20" height="20"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="25" id="4bg-sq-3Ec"/>
-                            <constraint firstAttribute="height" constant="25" id="rWf-F1-mVn"/>
+                            <constraint firstAttribute="width" constant="20" id="4bg-sq-3Ec"/>
+                            <constraint firstAttribute="height" constant="20" id="rWf-F1-mVn"/>
                         </constraints>
                         <state key="normal" image="ic_task_delete"/>
                         <connections>
