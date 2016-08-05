@@ -34,7 +34,7 @@
     _repCalendarView.data = _calendar;
     [self.view addSubview:_repCalendarView];
     if(_calendar.status == 1) {//今天如果是被删除或者被完成的也不添加工具栏
-        if([_calendar.user_guid isEqualToString:_userManager.user.user_guid])//如果是自己创建的 就可以修改
+        if([_calendar.created_by isEqualToString:_userManager.user.user_guid])//如果是自己创建的 就可以修改
             self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(rightClicked:)];
         UIToolbar *bottomBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, MAIN_SCREEN_HEIGHT - 50 - 64, MAIN_SCREEN_WIDTH, 50)];
         UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
@@ -47,6 +47,8 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.frostedViewController.navigationController setNavigationBarHidden:YES animated:YES];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setBackIndicatorTransitionMaskImage:nil];
     [self.navigationController.navigationBar setShadowImage:nil];

@@ -37,7 +37,7 @@
     _searchBar.placeholder = @"搜索日程";
     [self.view addSubview:_searchBar];
     //创建表格视图
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 55, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 55) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 55, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 55 - 64) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     UILabel *noDataLabel = [[UILabel alloc] initWithFrame:_tableView.bounds];

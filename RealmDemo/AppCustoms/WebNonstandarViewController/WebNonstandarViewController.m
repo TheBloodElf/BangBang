@@ -271,6 +271,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.frostedViewController.navigationController setNavigationBarHidden:YES animated:YES];
     [self.navigationController setNavigationBarHidden:!self.showNavigationBar animated:YES];
 }
 #pragma mark -- MeetingSiginReaderDelegate

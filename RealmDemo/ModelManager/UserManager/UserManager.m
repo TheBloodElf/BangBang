@@ -108,7 +108,7 @@
     // 通知提示音 使用默认的
     notification.soundName= @"notification_ring.mp3";
     // 设置应用程序右上角的提醒个数 上下班不需要加数字
-    //    notification.applicationIconBadgeNumber++;
+    notification.applicationIconBadgeNumber++;
     // 设定通知的userInfo，用来标识该通知
     NSMutableDictionary *aUserInfo = [[NSMutableDictionary alloc] init];
     [aUserInfo setObject:@"WORKTIP" forKey:@"type"];
@@ -322,13 +322,13 @@
 //更新某个圈子信息
 - (void)updateCompany:(Company*)company {
     [_rlmRealm beginWriteTransaction];
-    [_rlmRealm addOrUpdateObject:company];
+    [Company createOrUpdateInRealm:_rlmRealm withValue:company];
     [_rlmRealm commitWriteTransaction];
 }
 //添加某个圈子
 - (void)addCompany:(Company*)company {
     [_rlmRealm beginWriteTransaction];
-    [_rlmRealm addOrUpdateObject:company];
+    [Company createOrUpdateInRealm:_rlmRealm withValue:company];
     [_rlmRealm commitWriteTransaction];
 }
 //删除某个圈子
@@ -433,13 +433,13 @@
 //添加某个推送消息
 - (void)addPushMessage:(PushMessage*)pushMessage {
     [_rlmRealm beginWriteTransaction];
-    [_rlmRealm addOrUpdateObject:pushMessage];
+    [PushMessage createOrUpdateInRealm:_rlmRealm withValue:pushMessage];
     [_rlmRealm commitWriteTransaction];
 }
 //修改某个推送消息
 - (void)updatePushMessage:(PushMessage*)pushMessage {
     [_rlmRealm beginWriteTransaction];
-    [_rlmRealm addOrUpdateObject:pushMessage];
+    [PushMessage createOrUpdateInRealm:_rlmRealm withValue:pushMessage];
     [_rlmRealm commitWriteTransaction];
 }
 //删除某个推送消息
@@ -472,7 +472,7 @@
 //添加通讯录中的讨论组
 - (void)addUserDiscuss:(UserDiscuss*)userDiscuss {
     [_rlmRealm beginWriteTransaction];
-    [_rlmRealm addOrUpdateObject:userDiscuss];
+    [UserDiscuss createOrUpdateInRealm:_rlmRealm withValue:userDiscuss];
     [_rlmRealm commitWriteTransaction];
 }
 //删除通讯录中的讨论组
@@ -487,7 +487,7 @@
     RLMResults *pushMessages = [UserDiscuss allObjectsInRealm:_rlmRealm];
     while (pushMessages.count)
         [_rlmRealm deleteObject:pushMessages.firstObject];
-    [_rlmRealm addObjects:userDiscussArr];
+    [_rlmRealm addOrUpdateObjectsFromArray:userDiscussArr];
     [_rlmRealm commitWriteTransaction];
 }
 //获取所有的讨论组
@@ -514,13 +514,13 @@
 //添加日程
 - (void)addCalendar:(Calendar*)calendar {
     [_rlmRealm beginWriteTransaction];
-    [_rlmRealm addOrUpdateObject:calendar];
+    [Calendar createOrUpdateInRealm:_rlmRealm withValue:calendar];
     [_rlmRealm commitWriteTransaction];
 }
 //更新日程
 - (void)updateCalendar:(Calendar*)calendar {
     [_rlmRealm beginWriteTransaction];
-    [_rlmRealm addOrUpdateObject:calendar];
+    [Calendar createOrUpdateInRealm:_rlmRealm withValue:calendar];
     [_rlmRealm commitWriteTransaction];
 }
 //更新所有的日程
@@ -574,7 +574,7 @@
 //添加签到记录
 - (void)addSigin:(SignIn*)signIn {
     [_rlmRealm beginWriteTransaction];
-    [_rlmRealm addOrUpdateObject:signIn];
+    [SignIn createOrUpdateInRealm:_rlmRealm withValue:signIn];
     [_rlmRealm commitWriteTransaction];
 }
 //更新今天的签到记录
@@ -588,7 +588,7 @@
     while (calendarResult.count) {
         [_rlmRealm deleteObject:calendarResult.firstObject];
     }
-    [_rlmRealm addObjects:sigInArr];
+    [_rlmRealm addOrUpdateObjectsFromArray:sigInArr];
     [_rlmRealm commitWriteTransaction];
 }
 //获取今天的签到记录
@@ -623,13 +623,13 @@
 //更新签到规则
 - (void)updateSiginRule:(SiginRuleSet*)siginRule {
     [_rlmRealm beginWriteTransaction];
-    [_rlmRealm addOrUpdateObject:siginRule];
+    [SiginRuleSet createOrUpdateInRealm:_rlmRealm withValue:siginRule];
     [_rlmRealm commitWriteTransaction];
 }
 //添加签到规则
 - (void)addSiginRule:(SiginRuleSet*)siginRule {
     [_rlmRealm beginWriteTransaction];
-    [_rlmRealm addOrUpdateObject:siginRule];
+    [SiginRuleSet createOrUpdateInRealm:_rlmRealm withValue:siginRule];
     [_rlmRealm commitWriteTransaction];
 }
 //删除签到规则
@@ -674,13 +674,13 @@
 //添加任务
 - (void)addTask:(TaskModel*)model {
     [_rlmRealm beginWriteTransaction];
-    [_rlmRealm addOrUpdateObject:model];
+    [TaskModel createOrUpdateInRealm:_rlmRealm withValue:model];
     [_rlmRealm commitWriteTransaction];
 }
 //更新任务
 - (void)upadteTask:(TaskModel*)model {
     [_rlmRealm beginWriteTransaction];
-    [_rlmRealm addOrUpdateObject:model];
+    [TaskModel createOrUpdateInRealm:_rlmRealm withValue:model];
     [_rlmRealm commitWriteTransaction];
 }
 //更新圈子的任务

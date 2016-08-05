@@ -122,6 +122,7 @@
                         return ;
                     }
                     [self.navigationController.view showSuccessTips:@"操作成功"];
+                    
                 }];
             } else {
                 [UserHttp quitRYGroup:employee.user_no companyNo:_userManager.user.currCompany.company_no handler:^(id data, MError *error) {
@@ -131,6 +132,7 @@
                         return ;
                     }
                     [self.navigationController.view showSuccessTips:@"操作成功"];
+                    
                 }];
             }
         }];
@@ -157,6 +159,7 @@
             tempEmployee.status = status;
             [_userManager updateEmployee:tempEmployee];
             [self.navigationController.view showSuccessTips:@"操作成功"];
+            
         }];
     }];
     [alertVC addAction:okAction];

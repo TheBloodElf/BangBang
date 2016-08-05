@@ -52,6 +52,7 @@
     [UserHttp setupAPNSDevice:clientId userNo:_userManager.user.user_no handler:^(id data, MError *error) {}];
 }
 -(void)GeTuiSdkDidReceivePayload:(NSString *)payloadId andTaskId:(NSString *)taskId andMessageId:(NSString *)aMsgId andOffLine:(BOOL)offLine fromApplication:(NSString *)appId {
+    [UIApplication sharedApplication].applicationIconBadgeNumber -= 1;
     //在这里处理个推推送
     NSData* payload = [GeTuiSdk retrivePayloadById:payloadId];
     NSString *payloadMsg = nil;
@@ -69,41 +70,22 @@
     if(![dict.allKeys containsObject:@"unread"])
         [dict setObject:@(1) forKey:@"unread"];
     PushMessage *message = [[PushMessage alloc] initWithJSONDictionary:dict];
-    //如果程序处于前台，已读
-    if([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
-        message.unread = NO;
-    } else {
-        message.unread = YES;
-    }
-    if (message.unread == YES) {
-        //未读的 不是接受会议推送的和自己发起的投票推送 播放声音
-        IdentityManager *identityManager = [IdentityManager manager];
-        if (identityManager.identity.canPlayVoice != 1) {
-            AudioServicesPlaySystemSound(1007); //系统的通知声音
-        }
-        if (identityManager.identity.canPlayShake != 1) {
-            AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);//震动
-        }
-    }
+    message.unread = YES;
+    AudioServicesPlaySystemSound(1007); //系统的通知声音
+    AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);//震动
     message.addTime = [NSDate date];
     message.from_user_no =  [[dict objectForKey:@"from"] intValue];
     message.to_user_no = [[dict objectForKey:@"to"] intValue];
-    
     //如果是投票和公告 因为没有存到本地数据库，所以不操作
     if ([message.type isEqualToString:@"VOTE"] || [message.type isEqualToString:@"NOTICE"]) {
         message.to_user_no = _userManager.user.user_no;
-    }
-    //如果是会议 因为没有存到本地数据库 所以不操作
-    if ([message.action isEqualToString:@"MEETING_RECEIVE"]) {
-        
-    } else if ([message.action isEqualToString:@"VOTE_ADD"]&& message.from_user_no == _userManager.user.user_no){
-        
     }
     //如果是分享过来的日程，存入数据库
     if ([message.type isEqualToString:@"CALENDAR"] && ![NSString isBlank:message.entity]) {
         NSData *calendarData = [[dict objectForKey:@"entity"] dataUsingEncoding:NSUTF8StringEncoding];
         NSMutableDictionary *calendarDic = [NSJSONSerialization JSONObjectWithData:calendarData options:NSJSONReadingMutableContainers error:nil];
         Calendar *sharedCalendar = [[Calendar alloc] initWithJSONDictionary:calendarDic];
+        sharedCalendar.descriptionStr = calendarDic[@"description"];
         if (sharedCalendar) {
             [_userManager addCalendar:sharedCalendar];
         }
@@ -118,7 +100,9 @@
             [_userManager updateEmployee:employee];
             for (Company *company in [_userManager getCompanyArr]) {
                 if(company.company_no == message.company_no) {
-                    [_userManager updateCompany:company];
+                    Company *tempCompany = [company deepCopy];
+                    [_userManager deleteCompany:company];
+                    [_userManager addCompany:tempCompany];
                     break;
                 }
             }
@@ -127,11 +111,17 @@
             Employee *employee = [[_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:message.company_no] deepCopy];
             employee.status = 2;
             [_userManager updateEmployee:employee];
+            //改变自己在里面的状态 更新圈子数组
             for (Company *company in [_userManager getCompanyArr]) {
                 if(company.company_no == message.company_no) {
-                    [_userManager updateCompany:company];
+                    [_userManager deleteCompany:company];
                     break;
                 }
+            }
+            if(_userManager.user.currCompany.company_no == message.company_no) {
+                User *user = [_userManager.user deepCopy];
+                user.currCompany = [Company new];
+                [_userManager updateUser:user];
             }
         }  else if ([message.action rangeOfString:@"COMPANY_REFUSE_JOIN"].location != NSNotFound) {//拒绝加入圈子
             Employee *employee = [[_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:message.company_no] deepCopy];
@@ -158,9 +148,12 @@
             
             for (Company *company in [_userManager getCompanyArr]) {
                 if(company.company_no == message.company_no) {
-                    User *user = [_userManager.user deepCopy];
-                    user.currCompany = [company deepCopy];
-                    [_userManager updateUser:user];
+                    Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:company.company_no];
+                    if(employee.status == 1 || employee.status == 4) {
+                        User *user = [_userManager.user deepCopy];
+                        user.currCompany = [company deepCopy];
+                        [_userManager updateUser:user];
+                    }
                     break;
                 }
             }
@@ -193,12 +186,25 @@
     if ([message.action rangeOfString:@"CHANGE_PASSWORD"].location != NSNotFound) { //修改密码
         [[IdentityManager manager] showLogin];
     }
-    if ([message.action isEqualToString:@"MEETING_RECEIVE"]){//接受会议
-        NSData *calendarData = [[dict objectForKey:@"entity"] dataUsingEncoding:NSUTF8StringEncoding];
-        NSMutableDictionary *calendarDic = [NSJSONSerialization JSONObjectWithData:calendarData options:NSJSONReadingMutableContainers error:nil];
-        Calendar *meetingCalendar = [[Calendar alloc] initWithJSONDictionary:calendarDic];
-        if (meetingCalendar) {
-            [_userManager addCalendar:meetingCalendar];
+    if([message.type isEqualToString:@"MEETING"]) {
+        if([message.action isEqualToString:@"GENERAL"]) {//如果是有会议来
+            
+        } else {
+            NSData *calendarData = [[dict objectForKey:@"entity"] dataUsingEncoding:NSUTF8StringEncoding];
+            NSMutableDictionary *calendarDic = [NSJSONSerialization JSONObjectWithData:calendarData options:NSJSONReadingMutableContainers error:nil];
+            Calendar *meetingCalendar = [[Calendar alloc] initWithJSONDictionary:calendarDic];
+            meetingCalendar.descriptionStr = calendarDic[@"description"];
+            if([message.action isEqualToString:@"MEETING_RECEIVE"]){//接收会议 加入本地日程
+                [_userManager addCalendar:meetingCalendar];
+            } else if ([message.action isEqualToString:@"MEETING_FINISHED"]) {//会议完结 本地的日程完结
+                meetingCalendar.status = 2;
+                [_userManager updateCalendar:meetingCalendar];
+            } else if ([message.action isEqualToString:@"MEETING_UPDATE"]) {//更新会议 更新本地日程
+                [_userManager updateCalendar:meetingCalendar];
+            } else if ([message.action isEqualToString:@"MEETING_CALLOFF"]) {//取消会议
+                meetingCalendar.status = 0;
+                [_userManager updateCalendar:meetingCalendar];
+            }
         }
     }
     [_userManager addPushMessage:message];

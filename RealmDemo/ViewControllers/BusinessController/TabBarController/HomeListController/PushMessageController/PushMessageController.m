@@ -49,7 +49,7 @@
     _searchBar.returnKeyType = UIReturnKeySearch;
     [self.view addSubview:_searchBar];
     //创建表格视图
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 55, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 55) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 55, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 55 - 64) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.tableFooterView = [UIView new];
@@ -102,6 +102,9 @@
     UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *ok = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         NSArray *selectArr = _tableView.indexPathsForSelectedRows;
+        selectArr = [selectArr sortedArrayUsingComparator:^NSComparisonResult(NSIndexPath*  _Nonnull obj1, NSIndexPath*  _Nonnull obj2) {
+            return obj1.row > obj2.row;
+        }];
         //从最后一个删除，这是有原因的
         for (int index = (int)selectArr.count - 1; index >= 0; index --) {
             NSIndexPath *indexPath = selectArr[index];
@@ -179,35 +182,42 @@
     else {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         PushMessage *message = [_pushMessageArr[indexPath.row] deepCopy];
-        if(message.unread == true) {
-            message.unread = false;
+        if(message.unread == YES) {
+            message.unread = NO;
             [_userManager updatePushMessage:message];
         }
         //分别进入对应的界面进行操作
         //如果是圈子操作
         if([message.type isEqualToString:@"COMPANY"]) {
             if([message.action isEqualToString:@"GENERAL"]) {
+                for (Company *company in [_userManager getCompanyArr]) {
+                    if(company.company_no == message.company_no) {
+                        Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:company.company_no];
+                        if(employee.status == 1 || employee.status == 4) {
+                            User *user = [_userManager.user deepCopy];
+                            user.currCompany = [company deepCopy];
+                            [_userManager updateUser:user];
+                        }
+                        break;
+                    }
+                }
+                if(_userManager.user.currCompany.company_no == 0) {
+                    [self.navigationController showMessageTips:@"请选择圈子后再操作"];
+                }
                 [self.navigationController pushViewController:[RequestManagerController new] animated:YES];
             } else {
                 [self.navigationController pushViewController:[BushManageViewController new] animated:YES];
             }
         } else if ([message.type isEqualToString:@"TASK"]) {//如果是任务
             //进入任务详情
-            //获取任务详情 弹窗
-            [UserHttp getTaskInfo:[message.target_id intValue] handler:^(id data, MError *error) {
-                [self dismissTips];
-                if(error) {
-                    [self showFailureTips:error.statsMsg];
-                    return ;
+            for (TaskModel *model in [_userManager getTaskArr:message.company_no]) {
+                if(model.id == message.target_id.intValue) {
+                    TaskDetailController *task = [TaskDetailController new];
+                    task.data = model;
+                    [self.navigationController pushViewController:task animated:YES];
+                    break;
                 }
-                TaskModel *taskModel = [[TaskModel alloc] initWithJSONDictionary:data];
-                taskModel.descriptionStr = data[@"description"];
-                [_userManager upadteTask:taskModel];
-                
-                TaskDetailController *task = [TaskDetailController new];
-                task.data = taskModel;
-                [self.navigationController pushViewController:task animated:YES];
-            }];
+            }
         } else if ([message.type isEqualToString:@"TASK_COMMENT_STATUS"]) {//如果是任务讨论信息变了
             for (TaskModel *model in [_userManager getTaskArr:message.company_no]) {
                 if(model.id == message.target_id.intValue) {
@@ -217,7 +227,22 @@
                     break;
                 }
             }
-        } else if ([message.type isEqualToString:@"CALENDARTIP"] || [message.type isEqualToString:@"CALENDAR"]) {//日程推送：日程分享
+        }  else if ([message.type isEqualToString:@"CALENDAR"]) {//日程分享
+            NSData *calendarData = [message.entity dataUsingEncoding:NSUTF8StringEncoding];
+            NSMutableDictionary *calendarDic = [NSJSONSerialization JSONObjectWithData:calendarData options:NSJSONReadingMutableContainers error:nil];
+            Calendar *sharedCalendar = [[Calendar alloc] initWithJSONDictionary:calendarDic];
+            sharedCalendar.descriptionStr = calendarDic[@"description"];
+            //展示详情
+            if(sharedCalendar.repeat_type == 0) {
+                ComCalendarDetailViewController *com = [ComCalendarDetailViewController new];
+                com.data = sharedCalendar;
+                [self.navigationController pushViewController:com animated:YES];
+            } else {
+                RepCalendarDetailController *com = [RepCalendarDetailController new];
+                com.data = sharedCalendar;
+                [self.navigationController pushViewController:com animated:YES];
+            }
+        } else if ([message.type isEqualToString:@"CALENDARTIP"]) {//日程推送：
             NSArray<Calendar*> *calendarArr = [[UserManager manager] getCalendarArr];
             Calendar *calendar = nil;
             for (Calendar *temp in calendarArr) {

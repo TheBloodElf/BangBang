@@ -75,15 +75,19 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.frostedViewController.navigationController setNavigationBarHidden:YES animated:YES];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 - (void)dataDidChange {
     _taskModel = [self.data deepCopy];
 }
 - (void)reloadTaskInfo:(NSNotification*)noti {
-    _taskFileView.data = _taskModel;
-    _taskDetailView.data = _taskModel;
-    _taskDiscussView.data = _taskModel;
+    PushMessage *message = noti.object;
+    if(message.target_id.intValue == _taskModel.id) {
+        _taskFileView.data = _taskModel;
+        _taskDetailView.data = _taskModel;
+        _taskDiscussView.data = _taskModel;
+    }
 }
 //详情/讨论/附件被点击
 - (IBAction)btnClicked:(UIButton*)sender {

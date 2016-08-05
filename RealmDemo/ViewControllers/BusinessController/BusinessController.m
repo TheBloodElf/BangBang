@@ -63,10 +63,10 @@
     //如果是圈子操作
     if([message.type isEqualToString:@"COMPANY"]) {
         //是否有操作
-        if ([message.action isEqualToString:@"GENERAL"]) {
-            [_businessNav pushViewController:[RequestManagerController new] animated:YES];
+        if ([message.action isEqualToString:@"GENERAL"]) { //都不管 因为要不停的弹出来 很烦
+//            [_businessNav pushViewController:[RequestManagerController new] animated:YES];
         } else {
-            [_businessNav pushViewController:[BushManageViewController new] animated:YES];
+            //其他的不用管
         }
     } else if ([message.type isEqualToString:@"TASK"]) {//任务推送
         //获取任务详情 弹窗
@@ -85,7 +85,7 @@
             [_businessNav pushViewController:task animated:YES];
         }];
     } else if([message.type isEqualToString:@"TASK_COMMENT_STATUS"]){//任务评论推送
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadTaskInfo" object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadTaskInfo" object:message];
     } else if([message.type isEqualToString:@"TASKTIP"]) { //任务提醒推送 进入任务详情
         for (TaskModel *taskModel in [_userManager getTaskArr:message.company_no]) {
             if(message.target_id.intValue == taskModel.id) {
@@ -112,22 +112,18 @@
             }
         }
     } else if([message.type isEqualToString:@"CALENDAR"]){ //日程推送 分享日程
-        NSArray *array = [_userManager getCalendarArr];
-        Calendar *calendar = nil;
-        for (Calendar *temp in array) {
-            if(temp.id == [message.target_id intValue]) {
-                calendar = temp;
-                break;
-            }
-        }
+        NSData *calendarData = [message.entity dataUsingEncoding:NSUTF8StringEncoding];
+        NSMutableDictionary *calendarDic = [NSJSONSerialization JSONObjectWithData:calendarData options:NSJSONReadingMutableContainers error:nil];
+        Calendar *sharedCalendar = [[Calendar alloc] initWithJSONDictionary:calendarDic];
+        sharedCalendar.descriptionStr = calendarDic[@"description"];
         //展示详情
-        if(calendar.repeat_type == 0) {
+        if(sharedCalendar.repeat_type == 0) {
             ComCalendarDetailViewController *com = [ComCalendarDetailViewController new];
-            com.data = calendar;
+            com.data = sharedCalendar;
             [_businessNav pushViewController:com animated:YES];
         } else {
             RepCalendarDetailController *com = [RepCalendarDetailController new];
-            com.data = calendar;
+            com.data = sharedCalendar;
             [_businessNav pushViewController:com animated:YES];
         }
     }else if ([message.type isEqualToString:@"REQUEST"]) {//网页
