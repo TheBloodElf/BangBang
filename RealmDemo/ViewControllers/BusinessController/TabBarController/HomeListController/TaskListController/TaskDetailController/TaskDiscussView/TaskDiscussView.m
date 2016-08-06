@@ -52,6 +52,7 @@
         textField.clipsToBounds = YES;
         textField.layer.borderWidth = 1;
         textField.tag = 1000;
+        textField.returnKeyType = UIReturnKeyDone;
         textField.delegate = self;
         textField.layer.borderColor = [UIColor whiteColor].CGColor;
         [_bottomView addSubview:textField];
@@ -78,10 +79,11 @@
         for (NSDictionary *dic in data) {
             TaskCommentModel *model = [TaskCommentModel new];
             [model mj_setKeyValues:dic];
-            [array addObject:model];
+            [array insertObject:model atIndex:0];
         }
         _taskCommentModelArr = array;
         [_tableView reloadData];
+        [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:_taskCommentModelArr.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }];
 }
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
@@ -97,9 +99,22 @@
         _bottomView.frame = CGRectMake(0, self.frame.size.height - 48, MAIN_SCREEN_WIDTH, 48);
         _tableView.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, self.frame.size.height - 48);
     }];
+    UITextField *text = (id)[_bottomView viewWithTag:1000];
+    if([NSString isBlank:text.text]) return YES;
+    Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_taskModel.company_no];
+    [UserHttp addTaskComment:_taskModel.id taskStatus:_taskModel.status comment:text.text createdby:employee.employee_guid createdRealname:employee.real_name handler:^(id data, MError *error) {
+        if(error) {
+            [self showFailureTips:error.statsMsg];
+            return ;
+        }
+        text.text = @"";
+        self.data = _taskModel;
+    }];
+
     return YES;
 }
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
+    [self endEditing:YES];
     [UIView animateWithDuration:0.2 animations:^{
         _bottomView.frame = CGRectMake(0, self.frame.size.height - 48, MAIN_SCREEN_WIDTH, 48);
         _tableView.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, self.frame.size.height - 48);
@@ -107,8 +122,7 @@
     return YES;
 }
 - (void)sendClicked:(UIButton*)btn {
-    [self endEditing:YES];
-    UITextField *text = [_bottomView viewWithTag:1000];
+    UITextField *text = (id)[_bottomView viewWithTag:1000];
     if([NSString isBlank:text.text]) return;
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_taskModel.company_no];
     [UserHttp addTaskComment:_taskModel.id taskStatus:_taskModel.status comment:text.text createdby:employee.employee_guid createdRealname:employee.real_name handler:^(id data, MError *error) {
@@ -119,6 +133,7 @@
         text.text = @"";
         self.data = _taskModel;
     }];
+    
 }
 #pragma mark -- UITableViewDelegate
 

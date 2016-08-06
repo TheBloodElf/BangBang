@@ -18,7 +18,7 @@
 #import "LookMemberController.h"
 #import "InputTextController.h"
 
-@interface TaskDetailController ()<TaskDetailDelegate,TaskFileDelegate,SelectImageDelegate> {
+@interface TaskDetailController ()<TaskDetailDelegate,TaskFileDelegate,SelectImageDelegate,UIDocumentInteractionControllerDelegate> {
     TaskModel *_taskModel;//要展示的任务模型
     UserManager *_userManager;
     
@@ -101,7 +101,7 @@
     self.lineView.center = CGPointMake((MAIN_SCREEN_WIDTH / 3.f) * (sender.tag - 1000) + MAIN_SCREEN_WIDTH / 6.f, self.lineView.center.y);
     int index = sender.tag - 1000;
     [self.view endEditing:YES];
-    [self.bottomScrollView setContentOffset:CGPointMake(index * MAIN_SCREEN_WIDTH, 0) animated:YES];
+    [self.bottomScrollView setContentOffset:CGPointMake(index * MAIN_SCREEN_WIDTH, 0) animated:NO];
 }
 #pragma mark -- TaskDetailDelegate
 //接收
@@ -214,6 +214,25 @@
     select.maxSelect = 9;
     select.delegate = self;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:select] animated:YES completion:nil];
+}
+//预览文件
+- (void)lookTaskFile:(NSURL*)fileUrl {
+    UIDocumentInteractionController *documentController = [UIDocumentInteractionController
+     interactionControllerWithURL:fileUrl];
+    documentController.delegate = self;
+    [documentController presentOpenInMenuFromRect:CGRectZero inView:self.view animated:YES];
+}
+-(void)documentInteractionController:(UIDocumentInteractionController *)controller willBeginSendingToApplication:(NSString *)application
+{
+    
+}
+-(void)documentInteractionController:(UIDocumentInteractionController *)controller didEndSendingToApplication:(NSString *)application
+{
+    
+}
+-(void)documentInteractionControllerDidDismissOpenInMenu: (UIDocumentInteractionController *)controller
+{
+    
 }
 #pragma mark -- SelectImageDelegate
 - (void)selectImageFinish:(NSMutableArray<Photo*>*)photoArr {

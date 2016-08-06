@@ -24,7 +24,6 @@ typedef void(^ClickedBlock)();
 
 @property (nonatomic, copy) ClickedBlock clickedBlock;
 
-
 /**
  *  图像对象
  */

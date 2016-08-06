@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 //任务附件
 @protocol TaskFileDelegate <NSObject>
-//下载任务附件
+//上传任务附件
 - (void)uploadTaskFile;
+//预览文件
+- (void)lookTaskFile:(NSURL*)fileUrl;
 
 @end
 @interface TaskFileView : UIView

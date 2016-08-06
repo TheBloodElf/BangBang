@@ -219,26 +219,19 @@
 - (void)rightBarButtomItemAction {
     //得到选中的员工数组
     NSMutableArray<Employee*> *employeeArr = [@[] mutableCopy];
-    for (SelectEmployeeModel *model in _selectEmployees) {
-        if(model.isSelected == YES) {
-            Employee *em = [Employee new];
-            [em mj_setKeyValues:[model mj_keyValues]];
-            [employeeArr addObject:em];
-        }
-    }
-    //转换成融云用户数组
-    if (employeeArr.count < 2 && (self.selectedEmployees.count == 0)) {
-        [self.navigationController.view showMessageTips:@"讨论组至少需要选择两个人！"];
-        return;
-    }
     //得到当前被选择的人
     NSMutableArray *rcUsers = [NSMutableArray new];
-    for (Employee *employee in employeeArr) {
+    for (Employee *employee in _selectEmployees) {
         RCUserInfo *user = [RCUserInfo new];
         user.userId = @(employee.user_no).stringValue;
         user.name = employee.user_real_name;
         user.portraitUri = employee.avatar;
         [rcUsers addObject:user];
+    }
+    //转换成融云用户数组
+    if (employeeArr.count < 2 && (self.selectedEmployees.count == 0)) {
+        [self.navigationController.view showMessageTips:@"讨论组至少需要选择两个人！"];
+        return;
     }
     //得到已经被选中的人
     for (Employee *employee in self.selectedEmployees) {

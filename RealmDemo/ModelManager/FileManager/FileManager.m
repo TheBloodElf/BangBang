@@ -25,6 +25,9 @@
         NSString *pathUrl = pathArr[0];
         pathUrl = [pathUrl stringByAppendingPathComponent:[UserManager manager].user.user_guid];
         _defaultFilePath = [pathUrl stringByAppendingPathComponent:@"LocFilePath"];
+        //创建文件夹
+        BOOL bo = [[NSFileManager defaultManager] createDirectoryAtPath:_defaultFilePath withIntermediateDirectories:YES attributes:nil error:nil];
+        NSAssert(bo,@"创建目录失败");
     }
     return self;
 }

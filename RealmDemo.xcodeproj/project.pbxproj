@@ -514,6 +514,7 @@
 		045D8BA71D444962002E0344 /* ApnsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApnsManager.m; sourceTree = "<group>"; };
 		045D8BAA1D444A86002E0344 /* BaiduMobStat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaiduMobStat.h; sourceTree = "<group>"; };
 		045D8BAB1D444A86002E0344 /* libBaiduMobStat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBaiduMobStat.a; sourceTree = "<group>"; };
+		046D48A01D556A7F0000ECC4 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
 		046DAF291D4C3EB500718F2A /* CreateMeetingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateMeetingController.h; sourceTree = "<group>"; };
 		046DAF2A1D4C3EB500718F2A /* CreateMeetingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateMeetingController.m; sourceTree = "<group>"; };
 		046DAF2B1D4C3EB500718F2A /* MeetingAgenda.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingAgenda.h; sourceTree = "<group>"; };
@@ -3295,6 +3296,7 @@
 		AE1CB48D1985A705EE5EEAD9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				046D48A01D556A7F0000ECC4 /* QuickLook.framework */,
 				1BF5DFC21D49A89A0039704E /* Foundation.framework */,
 				1B6D166B1D48AA730070D2E5 /* TencentOpenAPI.framework */,
 				1BFBC15F1D3F2BE300A5511A /* EventKit.framework */,

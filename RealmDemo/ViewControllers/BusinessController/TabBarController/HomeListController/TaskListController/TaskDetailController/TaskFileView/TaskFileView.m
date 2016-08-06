@@ -12,13 +12,12 @@
 #import "TaskModel.h"
 #import "UserHttp.h"
 
-@interface TaskFileView ()<UITableViewDelegate,UITableViewDataSource,TaskFileImageDelegate,UIDocumentInteractionControllerDelegate> {
+@interface TaskFileView ()<UITableViewDelegate,UITableViewDataSource,TaskFileImageDelegate> {
     TaskModel *_taskModel;
     UITableView *_tableView;
     NSMutableArray<TaskAttachModel*> *_taskAttachModelArr;
 }
 
-@property (nonatomic, strong) UIDocumentInteractionController *documentInteractionController;
 @end
 
 @implementation TaskFileView
@@ -85,12 +84,8 @@
 #pragma mark -- TaskFileDown
 //文件预览
 - (void)TaskFileLook:(TaskAttachModel*)file {
-    //url 为需要调用第三方打开的文件地址
-    NSURL *url = file.attachment.locFilePath;
-    _documentInteractionController = [UIDocumentInteractionController
-                                      interactionControllerWithURL:url];
-    [_documentInteractionController setDelegate:self];
-    [_documentInteractionController presentOpenInMenuFromRect:CGRectZero inView:self animated:YES];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(lookTaskFile:)]) {
+        [self.delegate lookTaskFile:file.attachment.locFilePath];
+    }
 }
-
 @end

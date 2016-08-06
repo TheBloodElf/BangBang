@@ -30,7 +30,7 @@
     TaskAttachModel *model = self.data;
     self.fileName.text = model.attachment.file_name;
     //判断本地是否有一样的文件，如果有一样的，就不下载了 并且改变按钮的文字
-    if([_fileManager fileIsExit:model.attachment.file_url]) {
+    if([_fileManager fileIsExit:model.attachment.file_name]) {
         [self.rightBtn setTitle:@"查看" forState:UIControlStateNormal];
         model.attachment.locFilePath = [_fileManager fileUrl:model.attachment.file_name];
         [self.rightBtn addTarget:self action:@selector(attachLook:) forControlEvents:UIControlEventTouchUpInside];

@@ -53,10 +53,10 @@
         ShowBigImageScroller *sc = [[ShowBigImageScroller alloc] initWithFrame:CGRectMake(i * _scrollView.frame.size.width, 0, _scrollView.frame.size.width, _scrollView.frame.size.height)];
         sc.photo = self.photoArr[i];
         sc.tag = ImageScrollViewTag + i;
-        WeakSelf(weakSelf)
+//        WeakSelf(weakSelf)
         sc.clickedBlock = ^()
         {
-            [weakSelf.navigationController popViewControllerAnimated:YES];
+//            [weakSelf.navigationController popViewControllerAnimated:YES];
         };
         [_scrollView addSubview:sc];
     }

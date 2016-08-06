@@ -58,6 +58,11 @@
 }
 #pragma mark --
 #pragma mark -- TextFieldDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self.view endEditing:YES];
+    _createBushModel.name = textField.text;
+    return YES;
+}
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     //当输入框失去第一响应者就把输入框的内容赋给模型变量

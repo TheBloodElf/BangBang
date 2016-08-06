@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "HttpService.h"
-
+//文件管理器 文件名用时间戳 防止重名 文件按照不同用户放在不同的文件夹下面
 @interface FileManager : NSObject
 
 + (instancetype)shareManager;

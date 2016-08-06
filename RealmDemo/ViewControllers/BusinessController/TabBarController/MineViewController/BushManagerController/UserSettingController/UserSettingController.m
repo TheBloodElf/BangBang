@@ -114,6 +114,8 @@
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否确定要清除缓存?" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *alertCancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *alertSure = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [[SDImageCache sharedImageCache] clearDisk];
+        [[SDImageCache sharedImageCache] clearMemory];
         [self.navigationController.view showSuccessTips:@"缓存清理成功!"];
     }];
     [alertVC addAction:alertCancel];
@@ -126,7 +128,8 @@
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否确定要清除通知?" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *alertCancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *alertSure = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
+        [[UIApplication sharedApplication] cancelAllLocalNotifications];
+        [self.navigationController.view showSuccessTips:@"通知清理成功!"];
     }];
     [alertVC addAction:alertCancel];
     [alertVC addAction:alertSure];

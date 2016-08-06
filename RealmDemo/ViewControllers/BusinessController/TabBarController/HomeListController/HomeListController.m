@@ -226,8 +226,8 @@
             webViewcontroller.hidesBottomBarWhenPushed = YES;
             [[self navigationController] pushViewController:webViewcontroller animated:YES];
         }];
-    } else if (index == 4) {//邮件
-        [self.navigationController.view showMessageTips:@"开发中，敬请期待！"];
+    } else if (index == 4) {//邮件 调用手机上的邮件
+        
     } else if (index == 5) {//会议
         [self executeNeedSelectCompany:^{
             WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];

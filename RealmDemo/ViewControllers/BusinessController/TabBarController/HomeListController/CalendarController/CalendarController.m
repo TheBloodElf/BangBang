@@ -41,6 +41,27 @@
     self.view.backgroundColor = [UIColor whiteColor];
     _calendarFetchedResultsController = [_userManager createCalendarFetchedResultsController];
     _calendarFetchedResultsController.delegate = self;
+    //创建中间导航视图
+    _centerNavLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 17)];
+    _centerNavLabel.font = [UIFont systemFontOfSize:17];
+    _centerNavLabel.textAlignment = NSTextAlignmentCenter;
+    _centerNavLabel.text = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@年%@月",@(_userSelectedDate.year),@(_userSelectedDate.month)]];
+    _centerNavLabel.textColor = [UIColor whiteColor];
+    self.navigationItem.titleView = _centerNavLabel;
+    //创建右边导航
+    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar_menu"] style:UIBarButtonItemStylePlain target:self action:@selector(moreClicked:)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addCalendarClicked:)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refushClicked:)],[[UIBarButtonItem alloc] initWithTitle:@"今" style:UIBarButtonItemStylePlain target:self action:@selector(todayClicked:)]];
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.barTintColor = [UIColor calendarColor];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    //是不是第一次加载这个页面
+    if(![NSString isBlank:self.data])
+        return;
+    self.data = @"NO";
     //创建周视图时上面显示的视图
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 200)];
     imageView.image = [UIImage imageNamed:@"calendar_list_background"];
@@ -75,34 +96,6 @@
     _tableView.tableFooterView = noDataLabel;
     [_tableView registerNib:[UINib nibWithNibName:@"CalenderEventTableViewCell" bundle:nil] forCellReuseIdentifier:@"CalenderEventTableViewCell"];
     [self.view addSubview:_tableView];
-    //创建中间导航视图
-    _centerNavLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 17)];
-    _centerNavLabel.font = [UIFont systemFontOfSize:17];
-    _centerNavLabel.textAlignment = NSTextAlignmentCenter;
-    _centerNavLabel.text = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@年%@月",@(_userSelectedDate.year),@(_userSelectedDate.month)]];
-    _centerNavLabel.textColor = [UIColor whiteColor];
-    self.navigationItem.titleView = _centerNavLabel;
-    //创建右边导航
-    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar_menu"] style:UIBarButtonItemStylePlain target:self action:@selector(moreClicked:)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addCalendarClicked:)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refushClicked:)],[[UIBarButtonItem alloc] initWithTitle:@"今" style:UIBarButtonItemStylePlain target:self action:@selector(todayClicked:)]];
-    //创建多选视图
-    _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100, 0, 100, 120)];
-    _moreSelectView.selectArr = @[@"周视图",@"月视图",@"列表"];
-    _moreSelectView.delegate = self;
-    [_moreSelectView setupUI];
-    [self.view addSubview:_moreSelectView];
-    [self.view bringSubviewToFront:_moreSelectView];
-}
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.navigationController.navigationBar.barTintColor = [UIColor calendarColor];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-}
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    //是不是第一次加载这个页面
-    if(![NSString isBlank:self.data])
-        return;
-    self.data = @"NO";
     //看是不是第一次加载日程
     IdentityManager *identity = [IdentityManager manager];
     if(identity.identity.firstLoadCalendar == YES) {
@@ -134,6 +127,13 @@
         _tableView.tableFooterView = [UIView new];
         [_tableView reloadData];
     }
+    //创建多选视图
+    _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100, 0, 100, 120)];
+    _moreSelectView.selectArr = @[@"周视图",@"月视图",@"列表"];
+    _moreSelectView.delegate = self;
+    [_moreSelectView setupUI];
+    [self.view addSubview:_moreSelectView];
+    [self.view bringSubviewToFront:_moreSelectView];
 }
 - (void)refushClicked:(UIBarButtonItem*)item {
     [self.navigationController.view showLoadingTips:@"正在同步..."];
