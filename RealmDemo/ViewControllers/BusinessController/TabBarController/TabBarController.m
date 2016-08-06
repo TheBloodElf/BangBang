@@ -10,10 +10,13 @@
 #import "HomeListController.h"
 #import "MessageController.h"
 #import "MineViewController.h"
+#import "MoreViewController.h"
 #import "XAddrBookController.h"
 
-@interface TabBarController () {
-    UITabBarController *_tabBarVC;//业务控制器
+#import "BushManageViewController.h"
+
+@interface TabBarController ()<UITabBarControllerDelegate,MoreViewControllerDelegate> {
+    UITabBarController *_tabBarVC;
 }
 
 @end
@@ -22,13 +25,29 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _tabBarVC = [[UITabBarController alloc] init];
-    _tabBarVC.viewControllers = @[[self homeListController],[self messageController],[self xAddrBookController],[self mineViewController]];
-    [self.view addSubview:_tabBarVC.view];
-    [_tabBarVC.view willMoveToSuperview:self.view];
+    _tabBarVC = [UITabBarController new];
+    _tabBarVC.viewControllers = @[[self homeListController],[self messageController],[self viewController],[self xAddrBookController],[self mineViewController]];
+    _tabBarVC.delegate = self;
     [self addChildViewController:_tabBarVC];
-    [_tabBarVC willMoveToParentViewController:self];
-    // Do any additional setup after loading the view.
+    [self.view addSubview:_tabBarVC.view];
+}
+#pragma mark -- UITabBarControllerDelegate
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    if([viewController isMemberOfClass:[UIViewController class]]) {
+        //在这里加上一个选择视图控制器
+        MoreViewController *more = [MoreViewController new];
+        more.view.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT);
+        more.delegate = self;
+        [self addChildViewController:more];
+        [self.view addSubview:more.view];
+        return NO;
+    }
+    return YES;
+}
+//这里写回调 用REFrostedViewController push 
+#pragma mark -- MoreViewControllerDelegate
+- (void)MoreViewDidClicked:(id)item {
+    [self.frostedViewController.navigationController pushViewController:[BushManageViewController new] animated:YES];
 }
 - (UINavigationController*)homeListController {
     HomeListController *home = [HomeListController new];
@@ -45,6 +64,11 @@
     nav.tabBarItem.image = [[UIImage imageNamed:@"set-gray"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     nav.tabBarItem.selectedImage = [[UIImage imageNamed:@"set-green"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     return nav;
+}
+- (UIViewController*)viewController {
+    UIViewController *view = [UIViewController new];
+    view.tabBarItem.image = [[UIImage imageNamed:@"home_add"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    return view;
 }
 - (UINavigationController*)messageController {
     MessageController *home = [MessageController new];

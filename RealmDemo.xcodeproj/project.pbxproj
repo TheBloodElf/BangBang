@@ -21,6 +21,8 @@
 		045D8BA41D443E16002E0344 /* GeTuiSdkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 045D8BA31D443E16002E0344 /* GeTuiSdkManager.m */; };
 		045D8BA81D444962002E0344 /* ApnsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 045D8BA71D444962002E0344 /* ApnsManager.m */; };
 		045D8BAC1D444A86002E0344 /* libBaiduMobStat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 045D8BAB1D444A86002E0344 /* libBaiduMobStat.a */; };
+		046D48B11D5616890000ECC4 /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046D48AF1D5616890000ECC4 /* MoreViewController.m */; settings = {ASSET_TAGS = (); }; };
+		046D48B21D5616890000ECC4 /* MoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046D48B01D5616890000ECC4 /* MoreViewController.xib */; settings = {ASSET_TAGS = (); }; };
 		046DAF641D4C3EB500718F2A /* CreateMeetingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF2A1D4C3EB500718F2A /* CreateMeetingController.m */; };
 		046DAF651D4C3EB500718F2A /* MeetingAgenda.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF2C1D4C3EB500718F2A /* MeetingAgenda.m */; };
 		046DAF661D4C3EB500718F2A /* MeetingAgendaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF2F1D4C3EB500718F2A /* MeetingAgendaCell.m */; };
@@ -515,6 +517,9 @@
 		045D8BAA1D444A86002E0344 /* BaiduMobStat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaiduMobStat.h; sourceTree = "<group>"; };
 		045D8BAB1D444A86002E0344 /* libBaiduMobStat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBaiduMobStat.a; sourceTree = "<group>"; };
 		046D48A01D556A7F0000ECC4 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
+		046D48AE1D5616890000ECC4 /* MoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreViewController.h; sourceTree = "<group>"; };
+		046D48AF1D5616890000ECC4 /* MoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreViewController.m; sourceTree = "<group>"; };
+		046D48B01D5616890000ECC4 /* MoreViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoreViewController.xib; sourceTree = "<group>"; };
 		046DAF291D4C3EB500718F2A /* CreateMeetingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateMeetingController.h; sourceTree = "<group>"; };
 		046DAF2A1D4C3EB500718F2A /* CreateMeetingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateMeetingController.m; sourceTree = "<group>"; };
 		046DAF2B1D4C3EB500718F2A /* MeetingAgenda.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingAgenda.h; sourceTree = "<group>"; };
@@ -1360,6 +1365,16 @@
 				045D8BAB1D444A86002E0344 /* libBaiduMobStat.a */,
 			);
 			path = "百度统计";
+			sourceTree = "<group>";
+		};
+		046D48AD1D5616760000ECC4 /* MoreViewController */ = {
+			isa = PBXGroup;
+			children = (
+				046D48AE1D5616890000ECC4 /* MoreViewController.h */,
+				046D48AF1D5616890000ECC4 /* MoreViewController.m */,
+				046D48B01D5616890000ECC4 /* MoreViewController.xib */,
+			);
+			path = MoreViewController;
 			sourceTree = "<group>";
 		};
 		046DAF281D4C3EB500718F2A /* MeetingController */ = {
@@ -2484,6 +2499,7 @@
 			children = (
 				1B5585B81D34F7FB00DCD3A0 /* TabBarController.h */,
 				1B5585B91D34F7FB00DCD3A0 /* TabBarController.m */,
+				046D48AD1D5616760000ECC4 /* MoreViewController */,
 				1B5585BF1D34FA7100DCD3A0 /* HomeListController */,
 				1B5585C01D34FA7100DCD3A0 /* MessageController */,
 				1B5585C21D34FA7100DCD3A0 /* XAddrBookController */,
@@ -3408,6 +3424,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B6D165D1D48A8D00070D2E5 /* login_botton@2x.png in Resources */,
+				046D48B21D5616890000ECC4 /* MoreViewController.xib in Resources */,
 				04FE7CCF1D36725A00362702 /* menu_background.png in Resources */,
 				1B6D16421D48A8D00070D2E5 /* btn_qq_login_active.png in Resources */,
 				040BB6051D4A44FD00511FFC /* LaunchScreen.xib in Resources */,
@@ -3806,6 +3823,7 @@
 				1B0388851D509B7900D0B7D0 /* TaskInchargeCellCell.m in Sources */,
 				046DAF791D4C3EB500718F2A /* MeetingSelectPresonCell.m in Sources */,
 				1B0388751D508FD300D0B7D0 /* TaskDiscussView.m in Sources */,
+				046D48B11D5616890000ECC4 /* MoreViewController.m in Sources */,
 				1B03888A1D509C6F00D0B7D0 /* TaskMemberCellCell.m in Sources */,
 				1B36FCD81D35EC90006694E4 /* CalendarView.m in Sources */,
 				049586201D39D3A500544259 /* SingleSelectController.m in Sources */,
