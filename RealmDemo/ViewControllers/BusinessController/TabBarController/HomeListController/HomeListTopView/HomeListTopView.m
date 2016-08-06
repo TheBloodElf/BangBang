@@ -57,6 +57,7 @@
         _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 32, frame.size.width, MAIN_SCREEN_WIDTH / 2.f)];
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.delegate = self;
+        _scrollView.bounces = NO;
         _scrollView.contentSize = CGSizeMake(frame.size.width * 2, _scrollView.frame.size.height);
         _scrollView.pagingEnabled = YES;
         CalendarView *calendarView = [[NSBundle mainBundle] loadNibNamed:@"CalendarView" owner:nil options:nil][0];

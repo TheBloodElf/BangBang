@@ -106,11 +106,10 @@
     _taskModel.attachment_count = _attanmentArr.count;
     //提交任务数据后上传任务附件
     _attanmantIndex = 0;
-    [self.navigationController.view showLoadingTips:@"创建任务..."];
+    [self.navigationController.view showLoadingTips:@""];
     NSMutableDictionary *dicc = [[_taskModel JSONDictionary] mutableCopy];
     [dicc setObject:_taskModel.descriptionStr forKey:@"description"];
     [UserHttp createTask:dicc handler:^(id data, MError *error) {
-        [self.navigationController.view dismissTips];
         if(error) {
             [self.navigationController.view dismissTips];
             return ;
@@ -118,7 +117,6 @@
         _taskModel = [[TaskModel alloc] initWithJSONDictionary:data];
         _taskModel.descriptionStr = data[@"description"];
         [_userManager addTask:_taskModel];
-        [self.navigationController.view showLoadingTips:@"上传附件..."];
         [self uploadAttanment];
     }];
 }
@@ -126,7 +124,7 @@
 - (void)uploadAttanment {
     if(_attanmantIndex == _attanmentArr.count) {
         [self.navigationController.view dismissTips];
-        [self.navigationController.view showSuccessTips:@"任务创建成功"];
+        [self.navigationController.view showSuccessTips:@"创建成功"];
         [self.navigationController popViewControllerAnimated:YES];
     } else {
         [UserHttp uploadAttachment:_userManager.user.user_guid taskId:_taskModel.id doc:_attanmentArr[_attanmantIndex] handler:^(id data, MError *error) {

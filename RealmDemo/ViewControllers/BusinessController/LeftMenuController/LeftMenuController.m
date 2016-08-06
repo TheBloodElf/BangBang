@@ -65,6 +65,7 @@
         [self.avaterImageView sd_setImageWithURL:[NSURL URLWithString:user.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
         self.userName.text = user.real_name;
         self.userMood.text = user.mood;
+        [_tableView reloadData];//圈子变化了也要刷新表格视图
     } else {
         [_companyArr removeAllObjects];
         //只显示自己状态为4或者1的
@@ -106,10 +107,6 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if([_companyArr[indexPath.row] company_no] == _userManager.user.currCompany.company_no) {
-        [self.frostedViewController hideMenuViewController];
-        return;
-    }
     //改变用户当前圈子
     Company *company = [_companyArr[indexPath.row] deepCopy];
     User *user = [_userManager.user deepCopy];

@@ -135,6 +135,7 @@
         [attendanceGuidArr addObject:employee.employee_guid];
     }
     _meeting.attendance = [membersGuidArr componentsJoinedByString:@"^"];
+    [self.navigationController.view showLoadingTips:@""];
     [UserHttp createMeet:[_meeting mj_keyValues] handler:^(id data, MError *error) {
         [self.navigationController.view dismissTips];
         if(error) {

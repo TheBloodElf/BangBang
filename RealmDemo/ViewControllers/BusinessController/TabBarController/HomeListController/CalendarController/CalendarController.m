@@ -79,7 +79,7 @@
     _calendarManager = [JTCalendarManager new];
     _calendarManager.delegate = self;
     _calendarManager.settings.weekModeEnabled = NO;
-    _calendarContentView = [[JTHorizontalCalendarView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 285)];
+    _calendarContentView = [[JTHorizontalCalendarView alloc] initWithFrame:CGRectMake(0, 200, MAIN_SCREEN_WIDTH, 85)];
     _calendarContentView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_calendarContentView];
     _calendarManager.settings.weekDayFormat = JTCalendarWeekDayFormatSingle;

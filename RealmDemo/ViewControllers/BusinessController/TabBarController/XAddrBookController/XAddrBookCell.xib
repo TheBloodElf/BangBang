@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -22,7 +22,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hXk-3k-eTG">
-                        <rect key="frame" x="75" y="8" width="40" height="20"/>
+                        <rect key="frame" x="75" y="8" width="235" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="ieu-6K-71g"/>
                         </constraints>
@@ -39,7 +39,7 @@
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="company_owner_icon" translatesAutoresizingMaskIntoConstraints="NO" id="Vb0-Lj-bQ1">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="company_owner_icon" translatesAutoresizingMaskIntoConstraints="NO" id="Vb0-Lj-bQ1">
                         <rect key="frame" x="10" y="5" width="14" height="13"/>
                     </imageView>
                 </subviews>
@@ -52,6 +52,7 @@
                     <constraint firstItem="hXk-3k-eTG" firstAttribute="top" secondItem="lJ7-vH-vA3" secondAttribute="top" constant="8" id="K7t-bM-Heg"/>
                     <constraint firstItem="n0T-L3-hqY" firstAttribute="leading" secondItem="lJ7-vH-vA3" secondAttribute="leading" constant="15" id="dev-pU-E89"/>
                     <constraint firstItem="n0T-L3-hqY" firstAttribute="centerY" secondItem="lJ7-vH-vA3" secondAttribute="centerY" id="lVH-Ua-7tR"/>
+                    <constraint firstAttribute="trailing" secondItem="hXk-3k-eTG" secondAttribute="trailing" constant="10" id="t6b-ZF-uRP"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -60,7 +61,7 @@
                 <outlet property="userImage" destination="n0T-L3-hqY" id="nWa-sX-Pcr"/>
                 <outlet property="userName" destination="hXk-3k-eTG" id="mY7-mX-mo5"/>
             </connections>
-            <point key="canvasLocation" x="-745" y="205"/>
+            <point key="canvasLocation" x="-473" y="324"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -25,9 +25,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="199"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner.png" translatesAutoresizingMaskIntoConstraints="NO" id="zA9-b1-7gT">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="199"/>
-                                                </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QO2-vr-Jzj">
                                                     <rect key="frame" x="130" y="48" width="60" height="60"/>
                                                     <constraints>
@@ -36,25 +33,33 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="李勇" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nu8-hT-f07">
-                                                    <rect key="frame" x="143" y="115" width="34" height="21"/>
+                                                    <rect key="frame" x="143" y="115" width="34" height="17"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="17" id="Hvr-iI-qsf"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="出去一切不可能，剩下的在不可思议也是真相" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5l2-UI-jc4">
-                                                    <rect key="frame" x="23" y="143" width="274" height="36"/>
+                                                    <rect key="frame" x="23" y="137" width="274" height="57"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner.png" translatesAutoresizingMaskIntoConstraints="NO" id="zA9-b1-7gT">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="199"/>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="5l2-UI-jc4" firstAttribute="centerX" secondItem="Nu8-hT-f07" secondAttribute="centerX" id="66i-x2-dda"/>
+                                                <constraint firstItem="5l2-UI-jc4" firstAttribute="top" secondItem="zA9-b1-7gT" secondAttribute="bottom" constant="-56" id="931-3V-R54"/>
                                                 <constraint firstItem="zA9-b1-7gT" firstAttribute="top" secondItem="piN-d0-rjK" secondAttribute="top" id="CMK-Mz-1Ry"/>
                                                 <constraint firstAttribute="bottom" secondItem="zA9-b1-7gT" secondAttribute="bottom" id="Efq-1X-2MU"/>
+                                                <constraint firstAttribute="bottom" secondItem="5l2-UI-jc4" secondAttribute="bottom" constant="5" id="JlW-er-GrY"/>
                                                 <constraint firstItem="QO2-vr-Jzj" firstAttribute="top" secondItem="piN-d0-rjK" secondAttribute="topMargin" constant="40" id="RJI-gC-vRX"/>
                                                 <constraint firstItem="Nu8-hT-f07" firstAttribute="top" secondItem="QO2-vr-Jzj" secondAttribute="bottom" constant="7" id="SGc-Wh-KDm"/>
-                                                <constraint firstItem="5l2-UI-jc4" firstAttribute="top" secondItem="Nu8-hT-f07" secondAttribute="bottom" constant="7" id="SPL-BX-0sS"/>
+                                                <constraint firstItem="5l2-UI-jc4" firstAttribute="top" secondItem="Nu8-hT-f07" secondAttribute="bottom" constant="5" id="SPL-BX-0sS"/>
                                                 <constraint firstAttribute="trailing" secondItem="zA9-b1-7gT" secondAttribute="trailing" id="Top-1K-423"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="5l2-UI-jc4" secondAttribute="trailing" constant="15" id="ZUr-fC-Zhz"/>
                                                 <constraint firstItem="Nu8-hT-f07" firstAttribute="centerX" secondItem="QO2-vr-Jzj" secondAttribute="centerX" id="kec-Kx-OQa"/>
@@ -62,6 +67,11 @@
                                                 <constraint firstItem="zA9-b1-7gT" firstAttribute="leading" secondItem="piN-d0-rjK" secondAttribute="leading" id="rI3-a2-xR5"/>
                                                 <constraint firstItem="5l2-UI-jc4" firstAttribute="leading" secondItem="piN-d0-rjK" secondAttribute="leadingMargin" constant="15" id="zvL-qg-hNW"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="931-3V-R54"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
