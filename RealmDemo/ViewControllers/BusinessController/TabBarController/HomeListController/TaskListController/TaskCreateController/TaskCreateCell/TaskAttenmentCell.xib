@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -14,7 +14,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_task_image" translatesAutoresizingMaskIntoConstraints="NO" id="y04-v1-wZ5">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="y04-v1-wZ5">
                         <rect key="frame" x="10" y="4" width="35" height="35"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="35" id="SVc-2m-ie4"/>
@@ -58,11 +58,11 @@
             <connections>
                 <outlet property="attenmentName" destination="Uko-Vo-FFe" id="eH0-OV-rTw"/>
             </connections>
-            <point key="canvasLocation" x="482" y="246"/>
+            <point key="canvasLocation" x="268" y="339"/>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="ic_jpeg" width="87" height="87"/>
         <image name="ic_task_delete" width="37" height="37"/>
-        <image name="ic_task_image" width="136" height="136"/>
     </resources>
 </document>

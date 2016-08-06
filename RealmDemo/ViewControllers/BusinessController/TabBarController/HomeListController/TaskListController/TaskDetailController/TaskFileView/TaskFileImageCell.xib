@@ -50,10 +50,11 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="fileImage" destination="tjy-Vb-PB8" id="EkO-i6-ctC"/>
                 <outlet property="fileName" destination="hRL-6r-51d" id="WiD-cw-Oey"/>
                 <outlet property="rightBtn" destination="3xb-cN-gYE" id="Wdc-kb-NaH"/>
             </connections>
-            <point key="canvasLocation" x="424" y="331"/>
+            <point key="canvasLocation" x="618" y="335"/>
         </tableViewCell>
     </objects>
     <resources>

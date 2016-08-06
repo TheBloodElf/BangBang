@@ -15,6 +15,7 @@
 }
 @property (weak, nonatomic) IBOutlet UILabel *fileName;
 @property (weak, nonatomic) IBOutlet UIButton *rightBtn;
+@property (weak, nonatomic) IBOutlet UIImageView *fileImage;
 
 @end
 
@@ -29,6 +30,9 @@
 - (void)dataDidChange {
     TaskAttachModel *model = self.data;
     self.fileName.text = model.attachment.file_name;
+    self.fileImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"ic_%@",model.attachment.file_url.pathExtension]];
+    if(!self.fileImage.image)
+        self.fileImage.image = [UIImage imageNamed:@"ic_unknown"];
     //判断本地是否有一样的文件，如果有一样的，就不下载了 并且改变按钮的文字
     if([_fileManager fileIsExit:model.attachment.file_name]) {
         [self.rightBtn setTitle:@"查看" forState:UIControlStateNormal];
