@@ -56,7 +56,10 @@
 #pragma mark -- 
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
-    
+    User *user = _userManager.user;
+    [self.avaterImage sd_setImageWithURL:[NSURL URLWithString:user.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
+    self.userName.text = [NSString stringWithFormat:@"%@(%@)",user.real_name,@(user.user_no)];
+    self.userMood.text = user.mood;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 0.01f;

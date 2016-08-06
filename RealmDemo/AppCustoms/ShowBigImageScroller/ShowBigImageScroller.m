@@ -11,9 +11,6 @@
 
 @interface ShowBigImageScroller  ()<UIScrollViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate>
 {
-    //初始化一个菊花视图
-    UIActivityIndicatorView *activityView;
-    
     //初始化一个图像视图
     UIImageView *imageView;
     
@@ -37,100 +34,40 @@
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
         self.userInteractionEnabled = YES;
-        
-        
-        [self configImageView];
-        [self configActivityView];
+        if(!imageView) {
+            imageView = [UIImageView new];
+            [self addSubview:imageView];
+        }
     }
     return self;
-}
-
-- (void)dealloc
-{
-    
-}
-
-#pragma mark -- 初始化菊花图像视图
-- (void)configImageView
-{
-    if(!imageView)
-    {
-        imageView = [UIImageView new];
-        [self addSubview:imageView];
-    }
-}
-
-
-#pragma mark -- 初始化菊花视图
-
-- (void)configActivityView
-{
-    //如果不存在就初始化并最开始不转
-    if(!activityView)
-    {
-        //菊花视图的宽高
-        CGFloat activityViewHeight = 50;
-        CGFloat activityViewWidth = 50;
-        
-        activityView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, activityViewWidth, activityViewHeight)];
-        activityView.color = [UIColor redColor];
-        activityView.center = self.center;
-        activityView.hidesWhenStopped = YES;
-        [activityView stopAnimating];
-        [self addSubview:activityView];
-    }
 }
 
 #pragma mark -- 开始配置界面
 
 - (void)setupUI
 {
-    //停止转动菊花
-    [activityView stopAnimating];
-    
     self.zoomScale = 1;
-    
     //如果已经配置过了  或者正在配置  就不执行
-    if(self.isLoaded || self.isLoading)
-        return;
-    
-    [self loadImage];
-}
-
-
-
-#pragma mark -- 清除图像，重新加载
-- (void)reset
-{
-    isLoaded = NO;
-    imageView.image = nil;
-}
-
-#pragma mark -- 开始配置图像
-- (void)loadImage
-{
+    if(isLoaded) return;
     //设置图像
     imageView.image = self.photo.oiginalImage;
     //如果存在缩放位置就进行动画  否者跳过此步骤
     CGRect finishRect;
     //图像应该被放置的位置
-    if(self.noNeedScale)
-    {
+    if(self.noNeedScale) {
         finishRect = self.bounds;
         imageView.frame = finishRect;
-    }
-    else
-    {
+    } else {
         if(self.photo.oiginalImage)
             finishRect = [self scaleToScreenSize:self.photo.oiginalImage.size];
-        else
+        else {
+            [self showLoadingTips:@""];//没有原图就从网上获取
             finishRect = CGRectZero;
+        }
     }
     
-    
     //判断是否有初始化位置  有就在它的基础上进行  没有就直接中间显示
-    if(!CGRectEqualToRect(self.photo.fromRect, CGRectZero))
-    {
+    if(!CGRectEqualToRect(self.photo.fromRect, CGRectZero)) {
         //如有有目标位置
         if(!CGRectEqualToRect(finishRect, CGRectZero))
         {
@@ -142,9 +79,7 @@
                 imageView.frame = finishRect;
             }];
         }
-    }
-    else
-    {
+    } else {
         if(!CGRectEqualToRect(finishRect, CGRectZero))
             imageView.frame = finishRect;
     }
@@ -155,21 +90,26 @@
     if(self.photo.oiginalImage) {
         //配置已经加载
         isLoaded = YES;
-    }  else {
+    } else {
         //下载原图
-        [imageView sd_setImageWithURL:self.photo.oiginalUrl placeholderImage:[UIImage imageNamed:@""] options:SDWebImageHighPriority progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [imageView sd_setImageWithURL:self.photo.oiginalUrl placeholderImage:[UIImage imageNamed:@"default_image_icon"] options:SDWebImageHighPriority progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             self.photo.oiginalImage = image;
             imageView.image = self.photo.oiginalImage;
-            //停止转动菊花
-            [activityView stopAnimating];
             //配置已经加载
             isLoaded = YES;
             if(!self.noNeedScale)
                 imageView.frame = [self scaleToScreenSize:self.photo.oiginalImage.size];
+            [self dismissTips];
         }];
     }
+}
+#pragma mark -- 清除图像，重新加载
+- (void)reset
+{
+    isLoaded = NO;
+    imageView.image = nil;
 }
 
 #pragma mark -- 获取用户点击的位置
@@ -212,8 +152,7 @@
     {//如果存在缩放到的目标位置  就进行缩放  否者 直接调用被点击事件
         if(!CGRectEqualToRect(self.photo.toRect, CGRectZero))
             [self loadAnimation];
-        else
-        {
+        else {
             if(self.clickedBlock)
                 self.clickedBlock();
         }
@@ -239,7 +178,6 @@
         [UIView  animateWithDuration:0.3 animations:^{
             imageView.frame = weakSelf.photo.toRect;
         } completion:^(BOOL finished) {
-            
             if(weakSelf.clickedBlock)
                 weakSelf.clickedBlock();
         }];
@@ -257,8 +195,7 @@
     CGFloat height = size.height;
     CGFloat width = size.width;
     //判把宽度设置成屏幕的宽度
-    if(width != main_width)
-    {
+    if(width != main_width) {
 //        if(width > main_width)
         {
             //缩放到屏幕的宽度，并且高度按比例缩
@@ -266,31 +203,13 @@
             width = main_width;
         }
     }
-    if(height > mian_height)
-    {
+    if(height > mian_height) {
         //如果高度大于屏幕的高度，就把高度缩小至屏幕的高度，并且宽度按比例缩小
         width = width * mian_height / height;
         height = mian_height;
     }
     //得到放大后应该显示的范围
     return  CGRectMake(0.5 * (main_width - width), 0.5 * (mian_height - height), width, height);
-}
-
-
-#pragma  mark -- 是否正在加载
-
-//是否正在加载
-- (BOOL)isLoading
-{
-    return activityView.isAnimating;
-}
-
-#pragma  mark -- 判断是否已经加载
-
-//判断是否已经加载
-- (BOOL)isLoaded
-{
-    return isLoaded;
 }
 
 
@@ -310,8 +229,7 @@
     imageView.center = CGPointMake(scrollView.contentSize.width * 0.5 + offsetX,
                                    scrollView.contentSize.height * 0.5 + offsetY);
     //是不是双击事件  是的话把点击的位置居中显示
-    if(isBothTouch && self.zoomScale != 1)
-    {
+    if(isBothTouch && self.zoomScale != 1) {
         //这里＊0.618的目的是为了避免放大后超出offset的范围，看着就是边框了
         self.contentOffset = CGPointMake(self.zoomScale * 0.618 * self.point.x,self.zoomScale * 0.618 * self.point.y);
         isBothTouch = NO;
@@ -321,15 +239,15 @@
 #pragma mark -- 长按手势
 - (void)longPGR:(UILongPressGestureRecognizer*)lpgr
 {
-    if(lpgr.state == UIGestureRecognizerStateBegan)
-    {
+    if(lpgr.state == UIGestureRecognizerStateBegan) {
         UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"保存到相册", nil];
         [action showInView:self];
     }
 }
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if(buttonIndex == 0) { } else {
-         UIImageWriteToSavedPhotosAlbum(self.photo.oiginalImage, nil, nil, nil);
+    if(buttonIndex == 0) {
+        UIImageWriteToSavedPhotosAlbum(self.photo.oiginalImage, nil, nil, nil);
+        [self showMessageTips:@"保存成功"];
     }
 }
 @end

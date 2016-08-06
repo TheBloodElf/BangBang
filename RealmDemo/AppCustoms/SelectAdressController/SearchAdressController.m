@@ -32,7 +32,7 @@
     _searchBar.delegate = self;
     [self.view addSubview:_searchBar];
     //配置表格
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64 + 55, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 64 - 55) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,55, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 64 - 55) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.tableFooterView = [UIView new];

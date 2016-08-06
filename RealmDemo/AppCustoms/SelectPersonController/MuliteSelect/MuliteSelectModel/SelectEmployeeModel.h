@@ -45,9 +45,9 @@
 /** 圈子的名字 */
 @property (nonatomic, assign) int  company_no;
 /** created */
-@property (nonatomic, assign) int  created;
+@property (nonatomic, assign) int64_t  created;
 /** 更新时间 */
-@property (nonatomic, assign) int  updated;
+@property (nonatomic, assign) int64_t  updated;
 /** 帮帮号 */
 @property (nonatomic, strong) NSString  * user_name;
 /** 是否是圈子管理员 */

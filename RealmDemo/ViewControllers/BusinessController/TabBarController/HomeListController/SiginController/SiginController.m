@@ -269,7 +269,7 @@
         [_rightBtn addTarget:self action:@selector(rightClicked:) forControlEvents:UIControlEventTouchUpInside];
         [_rightBtn setTitle:@"更多" forState:UIControlStateNormal];
         _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100, 64, 100, 120)];
-        _moreSelectView.selectArr = @[@"我的签到",@"签到统计",@"签到设置"];
+        _moreSelectView.selectArr = @[@"我的签到",@"签到统计",@"考勤设置"];
         _moreSelectView.delegate = self;
         [_moreSelectView setupUI];
         [self.view addSubview:_moreSelectView];

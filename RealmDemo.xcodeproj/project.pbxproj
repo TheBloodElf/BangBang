@@ -693,8 +693,6 @@
 		0495864A1D3A348200544259 /* InviteColleagueController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InviteColleagueController.m; sourceTree = "<group>"; };
 		0495864B1D3A348200544259 /* InviteColleagueController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = InviteColleagueController.storyboard; sourceTree = "<group>"; };
 		0495866A1D3A618600544259 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		049589361D3A62B900544259 /* CMQRCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMQRCode.h; sourceTree = "<group>"; };
-		049589371D3A62B900544259 /* CMQRCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMQRCode.m; sourceTree = "<group>"; };
 		049CDF931D4F896D00F8890F /* TaskUpdateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskUpdateController.h; sourceTree = "<group>"; };
 		049CDF941D4F896D00F8890F /* TaskUpdateController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskUpdateController.m; sourceTree = "<group>"; };
 		04A817751D3525D700011DA1 /* IdentityHttp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdentityHttp.h; sourceTree = "<group>"; };
@@ -1791,15 +1789,6 @@
 				0495864B1D3A348200544259 /* InviteColleagueController.storyboard */,
 			);
 			path = InviteColleagueController;
-			sourceTree = "<group>";
-		};
-		049589351D3A62AF00544259 /* CMQRCode */ = {
-			isa = PBXGroup;
-			children = (
-				049589361D3A62B900544259 /* CMQRCode.h */,
-				049589371D3A62B900544259 /* CMQRCode.m */,
-			);
-			path = CMQRCode;
 			sourceTree = "<group>";
 		};
 		049CDF921D4F893800F8890F /* TaskUpdateController */ = {
@@ -3186,7 +3175,6 @@
 				1B119E8B1D3CB92B007CC050 /* ShowBigImageScroller */,
 				1B119E771D3CB8FB007CC050 /* ImageSelectView */,
 				1B119E5A1D3CB89F007CC050 /* SelectImageController */,
-				049589351D3A62AF00544259 /* CMQRCode */,
 				049585FC1D39D3A500544259 /* SelectPersonController */,
 			);
 			path = AppCustoms;

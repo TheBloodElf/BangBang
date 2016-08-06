@@ -27,7 +27,7 @@ typedef void(^ClickedBlock)();
 /**
  *  图像对象
  */
-@property (nonatomic, retain) Photo *photo;
+@property (nonatomic, strong) Photo *photo;
 /**
  *  开始配置界面
  */

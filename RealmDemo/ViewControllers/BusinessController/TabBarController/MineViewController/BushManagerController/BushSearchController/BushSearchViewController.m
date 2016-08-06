@@ -66,6 +66,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    //因为圈子详情可能会有修改那些操作，所以就要实时的更新下
+    [_tableView reloadData];
 }
 //从网上加载数据
 - (void)search {

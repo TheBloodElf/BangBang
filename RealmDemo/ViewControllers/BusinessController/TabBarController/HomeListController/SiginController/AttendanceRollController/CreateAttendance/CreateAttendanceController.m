@@ -38,7 +38,7 @@
 #pragma mark -- LifeStyle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"创建签到点";
+    self.title = @"创建考勤";
     self.view.backgroundColor = [UIColor whiteColor];
     _userManager = [UserManager manager];
     //初始化数据

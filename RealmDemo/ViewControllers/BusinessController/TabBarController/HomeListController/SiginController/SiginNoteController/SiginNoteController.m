@@ -64,7 +64,7 @@
     self.calendarManager.contentView = self.calendarContentView;
     [self.view addSubview:self.calendarContentView];
     _rightBarLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 20)];
-    _rightBarLabel.textColor = [UIColor blackColor];
+    _rightBarLabel.textColor = [UIColor whiteColor];
     _rightBarLabel.textAlignment = NSTextAlignmentRight;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_rightBarLabel];
     UITapGestureRecognizer *tgr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tgrAction:)];

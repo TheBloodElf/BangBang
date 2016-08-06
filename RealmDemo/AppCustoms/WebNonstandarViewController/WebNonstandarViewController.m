@@ -204,7 +204,6 @@
         NSString *str = [NSString stringWithFormat:@"%@%@?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,titleOpen,[UserManager manager].user.user_guid,[UserManager manager].user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
         vc.applicationUrl = str;
         vc.showNavigationBar = YES;
-        vc.navigationController.navigationBar.tintColor = [UIColor whiteColor];
         [self.navigationController pushViewController:vc animated:YES];
     }];
     //图片预览

@@ -95,15 +95,15 @@
     UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *ok = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [[RCIMClient sharedRCIMClient] quitDiscussion:self.targetId success:^(RCDiscussion *discussion) {
-            for (UserDiscuss *userDiscuss in _userDiscussArr) {
-                NSLog(@"%@---%@",userDiscuss,userDiscuss.discuss_id);
-                
-                if([userDiscuss.discuss_id isEqualToString:discussion.discussionId]) {
-                    [_userManager deleteUserDiscuss:userDiscuss];
-                    break;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                for (UserDiscuss *userDiscuss in _userDiscussArr) {
+                    if([userDiscuss.discuss_id isEqualToString:discussion.discussionId]) {
+                        [_userManager deleteUserDiscuss:userDiscuss];
+                        break;
+                    }
                 }
-            }
-            [self.navigationController popToRootViewControllerAnimated:YES];
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            });
         } error:nil];
     }];
     [alertVC addAction:cancle];

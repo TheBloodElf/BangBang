@@ -30,7 +30,7 @@
 #pragma mark -- LifeStyle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"公司签到点";
+    self.title = @"公司考勤点";
     self.view.backgroundColor = [UIColor whiteColor];
     _userManager = [UserManager manager];
     _siginRuleFetchedResultsController = [_userManager createSiginRuleFetchedResultsController:_userManager.user.currCompany.company_no];

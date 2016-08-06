@@ -15,11 +15,13 @@
 #import "FinishTaskView.h"
 #import "TaskCreateController.h"
 #import "TaskDetailController.h"
+#import "MoreSelectView.h"
 
-@interface TaskListController ()<UIScrollViewDelegate,TaskClickedDelegate> {
+@interface TaskListController ()<UIScrollViewDelegate,TaskClickedDelegate,MoreSelectViewDelegate> {
     UserManager *_userManager;
     UISegmentedControl *_topSegmentedControl;//上面的分段控件
     UIScrollView *_bottomScrollView;//下面的滚动视图
+    MoreSelectView *_moreSelectView;//多选视图
 }
 
 @end
@@ -63,7 +65,6 @@
     FinishTaskView *finish = [[FinishTaskView alloc] initWithFrame:CGRectMake(3 * _bottomScrollView.frame.size.width, 0, _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height)];
     finish.delegate = self;
     [_bottomScrollView addSubview:finish];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addTaskClicked:)];
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
     //如果本圈子的任务数量为0 就从服务器获取一次
     NSArray *array = [_userManager getTaskArr:_userManager.user.currCompany.company_no];
@@ -84,11 +85,55 @@
             [_userManager updateTask:array companyNo:_userManager.user.currCompany.company_no];
         }];
     }
+    
+    
+    //创建多选视图
+    _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100, 0, 100, 80)];
+    _moreSelectView.selectArr = @[@"添加任务",@"刷新任务"];
+    _moreSelectView.delegate = self;
+    [_moreSelectView setupUI];
+    [self.view addSubview:_moreSelectView];
+    [self.view bringSubviewToFront:_moreSelectView];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar_menu"] style:UIBarButtonItemStylePlain target:self action:@selector(moreClicked:)];
+//    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addTaskClicked:)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(resfreshClicked:)]];
+
     // Do any additional setup after loading the view.
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.barTintColor = [UIColor siginColor];
+}
+- (void)moreClicked:(UIBarButtonItem*)item {
+    if(_moreSelectView.isHide)
+        [_moreSelectView showSelectView];
+    else
+        [_moreSelectView hideSelectView];
+}
+#pragma mark --
+#pragma mark -- MoreSelectViewDelegate
+- (void)moreSelectIndex:(int)index {
+    if(index == 0) {
+        //添加任务
+        TaskCreateController *create = [TaskCreateController new];
+        [self.navigationController pushViewController:create animated:YES];
+    } else {
+        Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
+        [self.navigationController.view showLoadingTips:@"获取任务..."];
+        [UserHttp getTaskList:employee.employee_guid handler:^(id data, MError *error) {
+            [self.navigationController.view dismissTips];
+            if(error) {
+                [self.navigationController.view showFailureTips:error.statsMsg];
+                return ;
+            }
+            NSMutableArray<TaskModel*> *array = [@[] mutableCopy];
+            for (NSDictionary *dic in data[@"list"]) {
+                TaskModel *model = [[TaskModel alloc] initWithJSONDictionary:dic];
+                model.descriptionStr = dic[@"description"];
+                [array addObject:model];
+            }
+            [_userManager updateTask:array companyNo:_userManager.user.currCompany.company_no];
+        }];
+    }
 }
 #pragma mark -- TaskClickedDelegate
 - (void)taskClicked:(TaskModel *)taskModel {
@@ -97,16 +142,35 @@
     detail.data = taskModel;
     [self.navigationController pushViewController:detail animated:YES];
 }
-- (void)addTaskClicked:(UIBarButtonItem*)item {
-    //添加任务
-    TaskCreateController *create = [TaskCreateController new];
-    [self.navigationController pushViewController:create animated:YES];
-}
+//- (void)addTaskClicked:(UIBarButtonItem*)item {
+//    //添加任务
+//    TaskCreateController *create = [TaskCreateController new];
+//    [self.navigationController pushViewController:create animated:YES];
+//}
+//- (void)resfreshClicked:(UIBarButtonItem*)item {
+//    Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
+//    [self.navigationController.view showLoadingTips:@"获取任务..."];
+//    [UserHttp getTaskList:employee.employee_guid handler:^(id data, MError *error) {
+//        [self.navigationController.view dismissTips];
+//        if(error) {
+//            [self.navigationController.view showFailureTips:error.statsMsg];
+//            return ;
+//        }
+//        NSMutableArray<TaskModel*> *array = [@[] mutableCopy];
+//        for (NSDictionary *dic in data[@"list"]) {
+//            TaskModel *model = [[TaskModel alloc] initWithJSONDictionary:dic];
+//            model.descriptionStr = dic[@"description"];
+//            [array addObject:model];
+//        }
+//        [_userManager updateTask:array companyNo:_userManager.user.currCompany.company_no];
+//    }];
+//}
 - (void)segmentedClicked:(UISegmentedControl*)control {
     if(control.selectedSegmentIndex == 0)
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addTaskClicked:)];
+//        self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addTaskClicked:)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(resfreshClicked:)]];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar_menu"] style:UIBarButtonItemStylePlain target:self action:@selector(moreClicked:)];
     else
-        self.navigationItem.rightBarButtonItem = nil;
+        self.navigationItem.rightBarButtonItems = nil;
     [_bottomScrollView setContentOffset:CGPointMake(control.selectedSegmentIndex * _bottomScrollView.frame.size.width, 0) animated:NO];
     
     [self.view endEditing:YES];
@@ -116,9 +180,10 @@
     int index = (scrollView.contentOffset.x + scrollView.frame.size.width / 2.f) / scrollView.frame.size.width;
     [_topSegmentedControl setSelectedSegmentIndex:index];
     if(index == 0)
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addTaskClicked:)];
+//        self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addTaskClicked:)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(resfreshClicked:)]];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar_menu"] style:UIBarButtonItemStylePlain target:self action:@selector(moreClicked:)];
     else
-        self.navigationItem.rightBarButtonItem = nil;
+        self.navigationItem.rightBarButtonItems = nil;
     
     [self.view endEditing:YES];
 }

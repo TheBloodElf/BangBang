@@ -41,6 +41,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     _calendarFetchedResultsController = [_userManager createCalendarFetchedResultsController];
     _calendarFetchedResultsController.delegate = self;
+    _userSelectedDate = [NSDate date];
     //创建中间导航视图
     _centerNavLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 17)];
     _centerNavLabel.font = [UIFont systemFontOfSize:17];
@@ -48,8 +49,19 @@
     _centerNavLabel.text = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@年%@月",@(_userSelectedDate.year),@(_userSelectedDate.month)]];
     _centerNavLabel.textColor = [UIColor whiteColor];
     self.navigationItem.titleView = _centerNavLabel;
+    //创建周视图时上面显示的视图
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 200)];
+    imageView.image = [UIImage imageNamed:@"calendar_list_background"];
+    [self.view addSubview:imageView];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 87.5, MAIN_SCREEN_WIDTH, 25)];
+    label.font = [UIFont systemFontOfSize:25];
+    label.textColor = [UIColor whiteColor];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.text = @"Welcome!";
+    [imageView addSubview:label];
     //创建右边导航
-    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar_menu"] style:UIBarButtonItemStylePlain target:self action:@selector(moreClicked:)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addCalendarClicked:)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refushClicked:)],[[UIBarButtonItem alloc] initWithTitle:@"今" style:UIBarButtonItemStylePlain target:self action:@selector(todayClicked:)]];
+//    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar_menu"] style:UIBarButtonItemStylePlain target:self action:@selector(moreClicked:)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addCalendarClicked:)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refushClicked:)]/*,[[UIBarButtonItem alloc] initWithTitle:@"今" style:UIBarButtonItemStylePlain target:self action:@selector(todayClicked:)]*/];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar_menu"] style:UIBarButtonItemStylePlain target:self action:@selector(moreClicked:)];
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -62,27 +74,25 @@
     if(![NSString isBlank:self.data])
         return;
     self.data = @"NO";
-    //创建周视图时上面显示的视图
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 200)];
-    imageView.image = [UIImage imageNamed:@"calendar_list_background"];
-    [self.view addSubview:imageView];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 87.5, MAIN_SCREEN_WIDTH, 25)];
-    label.font = [UIFont systemFontOfSize:25];
-    label.textColor = [UIColor whiteColor];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.text = @"Welcome!";
-    [imageView addSubview:label];
+    
     //创建日历管理器
-    _userSelectedDate = [NSDate date];
     _calendarManager = [JTCalendarManager new];
     _calendarManager.delegate = self;
-    _calendarManager.settings.weekModeEnabled = YES;
-    _calendarContentView = [[JTHorizontalCalendarView alloc] initWithFrame:CGRectMake(0, 200, MAIN_SCREEN_WIDTH, 85)];
+    _calendarManager.settings.weekModeEnabled = NO;
+    _calendarContentView = [[JTHorizontalCalendarView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 285)];
     _calendarContentView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_calendarContentView];
     _calendarManager.settings.weekDayFormat = JTCalendarWeekDayFormatSingle;
     _calendarManager.contentView = _calendarContentView;
     [_calendarManager setDate:_userSelectedDate];
+    //添加上下滑动的手势
+    _calendarContentView.userInteractionEnabled = YES;
+    UISwipeGestureRecognizer *swTop = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(topClicked:)];
+    swTop.direction = UISwipeGestureRecognizerDirectionUp;
+    [_calendarContentView addGestureRecognizer:swTop];
+    UISwipeGestureRecognizer *swDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(downClicked:)];
+    swDown.direction = UISwipeGestureRecognizerDirectionDown;
+    [_calendarContentView addGestureRecognizer:swDown];
     //创建当天事件的表格视图
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 349 - 64, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 349) style:UITableViewStylePlain];
     _tableView.delegate = self;
@@ -129,38 +139,52 @@
     }
     //创建多选视图
     _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100, 0, 100, 120)];
-    _moreSelectView.selectArr = @[@"周视图",@"月视图",@"列表"];
+    _moreSelectView.selectArr = @[@"日程列表",@"添加日程",@"刷新日程"];
     _moreSelectView.delegate = self;
     [_moreSelectView setupUI];
     [self.view addSubview:_moreSelectView];
     [self.view bringSubviewToFront:_moreSelectView];
 }
-- (void)refushClicked:(UIBarButtonItem*)item {
-    [self.navigationController.view showLoadingTips:@"正在同步..."];
-//    这里是用户向服务器提交数据 现在还没有改
-    [UserHttp getUserCalendar:_userManager.user.user_guid handler:^(id data, MError *error) {
-        [self.navigationController.view dismissTips];
-        if(error) {
-            [self.navigationController.view showFailureTips:error.statsMsg];
-            return ;
-        }
-        NSMutableArray *array = [@[] mutableCopy];
-        for (NSDictionary *dic in data[@"list"]) {
-            Calendar *calendar = [[Calendar new] initWithJSONDictionary:dic];
-            calendar.descriptionStr = dic[@"description"];
-            [array addObject:calendar];
-        }
-        [_userManager updateCalendars:array];
-        [self.navigationController.view showSuccessTips:@"同步成功"];
+- (void)topClicked:(UISwipeGestureRecognizer*)sw {
+    [UIView animateWithDuration:0.2 animations:^{
+        _calendarManager.settings.weekModeEnabled = NO;
+        _calendarContentView.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 285);
+        [_calendarManager reload];
     }];
 }
-- (void)todayClicked:(UIBarButtonItem*)item {
-    _userSelectedDate = [NSDate date];
-    _centerNavLabel.text = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@年%@月",@(_userSelectedDate.year),@(_userSelectedDate.month)]];
-    [_calendarManager setDate:_userSelectedDate];
-    [self getTodayCalendarArr];
-    [_tableView reloadData];
+- (void)downClicked:(UISwipeGestureRecognizer*)sw {
+    [UIView animateWithDuration:0.2 animations:^{
+        _calendarManager.settings.weekModeEnabled = YES;
+        _calendarContentView.frame = CGRectMake(0, 200, MAIN_SCREEN_WIDTH, 85);
+        [_calendarManager reload];
+    }];
 }
+//- (void)refushClicked:(UIBarButtonItem*)item {
+//    [self.navigationController.view showLoadingTips:@"正在同步..."];
+////    这里是用户向服务器提交数据 现在还没有改
+//    [UserHttp getUserCalendar:_userManager.user.user_guid handler:^(id data, MError *error) {
+//        [self.navigationController.view dismissTips];
+//        if(error) {
+//            [self.navigationController.view showFailureTips:error.statsMsg];
+//            return ;
+//        }
+//        NSMutableArray *array = [@[] mutableCopy];
+//        for (NSDictionary *dic in data[@"list"]) {
+//            Calendar *calendar = [[Calendar new] initWithJSONDictionary:dic];
+//            calendar.descriptionStr = dic[@"description"];
+//            [array addObject:calendar];
+//        }
+//        [_userManager updateCalendars:array];
+//        [self.navigationController.view showSuccessTips:@"同步成功"];
+//    }];
+//}
+//- (void)todayClicked:(UIBarButtonItem*)item {
+//    _userSelectedDate = [NSDate date];
+//    _centerNavLabel.text = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@年%@月",@(_userSelectedDate.year),@(_userSelectedDate.month)]];
+//    [_calendarManager setDate:_userSelectedDate];
+//    [self getTodayCalendarArr];
+//    [_tableView reloadData];
+//}
 //加载有日程的时间数组
 - (void)loadHaveCalendarTimeArr {
     NSMutableArray *calendarArr = [_userManager getCalendarArr];
@@ -238,10 +262,10 @@
         }
     }
 }
-- (void)addCalendarClicked:(UIBarButtonItem*)item {
-    CalendarCreateController *calendar = [CalendarCreateController new];
-    [self.navigationController pushViewController:calendar animated:YES];
-}
+//- (void)addCalendarClicked:(UIBarButtonItem*)item {
+//    CalendarCreateController *calendar = [CalendarCreateController new];
+//    [self.navigationController pushViewController:calendar animated:YES];
+//}
 - (void)moreClicked:(UIBarButtonItem*)item {
     if(_moreSelectView.isHide)
         [_moreSelectView showSelectView];
@@ -261,17 +285,30 @@
 #pragma mark --
 #pragma mark -- MoreSelectViewDelegate
 - (void)moreSelectIndex:(int)index {
-    if(index == 0) {
-        _calendarManager.settings.weekModeEnabled = YES;
-        _calendarContentView.frame = CGRectMake(0, 200, MAIN_SCREEN_WIDTH, 85);
-        [_calendarManager reload];
-    } else if(index == 1) {
-        _calendarManager.settings.weekModeEnabled = NO;
-        _calendarContentView.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 285);
-        [_calendarManager reload];
-    } else {
+    if(index == 0){
         CalendarListController *calendar = [CalendarListController new];
         [self.navigationController pushViewController:calendar animated:YES];
+    } else if (index == 1) {
+        CalendarCreateController *calendar = [CalendarCreateController new];
+        [self.navigationController pushViewController:calendar animated:YES];
+    } else {
+        [self.navigationController.view showLoadingTips:@"正在同步..."];
+        //    这里是用户向服务器提交数据 现在还没有改
+        [UserHttp getUserCalendar:_userManager.user.user_guid handler:^(id data, MError *error) {
+            [self.navigationController.view dismissTips];
+            if(error) {
+                [self.navigationController.view showFailureTips:error.statsMsg];
+                return ;
+            }
+            NSMutableArray *array = [@[] mutableCopy];
+            for (NSDictionary *dic in data[@"list"]) {
+                Calendar *calendar = [[Calendar new] initWithJSONDictionary:dic];
+                calendar.descriptionStr = dic[@"description"];
+                [array addObject:calendar];
+            }
+            [_userManager updateCalendars:array];
+            [self.navigationController.view showSuccessTips:@"同步成功"];
+        }];
     }
 }
 #pragma mark --

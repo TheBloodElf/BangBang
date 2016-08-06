@@ -83,7 +83,8 @@
         }
         _taskCommentModelArr = array;
         [_tableView reloadData];
-        [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:_taskCommentModelArr.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        if(_taskCommentModelArr.count != 0)
+            [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:_taskCommentModelArr.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }];
 }
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {

@@ -209,6 +209,16 @@
             return ;
         }
         [[UserManager manager] updateUser:user];
+        //更新用户员工
+        for (Company *company in [_userManager getCompanyArr]) {
+            Employee *employee = [[_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:company.company_no] deepCopy];
+            employee.real_name = user.real_name;
+            employee.user_real_name = user.real_name;
+            employee.user_name = user.user_name;
+            employee.sex = user.sex;
+            employee.mood = user.mood;
+            [_userManager updateEmployee:employee];
+        }
     }];
 }
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(nullable NSDictionary<NSString *,id> *)editingInfo {
@@ -221,6 +231,14 @@
         User *user = [_userManager.user deepCopy];
         user.avatar = data[@"avatar"];
         [_userManager updateUser:user];
+        
+        //更新用户员工
+        for (Company *company in [_userManager getCompanyArr]) {
+            Employee *employee = [[_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:company.company_no] deepCopy];
+            employee.avatar = user.avatar;
+            [_userManager updateEmployee:employee];
+        }
+        
     }];
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
