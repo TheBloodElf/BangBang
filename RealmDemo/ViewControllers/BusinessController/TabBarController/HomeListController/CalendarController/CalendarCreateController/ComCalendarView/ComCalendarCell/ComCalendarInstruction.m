@@ -10,7 +10,7 @@
 #import "Calendar.h"
 
 @interface ComCalendarInstruction ()<UITextViewDelegate> {
-    Calendar *_calendar;
+    
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *detailInstruction;
@@ -26,9 +26,9 @@
     // Initialization code
 }
 - (void)dataDidChange {
-    _calendar = self.data;
-    self.detailInstructionView.text = _calendar.descriptionStr;
-    if([NSString isBlank:_calendar.descriptionStr])
+    Calendar *calendar = self.data;
+    self.detailInstructionView.text = calendar.descriptionStr;
+    if([NSString isBlank:calendar.descriptionStr])
         self.detailInstruction.hidden = NO;
     else
         self.detailInstruction.hidden = YES;
@@ -36,14 +36,14 @@
 #pragma mark --
 #pragma mark -- UITextViewDelegate
 - (void)textViewDidChange:(UITextView *)textView {
-    if([NSString isBlank:_calendar.descriptionStr])
+    if([NSString isBlank:textView.text])
         self.detailInstruction.hidden = NO;
     else
         self.detailInstruction.hidden = YES;
 }
 - (BOOL)textViewShouldEndEditing:(UITextView *)textView {
-    _calendar.descriptionStr = textView.text;
-    [textView resignFirstResponder];
+    Calendar *calendar = self.data;
+    calendar.descriptionStr = textView.text;
     return YES;
 }
 @end

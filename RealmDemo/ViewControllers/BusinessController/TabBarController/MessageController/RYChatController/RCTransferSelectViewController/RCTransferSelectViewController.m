@@ -91,6 +91,7 @@
 }
 -(void)tableView:(UITableView *)sender didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [_tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.navigationController.view showLoadingTips:@""];
     RCConversationType transferType = 0;
     NSString *targetId = nil;
     if(indexPath.section == 0) {//成员
@@ -113,6 +114,7 @@
             });
         }error:^(RCErrorCode nErrorCode, long messageId){
             dispatch_async(dispatch_get_main_queue(), ^{
+                [self.navigationController.view dismissTips];
                 [self.navigationController.view showFailureTips:@"发送失败"];
             });
         }];
@@ -124,6 +126,7 @@
             });
         }error:^(RCErrorCode nErrorCode, long messageId){
             dispatch_async(dispatch_get_main_queue(), ^{
+                [self.navigationController.view dismissTips];
                 [self.navigationController.view showFailureTips:@"发送失败"];
             });
         }];

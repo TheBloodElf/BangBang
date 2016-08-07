@@ -2499,9 +2499,9 @@
 			children = (
 				1B5585B81D34F7FB00DCD3A0 /* TabBarController.h */,
 				1B5585B91D34F7FB00DCD3A0 /* TabBarController.m */,
-				046D48AD1D5616760000ECC4 /* MoreViewController */,
 				1B5585BF1D34FA7100DCD3A0 /* HomeListController */,
 				1B5585C01D34FA7100DCD3A0 /* MessageController */,
+				046D48AD1D5616760000ECC4 /* MoreViewController */,
 				1B5585C21D34FA7100DCD3A0 /* XAddrBookController */,
 				1B5585C11D34FA7100DCD3A0 /* MineViewController */,
 			);
