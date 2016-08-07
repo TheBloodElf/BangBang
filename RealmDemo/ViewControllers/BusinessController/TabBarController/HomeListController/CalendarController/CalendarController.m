@@ -78,7 +78,7 @@
     //创建日历管理器
     _calendarManager = [JTCalendarManager new];
     _calendarManager.delegate = self;
-    _calendarManager.settings.weekModeEnabled = NO;
+    _calendarManager.settings.weekModeEnabled = YES;
     _calendarContentView = [[JTHorizontalCalendarView alloc] initWithFrame:CGRectMake(0, 200, MAIN_SCREEN_WIDTH, 85)];
     _calendarContentView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_calendarContentView];

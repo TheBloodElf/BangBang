@@ -10,7 +10,7 @@
 //多选视图控制器 创建任务等等
 @protocol MoreViewControllerDelegate <NSObject>
 
-- (void)MoreViewDidClicked:(id)item;
+- (void)MoreViewDidClicked:(int)index;
 
 @end
 

@@ -77,6 +77,11 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightClicked:)];
     // Do any additional setup after loading the view.
 }
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    self.navigationController.navigationBar.barTintColor = [UIColor siginColor];
+}
 - (void)rightClicked:(UIBarButtonItem*)item {
     if([NSString isBlank:_taskModel.task_name]) {
         [self.navigationController.view showMessageTips:@"请填写名称"];

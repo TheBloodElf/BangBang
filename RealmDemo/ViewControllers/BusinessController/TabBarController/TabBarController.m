@@ -12,8 +12,12 @@
 #import "MineViewController.h"
 #import "MoreViewController.h"
 #import "XAddrBookController.h"
+#import "UserManager.h"
 
-#import "BushManageViewController.h"
+#import "CalendarCreateController.h"
+#import "TaskCreateController.h"
+#import "CreateMeetingController.h"
+#import "BushSearchViewController.h"
 
 @interface TabBarController ()<UITabBarControllerDelegate,MoreViewControllerDelegate> {
     UITabBarController *_tabBarVC;
@@ -44,10 +48,31 @@
     }
     return YES;
 }
+//需要选择圈子后才能操作
+- (void)executeNeedSelectCompany:(void (^)(void))aBlock
+{
+    if([UserManager manager].user.currCompany.company_no == 0) {
+        [self.frostedViewController.navigationController.view showMessageTips:@"请选择一个圈子后再进行此操作"];
+    } else {
+        aBlock();
+    }
+}
 //这里写回调 用REFrostedViewController push 
 #pragma mark -- MoreViewControllerDelegate
-- (void)MoreViewDidClicked:(id)item {
-    [self.frostedViewController.navigationController pushViewController:[BushManageViewController new] animated:YES];
+- (void)MoreViewDidClicked:(int)index {
+    if(index == 0) {//创建日程
+        [self.frostedViewController.navigationController pushViewController:[CalendarCreateController new] animated:YES];
+    } else if (index == 1) {//创建任务
+        [self executeNeedSelectCompany:^{
+            [self.frostedViewController.navigationController pushViewController:[TaskCreateController new] animated:YES];
+        }];
+    } else if (index == 2) {//创建会议
+        [self executeNeedSelectCompany:^{
+            [self.frostedViewController.navigationController pushViewController:[CreateMeetingController new] animated:YES];
+        }];
+    } else {//加入圈子
+        [self.frostedViewController.navigationController pushViewController:[BushSearchViewController new] animated:YES];
+    }
 }
 - (UINavigationController*)homeListController {
     HomeListController *home = [HomeListController new];

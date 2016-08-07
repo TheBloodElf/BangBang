@@ -24,8 +24,7 @@
 @interface BusinessController () {
     UserManager *_userManager;
     IdentityManager *_identityManager;
-    UINavigationController *_businessNav;//这个导航用于弹出通知信息，所以多了这一层
-    REFrostedViewController *_rEFrostedView;//侧滑控制器
+    UINavigationController *_businessNav;//这个导航用于弹出通知信息，是业务模块的根控制器
 }
 @end
 
@@ -37,7 +36,7 @@
     _identityManager = [IdentityManager manager];
     self.view.backgroundColor = [UIColor whiteColor];
     //创建界面
-    _rEFrostedView = [[REFrostedViewController alloc] initWithContentViewController:[TabBarController new] menuViewController:[LeftMenuController new]];
+    REFrostedViewController *_rEFrostedView = [[REFrostedViewController alloc] initWithContentViewController:[TabBarController new] menuViewController:[LeftMenuController new]];
     _rEFrostedView.direction = REFrostedViewControllerDirectionLeft;
     _rEFrostedView.menuViewSize = CGSizeMake(MAIN_SCREEN_WIDTH*3/4, MAIN_SCREEN_HEIGHT + 44);
     _rEFrostedView.liveBlur = YES;

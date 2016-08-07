@@ -25,6 +25,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="199"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner.png" translatesAutoresizingMaskIntoConstraints="NO" id="zA9-b1-7gT">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="199"/>
+                                                </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QO2-vr-Jzj">
                                                     <rect key="frame" x="130" y="48" width="60" height="60"/>
                                                     <constraints>
@@ -47,9 +50,6 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner.png" translatesAutoresizingMaskIntoConstraints="NO" id="zA9-b1-7gT">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="199"/>
-                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="5l2-UI-jc4" firstAttribute="centerX" secondItem="Nu8-hT-f07" secondAttribute="centerX" id="66i-x2-dda"/>
