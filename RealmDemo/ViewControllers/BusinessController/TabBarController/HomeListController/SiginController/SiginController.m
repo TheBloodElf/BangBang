@@ -103,6 +103,12 @@
             }
             [_userManager updateTodaySinInList:array guid:employee.employee_guid];
             _todaySigInArr = array;
+            if(_todaySigInArr.count) {
+                self.tableView.tableFooterView = [UIView new];
+                [_tableView reloadData];
+            }
+            else
+                self.tableView.tableFooterView = _noDataView;
             [_tableView reloadData];
         }];
     }
