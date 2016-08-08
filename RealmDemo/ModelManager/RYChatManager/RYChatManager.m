@@ -106,7 +106,8 @@
         default:result = @"其他状态。";break;
     }
     if (status == ConnectionStatus_KICKED_OFFLINE_BY_OTHER_CLIENT) {
-        [[IdentityManager manager] showLogin];
+        [[IdentityManager manager] logOut];
+        [[IdentityManager manager] showLogin:@"你的账号在其他设备上登录，请重新登录"];
     }
 }
 @end

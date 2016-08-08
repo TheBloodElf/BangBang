@@ -41,12 +41,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.frostedViewController.navigationController setNavigationBarHidden:YES animated:YES];
-    self.navigationController.navigationBar.translucent = NO;
     self.navigationController.navigationBar.barTintColor = [UIColor homeListColor];
-    [self.navigationController.navigationBar setTitleTextAttributes:
-     @{NSFontAttributeName:[UIFont systemFontOfSize:17],
-       NSForegroundColorAttributeName:[UIColor whiteColor]}];
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
     if(_moreSelectView.isHide == YES)
@@ -80,7 +75,9 @@
         chat.conversationType              = ConversationType_DISCUSSION;
         chat.title                         = [nameArr componentsJoinedByString:@","];
         chat.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:chat animated:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.navigationController pushViewController:chat animated:YES];
+        });
     } error:nil];
 }
 //点击进入会话界面

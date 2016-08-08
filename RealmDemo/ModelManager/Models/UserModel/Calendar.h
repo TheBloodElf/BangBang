@@ -28,7 +28,7 @@
 /** 应用编号（如果是某个应该推送过来的，填写该项。如“任务”推送过来的） */
 @property (nonatomic, strong) NSString      * app_guid;
 /** 应用表的主键（如果是某个应该推送过来的，填写该项。如“任务”推送过来的，就填写任务的id） */
-@property (nonatomic, strong) NSString      * target_id;
+@property (nonatomic, strong) NSString      *target_id;
 /** 重复周期类型：不重复-0,按天-1，按周-2，按月-3，按年-4 */
 @property (nonatomic, assign) int   repeat_type;
 /** 是否提醒 */

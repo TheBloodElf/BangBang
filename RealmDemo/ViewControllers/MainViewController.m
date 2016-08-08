@@ -32,7 +32,7 @@
     //进入判断逻辑
     [self gotoIdentityVC];
     //加上重新登录的通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showLogin) name:@"ShowLogin" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showLogin:) name:@"ShowLogin" object:nil];
     //加上欢迎界面和登录界面的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(welcomeDidFinish) name:@"WelcomeDidFinish" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginDidFinish) name:@"LoginDidFinish" object:nil];
@@ -41,8 +41,18 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 //弹出登录控制器
-- (void)showLogin {
-    [self gotoIdentityVC];
+- (void)showLogin:(NSNotification*)noti{
+    //是否不需要弹窗
+    if([NSString isBlank:noti.object]) {
+        [self gotoIdentityVC];
+        return;
+    }
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:noti.object message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [self gotoIdentityVC];
+    }];
+    [alertVC addAction:ok];
+    [self presentViewController:alertVC animated:YES completion:nil];
 }
 //欢迎界面展示完毕
 - (void)welcomeDidFinish {
@@ -50,22 +60,22 @@
     IdentityManager *manager = [IdentityManager manager];
     manager.identity.firstUseSoft = NO;
     [manager saveAuthorizeData];
-    //移除欢迎界面
-    [_welcome.view removeFromSuperview];
-    [_welcome removeFromParentViewController];
     //进入判断逻辑
     [self gotoIdentityVC];
 }
 //登录界面展示完毕
 - (void)loginDidFinish {
-    //移除登录界面
-    [_login.view removeFromSuperview];
-    [_login removeFromParentViewController];
     //进入判断逻辑
     [self gotoIdentityVC];
 }
 //进入判断逻辑
 - (void)gotoIdentityVC {
+    //清除子视图控制器
+    for (UIViewController *viewVC in self.childViewControllers) {
+        [viewVC removeFromParentViewController];
+        [viewVC.view removeFromSuperview];
+        [viewVC.view willMoveToSuperview:self.view];
+    }
     IdentityManager *manager = [IdentityManager manager];
     //看用户是不是第一次使用软件
     if(manager.identity.firstUseSoft) {

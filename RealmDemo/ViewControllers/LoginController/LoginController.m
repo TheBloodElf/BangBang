@@ -24,10 +24,6 @@
     _loginNavigationVC = [[UINavigationController alloc] initWithRootViewController:login];
     _loginNavigationVC.navigationBar.translucent = NO;
     _loginNavigationVC.navigationBar.barTintColor = [UIColor homeListColor];
-    [_loginNavigationVC setNavigationBarHidden:YES animated:YES];
-    [_loginNavigationVC.navigationBar setTitleTextAttributes:
-     @{NSFontAttributeName:[UIFont systemFontOfSize:17],
-       NSForegroundColorAttributeName:[UIColor whiteColor]}];
     [self.view addSubview:_loginNavigationVC.view];
     [_loginNavigationVC.view willMoveToSuperview:self.view];
     [self addChildViewController:_loginNavigationVC];

@@ -75,15 +75,24 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.frostedViewController.navigationController setNavigationBarHidden:YES animated:YES];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    //如果是从业务的根视图进来的 就隐藏导航
+    if([self.navigationController.viewControllers[0] isMemberOfClass:[NSClassFromString(@"REFrostedViewController") class]]) {
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+    }
+}
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    //如果是从业务的根视图进来的 就隐藏导航
+    if([self.navigationController.viewControllers[0] isMemberOfClass:[NSClassFromString(@"REFrostedViewController") class]]) {
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+    }
 }
 - (void)dataDidChange {
     _taskModel = [self.data deepCopy];
 }
 - (void)reloadTaskInfo:(NSNotification*)noti {
     PushMessage *message = noti.object;
-    if(message.target_id.intValue == _taskModel.id) {
+    if(message.target_id == _taskModel.id) {
         _taskFileView.data = _taskModel;
         _taskDetailView.data = _taskModel;
         _taskDiscussView.data = _taskModel;
@@ -220,19 +229,11 @@
     UIDocumentInteractionController *documentController = [UIDocumentInteractionController
      interactionControllerWithURL:fileUrl];
     documentController.delegate = self;
-    [documentController presentOpenInMenuFromRect:CGRectZero inView:self.view animated:YES];
+    [documentController presentPreviewAnimated:YES];
 }
--(void)documentInteractionController:(UIDocumentInteractionController *)controller willBeginSendingToApplication:(NSString *)application
-{
-    
-}
--(void)documentInteractionController:(UIDocumentInteractionController *)controller didEndSendingToApplication:(NSString *)application
-{
-    
-}
--(void)documentInteractionControllerDidDismissOpenInMenu: (UIDocumentInteractionController *)controller
-{
-    
+- (UIViewController *) documentInteractionControllerViewControllerForPreview:
+(UIDocumentInteractionController *) controller {
+    return self;
 }
 #pragma mark -- SelectImageDelegate
 - (void)selectImageFinish:(NSMutableArray<Photo*>*)photoArr {

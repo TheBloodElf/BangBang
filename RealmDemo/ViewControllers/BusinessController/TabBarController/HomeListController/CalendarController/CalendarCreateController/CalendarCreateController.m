@@ -84,8 +84,18 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-    self.navigationController.navigationBar.barTintColor = [UIColor calendarColor];
+    //如果是从业务的根视图进来的 就显示导航
+    if([self.navigationController.viewControllers[0] isMemberOfClass:[NSClassFromString(@"REFrostedViewController") class]]) {
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+        self.navigationController.navigationBar.barTintColor = [UIColor calendarColor];
+    }
+}
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    //如果是从业务的根视图进来的 就隐藏导航
+    if([self.navigationController.viewControllers[0] isMemberOfClass:[NSClassFromString(@"REFrostedViewController") class]]) {
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+    }
 }
 - (void)segmentClicked:(UISegmentedControl*)seControl {
     [_bottomScrollView setContentOffset:CGPointMake(seControl.selectedSegmentIndex * _bottomScrollView.frame.size.width, 0) animated:YES];
@@ -109,9 +119,6 @@
         [self.navigationController showSuccessTips:@"添加成功"];
         [self.navigationController popViewControllerAnimated:YES];
     }];
-//    _currCalendar.id = [[NSDate date] timeIntervalSince1970];
-//    [_userManager addCalendar:_currCalendar];
-//    [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark --
 #pragma mark -- RepCalendarViewDelegate

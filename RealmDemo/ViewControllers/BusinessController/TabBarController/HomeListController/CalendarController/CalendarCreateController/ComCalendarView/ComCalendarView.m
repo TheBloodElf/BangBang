@@ -40,6 +40,9 @@
         [_tableView registerNib:[UINib nibWithNibName:@"ComCalendarInstruction" bundle:nil] forCellReuseIdentifier:@"ComCalendarInstruction"];
         _tableView.tableFooterView = [UIView new];
         [self addSubview:_tableView];
+        
+        [IQKeyboardManager sharedManager].enable = YES;
+        [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
     }
     return self;
 }

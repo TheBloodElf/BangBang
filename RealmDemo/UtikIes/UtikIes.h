@@ -49,5 +49,6 @@
 #import <TencentOpenAPI/TencentOAuth.h>
 #import "WBApiManager.h"
 #import "WXApiManager.h"
+#import "IQKeyboardManager.h"
 
 #endif /* UtikIes_h */

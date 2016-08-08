@@ -187,7 +187,6 @@
             handler(data,err);
         });
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        //开始菊花
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         handler(nil,[MError new]);
     }];
@@ -233,18 +232,41 @@
     };
     return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
 }
+//创建工作圈
 + (NSURLSessionDataTask*)createCompany:(NSString*)companyName userGuid:(NSString*)userGuid image:(UIImage*)image companyType:(int)companyType handler:(completionHandler)handler {
-    NSString *urlPath = @"Companies/create_company";
+    //开始菊花
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:KBSSDKAPIDomain]];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params setObject:companyName forKey:@"company_name"];
     [params setObject:userGuid forKey:@"user_guid"];
-    [params setObject:image forKey:@"image"];
     [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
     [params setObject:@(companyType) forKey:@"company_type"];
-    completionHandler compleionHandler = ^(id data,MError *error) {
-        handler(data,error);
-    };
-    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
+    NSURLSessionDataTask * dataTask = [manager POST:@"Companies/create_company" parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData){
+        NSData *currData = [image dataInNoSacleLimitBytes:MaXPicSize];
+        [formData appendPartWithFileData:currData name:@"image" fileName:[NSString stringWithFormat:@"%@.jpg",@([[NSDate date] timeIntervalSince1970])] mimeType:@"image/jpeg"];
+    }progress:nil success:^(NSURLSessionDataTask * task, id  responseObject) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        //判断结果
+        MError *err = nil;
+        id data = nil;
+        NSDictionary *responseObjectDic = [responseObject mj_keyValues];
+        if([responseObjectDic[@"code"] integerValue] == 0) {
+            data = responseObjectDic[@"data"];
+        } else {
+            err = [[MError alloc] initWithCode:[responseObjectDic[@"code"] intValue] statsMsg:responseObjectDic[@"message"]];
+        }
+        //主线程执行回调
+        dispatch_async(dispatch_get_main_queue(), ^{
+            handler(data,err);
+        });
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        handler(nil,[[MError alloc] initWithCode:error.code statsMsg:error.domain]);
+    }];
+    
+    [dataTask resume];
+    return dataTask;
 }
 //获取圈子员工列表
 + (NSURLSessionDataTask*)getEmployeeCompnyNo:(int)companyNo status:(int)status userGuid:(NSString*)userGuid handler:(completionHandler)handler {
@@ -427,6 +449,7 @@
 + (NSURLSessionDataTask*)updateUserCalendar:(Calendar*)calendar handler:(completionHandler)handler {
     NSString *urlPath = @"Calendars/update_v3";
     NSMutableDictionary *params = [@{} mutableCopy];
+    [params setObject:@(calendar.id) forKey:@"id"];
     [params setObject:@(calendar.company_no) forKey:@"company_no"];
     [params setObject:calendar.event_name forKey:@"event_name"];
     [params setObject:calendar.descriptionStr forKey:@"description"];
@@ -435,7 +458,7 @@
     [params setObject:@(calendar.enddate_utc) forKey:@"enddate_utc"];
     [params setObject:@(calendar.is_allday) forKey:@"is_allday"];
     [params setObject:calendar.app_guid forKey:@"app_guid"];
-    [params setObject:calendar.target_id forKey:@"target_id"];
+    [params setObject:calendar.target_id forKey:@"article_id"];
     [params setObject:@(calendar.repeat_type) forKey:@"repeat_type"];
     [params setObject:@(calendar.is_alert) forKey:@"is_alert"];
     [params setObject:@(calendar.alert_minutes_before) forKey:@"alert_minutes_before"];
@@ -446,7 +469,6 @@
     [params setObject:calendar.rrule forKey:@"rrule"];
     [params setObject:@(calendar.r_begin_date_utc) forKey:@"r_begin_date_utc"];
     [params setObject:@(calendar.r_end_date_utc) forKey:@"r_end_date_utc"];
-    [params setObject:calendar.members forKey:@"members"];
     [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
     completionHandler compleionHandler = ^(id data,MError *error) {
         handler(data,error);

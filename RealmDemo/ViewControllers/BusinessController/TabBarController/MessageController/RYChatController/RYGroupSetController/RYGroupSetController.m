@@ -17,7 +17,6 @@
 @interface RYGroupSetController ()<UITableViewDelegate,UITableViewDataSource,RYGroupSetUserDelegate,RYGroupSetNameDelegate,RBQFetchedResultsControllerDelegate,MuliteSelectDelegate> {
     UITableView *_tableView;
     UserManager *_userManager;
-    NSMutableArray<UserDiscuss*> *_userDiscussArr;//目前通讯录中的所有讨论组
     RBQFetchedResultsController *_userDiscussFetchedResultsController;//讨论组数据监听
     NSMutableArray<RCUserInfo*> *_rCUserArr;//当前聊天的人员
     BOOL _isUserEdit;//是否是用户编辑模式
@@ -33,7 +32,6 @@
     _rCUserArr = [@[] mutableCopy];
     _isUserEdit = NO;
     _userManager = [UserManager manager];
-    _userDiscussArr = [_userManager getUserDiscussArr];
     _userDiscussFetchedResultsController = [_userManager createUserDiscusFetchedResultsController];
     _userDiscussFetchedResultsController.delegate = self;
     //获取当前讨论组
@@ -61,8 +59,16 @@
         }
     } error:^(RCErrorCode status) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.navigationController.view showFailureTips:@"讨论组不存在！"];
-            [self.navigationController popViewControllerAnimated:YES];
+            for (UserDiscuss *userDiscuss in [_userManager getUserDiscussArr]) {
+                if([userDiscuss.discuss_id isEqualToString:self.targetId]) {
+                    [_userManager deleteUserDiscuss:userDiscuss];
+                    [UserHttp delUserDiscuss:_userManager.user.user_no discussId:self.targetId handler:^(id data, MError *error) {
+                        [self.navigationController.view showFailureTips:@"讨论组不存在，已删除!"];
+                        [self.navigationController popToViewController:self.navigationController.viewControllers[self.navigationController.viewControllers.count - 3] animated:YES];
+                    }];
+                    break;
+                }
+            }
         });
     }];
     
@@ -84,10 +90,6 @@
 }
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
-    [_userDiscussArr removeAllObjects];
-    for (UserDiscuss *userDiscuss in controller.fetchedObjects) {
-        [_userDiscussArr addObject:[userDiscuss deepCopy]];
-    }
     [_tableView reloadData];
 }
 - (void)buttonAction:(UIButton*)btn {
@@ -96,7 +98,7 @@
     UIAlertAction *ok = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [[RCIMClient sharedRCIMClient] quitDiscussion:self.targetId success:^(RCDiscussion *discussion) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                for (UserDiscuss *userDiscuss in _userDiscussArr) {
+                for (UserDiscuss *userDiscuss in [_userManager getUserDiscussArr]) {
                     if([userDiscuss.discuss_id isEqualToString:discussion.discussionId]) {
                         [_userManager deleteUserDiscuss:userDiscuss];
                         break;
@@ -256,7 +258,7 @@
         UISwitch *sw = (id)cell.accessoryView;
         sw.tag = 1001;
         BOOL have = NO;
-        for (UserDiscuss *userDiscuss in _userDiscussArr) {
+        for (UserDiscuss *userDiscuss in [_userManager getUserDiscussArr]) {
             if([userDiscuss.discuss_id isEqualToString:self.targetId]) {
                 have = YES;
                 break;
@@ -338,7 +340,7 @@
             }];
         } else {//删除
             [UserHttp delUserDiscuss:_userManager.user.user_no discussId:_currRCDiscussion.discussionId handler:^(id data, MError *error) {
-                for (UserDiscuss *userDiscuss in _userDiscussArr) {
+                for (UserDiscuss *userDiscuss in [_userManager getUserDiscussArr]) {
                     if([userDiscuss.discuss_id isEqualToString:_currRCDiscussion.discussionId]) {
                         [_userManager deleteUserDiscuss:userDiscuss];
                         break;

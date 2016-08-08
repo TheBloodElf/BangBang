@@ -23,8 +23,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //Realm数据库版本
     RLMRealmConfiguration *config = [RLMRealmConfiguration defaultConfiguration];
-    config.schemaVersion = 11;
+    config.schemaVersion = 2;
     [RLMRealmConfiguration setDefaultConfiguration:config];
+    //键盘遮挡问题解决方案
+    [IQKeyboardManager sharedManager].enable = YES;
+    [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
     //百度统计
     [self startBDMobStat];
     //注册微信APPID

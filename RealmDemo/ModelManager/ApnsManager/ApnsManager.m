@@ -45,17 +45,11 @@
 }
 //收到本地推送
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-    AudioServicesPlaySystemSound(1007); //系统的通知声音
-    AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);//震动
-    if ([notification.alertBody hasPrefix:@"任务提醒:"]||[notification.alertBody hasPrefix:@"事务提醒:"] || [notification.alertBody hasPrefix:@"上下班提醒:"]) {
-        if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
-            NSString *path = [[NSBundle mainBundle] pathForResource:@"notification_ring" ofType:@"mp3"];
-            NSURL *url = [NSURL URLWithString:path];
-            SystemSoundID ID;
-            AudioServicesCreateSystemSoundID((__bridge CFURLRef)(url), &ID);
-            AudioServicesPlayAlertSound(ID);
-        }
-    }
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"notification_ring" ofType:@"mp3"];
+    NSURL *url = [NSURL URLWithString:path];
+    SystemSoundID ID;
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)(url), &ID);
+    AudioServicesPlayAlertSound(ID);
     
     PushMessage *pushMessage = [[PushMessage alloc] initWithJSONDictionary:notification.userInfo];
     pushMessage.addTime = [NSDate date];

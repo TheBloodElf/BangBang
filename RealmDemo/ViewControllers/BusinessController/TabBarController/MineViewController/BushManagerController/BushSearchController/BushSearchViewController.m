@@ -58,16 +58,26 @@
     label.textAlignment = NSTextAlignmentCenter;
     label.textColor = [UIColor grayColor];
     label.font = [UIFont systemFontOfSize:15];
-    label.text = @"未找到你想要的内容";
+    label.text = @"没有更多数据";
     [_noDataView addSubview:label];
     //创建导航按钮
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(rightBarButtonClicked:)];
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    //如果是从业务的根视图进来的 就显示导航
+    if([self.navigationController.viewControllers[0] isMemberOfClass:[NSClassFromString(@"REFrostedViewController") class]]) {
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+    }
     //因为圈子详情可能会有修改那些操作，所以就要实时的更新下
     [_tableView reloadData];
+}
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    //如果是从业务的根视图进来的 就隐藏导航
+    if([self.navigationController.viewControllers[0] isMemberOfClass:[NSClassFromString(@"REFrostedViewController") class]]) {
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+    }
 }
 //从网上加载数据
 - (void)search {

@@ -18,6 +18,7 @@
     UserManager *_userManager;//用户管理器
     RBQFetchedResultsController *_userDiscussFetchedResultsController;//讨论组数据监听
     UITableView *_tableView;//表格视图
+    UILabel *_noDataView;//没有数据时展示的视图
 }
 @end
 
@@ -31,15 +32,25 @@
     _userDiscussFetchedResultsController = [_userManager createUserDiscusFetchedResultsController];
     _userDiscussFetchedResultsController.delegate = self;
     
+    
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    _noDataView = [[UILabel alloc] initWithFrame:self.view.bounds];
+    _noDataView.text = @"没有更多数据";
+    _noDataView.textAlignment = NSTextAlignmentCenter;
+    _noDataView.font = [UIFont systemFontOfSize:10];
+    _noDataView.textColor = [UIColor grayColor];
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    _tableView.tableFooterView = [UIView new];
+    if(_userDiscussArr.count == 0)
+        _tableView.tableFooterView = _noDataView;
+    else
+        _tableView.tableFooterView = [UIView new];
     [_tableView registerNib:[UINib nibWithNibName:@"DiscussListCell" bundle:nil] forCellReuseIdentifier:@"DiscussListCell"];
     [self.view addSubview:_tableView];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(rightClicked:)];
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
+    [self.navigationController.view showLoadingTips:@"同步讨论组..."];
     [UserHttp getUserDiscuss:_userManager.user.user_no handler:^(id data, MError *error) {
         [self.navigationController.view dismissTips];
         if(error) {
@@ -59,6 +70,10 @@
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
     _userDiscussArr = (id)controller.fetchedObjects;
+    if(_userDiscussArr.count == 0)
+        _tableView.tableFooterView = _noDataView;
+    else
+        _tableView.tableFooterView = [UIView new];
     [_tableView reloadData];
 }
 #pragma mark -- 

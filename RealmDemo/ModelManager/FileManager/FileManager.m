@@ -58,6 +58,6 @@
 }
 //文件名对应的本地路径
 - (NSURL*)fileUrl:(NSString*)fileName {
-    return [NSURL fileURLWithPath:[_defaultFilePath stringByAppendingPathComponent:fileName]];
+    return [NSURL fileURLWithPath:[_defaultFilePath stringByAppendingPathComponent:fileName.lastPathComponent]];
 }
 @end

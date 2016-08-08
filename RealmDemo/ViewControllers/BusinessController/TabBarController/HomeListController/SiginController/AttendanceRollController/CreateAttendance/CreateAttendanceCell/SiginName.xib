@@ -14,11 +14,11 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_voice" translatesAutoresizingMaskIntoConstraints="NO" id="flN-dB-zXQ">
-                        <rect key="frame" x="15" y="12" width="21" height="20"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sigin_name_icon" translatesAutoresizingMaskIntoConstraints="NO" id="flN-dB-zXQ">
+                        <rect key="frame" x="15" y="14" width="15" height="15"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ay-pT-kmx">
-                        <rect key="frame" x="46" y="12" width="42" height="20"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="考勤名称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ay-pT-kmx">
+                        <rect key="frame" x="40" y="12" width="68" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="nam-96-G8Q"/>
                         </constraints>
@@ -27,7 +27,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入考勤名称" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IRM-r1-gdC">
-                        <rect key="frame" x="98" y="12" width="207" height="20"/>
+                        <rect key="frame" x="118" y="12" width="187" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="DS1-L3-3B2"/>
                         </constraints>
@@ -54,6 +54,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="ic_voice" width="21" height="20"/>
+        <image name="sigin_name_icon" width="15" height="15"/>
     </resources>
 </document>

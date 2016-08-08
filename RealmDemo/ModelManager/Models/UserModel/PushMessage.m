@@ -14,6 +14,7 @@
 @"NEW_APPROVAL":@{@"typeString":@"审批提醒通知",@"unreadImageName":@"pushMessage_approve.png",@"readImageName":@"pushMessage_approve1.png"},\
 @"SYSTEM":@{@"typeString":@"系统通知",@"unreadImageName":@"ic_notice_system.png",@"readImageName":@"ic_notice_system1.png"},\
 @"CALENDARTIP":@{@"typeString":@"日程提醒通知",@"unreadImageName":@"pushMessage_schedule.png",@"readImageName":@"pushMessage_schedule1.png"},\
+@"WORKTIP":@{@"typeString":@"上下班通知",@"unreadImageName":@"pushMessage_task.png",@"readImageName":@"pushMessage_task1.png"},\
 @"CALENDAR":@{@"typeString":@"日程通知",@"unreadImageName":@"pushMessage_schedule.png",@"readImageName":@"pushMessage_schedule1.png"},\
 @"TASKTIP":@{@"typeString":@"任务提醒通知",@"unreadImageName":@"pushMessage_task.png",@"readImageName":@"pushMessage_task1.png"},\
 @"TASK_COMMENT_STATUS":@{@"typeString":@"任务讨论通知",@"unreadImageName":@"pushMessage_task.png",@"readImageName":@"pushMessage_task1.png"},\
@@ -43,8 +44,5 @@
     NSString *type = self.type;
     NSDictionary *dic = pushMessageDic[type];
     return dic[@"typeString"];
-}
-- (CGFloat)contentHeight:(CGFloat)width font:(int)font{
-    return [self.content textSizeWithFont:[UIFont systemFontOfSize:font] constrainedToSize:CGSizeMake(width, 10000)].height;
 }
 @end

@@ -50,10 +50,6 @@
         [_userManager updateCalendar:_currCalendar];
         [self.navigationController popViewControllerAnimated:YES];
     }];
-//    if(self.delegate && [self.delegate respondsToSelector:@selector(ComCalendarEdit:)])
-//            [self.delegate ComCalendarEdit:_currCalendar];
-//    [_userManager updateCalendar:_currCalendar];
-//    [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)dataDidChange {
     _currCalendar = [[Calendar alloc] initWithJSONDictionary:[self.data JSONDictionary]];

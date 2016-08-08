@@ -38,14 +38,14 @@
         _tableView.dataSource = self;
         [_tableView registerNib:[UINib nibWithNibName:@"TaskOwnerCommentCell" bundle:nil] forCellReuseIdentifier:@"TaskOwnerCommentCell"];
         [_tableView registerNib:[UINib nibWithNibName:@"TaskOtherCommentCell" bundle:nil] forCellReuseIdentifier:@"TaskOtherCommentCell"];
-        _tableView.tableFooterView = [UIView new];
         _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+        _tableView.tableFooterView = [UIView new];
         [self addSubview:_tableView];
         
         _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, frame.size.height - 48, MAIN_SCREEN_WIDTH, 48)];
         _bottomView.userInteractionEnabled = YES;
         _bottomView.backgroundColor = [UIColor groupTableViewBackgroundColor];
-        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(15, 9, MAIN_SCREEN_WIDTH - 46 - 15, 30)];
+        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(15, 9, MAIN_SCREEN_WIDTH - 30, 30)];
         textField.backgroundColor = [UIColor whiteColor];
         textField.placeholder = @"输入内容...";
         textField.layer.cornerRadius = 15;
@@ -56,14 +56,6 @@
         textField.delegate = self;
         textField.layer.borderColor = [UIColor whiteColor].CGColor;
         [_bottomView addSubview:textField];
-        
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-        btn.frame = CGRectMake(MAIN_SCREEN_WIDTH - 46, 9, 46, 30);
-        [btn setTitle:@"发送" forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1] forState:UIControlStateNormal];
-        btn.tag = 1001;
-        [_bottomView addSubview:btn];
-        [btn addTarget:self action:@selector(sendClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_bottomView];
     }
     return self;
@@ -87,19 +79,8 @@
             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:_taskCommentModelArr.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }];
 }
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-     [UIView animateWithDuration:0.2 animations:^{
-        _bottomView.frame = CGRectMake(0, self.frame.size.height - 48 - 250, MAIN_SCREEN_WIDTH, 48);
-        _tableView.frame = CGRectMake(0, -250, MAIN_SCREEN_WIDTH, self.frame.size.height - 48);
-     }];
-    return YES;
-}
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [self endEditing:YES];
-    [UIView animateWithDuration:0.2 animations:^{
-        _bottomView.frame = CGRectMake(0, self.frame.size.height - 48, MAIN_SCREEN_WIDTH, 48);
-        _tableView.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, self.frame.size.height - 48);
-    }];
     UITextField *text = (id)[_bottomView viewWithTag:1000];
     if([NSString isBlank:text.text]) return YES;
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_taskModel.company_no];
@@ -114,28 +95,6 @@
 
     return YES;
 }
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
-    [self endEditing:YES];
-    [UIView animateWithDuration:0.2 animations:^{
-        _bottomView.frame = CGRectMake(0, self.frame.size.height - 48, MAIN_SCREEN_WIDTH, 48);
-        _tableView.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, self.frame.size.height - 48);
-    }];
-    return YES;
-}
-- (void)sendClicked:(UIButton*)btn {
-    UITextField *text = (id)[_bottomView viewWithTag:1000];
-    if([NSString isBlank:text.text]) return;
-    Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_taskModel.company_no];
-    [UserHttp addTaskComment:_taskModel.id taskStatus:_taskModel.status comment:text.text createdby:employee.employee_guid createdRealname:employee.real_name handler:^(id data, MError *error) {
-        if(error) {
-            [self showFailureTips:error.statsMsg];
-            return ;
-        }
-        text.text = @"";
-        self.data = _taskModel;
-    }];
-    
-}
 #pragma mark -- UITableViewDelegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -143,7 +102,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     TaskCommentModel *model = _taskCommentModelArr[indexPath.row];
-    return [model.comment textSizeWithFont:[UIFont systemFontOfSize:15] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH - 53, 100000)].height + 77 + 10;
+    return [model.comment textSizeWithFont:[UIFont systemFontOfSize:15] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH - 53, 100000)].height + 74 + 20;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = nil;

@@ -64,18 +64,15 @@
     NSData *jsonData = [payloadMsg dataUsingEncoding:NSUTF8StringEncoding];
     NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
     if(![dict.allKeys containsObject:@"from_user_no"])
-        [dict setObject:@(0) forKey:@"from_user_no"];
+        [dict setObject:@(_userManager.user.user_no) forKey:@"from_user_no"];
     if(![dict.allKeys containsObject:@"to_user_no"])
-        [dict setObject:@(0) forKey:@"to_user_no"];
+        [dict setObject:@(_userManager.user.user_no) forKey:@"to_user_no"];
     if(![dict.allKeys containsObject:@"unread"])
         [dict setObject:@(1) forKey:@"unread"];
     PushMessage *message = [[PushMessage alloc] initWithJSONDictionary:dict];
-    message.unread = YES;
     AudioServicesPlaySystemSound(1007); //系统的通知声音
     AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);//震动
     message.addTime = [NSDate date];
-    message.from_user_no =  [[dict objectForKey:@"from"] intValue];
-    message.to_user_no = [[dict objectForKey:@"to"] intValue];
     //如果是投票和公告 因为没有存到本地数据库，所以不操作
     if ([message.type isEqualToString:@"VOTE"] || [message.type isEqualToString:@"NOTICE"]) {
         message.to_user_no = _userManager.user.user_no;
@@ -184,7 +181,8 @@
         }
     }
     if ([message.action rangeOfString:@"CHANGE_PASSWORD"].location != NSNotFound) { //修改密码
-        [[IdentityManager manager] showLogin];
+        [[IdentityManager manager] logOut];
+        [[IdentityManager manager] showLogin:@"你已修改密码，请重新登录"];
     }
     if([message.type isEqualToString:@"MEETING"]) {
         if([message.action isEqualToString:@"GENERAL"]) {//如果是有会议来

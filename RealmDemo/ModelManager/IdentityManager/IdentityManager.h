@@ -19,7 +19,8 @@
 - (void)readAuthorizeData;
 //把登录信息存入本地
 - (void)saveAuthorizeData;
-//重新登录
-- (void)showLogin;
-
+//登出的时候是否需要提示一个窗口
+- (void)logOut;
+//弹出登录窗口
+- (void)showLogin:(NSString*)alertStr;
 @end

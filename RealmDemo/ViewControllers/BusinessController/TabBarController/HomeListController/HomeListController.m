@@ -42,6 +42,8 @@
     _userFetchedResultsController.delegate = self;
     _pushMessageFetchedResultsController = [_userManager createPushMessagesFetchedResultsController];
     _pushMessageFetchedResultsController.delegate = self;
+    _sigRuleFetchedResultsController = [_userManager createSiginRuleFetchedResultsController:_userManager.user.currCompany.company_no];
+    _sigRuleFetchedResultsController.delegate = self;
     
     _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     _scrollView.showsVerticalScrollIndicator = NO;
@@ -60,20 +62,6 @@
     [self setLeftNavigationBarItem];
     [self setRightNavigationBarItem];
     //在这里统一获取一些必须获取的值
-    [self getNeedValueFormNet];
-    // Do any additional setup after loading the view.
-}
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self.frostedViewController.navigationController setNavigationBarHidden:YES animated:YES];
-    self.navigationController.navigationBar.barTintColor = [UIColor homeListColor];
-    self.navigationController.navigationBar.translucent = NO;
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-    [self.navigationController.navigationBar setTitleTextAttributes:
-     @{NSFontAttributeName:[UIFont systemFontOfSize:17],
-       NSForegroundColorAttributeName:[UIColor whiteColor]}];
-}
-- (void)getNeedValueFormNet {
     //从服务器获取一次规则
     [UserHttp getSiginRule:_userManager.user.currCompany.company_no handler:^(id data, MError *error) {
         if(error) {
@@ -95,8 +83,13 @@
             [array addObject:set];
         }
         [_userManager updateSiginRule:array companyNo:_userManager.user.currCompany.company_no];
-        [_userManager addSiginRuleNotfition];
     }];
+    // Do any additional setup after loading the view.
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.barTintColor = [UIColor homeListColor];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 #pragma mark --
 #pragma mark -- RBQFetchedResultsControllerDelegate
@@ -115,8 +108,11 @@
             label.text = nil;
             label.backgroundColor = [UIColor clearColor];
         }
-    } else {
+    } else if(controller == _userFetchedResultsController) {
         User *user = controller.fetchedObjects[0];
+        //重新设置签到记录的数据监听
+        _sigRuleFetchedResultsController = [_userManager createSiginRuleFetchedResultsController:user.currCompany.company_no];
+        _sigRuleFetchedResultsController.delegate = self;
         UIImageView *imageView = [_leftNavigationBarButton viewWithTag:1001];
         UILabel *nameLabel = [_leftNavigationBarButton viewWithTag:1002];
         UILabel *companyLabel = [_leftNavigationBarButton viewWithTag:1003];
@@ -148,9 +144,10 @@
                     [array addObject:set];
                 }
                 [_userManager updateSiginRule:array companyNo:_userManager.user.currCompany.company_no];
-                [_userManager addSiginRuleNotfition];
             }];
         }
+    } else {//重新加一次上下班提醒
+        [_userManager addSiginRuleNotfition];
     }
 }
 #pragma mark -- 
@@ -227,7 +224,7 @@
             [[self navigationController] pushViewController:webViewcontroller animated:YES];
         }];
     } else if (index == 4) {//邮件 调用手机上的邮件
-        
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:"]];
     } else if (index == 5) {//会议
         [self executeNeedSelectCompany:^{
             WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];

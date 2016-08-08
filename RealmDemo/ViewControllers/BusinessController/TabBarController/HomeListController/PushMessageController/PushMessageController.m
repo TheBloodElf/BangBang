@@ -65,7 +65,12 @@
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 55, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 55 - 64) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    _tableView.tableFooterView = [UIView new];
+    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 55 - 64)];
+    label1.text = @"正在加载数据...";
+    label1.textAlignment = NSTextAlignmentCenter;
+    label1.font = [UIFont systemFontOfSize:10];
+    label1.textColor = [UIColor grayColor];
+    _tableView.tableFooterView = label1;
     _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [_tableView registerNib:[UINib nibWithNibName:@"PushMessageCell" bundle:nil] forCellReuseIdentifier:@"PushMessageCell"];
     [self.view addSubview:_tableView];
@@ -81,6 +86,10 @@
     _noDataView = [[UIView alloc] initWithFrame:_tableView.bounds];
     [_noDataView addSubview:label];
     [self searchDataFormLoc];
+    if(_pushMessageArr.count == 0)
+        _tableView.tableFooterView = _noDataView;
+    else
+        _tableView.tableFooterView = [UIView new];
     [_tableView reloadData];
 }
 #pragma mark --
@@ -88,6 +97,10 @@
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
     _pushMessageArr = (id)controller.fetchedObjects;
     [self searchDataFormLoc];
+    if(_pushMessageArr.count == 0)
+        _tableView.tableFooterView = _noDataView;
+    else
+        _tableView.tableFooterView = [UIView new];
     [_tableView reloadData];
 }
 //表格视图长按手势
@@ -159,10 +172,6 @@
         }
         _pushMessageArr = currArr;
     }
-    if(_pushMessageArr.count == 0)
-        _tableView.tableFooterView = _noDataView;
-    else
-        _tableView.tableFooterView = [UIView new];
 }
 #pragma mark -- 
 #pragma mark -- UISearchBarDelegate
@@ -173,8 +182,10 @@
 }
 #pragma mark --
 #pragma mark -- UITableViewDelegate
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [_pushMessageArr[indexPath.row] contentHeight:MAIN_SCREEN_WIDTH - 113 font:12];
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if([NSString isBlank:[_pushMessageArr[indexPath.row] content]])
+        return [@"会议有新的消息" textSizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH - 113, 10000)].height + 40;
+     return [[_pushMessageArr[indexPath.row] content] textSizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH - 113, 10000)].height + 40;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _pushMessageArr.count;
@@ -219,7 +230,7 @@
         } else if ([message.type isEqualToString:@"TASK"]) {//如果是任务
             //进入任务详情
             for (TaskModel *model in [_userManager getTaskArr:message.company_no]) {
-                if(model.id == message.target_id.intValue) {
+                if(model.id == message.target_id) {
                     TaskDetailController *task = [TaskDetailController new];
                     task.data = model;
                     [self.navigationController pushViewController:task animated:YES];
@@ -228,7 +239,7 @@
             }
         } else if ([message.type isEqualToString:@"TASK_COMMENT_STATUS"]) {//如果是任务讨论信息变了
             for (TaskModel *model in [_userManager getTaskArr:message.company_no]) {
-                if(model.id == message.target_id.intValue) {
+                if(model.id == message.target_id) {
                     TaskDetailController *task = [TaskDetailController new];
                     task.data = model;
                     [self.navigationController pushViewController:task animated:YES];
@@ -252,26 +263,24 @@
             }
         } else if ([message.type isEqualToString:@"CALENDARTIP"]) {//日程推送：
             NSArray<Calendar*> *calendarArr = [[UserManager manager] getCalendarArr];
-            Calendar *calendar = nil;
             for (Calendar *temp in calendarArr) {
-                if([message.target_id isEqualToString:temp.target_id]) {
-                    calendar = temp;
+                if(message.target_id == temp.id) {
+                    if(temp.repeat_type == 0) {
+                        ComCalendarDetailViewController *com = [ComCalendarDetailViewController new];
+                        com.data = temp;
+                        [self.navigationController pushViewController:com animated:YES];
+                    } else {
+                        RepCalendarDetailController *com = [RepCalendarDetailController new];
+                        com.data = temp;
+                        [self.navigationController pushViewController:com animated:YES];
+                    }
                     break;
                 }
-            }
-            if(calendar.repeat_type == 0) {
-                ComCalendarDetailViewController *com = [ComCalendarDetailViewController new];
-                com.data = calendar;
-                [self.navigationController pushViewController:com animated:YES];
-            } else {
-                RepCalendarDetailController *com = [RepCalendarDetailController new];
-                com.data = calendar;
-                [self.navigationController pushViewController:com animated:YES];
             }
         } else if ([message.type isEqualToString:@"TASKTIP"]) {//任务提醒推送
             //进入任务详情
             for (TaskModel *model in [_userManager getTaskArr:message.company_no]) {
-                if(model.id == message.target_id.intValue) {
+                if(model.id == message.target_id) {
                     TaskDetailController *task = [TaskDetailController new];
                     task.data = task;
                     [self.navigationController pushViewController:task animated:YES];

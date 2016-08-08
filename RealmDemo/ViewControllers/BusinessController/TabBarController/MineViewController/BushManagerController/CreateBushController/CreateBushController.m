@@ -40,7 +40,7 @@
     if ([NSString isBlank:_createBushModel.name]) {
         [self.navigationController.view showFailureTips:@"圈子名称不能为空"];
     } else if (!_createBushModel.hasImage) {
-        [self.navigationController.view showFailureTips:@"必须上传图标"];
+        [self.navigationController.view showFailureTips:@"请选择圈子图标"];
     } else {
         [self.navigationController.view showLoadingTips:@""];
         [UserHttp createCompany:_createBushModel.name userGuid:_userManager.user.user_guid image:_createBushModel.hasImage companyType:(int)_createBushModel.type handler:^(id data, MError *error) {
@@ -49,8 +49,8 @@
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
-            [self.navigationController.view showSuccessTips:@"创建成功"];
             Company *company = [[Company alloc] initWithJSONDictionary:data];
+            [self.navigationController.view showSuccessTips:@"创建成功"];
             [_userManager addCompany:company];
             [self.navigationController popViewControllerAnimated:YES];
         }];

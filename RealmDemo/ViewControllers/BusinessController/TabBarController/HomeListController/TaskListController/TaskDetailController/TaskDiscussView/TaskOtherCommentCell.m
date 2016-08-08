@@ -12,7 +12,7 @@
 @interface TaskOtherCommentCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *avaterImage;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *contentLabel;
+@property (weak, nonatomic) IBOutlet UITextView *contentLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
 @end
@@ -23,7 +23,12 @@
     [super awakeFromNib];
     self.avaterImage.clipsToBounds = YES;
     self.avaterImage.layer.cornerRadius = 14;
+    UILongPressGestureRecognizer *longTap = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longClicked:)];
+    [self.contentLabel addGestureRecognizer:longTap];
     // Initialization code
+}
+- (void)longClicked:(UILongPressGestureRecognizer*)longTap {
+   [[IQKeyboardManager sharedManager] resignFirstResponder];
 }
 - (void)dataDidChange {
     TaskCommentModel *model = self.data;

@@ -34,12 +34,14 @@
     if(!self.fileImage.image)
         self.fileImage.image = [UIImage imageNamed:@"ic_unknown"];
     //判断本地是否有一样的文件，如果有一样的，就不下载了 并且改变按钮的文字
-    if([_fileManager fileIsExit:model.attachment.file_name]) {
+    if([_fileManager fileIsExit:model.attachment.file_url]) {
         [self.rightBtn setTitle:@"查看" forState:UIControlStateNormal];
-        model.attachment.locFilePath = [_fileManager fileUrl:model.attachment.file_name];
+        model.attachment.locFilePath = [_fileManager fileUrl:model.attachment.file_url];
+        [self.rightBtn removeTarget:self action:@selector(attachDelete:) forControlEvents:UIControlEventTouchUpInside];
         [self.rightBtn addTarget:self action:@selector(attachLook:) forControlEvents:UIControlEventTouchUpInside];
     } else {
         [self.rightBtn setTitle:@"下载" forState:UIControlStateNormal];
+        [self.rightBtn removeTarget:self action:@selector(attachLook:) forControlEvents:UIControlEventTouchUpInside];
         [self.rightBtn addTarget:self action:@selector(attachDelete:) forControlEvents:UIControlEventTouchUpInside];
     }
 }
@@ -58,6 +60,7 @@
         }
         model.attachment.locFilePath = [_fileManager fileUrl:data[@"suggestedFilename"]];
         [self.rightBtn setTitle:@"查看" forState:UIControlStateNormal];
+        [self.rightBtn removeTarget:self action:@selector(attachDelete:) forControlEvents:UIControlEventTouchUpInside];
         [self.rightBtn addTarget:self action:@selector(attachLook:) forControlEvents:UIControlEventTouchUpInside];
     }];
 }

@@ -81,14 +81,14 @@
 //加入圈子被点击
 - (IBAction)joinCompanyClicked:(id)sender {
     BushSearchViewController *bush = [BushSearchViewController new];
-    [self.frostedViewController.navigationController pushViewController:bush animated:YES];
+    [self.navigationController pushViewController:bush animated:YES];
     //隐藏菜单控制器
     [self.frostedViewController hideMenuViewController];
 }
 //头像被点击
 - (IBAction)avaterClicked:(id)sender {
     MineInfoEditController *mine = [MineInfoEditController new];
-    [self.frostedViewController.navigationController pushViewController:mine animated:YES];
+    [self.navigationController pushViewController:mine animated:YES];
     //隐藏菜单控制器
     [self.frostedViewController hideMenuViewController];
 }

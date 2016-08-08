@@ -22,7 +22,7 @@
 #import "UserHttp.h"
 #import "UserManager.h"
 
-@interface UpdateAttendanceController ()<UITableViewDelegate,UITableViewDataSource,PunchCardRemindDelegate,WorkAdressCellDelegate,SelectAttendanceWorkDayDelegate,SelectAttendanceRangeDelegate,SiginNameDelegate,SelectAdressDelegate>
+@interface UpdateAttendanceController ()<UITableViewDelegate,UITableViewDataSource,PunchCardRemindDelegate,WorkAdressCellDelegate,SelectAttendanceWorkDayDelegate,SelectAttendanceRangeDelegate,SelectAdressDelegate>
 {
     UserManager *_userManager;
     UITableView  *_tableView;//展示数据的表格视图
@@ -144,10 +144,7 @@
     if(indexPath.section == 0) {
         if (indexPath.row == 0) {//考勤名称
             SiginName *nameCell = (id)cell;
-            nameCell.leftImageView.image = [UIImage imageNamed:@"sigin_name_icon"];
-            nameCell.titleLabel.text = @"考勤名称";
-            nameCell.inputFixed.text = _currSiginRule.setting_name;
-            nameCell.delegate = self;
+            nameCell.data = _currSiginRule;
         } else if (indexPath.row == 1) {//考勤管理人
             PalneTableViewCell *palneCell = (id)cell;
             palneCell.leftImageView.image = [UIImage imageNamed:@"sigin_manager_icon"];
@@ -375,6 +372,7 @@
 - (void)rightNavigationBarAction:(UIBarButtonItem*)item {
     //提交考勤规则数据
     if([self checkDataValie]) {
+        [self.navigationController.view showLoadingTips:@""];
         //把第一个地址填充到签到规则模型
         PunchCardAddressSetting *firstAdress = self.currSiginRule.json_list_address_settings[0];
         _currSiginRule.address = firstAdress.address;
