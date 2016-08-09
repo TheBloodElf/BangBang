@@ -70,6 +70,10 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightClicked:)];
     // Do any additional setup after loading the view.
 }
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
 - (void)rightClicked:(UIBarButtonItem*)item {
     if(_userSelectDate.end.timeIntervalSince1970 == 0) {
         [self.navigationController.view showMessageTips:@"请选择时间"];

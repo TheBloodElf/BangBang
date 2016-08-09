@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ShowBigImageScroller.h"
+//头像查看
 @interface AvaterBroseController : UIViewController
 
 @end

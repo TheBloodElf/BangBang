@@ -34,6 +34,8 @@
         _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 55)];
         _searchBar.delegate = self;
         _searchBar.placeholder = @"搜索";
+        _searchBar.tintColor = [UIColor colorWithRed:247 / 255.f green:247 / 255.f blue:247 / 255.f alpha:1];
+        [_searchBar setSearchBarBackgroundColor:[UIColor colorWithRed:247 / 255.f green:247 / 255.f blue:247 / 255.f alpha:1]];
         _searchBar.returnKeyType = UIReturnKeySearch;
         [self addSubview:_searchBar];
         

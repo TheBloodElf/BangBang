@@ -84,15 +84,11 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    //如果是从业务的根视图进来的 就显示导航
-    if([self.navigationController.viewControllers[0] isMemberOfClass:[NSClassFromString(@"REFrostedViewController") class]]) {
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
-        self.navigationController.navigationBar.barTintColor = [UIColor calendarColor];
-    }
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    self.navigationController.navigationBar.barTintColor = [UIColor calendarColor];
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    //如果是从业务的根视图进来的 就隐藏导航
     if([self.navigationController.viewControllers[0] isMemberOfClass:[NSClassFromString(@"REFrostedViewController") class]]) {
         [self.navigationController setNavigationBarHidden:YES animated:YES];
     }

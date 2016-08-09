@@ -47,6 +47,7 @@
     _bottomScrollView.showsHorizontalScrollIndicator = NO;
     _bottomScrollView.bounces = NO;
     _bottomScrollView.pagingEnabled = YES;
+    _bottomScrollView.scrollEnabled = NO;
     _bottomScrollView.contentSize = CGSizeMake(4 * _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height);
     [self.view addSubview:_bottomScrollView];
     //负责的
@@ -143,6 +144,8 @@
     [self.navigationController pushViewController:detail animated:YES];
 }
 - (void)segmentedClicked:(UISegmentedControl*)control {
+    if(!_moreSelectView.isHide)
+        [_moreSelectView hideSelectView];
     if(control.selectedSegmentIndex == 0)
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar_menu"] style:UIBarButtonItemStylePlain target:self action:@selector(moreClicked:)];
     else

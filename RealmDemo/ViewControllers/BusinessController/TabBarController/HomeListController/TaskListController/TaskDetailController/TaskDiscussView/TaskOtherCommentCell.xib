@@ -58,6 +58,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="avaterImage" destination="Q17-vc-bdy" id="jcE-4r-Isk"/>
+                <outlet property="contentLabel" destination="MHi-xc-7AV" id="epO-Wa-H2l"/>
                 <outlet property="nameLabel" destination="6j2-le-pIb" id="3Rq-8b-jSd"/>
                 <outlet property="timeLabel" destination="6vN-Ax-aZc" id="xQL-rU-ti1"/>
             </connections>

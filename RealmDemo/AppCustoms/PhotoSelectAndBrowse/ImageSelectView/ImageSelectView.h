@@ -13,7 +13,7 @@
 #define NOTIFICATION_ALERT_SHOW_BENFORE_KEY @"notificaiton_alert_show_before_key"
 
 typedef void(^HeightChange)(CGFloat);
-
+//选择图片的视图 这里统一做了处理 能自动增加高度
 @interface ImageSelectView : UIView
 
 /**

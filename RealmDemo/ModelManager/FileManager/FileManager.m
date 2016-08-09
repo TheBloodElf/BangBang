@@ -56,8 +56,31 @@
     }
     return NO;
 }
+//本地文件数组
+- (NSArray*)fileUrlArr {
+   return [[NSFileManager defaultManager] subpathsAtPath:_defaultFilePath];
+}
 //文件名对应的本地路径
 - (NSURL*)fileUrl:(NSString*)fileName {
     return [NSURL fileURLWithPath:[_defaultFilePath stringByAppendingPathComponent:fileName.lastPathComponent]];
 }
+//文件名对应的本地路径
+- (NSString*)fileStr:(NSString*)fileName {
+    return [_defaultFilePath stringByAppendingPathComponent:fileName.lastPathComponent];
+}
+
+//文件属于哪种类型 0文档 1视频 2相册 3音乐 4其他
+- (int)fileType:(NSString*)fileName {
+    NSString *fileExe = fileName.pathExtension;
+    if([@"doc.docx.xls.xlsx.pdf" rangeOfString:fileExe options:NSCaseInsensitiveSearch].location != NSNotFound)
+        return 0;
+ if([@"avi,mpg,mpeg,rm,rmvb,dat,wmv,mov,asf,m1v,m2v,mpe,qt,vob,ra,rmj,rms,ram,rmm,ogm,mkv,avi_NEO_,ifo,mp4,3gp,rpm,smi,smil,tp,ts,ifo,mpv2,mp2v,tpr,pss,pva,vg2,drc,ivf,vp6,vp7,divx" rangeOfString:fileExe options:NSCaseInsensitiveSearch].location != NSNotFound)
+        return 1;
+    if([@"BMP、JPG、JPEG、PNG、GIF" rangeOfString:fileExe options:NSCaseInsensitiveSearch].location != NSNotFound)
+        return 2;
+    if([@"mp3/wav/mid/" rangeOfString:fileExe options:NSCaseInsensitiveSearch].location != NSNotFound)
+        return 3;
+    return 4;
+}
+
 @end

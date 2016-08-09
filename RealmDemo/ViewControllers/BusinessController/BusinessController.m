@@ -66,7 +66,7 @@
         }
     } else if ([message.type isEqualToString:@"TASK"]) {//任务推送
         //获取任务详情 弹窗
-        [UserHttp getTaskInfo:message.target_id handler:^(id data, MError *error) {
+        [UserHttp getTaskInfo:message.target_id.intValue handler:^(id data, MError *error) {
             [self dismissTips];
             if(error) {
                 [self showFailureTips:error.statsMsg];
@@ -78,7 +78,7 @@
             
             TaskDetailController *task = [TaskDetailController new];
             task.data = taskModel;
-            [_businessNav pushViewController:task animated:YES];
+            [self.navigationController pushViewController:task animated:YES];
         }];
     } else if([message.type isEqualToString:@"WORKTIP"]){//上下班提醒
         
@@ -86,25 +86,25 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadTaskInfo" object:message];
     } else if([message.type isEqualToString:@"TASKTIP"]) { //任务提醒推送 进入任务详情
         for (TaskModel *taskModel in [_userManager getTaskArr:message.company_no]) {
-            if(message.target_id == taskModel.id) {
+            if(message.target_id.intValue == taskModel.id) {
                 TaskDetailController *task = [TaskDetailController new];
                 task.data = taskModel;
-                [_businessNav pushViewController:task animated:YES];
+                [self.navigationController pushViewController:task animated:YES];
                 break;
             }
         }
     } else if([message.type isEqualToString:@"CALENDARTIP"]) {//日程提醒 进入日程详情
         for (Calendar *calendar in [_userManager getCalendarArr]) {
-            if(calendar.id == message.target_id) {
+            if(calendar.id == message.target_id.intValue) {
                 //展示详情
                 if(calendar.repeat_type == 0) {
                     ComCalendarDetailViewController *com = [ComCalendarDetailViewController new];
                     com.data = calendar;
-                    [_businessNav pushViewController:com animated:YES];
+                    [self.navigationController pushViewController:com animated:YES];
                 } else {
                     RepCalendarDetailController *com = [RepCalendarDetailController new];
                     com.data = calendar;
-                    [_businessNav pushViewController:com animated:YES];
+                    [self.navigationController pushViewController:com animated:YES];
                 }
                 break;
             }
@@ -118,11 +118,11 @@
         if(sharedCalendar.repeat_type == 0) {
             ComCalendarDetailViewController *com = [ComCalendarDetailViewController new];
             com.data = sharedCalendar;
-            [_businessNav pushViewController:com animated:YES];
+            [self.navigationController pushViewController:com animated:YES];
         } else {
             RepCalendarDetailController *com = [RepCalendarDetailController new];
             com.data = sharedCalendar;
-            [_businessNav pushViewController:com animated:YES];
+            [self.navigationController pushViewController:com animated:YES];
         }
     }else if ([message.type isEqualToString:@"REQUEST"]) {//网页
         WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];

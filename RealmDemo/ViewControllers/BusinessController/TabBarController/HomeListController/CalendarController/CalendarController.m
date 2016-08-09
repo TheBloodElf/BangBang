@@ -97,12 +97,7 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.showsVerticalScrollIndicator = NO;
-    UILabel *noDataLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 349)];
-    noDataLabel.textAlignment = NSTextAlignmentCenter;
-    noDataLabel.text = @"正在加载数据...";
-    noDataLabel.font = [UIFont systemFontOfSize:14];
-    noDataLabel.textColor = [UIColor grayColor];
-    _tableView.tableFooterView = noDataLabel;
+    _tableView.tableFooterView = [UIView new];
     [_tableView registerNib:[UINib nibWithNibName:@"CalenderEventTableViewCell" bundle:nil] forCellReuseIdentifier:@"CalenderEventTableViewCell"];
     [self.view addSubview:_tableView];
     //看是不是第一次加载日程
@@ -133,7 +128,6 @@
         [_calendarManager reload];
         //加载有事件的日期，key-value格式
         [self getTodayCalendarArr];
-        _tableView.tableFooterView = [UIView new];
         [_tableView reloadData];
     }
     //创建多选视图

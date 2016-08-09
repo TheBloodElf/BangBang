@@ -62,6 +62,10 @@
     [self searEmployeeWithText:@""];
     // Do any additional setup after loading the view from its nib.
 }
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
 //获取正确员工数据
 - (void)getSureDataArr {
     NSMutableArray<Employee*> *employeeArr = [@[] mutableCopy];

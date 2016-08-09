@@ -18,7 +18,8 @@
     UISearchBar *_searchBar;//搜索控件
     UIView *_noDataView;//没有数据的视图
     RBQFetchedResultsController *_calendarFetchedResultsController;
-    NSMutableDictionary<NSDate*,NSMutableArray<Calendar*>*> *_dataDic;//展示数据的字典
+    NSMutableArray<NSDate*> *_calendarDateArr;//时间数组
+    NSMutableArray<NSMutableArray<Calendar*>*>* _calendarArr;//每个时间对应的日程数组
 }
 @end
 
@@ -30,11 +31,14 @@
     _userManager = [UserManager manager];
     _calendarFetchedResultsController = [_userManager createCalendarFetchedResultsController];
     _calendarFetchedResultsController.delegate = self;
-    _dataDic = [@{} mutableCopy];
+    
     //创建搜索框
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 55)];
     _searchBar.delegate = self;
     _searchBar.placeholder = @"搜索日程";
+    _searchBar.returnKeyType = UIReturnKeySearch;
+    _searchBar.tintColor = [UIColor colorWithRed:247 / 255.f green:247 / 255.f blue:247 / 255.f alpha:1];
+    [_searchBar setSearchBarBackgroundColor:[UIColor colorWithRed:247 / 255.f green:247 / 255.f blue:247 / 255.f alpha:1]];
     [self.view addSubview:_searchBar];
     //创建表格视图
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 55, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 55 - 64) style:UITableViewStylePlain];
@@ -63,8 +67,9 @@
 }
 //本地加载所有事件
 - (void)searchTextFromLoc {
-    _dataDic = [@{} mutableCopy];
-    NSMutableArray *_haveCalendarArr = [@[] mutableCopy];
+    _calendarDateArr = [@[] mutableCopy];
+    _calendarArr = [@[] mutableCopy];
+    
     NSMutableArray *calendarArr = [_userManager getCalendarArr];
     for (Calendar *tempCalendar in calendarArr) {
         if(![NSString isBlank:_searchBar.text])
@@ -72,14 +77,14 @@
         if(tempCalendar.repeat_type == 0) {//如果是不重复的日程
             //先把今天加上
             NSDate *startTimeTemp = [NSDate dateWithTimeIntervalSince1970:tempCalendar.begindate_utc / 1000];
-            if(![_haveCalendarArr containsObject:startTimeTemp])
-                [_haveCalendarArr addObject:startTimeTemp];
+            if(![_calendarDateArr containsObject:startTimeTemp])
+                [_calendarDateArr addObject:startTimeTemp];
             if(tempCalendar.is_over_day == YES) {//如果是跨天的日程就要循环获取时间
                 do {
                     //加一天时间再判断
                     startTimeTemp = [startTimeTemp dateByAddingTimeInterval:24 * 60 * 60];
-                    if(![_haveCalendarArr containsObject:startTimeTemp])
-                        [_haveCalendarArr addObject:startTimeTemp];
+                    if(![_calendarDateArr containsObject:startTimeTemp])
+                        [_calendarDateArr addObject:startTimeTemp];
                 } while (tempCalendar.enddate_utc >= ([startTimeTemp timeIntervalSince1970] + 24 * 60 * 60) * 1000);
             }
         } else {//如果是重复的日程
@@ -96,19 +101,19 @@
                     } else if ([tempCalendar haveFinishDate:tempDate]) {
                         continue;
                     } else {
-                        if(![_haveCalendarArr containsObject:tempDate])
-                            [_haveCalendarArr addObject:tempDate];
+                        if(![_calendarDateArr containsObject:tempDate])
+                            [_calendarDateArr addObject:tempDate];
                     }
                 }
             }
         }
     }
     //每个日程时间都加上对应的日程
-    [_haveCalendarArr sortUsingComparator:^NSComparisonResult(NSDate*  _Nonnull obj1, NSDate*  _Nonnull obj2) {
-        return (obj2.timeIntervalSince1970 - obj1.timeIntervalSince1970) > 0;
+    [_calendarDateArr sortUsingComparator:^NSComparisonResult(NSDate*  _Nonnull obj1, NSDate*  _Nonnull obj2) {
+        return (obj2.timeIntervalSince1970 - obj1.timeIntervalSince1970) < 0;
     }];
-    for (NSDate *date in _haveCalendarArr) {
-        [_dataDic setObject:[self getCalendarArrWithDate:date] forKey:date];
+    for (NSDate *date in _calendarDateArr) {
+        [_calendarArr addObject:[self getCalendarArrWithDate:date]];
     }
 }
 - (NSMutableArray<Calendar*>*)getCalendarArrWithDate:(NSDate*)date {
@@ -159,24 +164,24 @@
     return 0.01;
 }
 - (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    NSDate *date = _dataDic.allKeys[section];
+    NSDate *date = _calendarDateArr[section];
     return [NSString stringWithFormat:@"%d-%d-%d %@",date.year,date.month,date.day,[date weekdayStr]];
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return _dataDic.allKeys.count;
+    return _calendarDateArr.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [_dataDic[_dataDic.allKeys[section]] count];
+    return _calendarArr[section].count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CalenderEventTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CalenderEventTableViewCell" forIndexPath:indexPath];
-    cell.data = _dataDic[_dataDic.allKeys[indexPath.section]][indexPath.row];
+    cell.data = _calendarArr[indexPath.section][indexPath.row];
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    Calendar *calendar = _dataDic[_dataDic.allKeys[indexPath.section]][indexPath.row];
+    Calendar *calendar = _calendarArr[indexPath.section][indexPath.row];
     if(calendar.repeat_type == 0) {
         ComCalendarDetailViewController *com = [ComCalendarDetailViewController new];
         com.data = calendar;

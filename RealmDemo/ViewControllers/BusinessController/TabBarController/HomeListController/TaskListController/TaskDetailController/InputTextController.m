@@ -72,18 +72,6 @@
         _detileLabel.hidden = YES;
     }
 }
-- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
-    [UIView animateWithDuration:0.2 animations:^{
-        bottom.frame = CGRectMake(0, MAIN_SCREEN_HEIGHT - 218 - 250, MAIN_SCREEN_WIDTH, 218);
-    }];
-    return YES;
-}
-- (BOOL)textViewShouldEndEditing:(UITextView *)textView {
-    [UIView animateWithDuration:0.2 animations:^{
-        bottom.frame = CGRectMake(0, MAIN_SCREEN_HEIGHT - 218, MAIN_SCREEN_WIDTH, 218);
-    }];
-    return YES;
-}
 - (void)sureClicked:(UIButton*)btn {
     if(self.inputTextBlock)
         self.inputTextBlock(_textView.text);

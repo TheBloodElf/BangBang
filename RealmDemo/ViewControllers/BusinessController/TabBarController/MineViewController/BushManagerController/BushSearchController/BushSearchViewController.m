@@ -48,9 +48,10 @@
     _tableView.showsVerticalScrollIndicator = NO;
     [_tableView registerNib:[UINib nibWithNibName:@"BushSearchCell" bundle:nil] forCellReuseIdentifier:@"BushSearchCell"];
     [self.view addSubview:_tableView];
+    __weak typeof(self) weakSelf = self;
     _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         currentPage = 1;
-        [self search];
+        [weakSelf search];
     }];
     //创建空太图
     _noDataView = [[UIView alloc] initWithFrame:_tableView.bounds];
@@ -65,16 +66,12 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    //如果是从业务的根视图进来的 就显示导航
-    if([self.navigationController.viewControllers[0] isMemberOfClass:[NSClassFromString(@"REFrostedViewController") class]]) {
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
-    }
-    //因为圈子详情可能会有修改那些操作，所以就要实时的更新下
+    self.navigationController.navigationBar.barTintColor = [UIColor homeListColor];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     [_tableView reloadData];
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    //如果是从业务的根视图进来的 就隐藏导航
     if([self.navigationController.viewControllers[0] isMemberOfClass:[NSClassFromString(@"REFrostedViewController") class]]) {
         [self.navigationController setNavigationBarHidden:YES animated:YES];
     }

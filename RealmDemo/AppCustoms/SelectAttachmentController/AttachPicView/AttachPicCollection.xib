@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AttachPicCollection" id="gTV-IL-0wX" customClass="AttachPicCollection">
+            <rect key="frame" x="0.0" y="0.0" width="147" height="124"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="147" height="124"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bKo-lm-cD8">
+                        <rect key="frame" x="0.0" y="0.0" width="147" height="124"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btn_select_icon" translatesAutoresizingMaskIntoConstraints="NO" id="Fec-6E-sY8">
+                        <rect key="frame" x="120" y="8" width="19" height="19"/>
+                    </imageView>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="bKo-lm-cD8" secondAttribute="bottom" id="HGz-Kd-40I"/>
+                <constraint firstItem="bKo-lm-cD8" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="LoV-zC-o3m"/>
+                <constraint firstItem="bKo-lm-cD8" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="NjK-jc-FL2"/>
+                <constraint firstAttribute="trailing" secondItem="bKo-lm-cD8" secondAttribute="trailing" id="U7r-bE-eYU"/>
+                <constraint firstItem="Fec-6E-sY8" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="aNr-o5-QWv"/>
+                <constraint firstAttribute="trailing" secondItem="Fec-6E-sY8" secondAttribute="trailing" constant="8" id="q7y-QN-9ne"/>
+            </constraints>
+            <size key="customSize" width="147" height="124"/>
+            <connections>
+                <outlet property="attachPicImage" destination="bKo-lm-cD8" id="qfS-Bq-eqA"/>
+                <outlet property="selectedBtn" destination="Fec-6E-sY8" id="axU-sS-thH"/>
+            </connections>
+            <point key="canvasLocation" x="491.5" y="270"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="btn_select_icon" width="19" height="19"/>
+    </resources>
+</document>

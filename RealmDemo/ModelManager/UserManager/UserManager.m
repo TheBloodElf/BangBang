@@ -115,7 +115,7 @@
     [aUserInfo setObject:alertBody forKey:@"content"];
     [aUserInfo setObject:[NSString stringWithFormat:@"%@",@([date timeIntervalSince1970] * 1000)] forKey:@"time"];
     [aUserInfo setObject:@"GENERAL" forKey:@"action"];
-    [aUserInfo setObject:@([date timeIntervalSince1970] * 1000) forKey:@"target_id"];
+    [aUserInfo setObject:@([NSDate date].timeIntervalSince1970 * 1000).stringValue forKey:@"target_id"];
     [aUserInfo setObject:@(_user.user_no) forKey:@"from_user_no"];
     [aUserInfo setObject:@(_user.user_no) forKey:@"to_user_no"];
     [aUserInfo setObject:@(YES) forKey:@"unread"];
@@ -192,7 +192,7 @@
     notification.applicationIconBadgeNumber++;
     // 设定通知的userInfo，用来标识该通知
     NSMutableDictionary *aUserInfo = [[NSMutableDictionary alloc] init];
-    [aUserInfo setObject:@(calendar.id) forKey:@"target_id"];
+    [aUserInfo setObject:@(calendar.id).stringValue forKey:@"target_id"];
     [aUserInfo setObject:@"CALENDARTIP" forKey:@"type"];
     [aUserInfo setObject:[NSString stringWithFormat:@"事务提醒: %@", calendar.event_name] forKey:@"content"];
     [aUserInfo setObject:[NSString stringWithFormat:@"%lld",calendar.begindate_utc] forKey:@"time"];
@@ -249,7 +249,7 @@
     notification.applicationIconBadgeNumber++;
     // 设定通知的userInfo，用来标识该通知
     NSMutableDictionary *aUserInfo = [[NSMutableDictionary alloc] init];
-    [aUserInfo setObject:@(task.id) forKey:@"target_id"];
+    [aUserInfo setObject:@(task.id).stringValue forKey:@"target_id"];
     [aUserInfo setObject:@"TASKTIP" forKey:@"type"];
     [aUserInfo setObject:[NSString stringWithFormat:@"任务提醒: %@", task.task_name] forKey:@"content"];
     [aUserInfo setObject:[NSString stringWithFormat:@"%@",@([date timeIntervalSince1970] * 1000)] forKey:@"time"];

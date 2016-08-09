@@ -30,6 +30,9 @@
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 55)];
     _searchBar.placeholder = @" 输入你要搜索的内容...";
     _searchBar.delegate = self;
+    _searchBar.tintColor = [UIColor colorWithRed:247 / 255.f green:247 / 255.f blue:247 / 255.f alpha:1];
+    [_searchBar setSearchBarBackgroundColor:[UIColor colorWithRed:247 / 255.f green:247 / 255.f blue:247 / 255.f alpha:1]];
+    _searchBar.returnKeyType = UIReturnKeySearch;
     [self.view addSubview:_searchBar];
     //配置表格
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,55, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 64 - 55) style:UITableViewStylePlain];

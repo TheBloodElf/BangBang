@@ -70,28 +70,46 @@
 }
 //进入判断逻辑
 - (void)gotoIdentityVC {
-    //清除子视图控制器
-    for (UIViewController *viewVC in self.childViewControllers) {
-        [viewVC removeFromParentViewController];
-        [viewVC.view removeFromSuperview];
-        [viewVC.view willMoveToSuperview:self.view];
-    }
     IdentityManager *manager = [IdentityManager manager];
     //看用户是不是第一次使用软件
     if(manager.identity.firstUseSoft) {
+       
         _welcome = [WelcomeController new];
+        _welcome.view.alpha = 0;
         [self addChildViewController:_welcome];
-        [_welcome willMoveToParentViewController:self];
         [self.view addSubview:_welcome.view];
-        [_welcome.view willMoveToSuperview:self.view];
+         //在这里加个动画试试
+        if([self.childViewControllers containsObject:_business]) {
+            [self transitionFromViewController:_business toViewController:_welcome duration:1 options:UIViewAnimationOptionTransitionNone | UIViewAnimationOptionCurveEaseInOut animations:^{
+                _welcome.view.alpha = 1;
+                _business.view.alpha = 0;
+            } completion:^(BOOL finished) {
+                [_business.view removeFromSuperview];
+                [_business removeFromParentViewController];
+            }];
+        } else {
+            _welcome.view.alpha = 1;
+        }
     } else {
         //看用户是否登录
         if([NSString isBlank:manager.identity.user_guid]) {
+            
             _login = [LoginController new];
+            _login.view = 0;
             [self addChildViewController:_login];
-            [_login willMoveToParentViewController:self];
             [self.view addSubview:_login.view];
-            [_login.view willMoveToSuperview:self.view];
+            //在这里加个动画试试
+            if([self.childViewControllers containsObject:_welcome]) {
+                [self transitionFromViewController:_welcome toViewController:_login duration:1 options:UIViewAnimationOptionTransitionNone | UIViewAnimationOptionCurveEaseInOut animations:^{
+                    _login.view.alpha = 1;
+                    _welcome.view.alpha = 0;
+                } completion:^(BOOL finished) {
+                    [_welcome.view removeFromSuperview];
+                    [_welcome removeFromParentViewController];
+                }];
+            } else {
+                _login.view.alpha = 1;
+            }
         } else {
             //已经登陆就加载登陆的用户信息
             [[UserManager manager] loadUserWithGuid:manager.identity.user_guid];
@@ -102,10 +120,22 @@
             [[RYChatManager shareInstance] syncRYGroup];
             [[RCIM sharedRCIM] connectWithToken:identityManager.identity.RYToken success:nil error:nil tokenIncorrect:nil];
             _business = [BusinessController new];
+            _business.view.alpha = 0;
             [self addChildViewController:_business];
-            [_business willMoveToParentViewController:self];
             [self.view addSubview:_business.view];
-            [_business.view willMoveToSuperview:self.view];
+            
+            //在这里加个动画试试
+            if([self.childViewControllers containsObject:_login]) {
+                [self transitionFromViewController:_login toViewController:_business duration:1 options:UIViewAnimationOptionTransitionNone | UIViewAnimationOptionCurveEaseInOut animations:^{
+                    _business.view.alpha = 1;
+                    _login.view.alpha = 0;
+                } completion:^(BOOL finished) {
+                    [_login.view removeFromSuperview];
+                    [_login removeFromParentViewController];
+                }];
+            } else {
+                _business.view.alpha = 1;
+            }
         }
     }
 }

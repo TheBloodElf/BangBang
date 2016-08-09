@@ -11,8 +11,9 @@
 @interface Attachment : NSObject
 
 @property (nonatomic, strong) NSData *fileData;//文件数据
-@property (nonatomic, strong) NSString *fileType;//文件类型
-@property (nonatomic, strong) NSURL *fileLocUrl;//文件本地路径
+@property (nonatomic, strong) NSDate *fileCreateDate;//文件创建时间
+@property (nonatomic, assign) NSInteger fileSize;//文件大小（KB）
 @property (nonatomic, strong) NSString *fileName;//文件名称
+@property (nonatomic, assign) BOOL isSelected;//是否被选择
 
 @end

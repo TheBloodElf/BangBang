@@ -23,6 +23,7 @@
     NSURL *nsurl =[NSURL URLWithString:[NSString stringWithFormat:@"%@user/register",BBHOMEURL]];
     NSURLRequest *request =[NSURLRequest requestWithURL:nsurl];
     [_webView loadRequest:request];
+    _webView.delegate = self;
     [self.view addSubview:_webView];
     
     [WebViewJavascriptBridge enableLogging];

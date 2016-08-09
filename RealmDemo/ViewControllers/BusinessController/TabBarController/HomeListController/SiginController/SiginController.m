@@ -64,6 +64,7 @@
     if([self.data isEqualToString:@"YES"]) return;
     self.data = @"YES";
     self.navigationController.navigationBar.barTintColor = [UIColor siginColor];
+    [self updateTime];
     [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(updateTime) userInfo:nil repeats:YES];
     //创建表格视图
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];

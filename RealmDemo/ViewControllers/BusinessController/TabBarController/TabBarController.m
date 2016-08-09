@@ -18,6 +18,7 @@
 #import "TaskCreateController.h"
 #import "CreateMeetingController.h"
 #import "BushSearchViewController.h"
+#import "SelectAttachmentController.h"
 
 @interface TabBarController ()<UITabBarControllerDelegate,MoreViewControllerDelegate> {
     UITabBarController *_tabBarVC;
@@ -70,8 +71,10 @@
         [self executeNeedSelectCompany:^{
             [self.navigationController pushViewController:[CreateMeetingController new] animated:YES];
         }];
-    } else {//加入圈子
+    } else if(index == 3) {//加入圈子
         [self.navigationController pushViewController:[BushSearchViewController new] animated:YES];
+    } else {//选择附件控制器
+        [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[SelectAttachmentController new]] animated:YES completion:nil];
     }
 }
 - (UINavigationController*)homeListController {
@@ -79,6 +82,8 @@
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:home];
     nav.tabBarItem.title = @"首页";
     nav.navigationBar.translucent = NO;
+    [nav.tabBarItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor grayColor]} forState:UIControlStateNormal];
+    [nav.tabBarItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]} forState:UIControlStateSelected];
     nav.tabBarItem.image = [[UIImage imageNamed:@"index-gray"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     nav.tabBarItem.selectedImage = [[UIImage imageNamed:@"index-green"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     return nav;
@@ -88,6 +93,8 @@
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:home];
     nav.tabBarItem.title = @"联系人";
     nav.navigationBar.translucent = NO;
+    [nav.tabBarItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor grayColor]} forState:UIControlStateNormal];
+    [nav.tabBarItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]} forState:UIControlStateSelected];
     nav.tabBarItem.image = [[UIImage imageNamed:@"set-gray"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     nav.tabBarItem.selectedImage = [[UIImage imageNamed:@"set-green"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     return nav;
@@ -103,6 +110,8 @@
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:home];
     nav.tabBarItem.title = @"消息";
     nav.navigationBar.translucent = NO;
+    [nav.tabBarItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor grayColor]} forState:UIControlStateNormal];
+    [nav.tabBarItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]} forState:UIControlStateSelected];
     nav.tabBarItem.image = [[UIImage imageNamed:@"message-gray"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     nav.tabBarItem.selectedImage = [[UIImage imageNamed:@"message-green"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     return nav;
@@ -113,6 +122,8 @@
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:home];
     nav.tabBarItem.title = @"我的";
     nav.navigationBar.translucent = NO;
+    [nav.tabBarItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor grayColor]} forState:UIControlStateNormal];
+    [nav.tabBarItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]} forState:UIControlStateSelected];
     nav.tabBarItem.image = [[UIImage imageNamed:@"contact-gray"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     nav.tabBarItem.selectedImage = [[UIImage imageNamed:@"contact-green"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     return nav;

@@ -50,5 +50,6 @@
 #import "WBApiManager.h"
 #import "WXApiManager.h"
 #import "IQKeyboardManager.h"
+#import "UISearchBar+BackgroundColor.h"
 
 #endif /* UtikIes_h */

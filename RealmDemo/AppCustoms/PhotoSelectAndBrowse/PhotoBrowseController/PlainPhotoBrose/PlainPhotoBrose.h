@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Photo.h"
+//普通的图片浏览
 @interface PlainPhotoBrose : UIViewController
 
 /**

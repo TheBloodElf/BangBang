@@ -42,6 +42,8 @@
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 55)];
     _searchBar.delegate = self;
     _searchBar.placeholder = @"搜索";
+    _searchBar.tintColor = [UIColor colorWithRed:247 / 255.f green:247 / 255.f blue:247 / 255.f alpha:1];
+    [_searchBar setSearchBarBackgroundColor:[UIColor colorWithRed:247 / 255.f green:247 / 255.f blue:247 / 255.f alpha:1]];
     _searchBar.returnKeyType = UIReturnKeySearch;
     [self.view addSubview:_searchBar];
     //创建导航栏
@@ -65,12 +67,6 @@
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 55, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 55 - 64) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 55 - 64)];
-    label1.text = @"正在加载数据...";
-    label1.textAlignment = NSTextAlignmentCenter;
-    label1.font = [UIFont systemFontOfSize:10];
-    label1.textColor = [UIColor grayColor];
-    _tableView.tableFooterView = label1;
     _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [_tableView registerNib:[UINib nibWithNibName:@"PushMessageCell" bundle:nil] forCellReuseIdentifier:@"PushMessageCell"];
     [self.view addSubview:_tableView];
@@ -230,7 +226,7 @@
         } else if ([message.type isEqualToString:@"TASK"]) {//如果是任务
             //进入任务详情
             for (TaskModel *model in [_userManager getTaskArr:message.company_no]) {
-                if(model.id == message.target_id) {
+                if(model.id == message.target_id.intValue) {
                     TaskDetailController *task = [TaskDetailController new];
                     task.data = model;
                     [self.navigationController pushViewController:task animated:YES];
@@ -239,7 +235,7 @@
             }
         } else if ([message.type isEqualToString:@"TASK_COMMENT_STATUS"]) {//如果是任务讨论信息变了
             for (TaskModel *model in [_userManager getTaskArr:message.company_no]) {
-                if(model.id == message.target_id) {
+                if(model.id == message.target_id.intValue) {
                     TaskDetailController *task = [TaskDetailController new];
                     task.data = model;
                     [self.navigationController pushViewController:task animated:YES];
@@ -264,7 +260,7 @@
         } else if ([message.type isEqualToString:@"CALENDARTIP"]) {//日程推送：
             NSArray<Calendar*> *calendarArr = [[UserManager manager] getCalendarArr];
             for (Calendar *temp in calendarArr) {
-                if(message.target_id == temp.id) {
+                if(message.target_id.intValue == temp.id) {
                     if(temp.repeat_type == 0) {
                         ComCalendarDetailViewController *com = [ComCalendarDetailViewController new];
                         com.data = temp;
@@ -280,7 +276,7 @@
         } else if ([message.type isEqualToString:@"TASKTIP"]) {//任务提醒推送
             //进入任务详情
             for (TaskModel *model in [_userManager getTaskArr:message.company_no]) {
-                if(model.id == message.target_id) {
+                if(model.id == message.target_id.intValue) {
                     TaskDetailController *task = [TaskDetailController new];
                     task.data = task;
                     [self.navigationController pushViewController:task animated:YES];

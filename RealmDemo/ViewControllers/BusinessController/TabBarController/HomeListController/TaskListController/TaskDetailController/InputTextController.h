@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 typedef void(^InputTextBlock) (NSString*);
+//填写理由的控制器
 @interface InputTextController : UIViewController
 
 @property (nonatomic, copy) InputTextBlock inputTextBlock;

@@ -19,6 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.viewHeight.constant = 2 * (MAIN_SCREEN_WIDTH / 3.f) + 18 * 2 + 10;
+    [self updateTime];
     [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(updateTime) userInfo:nil repeats:YES];
     // Do any additional setup after loading the view from its nib.
 }

@@ -25,7 +25,6 @@
     _mapView.showsUserLocation = YES;
     _mapView.zoomLevel = 16.f;
     [self.view addSubview:_mapView];
-    
     //把中心店移动到用户输入位置
     [_mapView setCenterCoordinate:self.cLLocationCoordinate2D animated:YES];
     // Do any additional setup after loading the view.

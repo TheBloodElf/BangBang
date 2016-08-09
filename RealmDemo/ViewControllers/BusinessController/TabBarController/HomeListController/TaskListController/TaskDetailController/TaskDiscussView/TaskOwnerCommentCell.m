@@ -10,6 +10,7 @@
 #import "TaskCommentModel.h"
 
 @interface TaskOwnerCommentCell ()
+
 @property (weak, nonatomic) IBOutlet UIImageView *avaterImage;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UITextView *contentLabel;
@@ -25,10 +26,13 @@
     self.avaterImage.layer.cornerRadius = 14;
     UILongPressGestureRecognizer *longTap = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longClicked:)];
     [self.contentLabel addGestureRecognizer:longTap];
+    //禁用双击手势
     // Initialization code
 }
-- (void)longClicked:(UILongPressGestureRecognizer*)longTap {
-    [[IQKeyboardManager sharedManager] resignFirstResponder];
+- (void)longClicked:(id)longTap {
+    if(self.window.rootViewController.view.frame.origin.y < 0) {
+        [[IQKeyboardManager sharedManager] resignFirstResponder];
+    }
 }
 - (void)dataDidChange {
     TaskCommentModel *model = self.data;

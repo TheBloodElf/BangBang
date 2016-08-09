@@ -257,7 +257,7 @@
 {
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
     layout.itemSize = CGSizeMake((MAIN_SCREEN_WIDTH - 4) / 3.f, (MAIN_SCREEN_WIDTH - 4) / 3.f);
-    _photoCollectView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
+    _photoCollectView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 44) collectionViewLayout:layout];
     _photoCollectView.backgroundColor = [UIColor whiteColor];
     _photoCollectView.delegate = self;
     _photoCollectView.dataSource = self;

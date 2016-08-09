@@ -18,5 +18,10 @@
 - (BOOL)fileIsExit:(NSString*)fileName;
 //文件名对应的本地路径
 - (NSURL*)fileUrl:(NSString*)fileName;
-
+//文件名对应的本地路径
+- (NSString*)fileStr:(NSString*)fileName;
+//本地文件数组
+- (NSArray*)fileUrlArr;
+//文件属于哪种类型 0文档 1视频 2相册 3音乐 4其他
+- (int)fileType:(NSString*)fileName;
 @end
