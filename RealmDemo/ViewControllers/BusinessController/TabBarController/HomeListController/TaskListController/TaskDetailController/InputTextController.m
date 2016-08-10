@@ -26,7 +26,7 @@
     bgn.backgroundColor = [UIColor blackColor];
     bgn.alpha = 0.5;
     bgn.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT);
-    [bgn addTarget:self action:@selector(exitClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [bgn addTarget:self action:@selector(exitInput:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:bgn];
     
     bottom = [[UIView alloc] initWithFrame:CGRectMake(0, MAIN_SCREEN_HEIGHT - 218, MAIN_SCREEN_WIDTH, 218)];
@@ -79,5 +79,8 @@
 }
 - (void)exitClicked:(UIButton*)btn {
     [self dismissViewControllerAnimated:NO completion:nil];
+}
+- (void)exitInput:(UIButton*)btn {
+    [[IQKeyboardManager sharedManager] resignFirstResponder];
 }
 @end

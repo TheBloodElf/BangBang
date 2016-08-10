@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AttachmentSelectDelegate.h"
 //相册的表格视图CELL
 @interface AttachPicCell : UITableViewCell
-
+@property (nonatomic, weak) id<AttachmentSelectDelegate> delegate;
 @end

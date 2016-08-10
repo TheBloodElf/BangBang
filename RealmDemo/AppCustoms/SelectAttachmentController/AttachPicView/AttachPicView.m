@@ -9,9 +9,8 @@
 #import "AttachPicView.h"
 #import "Attachment.h"
 #import "AttachPicCell.h"
-#import <AssetsLibrary/AssetsLibrary.h>
 
-@interface AttachPicView ()<UITableViewDelegate,UITableViewDataSource> {
+@interface AttachPicView ()<UITableViewDelegate,UITableViewDataSource,AttachmentSelectDelegate> {
     NSMutableArray<Attachment*> *_albumPic;//相机胶卷图片
     NSMutableArray<Attachment*> *_downPic;//已下载图片
     
@@ -41,32 +40,25 @@
             if(group == nil) {
                 *stop = YES;
             } else {
-                NSString *currstr = [group valueForProperty:@"ALAssetsGroupPropertyName"];
-                if([currstr isEqualToString:@"相机胶卷"] || [currstr isEqualToString:@"Camera Roll"])
-                {
-                    [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-                        if (result == nil && index == NSNotFound) {
-                            dispatch_main_sync_safe(^(){
-                                [_tableView reloadData];
-                            });
-                            *stop = YES;
+                [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+                    if (result == nil && index == NSNotFound) {
+                        dispatch_main_sync_safe(^(){
+                            [_tableView reloadData];
+                        });
+                        *stop = YES;
+                    } else {
+                        NSString *type = [result valueForProperty:ALAssetPropertyType];
+                        if([type isEqualToString:ALAssetTypePhoto]) {
+                            Attachment *attachment = [Attachment new];
+                            attachment.fileData = UIImageJPEGRepresentation([UIImage imageWithCGImage:(result.aspectRatioThumbnail)],0.5);
+                            attachment.fileName = [NSString stringWithFormat:@"%@.png",@([NSDate date].timeIntervalSince1970 * 1000)];
+                            [_albumPic addObject:attachment];
                         }
-                        else {
-                            NSString *type = [result valueForProperty:ALAssetPropertyType];
-                            if([type isEqualToString:ALAssetTypePhoto]) {
-                                Attachment *attachment = [Attachment new];
-                                attachment.fileData = UIImageJPEGRepresentation([UIImage imageWithCGImage:[result aspectRatioThumbnail]], 1);
-                                attachment.fileName = [NSString stringWithFormat:@"%@.png",@([NSDate date].timeIntervalSince1970 * 1000)];
-                                [_albumPic addObject:attachment];
-                            }
-                        }
-                    }];
-                    group = nil;
-                    *stop = YES;
-                }
+                    }
+                }];
             }
-            
         } failureBlock:^(NSError *error) {
+            
         }];
     }
     return self;
@@ -74,6 +66,12 @@
 - (void)dataDidChange {
     _downPic = self.data;
     [_tableView reloadData];
+}
+#pragma mark -- AttachmentSelectDelegate
+- (void)attachmentDidSelect:(Attachment *)attachment {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(attachmentDidSelect:)]) {
+        [self.delegate attachmentDidSelect:attachment];
+    }
 }
 #pragma mark -- UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -106,6 +104,7 @@
         cell.data = _albumPic;
     else
         cell.data = _downPic;
+    cell.delegate = self;
     return cell;
 }
 @end

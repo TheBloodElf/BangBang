@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AttachmentSelectDelegate.h"
 //附件图片选择
 @interface AttachPicView : UIView
+
+@property (nonatomic, weak) id<AttachmentSelectDelegate> delegate;
 
 @end

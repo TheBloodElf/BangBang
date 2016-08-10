@@ -31,6 +31,9 @@
 }
 
 - (void)dataDidChange {
+    for (UIView *view in self.attemthLabel.subviews) {
+        [view removeFromSuperview];
+    }
     SignIn *signIn = [self.data deepCopy];
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:signIn.create_on_utc / 1000];
     self.timeLabel.text = [NSString stringWithFormat:@"%ld/%02ld/%02ld %02ld:%02ld",date.year,date.month,date.day,date.hour,date.minute];

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AttachmentSelectDelegate.h"
 //其他附件选择
 @interface AttachOtherView : UIView
-
+@property (nonatomic, weak) id<AttachmentSelectDelegate> delegate;
 @end

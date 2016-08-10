@@ -12,7 +12,7 @@
 
 @property (nonatomic, strong) NSData *fileData;//文件数据
 @property (nonatomic, strong) NSDate *fileCreateDate;//文件创建时间
-@property (nonatomic, assign) NSInteger fileSize;//文件大小（KB）
+@property (nonatomic, assign) NSInteger fileSize;//文件大小（B）
 @property (nonatomic, strong) NSString *fileName;//文件名称
 @property (nonatomic, assign) BOOL isSelected;//是否被选择
 

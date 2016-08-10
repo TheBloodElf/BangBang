@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AttachmentSelectDelegate.h"
 //附件音乐选择
 @interface AttachMusicView : UIView
-
+@property (nonatomic, weak) id<AttachmentSelectDelegate> delegate;
 @end

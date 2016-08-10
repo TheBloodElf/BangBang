@@ -448,6 +448,15 @@
 		1BED8C1A1D51963F00340809 /* TaskOwnerCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BED8C181D51963F00340809 /* TaskOwnerCommentCell.m */; };
 		1BED8C1B1D51963F00340809 /* TaskOwnerCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BED8C191D51963F00340809 /* TaskOwnerCommentCell.xib */; };
 		1BED8C231D51C6E900340809 /* InputTextController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BED8C221D51C6E900340809 /* InputTextController.m */; };
+		1BF3FD1D1D5AB59600026351 /* AttachDocumentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF3FD1B1D5AB59600026351 /* AttachDocumentCell.m */; };
+		1BF3FD1E1D5AB59600026351 /* AttachDocumentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BF3FD1C1D5AB59600026351 /* AttachDocumentCell.xib */; };
+		1BF3FD221D5ABBA700026351 /* AttachVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF3FD201D5ABBA700026351 /* AttachVideoCell.m */; };
+		1BF3FD231D5ABBA700026351 /* AttachVideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BF3FD211D5ABBA700026351 /* AttachVideoCell.xib */; };
+		1BF3FD251D5AD25200026351 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BF3FD241D5AD25200026351 /* Photos.framework */; };
+		1BF3FD291D5B01DD00026351 /* AttachMusicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF3FD271D5B01DD00026351 /* AttachMusicCell.m */; };
+		1BF3FD2A1D5B01DD00026351 /* AttachMusicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BF3FD281D5B01DD00026351 /* AttachMusicCell.xib */; };
+		1BF3FD2E1D5B033A00026351 /* AttachOtherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF3FD2C1D5B033A00026351 /* AttachOtherCell.m */; };
+		1BF3FD2F1D5B033A00026351 /* AttachOtherCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BF3FD2D1D5B033A00026351 /* AttachOtherCell.xib */; };
 		1BF5DFA41D4995DE0039704E /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF5DFA31D4995DE0039704E /* WXApiManager.m */; };
 		1BF5DFA71D4995E50039704E /* WBApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF5DFA61D4995E50039704E /* WBApiManager.m */; };
 		1BF5DFC31D49A89A0039704E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BF5DFC21D49A89A0039704E /* Foundation.framework */; };
@@ -1266,6 +1275,20 @@
 		1BED8C191D51963F00340809 /* TaskOwnerCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskOwnerCommentCell.xib; sourceTree = "<group>"; };
 		1BED8C211D51C6E900340809 /* InputTextController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputTextController.h; sourceTree = "<group>"; };
 		1BED8C221D51C6E900340809 /* InputTextController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputTextController.m; sourceTree = "<group>"; };
+		1BF3FD1A1D5AB59600026351 /* AttachDocumentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttachDocumentCell.h; sourceTree = "<group>"; };
+		1BF3FD1B1D5AB59600026351 /* AttachDocumentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttachDocumentCell.m; sourceTree = "<group>"; };
+		1BF3FD1C1D5AB59600026351 /* AttachDocumentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AttachDocumentCell.xib; sourceTree = "<group>"; };
+		1BF3FD1F1D5ABBA700026351 /* AttachVideoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttachVideoCell.h; sourceTree = "<group>"; };
+		1BF3FD201D5ABBA700026351 /* AttachVideoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttachVideoCell.m; sourceTree = "<group>"; };
+		1BF3FD211D5ABBA700026351 /* AttachVideoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AttachVideoCell.xib; sourceTree = "<group>"; };
+		1BF3FD241D5AD25200026351 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		1BF3FD261D5B01DD00026351 /* AttachMusicCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttachMusicCell.h; sourceTree = "<group>"; };
+		1BF3FD271D5B01DD00026351 /* AttachMusicCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttachMusicCell.m; sourceTree = "<group>"; };
+		1BF3FD281D5B01DD00026351 /* AttachMusicCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AttachMusicCell.xib; sourceTree = "<group>"; };
+		1BF3FD2B1D5B033A00026351 /* AttachOtherCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttachOtherCell.h; sourceTree = "<group>"; };
+		1BF3FD2C1D5B033A00026351 /* AttachOtherCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttachOtherCell.m; sourceTree = "<group>"; };
+		1BF3FD2D1D5B033A00026351 /* AttachOtherCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AttachOtherCell.xib; sourceTree = "<group>"; };
+		1BF3FD301D5B081200026351 /* AttachmentSelectDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttachmentSelectDelegate.h; sourceTree = "<group>"; };
 		1BF5DFA21D4995DE0039704E /* WXApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiManager.h; sourceTree = "<group>"; };
 		1BF5DFA31D4995DE0039704E /* WXApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiManager.m; sourceTree = "<group>"; };
 		1BF5DFA51D4995E50039704E /* WBApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBApiManager.h; sourceTree = "<group>"; };
@@ -1360,6 +1383,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BF3FD251D5AD25200026351 /* Photos.framework in Frameworks */,
 				1BF5DFC31D49A89A0039704E /* Foundation.framework in Frameworks */,
 				1BFBC1601D3F2BE300A5511A /* EventKit.framework in Frameworks */,
 				1B6D166C1D48AA730070D2E5 /* TencentOpenAPI.framework in Frameworks */,
@@ -2240,6 +2264,7 @@
 			children = (
 				1B18B3351D59B66300858C83 /* Attachment.h */,
 				1B18B3361D59B66300858C83 /* Attachment.m */,
+				1BF3FD301D5B081200026351 /* AttachmentSelectDelegate.h */,
 				1B18B3381D59B80900858C83 /* SelectAttachmentController.h */,
 				1B18B3391D59B80900858C83 /* SelectAttachmentController.m */,
 				1B18B33B1D59BC1300858C83 /* AttachDocumentView */,
@@ -2256,6 +2281,9 @@
 			children = (
 				1B18B3401D59BC9700858C83 /* AttachDocumentView.h */,
 				1B18B3411D59BC9700858C83 /* AttachDocumentView.m */,
+				1BF3FD1A1D5AB59600026351 /* AttachDocumentCell.h */,
+				1BF3FD1B1D5AB59600026351 /* AttachDocumentCell.m */,
+				1BF3FD1C1D5AB59600026351 /* AttachDocumentCell.xib */,
 			);
 			path = AttachDocumentView;
 			sourceTree = "<group>";
@@ -2265,6 +2293,9 @@
 			children = (
 				1B18B3431D59BCA000858C83 /* AttachMusicView.h */,
 				1B18B3441D59BCA000858C83 /* AttachMusicView.m */,
+				1BF3FD261D5B01DD00026351 /* AttachMusicCell.h */,
+				1BF3FD271D5B01DD00026351 /* AttachMusicCell.m */,
+				1BF3FD281D5B01DD00026351 /* AttachMusicCell.xib */,
 			);
 			path = AttachMusicView;
 			sourceTree = "<group>";
@@ -2274,6 +2305,9 @@
 			children = (
 				1B18B3461D59BCA800858C83 /* AttachOtherView.h */,
 				1B18B3471D59BCA800858C83 /* AttachOtherView.m */,
+				1BF3FD2B1D5B033A00026351 /* AttachOtherCell.h */,
+				1BF3FD2C1D5B033A00026351 /* AttachOtherCell.m */,
+				1BF3FD2D1D5B033A00026351 /* AttachOtherCell.xib */,
 			);
 			path = AttachOtherView;
 			sourceTree = "<group>";
@@ -2298,6 +2332,9 @@
 			children = (
 				1B18B34C1D59BCB500858C83 /* AttachVideoView.h */,
 				1B18B34D1D59BCB500858C83 /* AttachVideoView.m */,
+				1BF3FD1F1D5ABBA700026351 /* AttachVideoCell.h */,
+				1BF3FD201D5ABBA700026351 /* AttachVideoCell.m */,
+				1BF3FD211D5ABBA700026351 /* AttachVideoCell.xib */,
 			);
 			path = AttachVideoView;
 			sourceTree = "<group>";
@@ -3532,6 +3569,7 @@
 		AE1CB48D1985A705EE5EEAD9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1BF3FD241D5AD25200026351 /* Photos.framework */,
 				046D48A01D556A7F0000ECC4 /* QuickLook.framework */,
 				1BF5DFC21D49A89A0039704E /* Foundation.framework */,
 				1B6D166B1D48AA730070D2E5 /* TencentOpenAPI.framework */,
@@ -3659,8 +3697,10 @@
 				1B6D165D1D48A8D00070D2E5 /* login_botton@2x.png in Resources */,
 				046D48B21D5616890000ECC4 /* MoreViewController.xib in Resources */,
 				04FE7CCF1D36725A00362702 /* menu_background.png in Resources */,
+				1BF3FD1E1D5AB59600026351 /* AttachDocumentCell.xib in Resources */,
 				1B6D16421D48A8D00070D2E5 /* btn_qq_login_active.png in Resources */,
 				040BB6051D4A44FD00511FFC /* LaunchScreen.xib in Resources */,
+				1BF3FD231D5ABBA700026351 /* AttachVideoCell.xib in Resources */,
 				1B6D16511D48A8D00070D2E5 /* ic_logo_cn@2x.png in Resources */,
 				046DAF7C1D4C3EB500718F2A /* MeetingDeviceTableCell.xib in Resources */,
 				04FE7CD51D367CE000362702 /* LeftMenuCell.xib in Resources */,
@@ -3713,6 +3753,7 @@
 				1B6D16621D48A8D00070D2E5 /* login_qq.png in Resources */,
 				1B4B16151D37398600E71B3D /* XAddrBookCell.xib in Resources */,
 				1B18B31B1D59A67D00858C83 /* PhotoImageCollectionCell.xib in Resources */,
+				1BF3FD2F1D5B033A00026351 /* AttachOtherCell.xib in Resources */,
 				1BFBC1651D3F455500A5511A /* RepWeekView.xib in Resources */,
 				1B6D16581D48A8D00070D2E5 /* login_background@3x.png in Resources */,
 				0471C0961D3B262600377178 /* PushMessageCell.xib in Resources */,
@@ -3724,6 +3765,7 @@
 				1B6D166A1D48A8D00070D2E5 /* login_weixin@3x.png in Resources */,
 				1B6D16651D48A8D00070D2E5 /* login_weibo.png in Resources */,
 				1B03886C1D50810C00D0B7D0 /* TaskDetailController.xib in Resources */,
+				1BF3FD2A1D5B01DD00026351 /* AttachMusicCell.xib in Resources */,
 				1B1B9BF91D3E198600F53EDC /* ComCalendarInstruction.xib in Resources */,
 				1B03888B1D509C6F00D0B7D0 /* TaskMemberCellCell.xib in Resources */,
 				0495861F1D39D3A500544259 /* SigleSelectCell.xib in Resources */,
@@ -3966,6 +4008,7 @@
 				1BED8C051D517DDD00340809 /* Meeting.m in Sources */,
 				1BF5DFDC1D49A90A0039704E /* split.c in Sources */,
 				1B1B9BBD1D3DCB8000F53EDC /* NSMutableArray+Atipik.m in Sources */,
+				1BF3FD1D1D5AB59600026351 /* AttachDocumentCell.m in Sources */,
 				1B6D16141D48A8970070D2E5 /* UserLoginController.m in Sources */,
 				1BFBC14D1D3F0FD200A5511A /* RepCalendarRepTime.m in Sources */,
 				0495861C1D39D3A500544259 /* MuliteSelectTopImageView.m in Sources */,
@@ -4008,6 +4051,7 @@
 				1B0388941D509DF800D0B7D0 /* TaskRemindCellCell.m in Sources */,
 				049586341D3A1CCA00544259 /* NSDate+Format.m in Sources */,
 				1B03886B1D50810C00D0B7D0 /* TaskDetailController.m in Sources */,
+				1BF3FD291D5B01DD00026351 /* AttachMusicCell.m in Sources */,
 				1B36FCDB1D35EC96006694E4 /* TaskView.m in Sources */,
 				1B36FCDF1D35F01B006694E4 /* BottomViewItem.m in Sources */,
 				1B4B162A1D37858400E71B3D /* BushManageViewController.m in Sources */,
@@ -4021,6 +4065,7 @@
 				1B03888F1D509D4200D0B7D0 /* TaskFinishCellCell.m in Sources */,
 				1BC2AE821D42113800842153 /* PunchCardRemind.m in Sources */,
 				1BFBC16D1D3F4C0100A5511A /* RepYearView.m in Sources */,
+				1BF3FD221D5ABBA700026351 /* AttachVideoCell.m in Sources */,
 				1B55856C1D34CF4F00DCD3A0 /* UIView+REFrostedViewController.m in Sources */,
 				04E7E5AC1D3A660800C653B4 /* MineInfoEditController.m in Sources */,
 				1B6D160C1D4853930070D2E5 /* LineProgressLayer.m in Sources */,
@@ -4214,6 +4259,7 @@
 				046DAF811D4C3EB500718F2A /* MeetingRoomTimeCollectionCell.m in Sources */,
 				0482FBD61D430AD200B1CBB2 /* WebNonstandarViewController.m in Sources */,
 				040A09AF1D3D182F00156C16 /* DiscussListCell.m in Sources */,
+				1BF3FD2E1D5B033A00026351 /* AttachOtherCell.m in Sources */,
 				046DAF6E1D4C3EB500718F2A /* MeetingMembersCell.m in Sources */,
 				1B1B9BBF1D3DCB8000F53EDC /* NSArray+Atipik.m in Sources */,
 				1BFBC1431D3F0CDC00A5511A /* RepCalendarTime.m in Sources */,
@@ -4488,8 +4534,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "RealmDemo/帮帮管理助手.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

@@ -14,8 +14,9 @@
 #import "AttachPicView.h"
 #import "AttachMusicView.h"
 #import "AttachOtherView.h"
+#import "AttachmentSelectDelegate.h"
 
-@interface SelectAttachmentController () {
+@interface SelectAttachmentController ()<AttachmentSelectDelegate> {
     AttachDocumentView *_attachDocumentView;//文档
     AttachVideoView *_attachVideoView;//视频
     AttachPicView *_attachPicView;//相册
@@ -24,6 +25,8 @@
     
     UISegmentedControl *_segmentedControl;//上面的分段控件
     UIScrollView *_bottomScrollView;//下面的滚动视图
+    
+    NSMutableArray<Attachment*> *_userSelectAttachmentArr;//用户已经选择的附件数组
 }
 
 @end
@@ -34,7 +37,8 @@
     [super viewDidLoad];
     self.title = @"附件选择";
     self.view.backgroundColor = [UIColor whiteColor];
-    
+    [self.navigationController.view showLoadingTips:@""];
+    _userSelectAttachmentArr = [@[] mutableCopy];
     _segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"文档",@"视频",@"相册",@"音乐",@"其他"]];
     _segmentedControl.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 35);
     _segmentedControl.selectedSegmentIndex = 0;
@@ -51,14 +55,19 @@
     _bottomScrollView.contentSize = CGSizeMake(MAIN_SCREEN_WIDTH * 5, MAIN_SCREEN_HEIGHT - 35 - 64);
     [self.view addSubview:_bottomScrollView];
     _attachDocumentView = [[AttachDocumentView alloc] initWithFrame:CGRectMake(0, 0, _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height)];
+    _attachDocumentView.delegate = self;
     [_bottomScrollView addSubview:_attachDocumentView];
     _attachVideoView = [[AttachVideoView alloc] initWithFrame:CGRectMake(_bottomScrollView.frame.size.width, 0, _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height)];
+    _attachVideoView.delegate = self;
     [_bottomScrollView addSubview:_attachVideoView];
     _attachPicView = [[AttachPicView alloc] initWithFrame:CGRectMake(2 * _bottomScrollView.frame.size.width, 0, _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height)];
+    _attachPicView.delegate = self;
     [_bottomScrollView addSubview:_attachPicView];
     _attachMusicView = [[AttachMusicView alloc] initWithFrame:CGRectMake(3 * _bottomScrollView.frame.size.width, 0, _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height)];
+    _attachMusicView.delegate = self;
     [_bottomScrollView addSubview:_attachMusicView];
     _attachOtherView = [[AttachOtherView alloc] initWithFrame:CGRectMake(4 * _bottomScrollView.frame.size.width, 0, _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height)];
+    _attachOtherView.delegate = self;
     [_bottomScrollView addSubview:_attachOtherView];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancleClicked:)];
@@ -79,7 +88,6 @@
     [super viewDidAppear:animated];
     if([self.data isEqualToString:@"YES"]) return;
     self.data = @"YES";
-    [self.navigationController.view showLoadingTips:@""];
     //在这里加载每个页面应该显示的数据
     NSMutableArray<Attachment*> *attachDocumentArr = [@[] mutableCopy];//文档
     NSMutableArray<Attachment*> *attachVideoArr = [@[] mutableCopy];//视频
@@ -96,6 +104,7 @@
         NSDictionary *fileDic = [[NSFileManager defaultManager] attributesOfItemAtPath:[fileManager fileStr:attachment.fileName] error:&nSError];
         attachment.fileCreateDate = fileDic[@"NSFileCreationDate"];
         attachment.fileSize = [fileDic[@"NSFileSize"] integerValue];
+        attachment.fileData = [NSData dataWithContentsOfFile:[fileManager fileStr:attachment.fileName]];
         if(nSError) continue;//如果有错误就不加载
         switch ([fileManager fileType:attachment.fileName]) {
             case 0: [attachDocumentArr addObject:attachment]; break;
@@ -113,6 +122,20 @@
     _attachOtherView.data = attachOtherArr;
     [self.navigationController.view dismissTips];
 }
+#pragma mark -- AttachmentSelectDelegate
+- (void)attachmentDidSelect:(Attachment*)attachment {
+    if(attachment.isSelected == YES)
+        [ _userSelectAttachmentArr addObject:attachment];
+    else
+        [_userSelectAttachmentArr removeObject:attachment];
+    if(_userSelectAttachmentArr.count == 0)
+        self.title = @"附件选择";
+    else
+        self.title = [NSString stringWithFormat:@"附件选择（%ld）",_userSelectAttachmentArr.count];
+    if(_userSelectAttachmentArr.count == self.maxSelect) {
+        [self.navigationController showMessageTips:@"已达到最大选择数"];
+    }
+}
 - (void)segmentedClicked:(UISegmentedControl*)segmentedControl {
     [_bottomScrollView setContentOffset:CGPointMake(segmentedControl.selectedSegmentIndex * MAIN_SCREEN_WIDTH, 0) animated:NO];
 }
@@ -123,6 +146,13 @@
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 - (void)doneClicked:(UIBarButtonItem*)item {
-    
+    if(self.delegate && [self.delegate respondsToSelector:@selector(selectAttachmentFinish:)]) {
+        while (_userSelectAttachmentArr.count > self.maxSelect) {
+            [_userSelectAttachmentArr removeLastObject];
+        }
+        [self.delegate selectAttachmentFinish:_userSelectAttachmentArr];
+    }
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
+
 @end

@@ -177,6 +177,7 @@
 - (void)createTaskClicked {
     [self executeNeedSelectCompany:^{
         TaskListController *list = [TaskListController new];
+        list.type = 1;
         list.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:list animated:YES];
     }];
@@ -185,6 +186,7 @@
 - (void)chargeTaskClicked {
     [self executeNeedSelectCompany:^{
         TaskListController *list = [TaskListController new];
+        list.type = 0;
         list.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:list animated:YES];
     }];

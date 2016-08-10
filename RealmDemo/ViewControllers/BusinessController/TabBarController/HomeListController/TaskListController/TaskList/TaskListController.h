@@ -10,4 +10,6 @@
 //任务列表
 @interface TaskListController : UIViewController
 
+@property (nonatomic, assign) int type;//0我负责的 1我委派的
+
 @end

@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AttachmentSelectDelegate.h"
 //附件文档选择
 @interface AttachDocumentView : UIView
+
+@property (nonatomic, weak) id<AttachmentSelectDelegate> delegate;
 
 @end

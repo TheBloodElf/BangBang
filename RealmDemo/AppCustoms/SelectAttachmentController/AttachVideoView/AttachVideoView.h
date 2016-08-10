@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AttachmentSelectDelegate.h"
 //附件视频选择
 @interface AttachVideoView : UIView
-
+@property (nonatomic, weak) id<AttachmentSelectDelegate> delegate;
 @end

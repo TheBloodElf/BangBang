@@ -91,7 +91,6 @@
 #pragma mark --
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
-    _pushMessageArr = (id)controller.fetchedObjects;
     [self searchDataFormLoc];
     if(_pushMessageArr.count == 0)
         _tableView.tableFooterView = _noDataView;
@@ -168,6 +167,10 @@
         }
         _pushMessageArr = currArr;
     }
+    //按照时间降序排列
+    [_pushMessageArr sortUsingComparator:^NSComparisonResult(PushMessage *obj1, PushMessage *obj2) {
+        return obj1.addTime.timeIntervalSince1970 < obj2.addTime.timeIntervalSince1970;
+    }];
 }
 #pragma mark -- 
 #pragma mark -- UISearchBarDelegate

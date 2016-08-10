@@ -49,7 +49,10 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     Attachment *attachment = _AttachmentArr[indexPath.row];
-    attachment.isSelected = !attachment;
+    attachment.isSelected = !attachment.isSelected;
+    if(self.delegate && [self.delegate respondsToSelector:@selector(attachmentDidSelect:)]) {
+        [self.delegate attachmentDidSelect:attachment];
+    }
     [collectionView reloadItemsAtIndexPaths:@[indexPath]];
 }
 @end

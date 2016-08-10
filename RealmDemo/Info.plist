@@ -53,6 +53,7 @@
 	<string>5.0.1</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>mailto</string>
 		<string>mqzone</string>
 		<string>weixin</string>
 		<string>weibosdk2.5</string>

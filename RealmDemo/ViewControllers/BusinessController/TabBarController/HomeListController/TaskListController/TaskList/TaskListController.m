@@ -36,7 +36,6 @@
     
     _topSegmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"负责的",@"委派的",@"知悉的",@"已完结"]];
     _topSegmentedControl.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 35);
-    _topSegmentedControl.selectedSegmentIndex = 0;
     _topSegmentedControl.tintColor = [UIColor siginColor];
     [_topSegmentedControl addTarget:self action:@selector(segmentedClicked:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:_topSegmentedControl];
@@ -50,6 +49,18 @@
     _bottomScrollView.scrollEnabled = NO;
     _bottomScrollView.contentSize = CGSizeMake(4 * _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height);
     [self.view addSubview:_bottomScrollView];
+    
+    // Do any additional setup after loading the view.
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.barTintColor = [UIColor siginColor];
+}
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if([self.data isEqualToString:@"YES"]) return;
+    self.data = @"YES";
+    
     //负责的
     InchargeTaskView *incharge = [[InchargeTaskView alloc] initWithFrame:CGRectMake(0, 0, _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height)];
     incharge.delegate = self;
@@ -88,7 +99,6 @@
         }];
     }
     
-    
     //创建多选视图
     _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100, 0, 100, 80)];
     _moreSelectView.selectArr = @[@"添加任务",@"同步任务"];
@@ -96,12 +106,13 @@
     [_moreSelectView setupUI];
     [self.view addSubview:_moreSelectView];
     [self.view bringSubviewToFront:_moreSelectView];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar_menu"] style:UIBarButtonItemStylePlain target:self action:@selector(moreClicked:)];
-    // Do any additional setup after loading the view.
-}
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.navigationController.navigationBar.barTintColor = [UIColor siginColor];
+    
+    //显示第几个
+    if(self.type == 0)
+        _topSegmentedControl.selectedSegmentIndex = 0;
+    else
+        _topSegmentedControl.selectedSegmentIndex = 1;
+    [self segmentedClicked:_topSegmentedControl];
 }
 - (void)moreClicked:(UIBarButtonItem*)item {
     if(_moreSelectView.isHide)

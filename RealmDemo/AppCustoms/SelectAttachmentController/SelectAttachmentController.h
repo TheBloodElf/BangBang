@@ -14,11 +14,12 @@
 - (void)selectAttachmentFinish:(NSMutableArray<Attachment*>*)attachmentArr;
 //选择成功
 - (void)selectAttachmentCancel;
-
 @end
 
 @interface SelectAttachmentController : UIViewController
 
 @property (nonatomic, weak) id<SelectAttachmentDelegate> delegate;
+
+@property (nonatomic, assign) int maxSelect;//最大选择数量
 
 @end

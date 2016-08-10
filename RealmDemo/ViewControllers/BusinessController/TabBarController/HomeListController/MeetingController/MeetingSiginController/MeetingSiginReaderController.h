@@ -25,7 +25,6 @@
  */
 
 #import <UIKit/UIKit.h>
-#import <AVFoundation/AVFoundation.h>
 #import "MeetingSiginReaderDelegate.h"
 #import "MeetingSiginReaderView.h"
 /**

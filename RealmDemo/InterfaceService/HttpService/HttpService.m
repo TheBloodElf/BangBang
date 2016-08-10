@@ -58,24 +58,28 @@ static HttpService * __singleton__;
     task = [_dataSessionManager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         //结束菊花
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        //取消请求 放弃处理
-        if (error.code == NSURLErrorCancelled) {
-            return;
-        }
         //判断结果
         MError *err = nil;
         id data = nil;
-        NSDictionary *responseObjectDic = [responseObject mj_keyValues];
-        //有的返回结果不包含code，这种就是成功的意思，奇葩啊。。。
-        if([[responseObjectDic allKeys] containsObject:@"code"]) {
-            NSInteger resultCode = [responseObjectDic[@"code"] integerValue];
-            if(resultCode == 0) {//0表示成功
-                data = responseObjectDic[@"data"];
+        //如果是请求时的错误
+        if(error) {
+            if(error.code == -1009)//网络不可用
+                err = [[MError alloc] initWithCode:-1009 statsMsg:@"网络不可用，请连接网络"];
+            else//其他错误
+                err = [[MError alloc] initWithCode:error.code statsMsg:error.domain];
+        } else {//请求没有错
+            NSDictionary *responseObjectDic = [responseObject mj_keyValues];
+            //有的返回结果不包含code，这种就是成功的意思，奇葩啊。。。
+            if([[responseObjectDic allKeys] containsObject:@"code"]) {
+                NSInteger resultCode = [responseObjectDic[@"code"] integerValue];
+                if(resultCode == 0) {//0表示成功
+                    data = responseObjectDic[@"data"];
+                } else {//服务器返回的错误
+                    err = [[MError alloc] initWithCode:resultCode statsMsg:responseObjectDic[@"message"]];
+                }
             } else {
-                err = [[MError alloc] initWithCode:resultCode statsMsg:responseObjectDic[@"message"]];
+                data = responseObject;
             }
-        } else {
-            data = responseObject;
         }
         //主线程执行回调
         dispatch_async(dispatch_get_main_queue(), ^{

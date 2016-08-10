@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AttachMusicCell" rowHeight="80" id="agC-mx-aB8" customClass="AttachMusicCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="agC-mx-aB8" id="8tZ-r7-JDf">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ydr-Lv-2gu">
+                        <rect key="frame" x="10" y="29" width="19" height="22"/>
+                        <state key="normal" image="btn_nomaril_icon"/>
+                        <state key="selected" image="btn_select_icon"/>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Dh-4F-Y9v">
+                        <rect key="frame" x="39" y="7" width="65" height="65"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="65" id="gPt-kK-o2p"/>
+                            <constraint firstAttribute="height" constant="65" id="xkl-3i-MdR"/>
+                        </constraints>
+                        <state key="normal" backgroundImage="ic_docx"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="李勇简历.docx" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yd6-Qy-lqL">
+                        <rect key="frame" x="109" y="7" width="92" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="06-13 23:20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SE7-xq-UaU">
+                        <rect key="frame" x="109" y="56" width="71" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="izq-ja-Igw"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="26.13k" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QE7-ZO-lel">
+                        <rect key="frame" x="109" y="38" width="38" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="SE7-xq-UaU" firstAttribute="bottom" secondItem="4Dh-4F-Y9v" secondAttribute="bottom" id="4Lt-My-0wA"/>
+                    <constraint firstItem="SE7-xq-UaU" firstAttribute="leading" secondItem="4Dh-4F-Y9v" secondAttribute="trailing" constant="5" id="7fO-6V-TPX"/>
+                    <constraint firstItem="SE7-xq-UaU" firstAttribute="top" secondItem="QE7-ZO-lel" secondAttribute="bottom" constant="3" id="7rQ-L4-PfO"/>
+                    <constraint firstItem="4Dh-4F-Y9v" firstAttribute="leading" secondItem="ydr-Lv-2gu" secondAttribute="trailing" constant="10" id="DCI-YM-3zz"/>
+                    <constraint firstItem="ydr-Lv-2gu" firstAttribute="centerY" secondItem="8tZ-r7-JDf" secondAttribute="centerY" id="P0I-rO-nWi"/>
+                    <constraint firstItem="Yd6-Qy-lqL" firstAttribute="top" secondItem="4Dh-4F-Y9v" secondAttribute="top" id="QB5-cb-xOe"/>
+                    <constraint firstItem="ydr-Lv-2gu" firstAttribute="leading" secondItem="8tZ-r7-JDf" secondAttribute="leading" constant="10" id="YqQ-s5-Sf3"/>
+                    <constraint firstItem="QE7-ZO-lel" firstAttribute="leading" secondItem="4Dh-4F-Y9v" secondAttribute="trailing" constant="5" id="dNw-Rg-sM5"/>
+                    <constraint firstItem="Yd6-Qy-lqL" firstAttribute="leading" secondItem="4Dh-4F-Y9v" secondAttribute="trailing" constant="5" id="pzT-pF-emg"/>
+                    <constraint firstItem="4Dh-4F-Y9v" firstAttribute="centerY" secondItem="8tZ-r7-JDf" secondAttribute="centerY" id="w0W-V3-hS0"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="attachCreateDate" destination="SE7-xq-UaU" id="VUD-iW-SR1"/>
+                <outlet property="attachImage" destination="4Dh-4F-Y9v" id="1xI-sV-LwP"/>
+                <outlet property="attachName" destination="Yd6-Qy-lqL" id="3hC-Rz-SuL"/>
+                <outlet property="attachSize" destination="QE7-ZO-lel" id="TU4-iC-L5E"/>
+                <outlet property="isSelectedBtn" destination="ydr-Lv-2gu" id="6V9-Rs-zWp"/>
+            </connections>
+            <point key="canvasLocation" x="217" y="340"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="btn_nomaril_icon" width="19" height="19"/>
+        <image name="btn_select_icon" width="19" height="19"/>
+        <image name="ic_docx" width="87" height="87"/>
+    </resources>
+</document>
