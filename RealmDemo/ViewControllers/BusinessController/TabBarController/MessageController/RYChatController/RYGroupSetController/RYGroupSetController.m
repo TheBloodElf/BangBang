@@ -329,6 +329,7 @@
     [self.navigationController.view showLoadingTips:@""];
     [[RCIMClient sharedRCIMClient] setDiscussionName:self.targetId name:name success:^{
         _currRCDiscussion.discussionName = name;
+        self.title = name;
         if(self.delegate && [self.delegate respondsToSelector:@selector(rYGroupSetNameChange:)]) {
             [self.delegate rYGroupSetNameChange:name];
         }

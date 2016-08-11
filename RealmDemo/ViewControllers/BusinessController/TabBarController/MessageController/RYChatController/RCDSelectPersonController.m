@@ -67,9 +67,8 @@
 }
 //获取正确员工数据
 - (void)getSureDataArr {
-    NSMutableArray<Employee*> *employeeArr = [@[] mutableCopy];
-    //获取应该显示的员工数组
-    employeeArr = [[UserManager manager] getEmployeeWithCompanyNo:self.companyNo ?: [UserManager manager].user.currCompany.company_no status:5];
+     //获取应该显示的员工数组
+    NSMutableArray<Employee*> *employeeArr = [[UserManager manager] getEmployeeWithCompanyNo:self.companyNo ?: [UserManager manager].user.currCompany.company_no status:5];
     //获取已经被选中的用户NO 不显示这些人
     NSMutableArray<NSString*> *selectedUserNoArr = [@[] mutableCopy];
     for (Employee *employee in self.selectedEmployees) {
@@ -221,7 +220,8 @@
     NSMutableArray<Employee*> *employeeArr = [@[] mutableCopy];
     //得到当前被选择的人
     NSMutableArray *rcUsers = [NSMutableArray new];
-    for (Employee *employee in _selectEmployees) {
+    for (SelectEmployeeModel *employee in _selectEmployees) {
+        if(!employee.isSelected) continue;
         RCUserInfo *user = [RCUserInfo new];
         user.userId = @(employee.user_no).stringValue;
         user.name = employee.user_real_name;
@@ -234,7 +234,7 @@
         return;
     }
     //得到已经被选中的人
-    for (Employee *employee in self.selectedEmployees) {
+    for (SelectEmployeeModel *employee in _selectedEmployees) {
         RCUserInfo *user = [RCUserInfo new];
         user.userId = @(employee.user_no).stringValue;
         user.name = employee.user_real_name;
