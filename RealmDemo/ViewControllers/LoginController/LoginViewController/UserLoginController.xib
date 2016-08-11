@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UserLoginController">
@@ -31,8 +31,11 @@
                                 <constraint firstAttribute="width" constant="100" id="y2f-dx-vSu"/>
                             </constraints>
                         </imageView>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="   手机/邮箱/帮帮号" minimumFontSize="17" background="login_botton1.png" translatesAutoresizingMaskIntoConstraints="NO" id="I6U-LL-xTB">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_botton1.png" translatesAutoresizingMaskIntoConstraints="NO" id="iWY-iH-Pdj">
                             <rect key="frame" x="10" y="169" width="300" height="45"/>
+                        </imageView>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="手机/邮箱/帮帮号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="I6U-LL-xTB">
+                            <rect key="frame" x="20" y="169" width="280" height="45"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="45" id="K2l-vE-WMz"/>
                             </constraints>
@@ -40,14 +43,17 @@
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="  密码" minimumFontSize="17" background="login_botton1.png" translatesAutoresizingMaskIntoConstraints="NO" id="PWk-nF-28O">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_botton1.png" translatesAutoresizingMaskIntoConstraints="NO" id="L3W-rn-Gjf">
                             <rect key="frame" x="10" y="218" width="300" height="45"/>
+                        </imageView>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="密码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PWk-nF-28O">
+                            <rect key="frame" x="20" y="218" width="280" height="45"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="45" id="enF-sb-oCM"/>
                             </constraints>
                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                         </textField>
                         <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fIw-LJ-GBn">
                             <rect key="frame" x="10" y="279" width="300" height="45"/>
@@ -139,42 +145,54 @@
                         </button>
                     </subviews>
                     <constraints>
+                        <constraint firstItem="L3W-rn-Gjf" firstAttribute="leading" secondItem="77Z-z0-Bdl" secondAttribute="leading" constant="10" id="1qd-Ae-kPB"/>
                         <constraint firstItem="G5g-Jf-Znh" firstAttribute="leading" secondItem="77Z-z0-Bdl" secondAttribute="leading" constant="15" id="2FZ-Lw-yHf"/>
                         <constraint firstItem="I6U-LL-xTB" firstAttribute="top" secondItem="u8p-gr-iEb" secondAttribute="bottom" constant="19" id="33A-zt-7HN"/>
+                        <constraint firstItem="iWY-iH-Pdj" firstAttribute="leading" secondItem="77Z-z0-Bdl" secondAttribute="leading" constant="10" id="4qb-MN-XdH"/>
                         <constraint firstItem="pnh-js-kWF" firstAttribute="centerX" secondItem="77Z-z0-Bdl" secondAttribute="centerX" id="6na-1U-bdP"/>
                         <constraint firstAttribute="bottom" secondItem="cFR-qa-ZEZ" secondAttribute="bottom" id="8Kd-fp-qPE"/>
                         <constraint firstItem="fIw-LJ-GBn" firstAttribute="centerX" secondItem="77Z-z0-Bdl" secondAttribute="centerX" id="8Ld-rG-B5c"/>
                         <constraint firstItem="PWk-nF-28O" firstAttribute="centerX" secondItem="77Z-z0-Bdl" secondAttribute="centerX" id="AQc-yZ-hcB"/>
+                        <constraint firstAttribute="trailing" secondItem="iWY-iH-Pdj" secondAttribute="trailing" constant="10" id="E1W-Ul-aUy"/>
                         <constraint firstItem="u8p-gr-iEb" firstAttribute="centerX" secondItem="77Z-z0-Bdl" secondAttribute="centerX" id="EIr-eK-5cl"/>
                         <constraint firstAttribute="trailing" secondItem="cFR-qa-ZEZ" secondAttribute="trailing" id="EZV-gg-jgF"/>
                         <constraint firstAttribute="bottom" secondItem="pnh-js-kWF" secondAttribute="bottom" constant="90" id="FbR-PR-9LW"/>
                         <constraint firstItem="u8p-gr-iEb" firstAttribute="top" secondItem="77Z-z0-Bdl" secondAttribute="top" constant="50" id="GoK-mk-e5Y"/>
                         <constraint firstItem="Jzi-2q-tys" firstAttribute="leading" secondItem="sdr-Ip-MvH" secondAttribute="trailing" constant="30" id="H5F-Jd-6tI"/>
+                        <constraint firstItem="L3W-rn-Gjf" firstAttribute="bottom" secondItem="PWk-nF-28O" secondAttribute="bottom" id="HGp-1C-e4h"/>
                         <constraint firstItem="G5g-Jf-Znh" firstAttribute="top" secondItem="fIw-LJ-GBn" secondAttribute="bottom" constant="15" id="L0F-1l-A2U"/>
                         <constraint firstItem="cFR-qa-ZEZ" firstAttribute="top" secondItem="77Z-z0-Bdl" secondAttribute="top" id="LSh-m5-A6h"/>
                         <constraint firstItem="Eny-9r-tWh" firstAttribute="centerY" secondItem="Jzi-2q-tys" secondAttribute="centerY" id="Nkz-od-rHi"/>
                         <constraint firstAttribute="trailing" secondItem="Bti-Ue-KGi" secondAttribute="trailing" constant="15" id="OPi-P6-E0s"/>
+                        <constraint firstItem="L3W-rn-Gjf" firstAttribute="trailing" secondItem="PWk-nF-28O" secondAttribute="trailing" constant="5" id="SVZ-cm-oTi"/>
                         <constraint firstItem="cFR-qa-ZEZ" firstAttribute="leading" secondItem="77Z-z0-Bdl" secondAttribute="leading" id="V8b-ap-9Th"/>
+                        <constraint firstItem="L3W-rn-Gjf" firstAttribute="leading" secondItem="PWk-nF-28O" secondAttribute="leading" constant="-5" id="Who-KT-Ap3"/>
                         <constraint firstItem="fIw-LJ-GBn" firstAttribute="leading" secondItem="77Z-z0-Bdl" secondAttribute="leading" constant="10" id="Y1w-6p-j2H"/>
                         <constraint firstItem="Eny-9r-tWh" firstAttribute="leading" secondItem="Jzi-2q-tys" secondAttribute="trailing" constant="30" id="dE1-bk-ic6"/>
                         <constraint firstItem="pnh-js-kWF" firstAttribute="top" secondItem="fIw-LJ-GBn" secondAttribute="bottom" constant="24" id="dMx-CM-n8C"/>
                         <constraint firstItem="Jzi-2q-tys" firstAttribute="centerX" secondItem="77Z-z0-Bdl" secondAttribute="centerX" id="eXs-ys-94H"/>
-                        <constraint firstAttribute="trailing" secondItem="I6U-LL-xTB" secondAttribute="trailing" constant="10" id="f94-GP-oOe"/>
+                        <constraint firstAttribute="trailing" secondItem="I6U-LL-xTB" secondAttribute="trailing" constant="20" id="f94-GP-oOe"/>
                         <constraint firstAttribute="bottom" secondItem="Jzi-2q-tys" secondAttribute="bottom" constant="30" id="fif-5d-DmS"/>
                         <constraint firstItem="sdr-Ip-MvH" firstAttribute="centerY" secondItem="Jzi-2q-tys" secondAttribute="centerY" id="gk2-YK-Jid"/>
                         <constraint firstItem="Bti-Ue-KGi" firstAttribute="top" secondItem="fIw-LJ-GBn" secondAttribute="bottom" constant="15" id="gnT-0s-ids"/>
+                        <constraint firstItem="iWY-iH-Pdj" firstAttribute="top" secondItem="I6U-LL-xTB" secondAttribute="top" id="hZJ-4u-t8r"/>
+                        <constraint firstItem="iWY-iH-Pdj" firstAttribute="bottom" secondItem="I6U-LL-xTB" secondAttribute="bottom" id="i52-6S-0Wf"/>
+                        <constraint firstItem="L3W-rn-Gjf" firstAttribute="top" secondItem="PWk-nF-28O" secondAttribute="top" id="kXL-qY-1lO"/>
+                        <constraint firstAttribute="trailing" secondItem="L3W-rn-Gjf" secondAttribute="trailing" constant="10" id="kgx-VD-gkZ"/>
                         <constraint firstItem="fIw-LJ-GBn" firstAttribute="top" secondItem="PWk-nF-28O" secondAttribute="bottom" constant="16" id="oZ8-Rs-T4L"/>
                         <constraint firstAttribute="trailing" secondItem="fIw-LJ-GBn" secondAttribute="trailing" constant="10" id="pUh-ZU-Oee"/>
-                        <constraint firstItem="PWk-nF-28O" firstAttribute="leading" secondItem="77Z-z0-Bdl" secondAttribute="leading" constant="10" id="raK-iy-y2O"/>
+                        <constraint firstItem="PWk-nF-28O" firstAttribute="leading" secondItem="77Z-z0-Bdl" secondAttribute="leading" constant="20" id="raK-iy-y2O"/>
                         <constraint firstItem="sdr-Ip-MvH" firstAttribute="centerX" secondItem="Jzi-2q-tys" secondAttribute="centerX" id="s2s-ix-um1"/>
-                        <constraint firstAttribute="trailing" secondItem="PWk-nF-28O" secondAttribute="trailing" constant="10" id="w2U-k9-jw2"/>
+                        <constraint firstAttribute="trailing" secondItem="PWk-nF-28O" secondAttribute="trailing" constant="20" id="w2U-k9-jw2"/>
                         <constraint firstItem="PWk-nF-28O" firstAttribute="top" secondItem="I6U-LL-xTB" secondAttribute="bottom" constant="4" id="wVE-JQ-vss"/>
                         <constraint firstItem="I6U-LL-xTB" firstAttribute="centerX" secondItem="77Z-z0-Bdl" secondAttribute="centerX" id="wey-Qa-PCU"/>
                         <constraint firstItem="cFR-qa-ZEZ" firstAttribute="centerX" secondItem="77Z-z0-Bdl" secondAttribute="centerX" id="wkI-Pf-RB4"/>
-                        <constraint firstItem="I6U-LL-xTB" firstAttribute="leading" secondItem="77Z-z0-Bdl" secondAttribute="leading" constant="10" id="xP8-s2-jz7"/>
+                        <constraint firstItem="I6U-LL-xTB" firstAttribute="leading" secondItem="77Z-z0-Bdl" secondAttribute="leading" constant="20" id="xP8-s2-jz7"/>
                     </constraints>
                     <variation key="default">
                         <mask key="constraints">
+                            <exclude reference="SVZ-cm-oTi"/>
+                            <exclude reference="Who-KT-Ap3"/>
                             <exclude reference="dMx-CM-n8C"/>
                             <exclude reference="s2s-ix-um1"/>
                         </mask>

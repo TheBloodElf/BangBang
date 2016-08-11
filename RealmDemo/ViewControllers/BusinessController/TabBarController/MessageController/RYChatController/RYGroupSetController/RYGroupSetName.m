@@ -30,7 +30,6 @@
     _textField.delegate = self;
     _textField.placeholder = @"输入讨论组名称";
     _textField.text = _currRCDiscussion.discussionName;
-    _textField.keyboardType = UIKeyboardTypeASCIICapable;
     [_scrollView addSubview:_textField];
     
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(_textField.frame) + 10, MAIN_SCREEN_WIDTH - 40, 0.5)];

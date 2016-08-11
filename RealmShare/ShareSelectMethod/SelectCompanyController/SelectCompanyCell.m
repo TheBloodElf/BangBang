@@ -28,7 +28,7 @@
 }
 - (void)setModel:(CompanyModel*)model
 {
-    [self.image sd_setImageWithURL:[NSURL URLWithString:model.logo] placeholderImage:[UIImage imageNamed:@""]];
+    [self.image sd_setImageWithURL:[NSURL URLWithString:model.logo] placeholderImage:[UIImage imageNamed:@"default_image_icon.png"]];
     self.name.text = model.company_name;
     self.selectBtn.selected = model.isSelected;
 }

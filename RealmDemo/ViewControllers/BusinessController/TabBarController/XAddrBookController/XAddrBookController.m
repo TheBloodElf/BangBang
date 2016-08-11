@@ -79,13 +79,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.frostedViewController.navigationController setNavigationBarHidden:YES animated:YES];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-    self.navigationController.navigationBar.translucent = NO;
     self.navigationController.navigationBar.barTintColor = [UIColor homeListColor];
-    [self.navigationController.navigationBar setTitleTextAttributes:
-     @{NSFontAttributeName:[UIFont systemFontOfSize:17],
-       NSForegroundColorAttributeName:[UIColor whiteColor]}];
 }
 - (void)leftClicked:(UIBarButtonItem*)item {
     if(_userManager.user.currCompany.company_no == 0) {

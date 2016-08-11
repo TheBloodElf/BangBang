@@ -23,6 +23,7 @@
     NSURL *nsurl =[NSURL URLWithString:[NSString stringWithFormat:@"%@user/register",BBHOMEURL]];
     NSURLRequest *request =[NSURLRequest requestWithURL:nsurl];
     [_webView loadRequest:request];
+    _webView.delegate = self;
     [self.view addSubview:_webView];
     
     [WebViewJavascriptBridge enableLogging];
@@ -41,5 +42,22 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+#pragma mark --- UIWebViewDelegate
+-(void)webViewDidStartLoad:(UIWebView *)webView
+{
+    [self.navigationController.view showLoadingTips:@""];
+}
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [self.navigationController.view dismissTips];
+    NSString *title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    self.title = title;
+}
+-(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    [self.navigationController.view dismissTips];
+    [self.navigationController.view showFailureTips:@"网络出错了"];
 }
 @end

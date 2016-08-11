@@ -163,9 +163,9 @@
                             </constraints>
                             <variation key="default">
                                 <mask key="constraints">
-                                    <exclude reference="17v-rK-T1q"/>
                                     <exclude reference="QVA-10-5Dy"/>
                                     <exclude reference="W3w-b0-kOa"/>
+                                    <exclude reference="17v-rK-T1q"/>
                                     <exclude reference="5aH-t9-Ssk"/>
                                     <exclude reference="vRV-io-TIM"/>
                                     <exclude reference="LOd-CL-EY2"/>
@@ -315,9 +315,9 @@
                             </constraints>
                             <variation key="default">
                                 <mask key="constraints">
-                                    <exclude reference="dkv-YI-gOE"/>
                                     <exclude reference="9u5-Lx-asm"/>
                                     <exclude reference="a7a-LE-uSn"/>
+                                    <exclude reference="dkv-YI-gOE"/>
                                     <exclude reference="j2T-fG-cnM"/>
                                     <exclude reference="oSW-zM-iw6"/>
                                     <exclude reference="ZMA-ip-ZhI"/>

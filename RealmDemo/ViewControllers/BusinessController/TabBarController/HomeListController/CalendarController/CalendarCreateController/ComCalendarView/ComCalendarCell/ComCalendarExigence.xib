@@ -20,7 +20,7 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nfC-Y6-Q4W">
+                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nfC-Y6-Q4W">
                         <rect key="frame" x="100" y="16" width="44" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <state key="normal" title="紧急" image="repeat_radio_gray">
@@ -31,10 +31,10 @@
                             <action selector="leftClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="agd-aK-ed6"/>
                         </connections>
                     </button>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar_emergency" translatesAutoresizingMaskIntoConstraints="NO" id="VlH-0A-krh">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="calendar_emergency" translatesAutoresizingMaskIntoConstraints="NO" id="VlH-0A-krh">
                         <rect key="frame" x="159" y="18" width="13" height="15"/>
                     </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GUM-h2-Bjy">
+                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GUM-h2-Bjy">
                         <rect key="frame" x="187" y="17" width="74" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <state key="normal" title="非常紧急" image="repeat_radio_gray">
@@ -45,7 +45,7 @@
                             <action selector="rightClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="boM-bB-o0n"/>
                         </connections>
                     </button>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar_dangerous" translatesAutoresizingMaskIntoConstraints="NO" id="tRx-Lw-mHo">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="calendar_dangerous" translatesAutoresizingMaskIntoConstraints="NO" id="tRx-Lw-mHo">
                         <rect key="frame" x="276" y="18" width="13" height="15"/>
                     </imageView>
                 </subviews>

@@ -21,12 +21,6 @@
                             <constraint firstAttribute="width" constant="28" id="cUT-KQ-Nhg"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="442-Tf-47u">
-                        <rect key="frame" x="15" y="48" width="366" height="110"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sSQ-FX-vZY">
                         <rect key="frame" x="348" y="168" width="33" height="14"/>
                         <constraints>
@@ -42,45 +36,39 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="\erte" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="gmp-Vg-xqZ">
+                        <rect key="frame" x="15" y="48" width="366" height="110"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    </textView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="442-Tf-47u" firstAttribute="trailing" secondItem="LDX-Wv-ich" secondAttribute="trailing" id="0K1-j9-sVj"/>
+                    <constraint firstItem="sSQ-FX-vZY" firstAttribute="top" secondItem="gmp-Vg-xqZ" secondAttribute="bottom" constant="10" id="1yw-wb-ogi"/>
                     <constraint firstAttribute="bottom" secondItem="sSQ-FX-vZY" secondAttribute="bottom" constant="5" id="61X-6b-0sq"/>
                     <constraint firstItem="sSQ-FX-vZY" firstAttribute="leading" secondItem="LLf-ik-fuX" secondAttribute="leading" id="6f8-Sg-ZTT"/>
                     <constraint firstItem="LLf-ik-fuX" firstAttribute="centerY" secondItem="LDX-Wv-ich" secondAttribute="centerY" id="AZ1-Rl-ipy"/>
-                    <constraint firstItem="sSQ-FX-vZY" firstAttribute="top" secondItem="442-Tf-47u" secondAttribute="bottom" constant="10" id="CTA-bs-RbH"/>
-                    <constraint firstItem="sSQ-FX-vZY" firstAttribute="top" secondItem="442-Tf-47u" secondAttribute="bottom" constant="10" id="HfW-f4-SSo"/>
-                    <constraint firstItem="442-Tf-47u" firstAttribute="trailing" secondItem="LLf-ik-fuX" secondAttribute="trailing" id="SCm-oj-arY"/>
+                    <constraint firstItem="gmp-Vg-xqZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="K14-qz-dHT"/>
+                    <constraint firstItem="gmp-Vg-xqZ" firstAttribute="trailing" secondItem="LLf-ik-fuX" secondAttribute="trailing" id="TgA-Dq-j1Z"/>
                     <constraint firstItem="LLf-ik-fuX" firstAttribute="leading" secondItem="LDX-Wv-ich" secondAttribute="trailing" constant="5" id="Wcv-U1-VNC"/>
                     <constraint firstItem="sSQ-FX-vZY" firstAttribute="trailing" secondItem="LDX-Wv-ich" secondAttribute="trailing" id="bAM-42-auF"/>
+                    <constraint firstItem="gmp-Vg-xqZ" firstAttribute="top" secondItem="LDX-Wv-ich" secondAttribute="bottom" constant="5" id="bzH-sA-LTd"/>
                     <constraint firstItem="LDX-Wv-ich" firstAttribute="leading" secondItem="LLf-ik-fuX" secondAttribute="trailing" constant="5" id="dEO-BL-2pB"/>
                     <constraint firstItem="LDX-Wv-ich" firstAttribute="leading" secondItem="LLf-ik-fuX" secondAttribute="trailing" constant="5" id="dJj-GN-hs6"/>
-                    <constraint firstItem="442-Tf-47u" firstAttribute="top" secondItem="LDX-Wv-ich" secondAttribute="bottom" constant="5" id="dQG-Bn-PaP"/>
-                    <constraint firstItem="442-Tf-47u" firstAttribute="top" secondItem="LDX-Wv-ich" secondAttribute="bottom" constant="5" id="gFw-bX-UD1"/>
                     <constraint firstAttribute="trailing" secondItem="LDX-Wv-ich" secondAttribute="trailing" constant="5" id="gzE-u4-QQy"/>
                     <constraint firstItem="LDX-Wv-ich" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="i9K-XJ-wnc"/>
                     <constraint firstItem="LDX-Wv-ich" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="iay-68-8Ds"/>
                     <constraint firstItem="LLf-ik-fuX" firstAttribute="centerY" secondItem="LDX-Wv-ich" secondAttribute="centerY" id="jiq-Gj-NYx"/>
-                    <constraint firstItem="442-Tf-47u" firstAttribute="trailing" secondItem="LDX-Wv-ich" secondAttribute="trailing" id="jnS-Ht-fTq"/>
                     <constraint firstItem="sSQ-FX-vZY" firstAttribute="trailing" secondItem="LDX-Wv-ich" secondAttribute="trailing" id="kBX-rJ-znM"/>
-                    <constraint firstItem="442-Tf-47u" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="p7z-4J-D9Q"/>
-                    <constraint firstAttribute="trailing" secondItem="442-Tf-47u" secondAttribute="trailing" constant="15" id="re0-dq-bPS"/>
                     <constraint firstItem="sSQ-FX-vZY" firstAttribute="trailing" secondItem="LLf-ik-fuX" secondAttribute="trailing" id="u6E-h3-M39"/>
-                    <constraint firstItem="442-Tf-47u" firstAttribute="leading" secondItem="LLf-ik-fuX" secondAttribute="leading" id="zw9-ip-WzX"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
-                        <exclude reference="0K1-j9-sVj"/>
-                        <exclude reference="dQG-Bn-PaP"/>
-                        <exclude reference="jnS-Ht-fTq"/>
-                        <exclude reference="re0-dq-bPS"/>
-                        <exclude reference="zw9-ip-WzX"/>
                         <exclude reference="AZ1-Rl-ipy"/>
                         <exclude reference="Wcv-U1-VNC"/>
                         <exclude reference="dJj-GN-hs6"/>
                         <exclude reference="iay-68-8Ds"/>
                         <exclude reference="6f8-Sg-ZTT"/>
-                        <exclude reference="HfW-f4-SSo"/>
                         <exclude reference="bAM-42-auF"/>
                         <exclude reference="kBX-rJ-znM"/>
                     </mask>
@@ -88,11 +76,11 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="avaterImage" destination="LDX-Wv-ich" id="Iwt-KR-D7k"/>
-                <outlet property="contentLabel" destination="442-Tf-47u" id="k5q-zN-gxu"/>
+                <outlet property="contentLabel" destination="gmp-Vg-xqZ" id="UTE-eM-8Iq"/>
                 <outlet property="nameLabel" destination="LLf-ik-fuX" id="ne4-7q-pQg"/>
                 <outlet property="timeLabel" destination="sSQ-FX-vZY" id="4aa-ZX-cDN"/>
             </connections>
-            <point key="canvasLocation" x="431.5" y="259"/>
+            <point key="canvasLocation" x="570.5" y="264"/>
         </tableViewCell>
     </objects>
 </document>

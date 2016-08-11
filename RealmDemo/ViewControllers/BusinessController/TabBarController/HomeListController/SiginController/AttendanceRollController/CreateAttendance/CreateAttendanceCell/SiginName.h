@@ -8,17 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol SiginNameDelegate <NSObject>
-
-- (void)siginNameTextField:(UITextField*)textField;
-
-@end
 
 @interface SiginName : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UIImageView *leftImageView;
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UITextField *inputFixed;
-@property (weak, nonatomic) id<SiginNameDelegate> delegate;
+
 
 @end

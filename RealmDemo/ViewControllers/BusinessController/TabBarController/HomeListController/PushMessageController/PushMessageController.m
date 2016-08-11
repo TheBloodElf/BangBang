@@ -42,6 +42,8 @@
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 55)];
     _searchBar.delegate = self;
     _searchBar.placeholder = @"搜索";
+    _searchBar.tintColor = [UIColor colorWithRed:247 / 255.f green:247 / 255.f blue:247 / 255.f alpha:1];
+    [_searchBar setSearchBarBackgroundColor:[UIColor colorWithRed:247 / 255.f green:247 / 255.f blue:247 / 255.f alpha:1]];
     _searchBar.returnKeyType = UIReturnKeySearch;
     [self.view addSubview:_searchBar];
     //创建导航栏
@@ -65,7 +67,6 @@
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 55, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 55 - 64) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    _tableView.tableFooterView = [UIView new];
     _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [_tableView registerNib:[UINib nibWithNibName:@"PushMessageCell" bundle:nil] forCellReuseIdentifier:@"PushMessageCell"];
     [self.view addSubview:_tableView];
@@ -81,13 +82,20 @@
     _noDataView = [[UIView alloc] initWithFrame:_tableView.bounds];
     [_noDataView addSubview:label];
     [self searchDataFormLoc];
+    if(_pushMessageArr.count == 0)
+        _tableView.tableFooterView = _noDataView;
+    else
+        _tableView.tableFooterView = [UIView new];
     [_tableView reloadData];
 }
 #pragma mark --
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
-    _pushMessageArr = (id)controller.fetchedObjects;
     [self searchDataFormLoc];
+    if(_pushMessageArr.count == 0)
+        _tableView.tableFooterView = _noDataView;
+    else
+        _tableView.tableFooterView = [UIView new];
     [_tableView reloadData];
 }
 //表格视图长按手势
@@ -159,10 +167,10 @@
         }
         _pushMessageArr = currArr;
     }
-    if(_pushMessageArr.count == 0)
-        _tableView.tableFooterView = _noDataView;
-    else
-        _tableView.tableFooterView = [UIView new];
+    //按照时间降序排列
+    [_pushMessageArr sortUsingComparator:^NSComparisonResult(PushMessage *obj1, PushMessage *obj2) {
+        return obj1.addTime.timeIntervalSince1970 < obj2.addTime.timeIntervalSince1970;
+    }];
 }
 #pragma mark -- 
 #pragma mark -- UISearchBarDelegate
@@ -173,8 +181,10 @@
 }
 #pragma mark --
 #pragma mark -- UITableViewDelegate
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [_pushMessageArr[indexPath.row] contentHeight:MAIN_SCREEN_WIDTH - 113 font:12];
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if([NSString isBlank:[_pushMessageArr[indexPath.row] content]])
+        return [@"会议有新的消息" textSizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH - 113, 10000)].height + 40;
+     return [[_pushMessageArr[indexPath.row] content] textSizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH - 113, 10000)].height + 40;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _pushMessageArr.count;
@@ -252,21 +262,19 @@
             }
         } else if ([message.type isEqualToString:@"CALENDARTIP"]) {//日程推送：
             NSArray<Calendar*> *calendarArr = [[UserManager manager] getCalendarArr];
-            Calendar *calendar = nil;
             for (Calendar *temp in calendarArr) {
-                if([message.target_id isEqualToString:temp.target_id]) {
-                    calendar = temp;
+                if(message.target_id.intValue == temp.id) {
+                    if(temp.repeat_type == 0) {
+                        ComCalendarDetailViewController *com = [ComCalendarDetailViewController new];
+                        com.data = temp;
+                        [self.navigationController pushViewController:com animated:YES];
+                    } else {
+                        RepCalendarDetailController *com = [RepCalendarDetailController new];
+                        com.data = temp;
+                        [self.navigationController pushViewController:com animated:YES];
+                    }
                     break;
                 }
-            }
-            if(calendar.repeat_type == 0) {
-                ComCalendarDetailViewController *com = [ComCalendarDetailViewController new];
-                com.data = calendar;
-                [self.navigationController pushViewController:com animated:YES];
-            } else {
-                RepCalendarDetailController *com = [RepCalendarDetailController new];
-                com.data = calendar;
-                [self.navigationController pushViewController:com animated:YES];
             }
         } else if ([message.type isEqualToString:@"TASKTIP"]) {//任务提醒推送
             //进入任务详情

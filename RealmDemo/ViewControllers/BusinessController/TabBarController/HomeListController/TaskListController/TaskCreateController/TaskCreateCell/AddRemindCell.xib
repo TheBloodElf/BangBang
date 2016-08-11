@@ -17,14 +17,14 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="提醒" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Od0-Uw-gdV">
                         <rect key="frame" x="10" y="11" width="34" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_task_add" translatesAutoresizingMaskIntoConstraints="NO" id="MHL-a4-9qD">
-                        <rect key="frame" x="285" y="9" width="25" height="25"/>
+                        <rect key="frame" x="286" y="10" width="24" height="24"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="25" id="EPY-d7-smT"/>
-                            <constraint firstAttribute="height" constant="25" id="beM-t9-CSU"/>
+                            <constraint firstAttribute="width" constant="24" id="EPY-d7-smT"/>
+                            <constraint firstAttribute="height" constant="24" id="beM-t9-CSU"/>
                         </constraints>
                     </imageView>
                 </subviews>

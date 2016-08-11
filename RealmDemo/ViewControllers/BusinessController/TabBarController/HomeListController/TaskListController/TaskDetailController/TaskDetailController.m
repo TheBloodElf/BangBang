@@ -75,8 +75,13 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.frostedViewController.navigationController setNavigationBarHidden:YES animated:YES];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if([self.navigationController.viewControllers[0] isMemberOfClass:[NSClassFromString(@"REFrostedViewController") class]]) {
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+    }
 }
 - (void)dataDidChange {
     _taskModel = [self.data deepCopy];
@@ -220,19 +225,11 @@
     UIDocumentInteractionController *documentController = [UIDocumentInteractionController
      interactionControllerWithURL:fileUrl];
     documentController.delegate = self;
-    [documentController presentOpenInMenuFromRect:CGRectZero inView:self.view animated:YES];
+    [documentController presentPreviewAnimated:YES];
 }
--(void)documentInteractionController:(UIDocumentInteractionController *)controller willBeginSendingToApplication:(NSString *)application
-{
-    
-}
--(void)documentInteractionController:(UIDocumentInteractionController *)controller didEndSendingToApplication:(NSString *)application
-{
-    
-}
--(void)documentInteractionControllerDidDismissOpenInMenu: (UIDocumentInteractionController *)controller
-{
-    
+- (UIViewController *) documentInteractionControllerViewControllerForPreview:
+(UIDocumentInteractionController *) controller {
+    return self;
 }
 #pragma mark -- SelectImageDelegate
 - (void)selectImageFinish:(NSMutableArray<Photo*>*)photoArr {

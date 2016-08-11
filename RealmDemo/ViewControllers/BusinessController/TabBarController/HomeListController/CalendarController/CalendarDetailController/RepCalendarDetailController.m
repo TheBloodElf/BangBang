@@ -28,30 +28,54 @@
     self.title = @"日程详情";
     _userManager = [UserManager manager];
     if(_calendar.status == 1 )//今天如果是被删除或者被完成的也不添加工具栏 未完成就有下面的操作按钮
-        _repCalendarView = [[RepCalendarView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 50)];
+        _repCalendarView = [[RepCalendarView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 50 - 64)];
     else
-        _repCalendarView = [[RepCalendarView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT)];
+        _repCalendarView = [[RepCalendarView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 64)];
     _repCalendarView.data = _calendar;
     [self.view addSubview:_repCalendarView];
     if(_calendar.status == 1) {//今天如果是被删除或者被完成的也不添加工具栏
         if([_calendar.created_by isEqualToString:_userManager.user.user_guid])//如果是自己创建的 就可以修改
             self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(rightClicked:)];
-        UIToolbar *bottomBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, MAIN_SCREEN_HEIGHT - 50 - 64, MAIN_SCREEN_WIDTH, 50)];
-        UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-        UIBarButtonItem *deleteItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_delete"] style:UIBarButtonItemStylePlain target:self action:@selector(deleteCalendarClicked:)];
-        UIBarButtonItem *finishItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_complete"] style:UIBarButtonItemStylePlain target:self action:@selector(finishCalendarClicked:)];
-        bottomBar.items = @[spaceItem,deleteItem,spaceItem,finishItem,spaceItem];
-        [self.view addSubview:bottomBar];
+        UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+        okBtn.frame = CGRectMake(MAIN_SCREEN_WIDTH / 2, MAIN_SCREEN_HEIGHT - 50 - 64, MAIN_SCREEN_WIDTH / 2, 50);
+        okBtn.titleEdgeInsets = UIEdgeInsetsMake(35, 0, 0, 0);
+        okBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+        [okBtn setTitle:@"完成日程" forState:UIControlStateNormal];
+        [okBtn setTitleColor:[UIColor colorFromHexCode:@"#848484"] forState:UIControlStateNormal];
+        okBtn.backgroundColor = [UIColor colorFromHexCode:@"#eeeeee"];
+        [okBtn addTarget:self action:@selector(finishCalendarClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:okBtn];
+        UIImageView *okImage = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"ic_complete"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+        okImage.center = CGPointMake(MAIN_SCREEN_WIDTH / 4.f, 22);
+        [okBtn addSubview:okImage];
+        
+        UIButton *delBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+        delBtn.frame = CGRectMake(0, MAIN_SCREEN_HEIGHT - 50 - 64, MAIN_SCREEN_WIDTH / 2, 50);
+        delBtn.titleEdgeInsets = UIEdgeInsetsMake(35, 0, 0, 0);
+        delBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+        [delBtn setTitle:@"删除日程" forState:UIControlStateNormal];
+        [delBtn setTitleColor:[UIColor colorFromHexCode:@"#848484"] forState:UIControlStateNormal];
+        delBtn.backgroundColor = [UIColor colorFromHexCode:@"#eeeeee"];
+        [delBtn addTarget:self action:@selector(deleteCalendarClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:delBtn];
+        UIImageView *delImage = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"ic_delete"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+        delImage.center = CGPointMake(MAIN_SCREEN_WIDTH / 4.f, 22);
+        [delBtn addSubview:delImage];
     }
     // Do any additional setup after loading the view.
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.frostedViewController.navigationController setNavigationBarHidden:YES animated:YES];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setBackIndicatorTransitionMaskImage:nil];
-    [self.navigationController.navigationBar setShadowImage:nil];
+    //如果是从业务的根视图进来的 就隐藏导航
+    if([self.navigationController.viewControllers[0] isMemberOfClass:[NSClassFromString(@"REFrostedViewController") class]]) {
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+    }
+}
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if([self.navigationController.viewControllers[0] isMemberOfClass:[NSClassFromString(@"REFrostedViewController") class]]) {
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+    }
 }
 - (void)dataDidChange {
     _calendar = [[Calendar alloc] initWithJSONDictionary:[self.data JSONDictionary]];

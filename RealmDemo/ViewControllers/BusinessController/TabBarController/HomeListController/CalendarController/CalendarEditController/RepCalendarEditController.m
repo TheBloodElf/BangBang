@@ -52,10 +52,6 @@
         [_userManager updateCalendar:_calendar];
         [self.navigationController popViewControllerAnimated:YES];
     }];
-//    if(self.delegate && [self.delegate respondsToSelector:@selector(RepCalendarEdit:)])
-//        [self.delegate RepCalendarEdit:_calendar];
-//    [_userManager updateCalendar:_calendar];
-//    [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)dataDidChange {
     _calendar = [[Calendar alloc] initWithJSONDictionary:[self.data JSONDictionary]];

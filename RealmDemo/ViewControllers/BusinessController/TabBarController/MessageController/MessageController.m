@@ -41,12 +41,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.frostedViewController.navigationController setNavigationBarHidden:YES animated:YES];
-    self.navigationController.navigationBar.translucent = NO;
     self.navigationController.navigationBar.barTintColor = [UIColor homeListColor];
-    [self.navigationController.navigationBar setTitleTextAttributes:
-     @{NSFontAttributeName:[UIFont systemFontOfSize:17],
-       NSForegroundColorAttributeName:[UIColor whiteColor]}];
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
     if(_moreSelectView.isHide == YES)
@@ -57,6 +52,10 @@
 #pragma mark -- 
 #pragma mark --  MoreSelectViewDelegate
 - (void)moreSelectIndex:(int)index {
+    if(!_userManager.user.currCompany.company_no) {
+        [self.navigationController.view showMessageTips:@"请选择一个圈子后再操作"];
+        return;
+    }
     MuliteSelectController *mulite = [MuliteSelectController new];
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
     mulite.outEmployees = [@[employee] mutableCopy];
@@ -80,7 +79,9 @@
         chat.conversationType              = ConversationType_DISCUSSION;
         chat.title                         = [nameArr componentsJoinedByString:@","];
         chat.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:chat animated:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.navigationController pushViewController:chat animated:YES];
+        });
     } error:nil];
 }
 //点击进入会话界面

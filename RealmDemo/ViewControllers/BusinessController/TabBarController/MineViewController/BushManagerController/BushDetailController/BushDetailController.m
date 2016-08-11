@@ -70,6 +70,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     [self.companyAvater sd_setImageWithURL:[NSURL URLWithString:_currCompany.logo] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
     self.companyName.text = _currCompany.company_name;
     self.companyType.text = [_currCompany companyTypeStr];

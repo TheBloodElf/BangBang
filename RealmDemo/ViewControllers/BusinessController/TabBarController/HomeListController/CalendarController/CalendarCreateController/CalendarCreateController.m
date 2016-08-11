@@ -87,6 +87,12 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.navigationController.navigationBar.barTintColor = [UIColor calendarColor];
 }
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if([self.navigationController.viewControllers[0] isMemberOfClass:[NSClassFromString(@"REFrostedViewController") class]]) {
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+    }
+}
 - (void)segmentClicked:(UISegmentedControl*)seControl {
     [_bottomScrollView setContentOffset:CGPointMake(seControl.selectedSegmentIndex * _bottomScrollView.frame.size.width, 0) animated:YES];
 }
@@ -97,6 +103,7 @@
         return;
     }
     //创建日程
+    [self.navigationController.view showLoadingTips:@""];
     [UserHttp createUserCalendar:_currCalendar handler:^(id data, MError *error) {
         [self.navigationController.view dismissTips];
         if(error) {
@@ -109,9 +116,6 @@
         [self.navigationController showSuccessTips:@"添加成功"];
         [self.navigationController popViewControllerAnimated:YES];
     }];
-//    _currCalendar.id = [[NSDate date] timeIntervalSince1970];
-//    [_userManager addCalendar:_currCalendar];
-//    [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark --
 #pragma mark -- RepCalendarViewDelegate

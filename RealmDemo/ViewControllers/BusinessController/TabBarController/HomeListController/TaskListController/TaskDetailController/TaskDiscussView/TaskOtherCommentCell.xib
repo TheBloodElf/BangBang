@@ -36,29 +36,29 @@
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Ph-8c-UZ0">
-                        <rect key="frame" x="38" y="48" width="366" height="110"/>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="6456457567568978978608970855435dfsf42356235234532623" translatesAutoresizingMaskIntoConstraints="NO" id="MHi-xc-7AV">
+                        <rect key="frame" x="38" y="43" width="366" height="115"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    </textView>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="MHi-xc-7AV" secondAttribute="trailing" constant="15" id="1da-KI-C5H"/>
                     <constraint firstItem="Q17-vc-bdy" firstAttribute="leading" secondItem="fQn-Vg-xrt" secondAttribute="leading" constant="5" id="6MT-N4-t3p"/>
-                    <constraint firstAttribute="trailing" secondItem="6Ph-8c-UZ0" secondAttribute="trailing" constant="15" id="IR0-bV-zFM"/>
+                    <constraint firstItem="MHi-xc-7AV" firstAttribute="leading" secondItem="6j2-le-pIb" secondAttribute="leading" id="DBR-u3-0oi"/>
+                    <constraint firstItem="6vN-Ax-aZc" firstAttribute="top" secondItem="MHi-xc-7AV" secondAttribute="bottom" constant="10" id="P9v-iZ-VO9"/>
                     <constraint firstAttribute="bottom" secondItem="6vN-Ax-aZc" secondAttribute="bottom" constant="5" id="TO3-pe-OrY"/>
+                    <constraint firstItem="MHi-xc-7AV" firstAttribute="top" secondItem="6j2-le-pIb" secondAttribute="bottom" constant="5" id="Tcw-0Z-RGj"/>
                     <constraint firstItem="6j2-le-pIb" firstAttribute="leading" secondItem="Q17-vc-bdy" secondAttribute="trailing" constant="5" id="Txk-Bj-Dch"/>
-                    <constraint firstItem="6vN-Ax-aZc" firstAttribute="top" secondItem="6Ph-8c-UZ0" secondAttribute="bottom" constant="10" id="bjW-Rx-5MS"/>
-                    <constraint firstItem="6Ph-8c-UZ0" firstAttribute="leading" secondItem="6j2-le-pIb" secondAttribute="leading" id="df6-wC-2jZ"/>
                     <constraint firstItem="6vN-Ax-aZc" firstAttribute="leading" secondItem="6j2-le-pIb" secondAttribute="leading" id="edF-nZ-Y1K"/>
-                    <constraint firstItem="6Ph-8c-UZ0" firstAttribute="top" secondItem="Q17-vc-bdy" secondAttribute="bottom" constant="5" id="ffh-Cy-Gdf"/>
                     <constraint firstItem="6j2-le-pIb" firstAttribute="centerY" secondItem="Q17-vc-bdy" secondAttribute="centerY" id="osB-Jp-4QB"/>
                     <constraint firstItem="Q17-vc-bdy" firstAttribute="top" secondItem="fQn-Vg-xrt" secondAttribute="top" constant="15" id="pOF-Vn-DMw"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="avaterImage" destination="Q17-vc-bdy" id="jcE-4r-Isk"/>
-                <outlet property="contentLabel" destination="6Ph-8c-UZ0" id="Upd-JP-uQv"/>
+                <outlet property="contentLabel" destination="MHi-xc-7AV" id="epO-Wa-H2l"/>
                 <outlet property="nameLabel" destination="6j2-le-pIb" id="3Rq-8b-jSd"/>
                 <outlet property="timeLabel" destination="6vN-Ax-aZc" id="xQL-rU-ti1"/>
             </connections>

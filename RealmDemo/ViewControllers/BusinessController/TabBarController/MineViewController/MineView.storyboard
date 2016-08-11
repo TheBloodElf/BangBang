@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -10,7 +10,7 @@
         <!--Mine View Controller-->
         <scene sceneID="fpE-rr-LtI">
             <objects>
-                <tableViewController storyboardIdentifier="MineViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bZq-HD-VxX" customClass="MineViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="MineViewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bZq-HD-VxX" customClass="MineViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="eiV-uh-kqb">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -233,7 +233,7 @@
         <!--Bush Detail Controller-->
         <scene sceneID="nR8-Se-XOf">
             <objects>
-                <tableViewController storyboardIdentifier="BushDetailController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="gCa-y9-KNw" customClass="BushDetailController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="BushDetailController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="gCa-y9-KNw" customClass="BushDetailController" sceneMemberID="viewController">
                     <tableView key="view" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="nrf-w2-YAZ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -443,7 +443,7 @@
         <!--Update Bush Controller-->
         <scene sceneID="OC5-xR-mhC">
             <objects>
-                <tableViewController storyboardIdentifier="UpdateBushController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cAt-Di-TzP" customClass="UpdateBushController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="UpdateBushController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cAt-Di-TzP" customClass="UpdateBushController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="73T-ZE-ilt">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -620,7 +620,7 @@
         <!--Create Bush Controller-->
         <scene sceneID="Xqr-1a-n4Y">
             <objects>
-                <tableViewController storyboardIdentifier="CreateBushController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="a2k-qW-2Gf" customClass="CreateBushController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="CreateBushController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="a2k-qW-2Gf" customClass="CreateBushController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="20" sectionFooterHeight="1" id="cUr-i6-IMo">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -734,7 +734,7 @@
                                                     <rect key="frame" x="10" y="36" width="300" height="78"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请填写圈子简介..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hup-Me-JBV">
                                                     <rect key="frame" x="13" y="44" width="111" height="17"/>
@@ -778,7 +778,7 @@
         <!--User Setting Controller-->
         <scene sceneID="5nt-zt-Hq3">
             <objects>
-                <tableViewController storyboardIdentifier="UserSettingController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="TVC-xf-dUs" customClass="UserSettingController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="UserSettingController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="TVC-xf-dUs" customClass="UserSettingController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="20" sectionFooterHeight="1" id="9wm-vZ-PF4">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="700"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

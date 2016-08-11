@@ -139,6 +139,7 @@
 - (void)recommendToFriend
 {
     //获取邀请链接
+    [self.navigationController.view showLoadingTips:@""];
     [UserHttp getInviteURL:_userManager.user.user_no companyNo:_userManager.user.currCompany.company_no handler:^(id data, MError *error) {
         [self.navigationController.view dismissTips];
         if(error) {
@@ -165,7 +166,8 @@
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否确定要退出回到登陆界面?" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *alertCancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *alertSure = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [_identityManager showLogin];
+        [[IdentityManager manager] logOut];
+        [[IdentityManager manager] showLogin:@""];
     }];
     [alertVC addAction:alertCancel];
     [alertVC addAction:alertSure];

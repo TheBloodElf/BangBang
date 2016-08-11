@@ -38,6 +38,10 @@
     [self.view addSubview:_tableView];
     // Do any additional setup after loading the view.
 }
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
 #pragma mark --
 #pragma mark -- UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

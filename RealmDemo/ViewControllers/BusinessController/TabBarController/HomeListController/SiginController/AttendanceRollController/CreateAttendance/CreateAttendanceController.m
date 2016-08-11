@@ -22,7 +22,7 @@
 #import "UserManager.h"
 #import "UserHttp.h"
 
-@interface CreateAttendanceController ()<UITableViewDelegate,UITableViewDataSource,PunchCardRemindDelegate,WorkAdressCellDelegate,SelectAttendanceWorkDayDelegate,SelectAttendanceRangeDelegate,SiginNameDelegate,SelectAdressDelegate>
+@interface CreateAttendanceController ()<UITableViewDelegate,UITableViewDataSource,PunchCardRemindDelegate,WorkAdressCellDelegate,SelectAttendanceWorkDayDelegate,SelectAttendanceRangeDelegate,SelectAdressDelegate>
 {
     UserManager *_userManager;//用户管理器
     UITableView  *_tableView;//展示数据的表格视图
@@ -47,8 +47,8 @@
     _currSiginRule.work_day = @"1,2,3,4,5";
     _currSiginRule.start_work_time_alert = 5;
     _currSiginRule.end_work_time_alert = 5;
-    _currSiginRule.start_work_time = [[NSDate date] timeIntervalSince1970];
-    _currSiginRule.end_work_time = [[NSDate date] timeIntervalSince1970];
+    _currSiginRule.start_work_time = [[NSDate date] timeIntervalSince1970] * 1000;
+    _currSiginRule.end_work_time = [[NSDate date] timeIntervalSince1970] * 1000;
     _currSiginRule.scope = 500;
     _currSiginRule.is_alert = TRUE;
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
@@ -152,10 +152,7 @@
     if(indexPath.section == 0) {
         if (indexPath.row == 0) {//考勤名称
             SiginName *nameCell = (id)cell;
-            nameCell.leftImageView.image = [UIImage imageNamed:@"sigin_name_icon"];
-            nameCell.titleLabel.text = @"考勤名称";
-            nameCell.inputFixed.text = _currSiginRule.setting_name;
-            nameCell.delegate = self;
+            nameCell.data = _currSiginRule;
         } else if (indexPath.row == 1) {//考勤管理人
             PalneTableViewCell *palneCell = (id)cell;
             palneCell.leftImageView.image = [UIImage imageNamed:@"sigin_manager_icon"];
@@ -321,12 +318,6 @@
     [_currSiginRule.json_list_address_settings addObject:ruleSet];
     [_tableView reloadSections:[NSIndexSet indexSetWithIndex:3] withRowAnimation:UITableViewRowAnimationNone];
 }
-#pragma mark -- 
-#pragma mark -- SiginNameDelegate
-- (void)siginNameTextField:(UITextField *)textField
-{
-    _currSiginRule.setting_name = textField.text;
-}
 
 #pragma mark --
 #pragma mark -- SelectAttendanceWorkDayDelegate
@@ -383,6 +374,7 @@
 - (void)rightNavigationBarAction:(UIBarButtonItem*)item {
     //提交考勤规则数据
     if([self checkDataValie]) {
+        [self.navigationController.view showLoadingTips:@""];
          //把第一个地址填充到签到规则模型
         Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
         PunchCardAddressSetting *firstAdress = _currSiginRule.json_list_address_settings[0];
@@ -391,8 +383,8 @@
         _currSiginRule.province = firstAdress.province;
         _currSiginRule.city = firstAdress.city;
         _currSiginRule.subdistrict = firstAdress.subdistrict;
-        _currSiginRule.create_on_utc = [[NSDate new] timeIntervalSince1970];
-        _currSiginRule.update_on_utc = [[NSDate new] timeIntervalSince1970];
+        _currSiginRule.create_on_utc = [[NSDate new] timeIntervalSince1970] * 1000;
+        _currSiginRule.update_on_utc = [[NSDate new] timeIntervalSince1970] * 1000;
         _currSiginRule.update_by = employee.employee_guid;
         RLMArray<PunchCardAddressSetting> *punchCardAddressSettingArray = [[RLMArray<PunchCardAddressSetting> alloc] initWithObjectClassName:@"PunchCardAddressSetting"];
         int idCount = 0;

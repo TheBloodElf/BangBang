@@ -115,6 +115,11 @@
     [aUserInfo setObject:alertBody forKey:@"content"];
     [aUserInfo setObject:[NSString stringWithFormat:@"%@",@([date timeIntervalSince1970] * 1000)] forKey:@"time"];
     [aUserInfo setObject:@"GENERAL" forKey:@"action"];
+    [aUserInfo setObject:@([NSDate date].timeIntervalSince1970 * 1000).stringValue forKey:@"target_id"];
+    [aUserInfo setObject:@(_user.user_no) forKey:@"from_user_no"];
+    [aUserInfo setObject:@(_user.user_no) forKey:@"to_user_no"];
+    [aUserInfo setObject:@(YES) forKey:@"unread"];
+    [aUserInfo setObject:@(_user.currCompany.company_no) forKey:@"company_no"];
     notification.userInfo = aUserInfo;
     // 将通知添加到系统中
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
@@ -175,31 +180,31 @@
 -(void)addCalendarAlertToLocNoti:(Calendar*)calendar date:(NSDate*)date{
     // 初始化本地通知对象
     UILocalNotification *notification = [[UILocalNotification alloc] init];
-    if (notification) {
-        notification.timeZone = [NSTimeZone defaultTimeZone]; // 使用本地时区
-        notification.fireDate = date;
-        // 设置重复间隔
-        notification.repeatInterval = 0;
-        // 设置提醒的文字内容
-        notification.alertBody   = [NSString stringWithFormat:@"事务提醒: %@",calendar.event_name];
-        notification.alertAction = NSLocalizedString(@"帮帮管理助手", nil);
-        notification.soundName = @"notification_ring.mp3";
-        // 设置应用程序右上角的提醒个数
-        notification.applicationIconBadgeNumber++;
-        // 设定通知的userInfo，用来标识该通知
-        NSMutableDictionary *aUserInfo = [[NSMutableDictionary alloc] init];
-        [aUserInfo setObject:@(calendar.id) forKey:@"target_id"];
-        [aUserInfo setObject:@"CALENDARTIP" forKey:@"type"];
-        [aUserInfo setObject:[NSString stringWithFormat:@"事务提醒: %@", calendar.event_name] forKey:@"content"];
-        [aUserInfo setObject:[NSString stringWithFormat:@"%lld",calendar.begindate_utc] forKey:@"time"];
-        [aUserInfo setObject:@"0" forKey:@"company_no"];
-        [aUserInfo setObject:calendar.created_by forKey:@"from_user_no"];
-        [aUserInfo setObject:@(_user.user_no) forKey:@"to_user_no"];
-        [aUserInfo setObject:@"GENERAL" forKey:@"action"];
-        notification.userInfo = aUserInfo;
-        // 将通知添加到系统中
-        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-    }
+    notification.timeZone = [NSTimeZone defaultTimeZone]; // 使用本地时区
+    notification.fireDate = date;
+    // 设置重复间隔
+    notification.repeatInterval = 0;
+    // 设置提醒的文字内容
+    notification.alertBody   = [NSString stringWithFormat:@"事务提醒: %@",calendar.event_name];
+    notification.alertAction = NSLocalizedString(@"帮帮管理助手", nil);
+    notification.soundName = @"notification_ring.mp3";
+    // 设置应用程序右上角的提醒个数
+    notification.applicationIconBadgeNumber++;
+    // 设定通知的userInfo，用来标识该通知
+    NSMutableDictionary *aUserInfo = [[NSMutableDictionary alloc] init];
+    [aUserInfo setObject:@(calendar.id).stringValue forKey:@"target_id"];
+    [aUserInfo setObject:@"CALENDARTIP" forKey:@"type"];
+    [aUserInfo setObject:[NSString stringWithFormat:@"事务提醒: %@", calendar.event_name] forKey:@"content"];
+    [aUserInfo setObject:[NSString stringWithFormat:@"%lld",calendar.begindate_utc] forKey:@"time"];
+    [aUserInfo setObject:@"0" forKey:@"company_no"];
+    [aUserInfo setObject:@(_user.user_no) forKey:@"from_user_no"];
+    [aUserInfo setObject:@(_user.user_no) forKey:@"to_user_no"];
+    [aUserInfo setObject:@(YES) forKey:@"unread"];
+    [aUserInfo setObject:@"GENERAL" forKey:@"action"];
+    [aUserInfo setObject:@(_user.currCompany.company_no) forKey:@"company_no"];
+    notification.userInfo = aUserInfo;
+    // 将通知添加到系统中
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 }
 - (void)addTaskNotfition {
     //清除本地任务推送
@@ -244,13 +249,14 @@
     notification.applicationIconBadgeNumber++;
     // 设定通知的userInfo，用来标识该通知
     NSMutableDictionary *aUserInfo = [[NSMutableDictionary alloc] init];
-    [aUserInfo setObject:@(task.id) forKey:@"target_id"];
+    [aUserInfo setObject:@(task.id).stringValue forKey:@"target_id"];
     [aUserInfo setObject:@"TASKTIP" forKey:@"type"];
     [aUserInfo setObject:[NSString stringWithFormat:@"任务提醒: %@", task.task_name] forKey:@"content"];
     [aUserInfo setObject:[NSString stringWithFormat:@"%@",@([date timeIntervalSince1970] * 1000)] forKey:@"time"];
     [aUserInfo setObject:@(task.company_no) forKey:@"company_no"];
-    [aUserInfo setObject:task.user_guid forKey:@"from_user_no"];
+    [aUserInfo setObject:@(_user.user_no) forKey:@"from_user_no"];
     [aUserInfo setObject:@(_user.user_no) forKey:@"to_user_no"];
+    [aUserInfo setObject:@(YES) forKey:@"unread"];
     [aUserInfo setObject:@"GENERAL" forKey:@"action"];
     notification.userInfo = aUserInfo;
     // 将通知添加到系统中
@@ -711,7 +717,7 @@
     NSMutableArray<TaskModel*> *pushMessageArr = [@[] mutableCopy];
     [_rlmRealm beginWriteTransaction];
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"company_no = %d and status != 0",companyNo];
-    RLMResults *results = [TaskModel objectsInRealm:_rlmRealm withPredicate:pred];
+    RLMResults *results = [[TaskModel objectsInRealm:_rlmRealm withPredicate:pred] sortedResultsUsingProperty:@"createdon_utc" ascending:NO];
     for (int index = 0;index < results.count;index ++) {
         TaskModel *company = [results objectAtIndex:index];
         [pushMessageArr addObject:company];

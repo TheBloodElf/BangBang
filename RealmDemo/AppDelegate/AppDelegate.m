@@ -23,8 +23,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //Realm数据库版本
     RLMRealmConfiguration *config = [RLMRealmConfiguration defaultConfiguration];
-    config.schemaVersion = 11;
+    config.schemaVersion = 2;
     [RLMRealmConfiguration setDefaultConfiguration:config];
+    //键盘遮挡问题解决方案
+    [IQKeyboardManager sharedManager].enable = YES;
+    [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
     //百度统计
     [self startBDMobStat];
     //注册微信APPID
@@ -69,10 +72,6 @@
     //交给管理器去处理
     [[ApnsManager manager] application:application didReceiveLocalNotification:notification];
 }
-//因为有个推，所以这个函数不用
-//- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
-//    
-//}
 - (void)startBDMobStat {
     BaiduMobStat* statTracker = [BaiduMobStat defaultStat];
     statTracker.enableExceptionLog = YES; // 是否允许截获并发送崩溃信息，请设置YES或者NO

@@ -82,6 +82,12 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.navigationController.navigationBar.barTintColor = [UIColor siginColor];
 }
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if([self.navigationController.viewControllers[0] isMemberOfClass:[NSClassFromString(@"REFrostedViewController") class]]) {
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+    }
+}
 - (void)rightClicked:(UIBarButtonItem*)item {
     if([NSString isBlank:_taskModel.task_name]) {
         [self.navigationController.view showMessageTips:@"请填写名称"];

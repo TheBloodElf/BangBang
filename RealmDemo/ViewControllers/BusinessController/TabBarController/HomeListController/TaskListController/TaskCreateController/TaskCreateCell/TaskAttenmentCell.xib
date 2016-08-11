@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -14,7 +14,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="y04-v1-wZ5">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_jpg" translatesAutoresizingMaskIntoConstraints="NO" id="y04-v1-wZ5">
                         <rect key="frame" x="10" y="4" width="35" height="35"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="35" id="SVc-2m-ie4"/>
@@ -22,18 +22,19 @@
                         </constraints>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hoI-qA-ijG">
-                        <rect key="frame" x="285" y="9" width="25" height="25"/>
+                        <rect key="frame" x="280" y="7" width="30" height="30"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="25" id="8Y4-tm-yqD"/>
-                            <constraint firstAttribute="height" constant="25" id="GPx-zf-csP"/>
+                            <constraint firstAttribute="width" constant="30" id="8Y4-tm-yqD"/>
+                            <constraint firstAttribute="height" constant="30" id="GPx-zf-csP"/>
                         </constraints>
+                        <inset key="contentEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
                         <state key="normal" image="ic_task_delete"/>
                         <connections>
                             <action selector="deleteClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="nHn-a2-PVv"/>
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uko-Vo-FFe">
-                        <rect key="frame" x="55" y="11" width="220" height="21"/>
+                        <rect key="frame" x="55" y="11" width="215" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -58,11 +59,11 @@
             <connections>
                 <outlet property="attenmentName" destination="Uko-Vo-FFe" id="eH0-OV-rTw"/>
             </connections>
-            <point key="canvasLocation" x="268" y="339"/>
+            <point key="canvasLocation" x="392" y="359"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="ic_jpeg" width="87" height="87"/>
+        <image name="ic_jpg" width="87" height="87"/>
         <image name="ic_task_delete" width="37" height="37"/>
     </resources>
 </document>

@@ -17,14 +17,14 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="附件" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QWb-VP-EEm">
                         <rect key="frame" x="10" y="11" width="34" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_task_add" translatesAutoresizingMaskIntoConstraints="NO" id="vmM-7i-84d">
-                        <rect key="frame" x="285" y="9" width="25" height="25"/>
+                        <rect key="frame" x="286" y="10" width="24" height="24"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="25" id="QgY-LM-KMr"/>
-                            <constraint firstAttribute="width" constant="25" id="h2F-1x-Q0l"/>
+                            <constraint firstAttribute="height" constant="24" id="QgY-LM-KMr"/>
+                            <constraint firstAttribute="width" constant="24" id="h2F-1x-Q0l"/>
                         </constraints>
                     </imageView>
                 </subviews>
@@ -35,6 +35,7 @@
                     <constraint firstItem="QWb-VP-EEm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="q1B-Tg-fVS"/>
                 </constraints>
             </tableViewCellContentView>
+            <point key="canvasLocation" x="144" y="284"/>
         </tableViewCell>
     </objects>
     <resources>

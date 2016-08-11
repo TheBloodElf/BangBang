@@ -30,7 +30,10 @@
     self.yearMonth.text = [NSString stringWithFormat:@"%02ld/%02ld",pushMessage.addTime.month,pushMessage.addTime.day];
     self.timeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld",pushMessage.addTime.hour,pushMessage.addTime.minute];
     self.titleName.text = [pushMessage typeString];
-    self.contentLabel.text = pushMessage.content;
+    if([NSString isBlank:pushMessage.content])
+        self.contentLabel.text = @"会议有新的消息";
+    else
+        self.contentLabel.text = pushMessage.content;
     if(pushMessage.unread == YES)
         self.pushImage.image = [UIImage imageNamed:[pushMessage unreadImageName]];
     else

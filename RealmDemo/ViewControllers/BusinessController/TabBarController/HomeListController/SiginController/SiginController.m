@@ -64,6 +64,7 @@
     if([self.data isEqualToString:@"YES"]) return;
     self.data = @"YES";
     self.navigationController.navigationBar.barTintColor = [UIColor siginColor];
+    [self updateTime];
     [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(updateTime) userInfo:nil repeats:YES];
     //创建表格视图
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
@@ -103,6 +104,12 @@
             }
             [_userManager updateTodaySinInList:array guid:employee.employee_guid];
             _todaySigInArr = array;
+            if(_todaySigInArr.count) {
+                self.tableView.tableFooterView = [UIView new];
+                [_tableView reloadData];
+            }
+            else
+                self.tableView.tableFooterView = _noDataView;
             [_tableView reloadData];
         }];
     }
@@ -124,7 +131,7 @@
 #pragma mark --
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
-    User *user = controller.fetchedObjects[0];
+    User *user = _userManager.user;
     UIImageView *imageView = [_leftNavigationBarButton viewWithTag:1001];
     UILabel *nameLabel = [_leftNavigationBarButton viewWithTag:1002];
     UILabel *companyLabel = [_leftNavigationBarButton viewWithTag:1003];

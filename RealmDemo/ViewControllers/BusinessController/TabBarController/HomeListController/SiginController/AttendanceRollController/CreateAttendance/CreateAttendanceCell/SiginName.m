@@ -7,8 +7,13 @@
 //
 
 #import "SiginName.h"
+#import "SiginRuleSet.h"
 
 @interface SiginName  ()<UITextFieldDelegate>
+
+@property (weak, nonatomic) IBOutlet UIImageView *leftImageView;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UITextField *inputFixed;
 
 @end
 
@@ -17,18 +22,18 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.inputFixed.delegate = self;
+    self.inputFixed.returnKeyType = UIReturnKeyDone;
     // Initialization code
 }
-- (void)textFieldDidEndEditing:(UITextField *)textField
-{
-    if(self.delegate && [self.delegate respondsToSelector:@selector(siginNameTextField:)]) {
-        [self.delegate siginNameTextField:textField];
-    }
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    SiginRuleSet *currSiginRule = self.data;
+    currSiginRule.setting_name = textField.text;
+    return YES;
 }
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (void)dataDidChange {
+    SiginRuleSet *currSiginRule = self.data;
+    self.inputFixed.text = currSiginRule.setting_name;
 }
 
 @end

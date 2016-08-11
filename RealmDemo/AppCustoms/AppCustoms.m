@@ -31,9 +31,14 @@ static AppCustoms * __singleton__;
     self = [super init];
     if (self) {
         [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+        [[UINavigationBar appearance] setBarTintColor:[UIColor homeListColor]];
+        [[UINavigationBar appearance] setTitleTextAttributes:
+         @{NSFontAttributeName:[UIFont systemFontOfSize:17],
+           NSForegroundColorAttributeName:[UIColor whiteColor]}];
         [[UISearchBar appearance] setTintColor:[UIColor colorWithRed:247/255.f green:247/255.f blue:247/255.f alpha:1]];
         [[UISearchBar appearance] setBarTintColor:[UIColor colorWithRed:247/255.f green:247/255.f blue:247/255.f alpha:1]];
-        [[UISearchBar appearance] layer].borderColor = [UIColor clearColor].CGColor;
+        [[UISearchBar appearance] layer].borderColor = [UIColor whiteColor].CGColor;
+        [[UISearchBar appearance] layer].borderWidth = 1;
     }
     return self;
 }

@@ -33,8 +33,8 @@
         _centerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
         [self addSubview:_centerImageView];
         //创建标签
-        _bottomLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, frame.size.height - 5 - 10, frame.size.width, 10)];
-        _bottomLabel.font = [UIFont systemFontOfSize:10];
+        _bottomLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, frame.size.height - 5 - 12, frame.size.width, 12)];
+        _bottomLabel.font = [UIFont systemFontOfSize:12];
         _bottomLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_bottomLabel];
         //给右边和下边创建线条

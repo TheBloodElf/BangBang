@@ -12,7 +12,6 @@
 #import "UserHttp.h"
 
 @interface InviteColleagueController () {
-    NSString *_shortUrl;
     UserManager *_userManager;
 }
 
@@ -38,25 +37,17 @@
         face.modalPresentationStyle = UIModalPresentationOverCurrentContext;
         [self presentViewController:face animated:NO completion:nil];
     } else {//分享
-        if([NSString isBlank:_shortUrl]) {
-            [UserHttp getInviteURL:_userManager.user.user_no companyNo:_userManager.user.currCompany.company_no handler:^(id data, MError *error) {
-                [self.navigationController.view dismissTips];
-                if(error) {
-                    [self.navigationController.view showFailureTips:error.statsMsg];
-                    return ;
-                }
-                _shortUrl = data[@"url_short"];
-                [self share];
-            }];
-        }
-        else {
-            [self share];
-        }
+        [self.navigationController.view showLoadingTips:@""];
+        [UserHttp getInviteURL:_userManager.user.user_no companyNo:_userManager.user.currCompany.company_no handler:^(id data, MError *error) {
+            [self.navigationController.view dismissTips];
+            if(error) {
+                [self.navigationController.view showFailureTips:error.statsMsg];
+                return ;
+            }
+            NSString *shareStr = [NSString stringWithFormat:@"我是\"%@\",为了提高工作效率,\"%@\"(圈子编号:%d)最近在使用帮帮管理助手(%@),我已经加入了,你也来吧!",_userManager.user.real_name,_userManager.user.currCompany.company_name,_userManager.user.currCompany.company_no,data[@"url_short"]];
+            UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:@[shareStr,@""] applicationActivities:nil];
+            [self presentViewController:vc animated:YES completion:nil];
+        }];
     }
-}
-- (void)share {
-    NSString *shareStr = [NSString stringWithFormat:@"我是\"%@\",为了提高工作效率,\"%@\"(圈子编号:%d)最近在使用帮帮管理助手(%@),我已经加入了,你也来吧!",_userManager.user.real_name,_userManager.user.currCompany.company_name,_userManager.user.currCompany.company_no,_shortUrl];
-    UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:@[shareStr,@""] applicationActivities:nil];
-    [self presentViewController:vc animated:YES completion:nil];
 }
 @end

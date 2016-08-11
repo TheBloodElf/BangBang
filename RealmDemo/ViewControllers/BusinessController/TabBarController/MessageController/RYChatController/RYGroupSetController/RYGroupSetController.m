@@ -17,7 +17,6 @@
 @interface RYGroupSetController ()<UITableViewDelegate,UITableViewDataSource,RYGroupSetUserDelegate,RYGroupSetNameDelegate,RBQFetchedResultsControllerDelegate,MuliteSelectDelegate> {
     UITableView *_tableView;
     UserManager *_userManager;
-    NSMutableArray<UserDiscuss*> *_userDiscussArr;//目前通讯录中的所有讨论组
     RBQFetchedResultsController *_userDiscussFetchedResultsController;//讨论组数据监听
     NSMutableArray<RCUserInfo*> *_rCUserArr;//当前聊天的人员
     BOOL _isUserEdit;//是否是用户编辑模式
@@ -33,7 +32,6 @@
     _rCUserArr = [@[] mutableCopy];
     _isUserEdit = NO;
     _userManager = [UserManager manager];
-    _userDiscussArr = [_userManager getUserDiscussArr];
     _userDiscussFetchedResultsController = [_userManager createUserDiscusFetchedResultsController];
     _userDiscussFetchedResultsController.delegate = self;
     //获取当前讨论组
@@ -61,12 +59,20 @@
         }
     } error:^(RCErrorCode status) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.navigationController.view showFailureTips:@"讨论组不存在！"];
-            [self.navigationController popViewControllerAnimated:YES];
+            for (UserDiscuss *userDiscuss in [_userManager getUserDiscussArr]) {
+                if([userDiscuss.discuss_id isEqualToString:self.targetId]) {
+                    [_userManager deleteUserDiscuss:userDiscuss];
+                    [UserHttp delUserDiscuss:_userManager.user.user_no discussId:self.targetId handler:^(id data, MError *error) {
+                        [self.navigationController.view showFailureTips:@"讨论组不存在，已删除!"];
+                        [self.navigationController popToViewController:self.navigationController.viewControllers[self.navigationController.viewControllers.count - 3] animated:YES];
+                    }];
+                    break;
+                }
+            }
         });
     }];
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT) style:UITableViewStyleGrouped];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 64) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [_tableView registerNib:[UINib nibWithNibName:@"RYGroupSetUserCell" bundle:nil] forCellReuseIdentifier:@"RYGroupSetUserCell"];
@@ -84,10 +90,6 @@
 }
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
-    [_userDiscussArr removeAllObjects];
-    for (UserDiscuss *userDiscuss in controller.fetchedObjects) {
-        [_userDiscussArr addObject:[userDiscuss deepCopy]];
-    }
     [_tableView reloadData];
 }
 - (void)buttonAction:(UIButton*)btn {
@@ -96,7 +98,7 @@
     UIAlertAction *ok = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [[RCIMClient sharedRCIMClient] quitDiscussion:self.targetId success:^(RCDiscussion *discussion) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                for (UserDiscuss *userDiscuss in _userDiscussArr) {
+                for (UserDiscuss *userDiscuss in [_userManager getUserDiscussArr]) {
                     if([userDiscuss.discuss_id isEqualToString:discussion.discussionId]) {
                         [_userManager deleteUserDiscuss:userDiscuss];
                         break;
@@ -214,7 +216,7 @@
         //圈主才能开放成员邀请权限
         if([[RCIMClient sharedRCIMClient].currentUserInfo.userId isEqualToString:_currRCDiscussion.creatorId])
             return 44;
-        return 0.001f;
+        return 0.01f;
     }
     return 44;
 }
@@ -255,8 +257,9 @@
     } else if (indexPath.row == 1) {//保存讨论组到通讯录
         UISwitch *sw = (id)cell.accessoryView;
         sw.tag = 1001;
+        sw.hidden = NO;
         BOOL have = NO;
-        for (UserDiscuss *userDiscuss in _userDiscussArr) {
+        for (UserDiscuss *userDiscuss in [_userManager getUserDiscussArr]) {
             if([userDiscuss.discuss_id isEqualToString:self.targetId]) {
                 have = YES;
                 break;
@@ -267,10 +270,16 @@
     } else if(indexPath.row == 2) {//开放成员邀请
         UISwitch *sw = (id)cell.accessoryView;
         sw.tag = 1002;
+        sw.hidden = NO;
         sw.on = !_currRCDiscussion.inviteStatus;//0表示允许，1表示不允许
         cell.textLabel.text = @"开放成员邀请";
+        if(![[RCIMClient sharedRCIMClient].currentUserInfo.userId isEqualToString:_currRCDiscussion.creatorId]) {
+            sw.hidden = YES;
+            cell.textLabel.text = @"";
+        }
     } else if(indexPath.row == 3) {//置顶
         UISwitch *sw = (id)cell.accessoryView;
+        sw.hidden = NO;
         sw.tag = 1003;
         cell.textLabel.text = @"置顶聊天";
         RCConversation *conversation =
@@ -279,6 +288,7 @@
     } else if(indexPath.row == 4) {//新消息通知
         UISwitch *sw = (id)cell.accessoryView;
         sw.tag = 1004;
+        sw.hidden = NO;
         cell.textLabel.text = @"新消息通知";
         [[RCIMClient sharedRCIMClient] getConversationNotificationStatus:ConversationType_DISCUSSION targetId:self.targetId success:^(RCConversationNotificationStatus nStatus) {
             if(DO_NOT_DISTURB == nStatus)
@@ -316,13 +326,15 @@
 #pragma mark -- 
 #pragma mark -- RYGroupSetNameDelegate
 - (void)RYGroupSetName:(NSString *)name {
+    [self.navigationController.view showLoadingTips:@""];
     [[RCIMClient sharedRCIMClient] setDiscussionName:self.targetId name:name success:^{
         _currRCDiscussion.discussionName = name;
-        [_tableView reloadData];
+        self.title = name;
         if(self.delegate && [self.delegate respondsToSelector:@selector(rYGroupSetNameChange:)]) {
             [self.delegate rYGroupSetNameChange:name];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
+            [_tableView reloadData];
             [self.navigationController.view dismissTips];
         });
     } error:nil];
@@ -338,7 +350,7 @@
             }];
         } else {//删除
             [UserHttp delUserDiscuss:_userManager.user.user_no discussId:_currRCDiscussion.discussionId handler:^(id data, MError *error) {
-                for (UserDiscuss *userDiscuss in _userDiscussArr) {
+                for (UserDiscuss *userDiscuss in [_userManager getUserDiscussArr]) {
                     if([userDiscuss.discuss_id isEqualToString:_currRCDiscussion.discussionId]) {
                         [_userManager deleteUserDiscuss:userDiscuss];
                         break;

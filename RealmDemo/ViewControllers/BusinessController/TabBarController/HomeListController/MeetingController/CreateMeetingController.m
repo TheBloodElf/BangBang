@@ -72,8 +72,15 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.navigationController.navigationBar.barTintColor = [UIColor homeListColor];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [_tableView reloadData];
+}
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if([self.navigationController.viewControllers[0] isMemberOfClass:[NSClassFromString(@"REFrostedViewController") class]]) {
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+    }
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
     if([NSString isBlank:_meeting.title]) {

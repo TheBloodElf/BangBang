@@ -41,7 +41,7 @@
     [sharedDefaults setValue:[NSKeyedArchiver archivedDataWithRootObject:self.identity] forKey:@"GroupIdentityInfo"];
     [sharedDefaults synchronize];
 }
-- (void)showLogin {
+- (void)logOut {
     //登录模块重新初始化
     IdentityManager *manager = [IdentityManager manager];
     manager.identity = [Identity new];
@@ -50,6 +50,8 @@
     [[GeTuiSdkManager manager] stopGeTuiSdk];
     //退出融云
     [[RCIM sharedRCIM] logout];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowLogin" object:nil];
+}
+- (void)showLogin:(NSString *)alertStr {
+     [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowLogin" object:alertStr];
 }
 @end

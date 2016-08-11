@@ -197,12 +197,8 @@
         } else {
             urlOpen = [NSString stringWithFormat:@"?%@access_token=%@&company_no=%ld&user_guid=%@",urlOpen,[IdentityManager manager].identity.accessToken,[UserManager manager].user.currCompany.company_no,[UserManager manager].user.user_guid];
         }
-        
-        NSString *titleOpen = [data objectForKey: @"titleOpen"];
         WebNonstandarViewController *vc = [WebNonstandarViewController new];
         vc.applicationUrl = [urlOpen stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        NSString *str = [NSString stringWithFormat:@"%@%@?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,titleOpen,[UserManager manager].user.user_guid,[UserManager manager].user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
-        vc.applicationUrl = str;
         vc.showNavigationBar = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }];
@@ -261,8 +257,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.frostedViewController.navigationController setNavigationBarHidden:YES animated:YES];
     [self.navigationController setNavigationBarHidden:!self.showNavigationBar animated:YES];
+}
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if([self.navigationController.viewControllers[0] isMemberOfClass:[NSClassFromString(@"REFrostedViewController") class]]) {
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+    }
 }
 #pragma mark -- MeetingSiginReaderDelegate
 - (void)reader:(MeetingSiginReaderController *)reader didScanResult:(NSString *)result {

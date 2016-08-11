@@ -143,7 +143,6 @@
                             }
                             _identityManager.identity.RYToken = data;
                             [_identityManager saveAuthorizeData];
-                            [self.navigationController.view showFailureTips:@"登陆成功"];
                             //发通知 登录成功
                             [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginDidFinish" object:nil];
                         }];
@@ -308,7 +307,6 @@
                                             }
                                             _identityManager.identity.RYToken = data;
                                             [_identityManager saveAuthorizeData];
-                                            [self.navigationController.view showFailureTips:@"登陆成功"];
                                             //发通知 登录成功
                                             [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginDidFinish" object:nil];
                                         }];
@@ -399,7 +397,6 @@
                         }
                         _identityManager.identity.RYToken = data;
                         [_identityManager saveAuthorizeData];
-                        [self.navigationController.view showFailureTips:@"登陆成功"];
                         //发通知 登录成功
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginDidFinish" object:nil];
                     }];
@@ -506,7 +503,6 @@
                                     }
                                     _identityManager.identity.RYToken = data;
                                     [_identityManager saveAuthorizeData];
-                                    [self.navigationController.view showFailureTips:@"登陆成功"];
                                     //发通知 登录成功
                                     [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginDidFinish" object:nil];
                                 }];

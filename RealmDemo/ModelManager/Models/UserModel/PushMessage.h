@@ -8,8 +8,8 @@
 
 //推送消息
 @interface PushMessage : RLMObject
-
-@property (nonatomic,strong) NSString *target_id;
+//远程推送是字符串类型 所以这里只有改了
+@property (nonatomic,strong) NSString* target_id;
 
 /*
  @"微圈通知",@"任务通知",@"请示提醒通知",@"审批提醒通知",@"系统通知",@"日程提醒通知",@"日程通知",@"任务提醒通知",@"任务讨论通知",@"邮件提醒",@"会议通知",@"投票通知",@"公告",@"通用审批提醒通知",@"工单通知"
@@ -38,6 +38,5 @@
 - (NSString*)unreadImageName;//未读图片名称
 - (NSString*)readImageName;//已读的图片名称
 - (NSString*)typeString;//类型中文名字
-- (CGFloat)contentHeight:(CGFloat)width font:(int)font;//在这个宽度和字体下内容占的高度
 
 @end
