@@ -82,7 +82,13 @@ static NSString *painlImageIdentifier = @"painlImageIdentifier";
         UIImagePickerController *picker = [[UIImagePickerController alloc] init];//初始化
         picker.delegate = weakSelf;
         picker.sourceType = sourceType;
-        [weakSelf.presentController presentViewController:picker animated:YES completion:nil];
+        if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {//看当前设备是否能够拍照
+            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            [weakSelf.presentController presentViewController:picker animated:YES completion:nil];
+        } else {
+            [weakSelf.presentController.view showFailureTips:@"无法打开相机"];
+        }
+        
     }];
     UIAlertAction *select = [UIAlertAction actionWithTitle:@"选择照片" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         SelectImageController *selectVC = [SelectImageController new];
@@ -120,7 +126,12 @@ static NSString *painlImageIdentifier = @"painlImageIdentifier";
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];//初始化
     picker.delegate = self;
     picker.sourceType = sourceType;
-    [self.presentController presentViewController:picker animated:YES completion:nil];
+    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {//看当前设备是否能够拍照
+        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        [self.presentController presentViewController:picker animated:YES completion:nil];
+    } else {
+        [self.presentController.view showFailureTips:@"无法打开相机"];
+    }
 }
 
 - (void)selectImageFinish:(NSMutableArray<Photo*>*)photoArr

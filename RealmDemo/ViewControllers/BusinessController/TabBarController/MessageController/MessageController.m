@@ -52,6 +52,10 @@
 #pragma mark -- 
 #pragma mark --  MoreSelectViewDelegate
 - (void)moreSelectIndex:(int)index {
+    if(!_userManager.user.currCompany.company_no) {
+        [self.navigationController.view showMessageTips:@"请选择一个圈子后再操作"];
+        return;
+    }
     MuliteSelectController *mulite = [MuliteSelectController new];
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
     mulite.outEmployees = [@[employee] mutableCopy];

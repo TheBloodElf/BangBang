@@ -37,16 +37,17 @@
     _userManager = [UserManager manager];
     _currDate = [NSDate date];
     _siginedArr = [@[] mutableCopy];
-    [self createCalendaView];
-    [self getSiginWithDate:_currDate];
     // Do any additional setup after loading the view from its nib.
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
-- (void)createCalendaView
-{
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if([self.data isEqualToString:@"YES"]) return;
+    self.data = @"YES";
+    
     _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, Calendar_Height + 1 , MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - Calendar_Height - 1 - 64)];
     [self.view addSubview:_webView];
     [WebViewJavascriptBridge enableLogging];
@@ -54,7 +55,7 @@
         NSLog(@"ObjC received message from JS: %@", data);
         responseCallback(@"Response for message from ObjC");
     }];
-     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@punchcard/MySignIn?userGuid=%@&access_token=%@&companyNo=%ld",XYFMobileDomain,_userManager.user.user_guid,[IdentityManager manager].identity.accessToken,_userManager.user.currCompany.company_no]]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@punchcard/MySignIn?userGuid=%@&access_token=%@&companyNo=%ld",XYFMobileDomain,_userManager.user.user_guid,[IdentityManager manager].identity.accessToken,_userManager.user.currCompany.company_no]]];
     [_webView loadRequest:request];
     
     self.calendarManager = [JTCalendarManager new];
@@ -70,6 +71,8 @@
     UITapGestureRecognizer *tgr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tgrAction:)];
     [_rightBarLabel addGestureRecognizer:tgr];
     _rightBarLabel.userInteractionEnabled = YES;
+    
+    [self getSiginWithDate:_currDate];
 }
 ///选择时间
 - (void)tgrAction:(id)action {

@@ -41,6 +41,9 @@
         [voideResult enumerateObjectsUsingBlock:^(PHAsset *obj, NSUInteger idx, BOOL *stop) {
             Attachment *attachment = [Attachment new];
             attachment.fileCreateDate = obj.creationDate;
+            [manager requestImageForAsset:obj targetSize:CGSizeMake(80, 80) contentMode:PHImageContentModeAspectFill options:nil resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+                attachment.videoImage = result;
+            }];
             [manager requestAVAssetForVideo:obj options:options resultHandler:^(AVAsset * asset, AVAudioMix * audioMix, NSDictionary * info) {
                 attachment.fileName = [asset mj_keyValues][@"propertyListForProxy"][@"name"];
                 attachment.fileSize = [[asset mj_keyValues][@"propertyListForProxy"][@"moop"] length];

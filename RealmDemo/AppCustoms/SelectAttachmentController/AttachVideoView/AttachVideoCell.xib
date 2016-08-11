@@ -16,23 +16,22 @@
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o9i-a7-dKw">
                         <rect key="frame" x="10" y="29" width="19" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="19" id="NqN-fz-eNI"/>
+                            <constraint firstAttribute="height" constant="22" id="YEb-5d-bcY"/>
+                        </constraints>
                         <state key="normal" image="btn_nomaril_icon"/>
                         <state key="selected" image="btn_select_icon"/>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1SD-jD-4kz">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1SD-jD-4kz">
                         <rect key="frame" x="39" y="7" width="65" height="65"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="65" id="7tX-C7-HX1"/>
                             <constraint firstAttribute="width" constant="65" id="mwc-gd-q2x"/>
                         </constraints>
+                        <state key="normal" image="default_image_icon"/>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="李勇简历.docx" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YXm-i7-ctj">
-                        <rect key="frame" x="109" y="7" width="92" height="17"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="06-13 23:20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4rd-m3-dyC">
                         <rect key="frame" x="109" y="56" width="71" height="16"/>
                         <constraints>
@@ -48,6 +47,12 @@
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="李勇简历34563463463473474537347347.docx" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YXm-i7-ctj">
+                        <rect key="frame" x="109" y="7" width="201" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="o9i-a7-dKw" firstAttribute="leading" secondItem="f8S-RX-0nG" secondAttribute="leading" constant="10" id="4vl-o8-4aE"/>
@@ -57,6 +62,7 @@
                     <constraint firstItem="YXm-i7-ctj" firstAttribute="leading" secondItem="1SD-jD-4kz" secondAttribute="trailing" constant="5" id="H11-eY-s3y"/>
                     <constraint firstItem="YXm-i7-ctj" firstAttribute="top" secondItem="1SD-jD-4kz" secondAttribute="top" id="JJt-Md-9fS"/>
                     <constraint firstItem="1SD-jD-4kz" firstAttribute="leading" secondItem="o9i-a7-dKw" secondAttribute="trailing" constant="10" id="SCd-qc-9ZB"/>
+                    <constraint firstAttribute="trailing" secondItem="YXm-i7-ctj" secondAttribute="trailing" constant="10" id="T0P-9j-VZL"/>
                     <constraint firstItem="Tcp-UX-fjm" firstAttribute="leading" secondItem="1SD-jD-4kz" secondAttribute="trailing" constant="5" id="ZGE-2B-q2g"/>
                     <constraint firstItem="4rd-m3-dyC" firstAttribute="leading" secondItem="1SD-jD-4kz" secondAttribute="trailing" constant="5" id="gTs-AE-eqj"/>
                     <constraint firstItem="1SD-jD-4kz" firstAttribute="centerY" secondItem="f8S-RX-0nG" secondAttribute="centerY" id="yD7-66-u6R"/>
@@ -69,11 +75,12 @@
                 <outlet property="attachSize" destination="Tcp-UX-fjm" id="RIc-fA-Zzp"/>
                 <outlet property="isSelectedBtn" destination="o9i-a7-dKw" id="Osz-lZ-gXj"/>
             </connections>
-            <point key="canvasLocation" x="332" y="320"/>
+            <point key="canvasLocation" x="458" y="322"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="btn_nomaril_icon" width="19" height="19"/>
         <image name="btn_select_icon" width="19" height="19"/>
+        <image name="default_image_icon" width="60" height="60"/>
     </resources>
 </document>

@@ -15,26 +15,24 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tot-fx-w37">
-                        <rect key="frame" x="10" y="29" width="19" height="22"/>
+                        <rect key="frame" x="10" y="29" width="27" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="27" id="30J-sf-d0t"/>
+                            <constraint firstAttribute="height" constant="22" id="jQg-2W-CMf"/>
+                        </constraints>
                         <state key="normal" image="btn_nomaril_icon"/>
                         <state key="selected" image="btn_select_icon"/>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hgW-fk-mcK">
-                        <rect key="frame" x="39" y="7" width="65" height="65"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hgW-fk-mcK">
+                        <rect key="frame" x="47" y="7" width="65" height="65"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="65" id="x7g-Yw-IOy"/>
                             <constraint firstAttribute="width" constant="65" id="zK4-dd-ecb"/>
                         </constraints>
                         <state key="normal" backgroundImage="ic_docx"/>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="李勇简历.docx" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Brf-i3-dxH">
-                        <rect key="frame" x="109" y="7" width="92" height="17"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="06-13 23:20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="og4-Kn-LzS">
-                        <rect key="frame" x="109" y="56" width="71" height="16"/>
+                        <rect key="frame" x="117" y="56" width="71" height="16"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="16" id="B9u-Be-6iQ"/>
                         </constraints>
@@ -43,14 +41,21 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="26.13k" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1oh-nv-IU8">
-                        <rect key="frame" x="109" y="38" width="38" height="15"/>
+                        <rect key="frame" x="117" y="38" width="38" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="李勇简历.docx" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Brf-i3-dxH">
+                        <rect key="frame" x="117" y="7" width="193" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Tot-fx-w37" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Geo-Yz-2u2"/>
+                    <constraint firstAttribute="trailing" secondItem="Brf-i3-dxH" secondAttribute="trailing" constant="10" id="I9b-pi-bNf"/>
                     <constraint firstItem="og4-Kn-LzS" firstAttribute="bottom" secondItem="hgW-fk-mcK" secondAttribute="bottom" id="Qtj-Rf-iLo"/>
                     <constraint firstItem="og4-Kn-LzS" firstAttribute="top" secondItem="1oh-nv-IU8" secondAttribute="bottom" constant="3" id="ShL-VO-Fam"/>
                     <constraint firstItem="Brf-i3-dxH" firstAttribute="leading" secondItem="hgW-fk-mcK" secondAttribute="trailing" constant="5" id="aYq-cN-qIx"/>

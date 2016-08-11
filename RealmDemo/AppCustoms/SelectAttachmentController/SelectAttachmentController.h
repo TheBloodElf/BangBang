@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-//选择附件控制器 (里面有图片一栏)
+//选择附件控制器
 @class Attachment;
 @protocol SelectAttachmentDelegate <NSObject>
 //选择成功

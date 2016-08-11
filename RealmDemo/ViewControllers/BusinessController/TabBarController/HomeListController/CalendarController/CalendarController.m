@@ -23,7 +23,8 @@
     JTHorizontalCalendarView *_calendarContentView;//日历内容
     RBQFetchedResultsController *_calendarFetchedResultsController;//日程数据监听
     UITableView *_tableView;//表格视图
-    NSMutableArray *_todayCalendarArr;//当天的日程
+    NSMutableArray *_todayNoFinishCalendarArr;//当天未完成的日程
+    NSMutableArray *_todayFinishCalendarArr;//当天完成的日程
     NSMutableArray<NSDate*> *_haveCalendarArr;//有日程的时间数组
     NSDate *_userSelectedDate;//用户选择的时间
     MoreSelectView *_moreSelectView;//多选视图
@@ -36,7 +37,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _haveCalendarArr = [@[] mutableCopy];
-    _todayCalendarArr = [@[] mutableCopy];
+    _todayNoFinishCalendarArr = [@[] mutableCopy];
+    _todayFinishCalendarArr = [@[] mutableCopy];
     _userManager = [UserManager manager];
     self.view.backgroundColor = [UIColor whiteColor];
     _calendarFetchedResultsController = [_userManager createCalendarFetchedResultsController];
@@ -70,9 +72,8 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     //是不是第一次加载这个页面
-    if(![NSString isBlank:self.data])
-        return;
-    self.data = @"NO";
+    if([self.data isEqualToString:@"YES"]) return;
+    self.data = @"YES";
     
     //创建日历管理器
     _calendarManager = [JTCalendarManager new];
@@ -199,10 +200,15 @@
 //获取当前的日程 完成的 和进行中的
 - (void)getTodayCalendarArr {
     NSMutableArray *calendarArr = [_userManager getCalendarArrWithDate:_userSelectedDate];
-    [_todayCalendarArr removeAllObjects];
+    [_todayFinishCalendarArr removeAllObjects];
+    [_todayNoFinishCalendarArr removeAllObjects];
+    
     for (Calendar *tempCalendar in calendarArr) {
         if(tempCalendar.repeat_type == 0) {//不是重复的就直接加
-            [_todayCalendarArr addObject:tempCalendar];
+            if(tempCalendar.status == 1)
+                [_todayNoFinishCalendarArr addObject:tempCalendar];
+            else
+                [_todayFinishCalendarArr addObject:tempCalendar];
         } else {//重复的要加上经过自己一天的
             if (tempCalendar.rrule.length > 0&&tempCalendar.r_begin_date_utc >0&&tempCalendar.r_end_date_utc>0) {
                 Scheduler * s = [[Scheduler alloc] initWithDate:[NSDate dateWithTimeIntervalSince1970:tempCalendar.begindate_utc/1000] andRule:tempCalendar.rrule];
@@ -214,14 +220,13 @@
                             continue;
                         } else if([tempCalendar haveFinishDate:_userSelectedDate]) {
                             Calendar *calendar = [[Calendar alloc] initWithJSONDictionary:[tempCalendar JSONDictionary]];
-                            calendar.rdate = @(_userSelectedDate.timeIntervalSince1970 * 1000).stringValue;
                             calendar.status = 2;
-                            [_todayCalendarArr addObject:calendar];
+                            [_todayFinishCalendarArr addObject:calendar];
                         } else {
                             //这里把本次的触发时间加上
                             Calendar *calendar = [tempCalendar deepCopy];
                             calendar.rdate = @(_userSelectedDate.timeIntervalSince1970 * 1000).stringValue;
-                            [_todayCalendarArr addObject:calendar];
+                            [_todayNoFinishCalendarArr addObject:calendar];
                         }
                     }
                 }
@@ -276,12 +281,25 @@
 }
 #pragma mark --
 #pragma mark -- UITableViewDelegate
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+- (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if(section == 0)
+        return @"未完成";
+    return @"已完成";
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _todayCalendarArr.count;
+    if(section == 0)
+        return _todayNoFinishCalendarArr.count;
+    return _todayFinishCalendarArr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CalenderEventTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"CalenderEventTableViewCell" forIndexPath:indexPath];
-    cell.data = _todayCalendarArr[indexPath.row];
+    if(indexPath.section == 0)
+        cell.data = _todayNoFinishCalendarArr[indexPath.row];
+    else
+        cell.data = _todayFinishCalendarArr[indexPath.row];
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -289,7 +307,11 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    Calendar *calendar = _todayCalendarArr[indexPath.row];
+    Calendar *calendar = nil;
+    if(indexPath.section == 0)
+        calendar = _todayNoFinishCalendarArr[indexPath.row];
+    else
+        calendar = _todayFinishCalendarArr[indexPath.row];
     if(calendar.repeat_type == 0) {
         ComCalendarDetailViewController *com = [ComCalendarDetailViewController new];
         com.data = calendar;

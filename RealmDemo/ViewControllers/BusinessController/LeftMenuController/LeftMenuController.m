@@ -61,7 +61,7 @@
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
     if(controller == _userFetchedResultsController) {
-        User *user = controller.fetchedObjects[0];
+        User *user = _userManager.user;
         [self.avaterImageView sd_setImageWithURL:[NSURL URLWithString:user.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
         self.userName.text = user.real_name;
         self.userMood.text = user.mood;
@@ -69,7 +69,7 @@
     } else {
         [_companyArr removeAllObjects];
         //只显示自己状态为4或者1的
-        for (Company *company in (id)controller.fetchedObjects) {
+        for (Company *company in [_userManager getCompanyArr]) {
             Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:company.company_no];
             if(employee.status == 1 || employee.status == 4) {
                 [_companyArr addObject:company];
@@ -110,7 +110,7 @@
     //改变用户当前圈子
     Company *company = [_companyArr[indexPath.row] deepCopy];
     User *user = [_userManager.user deepCopy];
-    user.currCompany = company;
+    user.currCompany = [company deepCopy];
     [_userManager updateUser:user];
     //刷新表格视图
     [_tableView reloadData];

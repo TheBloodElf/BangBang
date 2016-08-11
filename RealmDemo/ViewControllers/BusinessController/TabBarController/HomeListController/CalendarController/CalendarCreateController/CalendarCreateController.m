@@ -103,6 +103,7 @@
         return;
     }
     //创建日程
+    [self.navigationController.view showLoadingTips:@""];
     [UserHttp createUserCalendar:_currCalendar handler:^(id data, MError *error) {
         [self.navigationController.view dismissTips];
         if(error) {

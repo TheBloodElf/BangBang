@@ -34,6 +34,7 @@
 }
 -(void)dataDidChange {
     _musicAttachmentArr = self.data;
+    [_tableView reloadData];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _musicAttachmentArr.count;

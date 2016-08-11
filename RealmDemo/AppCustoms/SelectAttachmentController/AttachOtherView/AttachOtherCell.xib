@@ -16,10 +16,14 @@
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ubg-KF-iDB">
                         <rect key="frame" x="10" y="29" width="19" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="19" id="Di5-Gd-STa"/>
+                            <constraint firstAttribute="height" constant="22" id="SAa-ag-EHM"/>
+                        </constraints>
                         <state key="normal" image="btn_nomaril_icon"/>
                         <state key="selected" image="btn_select_icon"/>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OtV-5J-AiM">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OtV-5J-AiM">
                         <rect key="frame" x="39" y="7" width="65" height="65"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="65" id="63P-JG-RlA"/>
@@ -27,8 +31,8 @@
                         </constraints>
                         <state key="normal" backgroundImage="ic_docx"/>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="李勇简历.docx" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8uB-7a-T7R">
-                        <rect key="frame" x="109" y="7" width="92" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="李勇简历.docx" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8uB-7a-T7R">
+                        <rect key="frame" x="109" y="7" width="201" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -52,6 +56,7 @@
                 <constraints>
                     <constraint firstItem="ubg-KF-iDB" firstAttribute="centerY" secondItem="LG3-3B-1P8" secondAttribute="centerY" id="3D8-ak-pJ4"/>
                     <constraint firstItem="AX1-bl-G9s" firstAttribute="bottom" secondItem="OtV-5J-AiM" secondAttribute="bottom" id="Ajg-F8-RXi"/>
+                    <constraint firstAttribute="trailing" secondItem="8uB-7a-T7R" secondAttribute="trailing" constant="10" id="CJT-4i-qTy"/>
                     <constraint firstItem="AX1-bl-G9s" firstAttribute="top" secondItem="Hzl-Zd-ael" secondAttribute="bottom" constant="3" id="DTM-Ey-8Ju"/>
                     <constraint firstItem="8uB-7a-T7R" firstAttribute="leading" secondItem="OtV-5J-AiM" secondAttribute="trailing" constant="5" id="OzX-Eh-QHh"/>
                     <constraint firstItem="8uB-7a-T7R" firstAttribute="top" secondItem="OtV-5J-AiM" secondAttribute="top" id="RDz-AP-3du"/>

@@ -13,8 +13,8 @@
 @property (nonatomic, assign) NSInteger id;//主键
 @property (nonatomic, assign) NSInteger scope;//误差范围 单位米
 @property (nonatomic, copy) NSString *address;// 综合信息
-@property (nonatomic, assign) int64_t start_work_time;//上班时间 时间戳 单位秒
-@property (nonatomic, assign) int64_t end_work_time;//下班时间 时间戳 单位秒
+@property (nonatomic, assign) int64_t start_work_time;//上班时间 时间戳 单位毫秒
+@property (nonatomic, assign) int64_t end_work_time;//下班时间 时间戳 单位毫秒
 @property (nonatomic, assign) NSInteger company_no;//圈子编号
 @property (nonatomic, copy) NSString *create_by;//创建人员的员工ID
 @property (nonatomic, copy) NSString *user_guid;//创建人用户GUID

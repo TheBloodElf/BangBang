@@ -51,7 +51,6 @@
 #import "WXApiManager.h"
 #import "IQKeyboardManager.h"
 #import "UISearchBar+BackgroundColor.h"
-#import <AVFoundation/AVAssetImageGenerator.h>
 #import <AVFoundation/AVTime.h>
 #import <AVFoundation/AVAsset.h>
 #import <AssetsLibrary/AssetsLibrary.h>

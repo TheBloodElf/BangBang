@@ -6,7 +6,7 @@
 //  Copyright © 2016年 com.luohaifang. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 //上传附件的模型（现在只能上传图片，后期来设计这个模型）
 @interface Attachment : NSObject
 
@@ -15,5 +15,7 @@
 @property (nonatomic, assign) NSInteger fileSize;//文件大小（B）
 @property (nonatomic, strong) NSString *fileName;//文件名称
 @property (nonatomic, assign) BOOL isSelected;//是否被选择
+
+@property (nonatomic, strong) UIImage *videoImage;//视频封面图  //只有类型为视频才存在
 
 @end

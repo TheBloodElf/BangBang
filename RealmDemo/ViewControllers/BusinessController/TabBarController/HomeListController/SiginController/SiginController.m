@@ -131,7 +131,7 @@
 #pragma mark --
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
-    User *user = controller.fetchedObjects[0];
+    User *user = _userManager.user;
     UIImageView *imageView = [_leftNavigationBarButton viewWithTag:1001];
     UILabel *nameLabel = [_leftNavigationBarButton viewWithTag:1002];
     UILabel *companyLabel = [_leftNavigationBarButton viewWithTag:1003];

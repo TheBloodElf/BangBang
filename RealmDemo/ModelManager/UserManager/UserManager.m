@@ -717,7 +717,7 @@
     NSMutableArray<TaskModel*> *pushMessageArr = [@[] mutableCopy];
     [_rlmRealm beginWriteTransaction];
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"company_no = %d and status != 0",companyNo];
-    RLMResults *results = [TaskModel objectsInRealm:_rlmRealm withPredicate:pred];
+    RLMResults *results = [[TaskModel objectsInRealm:_rlmRealm withPredicate:pred] sortedResultsUsingProperty:@"createdon_utc" ascending:NO];
     for (int index = 0;index < results.count;index ++) {
         TaskModel *company = [results objectAtIndex:index];
         [pushMessageArr addObject:company];

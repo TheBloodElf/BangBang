@@ -216,7 +216,7 @@
         //圈主才能开放成员邀请权限
         if([[RCIMClient sharedRCIMClient].currentUserInfo.userId isEqualToString:_currRCDiscussion.creatorId])
             return 44;
-        return 0.001f;
+        return 0.01f;
     }
     return 44;
 }
@@ -257,6 +257,7 @@
     } else if (indexPath.row == 1) {//保存讨论组到通讯录
         UISwitch *sw = (id)cell.accessoryView;
         sw.tag = 1001;
+        sw.hidden = NO;
         BOOL have = NO;
         for (UserDiscuss *userDiscuss in [_userManager getUserDiscussArr]) {
             if([userDiscuss.discuss_id isEqualToString:self.targetId]) {
@@ -269,10 +270,16 @@
     } else if(indexPath.row == 2) {//开放成员邀请
         UISwitch *sw = (id)cell.accessoryView;
         sw.tag = 1002;
+        sw.hidden = NO;
         sw.on = !_currRCDiscussion.inviteStatus;//0表示允许，1表示不允许
         cell.textLabel.text = @"开放成员邀请";
+        if(![[RCIMClient sharedRCIMClient].currentUserInfo.userId isEqualToString:_currRCDiscussion.creatorId]) {
+            sw.hidden = YES;
+            cell.textLabel.text = @"";
+        }
     } else if(indexPath.row == 3) {//置顶
         UISwitch *sw = (id)cell.accessoryView;
+        sw.hidden = NO;
         sw.tag = 1003;
         cell.textLabel.text = @"置顶聊天";
         RCConversation *conversation =
@@ -281,6 +288,7 @@
     } else if(indexPath.row == 4) {//新消息通知
         UISwitch *sw = (id)cell.accessoryView;
         sw.tag = 1004;
+        sw.hidden = NO;
         cell.textLabel.text = @"新消息通知";
         [[RCIMClient sharedRCIMClient] getConversationNotificationStatus:ConversationType_DISCUSSION targetId:self.targetId success:^(RCConversationNotificationStatus nStatus) {
             if(DO_NOT_DISTURB == nStatus)
@@ -318,13 +326,14 @@
 #pragma mark -- 
 #pragma mark -- RYGroupSetNameDelegate
 - (void)RYGroupSetName:(NSString *)name {
+    [self.navigationController.view showLoadingTips:@""];
     [[RCIMClient sharedRCIMClient] setDiscussionName:self.targetId name:name success:^{
         _currRCDiscussion.discussionName = name;
-        [_tableView reloadData];
         if(self.delegate && [self.delegate respondsToSelector:@selector(rYGroupSetNameChange:)]) {
             [self.delegate rYGroupSetNameChange:name];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
+            [_tableView reloadData];
             [self.navigationController.view dismissTips];
         });
     } error:nil];

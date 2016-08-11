@@ -47,8 +47,8 @@
     _currSiginRule.work_day = @"1,2,3,4,5";
     _currSiginRule.start_work_time_alert = 5;
     _currSiginRule.end_work_time_alert = 5;
-    _currSiginRule.start_work_time = [[NSDate date] timeIntervalSince1970];
-    _currSiginRule.end_work_time = [[NSDate date] timeIntervalSince1970];
+    _currSiginRule.start_work_time = [[NSDate date] timeIntervalSince1970] * 1000;
+    _currSiginRule.end_work_time = [[NSDate date] timeIntervalSince1970] * 1000;
     _currSiginRule.scope = 500;
     _currSiginRule.is_alert = TRUE;
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
@@ -383,8 +383,8 @@
         _currSiginRule.province = firstAdress.province;
         _currSiginRule.city = firstAdress.city;
         _currSiginRule.subdistrict = firstAdress.subdistrict;
-        _currSiginRule.create_on_utc = [[NSDate new] timeIntervalSince1970];
-        _currSiginRule.update_on_utc = [[NSDate new] timeIntervalSince1970];
+        _currSiginRule.create_on_utc = [[NSDate new] timeIntervalSince1970] * 1000;
+        _currSiginRule.update_on_utc = [[NSDate new] timeIntervalSince1970] * 1000;
         _currSiginRule.update_by = employee.employee_guid;
         RLMArray<PunchCardAddressSetting> *punchCardAddressSettingArray = [[RLMArray<PunchCardAddressSetting> alloc] initWithObjectClassName:@"PunchCardAddressSetting"];
         int idCount = 0;

@@ -109,7 +109,7 @@
             label.backgroundColor = [UIColor clearColor];
         }
     } else if(controller == _userFetchedResultsController) {
-        User *user = controller.fetchedObjects[0];
+        User *user = [_userManager user];
         //重新设置签到记录的数据监听
         _sigRuleFetchedResultsController = [_userManager createSiginRuleFetchedResultsController:user.currCompany.company_no];
         _sigRuleFetchedResultsController.delegate = self;
