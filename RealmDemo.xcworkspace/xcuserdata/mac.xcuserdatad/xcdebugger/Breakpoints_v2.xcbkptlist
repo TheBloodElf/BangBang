@@ -27,6 +27,38 @@
             endingLineNumber = "99"
             landmarkName = "-buttonAction:"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__37-[RYGroupSetController buttonAction:]_block_invoke_3"
+                  moduleName = "&#x5e2e;&#x5e2e;&#x7ba1;&#x7406;&#x52a9;&#x624b;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Desktop/%E5%85%AC%E5%8F%B8%E6%96%87%E6%A1%A3/BangBang/RealmDemo/ViewControllers/BusinessController/TabBarController/MessageController/RYChatController/RYGroupSetController/RYGroupSetController.m"
+                  timestampString = "492437813.029964"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "99"
+                  endingLineNumber = "99"
+                  offsetFromSymbolStart = "58">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__37-[RYGroupSetController buttonAction:]_block_invoke_3"
+                  moduleName = "&#x5e2e;&#x5e2e;&#x7ba1;&#x7406;&#x52a9;&#x624b;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Desktop/%E5%85%AC%E5%8F%B8%E6%96%87%E6%A1%A3/BangBang/RealmDemo/ViewControllers/BusinessController/TabBarController/MessageController/RYChatController/RYGroupSetController/RYGroupSetController.m"
+                  timestampString = "492437813.030164"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "99"
+                  endingLineNumber = "99"
+                  offsetFromSymbolStart = "91">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
