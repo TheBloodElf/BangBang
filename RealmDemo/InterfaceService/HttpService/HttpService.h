@@ -33,4 +33,5 @@ typedef void(^completionHandler)(id data,MError *error);
 
 //上传文件
 - (NSURLSessionDataTask *)uploadRequestURLPath:(NSString *)pathStr parameters:(id)parameters image:(UIImage*)image name:(NSString*)name completionHandler:(completionHandler)completionHandler;
+
 @end

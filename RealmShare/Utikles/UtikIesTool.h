@@ -18,10 +18,7 @@
 #define MAIN_SCREEN_HEIGHT  [UtikIesTool mainScreenHeight]
 #endif
 
-//测试
-#define KBSSDKAPIDomain        @"http://open.test.59bang.com/api/"
-//正式
-//#define KBSSDKAPIDomain        @"http://open.59bang.com/api/"
+extern NSString *const KBSSDKAPIDomain;
 
 @interface UtikIesTool : NSObject
 
