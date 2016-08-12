@@ -31,7 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _tabBarVC = [UITabBarController new];
-    _tabBarVC.viewControllers = @[[self homeListController],[self messageController],[self viewController],[self xAddrBookController],[self mineViewController]];
+    _tabBarVC.viewControllers = @[[self homeListController],[self messageController],[self centerController],[self xAddrBookController],[self mineViewController]];
     _tabBarVC.delegate = self;
     [self addChildViewController:_tabBarVC];
     [self.view addSubview:_tabBarVC.view];
@@ -99,7 +99,7 @@
     nav.tabBarItem.selectedImage = [[UIImage imageNamed:@"set-green"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     return nav;
 }
-- (UIViewController*)viewController {
+- (UIViewController*)centerController {
     UIViewController *view = [UIViewController new];
     view.tabBarItem.image = [[UIImage imageNamed:@"home_add"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     view.tabBarItem.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0);

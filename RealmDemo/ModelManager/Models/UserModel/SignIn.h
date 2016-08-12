@@ -116,6 +116,6 @@
  */
 @property(nonatomic, assign)BOOL validity;
 
-- (NSString*)categoryStr;
+- (NSString*)categoryStr;//类型；0-上班；1-下班；2-外勤；3-其他
 
 @end

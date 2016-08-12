@@ -15,6 +15,10 @@
     AFNetworkReachabilityManager *_reachabilityManager;
     //一般的网络请求服务
     AFHTTPSessionManager *_dataSessionManager;
+    //上传文件
+    AFHTTPSessionManager *_uploadSessionManager;
+    //下载文件
+    AFHTTPSessionManager *_downSessionManager;
 }
 
 #pragma mark -
@@ -97,9 +101,7 @@ static HttpService * __singleton__;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:pathStr]];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    
-    NSURLSessionDownloadTask * dataTask = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
+    NSURLSessionDownloadTask * dataTask = [_downSessionManager downloadTaskWithRequest:request progress:nil destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
         return [NSURL fileURLWithPath:[locFilePath stringByAppendingPathComponent:response.suggestedFilename]];
     } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
         //判断结果
@@ -124,8 +126,7 @@ static HttpService * __singleton__;
 
 //上传文件
 - (NSURLSessionDataTask *)uploadRequestURLPath:(NSString *)pathStr parameters:(id)parameters image:(UIImage*)image name:(NSString*)name completionHandler:(completionHandler)completionHandler {
-    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:KBSSDKAPIDomain]];
-    NSURLSessionDataTask * dataTask = [manager POST:pathStr parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+    NSURLSessionDataTask * dataTask = [_uploadSessionManager POST:pathStr parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         [formData appendPartWithFileData:[image dataInNoSacleLimitBytes:MaXPicSize] name:name fileName:[NSString stringWithFormat:@"%@.jpg",@([NSDate date].timeIntervalSince1970 * 1000)] mimeType:@"image/jpeg"];
     } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if([responseObject[@"code"] integerValue] == 0) {
@@ -160,16 +161,26 @@ static HttpService * __singleton__;
 }
 - (void)invalidateManagers {
     [_dataSessionManager invalidateSessionCancelingTasks:YES];
+    [_uploadSessionManager invalidateSessionCancelingTasks:YES];
+    [_downSessionManager invalidateSessionCancelingTasks:YES];
 }
 
 #pragma mark -
 #pragma mark - Ptavite Methods  
 
 - (void)initManagers {
+    //普通数据请求
     _dataSessionManager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:KBSSDKAPIDomain]];
     [_dataSessionManager setRequestSerializer:[AFHTTPRequestSerializer serializer]];
     [_dataSessionManager setResponseSerializer:[AFJSONResponseSerializer serializer]];
-    
+    //上传文件
+    _uploadSessionManager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:KBSSDKAPIDomain]];
+    [_uploadSessionManager setRequestSerializer:[AFHTTPRequestSerializer serializer]];
+    [_uploadSessionManager setResponseSerializer:[AFJSONResponseSerializer serializer]];
+    //下载文件
+    _downSessionManager = [AFHTTPSessionManager manager];
+    [_downSessionManager setRequestSerializer:[AFHTTPRequestSerializer serializer]];
+    [_downSessionManager setResponseSerializer:[AFJSONResponseSerializer serializer]];
 }
 
 @end

@@ -27,8 +27,11 @@
 + (instancetype)manager;
 
 #pragma makr -- 本地推送
+//添加上下班通知
 - (void)addSiginRuleNotfition;
+//添加日程通知
 - (void)addCalendarNotfition;
+//添加任务通知
 - (void)addTaskNotfition;
 #pragma mark -- User
 //更新用户数据

@@ -3558,10 +3558,10 @@
 		75E5FF7A1D27D61C00F77961 /* IdentityManager */ = {
 			isa = PBXGroup;
 			children = (
-				1B5585531D34CA2C00DCD3A0 /* IdentityManager.h */,
-				1B5585541D34CA2C00DCD3A0 /* IdentityManager.m */,
 				04A817751D3525D700011DA1 /* IdentityHttp.h */,
 				04A817761D3525D700011DA1 /* IdentityHttp.m */,
+				1B5585531D34CA2C00DCD3A0 /* IdentityManager.h */,
+				1B5585541D34CA2C00DCD3A0 /* IdentityManager.m */,
 			);
 			path = IdentityManager;
 			sourceTree = "<group>";

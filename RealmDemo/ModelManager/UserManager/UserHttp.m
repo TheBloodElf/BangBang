@@ -20,13 +20,7 @@
     return [[HttpService service] uploadRequestURLPath:urlPath parameters:parameters image:image name:@"doc" completionHandler:handler];
 }
 #pragma mark -- 社会化登录
-+ (NSURLSessionDataTask*)socialLogin:(NSString *)social_id
-                          media_type:(NSString *)media_type
-                               token:(NSString *)token
-                          expires_in:(NSString *)expires_in
-                         client_type:(NSString *)client_type
-                                name:(NSString *)name
-                          avatar_url:(NSString *)avatar_url handler:(completionHandler)handler {
++ (NSURLSessionDataTask*)socialLogin:(NSString *)social_id media_type:(NSString *)media_type token:(NSString *)token expires_in:(NSString *)expires_in client_type:(NSString *)client_type name:(NSString *)name avatar_url:(NSString *)avatar_url handler:(completionHandler)handler {
     NSString *urlPath = @"Users/social_login_new";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params setObject:social_id forKey:@"social_id"];

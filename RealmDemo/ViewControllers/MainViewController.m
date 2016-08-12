@@ -73,7 +73,6 @@
     IdentityManager *manager = [IdentityManager manager];
     //看用户是不是第一次使用软件
     if(manager.identity.firstUseSoft) {
-       
         _welcome = [WelcomeController new];
         _welcome.view.alpha = 0;
         [self addChildViewController:_welcome];
@@ -93,7 +92,6 @@
     } else {
         //看用户是否登录
         if([NSString isBlank:manager.identity.user_guid]) {
-            
             _login = [LoginController new];
             _login.view = 0;
             [self addChildViewController:_login];

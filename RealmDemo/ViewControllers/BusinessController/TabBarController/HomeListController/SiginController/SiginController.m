@@ -144,6 +144,34 @@
 }
 #pragma mark -- 
 #pragma mark -- CLLocationManagerDelegate
+- (void)locationManager:(CLLocationManager *)manager
+    didUpdateToLocation:(CLLocation *)newLocation
+           fromLocation:(CLLocation *)oldLocation {
+    newLocation = [[CLLocation alloc] initWithLatitude:31 longitude:120];
+    //得到newLocation 火星坐标转换
+    CLLocationCoordinate2D coordinate = newLocation.coordinate;
+    CLGeocoder * geoCoder = [[CLGeocoder alloc] init];
+    [geoCoder reverseGeocodeLocation:[[CLLocation alloc] initWithLatitude:coordinate.latitude longitude:coordinate.longitude] completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (!error)
+        {
+            [_locationManager stopUpdatingLocation];
+            CLPlacemark * placemark = [placemarks lastObject];
+            NSDictionary *test = [placemark addressDictionary];
+            //  Country(国家)  State(城市)  SubLocality(区)
+            self.weatherLabel.text = [test objectForKey:@"SubLocality"];
+            //查询天气
+            //构造AMapWeatherSearchRequest对象，配置查询参数
+            AMapWeatherSearchRequest *request = [[AMapWeatherSearchRequest alloc] init];
+            request.city = self.weatherLabel.text;
+            request.type = AMapWeatherTypeLive; //AMapWeatherTypeLive为实时天气；AMapWeatherTypeForecase为预报天气
+            //发起行政区划查询
+            [_search AMapWeatherSearch:request];
+        }else {
+            self.weatherLabel.text = @"定位失败...";
+        }
+    }];
+    
+}
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
     //得到newLocation 火星坐标转换
     CLLocationCoordinate2D coordinate = [locations[0] coordinate];
