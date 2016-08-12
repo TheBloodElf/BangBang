@@ -221,11 +221,11 @@
         for (TaskModel *model in taskArr) {
             if(model.status == 0 || model.status == 1 || model.status == 7 || model.status == 8) continue;//去掉不提醒的
             if([NSString isBlank:model.alert_date_list]) continue;//去掉没有提醒时间的
-            
             NSArray *alertStrArr = [model.alert_date_list componentsSeparatedByString:@","];
             for (NSString *str in alertStrArr) {
                 NSDate *currAlertDate = [NSDate dateWithTimeIntervalSince1970:str.integerValue / 1000];
-                if(currAlertDate.timeIntervalSince1970 > currDate.timeIntervalSince1970 && currAlertDate.timeIntervalSince1970 < [currDate dateByAddingTimeInterval:LocNotifotionDays * 24 * 60 * 60].timeIntervalSince1970) {//得到在提醒天数之内的时间
+                if(currAlertDate.timeIntervalSince1970 < currDate.timeIntervalSince1970) continue;
+                if((currAlertDate.timeIntervalSince1970 - currDate.timeIntervalSince1970) <= (LocNotifotionDays * 24 * 60 * 60)) {//得到在提醒天数之内的时间
                     [self addTaskAlertToLocNoti:model date:currAlertDate];
                 }
             }

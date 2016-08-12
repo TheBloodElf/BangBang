@@ -30,4 +30,7 @@ typedef void(^completionHandler)(id data,MError *error);
                                   completionHandler:(completionHandler)completionHandler;
 //下载文件
 - (NSURLSessionDownloadTask *)downRequesURLPath:(NSString *)pathStr locFilePath:(NSString*)locFilePath completionHandler:(completionHandler)completionHandler;
+
+//上传文件
+- (NSURLSessionDataTask *)uploadRequestURLPath:(NSString *)pathStr parameters:(id)parameters image:(UIImage*)image name:(NSString*)name completionHandler:(completionHandler)completionHandler;
 @end

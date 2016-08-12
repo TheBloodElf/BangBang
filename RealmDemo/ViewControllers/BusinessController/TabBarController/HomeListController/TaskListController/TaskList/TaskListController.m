@@ -94,6 +94,7 @@
                 model.descriptionStr = dic[@"description"];
                 [array addObject:model];
             }
+            [_userManager updateTask:[@[] mutableCopy] companyNo:_userManager.user.currCompany.company_no];
             [_userManager updateTask:array companyNo:_userManager.user.currCompany.company_no];
             [self.navigationController.view showSuccessTips:@"同步成功"];
         }];

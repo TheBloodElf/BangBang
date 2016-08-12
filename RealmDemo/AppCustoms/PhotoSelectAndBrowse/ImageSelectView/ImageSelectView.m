@@ -82,7 +82,7 @@ static NSString *painlImageIdentifier = @"painlImageIdentifier";
         UIImagePickerController *picker = [[UIImagePickerController alloc] init];//初始化
         picker.delegate = weakSelf;
         picker.sourceType = sourceType;
-        if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {//看当前设备是否能够拍照
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {//看当前设备是否能够拍照
             picker.sourceType = UIImagePickerControllerSourceTypeCamera;
             [weakSelf.presentController presentViewController:picker animated:YES completion:nil];
         } else {
@@ -126,7 +126,7 @@ static NSString *painlImageIdentifier = @"painlImageIdentifier";
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];//初始化
     picker.delegate = self;
     picker.sourceType = sourceType;
-    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {//看当前设备是否能够拍照
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {//看当前设备是否能够拍照
         picker.sourceType = UIImagePickerControllerSourceTypeCamera;
         [self.presentController presentViewController:picker animated:YES completion:nil];
     } else {

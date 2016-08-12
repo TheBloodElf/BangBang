@@ -121,6 +121,26 @@ static HttpService * __singleton__;
     [dataTask resume];
     return dataTask;
 }
+
+//上传文件
+- (NSURLSessionDataTask *)uploadRequestURLPath:(NSString *)pathStr parameters:(id)parameters image:(UIImage*)image name:(NSString*)name completionHandler:(completionHandler)completionHandler {
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:KBSSDKAPIDomain]];
+    NSURLSessionDataTask * dataTask = [manager POST:pathStr parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        [formData appendPartWithFileData:[image dataInNoSacleLimitBytes:MaXPicSize] name:name fileName:[NSString stringWithFormat:@"%@.jpg",@([NSDate date].timeIntervalSince1970 * 1000)] mimeType:@"image/jpeg"];
+    } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if([responseObject[@"code"] integerValue] == 0) {
+            completionHandler(responseObject,nil);
+        } else {
+            completionHandler(nil,[[MError alloc] initWithCode:task.error.code statsMsg:task.error.domain]);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        completionHandler(nil,[[MError alloc] initWithCode:error.code statsMsg:error.domain]);
+    }];
+    
+    [dataTask resume];
+    return dataTask;
+}
+
 - (NSString *)stringWithMethod:(HTTP_REQUEST_METHOD)method {
     switch (method) {
         case E_HTTP_REQUEST_METHOD_GET:     return @"GET";      break;
