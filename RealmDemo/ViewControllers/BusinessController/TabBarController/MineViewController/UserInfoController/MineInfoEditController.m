@@ -236,7 +236,7 @@
             return ;
         }
         User *user = [_userManager.user deepCopy];
-        user.avatar = data[@"avatar"];
+        user.avatar = data[@"data"][@"avatar"];
         [_userManager updateUser:user];
         
         //更新用户员工

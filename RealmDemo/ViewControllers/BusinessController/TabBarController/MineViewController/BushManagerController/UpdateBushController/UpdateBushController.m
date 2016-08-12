@@ -50,7 +50,7 @@
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
-            _currCompany.logo = data[@"logo"];
+            _currCompany.logo = data[@"data"][@"logo"];
             [self.navigationController.view showLoadingTips:@"修改信息..."];
             [UserHttp updateCompany:_currCompany.company_no companyName:_currCompany.company_name companyType:_currCompany.company_type logo:_currCompany.logo handler:^(id data, MError *error) {
                 [self.navigationController.view dismissTips];

@@ -425,7 +425,7 @@
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
-            [_siginImageNameArr addObject:data[@"file_url"]];
+            [_siginImageNameArr addObject:data[@"data"][@"file_url"]];
             [self sendSiginPhoto];
         }];
     }
