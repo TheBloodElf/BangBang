@@ -20,11 +20,11 @@
     return [[HttpService service] uploadRequestURLPath:urlPath parameters:parameters image:image name:@"doc" completionHandler:handler];
 }
 #pragma mark -- 社会化登录
-+ (NSURLSessionDataTask*)socialLogin:(NSString *)social_id media_type:(NSString *)media_type token:(NSString *)token expires_in:(NSString *)expires_in client_type:(NSString *)client_type name:(NSString *)name avatar_url:(NSString *)avatar_url handler:(completionHandler)handler {
++ (NSURLSessionDataTask*)socialLogin:(NSString *)social_id media_type:(int)media_type token:(NSString *)token expires_in:(NSString *)expires_in client_type:(NSString *)client_type name:(NSString *)name avatar_url:(NSString *)avatar_url handler:(completionHandler)handler {
     NSString *urlPath = @"Users/social_login_new";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params setObject:social_id forKey:@"social_id"];
-    [params setObject:media_type forKey:@"media_type"];
+    [params setObject:@(media_type) forKey:@"media_type"];
     [params setObject:token forKey:@"token"];
     [params setObject:expires_in forKey:@"expires_in"];
     [params setObject:client_type forKey:@"client_type"];
@@ -600,7 +600,7 @@
     return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_GET URLPath:urlPath parameters:params completionHandler:compleionHandler];
 }
 //添加评论
-+ (NSURLSessionDataTask*)addTaskComment:(int)taskId taskStatus:(int)taskStatus comment:(NSString*)comment createdby:(NSString*)createdby createdRealname:(NSString*)createdRealname handler:(completionHandler)handler {
++ (NSURLSessionDataTask*)addTaskComment:(int)taskId taskStatus:(int)taskStatus comment:(NSString*)comment createdby:(NSString*)createdby createdRealname:(NSString*)createdRealname repEmployeeGuid:(NSString*)repEmployeeGuid repEmployeeName:(NSString*)repEmployeeName handler:(completionHandler)handler {
     NSString *urlPath = @"Tasks/comment";
     NSMutableDictionary *params = [@{} mutableCopy];
     [params setObject:@(taskId) forKey:@"task_id"];
@@ -608,6 +608,10 @@
     [params setObject:comment forKey:@"comment"];
     [params setObject:createdby forKey:@"createdby"];
     [params setObject:createdRealname forKey:@"created_realname"];
+    if(![NSString isBlank:repEmployeeGuid])
+        [params setObject:repEmployeeGuid forKey:@"replied_employeeguid"];
+    if(![NSString isBlank:repEmployeeName])
+        [params setObject:repEmployeeName forKey:@"replied_employeename"];
     [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
     completionHandler compleionHandler = ^(id data,MError *error) {
         handler(data,error);

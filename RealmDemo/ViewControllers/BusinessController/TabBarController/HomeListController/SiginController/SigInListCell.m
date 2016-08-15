@@ -28,6 +28,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.avaterImage.layer.cornerRadius = 16.5;
+    self.avaterImage.clipsToBounds = YES;
 }
 
 - (void)dataDidChange {
@@ -52,13 +54,13 @@
         return;
     }
     self.attemthHeight.constant = width;
+    [self.contentView layoutIfNeeded];
     NSArray *imageArr = [signIn.attachments componentsSeparatedByString:@","];
     for (int index = 0; index < imageArr.count; index ++) {
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(index * (width + 5), 0, width, width)];
         [imageView sd_setImageWithURL:[NSURL URLWithString:imageArr[index]] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
         [self.attemthLabel addSubview:imageView];
     }
-    
 }
 //附件被点击
 - (IBAction)attathmClicked:(id)sender {

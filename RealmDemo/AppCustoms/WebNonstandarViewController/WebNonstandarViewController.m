@@ -383,7 +383,7 @@
             [self.navigationController.view showFailureTips:@"有图片上传失败"];
         } else {
             uploadPhotoNumber = uploadPhotoNumber - 1;
-            [_bridge callHandler:@"selectedFilesIOS" data:data responseCallback:^(id responseData){
+            [_bridge callHandler:@"selectedFilesIOS" data:data[@"data"] responseCallback:^(id responseData){
                 NSLog(@"xyf-----------: %@", responseData);
             }];
             [self sendImageArr];

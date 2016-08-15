@@ -215,17 +215,17 @@
 #pragma mark -- UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     SignIn *sigin = _todaySigInArr[indexPath.row];
-    CGFloat height = 100;//没有详情 没有图片的高度
+    CGFloat height = 95;//没有详情 没有图片的高度
     //算出详情占多高 最宽：屏幕宽度－66
     if(![NSString isBlank:sigin.descriptionStr]) {
-        height = height + [[NSString stringWithFormat:@"说明：%@",sigin.descriptionStr] textSizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH - 66, 100000)].height ;
+        height = height + [[NSString stringWithFormat:@"说明：%@",sigin.descriptionStr] textSizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH - 56, 100000)].height + 15;
     } else {
-        height = height + [@"说明：无" textSizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH - 66, 100000)].height;
+        height = height + [@"说明：无" textSizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH - 56, 100000)].height + 15;
     }
-    //如果有附件图片 高度＋95
+    //如果有附件图片
     if(![NSString isBlank:sigin.attachments])
-        height = height + (MAIN_SCREEN_WIDTH - 66 - 10) / 3.f + 5;
-    return height;
+        return height + (MAIN_SCREEN_WIDTH - 56 - 10) / 3.f + 10;
+    return height + 5;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _todaySigInArr.count;

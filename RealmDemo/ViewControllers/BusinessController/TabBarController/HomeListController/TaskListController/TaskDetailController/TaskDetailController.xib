@@ -12,7 +12,6 @@
                 <outlet property="createDepar" destination="jwr-IE-ybB" id="3hw-C2-t6G"/>
                 <outlet property="createName" destination="g7h-Qf-O9a" id="2XV-Fs-OS4"/>
                 <outlet property="createTime" destination="Cpc-aE-bcc" id="YlB-Dt-E6d"/>
-                <outlet property="lineView" destination="nyM-mN-p86" id="sSB-6P-k1x"/>
                 <outlet property="taskTitle" destination="aPM-Kk-0oU" id="u7s-ux-v9k"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -116,19 +115,6 @@
                         <action selector="btnClicked:" destination="-1" eventType="touchUpInside" id="vot-Wa-mTU"/>
                     </connections>
                 </button>
-                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nyM-mN-p86">
-                    <rect key="frame" x="5" y="147" width="128" height="2"/>
-                    <color key="backgroundColor" red="0.1333333333" green="0.61960784310000006" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="76" id="8VJ-Xh-MSy"/>
-                        <constraint firstAttribute="height" constant="2" id="n7X-tg-lip"/>
-                    </constraints>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="8VJ-Xh-MSy"/>
-                        </mask>
-                    </variation>
-                </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y2v-nn-FBI">
                     <rect key="frame" x="0.0" y="149" width="414" height="587"/>
                 </scrollView>
@@ -136,7 +122,6 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="y2v-nn-FBI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="0qc-C9-ZoB"/>
-                <constraint firstItem="nyM-mN-p86" firstAttribute="centerX" secondItem="fQd-eP-MFa" secondAttribute="centerX" id="5W2-6g-3hn"/>
                 <constraint firstItem="aPM-Kk-0oU" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="90Q-Av-e5s"/>
                 <constraint firstItem="KLd-bt-KNt" firstAttribute="leading" secondItem="fQd-eP-MFa" secondAttribute="trailing" id="95T-7O-tve"/>
                 <constraint firstItem="aPM-Kk-0oU" firstAttribute="top" secondItem="0Ar-SC-4sv" secondAttribute="bottom" constant="10" id="Dah-sf-ngT"/>
@@ -144,14 +129,12 @@
                 <constraint firstItem="fQd-eP-MFa" firstAttribute="top" secondItem="aPM-Kk-0oU" secondAttribute="bottom" constant="10" id="ENC-yl-oya"/>
                 <constraint firstItem="Cpc-aE-bcc" firstAttribute="centerY" secondItem="g7h-Qf-O9a" secondAttribute="centerY" id="Iib-ik-FUZ"/>
                 <constraint firstItem="byd-Lq-Wxi" firstAttribute="top" secondItem="aPM-Kk-0oU" secondAttribute="bottom" constant="10" id="JDN-uR-BLI"/>
-                <constraint firstItem="nyM-mN-p86" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="LDy-sd-WXp"/>
                 <constraint firstItem="jwr-IE-ybB" firstAttribute="leading" secondItem="0Ar-SC-4sv" secondAttribute="trailing" constant="5" id="MaP-R2-XLr"/>
                 <constraint firstItem="g7h-Qf-O9a" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="13" id="OQE-NN-i7j"/>
                 <constraint firstItem="KLd-bt-KNt" firstAttribute="width" secondItem="byd-Lq-Wxi" secondAttribute="width" id="SJ7-7u-n3D"/>
                 <constraint firstItem="KLd-bt-KNt" firstAttribute="top" secondItem="aPM-Kk-0oU" secondAttribute="bottom" constant="10" id="ULG-9d-RL8"/>
                 <constraint firstItem="fQd-eP-MFa" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="UMf-Tg-Op2"/>
                 <constraint firstItem="fQd-eP-MFa" firstAttribute="width" secondItem="KLd-bt-KNt" secondAttribute="width" id="X47-PN-1Ks"/>
-                <constraint firstItem="nyM-mN-p86" firstAttribute="width" secondItem="fQd-eP-MFa" secondAttribute="width" constant="-10" id="ZyG-54-ECb"/>
                 <constraint firstAttribute="trailing" secondItem="y2v-nn-FBI" secondAttribute="trailing" id="aEY-Df-Ibe"/>
                 <constraint firstAttribute="trailing" secondItem="Cpc-aE-bcc" secondAttribute="trailing" constant="10" id="aeE-N3-uS9"/>
                 <constraint firstItem="g7h-Qf-O9a" firstAttribute="leading" secondItem="0Ar-SC-4sv" secondAttribute="trailing" constant="5" id="dmk-3l-ehl"/>
@@ -160,16 +143,10 @@
                 <constraint firstAttribute="trailing" secondItem="aPM-Kk-0oU" secondAttribute="trailing" constant="10" id="ijO-EE-2og"/>
                 <constraint firstItem="0Ar-SC-4sv" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="9" id="jMn-8O-QwJ"/>
                 <constraint firstItem="y2v-nn-FBI" firstAttribute="top" secondItem="KLd-bt-KNt" secondAttribute="bottom" id="nue-4D-E0j"/>
-                <constraint firstItem="nyM-mN-p86" firstAttribute="top" secondItem="fQd-eP-MFa" secondAttribute="bottom" constant="-2" id="q6O-he-hx9"/>
                 <constraint firstAttribute="bottom" secondItem="y2v-nn-FBI" secondAttribute="bottom" id="wXf-j8-3uX"/>
                 <constraint firstItem="jwr-IE-ybB" firstAttribute="top" secondItem="g7h-Qf-O9a" secondAttribute="bottom" constant="3" id="zV7-cq-YRe"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="LDy-sd-WXp"/>
-                </mask>
-            </variation>
             <point key="canvasLocation" x="804" y="115"/>
         </view>
     </objects>

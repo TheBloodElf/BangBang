@@ -17,6 +17,7 @@
     NSMutableDictionary<NSString*,NSDate*> *_lineDate;//行，时间对应，好计算每个item的时间
     MeetingRoomCellModel *_userSelectDate;//用户选择的开始/结束时间
     NSDate *_currWeekDate;//当前周的时间，用来计算集合视图中每个的时间
+    NSMutableArray<MeetingRoomHandlerTimeModel*> *_handlerArr;//有会议的模型数组
 }
 @property (nonatomic, strong) MeetingRoomModel *meetingRoomModel;//已经选择的会议室模型
 @property (weak, nonatomic) IBOutlet JTHorizontalCalendarView *calendarView;
@@ -32,6 +33,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     _lineDate = [@{} mutableCopy];
+    _handlerArr = [@[] mutableCopy];
     _managerView = [JTCalendarManager new];
     _managerView.delegate = self;
     _managerView.settings.weekDayFormat = JTCalendarWeekDayFormatSingle;
@@ -87,25 +89,56 @@
     //得到要查询的开始和结束时间
     NSDate *begin = [_lineDate[@"0"] firstTime];
     NSDate *end = [_lineDate[@"6"] lastTime];
+    [_handlerArr removeAllObjects];
     [UserHttp getMeetHandlerTime:_meetingRoomModel.room_id begin:begin.timeIntervalSince1970 * 1000 end:end.timeIntervalSince1970 * 1000 handler:^(id data, MError *error) {
-        if(error) {return ;}
-        NSMutableArray<MeetingRoomHandlerTimeModel*> *handlerArr = [@[] mutableCopy];
+        if(error) return;
         for (NSDictionary *dic in data) {
             MeetingRoomHandlerTimeModel *model = [MeetingRoomHandlerTimeModel new];
             [model mj_setKeyValues:dic];
-            [handlerArr addObject:model];
+            [_handlerArr addObject:model];
         }
-        //遍历集合视图所有的项 依次判断是否是被占用的时间
-        for (int index = 0; index < 7; index ++) {
-            int rowCount = [_timeCollectionView numberOfItemsInSection:index];
-            for (int rowIndex = 0; rowIndex < rowCount; rowIndex ++) {
-                MeetingRoomCellModel *model = [[_timeCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:rowIndex inSection:index]] data];
-                //是否被占用
-                if([self thisTimeIsHaveMeet:model handlerArr:handlerArr]) {
-                    model.haveMeet = YES;
-                    [_timeCollectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:rowIndex inSection:index]]];
+        for (UIView *view in _timeCollectionView.subviews) {
+            if([view isMemberOfClass:[UILabel class]])
+                [view removeFromSuperview];
+        }
+    
+        
+        //当前会议室一共有多少列
+        int64_t count = (_meetingRoomModel.end_time - _meetingRoomModel.begin_time) / (30 * 60 * 1000);
+        if((_meetingRoomModel.end_time - _meetingRoomModel.begin_time) % (30 * 60 * 1000) != 0)
+            count ++;
+        //在集合视图上加上有会议的标签
+        for (MeetingRoomHandlerTimeModel *model in _handlerArr) {
+            CGPoint pointLeftTop = CGPointZero;
+            for (int i = 0 ;i < _lineDate.allKeys.count;i ++) {
+                //当前行的时间
+                NSDate *currDate = _lineDate[[NSString stringWithFormat:@"%d",i]];
+                int64_t currDateI = (int64_t)[currDate timeIntervalSince1970] / (24 * 60 * 60) * (24 * 60 * 60);
+                //求出这一行开始的时间
+                NSDate *currDateDate = [NSDate dateWithTimeIntervalSince1970:currDateI + (_meetingRoomModel.begin_time / 1000) % (24 * 60 * 60)];
+                for (int row = 0; row < count; row ++) {
+                    //当前这一列的开始时间
+                    NSDate *currRowDate = [currDateDate dateByAddingTimeInterval:row * 30 * 60];
+                    //找到开始的点 结束的点自己算
+                    if(currRowDate.timeIntervalSince1970 == model.begin / 1000) {
+                        pointLeftTop = CGPointMake(i * ((MAIN_SCREEN_WIDTH - 60) / 7.f),row * ((MAIN_SCREEN_WIDTH - 60) / 7.f));
+                        break;
+                    }
                 }
             }
+            if(CGPointEqualToPoint(pointLeftTop, CGPointZero)) continue;
+            //创建当前会议的标签
+            CGRect currMeetRect = CGRectMake(pointLeftTop.x + 2, pointLeftTop.y + 2, (MAIN_SCREEN_WIDTH - 60) / 7.f - 4, ((model.end - model.begin) / 1000 / 60 / 30) * ((MAIN_SCREEN_WIDTH - 60) / 7.f) - 4);
+            UILabel *meetLabel = [[UILabel alloc] initWithFrame:currMeetRect];
+            meetLabel.backgroundColor = [UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1];
+            meetLabel.numberOfLines = 0;
+            meetLabel.layer.cornerRadius = 2;
+            meetLabel.clipsToBounds = YES;
+            meetLabel.textAlignment = NSTextAlignmentCenter;
+            meetLabel.font = [UIFont systemFontOfSize:14];
+            meetLabel.textColor = [UIColor whiteColor];
+            meetLabel.text = model.meeting_name;
+            [_timeCollectionView addSubview:meetLabel];
         }
     }];
 }
@@ -214,6 +247,10 @@
     //是不是今天的时间
     if((_userSelectDate.begin.timeIntervalSince1970 <= model.begin.timeIntervalSince1970) && (_userSelectDate.end.timeIntervalSince1970 >= model.end.timeIntervalSince1970))
         model.isUserSelectDate = YES;
+    //是不是今天有会议
+//    if([self thisTimeIsHaveMeet:model handlerArr:_handlerArr]) {
+//        model.haveMeet = YES;
+//    }
     MeetingRoomTimeCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MeetingRoomTimeCollectionCell" forIndexPath:indexPath];
     cell.delegate = self;
     cell.data = model;

@@ -237,7 +237,7 @@
                         [_identityManager saveAuthorizeData];
                         //登录
                         [self.navigationController.view showLoadingTips:@"登录..."];
-                        [UserHttp socialLogin:unionId media_type:@"weixin" token:accessToken expires_in:expiresWeixin client_type:@"ios" name:userName avatar_url:userAvatar handler:^(id data, MError *error) {
+                        [UserHttp socialLogin:unionId media_type:2 token:accessToken expires_in:expiresWeixin client_type:@"ios" name:userName avatar_url:userAvatar handler:^(id data, MError *error) {
                             if(error) {
                                 [self.navigationController dismissTips];
                                 _identityManager.identity.user_guid = @"";
@@ -336,7 +336,7 @@
     long exptime = [[_tencentOAuth expirationDate] timeIntervalSinceDate:[NSDate date]];
 //    登录
     [self.navigationController.view showLoadingTips:@"登录..."];
-    [UserHttp socialLogin:[_tencentOAuth openId] media_type:@"qq" token:[_tencentOAuth accessToken] expires_in:[NSString stringWithFormat:@"%ld",exptime] client_type:@"ios" name:name avatar_url:avatar handler:^(id data, MError *error) {
+    [UserHttp socialLogin:[_tencentOAuth openId] media_type:1 token:[_tencentOAuth accessToken] expires_in:[NSString stringWithFormat:@"%ld",exptime] client_type:@"ios" name:name avatar_url:avatar handler:^(id data, MError *error) {
         if(error) {
             [self.navigationController.view dismissTips];
             [self.navigationController.view showFailureTips:error.statsMsg];
@@ -443,7 +443,7 @@
                 [_identityManager saveAuthorizeData];
                 //登录
                 [self.navigationController showLoadingTips:@"登录..."];
-                [UserHttp socialLogin:user.userID media_type:@"weibo" token:accessTokenWeiBo expires_in:expiresWeiBo client_type:@"ios" name:user.name avatar_url:user.avatarLargeUrl handler:^(id data, MError *error) {
+                [UserHttp socialLogin:user.userID media_type:3 token:accessTokenWeiBo expires_in:expiresWeiBo client_type:@"ios" name:user.name avatar_url:user.avatarLargeUrl handler:^(id data, MError *error) {
                     if(error) {
                         [self.navigationController.view dismissTips];
                         [self.navigationController.view showFailureTips:error.statsMsg];

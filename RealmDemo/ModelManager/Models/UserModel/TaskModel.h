@@ -6,6 +6,7 @@
 //  Copyright © 2016年 com.luohaifang. All rights reserved.
 //
 
+#import "TaskFinishState.h"
 //任务
 @interface TaskModel : RLMObject
 
@@ -33,6 +34,9 @@
 @property (nonatomic, strong) NSString *approve_comment;//审批意见
 @property (nonatomic, assign) int64_t updatedon_utc;//最后更新时间
 @property (nonatomic, strong) NSString *updatedby;//最后更新者employee_guid
+
+@property (nonatomic, strong) RLMArray<TaskFinishState> *taskFinishStateArr;//任务完成状态
+
 @property (nonatomic, assign) int creator_unread_commentcount;//创建者看到的该任务未读评论数量
 @property (nonatomic, assign) int incharge_unread_commentcount;//负责人看到的该任务未读评论数量
 @property (nonatomic, assign) int creator_unread_attachcount;//创建者看到的该任务未读附件数量

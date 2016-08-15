@@ -551,12 +551,15 @@
     [_rlmRealm beginWriteTransaction];
     int64_t dateFirstTime = date.firstTime.timeIntervalSince1970 * 1000;
     int64_t dateLastTime = date.lastTime.timeIntervalSince1970 * 1000;
-    NSString *resultStr = [NSString stringWithFormat:@"((enddate_utc >= %lld and begindate_utc <= %lld ) or (enddate_utc >= %lld and begindate_utc <= %lld ) or (enddate_utc <= %lld and begindate_utc >= %lld ) or (r_end_date_utc >= %lld and r_begin_date_utc <= %lld ) or (r_end_date_utc >= %lld and r_begin_date_utc <= %lld ) or (r_end_date_utc <= %lld and r_begin_date_utc >= %lld ))",dateLastTime,dateLastTime,dateFirstTime,dateFirstTime,dateLastTime,dateFirstTime,dateLastTime,dateLastTime,dateFirstTime,dateFirstTime,dateLastTime,dateFirstTime];
+    NSString *noReStr = [NSString stringWithFormat:@"(repeat_type = 0 and ((enddate_utc >= %lld and begindate_utc <= %lld ) or (enddate_utc >= %lld and begindate_utc <= %lld)  or (enddate_utc <= %lld and begindate_utc >= %lld)))",dateLastTime,dateLastTime,dateFirstTime,dateFirstTime,dateLastTime,dateFirstTime];
+    NSString *reStr = [NSString stringWithFormat:@"(repeat_type != 0 and ((r_end_date_utc >= %lld and r_begin_date_utc <= %lld ) or (r_end_date_utc >= %lld and r_begin_date_utc <= %lld ) or (r_end_date_utc <= %lld and r_begin_date_utc >= %lld )))",dateLastTime,dateLastTime,dateFirstTime,dateFirstTime,dateLastTime,dateFirstTime];
+    
+    NSString *resultStr = [NSString stringWithFormat:@"%@ or %@",noReStr,reStr];
+    
     RLMResults *calendarResult = [Calendar objectsInRealm:_rlmRealm where:resultStr];
     for (int index = 0;index < calendarResult.count;index ++) {
         Calendar *company = [calendarResult objectAtIndex:index];
-        if(company.status != 0)
-            [pushMessageArr addObject:company];
+        [pushMessageArr addObject:company];
     }
     [_rlmRealm commitWriteTransaction];
     return pushMessageArr;
