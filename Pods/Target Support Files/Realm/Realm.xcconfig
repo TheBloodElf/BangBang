@@ -2,7 +2,7 @@ APPLICATION_EXTENSION_API_ONLY = YES
 CLANG_CXX_LANGUAGE_STANDARD = compiler-default
 CONFIGURATION_BUILD_DIR = $PODS_CONFIGURATION_BUILD_DIR/Realm
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/Realm" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/AMap3DMap" "${PODS_ROOT}/Headers/Public/AMapFoundation" "${PODS_ROOT}/Headers/Public/AMapSearch" "${PODS_ROOT}/Headers/Public/Bugtags" "${PODS_ROOT}/Headers/Public/GTSDK" "${PODS_ROOT}/Headers/Public/JTCalendar" "${PODS_ROOT}/Headers/Public/MBProgressHUD" "${PODS_ROOT}/Headers/Public/MJExtension" "${PODS_ROOT}/Headers/Public/MJRefresh" "${PODS_ROOT}/Headers/Public/RBQFetchedResultsController" "${PODS_ROOT}/Headers/Public/Realm" "${PODS_ROOT}/Headers/Public/RongCloudIMKit" "${PODS_ROOT}/Headers/Public/SDWebImage" "${PODS_ROOT}/Realm/include/core"
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/AMap3DMap" "${PODS_ROOT}/Headers/Public/AMapFoundation" "${PODS_ROOT}/Headers/Public/AMapSearch" "${PODS_ROOT}/Headers/Public/Bugtags" "${PODS_ROOT}/Headers/Public/GTSDK" "${PODS_ROOT}/Headers/Public/MBProgressHUD" "${PODS_ROOT}/Headers/Public/MJExtension" "${PODS_ROOT}/Headers/Public/RongCloudIMKit" "${PODS_ROOT}/Headers/Public/SDWebImage" "${PODS_ROOT}/Realm/include/core"
 LIBRARY_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Realm/core"
 OTHER_CPLUSPLUSFLAGS = -std=c++1y $(inherited)
 OTHER_LDFLAGS = -l"c++" -l"realm-ios"

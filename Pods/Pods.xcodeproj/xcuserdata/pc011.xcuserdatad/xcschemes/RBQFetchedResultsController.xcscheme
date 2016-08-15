@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '5C2D669C5A5532C27A8F68FDA42DEC64'
+               BlueprintIdentifier = '5608794BBA79738B2E234D3F040F7585'
                BlueprintName = 'RBQFetchedResultsController'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libRBQFetchedResultsController.a'>
+               BuildableName = 'RBQFetchedResultsController.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
