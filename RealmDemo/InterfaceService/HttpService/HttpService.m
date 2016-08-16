@@ -104,6 +104,8 @@ static HttpService * __singleton__;
     NSURLSessionDownloadTask * dataTask = [_downSessionManager downloadTaskWithRequest:request progress:nil destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
         return [NSURL fileURLWithPath:[locFilePath stringByAppendingPathComponent:response.suggestedFilename]];
     } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
+        //结束菊花
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
         //判断结果
         MError *err = nil;
         id data;

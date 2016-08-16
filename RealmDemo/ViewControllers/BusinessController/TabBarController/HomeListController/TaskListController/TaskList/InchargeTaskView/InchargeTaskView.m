@@ -9,6 +9,7 @@
 #import "InchargeTaskView.h"
 #import "UserManager.h"
 #import "TaskListCell.h"
+#import "NoResultView.h"
 
 @interface InchargeTaskView  ()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource,RBQFetchedResultsControllerDelegate> {
     UserManager *_userManager;
@@ -16,6 +17,7 @@
     NSMutableArray<TaskModel*> *_taskArr;
     RBQFetchedResultsController *_inchargeFetchedResultsController;
     UITableView *_tableView;
+    NoResultView *_noDataView;
 }
 
 @end
@@ -39,7 +41,6 @@
         _searchBar.returnKeyType = UIReturnKeySearch;
         [self addSubview:_searchBar];
         
-        [self getCurrData];
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 60, MAIN_SCREEN_WIDTH, frame.size.height - 60) style:UITableViewStylePlain];
         _tableView.delegate = self;
         _tableView.dataSource = self;
@@ -47,6 +48,8 @@
         _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
         [_tableView registerNib:[UINib nibWithNibName:@"TaskListCell" bundle:nil] forCellReuseIdentifier:@"TaskListCell"];
         [self addSubview:_tableView];
+        _noDataView = [[NoResultView alloc] initWithFrame:_tableView.bounds];
+        [self getCurrData];
     }
     return self;
 }
@@ -66,6 +69,10 @@
             }   
         }
     }
+    if(_taskArr.count == 0)
+        _tableView.tableFooterView = _noDataView;
+    else
+        _tableView.tableFooterView = [UIView new];
 }
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {

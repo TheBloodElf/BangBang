@@ -40,6 +40,9 @@
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
 //弹出登录控制器
 - (void)showLogin:(NSNotification*)noti{
     //是否不需要弹窗

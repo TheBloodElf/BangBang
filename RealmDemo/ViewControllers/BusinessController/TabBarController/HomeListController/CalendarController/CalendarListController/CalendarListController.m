@@ -49,7 +49,7 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _noDataView = [[NoResultView alloc] initWithFrame:_tableView.bounds];
-    _tableView.tableFooterView = _noDataView;
+    _tableView.tableFooterView = [UIView new];
     _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [_tableView registerNib:[UINib nibWithNibName:@"CalenderEventTableViewCell" bundle:nil] forCellReuseIdentifier:@"CalenderEventTableViewCell"];
     [self.view addSubview:_tableView];
@@ -57,12 +57,19 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self searchTextFromLoc];
-    _tableView.tableFooterView = [UIView new];
+    if(_calendarDateArr.count == 0)
+        _tableView.tableFooterView = _noDataView;
+    else
+        _tableView.tableFooterView = [UIView new];
     [_tableView reloadData];
 }
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
     [self searchTextFromLoc];
+    if(_calendarDateArr.count == 0)
+        _tableView.tableFooterView = _noDataView;
+    else
+        _tableView.tableFooterView = [UIView new];
     [_tableView reloadData];
 }
 //本地加载所有事件
@@ -158,6 +165,10 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [searchBar endEditing:YES];
     [self searchTextFromLoc];
+    if(_calendarDateArr.count == 0)
+        _tableView.tableFooterView = _noDataView;
+    else
+        _tableView.tableFooterView = [UIView new];
     [_tableView reloadData];
 }
 #pragma mark --

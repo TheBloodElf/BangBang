@@ -609,9 +609,9 @@
     [params setObject:createdby forKey:@"createdby"];
     [params setObject:createdRealname forKey:@"created_realname"];
     if(![NSString isBlank:repEmployeeGuid])
-        [params setObject:repEmployeeGuid forKey:@"replied_employeeguid"];
+        [params setObject:repEmployeeGuid forKey:@"reply_employeeguid"];
     if(![NSString isBlank:repEmployeeName])
-        [params setObject:repEmployeeName forKey:@"replied_employeename"];
+        [params setObject:repEmployeeName forKey:@"reply_employeename"];
     [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
     completionHandler compleionHandler = ^(id data,MError *error) {
         handler(data,error);

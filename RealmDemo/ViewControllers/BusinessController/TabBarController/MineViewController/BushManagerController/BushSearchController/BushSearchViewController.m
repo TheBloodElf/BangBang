@@ -57,6 +57,7 @@
     }];
     //创建空太图
     _noDataView = [[NoResultView alloc] initWithFrame:_tableView.bounds];
+    [_tableView.mj_header beginRefreshing];
     //创建导航按钮
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(rightBarButtonClicked:)];
 }
@@ -64,7 +65,6 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.barTintColor = [UIColor homeListColor];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    [_tableView reloadData];
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];

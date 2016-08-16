@@ -434,6 +434,10 @@
 		1BDFB8071D58329A00D13BC7 /* IQToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFB7F61D58329900D13BC7 /* IQToolbar.m */; };
 		1BDFB8081D58329A00D13BC7 /* IQUIView+IQKeyboardToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFB7F81D58329900D13BC7 /* IQUIView+IQKeyboardToolbar.m */; };
 		1BDFB8091D58329A00D13BC7 /* IQKeyboardManager.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1BDFB7FA1D58329900D13BC7 /* IQKeyboardManager.bundle */; };
+		1BEAD2E51D62A8D200B8C3FD /* area.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1BEAD2DE1D62A8D200B8C3FD /* area.plist */; };
+		1BEAD2E61D62A8D200B8C3FD /* AreaController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEAD2E01D62A8D200B8C3FD /* AreaController.m */; };
+		1BEAD2E71D62A8D200B8C3FD /* CityController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEAD2E21D62A8D200B8C3FD /* CityController.m */; };
+		1BEAD2E81D62A8D200B8C3FD /* RegionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEAD2E41D62A8D200B8C3FD /* RegionController.m */; };
 		1BED8BF81D517C8900340809 /* TaskFileImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BED8BF61D517C8900340809 /* TaskFileImageCell.m */; };
 		1BED8BF91D517C8900340809 /* TaskFileImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BED8BF71D517C8900340809 /* TaskFileImageCell.xib */; };
 		1BED8BFC1D517D9B00340809 /* TaskAttachModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BED8BFB1D517D9B00340809 /* TaskAttachModel.m */; };
@@ -1251,6 +1255,13 @@
 		1BDFB7F71D58329900D13BC7 /* IQUIView+IQKeyboardToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQUIView+IQKeyboardToolbar.h"; sourceTree = "<group>"; };
 		1BDFB7F81D58329900D13BC7 /* IQUIView+IQKeyboardToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQUIView+IQKeyboardToolbar.m"; sourceTree = "<group>"; };
 		1BDFB7FA1D58329900D13BC7 /* IQKeyboardManager.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IQKeyboardManager.bundle; sourceTree = "<group>"; };
+		1BEAD2DE1D62A8D200B8C3FD /* area.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = area.plist; sourceTree = "<group>"; };
+		1BEAD2DF1D62A8D200B8C3FD /* AreaController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AreaController.h; sourceTree = "<group>"; };
+		1BEAD2E01D62A8D200B8C3FD /* AreaController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AreaController.m; sourceTree = "<group>"; };
+		1BEAD2E11D62A8D200B8C3FD /* CityController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityController.h; sourceTree = "<group>"; };
+		1BEAD2E21D62A8D200B8C3FD /* CityController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityController.m; sourceTree = "<group>"; };
+		1BEAD2E31D62A8D200B8C3FD /* RegionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegionController.h; sourceTree = "<group>"; };
+		1BEAD2E41D62A8D200B8C3FD /* RegionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegionController.m; sourceTree = "<group>"; };
 		1BED8BF51D517C8900340809 /* TaskFileImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskFileImageCell.h; sourceTree = "<group>"; };
 		1BED8BF61D517C8900340809 /* TaskFileImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskFileImageCell.m; sourceTree = "<group>"; };
 		1BED8BF71D517C8900340809 /* TaskFileImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskFileImageCell.xib; sourceTree = "<group>"; };
@@ -3290,6 +3301,20 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		1BEAD2DD1D62A8D200B8C3FD /* RegionController */ = {
+			isa = PBXGroup;
+			children = (
+				1BEAD2DE1D62A8D200B8C3FD /* area.plist */,
+				1BEAD2DF1D62A8D200B8C3FD /* AreaController.h */,
+				1BEAD2E01D62A8D200B8C3FD /* AreaController.m */,
+				1BEAD2E11D62A8D200B8C3FD /* CityController.h */,
+				1BEAD2E21D62A8D200B8C3FD /* CityController.m */,
+				1BEAD2E31D62A8D200B8C3FD /* RegionController.h */,
+				1BEAD2E41D62A8D200B8C3FD /* RegionController.m */,
+			);
+			path = RegionController;
+			sourceTree = "<group>";
+		};
 		1BF5DFA01D4995C60039704E /* WBApiManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -3458,6 +3483,7 @@
 			children = (
 				75E5FF591D27A81B00F77961 /* AppCustoms.h */,
 				75E5FF5A1D27A81B00F77961 /* AppCustoms.m */,
+				1BEAD2DD1D62A8D200B8C3FD /* RegionController */,
 				1B18B3341D59B64000858C83 /* SelectAttachmentController */,
 				1B18B3201D59A6C100858C83 /* AdressSelectAndShow */,
 				1B18B2E51D59A67C00858C83 /* PhotoSelectAndBrowse */,
@@ -3733,6 +3759,7 @@
 				1B18B3321D59A6C100858C83 /* SelectAdressTableCell.xib in Resources */,
 				1BC2AE8A1D42113800842153 /* SelectAttendanceRange.xib in Resources */,
 				1B89FF8A1D4F53A500466F6D /* TaskInchargeCell.xib in Resources */,
+				1BEAD2E51D62A8D200B8C3FD /* area.plist in Resources */,
 				1B158A691D45BB4D003237A7 /* RYGroupSetAddUserCell.xib in Resources */,
 				1B0388811D509A4B00D0B7D0 /* TaskDetailCellCell.xib in Resources */,
 				049586181D39D3A500544259 /* MuliteSelectCell.xib in Resources */,
@@ -3982,6 +4009,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BEAD2E81D62A8D200B8C3FD /* RegionController.m in Sources */,
 				045D8BA41D443E16002E0344 /* GeTuiSdkManager.m in Sources */,
 				1B55856D1D34CF4F00DCD3A0 /* UIViewController+REFrostedViewController.m in Sources */,
 				1B1B9BD21D3E07B300F53EDC /* CalendarCreateController.m in Sources */,
@@ -4167,6 +4195,7 @@
 				046DAF651D4C3EB500718F2A /* MeetingAgenda.m in Sources */,
 				1BDFB8071D58329A00D13BC7 /* IQToolbar.m in Sources */,
 				1BED8C081D517DDD00340809 /* MeetingRoomModel.m in Sources */,
+				1BEAD2E61D62A8D200B8C3FD /* AreaController.m in Sources */,
 				1BED8C111D5191DC00340809 /* TaskCommentModel.m in Sources */,
 				1B1B9BF81D3E198600F53EDC /* ComCalendarInstruction.m in Sources */,
 				1B1B9BC51D3DF6FA00F53EDC /* CalenderEventTableViewCell.m in Sources */,
@@ -4181,6 +4210,7 @@
 				1B89FFA21D4F542900466F6D /* TaskRemindCell.m in Sources */,
 				1BDFB7FE1D58329A00D13BC7 /* IQUIView+Hierarchy.m in Sources */,
 				1BED8BF81D517C8900340809 /* TaskFileImageCell.m in Sources */,
+				1BEAD2E71D62A8D200B8C3FD /* CityController.m in Sources */,
 				1B6D160E1D4853930070D2E5 /* XYFAnimateLabel.m in Sources */,
 				04FE7CCB1D3670AD00362702 /* LeftMenuController.m in Sources */,
 				1B18B3371D59B66300858C83 /* Attachment.m in Sources */,

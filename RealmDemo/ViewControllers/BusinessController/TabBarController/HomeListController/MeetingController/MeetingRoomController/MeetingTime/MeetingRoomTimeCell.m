@@ -130,7 +130,7 @@
             //创建当前会议的标签
             CGRect currMeetRect = CGRectMake(pointLeftTop.x + 2, pointLeftTop.y + 2, (MAIN_SCREEN_WIDTH - 60) / 7.f - 4, ((model.end - model.begin) / 1000 / 60 / 30) * ((MAIN_SCREEN_WIDTH - 60) / 7.f) - 4);
             UILabel *meetLabel = [[UILabel alloc] initWithFrame:currMeetRect];
-            meetLabel.backgroundColor = [UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1];
+            meetLabel.backgroundColor = [UIColor siginColor];
             meetLabel.numberOfLines = 0;
             meetLabel.layer.cornerRadius = 2;
             meetLabel.clipsToBounds = YES;
