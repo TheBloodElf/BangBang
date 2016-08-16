@@ -4,12 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>AFNetworking-framework.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>AFNetworking-library.xcscheme</key>
+		<key>AFNetworking.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -19,22 +14,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>MBProgressHUD-framework.xcscheme</key>
+		<key>MBProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>MBProgressHUD-library.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>MJExtension-framework.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>MJExtension-library.xcscheme</key>
+		<key>MJExtension.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -59,27 +44,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>ReactiveCocoa.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Realm.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Result.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>SDWebImage-framework.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>SDWebImage-library.xcscheme</key>
+		<key>SDWebImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -87,6 +57,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>0D2D8B369ED36FEE3BE710DA8519A3E3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>1CC57CC3EE2539D6E287B026372BFB14</key>
 		<dict>
 			<key>primary</key>
@@ -122,7 +97,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>4A7B1F380A3F16E55346CD6AD0009E2D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>5608794BBA79738B2E234D3F040F7585</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5C2D669C5A5532C27A8F68FDA42DEC64</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -132,7 +117,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>70BC44266C6FFE30D2C57129458E070B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>76C631EEF450FB2E9B4C625E65296E38</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>773B9CF207704757DAFD9D9E7E3603A0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -142,12 +137,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>928353533005A4198EBDA5B700D37B64</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>97BEF88F53F1C44B02F00F1889AD0FD8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>9EAB3E42EF957541E6C3C76D35FD008E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AAEF500FF5E0EA215C72239D507D6D1C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>ADBFD362CD9EDA9E67E28FCA351CCC87</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C3AD7E342840A1BEA026D1D3A2D9C1A7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -163,6 +178,11 @@
 			<true/>
 		</dict>
 		<key>E7606A2C165FEA63F2F626BEDD5FE296</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FE2F1D7B9D9FCEA148517E4657B243F4</key>
 		<dict>
 			<key>primary</key>
 			<true/>

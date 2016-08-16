@@ -1,7 +1,6 @@
 platform :ios, '8.0'
 
-target 'RealmDemo' do use_frameworks!
-   pod 'ReactiveCocoa'
+target 'RealmDemo' do
    pod 'MJExtension', '~> 3.0.10'   
    pod 'MBProgressHUD', '~> 0.9.2'
    pod 'MJRefresh', '~> 3.1.0'
