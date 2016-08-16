@@ -21,7 +21,7 @@
 #import "CalendarCreateController.h"
 #import "TaskCreateController.h"
 #import "CalendarController.h"
-#import "SiginController.h"
+#import "CreateSiginController.h"
 #import "CreateMeetingController.h"
 #import "BushSearchViewController.h"
 #import "SelectAttachmentController.h"
@@ -53,6 +53,35 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReciveTouch:) name:@"OpenSoft_FormTouch_Notication" object:nil];
     //加上新消息的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecivePushMessage:) name:@"DidRecivePushMessage" object:nil];
+    //加上从today进来的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReciveAddToday:) name:@"OpenSoft_FormToday_addCalendar_Notication" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReciveOpenToday:) name:@"OpenSoft_FormToday_openCalendar_Notication" object:nil];
+}
+- (void)didReciveAddToday:(NSNotification*)notification {
+    //添加日程
+    [self.navigationController pushViewController:[CalendarCreateController new] animated:YES];
+}
+- (void)didReciveOpenToday:(NSNotification*)notification {
+    //查看日程
+    for (Calendar *calendar in [_userManager getCalendarArr]) {
+        if(calendar.id == [notification.object intValue]) {
+            //展示详情
+            if(calendar.repeat_type == 0) {
+                ComCalendarDetailViewController *com = [ComCalendarDetailViewController new];
+                Calendar *tempTemp = [calendar deepCopy];
+                tempTemp.rdate = @([NSDate date].timeIntervalSince1970 * 1000).stringValue;
+                com.data = tempTemp;
+                [self.navigationController pushViewController:com animated:YES];
+            } else {
+                RepCalendarDetailController *com = [RepCalendarDetailController new];
+                Calendar *tempTemp = [calendar deepCopy];
+                tempTemp.rdate = @([NSDate date].timeIntervalSince1970 * 1000).stringValue;
+                com.data = tempTemp;
+                [self.navigationController pushViewController:com animated:YES];
+            }
+            break;
+        }
+    }
 }
 //在这里统一处理弹窗
 - (void)didRecivePushMessage:(NSNotification*)notification {
@@ -100,11 +129,15 @@
                 //展示详情
                 if(calendar.repeat_type == 0) {
                     ComCalendarDetailViewController *com = [ComCalendarDetailViewController new];
-                    com.data = calendar;
+                    Calendar *tempTemp = [calendar deepCopy];
+                    tempTemp.rdate = @(message.addTime.timeIntervalSince1970 * 1000).stringValue;
+                    com.data = tempTemp;
                     [self.navigationController pushViewController:com animated:YES];
                 } else {
                     RepCalendarDetailController *com = [RepCalendarDetailController new];
-                    com.data = calendar;
+                    Calendar *tempTemp = [calendar deepCopy];
+                    tempTemp.rdate = @(message.addTime.timeIntervalSince1970 * 1000).stringValue;
+                    com.data = tempTemp;
                     [self.navigationController pushViewController:com animated:YES];
                 }
                 break;
@@ -118,11 +151,15 @@
         //展示详情
         if(sharedCalendar.repeat_type == 0) {
             ComCalendarDetailViewController *com = [ComCalendarDetailViewController new];
-            com.data = sharedCalendar;
+            Calendar *tempTemp = [sharedCalendar deepCopy];
+            tempTemp.rdate = @(message.addTime.timeIntervalSince1970 * 1000).stringValue;
+            com.data = tempTemp;
             [self.navigationController pushViewController:com animated:YES];
         } else {
             RepCalendarDetailController *com = [RepCalendarDetailController new];
-            com.data = sharedCalendar;
+            Calendar *tempTemp = [sharedCalendar deepCopy];
+            tempTemp.rdate = @(message.addTime.timeIntervalSince1970 * 1000).stringValue;
+            com.data = tempTemp;
             [self.navigationController pushViewController:com animated:YES];
         }
     }else if ([message.type isEqualToString:@"REQUEST"]) {//网页
@@ -162,7 +199,9 @@
         [self.navigationController pushViewController:[CalendarController new] animated:YES];
     } else if (currIndex == 1) {//签到
         [self executeNeedSelectCompany:^{
-            [self.navigationController pushViewController:[SiginController new] animated:YES];
+            UIStoryboard *story = [UIStoryboard storyboardWithName:@"SiginStory" bundle:nil];
+            CreateSiginController *sigin = [story instantiateViewControllerWithIdentifier:@"CreateSiginController"];
+            [self.navigationController pushViewController:sigin animated:YES];
         }];
     }
 }

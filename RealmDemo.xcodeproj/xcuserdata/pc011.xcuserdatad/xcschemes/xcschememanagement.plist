@@ -12,7 +12,12 @@
 		<key>RealmShare.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>10</integer>
+			<integer>1</integer>
+		</dict>
+		<key>RealmToday.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>12</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -23,6 +28,21 @@
 			<true/>
 		</dict>
 		<key>1B877F111D178E7D000144B2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1BEAD2EC1D62E36400B8C3FD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1BEAD3061D62EDF300B8C3FD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1BEAD31A1D62F14700B8C3FD</key>
 		<dict>
 			<key>primary</key>
 			<true/>

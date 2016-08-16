@@ -105,7 +105,7 @@ static HttpService * __singleton__;
         return [NSURL fileURLWithPath:[locFilePath stringByAppendingPathComponent:response.suggestedFilename]];
     } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
         //结束菊花
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         //判断结果
         MError *err = nil;
         id data;
@@ -128,9 +128,13 @@ static HttpService * __singleton__;
 
 //上传文件
 - (NSURLSessionDataTask *)uploadRequestURLPath:(NSString *)pathStr parameters:(id)parameters image:(UIImage*)image name:(NSString*)name completionHandler:(completionHandler)completionHandler {
+    //结束菊花
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     NSURLSessionDataTask * dataTask = [_uploadSessionManager POST:pathStr parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         [formData appendPartWithFileData:[image dataInNoSacleLimitBytes:MaXPicSize] name:name fileName:[NSString stringWithFormat:@"%@.jpg",@([NSDate date].timeIntervalSince1970 * 1000)] mimeType:@"image/jpeg"];
     } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        //结束菊花
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         if([responseObject[@"code"] integerValue] == 0) {
             completionHandler(responseObject,nil);
         } else {

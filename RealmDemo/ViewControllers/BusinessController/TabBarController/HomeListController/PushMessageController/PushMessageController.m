@@ -249,11 +249,15 @@
             //展示详情
             if(sharedCalendar.repeat_type == 0) {
                 ComCalendarDetailViewController *com = [ComCalendarDetailViewController new];
-                com.data = sharedCalendar;
+                Calendar *tempTemp = [sharedCalendar deepCopy];
+                tempTemp.rdate = @(message.addTime.timeIntervalSince1970 * 1000).stringValue;
+                com.data = tempTemp;
                 [self.navigationController pushViewController:com animated:YES];
             } else {
                 RepCalendarDetailController *com = [RepCalendarDetailController new];
-                com.data = sharedCalendar;
+                Calendar *tempTemp = [sharedCalendar deepCopy];
+                tempTemp.rdate = @(message.addTime.timeIntervalSince1970 * 1000).stringValue;
+                com.data = tempTemp;
                 [self.navigationController pushViewController:com animated:YES];
             }
         } else if ([message.type isEqualToString:@"CALENDARTIP"]) {//日程推送：
@@ -262,11 +266,15 @@
                 if(message.target_id.intValue == temp.id) {
                     if(temp.repeat_type == 0) {
                         ComCalendarDetailViewController *com = [ComCalendarDetailViewController new];
-                        com.data = temp;
+                        Calendar *tempTemp = [temp deepCopy];
+                        tempTemp.rdate = @(message.addTime.timeIntervalSince1970 * 1000).stringValue;
+                        com.data = tempTemp;
                         [self.navigationController pushViewController:com animated:YES];
                     } else {
                         RepCalendarDetailController *com = [RepCalendarDetailController new];
-                        com.data = temp;
+                        Calendar *tempTemp = [temp deepCopy];
+                        tempTemp.rdate = @(message.addTime.timeIntervalSince1970 * 1000).stringValue;
+                        com.data = tempTemp;
                         [self.navigationController pushViewController:com animated:YES];
                     }
                     break;

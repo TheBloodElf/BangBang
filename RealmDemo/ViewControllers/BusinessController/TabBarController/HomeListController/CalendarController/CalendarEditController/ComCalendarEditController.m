@@ -36,6 +36,10 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightClicked:)];
     // Do any additional setup after loading the view.
 }
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
 - (void)rightClicked:(UIBarButtonItem*)item {
     //修改日程
     [UserHttp updateUserCalendar:_currCalendar handler:^(id data, MError *error) {

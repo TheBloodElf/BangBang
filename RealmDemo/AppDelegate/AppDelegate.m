@@ -79,6 +79,13 @@
     completionHandler(YES);
 }
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options {
+    //是不是从today扩展进来的
+    NSString *currStr = url.absoluteString;
+    if([[currStr componentsSeparatedByString:@"//"][1] isEqualToString:@"addCalendar"]) {//添加日程
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"OpenSoft_FormToday_addCalendar_Notication" object:nil];
+    } else if([[currStr componentsSeparatedByString:@"//"][1] isEqualToString:@"openCalendar"]) {//查看日程
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"OpenSoft_FormToday_openCalendar_Notication" object:[currStr componentsSeparatedByString:@"//"][2]];
+    }
     return [TencentOAuth HandleOpenURL:url] || [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]] || [WeiboSDK handleOpenURL:url delegate:[WBApiManager shareManager]];
 }
 //收到推送token
