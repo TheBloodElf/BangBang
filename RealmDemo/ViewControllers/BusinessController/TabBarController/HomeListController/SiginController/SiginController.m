@@ -19,10 +19,12 @@
 #import "SiginNoteController.h"
 #import "ShowAdressController.h"
 
+#import "NoResultView.h"
+
 @interface SiginController ()<MoreSelectViewDelegate,UITableViewDelegate,UITableViewDataSource,RBQFetchedResultsControllerDelegate,CLLocationManagerDelegate,AMapSearchDelegate,SigInListCellDelegate> {
     UIButton *_leftNavigationBarButton;//左边导航的按钮
     UIButton *_rightBtn;
-    UIView *_noDataView;//没有数据的视图
+    NoResultView *_noDataView;//没有数据的视图
     UserManager *_userManager;//用户管理器
     RBQFetchedResultsController *_userFetchedResultsController;//用户数据库监听
     MoreSelectView *_moreSelectView;//多选视图
@@ -72,13 +74,7 @@
     _userFetchedResultsController = [_userManager createUserFetchedResultsController];
     _userFetchedResultsController.delegate = self;
     self.todatSiginNumber.text = [NSString stringWithFormat:@"今日已签到%ld次",_todaySigInArr.count];
-    _noDataView = [[UIView alloc] initWithFrame:self.tableView.bounds];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 100, MAIN_SCREEN_WIDTH, 15)];
-    label.textColor = [UIColor grayColor];
-    label.text = @"你今天还没有签到哦";
-    label.font = [UIFont systemFontOfSize:15];
-    label.textAlignment = NSTextAlignmentCenter;
-    [_noDataView addSubview:label];
+    _noDataView = [[NoResultView alloc] initWithFrame:self.tableView.bounds];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.showsVerticalScrollIndicator = NO;

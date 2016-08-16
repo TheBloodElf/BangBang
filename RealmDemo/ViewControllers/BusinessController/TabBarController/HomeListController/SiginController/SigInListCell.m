@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *detailLabel;//说明
 @property (weak, nonatomic) IBOutlet UIButton *attemthLabel;//附件图片展示
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *attemthHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *detailHeight;
 
 @end
 
@@ -43,10 +44,16 @@
     self.categoryLabel.text = [signIn categoryStr];
     self.nameLabel.text = signIn.create_name;
     [self.adressLabel setTitle:signIn.address forState:UIControlStateNormal];
-    if([NSString isBlank:signIn.descriptionStr])
-        self.detailLabel.text = @"说明：无";
-    else
-        self.detailLabel.text = [NSString stringWithFormat:@"说明：%@",signIn.descriptionStr];
+    
+    NSString *currDetailStr = nil;
+    if(![NSString isBlank:signIn.descriptionStr]) {
+        currDetailStr = [NSString stringWithFormat:@"说明：%@",signIn.descriptionStr];
+    } else {
+        currDetailStr = @"说明：无";
+    }
+    
+    self.detailHeight.constant = [currDetailStr textSizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH - 56, 100000)].height + 15;
+    self.detailLabel.text = currDetailStr;
     //得到图片的宽度
     CGFloat width = (MAIN_SCREEN_WIDTH - 66 - 10) / 3.f;
     if([NSString isBlank:signIn.attachments]) {

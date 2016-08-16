@@ -12,13 +12,14 @@
 #import "UserHttp.h"
 #import "UserManager.h"
 #import "RYChatController.h"
+#import "NoResultView.h"
 
 @interface DiscussListViewController ()<UITableViewDelegate,UITableViewDataSource,RBQFetchedResultsControllerDelegate> {
     NSMutableArray<UserDiscuss*> *_userDiscussArr;//讨论组数组
     UserManager *_userManager;//用户管理器
     RBQFetchedResultsController *_userDiscussFetchedResultsController;//讨论组数据监听
     UITableView *_tableView;//表格视图
-    UILabel *_noDataView;//没有数据时展示的视图
+    NoResultView *_noDataView;//没有数据时展示的视图
 }
 @end
 
@@ -34,11 +35,7 @@
     
     
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-    _noDataView = [[UILabel alloc] initWithFrame:self.view.bounds];
-    _noDataView.text = @"没有更多数据";
-    _noDataView.textAlignment = NSTextAlignmentCenter;
-    _noDataView.font = [UIFont systemFontOfSize:10];
-    _noDataView.textColor = [UIColor grayColor];
+    _noDataView = [[NoResultView alloc] initWithFrame:self.view.bounds];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     if(_userDiscussArr.count == 0)

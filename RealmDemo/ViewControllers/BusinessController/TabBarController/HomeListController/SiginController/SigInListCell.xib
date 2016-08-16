@@ -56,6 +56,9 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="详情" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="omi-CY-a0f" userLabel="detailView">
                                 <rect key="frame" x="46" y="95" width="262" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="17" id="Jja-FR-aVx"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.37254901959999998" green="0.37254901959999998" blue="0.37254901959999998" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -171,11 +174,12 @@
                 <outlet property="attemthLabel" destination="1s8-sN-Jpi" id="6b0-hT-f6H"/>
                 <outlet property="avaterImage" destination="Urj-a8-bOM" id="ieP-dN-d3S"/>
                 <outlet property="categoryLabel" destination="EcT-vB-dlL" id="qcR-uX-SHb"/>
+                <outlet property="detailHeight" destination="Jja-FR-aVx" id="3UY-07-V78"/>
                 <outlet property="detailLabel" destination="omi-CY-a0f" id="HtG-1z-RYr"/>
                 <outlet property="nameLabel" destination="ewu-0y-Nee" id="lgB-kU-zp2"/>
                 <outlet property="timeLabel" destination="hQC-AJ-3jB" id="zjA-8L-1gH"/>
             </connections>
-            <point key="canvasLocation" x="465" y="368"/>
+            <point key="canvasLocation" x="696" y="401"/>
         </tableViewCell>
     </objects>
     <resources>

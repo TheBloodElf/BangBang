@@ -17,12 +17,14 @@
 #import "RequestManagerController.h"
 #import "MoreSelectView.h"
 
+#import "NoResultView.h"
+
 @interface BushManageViewController ()<UITableViewDataSource,UITableViewDelegate,RBQFetchedResultsControllerDelegate,MoreSelectViewDelegate> {
     UserManager *_userManager;//用户管理器
     UITableView *_tableView;//展示数据的表格视图
     NSMutableArray<Company*> *_companyArr;//圈子数组
     RBQFetchedResultsController *_companyFetchedResultsController;//圈子数据监听
-    UIView *_noDataView;//没有数据显示的视图
+    NoResultView *_noDataView;//没有数据显示的视图
     MoreSelectView *_moreSelectView;//多选视图
 }
 @property (nonatomic, strong) UIButton *backButton;
@@ -61,12 +63,7 @@
         }];
     }];
     //创建空太图
-    _noDataView = [[UIView alloc] initWithFrame:_tableView.bounds];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0.5 * (_tableView.frame.size.height - 10), MAIN_SCREEN_WIDTH, 10)];
-    label.text = @"没有更多数据";
-    label.font = [UIFont systemFontOfSize:12];
-    label.textColor = [UIColor grayColor];
-    [_noDataView addSubview:label];
+    _noDataView = [[NoResultView alloc] initWithFrame:_tableView.bounds];
     //只显示自己状态为4或者1的
     for (Company *company in [_userManager getCompanyArr]) {
         Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:company.company_no];
