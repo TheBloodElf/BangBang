@@ -81,6 +81,25 @@
 	<string>帮帮想偶尔使用下你的位置信息</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>default_image_icon</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>今日日程</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>今日日程</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>default_image_icon</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>签到</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>签到</string>
+		</dict>
+	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

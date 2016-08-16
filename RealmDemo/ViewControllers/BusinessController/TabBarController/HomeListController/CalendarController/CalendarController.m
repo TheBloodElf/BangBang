@@ -69,6 +69,12 @@
     self.navigationController.navigationBar.barTintColor = [UIColor calendarColor];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if([self.navigationController.viewControllers[0] isMemberOfClass:[NSClassFromString(@"REFrostedViewController") class]]) {
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+    }
+}
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     //是不是第一次加载这个页面

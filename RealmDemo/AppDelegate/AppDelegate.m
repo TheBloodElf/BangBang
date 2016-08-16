@@ -50,7 +50,33 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.rootViewController = [MainViewController new];
     [self.window makeKeyAndVisible];
+    //注册3d touch功能
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 9.0) {//判定系统版本
+        UIApplicationShortcutItem *shortcutItem = [launchOptions objectForKeyedSubscript:UIApplicationLaunchOptionsShortcutItemKey];
+        if(shortcutItem) {
+            int currIndex = 0;
+            if ([shortcutItem.type isEqualToString:@"今日日程"]) {
+                currIndex = 0;
+            } else if ([shortcutItem.type isEqualToString:@"签到"]) {
+                currIndex = 1;
+            }
+            //发出通知弹出控制器
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"OpenSoft_FormTouch_Notication" object:@(currIndex)];
+        }
+    }
     return YES;
+}
+- (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler
+{
+    int currIndex = 0;
+    if ([shortcutItem.type isEqualToString:@"今日日程"]) {
+        currIndex = 0;
+    } else if ([shortcutItem.type isEqualToString:@"签到"]) {
+        currIndex = 1;
+    }
+    //发出通知弹出控制器
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"OpenSoft_FormTouch_Notication" object:@(currIndex)];
+    completionHandler(YES);
 }
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options {
     return [TencentOAuth HandleOpenURL:url] || [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]] || [WeiboSDK handleOpenURL:url delegate:[WBApiManager shareManager]];
