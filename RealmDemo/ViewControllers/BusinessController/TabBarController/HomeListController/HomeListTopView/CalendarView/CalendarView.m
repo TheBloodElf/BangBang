@@ -8,6 +8,7 @@
 
 #import "CalendarView.h"
 #import "UserManager.h"
+#import "TodayCalendarModel.h"
 #import "LineProgressLayer.h"
 
 @interface CalendarView ()<RBQFetchedResultsControllerDelegate> {
@@ -126,13 +127,24 @@
 }
 //获取这四个数字
 - (void)getCurrCount {
+    //today扩展数组
+    NSMutableArray<TodayCalendarModel*> *todayCalendarArr = [@[] mutableCopy];
+    
     //先获取今天的
     NSDate *todayDate = [NSDate date];
     NSArray *todayArr = [_userManager getCalendarArrWithDate:todayDate];
     for (Calendar *tempCalendar in todayArr) {
         if(tempCalendar.repeat_type == 0) {//不是重复的就直接加
-            if(tempCalendar.status == 1)
+            if(tempCalendar.status == 1) {
+                TodayCalendarModel *model = [TodayCalendarModel new];
+                model.id = tempCalendar.id;
+                model.begindate_utc = tempCalendar.begindate_utc;
+                model.enddate_utc = tempCalendar.enddate_utc;
+                model.event_name = tempCalendar.event_name;
+                model.descriptionStr = tempCalendar.descriptionStr;
+                [todayCalendarArr addObject:model];
                 _todayNoFinishCount ++;
+            }
             else
                 _todayFinishCount ++;
         } else {//重复的要加上经过自己一天的
@@ -147,6 +159,13 @@
                         } else if([tempCalendar haveFinishDate:tempDate]) {
                             _todayFinishCount ++;
                         } else {
+                            TodayCalendarModel *model = [TodayCalendarModel new];
+                            model.id = tempCalendar.id;
+                            model.begindate_utc = tempCalendar.begindate_utc;
+                            model.enddate_utc = tempCalendar.enddate_utc;
+                            model.event_name = tempCalendar.event_name;
+                            model.descriptionStr = tempCalendar.descriptionStr;
+                            [todayCalendarArr addObject:model];
                             _todayNoFinishCount ++;
                         }
                     }
@@ -154,6 +173,12 @@
             }
         }
     }
+    
+    //把登录信息放到应用组间共享数据
+    NSUserDefaults *sharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.lottak.bangbang"];
+    [sharedDefaults setObject:[NSMutableDictionary mj_keyValuesArrayWithObjectArray:todayCalendarArr] forKey:@"GroupTodayInfo"];
+    [sharedDefaults synchronize];
+    
     //再获取本周的 今天是本周的第几天
     int todayOfWeek = (int)todayDate.weekday;
     for (int i = 1 ;i <= 7; i ++) {

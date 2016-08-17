@@ -7,9 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+@class TaskCommentModel;
+@protocol TaskOtherCommentDelegate <NSObject>
 
+- (void)TaskOtherAvaterClicked:(TaskCommentModel*)model;
+
+@end
 
 @interface TaskOtherCommentCell : UITableViewCell
 
+@property (nonatomic, weak) id<TaskOtherCommentDelegate> delegate;
 
 @end

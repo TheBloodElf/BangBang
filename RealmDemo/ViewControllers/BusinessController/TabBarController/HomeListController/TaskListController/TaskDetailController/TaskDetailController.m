@@ -25,6 +25,7 @@
     TaskDetailView *_taskDetailView;//任务详情
     TaskDiscussView *_taskDiscussView;//任务讨论
     TaskFileView *_taskFileView;//任务附件
+    UIView *_lineView;//下面绿色的条
     
     NSMutableArray<UIImage*> *_attanmentArr;//附件数组
     int _attanmantIndex;//任务上传数量下标
@@ -34,7 +35,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *createDepar;//创建人的部门
 @property (weak, nonatomic) IBOutlet UILabel *createTime;//创建时间
 @property (weak, nonatomic) IBOutlet UILabel *taskTitle;//任务标题
-@property (weak, nonatomic) IBOutlet UIView *lineView;//下面绿色的条
 @property (weak, nonatomic) IBOutlet UIScrollView *bottomScrollView;//下面的滚动视图
 
 @end
@@ -48,9 +48,13 @@
     self.view.backgroundColor = [UIColor whiteColor];
     _userManager = [UserManager manager];
     //初始化界面
+    _lineView = [[UIView alloc] initWithFrame:CGRectMake(2, 148, MAIN_SCREEN_WIDTH / 3 - 4, 2)];
+    _lineView.backgroundColor = [UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1];
+    [self.view addSubview:_lineView];
+    
     self.createAvater.layer.cornerRadius = 21;
     self.createAvater.clipsToBounds = YES;
-    [self.createAvater sd_setImageWithURL:[NSURL URLWithString:_taskModel.avatar] placeholderImage:[UIImage imageNamed:@""]];
+    [self.createAvater sd_setImageWithURL:[NSURL URLWithString:_taskModel.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
     self.createName.text = _taskModel.create_realname;
     Employee *employee = [_userManager getEmployeeWithGuid:_taskModel.user_guid companyNo:_taskModel.company_no];
     self.createDepar.text = employee.departments;
@@ -103,7 +107,7 @@
     UIButton *btn2 = [self.view viewWithTag:1002];
     btn2.selected = NO;
     sender.selected = YES;
-    self.lineView.center = CGPointMake((MAIN_SCREEN_WIDTH / 3.f) * (sender.tag - 1000) + MAIN_SCREEN_WIDTH / 6.f, self.lineView.center.y);
+    _lineView.center = CGPointMake((MAIN_SCREEN_WIDTH / 3.f) * (sender.tag - 1000) + MAIN_SCREEN_WIDTH / 6.f, _lineView.center.y);
     int index = sender.tag - 1000;
     [self.view endEditing:YES];
     [self.bottomScrollView setContentOffset:CGPointMake(index * MAIN_SCREEN_WIDTH, 0) animated:NO];

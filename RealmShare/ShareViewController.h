@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Social/Social.h>
-
+//分享扩展 其他应用可以分享内容到你的应用
 @interface ShareViewController : UIViewController
 
 @end

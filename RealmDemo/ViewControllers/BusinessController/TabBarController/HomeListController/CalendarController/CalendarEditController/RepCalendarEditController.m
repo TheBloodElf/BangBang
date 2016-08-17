@@ -38,6 +38,13 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightClicked:)];
     // Do any additional setup after loading the view.
 }
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+- (void)dataDidChange {
+    _calendar = [[Calendar alloc] initWithJSONDictionary:[self.data JSONDictionary]];
+}
 - (void)rightClicked:(UIBarButtonItem*)item {
     //修改日程
     [UserHttp updateUserCalendar:_calendar handler:^(id data, MError *error) {
@@ -53,9 +60,7 @@
         [self.navigationController popViewControllerAnimated:YES];
     }];
 }
-- (void)dataDidChange {
-    _calendar = [[Calendar alloc] initWithJSONDictionary:[self.data JSONDictionary]];
-}
+
 #pragma mark --
 #pragma mark -- RepCalendarViewDelegate
 //例行开始时间

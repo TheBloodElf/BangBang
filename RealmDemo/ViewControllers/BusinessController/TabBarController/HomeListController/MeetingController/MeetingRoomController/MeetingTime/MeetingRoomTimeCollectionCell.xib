@@ -32,7 +32,7 @@
             <connections>
                 <outlet property="buttonImage" destination="Ikc-DA-UkH" id="Vga-Ne-vhz"/>
             </connections>
-            <point key="canvasLocation" x="215" y="293"/>
+            <point key="canvasLocation" x="104" y="200"/>
         </collectionViewCell>
     </objects>
 </document>

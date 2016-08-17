@@ -84,6 +84,7 @@
         }
         [_userManager updateSiginRule:array companyNo:_userManager.user.currCompany.company_no];
     }];
+    
     // Do any additional setup after loading the view.
 }
 - (void)viewWillAppear:(BOOL)animated {

@@ -14,9 +14,11 @@
 #import "UserManager.h"
 #import "UserHttp.h"
 
+#import "NoResultView.h"
+
 @interface BushSearchViewController ()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource,BushSearchCellDelegate>{
     UserManager *_userManager;
-    UIView *_noDataView;//没有数据应该显示的内容
+    NoResultView *_noDataView;//没有数据应该显示的内容
     UITableView *_tableView;//展示数据的表格视图
     int currentPage;//搜索的页码
     NSMutableArray<Company*> *_companyArr;//圈子搜索结果
@@ -54,13 +56,8 @@
         [weakSelf search];
     }];
     //创建空太图
-    _noDataView = [[UIView alloc] initWithFrame:_tableView.bounds];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0,0.33 * (_tableView.frame.size.height - 10), _tableView.frame.size.width, 10)];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = [UIColor grayColor];
-    label.font = [UIFont systemFontOfSize:15];
-    label.text = @"没有更多数据";
-    [_noDataView addSubview:label];
+    _noDataView = [[NoResultView alloc] initWithFrame:_tableView.bounds];
+    [_tableView.mj_header beginRefreshing];
     //创建导航按钮
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(rightBarButtonClicked:)];
 }
@@ -68,7 +65,6 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.barTintColor = [UIColor homeListColor];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    [_tableView reloadData];
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];

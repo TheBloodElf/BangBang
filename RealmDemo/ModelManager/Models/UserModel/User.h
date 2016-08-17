@@ -21,6 +21,12 @@
 @property (nonatomic, assign) int id;
 /** 手机号 */
 @property (nonatomic, strong) NSString  * mobile;
+/** 省 */
+@property (nonatomic, strong) NSString  * region;
+/** 市 */
+@property (nonatomic, strong) NSString  * city;
+/** 区 */
+@property (nonatomic, strong) NSString  * area;
 /** 心情动态 */
 @property (nonatomic, strong) NSString  * mood;
 /** 姓名 必填 */

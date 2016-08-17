@@ -40,6 +40,9 @@
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
 //弹出登录控制器
 - (void)showLogin:(NSNotification*)noti{
     //是否不需要弹窗
@@ -47,6 +50,9 @@
         [self gotoIdentityVC];
         return;
     }
+    IdentityManager *manager = [IdentityManager manager];
+    manager.identity.firstUseSoft = NO;
+    [manager saveAuthorizeData];
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:noti.object message:nil preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *ok = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         [self gotoIdentityVC];

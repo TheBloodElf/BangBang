@@ -15,6 +15,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UITextView *contentLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *replyLabel;
+@property (weak, nonatomic) IBOutlet UILabel *replyNameLabel;
 
 @end
 
@@ -36,11 +38,29 @@
 }
 - (void)dataDidChange {
     TaskCommentModel *model = self.data;
+    
+    if([NSString isBlank:model.reply_employeename]) {
+        self.replyLabel.hidden = YES;
+        self.replyNameLabel.hidden = YES;
+    } else {
+        self.replyLabel.hidden = NO;
+        self.replyNameLabel.hidden = NO;
+    }
+    
     [self.avaterImage sd_setImageWithURL:[NSURL URLWithString:model.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
     self.nameLabel.text = model.created_realname;
     self.contentLabel.text = model.comment;
     NSDate *currDate = [NSDate dateWithTimeIntervalSince1970:model.createdon_utc / 1000];
     self.timeLabel.text = [NSString stringWithFormat:@"%d-%02ld-%02ld %02ld:%02ld",currDate.year,currDate.month,currDate.day,currDate.hour,currDate.minute];
+    self.replyNameLabel.text = model.reply_employeename;
+    
+    
+}
+//某人头像被点击
+- (IBAction)avaterClicked:(id)sender {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(TaskOtherAvaterClicked:)]) {
+        [self.delegate TaskOtherAvaterClicked:self.data];
+    }
 }
 
 @end

@@ -17,8 +17,9 @@
 #pragma mark -- 上传图片
 //上传图片 得到地址 网页上传用的
 + (NSURLSessionDataTask*)updateImageGuid:(NSString*)guid image:(UIImage*)image handler:(completionHandler)handler;
-#pragma mark -- 社会化登录
-+ (NSURLSessionDataTask*)socialLogin:(NSString *)social_id media_type:(NSString *)media_type token:(NSString *)token expires_in:(NSString *)expires_in client_type:(NSString *)client_type name:(NSString *)name avatar_url:(NSString *)avatar_url handler:(completionHandler)handler;
+#pragma mark -- 社会化登录 
+//QQ = 1, WeChat = 2, Weibo = 3
++ (NSURLSessionDataTask*)socialLogin:(NSString *)social_id media_type:(int)media_type token:(NSString *)token expires_in:(NSString *)expires_in client_type:(NSString *)client_type name:(NSString *)name avatar_url:(NSString *)avatar_url handler:(completionHandler)handler;
 #pragma mark -- 个推
 //绑定个推别名
 + (NSURLSessionDataTask*)setupAPNSDevice:(NSString*)clientId userNo:(int)userNo handler:(completionHandler)handler;
@@ -119,7 +120,7 @@
 //获取任务评论列表
 + (NSURLSessionDataTask*)getTaskComment:(int)taskId handler:(completionHandler)handler;
 //添加评论
-+ (NSURLSessionDataTask*)addTaskComment:(int)taskId taskStatus:(int)taskStatus comment:(NSString*)comment createdby:(NSString*)createdby createdRealname:(NSString*)createdRealname handler:(completionHandler)handler;
++ (NSURLSessionDataTask*)addTaskComment:(int)taskId taskStatus:(int)taskStatus comment:(NSString*)comment createdby:(NSString*)createdby createdRealname:(NSString*)createdRealname repEmployeeGuid:(NSString*)repEmployeeGuid repEmployeeName:(NSString*)repEmployeeName handler:(completionHandler)handler;
 //更新任务状态和原因
 + (NSURLSessionDataTask*)updateTask:(int)taskId status:(int)status comment:(NSString*)comment updatedby:(NSString*)updatedby handler:(completionHandler)handler;
 @end

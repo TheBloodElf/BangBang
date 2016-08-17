@@ -48,11 +48,22 @@
 				<string>wxbd349c9a6abf20f8</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.lottak.BangBang</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>BangBang</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>5.0.1</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>BangBang</string>
 		<string>mailto</string>
 		<string>mqzone</string>
 		<string>weixin</string>
@@ -79,6 +90,25 @@
 	<string>帮帮想偶尔使用下你的位置信息</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>帮帮想偶尔使用下你的位置信息</string>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string></string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>今日日程</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>今日日程</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string></string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>签到</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>签到</string>
+		</dict>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>

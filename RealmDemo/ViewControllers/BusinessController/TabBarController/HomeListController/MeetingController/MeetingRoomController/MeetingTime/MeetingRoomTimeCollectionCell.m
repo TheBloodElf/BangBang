@@ -31,14 +31,10 @@
     if(model.isUserSelectDate == YES) {
         self.buttonImage.backgroundColor = [UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1];
     }
-    //如果有被占用的就是黄色
-    if(model.haveMeet == YES) {
-        self.buttonImage.backgroundColor = [UIColor siginColor];
-    }
 }
 - (IBAction)timeClicked:(UIButton *)sender {
     MeetingRoomCellModel *model = self.data;
-    if(model.haveMeet == NO && model.isDidDate == NO)
+    if(/*model.haveMeet == NO && */model.isDidDate == NO)
         if(model.isTodayDate == YES) {
             if(self.delegate && [self.delegate respondsToSelector:@selector(MeetingRoomTime:)]) {
                 [self.delegate MeetingRoomTime:self.data];

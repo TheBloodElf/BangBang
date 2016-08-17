@@ -19,10 +19,12 @@
 #import "SiginNoteController.h"
 #import "ShowAdressController.h"
 
+#import "NoResultView.h"
+
 @interface SiginController ()<MoreSelectViewDelegate,UITableViewDelegate,UITableViewDataSource,RBQFetchedResultsControllerDelegate,CLLocationManagerDelegate,AMapSearchDelegate,SigInListCellDelegate> {
     UIButton *_leftNavigationBarButton;//左边导航的按钮
     UIButton *_rightBtn;
-    UIView *_noDataView;//没有数据的视图
+    NoResultView *_noDataView;//没有数据的视图
     UserManager *_userManager;//用户管理器
     RBQFetchedResultsController *_userFetchedResultsController;//用户数据库监听
     MoreSelectView *_moreSelectView;//多选视图
@@ -72,13 +74,7 @@
     _userFetchedResultsController = [_userManager createUserFetchedResultsController];
     _userFetchedResultsController.delegate = self;
     self.todatSiginNumber.text = [NSString stringWithFormat:@"今日已签到%ld次",_todaySigInArr.count];
-    _noDataView = [[UIView alloc] initWithFrame:self.tableView.bounds];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 100, MAIN_SCREEN_WIDTH, 15)];
-    label.textColor = [UIColor grayColor];
-    label.text = @"你今天还没有签到哦";
-    label.font = [UIFont systemFontOfSize:15];
-    label.textAlignment = NSTextAlignmentCenter;
-    [_noDataView addSubview:label];
+    _noDataView = [[NoResultView alloc] initWithFrame:self.tableView.bounds];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.showsVerticalScrollIndicator = NO;
@@ -142,36 +138,8 @@
     else
         companyLabel.text = user.currCompany.company_name;
 }
-#pragma mark -- 
+#pragma mark --
 #pragma mark -- CLLocationManagerDelegate
-- (void)locationManager:(CLLocationManager *)manager
-    didUpdateToLocation:(CLLocation *)newLocation
-           fromLocation:(CLLocation *)oldLocation {
-    newLocation = [[CLLocation alloc] initWithLatitude:31 longitude:120];
-    //得到newLocation 火星坐标转换
-    CLLocationCoordinate2D coordinate = newLocation.coordinate;
-    CLGeocoder * geoCoder = [[CLGeocoder alloc] init];
-    [geoCoder reverseGeocodeLocation:[[CLLocation alloc] initWithLatitude:coordinate.latitude longitude:coordinate.longitude] completionHandler:^(NSArray *placemarks, NSError *error) {
-        if (!error)
-        {
-            [_locationManager stopUpdatingLocation];
-            CLPlacemark * placemark = [placemarks lastObject];
-            NSDictionary *test = [placemark addressDictionary];
-            //  Country(国家)  State(城市)  SubLocality(区)
-            self.weatherLabel.text = [test objectForKey:@"SubLocality"];
-            //查询天气
-            //构造AMapWeatherSearchRequest对象，配置查询参数
-            AMapWeatherSearchRequest *request = [[AMapWeatherSearchRequest alloc] init];
-            request.city = self.weatherLabel.text;
-            request.type = AMapWeatherTypeLive; //AMapWeatherTypeLive为实时天气；AMapWeatherTypeForecase为预报天气
-            //发起行政区划查询
-            [_search AMapWeatherSearch:request];
-        }else {
-            self.weatherLabel.text = @"定位失败...";
-        }
-    }];
-    
-}
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
     //得到newLocation 火星坐标转换
     CLLocationCoordinate2D coordinate = [locations[0] coordinate];
@@ -215,17 +183,17 @@
 #pragma mark -- UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     SignIn *sigin = _todaySigInArr[indexPath.row];
-    CGFloat height = 100;//没有详情 没有图片的高度
+    CGFloat height = 95;//没有详情 没有图片的高度
     //算出详情占多高 最宽：屏幕宽度－66
     if(![NSString isBlank:sigin.descriptionStr]) {
-        height = height + [[NSString stringWithFormat:@"说明：%@",sigin.descriptionStr] textSizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH - 66, 100000)].height ;
+        height = height + [[NSString stringWithFormat:@"说明：%@",sigin.descriptionStr] textSizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH - 56, 100000)].height + 15;
     } else {
-        height = height + [@"说明：无" textSizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH - 66, 100000)].height;
+        height = height + [@"说明：无" textSizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH - 56, 100000)].height + 15;
     }
-    //如果有附件图片 高度＋95
+    //如果有附件图片
     if(![NSString isBlank:sigin.attachments])
-        height = height + (MAIN_SCREEN_WIDTH - 66 - 10) / 3.f + 5;
-    return height;
+        return height + (MAIN_SCREEN_WIDTH - 56 - 10) / 3.f + 10;
+    return height + 5;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _todaySigInArr.count;

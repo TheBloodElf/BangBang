@@ -19,12 +19,14 @@
 #import "TaskDetailController.h"
 #import "UserHttp.h"
 
+#import "NoResultView.h"
+
 @interface PushMessageController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,RBQFetchedResultsControllerDelegate> {
     UserManager *_userManager;
     IdentityManager *_identityManager;
     UITableView *_tableView;//表格视图
     NSMutableArray<PushMessage*> *_pushMessageArr;//搜索视图的数据
-    UIView *_noDataView;//没有数据的视图
+    NoResultView *_noDataView;//没有数据的视图
     UISearchBar *_searchBar;//搜索视图
     RBQFetchedResultsController *_pushMessageFetchedResultsController;//推送消息数据监听
 }
@@ -74,13 +76,7 @@
     _tableView.userInteractionEnabled = YES;
     [_tableView addGestureRecognizer:lpgr];
     //创建空太图
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0.5 * (_tableView.frame.size.height - 10), _tableView.frame.size.width, 10)];
-    label.text = @"没有更多数据";
-    label.textAlignment = NSTextAlignmentCenter;
-    label.font = [UIFont systemFontOfSize:10];
-    label.textColor = [UIColor grayColor];
-    _noDataView = [[UIView alloc] initWithFrame:_tableView.bounds];
-    [_noDataView addSubview:label];
+    _noDataView = [[NoResultView alloc] initWithFrame:_tableView.bounds];
     [self searchDataFormLoc];
     if(_pushMessageArr.count == 0)
         _tableView.tableFooterView = _noDataView;
@@ -253,11 +249,15 @@
             //展示详情
             if(sharedCalendar.repeat_type == 0) {
                 ComCalendarDetailViewController *com = [ComCalendarDetailViewController new];
-                com.data = sharedCalendar;
+                Calendar *tempTemp = [sharedCalendar deepCopy];
+                tempTemp.rdate = @(message.addTime.timeIntervalSince1970 * 1000).stringValue;
+                com.data = tempTemp;
                 [self.navigationController pushViewController:com animated:YES];
             } else {
                 RepCalendarDetailController *com = [RepCalendarDetailController new];
-                com.data = sharedCalendar;
+                Calendar *tempTemp = [sharedCalendar deepCopy];
+                tempTemp.rdate = @(message.addTime.timeIntervalSince1970 * 1000).stringValue;
+                com.data = tempTemp;
                 [self.navigationController pushViewController:com animated:YES];
             }
         } else if ([message.type isEqualToString:@"CALENDARTIP"]) {//日程推送：
@@ -266,11 +266,15 @@
                 if(message.target_id.intValue == temp.id) {
                     if(temp.repeat_type == 0) {
                         ComCalendarDetailViewController *com = [ComCalendarDetailViewController new];
-                        com.data = temp;
+                        Calendar *tempTemp = [temp deepCopy];
+                        tempTemp.rdate = @(message.addTime.timeIntervalSince1970 * 1000).stringValue;
+                        com.data = tempTemp;
                         [self.navigationController pushViewController:com animated:YES];
                     } else {
                         RepCalendarDetailController *com = [RepCalendarDetailController new];
-                        com.data = temp;
+                        Calendar *tempTemp = [temp deepCopy];
+                        tempTemp.rdate = @(message.addTime.timeIntervalSince1970 * 1000).stringValue;
+                        com.data = tempTemp;
                         [self.navigationController pushViewController:com animated:YES];
                     }
                     break;

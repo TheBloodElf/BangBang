@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 //主业务控制器
-@interface TabBarController : UIViewController
+@interface MainBusinessController : UIViewController
 
 @end

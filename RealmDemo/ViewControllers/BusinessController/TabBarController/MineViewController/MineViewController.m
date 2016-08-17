@@ -13,6 +13,7 @@
 #import "AboutViewController.h"
 #import "WebNonstandarViewController.h"
 #import "IdentityManager.h"
+#import "UserHttp.h"
 
 @interface MineViewController ()<RBQFetchedResultsControllerDelegate> {
     UserManager *_userManager;
@@ -80,6 +81,22 @@
             [self.navigationController pushViewController:webViewcontroller animated:YES];
         }
     } else if (indexPath.section == 2) {
+        //推荐给好友
+        //获取邀请链接
+        [self.navigationController.view showLoadingTips:@""];
+        [UserHttp getInviteURL:_userManager.user.user_no companyNo:_userManager.user.currCompany.company_no handler:^(id data, MError *error) {
+            [self.navigationController.view dismissTips];
+            if(error) {
+                [self.navigationController.view showFailureTips:error.statsMsg];
+                return ;
+            }
+            NSString *shortUrl = data[@"url_short"];
+            NSString *title = [NSString stringWithFormat:@"我是\"%@\"，为了提高工作效率，最近在使用帮帮管理助（%@），你也来吧！",_userManager.user.real_name,shortUrl];
+            NSURL *url = [NSURL URLWithString:@""];
+            UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:@[title,url] applicationActivities:nil];
+            [self presentViewController:vc animated:YES completion:nil];
+        }];
+    } else if (indexPath.section == 3) {
         if(indexPath.row == 0) {
             //用户设置
             UIStoryboard *story = [UIStoryboard storyboardWithName:@"MineView" bundle:nil];

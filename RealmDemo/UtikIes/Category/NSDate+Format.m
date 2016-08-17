@@ -19,22 +19,22 @@
 @dynamic weekday;
 
 - (NSInteger)year {
-    return [[NSCalendar currentCalendar] components:NSYearCalendarUnit fromDate:self].year;
+    return [[NSCalendar currentCalendar] components:NSCalendarUnitYear fromDate:self].year;
 }
 - (NSInteger)month {
-    return [[NSCalendar currentCalendar] components:NSMonthCalendarUnit fromDate:self].month;
+    return [[NSCalendar currentCalendar] components:NSCalendarUnitMonth fromDate:self].month;
 }
 - (NSInteger)day {
-    return [[NSCalendar currentCalendar] components:NSDayCalendarUnit fromDate:self].day;
+    return [[NSCalendar currentCalendar] components:NSCalendarUnitDay fromDate:self].day;
 }
 - (NSInteger)hour {
-    return [[NSCalendar currentCalendar] components:NSHourCalendarUnit fromDate:self].hour;
+    return [[NSCalendar currentCalendar] components:NSCalendarUnitHour fromDate:self].hour;
 }
 - (NSInteger)minute {
-    return [[NSCalendar currentCalendar] components:NSMinuteCalendarUnit fromDate:self].minute;
+    return [[NSCalendar currentCalendar] components:NSCalendarUnitMinute fromDate:self].minute;
 }
 - (NSInteger)second {
-    return [[NSCalendar currentCalendar] components:NSSecondCalendarUnit fromDate:self].second;
+    return [[NSCalendar currentCalendar] components:NSCalendarUnitSecond fromDate:self].second;
 }
 - (NSInteger)weekday {
     //这里会差一天 我也是醉了
@@ -314,24 +314,18 @@
     return result;
 }
 - (NSDate*)firstTime {
-    NSDateComponents *dateFirstcomps = [[NSDateComponents alloc] init];
-    [dateFirstcomps setYear:self.year];
-    [dateFirstcomps setMonth:self.month];
-    [dateFirstcomps setDay:self.day];
-    [dateFirstcomps setHour:00];
-    [dateFirstcomps setMinute:00];
-    [dateFirstcomps setSecond:00];
-    return  [[NSCalendar currentCalendar] dateFromComponents:dateFirstcomps];
+    int64_t currSecond = self.timeIntervalSince1970;
+    currSecond = currSecond - self.hour * 60 * 60;//算出今天凌晨时间
+    NSDate * currDate = [NSDate dateWithTimeIntervalSince1970:currSecond];
+    return currDate;
 }
 - (NSDate*)lastTime {
-    NSDateComponents *dateFirstcomps = [[NSDateComponents alloc] init];
-    [dateFirstcomps setYear:self.year];
-    [dateFirstcomps setMonth:self.month];
-    [dateFirstcomps setDay:self.day];
-    [dateFirstcomps setHour:23];
-    [dateFirstcomps setMinute:59];
-    [dateFirstcomps setSecond:59];
-    return  [[NSCalendar currentCalendar] dateFromComponents:dateFirstcomps];
+    int64_t currSecond = self.timeIntervalSince1970;
+    currSecond = currSecond - self.hour * 60 * 60;//算出今天凌晨时间
+    currSecond = currSecond + (24 * 60 * 60);
+    currSecond = currSecond - 1;//算出明天天凌晨时间 -1是为了不要和明天的时间冲突
+    NSDate * currDate = [NSDate dateWithTimeIntervalSince1970:currSecond];
+    return currDate;
 
 }
 + (NSDate*)dateWithFormat:(NSString *)format

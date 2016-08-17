@@ -12,11 +12,13 @@
 #import "ComCalendarDetailViewController.h"
 #import "RepCalendarDetailController.h"
 
+#import "NoResultView.h"
+
 @interface CalendarListController ()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource,RBQFetchedResultsControllerDelegate> {
     UITableView *_tableView;//表格视图
     UserManager *_userManager;//用户管理器
     UISearchBar *_searchBar;//搜索控件
-    UIView *_noDataView;//没有数据的视图
+    NoResultView *_noDataView;//没有数据的视图
     RBQFetchedResultsController *_calendarFetchedResultsController;
     NSArray<NSDate*> *_calendarDateArr;//时间数组
     NSMutableArray<NSMutableArray<Calendar*>*>* _calendarArr;//每个时间对应的日程数组
@@ -46,12 +48,8 @@
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 55, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 55 - 64) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    UILabel *noDataLabel = [[UILabel alloc] initWithFrame:_tableView.bounds];
-    noDataLabel.textAlignment = NSTextAlignmentCenter;
-    noDataLabel.text = @"正在加载数据...";
-    noDataLabel.font = [UIFont systemFontOfSize:14];
-    noDataLabel.textColor = [UIColor grayColor];
-    _tableView.tableFooterView = noDataLabel;
+    _noDataView = [[NoResultView alloc] initWithFrame:_tableView.bounds];
+    _tableView.tableFooterView = [UIView new];
     _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [_tableView registerNib:[UINib nibWithNibName:@"CalenderEventTableViewCell" bundle:nil] forCellReuseIdentifier:@"CalenderEventTableViewCell"];
     [self.view addSubview:_tableView];
@@ -59,12 +57,19 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self searchTextFromLoc];
-    _tableView.tableFooterView = [UIView new];
+    if(_calendarDateArr.count == 0)
+        _tableView.tableFooterView = _noDataView;
+    else
+        _tableView.tableFooterView = [UIView new];
     [_tableView reloadData];
 }
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
     [self searchTextFromLoc];
+    if(_calendarDateArr.count == 0)
+        _tableView.tableFooterView = _noDataView;
+    else
+        _tableView.tableFooterView = [UIView new];
     [_tableView reloadData];
 }
 //本地加载所有事件
@@ -160,6 +165,10 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [searchBar endEditing:YES];
     [self searchTextFromLoc];
+    if(_calendarDateArr.count == 0)
+        _tableView.tableFooterView = _noDataView;
+    else
+        _tableView.tableFooterView = [UIView new];
     [_tableView reloadData];
 }
 #pragma mark --
