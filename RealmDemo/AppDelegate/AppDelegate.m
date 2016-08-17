@@ -51,19 +51,17 @@
     self.window.rootViewController = [MainViewController new];
     [self.window makeKeyAndVisible];
     //注册3d touch功能
-    if ([[UIDevice currentDevice].systemVersion floatValue] >= 9.0) {//判定系统版本
-        UIApplicationShortcutItem *shortcutItem = [launchOptions objectForKeyedSubscript:UIApplicationLaunchOptionsShortcutItemKey];
-        if(shortcutItem) {
-            int currIndex = 0;
-            if ([shortcutItem.type isEqualToString:@"今日日程"]) {
-                currIndex = 0;
-            } else if ([shortcutItem.type isEqualToString:@"签到"]) {
-                currIndex = 1;
-            }
-            //发出通知弹出控制器
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"OpenSoft_FormTouch_Notication" object:@(currIndex)];
-        }
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
+    UIApplicationShortcutItem *shortcutItem = [launchOptions objectForKeyedSubscript:UIApplicationLaunchOptionsShortcutItemKey];
+    int currIndex = 0;
+    if ([shortcutItem.type isEqualToString:@"今日日程"]) {
+        currIndex = 0;
+    } else if ([shortcutItem.type isEqualToString:@"签到"]) {
+        currIndex = 1;
     }
+    //发出通知弹出控制器
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"OpenSoft_FormTouch_Notication" object:@(currIndex)];
+#endif
     return YES;
 }
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler
@@ -77,6 +75,14 @@
     //发出通知弹出控制器
     [[NSNotificationCenter defaultCenter] postNotificationName:@"OpenSoft_FormTouch_Notication" object:@(currIndex)];
     completionHandler(YES);
+}
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler {
+    if ([[userActivity activityType] isEqualToString:CSSearchableItemActionType]) {
+        NSString *uniqueIdentifier = [userActivity.userInfo objectForKey:CSSearchableItemActivityIdentifier];
+        //uniqueIdentifier可以是"calendar:2020"，表示传过来的是日程，日程ID为2020，然后查看详情
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"OpenSoft_FormSpotlight_Notication" object:uniqueIdentifier];
+    }
+    return YES;
 }
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options {
     //是不是从today扩展进来的

@@ -56,6 +56,11 @@
     //加上从today进来的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReciveAddToday:) name:@"OpenSoft_FormToday_addCalendar_Notication" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReciveOpenToday:) name:@"OpenSoft_FormToday_openCalendar_Notication" object:nil];
+    //加上spotlight进来的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReciveOpenSpotlight:) name:@"OpenSoft_FormSpotlight_Notication" object:nil];
+}
+- (void)didReciveOpenSpotlight:(NSNotification*)notification {
+//    NSString *currStr = notification.object;
 }
 - (void)didReciveAddToday:(NSNotification*)notification {
     //添加日程

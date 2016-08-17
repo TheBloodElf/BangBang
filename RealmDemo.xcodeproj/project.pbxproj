@@ -163,6 +163,13 @@
 		1B03E9081D4078E400FB6E1E /* ComCalendarDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B03E9071D4078E400FB6E1E /* ComCalendarDetailViewController.m */; };
 		1B06D5D31D362FA8002D06A7 /* Company.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B06D5D21D362FA8002D06A7 /* Company.m */; };
 		1B0715ED1D386CBC00D7881D /* MineView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B0715EC1D386CBC00D7881D /* MineView.storyboard */; };
+		1B0CF79B1D64384E00096CF9 /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B0CF7851D6430C100096CF9 /* PhotosUI.framework */; };
+		1B0CF79C1D64384E00096CF9 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BF3FD241D5AD25200026351 /* Photos.framework */; };
+		1B0CF7A01D64384E00096CF9 /* PhotoEditingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0CF79F1D64384E00096CF9 /* PhotoEditingViewController.m */; };
+		1B0CF7A31D64384E00096CF9 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B0CF7A11D64384E00096CF9 /* MainInterface.storyboard */; };
+		1B0CF7A71D64384E00096CF9 /* RealmPhoto.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1B0CF79A1D64384E00096CF9 /* RealmPhoto.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1B0CF7B31D64446000096CF9 /* IndexRequestHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0CF7B21D64446000096CF9 /* IndexRequestHandler.m */; };
+		1B0CF7B71D64446000096CF9 /* RealmSpotlight.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1B0CF7AF1D64446000096CF9 /* RealmSpotlight.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1B0FECB91D40AD7600DB4369 /* SignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0FECB81D40AD7600DB4369 /* SignIn.m */; };
 		1B0FECC21D40B68400DB4369 /* SigInListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0FECC01D40B68400DB4369 /* SigInListCell.m */; };
 		1B0FECC31D40B68400DB4369 /* SigInListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B0FECC11D40B68400DB4369 /* SigInListCell.xib */; };
@@ -536,6 +543,20 @@
 			remoteGlobalIDString = 046DAF881D4C812C00718F2A;
 			remoteInfo = RealmShare;
 		};
+		1B0CF7A51D64384E00096CF9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1B877F0A1D178E7C000144B2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1B0CF7991D64384E00096CF9;
+			remoteInfo = RealmPhoto;
+		};
+		1B0CF7B51D64446000096CF9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1B877F0A1D178E7C000144B2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1B0CF7AE1D64446000096CF9;
+			remoteInfo = RealmSpotlight;
+		};
 		1BEAD3251D62F14700B8C3FD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1B877F0A1D178E7C000144B2 /* Project object */;
@@ -554,6 +575,8 @@
 			files = (
 				1BEAD3271D62F14700B8C3FD /* RealmToday.appex in Embed App Extensions */,
 				046DAF941D4C812C00718F2A /* 帮帮.appex in Embed App Extensions */,
+				1B0CF7A71D64384E00096CF9 /* RealmPhoto.appex in Embed App Extensions */,
+				1B0CF7B71D64446000096CF9 /* RealmSpotlight.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -828,6 +851,16 @@
 		1B06D5D11D362FA8002D06A7 /* Company.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Company.h; sourceTree = "<group>"; };
 		1B06D5D21D362FA8002D06A7 /* Company.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Company.m; sourceTree = "<group>"; };
 		1B0715EC1D386CBC00D7881D /* MineView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MineView.storyboard; sourceTree = "<group>"; };
+		1B0CF7851D6430C100096CF9 /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = System/Library/Frameworks/PhotosUI.framework; sourceTree = SDKROOT; };
+		1B0CF79A1D64384E00096CF9 /* RealmPhoto.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RealmPhoto.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B0CF79E1D64384E00096CF9 /* PhotoEditingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoEditingViewController.h; sourceTree = "<group>"; };
+		1B0CF79F1D64384E00096CF9 /* PhotoEditingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoEditingViewController.m; sourceTree = "<group>"; };
+		1B0CF7A21D64384E00096CF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		1B0CF7A41D64384E00096CF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1B0CF7AF1D64446000096CF9 /* RealmSpotlight.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RealmSpotlight.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B0CF7B11D64446000096CF9 /* IndexRequestHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IndexRequestHandler.h; sourceTree = "<group>"; };
+		1B0CF7B21D64446000096CF9 /* IndexRequestHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IndexRequestHandler.m; sourceTree = "<group>"; };
+		1B0CF7B41D64446000096CF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1B0FECB71D40AD7600DB4369 /* SignIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignIn.h; sourceTree = "<group>"; };
 		1B0FECB81D40AD7600DB4369 /* SignIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignIn.m; sourceTree = "<group>"; };
 		1B0FECBF1D40B68400DB4369 /* SigInListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SigInListCell.h; sourceTree = "<group>"; };
@@ -1460,6 +1493,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				472366F962A662ECAFC40E17 /* libPods-RealmShare.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B0CF7971D64384E00096CF9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B0CF79B1D64384E00096CF9 /* PhotosUI.framework in Frameworks */,
+				1B0CF79C1D64384E00096CF9 /* Photos.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B0CF7AC1D64446000096CF9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2140,6 +2189,27 @@
 				1B0388931D509DF800D0B7D0 /* TaskRemindCellCell.xib */,
 			);
 			path = TaskDetailCell;
+			sourceTree = "<group>";
+		};
+		1B0CF79D1D64384E00096CF9 /* RealmPhoto */ = {
+			isa = PBXGroup;
+			children = (
+				1B0CF79E1D64384E00096CF9 /* PhotoEditingViewController.h */,
+				1B0CF79F1D64384E00096CF9 /* PhotoEditingViewController.m */,
+				1B0CF7A11D64384E00096CF9 /* MainInterface.storyboard */,
+				1B0CF7A41D64384E00096CF9 /* Info.plist */,
+			);
+			path = RealmPhoto;
+			sourceTree = "<group>";
+		};
+		1B0CF7B01D64446000096CF9 /* RealmSpotlight */ = {
+			isa = PBXGroup;
+			children = (
+				1B0CF7B11D64446000096CF9 /* IndexRequestHandler.h */,
+				1B0CF7B21D64446000096CF9 /* IndexRequestHandler.m */,
+				1B0CF7B41D64446000096CF9 /* Info.plist */,
+			);
+			path = RealmSpotlight;
 			sourceTree = "<group>";
 		};
 		1B119E561D3C8776007CC050 /* RYChatController */ = {
@@ -2999,6 +3069,8 @@
 				1B877F141D178E7D000144B2 /* RealmDemo */,
 				046DAF8A1D4C812C00718F2A /* RealmShare */,
 				1BEAD31D1D62F14700B8C3FD /* RealmToday */,
+				1B0CF79D1D64384E00096CF9 /* RealmPhoto */,
+				1B0CF7B01D64446000096CF9 /* RealmSpotlight */,
 				1B877F131D178E7D000144B2 /* Products */,
 				4D6CC168BC56EB689405D00C /* Pods */,
 				AE1CB48D1985A705EE5EEAD9 /* Frameworks */,
@@ -3011,6 +3083,8 @@
 				1B877F121D178E7D000144B2 /* 帮帮管理助手.app */,
 				046DAF891D4C812C00718F2A /* 帮帮.appex */,
 				1BEAD31B1D62F14700B8C3FD /* RealmToday.appex */,
+				1B0CF79A1D64384E00096CF9 /* RealmPhoto.appex */,
+				1B0CF7AF1D64446000096CF9 /* RealmSpotlight.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3752,6 +3826,7 @@
 				B5741F96C8DE18CC807FD69E /* libPods-RealmDemo.a */,
 				713F92DC8FC461BCE3C12F66 /* libPods-RealmShare.a */,
 				1BEAD2EE1D62E36400B8C3FD /* NotificationCenter.framework */,
+				1B0CF7851D6430C100096CF9 /* PhotosUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -3779,6 +3854,40 @@
 			productReference = 046DAF891D4C812C00718F2A /* 帮帮.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		1B0CF7991D64384E00096CF9 /* RealmPhoto */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1B0CF7A81D64384E00096CF9 /* Build configuration list for PBXNativeTarget "RealmPhoto" */;
+			buildPhases = (
+				1B0CF7961D64384E00096CF9 /* Sources */,
+				1B0CF7971D64384E00096CF9 /* Frameworks */,
+				1B0CF7981D64384E00096CF9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RealmPhoto;
+			productName = RealmPhoto;
+			productReference = 1B0CF79A1D64384E00096CF9 /* RealmPhoto.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		1B0CF7AE1D64446000096CF9 /* RealmSpotlight */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1B0CF7B81D64446000096CF9 /* Build configuration list for PBXNativeTarget "RealmSpotlight" */;
+			buildPhases = (
+				1B0CF7AB1D64446000096CF9 /* Sources */,
+				1B0CF7AC1D64446000096CF9 /* Frameworks */,
+				1B0CF7AD1D64446000096CF9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RealmSpotlight;
+			productName = RealmSpotlight;
+			productReference = 1B0CF7AF1D64446000096CF9 /* RealmSpotlight.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		1B877F111D178E7D000144B2 /* RealmDemo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1B877F291D178E7D000144B2 /* Build configuration list for PBXNativeTarget "RealmDemo" */;
@@ -3796,6 +3905,8 @@
 			dependencies = (
 				046DAF931D4C812C00718F2A /* PBXTargetDependency */,
 				1BEAD3261D62F14700B8C3FD /* PBXTargetDependency */,
+				1B0CF7A61D64384E00096CF9 /* PBXTargetDependency */,
+				1B0CF7B61D64446000096CF9 /* PBXTargetDependency */,
 			);
 			name = RealmDemo;
 			productName = RealmDemo;
@@ -3837,6 +3948,14 @@
 							};
 						};
 					};
+					1B0CF7991D64384E00096CF9 = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = W488V5C95D;
+					};
+					1B0CF7AE1D64446000096CF9 = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = W488V5C95D;
+					};
 					1B877F111D178E7D000144B2 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = W488V5C95D;
@@ -3873,6 +3992,8 @@
 				1B877F111D178E7D000144B2 /* RealmDemo */,
 				046DAF881D4C812C00718F2A /* RealmShare */,
 				1BEAD31A1D62F14700B8C3FD /* RealmToday */,
+				1B0CF7991D64384E00096CF9 /* RealmPhoto */,
+				1B0CF7AE1D64446000096CF9 /* RealmSpotlight */,
 			);
 		};
 /* End PBXProject section */
@@ -3889,6 +4010,21 @@
 				046DB0751D4C85FD00718F2A /* ShareContentTopCell.xib in Resources */,
 				046DAF901D4C812C00718F2A /* MainInterface.storyboard in Resources */,
 				046DB0721D4C85FD00718F2A /* appicon@3x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B0CF7981D64384E00096CF9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B0CF7A31D64384E00096CF9 /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B0CF7AD1D64446000096CF9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4182,6 +4318,22 @@
 				046DB0701D4C85FD00718F2A /* ShareSelectDepartController.m in Sources */,
 				046DB0791D4C85FD00718F2A /* ShareSelectModel.m in Sources */,
 				1B4686371D4EF31D00F3C068 /* Identity.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B0CF7961D64384E00096CF9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B0CF7A01D64384E00096CF9 /* PhotoEditingViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B0CF7AB1D64446000096CF9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B0CF7B31D64446000096CF9 /* IndexRequestHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4529,6 +4681,16 @@
 			target = 046DAF881D4C812C00718F2A /* RealmShare */;
 			targetProxy = 046DAF921D4C812C00718F2A /* PBXContainerItemProxy */;
 		};
+		1B0CF7A61D64384E00096CF9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1B0CF7991D64384E00096CF9 /* RealmPhoto */;
+			targetProxy = 1B0CF7A51D64384E00096CF9 /* PBXContainerItemProxy */;
+		};
+		1B0CF7B61D64446000096CF9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1B0CF7AE1D64446000096CF9 /* RealmSpotlight */;
+			targetProxy = 1B0CF7B51D64446000096CF9 /* PBXContainerItemProxy */;
+		};
 		1BEAD3261D62F14700B8C3FD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 1BEAD31A1D62F14700B8C3FD /* RealmToday */;
@@ -4541,6 +4703,14 @@
 			isa = PBXVariantGroup;
 			children = (
 				046DAF8F1D4C812C00718F2A /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+		1B0CF7A11D64384E00096CF9 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1B0CF7A21D64384E00096CF9 /* Base */,
 			);
 			name = MainInterface.storyboard;
 			sourceTree = "<group>";
@@ -4586,6 +4756,62 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lottak.BangBang.share;
 				PRODUCT_NAME = "帮帮";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		1B0CF7A91D64384E00096CF9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = RealmPhoto/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lottak.BangBang.RealmPhoto;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		1B0CF7AA1D64384E00096CF9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				INFOPLIST_FILE = RealmPhoto/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lottak.BangBang.RealmPhoto;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		1B0CF7B91D64446000096CF9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = RealmSpotlight/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lottak.BangBang.RealmSpotlight;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		1B0CF7BA1D64446000096CF9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				INFOPLIST_FILE = RealmSpotlight/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lottak.BangBang.RealmSpotlight;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -4931,6 +5157,22 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		1B0CF7A81D64384E00096CF9 /* Build configuration list for PBXNativeTarget "RealmPhoto" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1B0CF7A91D64384E00096CF9 /* Debug */,
+				1B0CF7AA1D64384E00096CF9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		1B0CF7B81D64446000096CF9 /* Build configuration list for PBXNativeTarget "RealmSpotlight" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1B0CF7B91D64446000096CF9 /* Debug */,
+				1B0CF7BA1D64446000096CF9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		1B877F0D1D178E7C000144B2 /* Build configuration list for PBXProject "RealmDemo" */ = {
 			isa = XCConfigurationList;

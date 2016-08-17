@@ -55,5 +55,11 @@
 #import <AVFoundation/AVAsset.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <Photos/Photos.h>//IOS8出来的 我们刚好可以用
+#import <PhotosUI/PhotosUI.h>
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
+    #import <CoreSpotlight/CoreSpotlight.h>
+    #import <MobileCoreServices/MobileCoreServices.h>
+#endif
 
 #endif /* UtikIes_h */

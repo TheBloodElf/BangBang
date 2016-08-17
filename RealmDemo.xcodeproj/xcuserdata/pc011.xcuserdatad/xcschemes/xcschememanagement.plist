@@ -9,10 +9,20 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>RealmPhoto.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>13</integer>
+		</dict>
 		<key>RealmShare.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>1</integer>
+		</dict>
+		<key>RealmSpotlight.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>14</integer>
 		</dict>
 		<key>RealmToday.xcscheme</key>
 		<dict>
@@ -23,6 +33,21 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>046DAF881D4C812C00718F2A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1B0CF7831D6430C100096CF9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1B0CF7991D64384E00096CF9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1B0CF7AE1D64446000096CF9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
