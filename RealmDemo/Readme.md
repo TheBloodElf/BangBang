@@ -1,6 +1,11 @@
                                即将做
-聊天@功能
 添加任务完成情况（需要服务器修改数据表)
+通知把action加上，任务、日程等可以完成和删除
+设置UIImage的渲染模式：UIImage.renderingMode
+iOS给Core Image增加了两种人脸检测功能：CIDetectorEyeBlink以及CIDetectorSmile
+UIScreenEdgePanGestureRecognizer 继承自UIPanGestureRecognizer ，它可以让你从屏幕边界即可检测手势
+我们现在可以使用 UIDocumentPickerViewController 来从第三方存储 (以及第三方 app 通过应用扩展所实现的存储) 中选取文件。
+http://www.25pp.com/news/news_60921.html
                                 bug
 plugin com.apple.UIKit.fileprovider.default invalidated
 任务同步偶尔出现不是对象存进数据库的情况
