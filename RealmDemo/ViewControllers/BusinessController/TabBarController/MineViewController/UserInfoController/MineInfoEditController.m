@@ -246,6 +246,7 @@
     [self changeUserInfo:_tempUser];
 }
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(nullable NSDictionary<NSString *,id> *)editingInfo {
+    
     [UserHttp updateUserAvater:image userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
         [self.navigationController.view dismissTips];
         if(error) {

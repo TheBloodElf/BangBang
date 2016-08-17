@@ -7,7 +7,7 @@
 //
 
 #import <CoreSpotlight/CoreSpotlight.h>
-
+//spotlight出现的结果经过这里再过滤一次
 @interface IndexRequestHandler : CSIndexExtensionRequestHandler
 
 @end

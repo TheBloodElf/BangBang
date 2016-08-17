@@ -24,13 +24,12 @@
 #import "CreateSiginController.h"
 #import "CreateMeetingController.h"
 #import "BushSearchViewController.h"
-#import "SelectAttachmentController.h"
 #import "WebNonstandarViewController.h"
 #import "RepCalendarDetailController.h"
 #import "ComCalendarDetailViewController.h"
 #import "TaskDetailController.h"
 
-@interface MainBusinessController ()<UITabBarControllerDelegate,MoreViewControllerDelegate> {
+@interface MainBusinessController ()<UITabBarControllerDelegate,MoreViewControllerDelegate,UIDocumentMenuDelegate,UIDocumentPickerDelegate> {
     UserManager *_userManager;
     IdentityManager *_identityManager;
     UITabBarController *_tabBarVC;
@@ -226,8 +225,18 @@
     } else if(index == 3) {//加入圈子
         [self.navigationController pushViewController:[BushSearchViewController new] animated:YES];
     } else {//选择附件控制器
-        [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[SelectAttachmentController new]] animated:YES completion:nil];
+        UIDocumentMenuViewController *importMenu = [[UIDocumentMenuViewController alloc] initWithDocumentTypes:@[@"public.content"] inMode:UIDocumentPickerModeImport];
+        importMenu.delegate = self;
+        [self presentViewController:importMenu animated:YES completion:nil];
     }
+}
+- (void)documentMenu:(UIDocumentMenuViewController *)documentMenu didPickDocumentPicker:(UIDocumentPickerViewController *)documentPicker {
+    documentPicker.delegate = self;
+    documentPicker.modalPresentationStyle = UIModalPresentationFullScreen;
+    [self presentViewController:documentPicker animated:YES completion:nil];
+}
+- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentAtURL:(NSURL *)url {
+    
 }
 #pragma mark -- UITabBarControllerDelegate
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {

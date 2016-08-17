@@ -2,6 +2,7 @@
 添加任务完成情况（需要服务器修改数据表)
 获取视频的第一帧作为显示
                                 bug
+plugin com.apple.UIKit.fileprovider.default invalidated
 任务同步偶尔出现不是对象存进数据库的情况
 动态如果进入时没有数据，此时添加一条，下面的空太图依然存在
 任务讨论时间单位换成毫秒

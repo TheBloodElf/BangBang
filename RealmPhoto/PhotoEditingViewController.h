@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+//照片可以通过你的应用来进行编辑
 @interface PhotoEditingViewController : UIViewController
 
 @end

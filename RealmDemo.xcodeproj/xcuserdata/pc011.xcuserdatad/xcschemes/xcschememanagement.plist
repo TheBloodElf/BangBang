@@ -9,6 +9,16 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>RealmDocument.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>15</integer>
+		</dict>
+		<key>RealmDocumentFileProvider.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>16</integer>
+		</dict>
 		<key>RealmPhoto.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -52,7 +62,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>1B0CF7BF1D644D6700096CF9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1B0CF7CE1D644D6700096CF9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>1B877F111D178E7D000144B2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1BC008111D645E2E004A6FA5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1BC008201D645E2E004A6FA5</key>
 		<dict>
 			<key>primary</key>
 			<true/>

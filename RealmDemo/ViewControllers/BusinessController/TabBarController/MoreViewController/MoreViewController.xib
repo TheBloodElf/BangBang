@@ -96,7 +96,7 @@
                                 <action selector="btnClicked:" destination="-1" eventType="touchUpInside" id="vUr-aM-SMY"/>
                             </connections>
                         </button>
-                        <button hidden="YES" opaque="NO" tag="1004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uvx-if-3qE">
+                        <button opaque="NO" tag="1004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uvx-if-3qE">
                             <rect key="frame" x="107" y="135" width="106" height="106"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="uvx-if-3qE" secondAttribute="height" multiplier="1:1" id="IS0-5h-JP7"/>
@@ -175,7 +175,7 @@
                                 </mask>
                             </variation>
                         </label>
-                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="选择附件" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gKK-Xd-1JE">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="选择附件" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gKK-Xd-1JE">
                             <rect key="frame" x="130" y="241" width="60" height="18"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="20" id="qfh-G0-9oy"/>
