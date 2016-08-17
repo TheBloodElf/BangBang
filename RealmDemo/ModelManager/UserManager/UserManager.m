@@ -549,17 +549,29 @@
 - (NSMutableArray<Calendar*>*)getCalendarArrWithDate:(NSDate*)date {
     NSMutableArray<Calendar*> *pushMessageArr = [@[] mutableCopy];
     [_rlmRealm beginWriteTransaction];
-    int64_t dateFirstTime = date.firstTime.timeIntervalSince1970 * 1000;
-    int64_t dateLastTime = date.lastTime.timeIntervalSince1970 * 1000;
-    NSString *noReStr = [NSString stringWithFormat:@"(repeat_type = 0 and ((enddate_utc >= %lld and begindate_utc <= %lld ) or (enddate_utc >= %lld and begindate_utc <= %lld)  or (enddate_utc <= %lld and begindate_utc >= %lld)))",dateLastTime,dateLastTime,dateFirstTime,dateFirstTime,dateLastTime,dateFirstTime];
-    NSString *reStr = [NSString stringWithFormat:@"(repeat_type != 0 and ((r_end_date_utc >= %lld and r_begin_date_utc <= %lld ) or (r_end_date_utc >= %lld and r_begin_date_utc <= %lld ) or (r_end_date_utc <= %lld and r_begin_date_utc >= %lld )))",dateLastTime,dateLastTime,dateFirstTime,dateFirstTime,dateLastTime,dateFirstTime];
-    
-    NSString *resultStr = [NSString stringWithFormat:@"%@ or %@",noReStr,reStr];
-    
+    NSString *resultStr = [NSString stringWithFormat:@"status != 0"];
     RLMResults *calendarResult = [Calendar objectsInRealm:_rlmRealm where:resultStr];
     for (int index = 0;index < calendarResult.count;index ++) {
         Calendar *company = [calendarResult objectAtIndex:index];
-        [pushMessageArr addObject:company];
+        int64_t todayBegin = date.firstTime.timeIntervalSince1970;
+        int64_t todayEnd = date.lastTime.timeIntervalSince1970;
+        if(company.repeat_type == 0) {//如果是不重复的 就判断时间是不是在其中
+            if((todayBegin >= (company.begindate_utc / 1000)) && (todayBegin <= (company.enddate_utc / 1000))) {//如果今天的开始时间在日程有效之中 添加
+                [pushMessageArr addObject:company];
+            } else if ((todayEnd >= (company.begindate_utc / 1000)) && (todayEnd <= (company.enddate_utc / 1000))){//如果今天的结束时间在日程有效之中 添加
+                [pushMessageArr addObject:company];
+            } else if(((company.begindate_utc / 1000) >= todayBegin) && (todayEnd >= (company.enddate_utc / 1000))) {//如果事件发生在今天内
+                [pushMessageArr addObject:company];
+            }
+        } else {//重复的就要看重复时间是不是在其中
+            if((todayBegin >= (company.r_begin_date_utc / 1000)) && (todayBegin <= (company.r_end_date_utc / 1000))) {//如果今天的开始时间在日程重复有效之中 添加
+                [pushMessageArr addObject:company];
+            } else if ((todayEnd >= (company.r_begin_date_utc / 1000)) && (todayEnd <= (company.r_end_date_utc / 1000))){//如果今天的结束时间在日程重复有效之中 添加
+                [pushMessageArr addObject:company];//如果事件发生在今天内
+            } else if(((company.r_begin_date_utc / 1000) >= todayBegin) && (todayEnd >= (company.r_end_date_utc / 1000))) {
+                [pushMessageArr addObject:company];
+            }
+        }
     }
     [_rlmRealm commitWriteTransaction];
     return pushMessageArr;

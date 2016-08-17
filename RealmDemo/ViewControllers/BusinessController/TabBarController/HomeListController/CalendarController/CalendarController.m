@@ -88,7 +88,6 @@
     _calendarContentView = [[JTHorizontalCalendarView alloc] initWithFrame:CGRectMake(0, 200, MAIN_SCREEN_WIDTH, 85)];
     _calendarContentView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_calendarContentView];
-    _calendarManager.settings.weekDayFormat = JTCalendarWeekDayFormatSingle;
     _calendarManager.contentView = _calendarContentView;
     [_calendarManager setDate:_userSelectedDate];
     //添加上下滑动的手势
@@ -164,41 +163,25 @@
     NSMutableArray *calendarArr = [_userManager getCalendarArr];
     [_haveCalendarArr removeAllObjects];
     for (Calendar *tempCalendar in calendarArr) {
+        if(tempCalendar.status != 1) continue;
+        
         if(tempCalendar.repeat_type == 0) {//如果是不重复的日程
-            if(tempCalendar.status == 1) {//如果是未完成的日程
-                //先把今天加上
-                NSDate *startTimeTemp = [NSDate dateWithTimeIntervalSince1970:tempCalendar.begindate_utc / 1000];
+            for (int64_t startTime = tempCalendar.begindate_utc; startTime <= tempCalendar.enddate_utc; startTime += (24 * 60 * 60 * 1000)) {
+                NSDate *startTimeTemp = [NSDate dateWithTimeIntervalSince1970:startTime / 1000];
                 if(![_haveCalendarArr containsObject:startTimeTemp])
                     [_haveCalendarArr addObject:startTimeTemp];
-                if(tempCalendar.is_over_day == YES) {//如果是跨天的日程就要循环获取时间
-                    do {
-                        //加一天时间再判断
-                        startTimeTemp = [startTimeTemp dateByAddingTimeInterval:24 * 60 * 60];
-                        if(![_haveCalendarArr containsObject:startTimeTemp])
-                            [_haveCalendarArr addObject:startTimeTemp];
-                    } while (tempCalendar.enddate_utc >= ([startTimeTemp timeIntervalSince1970] + 24 * 60 * 60) * 1000);
-                }
             }
         } else {//如果是重复的日程
-            if(tempCalendar.status == 1) {//只算未完成的日程
-                if(tempCalendar.rrule.length > 0 && tempCalendar.r_begin_date_utc>0 && tempCalendar.r_end_date_utc > 0) {
-                    Scheduler * s = [[Scheduler alloc] initWithDate:[NSDate dateWithTimeIntervalSince1970:tempCalendar.begindate_utc/1000] andRule:tempCalendar.rrule];
-                    //得到所有的时间
-                    NSArray * occurences = [s occurencesBetween:[NSDate dateWithTimeIntervalSince1970:tempCalendar.r_begin_date_utc/1000] andDate:[NSDate dateWithTimeIntervalSince1970:tempCalendar.r_end_date_utc/1000]];
-                    //每个时间都遍历一次
-                    for (NSDate *tempDate in occurences) {
-                        if([tempDate timeIntervalSince1970] < tempCalendar.r_begin_date_utc/1000) {
-                            continue;
-                        } else if ([tempCalendar haveDeleteDate:tempDate]) {
-                            continue;
-                        } else if ([tempCalendar haveFinishDate:tempDate]) {
-                            continue;
-                        } else {
-                            if(![_haveCalendarArr containsObject:tempDate])
-                                [_haveCalendarArr addObject:tempDate];
-                        }
-                    }
-                }
+            Scheduler * scheduler = [[Scheduler alloc] initWithDate:[NSDate dateWithTimeIntervalSince1970:tempCalendar.begindate_utc/1000] andRule:tempCalendar.rrule];
+            //得到所有的时间
+            NSArray * occurences = [scheduler occurencesBetween:[NSDate dateWithTimeIntervalSince1970:tempCalendar.r_begin_date_utc/1000] andDate:[NSDate dateWithTimeIntervalSince1970:tempCalendar.r_end_date_utc/1000]];
+            //每个时间都遍历一次
+            for (NSDate *tempDate in occurences) {
+                if([tempDate timeIntervalSince1970] < tempCalendar.r_begin_date_utc/1000) continue;
+                if ([tempCalendar haveDeleteDate:tempDate]) continue;
+                if ([tempCalendar haveFinishDate:tempDate]) continue;
+                if(![_haveCalendarArr containsObject:tempDate])
+                    [_haveCalendarArr addObject:tempDate];
             }
         }
     }
@@ -216,24 +199,20 @@
             else
                 [_todayFinishCalendarArr addObject:tempCalendar];
         } else {//重复的要加上经过自己一天的
-            if (tempCalendar.rrule.length > 0&&tempCalendar.r_begin_date_utc >0&&tempCalendar.r_end_date_utc>0) {
-                Scheduler * s = [[Scheduler alloc] initWithDate:[NSDate dateWithTimeIntervalSince1970:tempCalendar.begindate_utc/1000] andRule:tempCalendar.rrule];
-                //得到所有的时间
-                NSArray * occurences = [s occurencesBetween:[NSDate dateWithTimeIntervalSince1970:tempCalendar.r_begin_date_utc/1000] andDate:[NSDate dateWithTimeIntervalSince1970:tempCalendar.r_end_date_utc/1000]];
-                for (NSDate *tempDate in occurences) {
-                    if(tempDate.year == _userSelectedDate.year && tempDate.month == _userSelectedDate.month && tempDate.day == _userSelectedDate.day) {
-                        if([tempCalendar haveDeleteDate:_userSelectedDate]) {
-                            continue;
-                        } else if([tempCalendar haveFinishDate:_userSelectedDate]) {
-                            Calendar *calendar = [[Calendar alloc] initWithJSONDictionary:[tempCalendar JSONDictionary]];
-                            calendar.status = 2;
-                            [_todayFinishCalendarArr addObject:calendar];
-                        } else {
-                            //这里把本次的触发时间加上
-                            Calendar *calendar = [tempCalendar deepCopy];
-                            calendar.rdate = @(_userSelectedDate.timeIntervalSince1970 * 1000).stringValue;
-                            [_todayNoFinishCalendarArr addObject:calendar];
-                        }
+            Scheduler * s = [[Scheduler alloc] initWithDate:[NSDate dateWithTimeIntervalSince1970:tempCalendar.begindate_utc/1000] andRule:tempCalendar.rrule];
+            //得到所有的时间
+            NSArray * occurences = [s occurencesBetween:[NSDate dateWithTimeIntervalSince1970:tempCalendar.r_begin_date_utc/1000] andDate:[NSDate dateWithTimeIntervalSince1970:tempCalendar.r_end_date_utc/1000]];
+            for (NSDate *tempDate in occurences) {
+                if(tempDate.year == _userSelectedDate.year && tempDate.month == _userSelectedDate.month && tempDate.day == _userSelectedDate.day) {
+                    if([tempCalendar haveDeleteDate:_userSelectedDate]) continue;
+                    if([tempCalendar haveFinishDate:_userSelectedDate]) {//当前已完成
+                        Calendar *calendar = [[Calendar alloc] initWithJSONDictionary:[tempCalendar JSONDictionary]];
+                        calendar.status = 2;
+                        [_todayFinishCalendarArr addObject:calendar];
+                    } else {//当前未完成
+                        Calendar *calendar = [tempCalendar deepCopy];
+                        calendar.rdate = @(_userSelectedDate.timeIntervalSince1970 * 1000).stringValue;
+                        [_todayNoFinishCalendarArr addObject:calendar];
                     }
                 }
             }

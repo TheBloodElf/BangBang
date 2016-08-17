@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *endDate;
 @property (weak, nonatomic) IBOutlet UILabel *title;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLab;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *lineHeight;
 
 @end
 
@@ -25,16 +26,17 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.lineHeight.constant = 0.5;
     // Initialization code
 }
 - (void)dataDidChange {
-//    TodayCalendarModel *model = self.data;
-//    NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:model.begindateUtc / 1000];
-//    NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:model.enddateUtc / 1000];
-//    self.startDate.text = [NSString stringWithFormat:@"%02ld:%02ld",startDate.hour,startDate.minute];
-//    self.endDate.text = [NSString stringWithFormat:@"%02ld:%02ld",endDate.hour,endDate.minute];
-//    self.title.text = model.eventName;
-//    self.descriptionLab.text = model.descriptionStr;
+    TodayCalendarModel *model = self.data;
+    NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:model.begindate_utc / 1000];
+    NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:model.enddate_utc / 1000];
+    self.startDate.text = [NSString stringWithFormat:@"%02ld:%02ld",startDate.hour,startDate.minute];
+    self.endDate.text = [NSString stringWithFormat:@"~%02ld:%02ld",endDate.hour,endDate.minute];
+    self.title.text = model.event_name;
+    self.descriptionLab.text = model.descriptionStr;
 }
 
 @end

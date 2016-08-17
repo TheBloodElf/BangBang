@@ -63,21 +63,32 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ddG-iJ-Zop">
+                        <rect key="frame" x="0.0" y="58" width="320" height="1"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="Pvd-I8-uHH"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="BkR-cA-YRM" firstAttribute="centerY" secondItem="zbl-ZZ-dhC" secondAttribute="centerY" constant="10" id="Bxq-V0-jE2"/>
                     <constraint firstAttribute="leadingMargin" secondItem="BkR-cA-YRM" secondAttribute="leading" id="DZt-Ij-Ads"/>
+                    <constraint firstAttribute="bottom" secondItem="ddG-iJ-Zop" secondAttribute="bottom" id="DnM-vX-0x6"/>
                     <constraint firstItem="lHC-JH-ZWo" firstAttribute="leading" secondItem="g1m-L0-XDY" secondAttribute="leading" id="G4S-ii-HVk"/>
                     <constraint firstItem="g1m-L0-XDY" firstAttribute="top" secondItem="zbl-ZZ-dhC" secondAttribute="topMargin" id="Zhn-SH-3aa"/>
                     <constraint firstItem="g1m-L0-XDY" firstAttribute="leading" secondItem="7u1-cu-lvA" secondAttribute="trailing" constant="20" id="cdS-mq-ove"/>
                     <constraint firstAttribute="leadingMargin" secondItem="7u1-cu-lvA" secondAttribute="leading" id="dZ9-4E-4PI"/>
                     <constraint firstItem="7u1-cu-lvA" firstAttribute="centerY" secondItem="zbl-ZZ-dhC" secondAttribute="centerY" constant="-10" id="fe2-0j-psl"/>
                     <constraint firstItem="lHC-JH-ZWo" firstAttribute="top" secondItem="g1m-L0-XDY" secondAttribute="bottom" constant="8" id="lae-j1-u2v"/>
+                    <constraint firstAttribute="trailing" secondItem="ddG-iJ-Zop" secondAttribute="trailing" id="vUp-w3-0LD"/>
+                    <constraint firstItem="ddG-iJ-Zop" firstAttribute="leading" secondItem="zbl-ZZ-dhC" secondAttribute="leading" id="wEf-Tx-ikO"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="descriptionLab" destination="lHC-JH-ZWo" id="uQv-Pg-sTa"/>
                 <outlet property="endDate" destination="BkR-cA-YRM" id="nGp-mY-xOh"/>
+                <outlet property="lineHeight" destination="Pvd-I8-uHH" id="0Dw-O5-nYq"/>
                 <outlet property="startDate" destination="7u1-cu-lvA" id="Cu1-AK-xZf"/>
                 <outlet property="title" destination="g1m-L0-XDY" id="5Al-aa-GTb"/>
             </connections>

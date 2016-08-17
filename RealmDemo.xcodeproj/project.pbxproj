@@ -3406,10 +3406,10 @@
 				1BEAD31E1D62F14700B8C3FD /* TodayViewController.h */,
 				1BEAD31F1D62F14700B8C3FD /* TodayViewController.m */,
 				1BEAD3211D62F14700B8C3FD /* MainInterface.storyboard */,
-				1BEAD3241D62F14700B8C3FD /* Info.plist */,
 				1BEAD3531D62F57D00B8C3FD /* TodayTableViewCell.h */,
 				1BEAD3541D62F57D00B8C3FD /* TodayTableViewCell.m */,
 				1BEAD3551D62F57D00B8C3FD /* TodayTableViewCell.xib */,
+				1BEAD3241D62F14700B8C3FD /* Info.plist */,
 			);
 			path = RealmToday;
 			sourceTree = "<group>";
@@ -4957,6 +4957,7 @@
 				1BEAD32A1D62F14700B8C3FD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

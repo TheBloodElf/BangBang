@@ -138,9 +138,9 @@
             if(tempCalendar.status == 1) {
                 TodayCalendarModel *model = [TodayCalendarModel new];
                 model.id = tempCalendar.id;
-                model.begindateUtc = tempCalendar.begindate_utc;
-                model.enddateUtc = tempCalendar.enddate_utc;
-                model.eventName = tempCalendar.event_name;
+                model.begindate_utc = tempCalendar.begindate_utc;
+                model.enddate_utc = tempCalendar.enddate_utc;
+                model.event_name = tempCalendar.event_name;
                 model.descriptionStr = tempCalendar.descriptionStr;
                 [todayCalendarArr addObject:model];
                 _todayNoFinishCount ++;
@@ -161,9 +161,9 @@
                         } else {
                             TodayCalendarModel *model = [TodayCalendarModel new];
                             model.id = tempCalendar.id;
-                            model.begindateUtc = tempCalendar.begindate_utc;
-                            model.enddateUtc = tempCalendar.enddate_utc;
-                            model.eventName = tempCalendar.event_name;
+                            model.begindate_utc = tempCalendar.begindate_utc;
+                            model.enddate_utc = tempCalendar.enddate_utc;
+                            model.event_name = tempCalendar.event_name;
                             model.descriptionStr = tempCalendar.descriptionStr;
                             [todayCalendarArr addObject:model];
                             _todayNoFinishCount ++;
@@ -176,8 +176,7 @@
     
     //把登录信息放到应用组间共享数据
     NSUserDefaults *sharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.lottak.bangbang"];
-    NSData *todayData = [NSKeyedArchiver archivedDataWithRootObject:todayCalendarArr];
-    [sharedDefaults setValue:todayData forKey:@"GroupTodayInfo"];
+    [sharedDefaults setObject:[NSMutableDictionary mj_keyValuesArrayWithObjectArray:todayCalendarArr] forKey:@"GroupTodayInfo"];
     [sharedDefaults synchronize];
     
     //再获取本周的 今天是本周的第几天

@@ -12,6 +12,8 @@
 
 /** 事务编号 */
 @property (nonatomic, assign) int64_t id;
+/** 事务名称 */
+@property (nonatomic, strong) NSString    *event_name;
 /** 事务描述 */
 @property (nonatomic, strong) NSString   *descriptionStr;
 /** 开始时间 毫秒 */

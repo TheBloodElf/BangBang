@@ -10,6 +10,7 @@
 #import <NotificationCenter/NotificationCenter.h>
 #import "TodayCalendarModel.h"
 #import "NSObject+data.h"
+#import "MJExtension.h"
 #import "TodayTableViewCell.h"
 
 @interface TodayViewController () <NCWidgetProviding,UITableViewDelegate,UITableViewDataSource> {
@@ -31,13 +32,15 @@
     _tableView.separatorColor = [UIColor whiteColor];
     _addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _addBtn.frame = CGRectMake(0, 0, _tableView.bounds.size.width, 30);
-    [_addBtn setTitle:@"添加日程" forState:UIControlStateNormal];
     [_addBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_addBtn addTarget:self action:@selector(addCanaleClicked:) forControlEvents:UIControlEventTouchUpInside];
     _tableView.tableFooterView = _addBtn;
     NSUserDefaults *sharedDefault = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.lottak.bangbang"];
-    NSData *identityDate = [sharedDefault dataForKey:@"GroupTodayInfo"];
-    _calendarArr = (NSMutableArray *)[NSKeyedUnarchiver unarchiveObjectWithData:identityDate];
+    _calendarArr = [TodayCalendarModel mj_objectArrayWithKeyValuesArray:[sharedDefault objectForKey:@"GroupTodayInfo"]];
+    if(_calendarArr.count == 0)
+        [_addBtn setTitle:@"今天没有代办日程,添加日程" forState:UIControlStateNormal];
+    else
+        [_addBtn setTitle:@"添加日程" forState:UIControlStateNormal];
     self.preferredContentSize = CGSizeMake(self.view.bounds.size.width, _calendarArr.count * 60 + 30);
     _tableView.frame = CGRectMake(0, 0, self.view.bounds.size.width, _calendarArr.count * 60 + 30);
     [self.view addSubview:_tableView];
@@ -65,15 +68,13 @@
     [self.extensionContext openURL:[NSURL URLWithString:[NSString stringWithFormat:@"BangBang://openCalendar//%lld",_calendarArr[indexPath.row].id]] completionHandler:nil];
 }
 - (void)widgetPerformUpdateWithCompletionHandler:(void (^)(NCUpdateResult))completionHandler {
-    // Perform any setup necessary in order to update the view.
-    
-    // If an error is encountered, use NCUpdateResultFailed
-    // If there's no update required, use NCUpdateResultNoData
-    // If there's an update, use NCUpdateResultNewData
     NSUserDefaults *sharedDefault = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.lottak.bangbang"];
-    NSData *identityDate = [sharedDefault dataForKey:@"GroupTodayInfo"];
-    _calendarArr = (NSMutableArray *)[NSKeyedUnarchiver unarchiveObjectWithData:identityDate];
+    _calendarArr = [TodayCalendarModel mj_objectArrayWithKeyValuesArray:[sharedDefault objectForKey:@"GroupTodayInfo"]];
     self.preferredContentSize = CGSizeMake(self.view.bounds.size.width, _calendarArr.count * 60 + 30);
+    if(_calendarArr.count == 0)
+        [_addBtn setTitle:@"今天没有代办日程,添加日程" forState:UIControlStateNormal];
+    else
+        [_addBtn setTitle:@"添加日程" forState:UIControlStateNormal];
     _tableView.frame = CGRectMake(0, 0, self.view.bounds.size.width, _calendarArr.count * 60 + 30);
     [_tableView reloadData];
     completionHandler(NCUpdateResultNewData);

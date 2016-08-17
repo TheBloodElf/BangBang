@@ -81,7 +81,9 @@
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
     //看是否有签到记录数据 没有就从服务器获取
     if([_userManager getTodaySigInListGuid:employee.employee_guid].count == 0) {
-        [self.navigationController.view showLoadingTips:@""];
+        if([self.navigationController.viewControllers[0] isMemberOfClass:[NSClassFromString(@"REFrostedViewController") class]]) {
+            [self.navigationController.view showLoadingTips:@""];
+        }
         [UserHttp getSiginList:_userManager.user.currCompany.company_no employeeGuid:employee.employee_guid handler:^(id data, MError *error) {
             [self.navigationController.view dismissTips];
             if(error) {

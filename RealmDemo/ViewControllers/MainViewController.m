@@ -50,6 +50,9 @@
         [self gotoIdentityVC];
         return;
     }
+    IdentityManager *manager = [IdentityManager manager];
+    manager.identity.firstUseSoft = NO;
+    [manager saveAuthorizeData];
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:noti.object message:nil preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *ok = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         [self gotoIdentityVC];
