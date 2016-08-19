@@ -77,28 +77,6 @@
     FinishTaskView *finish = [[FinishTaskView alloc] initWithFrame:CGRectMake(3 * _bottomScrollView.frame.size.width, 0, _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height)];
     finish.delegate = self;
     [_bottomScrollView addSubview:finish];
-    Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
-    //如果本圈子的任务数量为0 就从服务器获取一次
-    NSArray *array = [_userManager getTaskArr:_userManager.user.currCompany.company_no];
-    if(array.count == 0) {
-        [self.navigationController.view showLoadingTips:@"同步任务..."];
-        [UserHttp getTaskList:employee.employee_guid handler:^(id data, MError *error) {
-            [self.navigationController.view dismissTips];
-            if(error) {
-                [self.navigationController.view showFailureTips:error.statsMsg];
-                return ;
-            }
-            NSMutableArray<TaskModel*> *array = [@[] mutableCopy];
-            for (NSDictionary *dic in data[@"list"]) {
-                TaskModel *model = [[TaskModel alloc] initWithJSONDictionary:dic];
-                model.descriptionStr = dic[@"description"];
-                [array addObject:model];
-            }
-            [_userManager updateTask:[@[] mutableCopy] companyNo:_userManager.user.currCompany.company_no];
-            [_userManager updateTask:array companyNo:_userManager.user.currCompany.company_no];
-            [self.navigationController.view showSuccessTips:@"同步成功"];
-        }];
-    }
     
     //创建多选视图
     _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100, 0, 100, 80)];

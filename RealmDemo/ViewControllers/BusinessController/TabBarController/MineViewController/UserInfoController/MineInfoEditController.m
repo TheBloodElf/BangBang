@@ -115,7 +115,10 @@
             cell.detailTextLabel.text = currUser.real_name;
         } else if (indexPath.row == 2) {
             cell.textLabel.text = @"帮帮号";
-            cell.detailTextLabel.text = [NSString isBlank:currUser.user_name] ? @"未填写" : currUser.user_name;
+            if([currUser.user_name rangeOfString:@"@"].location != NSNotFound || [NSString isBlank:currUser.user_name])
+                cell.detailTextLabel.text = @"未填写";
+            else
+                cell.detailTextLabel.text = currUser.user_name;
         }
     }
     else {
@@ -174,9 +177,12 @@
             vc.delegate = self;
             [self.navigationController pushViewController:vc animated:YES];
         } else if (indexPath.row == 2) {
-            ChangeUserBBH *vc = [ChangeUserBBH new];
-            vc.delegate = self;
-            [self.navigationController pushViewController:vc animated:YES];
+            User *currUser = [UserManager manager].user;
+            if([currUser.user_name rangeOfString:@"@"].location != NSNotFound || [NSString isBlank:currUser.user_name]) {
+                ChangeUserBBH *vc = [ChangeUserBBH new];
+                vc.delegate = self;
+                [self.navigationController pushViewController:vc animated:YES];
+            }
         }
     }
     else {

@@ -203,8 +203,8 @@
 - (void)setupRightNavigationButton {
     rightBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [rightBarButton setFrame:CGRectMake(0.0f, 0.0f, 50.0f, 40.0f)];
-    [rightBarButton setImage:[UIImage imageNamed:@"singleSelect"] forState:UIControlStateSelected];
-    [rightBarButton setImage:[UIImage imageNamed:@"singleNoSelect"] forState:UIControlStateNormal];
+    [rightBarButton setImage:[[UIImage imageNamed:@"singleSelect"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateSelected];
+    [rightBarButton setImage:[[UIImage imageNamed:@"singleNoSelect"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
     rightBarButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -35);
     rightBarButton.selected = YES;
     rightBarButton.tag  = 1001;

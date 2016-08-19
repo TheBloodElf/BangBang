@@ -10,6 +10,7 @@
 #import "TodayCalendarModel.h"
 #import "NSObject+data.h"
 #import "NSDate+Format.h"
+#import "NSString+isBlank.h"
 
 @interface TodayTableViewCell  ()
 
@@ -36,7 +37,10 @@
     self.startDate.text = [NSString stringWithFormat:@"%02ld:%02ld",startDate.hour,startDate.minute];
     self.endDate.text = [NSString stringWithFormat:@"~%02ld:%02ld",endDate.hour,endDate.minute];
     self.title.text = model.event_name;
-    self.descriptionLab.text = model.descriptionStr;
+    if([NSString isBlank:model.descriptionStr])
+        self.descriptionLab.text = @"无日程描述";
+    else
+        self.descriptionLab.text = model.descriptionStr;
 }
 
 @end

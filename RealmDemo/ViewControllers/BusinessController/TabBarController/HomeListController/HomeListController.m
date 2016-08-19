@@ -59,6 +59,10 @@
     [_scrollView addSubview:_homeListBottomView];
     _scrollView.contentSize = CGSizeMake(MAIN_SCREEN_WIDTH, CGRectGetMaxY(_homeListBottomView.frame));
     [self.view addSubview:_scrollView];
+    //加上左边边界侧滑手势
+    UIScreenEdgePanGestureRecognizer * screenEdgePanGesture = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(showLeftClicked:)];
+    screenEdgePanGesture.edges = UIRectEdgeLeft;
+    [self.view addGestureRecognizer:screenEdgePanGesture];
     [self setLeftNavigationBarItem];
     [self setRightNavigationBarItem];
     //在这里统一获取一些必须获取的值
@@ -84,13 +88,15 @@
         }
         [_userManager updateSiginRule:array companyNo:_userManager.user.currCompany.company_no];
     }];
-    
     // Do any additional setup after loading the view.
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.barTintColor = [UIColor homeListColor];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+- (void)showLeftClicked:(UIScreenEdgePanGestureRecognizer*)sepr {
+    [self.navigationController.frostedViewController presentMenuViewController];
 }
 #pragma mark --
 #pragma mark -- RBQFetchedResultsControllerDelegate
@@ -117,7 +123,7 @@
         UIImageView *imageView = [_leftNavigationBarButton viewWithTag:1001];
         UILabel *nameLabel = [_leftNavigationBarButton viewWithTag:1002];
         UILabel *companyLabel = [_leftNavigationBarButton viewWithTag:1003];
-        [imageView sd_setImageWithURL:[NSURL URLWithString:user.currCompany.logo] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:user.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
         nameLabel.text = user.real_name;
         if([NSString isBlank:user.currCompany.company_name])
             companyLabel.text = @"未选择圈子";
@@ -265,7 +271,7 @@
     imageView.layer.cornerRadius = 33 / 2.f;
     imageView.clipsToBounds = YES;
     imageView.tag = 1001;
-    [imageView sd_setImageWithURL:[NSURL URLWithString:user.currCompany.logo] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
+    [imageView sd_setImageWithURL:[NSURL URLWithString:user.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
     [_leftNavigationBarButton addSubview:imageView];
     UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(38, 2, 100, 12)];
     nameLabel.font = [UIFont systemFontOfSize:12];

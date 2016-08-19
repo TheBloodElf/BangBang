@@ -36,7 +36,7 @@
     _userFetchedResultsController = [_userManager createUserFetchedResultsController];
     _userFetchedResultsController.delegate = self;
     User *user = _userManager.user;
-    self.avaterImageView.layer.cornerRadius = 35.f;
+    self.avaterImageView.layer.cornerRadius = 30.f;
     self.avaterImageView.clipsToBounds = YES;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;

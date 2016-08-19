@@ -38,21 +38,6 @@
     _businessNav.navigationBar.barTintColor = [UIColor homeListColor];
     [self.view addSubview:_businessNav.view];
     
-    //添加spotlight索引
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
-    [[CSSearchableIndex defaultSearchableIndex] deleteAllSearchableItemsWithCompletionHandler:^(NSError * _Nullable error) {}];
-    [self insertSearchableItem:UIImagePNGRepresentation([UIImage imageNamed:@"default_image_icon"]) spotlightTitle:@"帮帮管理助手" description:@"身边不可获取的办公软件" keywords:@[@"日程",@"任务",@"会议",@"签到"] spotlightInfo:@"OpenSoft" domainId:@"com.lottak.BangBang"];
-#endif
-}
-- (void)insertSearchableItem:(NSData *)photo spotlightTitle:(NSString *)spotlightTitle description:(NSString *)spotlightDesc keywords:(NSArray *)keywords spotlightInfo:(NSString *)spotlightInfo domainId:(NSString *)domainId {
-    CSSearchableItemAttributeSet *attributeSet = [[CSSearchableItemAttributeSet alloc] initWithItemContentType:(NSString *)kUTTypeImage];
-    attributeSet.title = spotlightTitle;                // 标题
-    attributeSet.keywords = keywords;                   // 关键字,NSArray格式
-    attributeSet.contentDescription = spotlightDesc;    // 描述
-    attributeSet.thumbnailData = photo;                 // 图标, NSData格式
-    // spotlightInfo 可以作为一些数据传递给接受的地方
-    // domainId      id,通过这个id来判断是哪个spotlight
-    CSSearchableItem *item = [[CSSearchableItem alloc] initWithUniqueIdentifier:spotlightInfo domainIdentifier:domainId attributeSet:attributeSet];
-    [[CSSearchableIndex defaultSearchableIndex] indexSearchableItems:@[item] completionHandler:^(NSError * error) {}];
+    
 }
 @end

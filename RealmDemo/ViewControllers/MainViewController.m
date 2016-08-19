@@ -50,9 +50,6 @@
         [self gotoIdentityVC];
         return;
     }
-    IdentityManager *manager = [IdentityManager manager];
-    manager.identity.firstUseSoft = NO;
-    [manager saveAuthorizeData];
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:noti.object message:nil preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *ok = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         [self gotoIdentityVC];
@@ -83,7 +80,7 @@
         _welcome.view.alpha = 0;
         [self addChildViewController:_welcome];
         [self.view addSubview:_welcome.view];
-         //在这里加个动画试试
+        //如果是从业务界面进来
         if([self.childViewControllers containsObject:_business]) {
             [self transitionFromViewController:_business toViewController:_welcome duration:1 options:UIViewAnimationOptionTransitionNone | UIViewAnimationOptionCurveEaseInOut animations:^{
                 _welcome.view.alpha = 1;
@@ -102,11 +99,19 @@
             _login.view = 0;
             [self addChildViewController:_login];
             [self.view addSubview:_login.view];
-            //在这里加个动画试试
+            //如果是从欢迎界面进来
             if([self.childViewControllers containsObject:_welcome]) {
                 [self transitionFromViewController:_welcome toViewController:_login duration:1 options:UIViewAnimationOptionTransitionNone | UIViewAnimationOptionCurveEaseInOut animations:^{
                     _login.view.alpha = 1;
                     _welcome.view.alpha = 0;
+                } completion:^(BOOL finished) {
+                    [_welcome.view removeFromSuperview];
+                    [_welcome removeFromParentViewController];
+                }];
+            } else if([self.childViewControllers containsObject:_business]){//如果是从业务界面进来
+                [self transitionFromViewController:_business toViewController:_login duration:1 options:UIViewAnimationOptionTransitionNone | UIViewAnimationOptionCurveEaseInOut animations:^{
+                    _login.view.alpha = 1;
+                    _business.view.alpha = 0;
                 } completion:^(BOOL finished) {
                     [_welcome.view removeFromSuperview];
                     [_welcome removeFromParentViewController];
@@ -128,7 +133,7 @@
             [self addChildViewController:_business];
             [self.view addSubview:_business.view];
             
-            //在这里加个动画试试
+            //如果是从登录界面进来
             if([self.childViewControllers containsObject:_login]) {
                 [self transitionFromViewController:_login toViewController:_business duration:1 options:UIViewAnimationOptionTransitionNone | UIViewAnimationOptionCurveEaseInOut animations:^{
                     _business.view.alpha = 1;

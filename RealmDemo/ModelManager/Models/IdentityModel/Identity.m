@@ -17,7 +17,6 @@ MJExtensionCodingImplementation
     self = [super init];
     if (self) {
         _firstUseSoft = YES;
-        _firstLoadCalendar = YES;
         _ryDisturb = YES;
         _ryDisturbBeginTime = [NSDate new];
         _ryDisturbEndTime = [NSDate new];

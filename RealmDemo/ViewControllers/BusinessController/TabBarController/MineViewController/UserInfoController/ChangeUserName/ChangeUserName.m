@@ -25,7 +25,8 @@
     self.title = @"修改名字";
     self.view.backgroundColor = [UIColor whiteColor];
     _scrollView.delegate = self;
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT)];
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 64)];
+    _scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     _scrollView.contentSize = CGSizeMake(MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT + 0.5);
     [self.view addSubview:_scrollView];
     _textField = [[UITextField alloc] initWithFrame:CGRectMake(20, 20, MAIN_SCREEN_WIDTH - 40, 30)];

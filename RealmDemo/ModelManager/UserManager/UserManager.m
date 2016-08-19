@@ -219,11 +219,11 @@
     dispatch_sync(dispatch_queue_create(0, 0), ^{
         NSDate *currDate = [NSDate date];
         for (TaskModel *model in taskArr) {
-            if(model.status == 0 || model.status == 1 || model.status == 7 || model.status == 8) continue;//去掉不提醒的
+            if(model.status == 0 || model.status == 7 || model.status == 8) continue;//去掉不提醒的
             if([NSString isBlank:model.alert_date_list]) continue;//去掉没有提醒时间的
             NSArray *alertStrArr = [model.alert_date_list componentsSeparatedByString:@","];
             for (NSString *str in alertStrArr) {
-                NSDate *currAlertDate = [NSDate dateWithTimeIntervalSince1970:str.integerValue / 1000];
+                NSDate *currAlertDate = [NSDate dateWithTimeIntervalSince1970:str.doubleValue / 1000];
                 if(currAlertDate.timeIntervalSince1970 < currDate.timeIntervalSince1970) continue;
                 if((currAlertDate.timeIntervalSince1970 - currDate.timeIntervalSince1970) <= (LocNotifotionDays * 24 * 60 * 60)) {//得到在提醒天数之内的时间
                     [self addTaskAlertToLocNoti:model date:currAlertDate];
@@ -533,6 +533,12 @@
     [Calendar createOrUpdateInRealm:_rlmRealm withValue:calendar];
     [_rlmRealm commitWriteTransaction];
 }
+//删除日程
+- (void)delCalendar:(Calendar*)calendar {
+    [_rlmRealm beginWriteTransaction];
+    [_rlmRealm deleteObject:calendar];
+    [_rlmRealm commitWriteTransaction];
+}
 //更新所有的日程
 - (void)updateCalendars:(NSMutableArray<Calendar*>*)calendarArr {
     [_rlmRealm beginWriteTransaction];
@@ -553,24 +559,16 @@
     RLMResults *calendarResult = [Calendar objectsInRealm:_rlmRealm where:resultStr];
     for (int index = 0;index < calendarResult.count;index ++) {
         Calendar *company = [calendarResult objectAtIndex:index];
-        int64_t todayBegin = date.firstTime.timeIntervalSince1970;
-        int64_t todayEnd = date.lastTime.timeIntervalSince1970;
+        int64_t todayBegin = date.firstTime.timeIntervalSince1970 * 1000;
+        int64_t todayEnd = date.lastTime.timeIntervalSince1970 * 1000;
         if(company.repeat_type == 0) {//如果是不重复的 就判断时间是不是在其中
-            if((todayBegin >= (company.begindate_utc / 1000)) && (todayBegin <= (company.enddate_utc / 1000))) {//如果今天的开始时间在日程有效之中 添加
-                [pushMessageArr addObject:company];
-            } else if ((todayEnd >= (company.begindate_utc / 1000)) && (todayEnd <= (company.enddate_utc / 1000))){//如果今天的结束时间在日程有效之中 添加
-                [pushMessageArr addObject:company];
-            } else if(((company.begindate_utc / 1000) >= todayBegin) && (todayEnd >= (company.enddate_utc / 1000))) {//如果事件发生在今天内
-                [pushMessageArr addObject:company];
-            }
+            if(company.enddate_utc < todayBegin) continue;
+            if(company.begindate_utc > todayEnd) continue;
+            [pushMessageArr addObject:company];
         } else {//重复的就要看重复时间是不是在其中
-            if((todayBegin >= (company.r_begin_date_utc / 1000)) && (todayBegin <= (company.r_end_date_utc / 1000))) {//如果今天的开始时间在日程重复有效之中 添加
-                [pushMessageArr addObject:company];
-            } else if ((todayEnd >= (company.r_begin_date_utc / 1000)) && (todayEnd <= (company.r_end_date_utc / 1000))){//如果今天的结束时间在日程重复有效之中 添加
-                [pushMessageArr addObject:company];//如果事件发生在今天内
-            } else if(((company.r_begin_date_utc / 1000) >= todayBegin) && (todayEnd >= (company.r_end_date_utc / 1000))) {
-                [pushMessageArr addObject:company];
-            }
+            if(company.r_end_date_utc < todayBegin) continue;
+            if(company.r_begin_date_utc > todayEnd) continue;
+            [pushMessageArr addObject:company];
         }
     }
     [_rlmRealm commitWriteTransaction];

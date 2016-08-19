@@ -52,6 +52,11 @@
     [[RCIM sharedRCIM] logout];
 }
 - (void)showLogin:(NSString *)alertStr {
+    if([NSString isBlank:alertStr]) {
+        IdentityManager *manager = [IdentityManager manager];
+        manager.identity.firstUseSoft = NO;
+        [manager saveAuthorizeData];
+    }
      [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowLogin" object:alertStr];
 }
 @end

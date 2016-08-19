@@ -1,19 +1,9 @@
                                即将做
 添加任务完成情况（需要服务器修改数据表)
 通知把action加上，任务、日程等可以完成和删除
-设置UIImage的渲染模式：UIImage.renderingMode
-iOS给Core Image增加了两种人脸检测功能：CIDetectorEyeBlink以及CIDetectorSmile
-UIScreenEdgePanGestureRecognizer 继承自UIPanGestureRecognizer ，它可以让你从屏幕边界即可检测手势
-我们现在可以使用 UIDocumentPickerViewController 来从第三方存储 (以及第三方 app 通过应用扩展所实现的存储) 中选取文件。
-http://www.25pp.com/news/news_60921.html
+
                                 bug
-plugin com.apple.UIKit.fileprovider.default invalidated
 任务同步偶尔出现不是对象存进数据库的情况
-动态如果进入时没有数据，此时添加一条，下面的空太图依然存在
-任务讨论时间单位换成毫秒
-签到记录下面的详情点不进去
-用户添加字段“省”、“市“、”区”
-任务附件上传没有推送
 日程改变状态后同步又还原状态了
                                解决日志
 签到全是上班。。数据也是一样                    需要对对象进行深拷贝
@@ -24,6 +14,11 @@ plugin com.apple.UIKit.fileprovider.default invalidated
 讨论组设置中保存到通讯录/取消保存 连续操作会崩溃   直接用数据库读出来的对象进行添加和删除
 
 
-                            第三方库
+                               第三方库
 BMDeviceActivityManager             检测屏幕亮起和熄灭的库
 IFLY                                讯飞语音
+
+                              有用的技术点
+iOS给Core Image增加了两种人脸检测功能：CIDetectorEyeBlink以及CIDetectorSmile
+UIScreenEdgePanGestureRecognizer 继承自UIPanGestureRecognizer ，它可以让你从屏幕边界即可检测手势
+我们现在可以使用 UIDocumentPickerViewController 来从第三方存储 (以及第三方 app 通过应用扩展所实现的存储) 中选取文件。

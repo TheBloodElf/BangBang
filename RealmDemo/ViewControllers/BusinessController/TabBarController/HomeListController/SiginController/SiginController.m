@@ -131,7 +131,7 @@
     UIImageView *imageView = [_leftNavigationBarButton viewWithTag:1001];
     UILabel *nameLabel = [_leftNavigationBarButton viewWithTag:1002];
     UILabel *companyLabel = [_leftNavigationBarButton viewWithTag:1003];
-    [imageView sd_setImageWithURL:[NSURL URLWithString:user.currCompany.logo] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
+    [imageView sd_setImageWithURL:[NSURL URLWithString:user.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
     nameLabel.text = user.real_name;
     if([NSString isBlank:user.currCompany.company_name])
         companyLabel.text = @"未选择圈子";
@@ -237,7 +237,7 @@
     imageView.layer.cornerRadius = 33 / 2.f;
     imageView.clipsToBounds = YES;
     imageView.tag = 1001;
-    [imageView sd_setImageWithURL:[NSURL URLWithString:user.currCompany.logo] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
+    [imageView sd_setImageWithURL:[NSURL URLWithString:user.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
     [_leftNavigationBarButton addSubview:imageView];
     UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(43 + CGRectGetMaxX(arrowImage.frame), 2, 100, 12)];
     nameLabel.font = [UIFont systemFontOfSize:12];

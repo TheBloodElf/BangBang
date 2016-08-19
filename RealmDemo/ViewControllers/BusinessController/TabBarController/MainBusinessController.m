@@ -15,7 +15,7 @@
 #import "HomeListController.h"
 #import "MessageController.h"
 #import "MineViewController.h"
-#import "MoreViewController.h"
+#import "MoreSelectController.h"
 #import "XAddrBookController.h"
 
 #import "CalendarCreateController.h"
@@ -29,7 +29,7 @@
 #import "ComCalendarDetailViewController.h"
 #import "TaskDetailController.h"
 
-@interface MainBusinessController ()<UITabBarControllerDelegate,MoreViewControllerDelegate,UIDocumentMenuDelegate,UIDocumentPickerDelegate> {
+@interface MainBusinessController ()<UITabBarControllerDelegate,MoreViewControllerDelegate> {
     UserManager *_userManager;
     IdentityManager *_identityManager;
     UITabBarController *_tabBarVC;
@@ -55,16 +55,24 @@
     //加上从today进来的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReciveAddToday:) name:@"OpenSoft_FormToday_addCalendar_Notication" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReciveOpenToday:) name:@"OpenSoft_FormToday_openCalendar_Notication" object:nil];
+    //添加spotlight索引 我们要适配IOS8所以这个功能不能用
+    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0f) {
+        [[CSSearchableIndex defaultSearchableIndex] deleteAllSearchableItemsWithCompletionHandler:^(NSError * _Nullable error) {}];
+        [self insertSearchableItem:UIImagePNGRepresentation([UIImage imageNamed:@"default_image_icon"]) spotlightTitle:@"帮帮管理助手" description:@"身边不可获取的办公软件" keywords:@[@"日程",@"任务",@"会议",@"签到"] spotlightInfo:@"OpenSoft" domainId:@"com.lottak.BangBang"];
+    }
     //加上spotlight进来的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReciveOpenSpotlight:) name:@"OpenSoft_FormSpotlight_Notication" object:nil];
 }
+//Spotlight进来的
 - (void)didReciveOpenSpotlight:(NSNotification*)notification {
 //    NSString *currStr = notification.object;
 }
+//Today进来 添加日程
 - (void)didReciveAddToday:(NSNotification*)notification {
     //添加日程
     [self.navigationController pushViewController:[CalendarCreateController new] animated:YES];
 }
+//Today进来 查看日程详情
 - (void)didReciveOpenToday:(NSNotification*)notification {
     //查看日程
     for (Calendar *calendar in [_userManager getCalendarArr]) {
@@ -87,7 +95,7 @@
         }
     }
 }
-//在这里统一处理弹窗
+//推送消息
 - (void)didRecivePushMessage:(NSNotification*)notification {
     PushMessage *message = notification.object;
     //如果是圈子操作
@@ -212,37 +220,49 @@
 //这里写回调 用REFrostedViewController push
 #pragma mark -- MoreViewControllerDelegate
 - (void)MoreViewDidClicked:(int)index {
-    if(index == 0) {//创建日程
+    if(index == 6) {//投票
+        [self executeNeedSelectCompany:^{
+            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
+            NSString *str = [NSString stringWithFormat:@"%@Vote?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,[UserManager manager].user.user_guid,[UserManager manager].user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+            webViewcontroller.applicationUrl = str;
+            webViewcontroller.hidesBottomBarWhenPushed = YES;
+            [[self navigationController] pushViewController:webViewcontroller animated:YES];
+        }];
+    } else if (index == 5) {//审批
+        [self executeNeedSelectCompany:^{
+            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
+            NSString *str = [NSString stringWithFormat:@"%@ApprovalByFormBuilder?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,[UserManager manager].user.user_guid,[UserManager manager].user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+            webViewcontroller.applicationUrl = str;
+            webViewcontroller.hidesBottomBarWhenPushed = YES;
+            [[self navigationController] pushViewController:webViewcontroller animated:YES];
+        }];
+    } else if (index == 4) {//动态
+        [self executeNeedSelectCompany:^{
+            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
+            NSString *str = [NSString stringWithFormat:@"%@Dynamic?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,[UserManager manager].user.user_guid,[UserManager manager].user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+            webViewcontroller.applicationUrl = str;
+            webViewcontroller.hidesBottomBarWhenPushed = YES;
+            [[self navigationController] pushViewController:webViewcontroller animated:YES];
+        }];
+    } else if (index == 3) {//日程
         [self.navigationController pushViewController:[CalendarCreateController new] animated:YES];
-    } else if (index == 1) {//创建任务
+    } else if (index == 2) {//任务
         [self executeNeedSelectCompany:^{
             [self.navigationController pushViewController:[TaskCreateController new] animated:YES];
         }];
-    } else if (index == 2) {//创建会议
+    } else if (index == 1) {//邮箱
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:"]];
+    } else {//会议
         [self executeNeedSelectCompany:^{
             [self.navigationController pushViewController:[CreateMeetingController new] animated:YES];
         }];
-    } else if(index == 3) {//加入圈子
-        [self.navigationController pushViewController:[BushSearchViewController new] animated:YES];
-    } else {//选择附件控制器
-        UIDocumentMenuViewController *importMenu = [[UIDocumentMenuViewController alloc] initWithDocumentTypes:@[@"public.content"] inMode:UIDocumentPickerModeImport];
-        importMenu.delegate = self;
-        [self presentViewController:importMenu animated:YES completion:nil];
     }
-}
-- (void)documentMenu:(UIDocumentMenuViewController *)documentMenu didPickDocumentPicker:(UIDocumentPickerViewController *)documentPicker {
-    documentPicker.delegate = self;
-    documentPicker.modalPresentationStyle = UIModalPresentationFullScreen;
-    [self presentViewController:documentPicker animated:YES completion:nil];
-}
-- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentAtURL:(NSURL *)url {
-    
 }
 #pragma mark -- UITabBarControllerDelegate
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     if([viewController isMemberOfClass:[UIViewController class]]) {
         //在这里加上一个选择视图控制器
-        MoreViewController *more = [MoreViewController new];
+        MoreSelectController *more = [MoreSelectController new];
         more.view.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT);
         more.delegate = self;
         [self addChildViewController:more];
@@ -311,5 +331,15 @@
     nav.tabBarItem.selectedImage = [[UIImage imageNamed:@"contact-green"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     return nav;
 }
-
+- (void)insertSearchableItem:(NSData *)photo spotlightTitle:(NSString *)spotlightTitle description:(NSString *)spotlightDesc keywords:(NSArray *)keywords spotlightInfo:(NSString *)spotlightInfo domainId:(NSString *)domainId {
+    CSSearchableItemAttributeSet *attributeSet = [[CSSearchableItemAttributeSet alloc] initWithItemContentType:(NSString *)kUTTypeImage];
+    attributeSet.title = spotlightTitle;                // 标题
+    attributeSet.keywords = keywords;                   // 关键字,NSArray格式
+    attributeSet.contentDescription = spotlightDesc;    // 描述
+    attributeSet.thumbnailData = photo;                 // 图标, NSData格式
+    // spotlightInfo 可以作为一些数据传递给接受的地方
+    // domainId      id,通过这个id来判断是哪个spotlight
+    CSSearchableItem *item = [[CSSearchableItem alloc] initWithUniqueIdentifier:spotlightInfo domainIdentifier:domainId attributeSet:attributeSet];
+    [[CSSearchableIndex defaultSearchableIndex] indexSearchableItems:@[item] completionHandler:^(NSError * error) {}];
+}
 @end

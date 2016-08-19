@@ -28,8 +28,6 @@
 @property (nonatomic, assign) BOOL canPlayShake;
 //是否显示Bugtags的图标
 @property (nonatomic, assign) BOOL showBugTags;
-//是不是第一次加载日程
-@property (nonatomic, assign) BOOL firstLoadCalendar;
 //融云免打扰功能
 @property (nonatomic, assign) BOOL ryDisturb;
 //融云免打扰开始时间

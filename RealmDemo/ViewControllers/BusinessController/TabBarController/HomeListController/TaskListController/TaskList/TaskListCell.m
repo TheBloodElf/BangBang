@@ -39,13 +39,10 @@
     } else if (model.status == 8) {//已终止
         self.taskStatusImage.image = [UIImage imageNamed:@"ic_task_end"];
     }
-    //任务创建者名字
-    self.taskCreateName.text = model.create_realname;
-    //任务详情
-    if([NSString isBlank:model.descriptionStr])
-        self.taskDestr.text = @"无任务描述";
-    else
-        self.taskDestr.text = model.descriptionStr;
+    //任务负责人名字
+    self.taskCreateName.text = model.incharge_name;
+    //任务标题
+    self.taskDestr.text = model.task_name;
     //任务创建时间
     NSDate *createDate = [NSDate dateWithTimeIntervalSince1970:model.createdon_utc / 1000];
     self.taskCreateTime.text = [NSString stringWithFormat:@"%d-%02ld-%02ld %02ld:%02ld",createDate.year,createDate.month,createDate.day,createDate.hour,createDate.minute];

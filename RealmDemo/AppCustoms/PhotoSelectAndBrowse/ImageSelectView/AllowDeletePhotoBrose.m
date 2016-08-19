@@ -178,7 +178,7 @@
     [button setTitle:@"返回" forState:UIControlStateNormal];
     [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     [button setImageEdgeInsets:UIEdgeInsetsMake(0.0f, -15.0f, 0.0f, 0.0f)];
-    [button setImage:[UIImage imageNamed:@"back_arrow"] forState:UIControlStateNormal];
+    [button setImage:[[UIImage imageNamed:@"back_arrow"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(leftNavigationButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     temporaryBarButtonItem.style = UIBarButtonItemStylePlain;

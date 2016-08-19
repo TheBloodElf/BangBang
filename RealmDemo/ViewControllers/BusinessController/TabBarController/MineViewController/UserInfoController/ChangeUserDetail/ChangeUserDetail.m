@@ -24,8 +24,8 @@
     _currUser = [[UserManager manager].user deepCopy];
     self.title = @"修改签名";
     self.view.backgroundColor = [UIColor whiteColor];
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 64)];
     _scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT)];
     _scrollView.contentSize = CGSizeMake(MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT + 0.5);
     [self.view addSubview:_scrollView];
     _textField = [[UITextField alloc] initWithFrame:CGRectMake(20, 20, MAIN_SCREEN_WIDTH - 40, 30)];

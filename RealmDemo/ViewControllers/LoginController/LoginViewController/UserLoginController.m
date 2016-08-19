@@ -30,6 +30,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // 设置占位文字的颜色为红色(注意下面的'self'代表你要修改占位文字的UITextField控件)
+    [self.accountField setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
+    [self.passwordField setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
     [WXApiManager sharedManager].delegate = self;
     [WBApiManager shareManager].delegate = self;
     //把视图移动到最顶部 即使有状态栏和导航
@@ -84,7 +87,6 @@
             User *user = [[User alloc] initWithJSONDictionary:data];
             UserManager *manager = [UserManager manager];
             [manager loadUserWithGuid:user.user_guid];
-            [manager updateUser:user];
             _identityManager.identity.user_guid = user.user_guid;
             [_identityManager saveAuthorizeData];
             //获取所有圈子 所有状态员工
@@ -103,6 +105,10 @@
                     [companys addObject:company];
                 }
                 [manager updateCompanyArr:companys];
+                if(companys.count != 0) {
+                    user.currCompany = [companys[0] deepCopy];
+                }
+                [manager updateUser:user];
                 //获取所有圈子的员工信息
                 [self.navigationController showLoadingTips:@"获取员工信息..."];
                 [UserHttp getEmployeeCompnyNo:0 status:5 userGuid:user.user_guid handler:^(id data, MError *error) {
@@ -266,6 +272,9 @@
                                     [companys addObject:company];
                                 }
                                 [manager updateCompanyArr:companys];
+                                if(companys.count != 0) {
+                                    user.currCompany = [companys[0] deepCopy];
+                                }
                                 [manager updateUser:user];
                                 //获取所有圈子的员工信息
                                 [self.navigationController showLoadingTips:@"获取员工信息..."];
@@ -356,6 +365,9 @@
                 [companys addObject:company];
             }
             [manager updateCompanyArr:companys];
+            if(companys.count != 0) {
+                user.currCompany = [companys[0] deepCopy];
+            }
             [manager updateUser:user];
             //获取所有圈子的员工信息
             [self.navigationController showLoadingTips:@"获取员工信息..."];

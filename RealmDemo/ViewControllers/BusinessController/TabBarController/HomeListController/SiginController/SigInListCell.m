@@ -40,7 +40,7 @@
     SignIn *signIn = [self.data deepCopy];
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:signIn.create_on_utc / 1000];
     self.timeLabel.text = [NSString stringWithFormat:@"%ld/%02ld/%02ld %02ld:%02ld",date.year,date.month,date.day,date.hour,date.minute];
-    [self.avaterImage sd_setImageWithURL:[NSURL URLWithString:signIn.create_avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
+    [self.avaterImage sd_setImageWithURL:[NSURL URLWithString:signIn.create_avatar] placeholderImage:[[UIImage imageNamed:@"default_image_icon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
     self.categoryLabel.text = [signIn categoryStr];
     self.nameLabel.text = signIn.create_name;
     [self.adressLabel setTitle:signIn.address forState:UIControlStateNormal];
@@ -61,7 +61,6 @@
         return;
     }
     self.attemthHeight.constant = width;
-    [self.contentView layoutIfNeeded];
     NSArray *imageArr = [signIn.attachments componentsSeparatedByString:@","];
     for (int index = 0; index < imageArr.count; index ++) {
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(index * (width + 5), 0, width, width)];

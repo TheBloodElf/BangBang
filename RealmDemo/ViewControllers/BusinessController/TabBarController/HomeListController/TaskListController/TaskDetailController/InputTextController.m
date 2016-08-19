@@ -33,7 +33,8 @@
     bottom.backgroundColor = [UIColor whiteColor];
     bottom.userInteractionEnabled = YES;
     [self.view addSubview:bottom];
-    _textView = [[UITextView alloc] initWithFrame:CGRectMake(12, 12, MAIN_SCREEN_WIDTH - 24, 150)];
+    _textView = [[UITextView alloc] initWithFrame:CGRectMake(12, 12, MAIN_SCREEN_WIDTH - 24, 180)];
+    _textView.contentInset = UIEdgeInsetsMake(0, 0, 30, 0);//让iqkeyboard自己上升到按钮以上的高度
     _textView.delegate = self;
     [bottom addSubview:_textView];
     _detileLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 150, 15)];

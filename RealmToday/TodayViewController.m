@@ -15,7 +15,7 @@
 
 @interface TodayViewController () <NCWidgetProviding,UITableViewDelegate,UITableViewDataSource> {
     UITableView *_tableView;//表格视图
-    UIButton *_addBtn;//添加日常按钮
+    UIButton *_addBtn;
     NSMutableArray<TodayCalendarModel*> *_calendarArr;//日程数组
 }
 @end
@@ -30,19 +30,24 @@
     _tableView.dataSource = self;
     [_tableView registerNib:[UINib nibWithNibName:@"TodayTableViewCell" bundle:nil] forCellReuseIdentifier:@"TodayTableViewCell"];
     _tableView.separatorColor = [UIColor whiteColor];
-    _addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _addBtn.frame = CGRectMake(0, 0, _tableView.bounds.size.width, 30);
+    _tableView.tableFooterView = [UIView new];
+    _addBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    [_addBtn setTitle:@"无日程，去添加" forState:UIControlStateNormal];
     [_addBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_addBtn addTarget:self action:@selector(addCanaleClicked:) forControlEvents:UIControlEventTouchUpInside];
-    _tableView.tableFooterView = _addBtn;
+    _addBtn.frame = CGRectMake(0, 0, self.view.bounds.size.width, 180);
+    [_tableView addSubview:_addBtn];
     NSUserDefaults *sharedDefault = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.lottak.bangbang"];
     _calendarArr = [TodayCalendarModel mj_objectArrayWithKeyValuesArray:[sharedDefault objectForKey:@"GroupTodayInfo"]];
-    if(_calendarArr.count == 0)
-        [_addBtn setTitle:@"今天没有代办日程,添加日程" forState:UIControlStateNormal];
-    else
-        [_addBtn setTitle:@"添加日程" forState:UIControlStateNormal];
-    self.preferredContentSize = CGSizeMake(self.view.bounds.size.width, _calendarArr.count * 60 + 30);
-    _tableView.frame = CGRectMake(0, 0, self.view.bounds.size.width, _calendarArr.count * 60 + 30);
+    if(_calendarArr.count == 0) {
+        self.preferredContentSize = CGSizeMake(self.view.bounds.size.width, 3 * 60);
+        _tableView.frame = CGRectMake(0, 0, self.view.bounds.size.width, 3 * 60);
+        _addBtn.hidden = NO;
+    } else {
+        self.preferredContentSize = CGSizeMake(self.view.bounds.size.width, _calendarArr.count * 60  <= 180 ? _calendarArr.count * 60 : 180);
+        _tableView.frame = CGRectMake(0, 0, self.view.bounds.size.width, _calendarArr.count * 60  <= 180 ? _calendarArr.count * 60 : 180);
+        _addBtn.hidden = YES;
+    }
     [self.view addSubview:_tableView];
     // Do any additional setup after loading the view from its nib.
 }
@@ -55,9 +60,11 @@
     return 60.f;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _calendarArr.count;
+    return _calendarArr.count ?: 3;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(_calendarArr.count == 0)
+        return [UITableViewCell new];
     TodayTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TodayTableViewCell" forIndexPath:indexPath];
     cell.data = _calendarArr[indexPath.row];
     return cell;
@@ -70,12 +77,15 @@
 - (void)widgetPerformUpdateWithCompletionHandler:(void (^)(NCUpdateResult))completionHandler {
     NSUserDefaults *sharedDefault = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.lottak.bangbang"];
     _calendarArr = [TodayCalendarModel mj_objectArrayWithKeyValuesArray:[sharedDefault objectForKey:@"GroupTodayInfo"]];
-    self.preferredContentSize = CGSizeMake(self.view.bounds.size.width, _calendarArr.count * 60 + 30);
-    if(_calendarArr.count == 0)
-        [_addBtn setTitle:@"今天没有代办日程,添加日程" forState:UIControlStateNormal];
-    else
-        [_addBtn setTitle:@"添加日程" forState:UIControlStateNormal];
-    _tableView.frame = CGRectMake(0, 0, self.view.bounds.size.width, _calendarArr.count * 60 + 30);
+    if(_calendarArr.count == 0) {
+        self.preferredContentSize = CGSizeMake(self.view.bounds.size.width, 3 * 60);
+        _tableView.frame = CGRectMake(0, 0, self.view.bounds.size.width, 3 * 60);
+        _addBtn.hidden = NO;
+    } else {
+        self.preferredContentSize = CGSizeMake(self.view.bounds.size.width, _calendarArr.count * 60 <= 180 ? _calendarArr.count * 60 : 180);
+        _tableView.frame = CGRectMake(0, 0, self.view.bounds.size.width, _calendarArr.count * 60 <= 180 ? _calendarArr.count * 60 : 180);
+        _addBtn.hidden = YES;
+    }
     [_tableView reloadData];
     completionHandler(NCUpdateResultNewData);
 }

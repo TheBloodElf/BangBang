@@ -117,7 +117,6 @@
         selectArr = [selectArr sortedArrayUsingComparator:^NSComparisonResult(NSIndexPath*  _Nonnull obj1, NSIndexPath*  _Nonnull obj2) {
             return obj1.row > obj2.row;
         }];
-        //从最后一个删除，这是有原因的
         for (int index = (int)selectArr.count - 1; index >= 0; index --) {
             NSIndexPath *indexPath = selectArr[index];
             PushMessage *message = _pushMessageArr[indexPath.row];
@@ -285,7 +284,7 @@
             for (TaskModel *model in [_userManager getTaskArr:message.company_no]) {
                 if(model.id == message.target_id.intValue) {
                     TaskDetailController *task = [TaskDetailController new];
-                    task.data = task;
+                    task.data = model;
                     [self.navigationController pushViewController:task animated:YES];
                     break;
                 }

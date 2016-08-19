@@ -39,7 +39,23 @@
 
 //注册通知
 - (void)registerNotification {
-    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeBadge |UIUserNotificationTypeSound |UIUserNotificationTypeAlert)categories:nil];
+    UIMutableUserNotificationAction *action = [[UIMutableUserNotificationAction alloc] init];
+//    action.identifier = @"完成";//按钮的标示
+    action.title=@"完成";//按钮的标题
+    action.activationMode = UIUserNotificationActivationModeForeground;//当点击的时候启动程序
+    //    action.authenticationRequired = YES;
+    //    action.destructive = YES;
+    UIMutableUserNotificationAction *action2 = [[UIMutableUserNotificationAction alloc] init];  //第二按钮
+//    action2.identifier = @"删除";
+    action2.title=@"删除";
+    action2.activationMode = UIUserNotificationActivationModeBackground;//当点击的时候不启动程序，在后台处理
+    action.authenticationRequired = YES;//需要解锁才能处理，如果action.activationMode = UIUserNotificationActivationModeForeground;则这个属性被忽略；
+    action.destructive = YES;
+    UIMutableUserNotificationCategory *categorys = [[UIMutableUserNotificationCategory alloc] init];
+    categorys.identifier = @"alert";//这组动作的唯一标示
+    [categorys setActions:@[action,action2] forContext:(UIUserNotificationActionContextMinimal)];
+    
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound) categories:[NSSet setWithObjects:categorys,nil]];
     [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
     [[UIApplication sharedApplication] registerForRemoteNotifications];
 }

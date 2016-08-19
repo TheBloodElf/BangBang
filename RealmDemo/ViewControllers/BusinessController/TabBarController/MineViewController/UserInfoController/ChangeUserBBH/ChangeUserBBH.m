@@ -24,14 +24,18 @@
     _currUser = [[UserManager manager].user deepCopy];
     self.title = @"修改帮帮号";
     self.view.backgroundColor = [UIColor whiteColor];
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 64)];
     _scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT)];
     _scrollView.contentSize = CGSizeMake(MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT + 0.5);
     [self.view addSubview:_scrollView];
     _textField = [[UITextField alloc] initWithFrame:CGRectMake(20, 20, MAIN_SCREEN_WIDTH - 40, 30)];
     _textField.delegate = self;
     _textField.placeholder = @"帮帮号必须5个字以上!";
-    _textField.text = _currUser.user_name;
+    if([_currUser.user_name rangeOfString:@"@"].location != NSNotFound || [NSString isBlank:_currUser.user_name]) {
+        _textField.text = @"";
+    } else {
+        _textField.text = _currUser.user_name;
+    }
     _textField.keyboardType = UIKeyboardTypeASCIICapable;
     [_scrollView addSubview:_textField];
     
@@ -55,9 +59,12 @@
 - (void)rightButtonClicked:(UIBarButtonItem*)item
 {
     [self.view endEditing:YES];
-    if([NSString isBlank:_textField.text])
-    {
+    if([NSString isBlank:_textField.text]) {
         [self.navigationController.view showMessageTips:@"请输入内容"];
+        return;
+    }
+    if(_textField.text.length <= 5) {
+        [self.navigationController.view showMessageTips:@"帮帮号必须5个字以上"];
         return;
     }
     [self.delegate changeUserInfo:_currUser];
@@ -67,4 +74,5 @@
 {
     _currUser.user_name = textField.text;
 }
+
 @end

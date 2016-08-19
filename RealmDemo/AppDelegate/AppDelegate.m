@@ -51,17 +51,17 @@
     self.window.rootViewController = [MainViewController new];
     [self.window makeKeyAndVisible];
     //注册3d touch功能
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
-    UIApplicationShortcutItem *shortcutItem = [launchOptions objectForKeyedSubscript:UIApplicationLaunchOptionsShortcutItemKey];
-    int currIndex = 0;
-    if ([shortcutItem.type isEqualToString:@"今日日程"]) {
-        currIndex = 0;
-    } else if ([shortcutItem.type isEqualToString:@"签到"]) {
-        currIndex = 1;
+    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0f) {
+        UIApplicationShortcutItem *shortcutItem = [launchOptions objectForKeyedSubscript:UIApplicationLaunchOptionsShortcutItemKey];
+        int currIndex = 0;
+        if ([shortcutItem.type isEqualToString:@"今日日程"]) {
+            currIndex = 0;
+        } else if ([shortcutItem.type isEqualToString:@"签到"]) {
+            currIndex = 1;
+        }
+        //发出通知弹出控制器
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"OpenSoft_FormTouch_Notication" object:@(currIndex)];
     }
-    //发出通知弹出控制器
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"OpenSoft_FormTouch_Notication" object:@(currIndex)];
-#endif
     return YES;
 }
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler
@@ -76,6 +76,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"OpenSoft_FormTouch_Notication" object:@(currIndex)];
     completionHandler(YES);
 }
+//Spotlight进来的
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler {
     if ([[userActivity activityType] isEqualToString:CSSearchableItemActionType]) {
         NSString *uniqueIdentifier = [userActivity.userInfo objectForKey:CSSearchableItemActivityIdentifier];
@@ -84,13 +85,12 @@
     }
     return YES;
 }
-- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options {
-    //是不是从today扩展进来的
-    NSString *currStr = url.absoluteString;
-    if([[currStr componentsSeparatedByString:@"//"][1] isEqualToString:@"addCalendar"]) {//添加日程
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(nullable NSString *)sourceApplication annotation:(id)annotation {
+    //today扩展进来的
+    if([[url.absoluteString componentsSeparatedByString:@"//"][1] isEqualToString:@"openCalendar"]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"OpenSoft_FormToday_openCalendar_Notication" object:[url.absoluteString componentsSeparatedByString:@"//"][2]];
+    } else if ([[url.absoluteString componentsSeparatedByString:@"//"][1] isEqualToString:@"addCalendar"]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"OpenSoft_FormToday_addCalendar_Notication" object:nil];
-    } else if([[currStr componentsSeparatedByString:@"//"][1] isEqualToString:@"openCalendar"]) {//查看日程
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"OpenSoft_FormToday_openCalendar_Notication" object:[currStr componentsSeparatedByString:@"//"][2]];
     }
     return [TencentOAuth HandleOpenURL:url] || [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]] || [WeiboSDK handleOpenURL:url delegate:[WBApiManager shareManager]];
 }

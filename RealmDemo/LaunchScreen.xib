@@ -3,8 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -13,55 +11,37 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="Mxn-xN-XKX">
-                    <rect key="frame" x="131" y="129" width="113" height="112"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lauch_screen_background.png" translatesAutoresizingMaskIntoConstraints="NO" id="2tH-aI-hTd">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_logo_word" translatesAutoresizingMaskIntoConstraints="NO" id="Wdj-GN-Umb">
-                    <rect key="frame" x="75" y="263" width="225" height="26"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_screen_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="hP8-ZH-Wou">
+                    <rect key="frame" x="59" y="50" width="256" height="230"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_logo_cn.png" translatesAutoresizingMaskIntoConstraints="NO" id="cyY-v4-ajZ">
-                    <rect key="frame" x="56" y="378" width="263" height="75"/>
-                </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_logo_59" translatesAutoresizingMaskIntoConstraints="NO" id="dqb-H7-ubX">
-                    <rect key="frame" x="163" y="616" width="49" height="21"/>
-                </imageView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lLX-yq-FtM" userLabel="referenceLine">
-                    <rect key="frame" x="0.0" y="333" width="375" height="1"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="1" id="TG1-2Z-hQR"/>
-                    </constraints>
-                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="帮帮，为执行力而生" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mLr-nM-w5k">
+                    <rect key="frame" x="120" y="549" width="135" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="cyY-v4-ajZ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="1rP-d6-nED"/>
-                <constraint firstItem="dqb-H7-ubX" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" constant="-30" id="40P-d6-nZM"/>
-                <constraint firstItem="dqb-H7-ubX" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="4tp-hf-7of"/>
-                <constraint firstItem="Mxn-xN-XKX" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.3" id="AFM-nB-ecc"/>
-                <constraint firstItem="lLX-yq-FtM" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="BNN-PN-5Xq"/>
-                <constraint firstItem="Wdj-GN-Umb" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="IbW-3T-1rH"/>
-                <constraint firstItem="lLX-yq-FtM" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="O1B-nl-c14"/>
-                <constraint firstItem="Mxn-xN-XKX" firstAttribute="bottom" secondItem="Wdj-GN-Umb" secondAttribute="top" constant="-22" id="Sog-Vj-qqy"/>
-                <constraint firstItem="cyY-v4-ajZ" firstAttribute="top" secondItem="lLX-yq-FtM" secondAttribute="bottom" constant="44" id="WLj-TO-pqJ"/>
-                <constraint firstItem="Mxn-xN-XKX" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Yih-dm-gdX"/>
-                <constraint firstItem="cyY-v4-ajZ" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.7" id="aYi-Qg-g95"/>
-                <constraint firstItem="Wdj-GN-Umb" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.6" id="bj1-nC-TLJ"/>
-                <constraint firstItem="lLX-yq-FtM" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="daN-1A-8rd"/>
-                <constraint firstItem="Wdj-GN-Umb" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.07" id="lD3-iZ-ICG"/>
-                <constraint firstItem="cyY-v4-ajZ" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.2" id="mZG-4D-KGg"/>
-                <constraint firstItem="Wdj-GN-Umb" firstAttribute="bottom" secondItem="lLX-yq-FtM" secondAttribute="top" constant="-44" id="pPO-7l-7Dh"/>
-                <constraint firstItem="Mxn-xN-XKX" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.3" id="tt5-wm-Nqp"/>
+                <constraint firstItem="hP8-ZH-Wou" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="59V-er-fbn"/>
+                <constraint firstItem="mLr-nM-w5k" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="MIc-z6-6bt"/>
+                <constraint firstItem="2tH-aI-hTd" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Mah-Io-G9r"/>
+                <constraint firstAttribute="bottom" secondItem="mLr-nM-w5k" secondAttribute="bottom" constant="100" id="e3K-k5-AiJ"/>
+                <constraint firstItem="hP8-ZH-Wou" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="50" id="eKb-GS-TSB"/>
+                <constraint firstAttribute="trailing" secondItem="2tH-aI-hTd" secondAttribute="trailing" id="jyW-vj-tXo"/>
+                <constraint firstAttribute="bottom" secondItem="2tH-aI-hTd" secondAttribute="bottom" id="uvK-vt-lJl"/>
+                <constraint firstItem="2tH-aI-hTd" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="yk9-iO-j9U"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-            <point key="canvasLocation" x="288.5" y="406.5"/>
+            <point key="canvasLocation" x="401.5" y="328.5"/>
         </view>
     </objects>
     <resources>
-        <image name="ic_logo.png" width="126" height="124"/>
-        <image name="ic_logo_59" width="49" height="21"/>
-        <image name="ic_logo_cn.png" width="211" height="56"/>
-        <image name="ic_logo_word" width="254" height="30"/>
+        <image name="lauch_screen_background.png" width="375" height="667"/>
+        <image name="launch_screen_icon.png" width="256" height="230"/>
     </resources>
 </document>
