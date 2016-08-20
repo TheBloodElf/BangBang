@@ -11,13 +11,22 @@
 		</dict>
 		<key>RealmDocument.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>15</integer>
 		</dict>
 		<key>RealmDocumentFileProvider.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>16</integer>
+		</dict>
+		<key>RealmKeyboard.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>17</integer>
 		</dict>
 		<key>RealmPhoto.xcscheme</key>
 		<dict>
@@ -31,6 +40,8 @@
 		</dict>
 		<key>RealmSpotlight.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>14</integer>
 		</dict>
@@ -43,6 +54,11 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>046DAF881D4C812C00718F2A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1B0591DB1D66B4E10090B4D2</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -5504,6 +5504,7 @@
 				1B0591E71D66B4E20090B4D2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1B0CF7A81D64384E00096CF9 /* Build configuration list for PBXNativeTarget "RealmPhoto" */ = {
 			isa = XCConfigurationList;
