@@ -57,6 +57,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <Photos/Photos.h>//IOS8出来的 我们刚好可以用
 #import <PhotosUI/PhotosUI.h>
+#import <MLeaksFinder/MLeaksFinder.h>
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
     #import <CoreSpotlight/CoreSpotlight.h>
