@@ -31,6 +31,7 @@
 #import <JTCalendar/JTCalendar.h>
 #import "WebViewJavascriptBridge.h"
 #import "NSDate+Format.h"
+#import "UIImageView+CornerRadius.h"
 #import "InterfaceConfig.h"
 #import "NSString+StringSize.h"
 #import <RongIMKit/RongIMKit.h>

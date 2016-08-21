@@ -131,6 +131,7 @@
 		049CDF951D4F896D00F8890F /* TaskUpdateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049CDF941D4F896D00F8890F /* TaskUpdateController.m */; };
 		04A817771D3525D700011DA1 /* IdentityHttp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A817761D3525D700011DA1 /* IdentityHttp.m */; };
 		04AF45B41D54C17E0064FC45 /* FileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AF45B31D54C17E0064FC45 /* FileManager.m */; };
+		04B0D46F1D693DA400BAD522 /* UIImageView+CornerRadius.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0D46E1D693DA400BAD522 /* UIImageView+CornerRadius.m */; settings = {ASSET_TAGS = (); }; };
 		04E7E5A81D3A660800C653B4 /* ChangeUserBBH.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E7E59C1D3A660800C653B4 /* ChangeUserBBH.m */; };
 		04E7E5A91D3A660800C653B4 /* ChangeUserDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E7E59F1D3A660800C653B4 /* ChangeUserDetail.m */; };
 		04E7E5AA1D3A660800C653B4 /* ChangeUserName.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E7E5A21D3A660800C653B4 /* ChangeUserName.m */; };
@@ -831,6 +832,8 @@
 		04A817761D3525D700011DA1 /* IdentityHttp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentityHttp.m; sourceTree = "<group>"; };
 		04AF45B21D54C17E0064FC45 /* FileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileManager.h; sourceTree = "<group>"; };
 		04AF45B31D54C17E0064FC45 /* FileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileManager.m; sourceTree = "<group>"; };
+		04B0D46D1D693DA400BAD522 /* UIImageView+CornerRadius.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+CornerRadius.h"; sourceTree = "<group>"; };
+		04B0D46E1D693DA400BAD522 /* UIImageView+CornerRadius.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+CornerRadius.m"; sourceTree = "<group>"; };
 		04E7E59B1D3A660800C653B4 /* ChangeUserBBH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeUserBBH.h; sourceTree = "<group>"; };
 		04E7E59C1D3A660800C653B4 /* ChangeUserBBH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeUserBBH.m; sourceTree = "<group>"; };
 		04E7E59E1D3A660800C653B4 /* ChangeUserDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeUserDetail.h; sourceTree = "<group>"; };
@@ -2917,6 +2920,8 @@
 				1B1B9BC81D3DF75F00F53EDC /* UIColor+FlatUI.m */,
 				1BD871EE1D38BECD0074CDC7 /* UIImage+scale.h */,
 				1BD871EF1D38BECD0074CDC7 /* UIImage+scale.m */,
+				04B0D46D1D693DA400BAD522 /* UIImageView+CornerRadius.h */,
+				04B0D46E1D693DA400BAD522 /* UIImageView+CornerRadius.m */,
 				1B4B160B1D372F7C00E71B3D /* NSString+firstChar.h */,
 				1B4B160C1D372F7C00E71B3D /* NSString+firstChar.m */,
 				1B36FCE31D360B9F006694E4 /* NSObject+data.h */,
@@ -4831,6 +4836,7 @@
 				046DAF791D4C3EB500718F2A /* MeetingSelectPresonCell.m in Sources */,
 				1B0388751D508FD300D0B7D0 /* TaskDiscussView.m in Sources */,
 				1B18B3521D59D6F300858C83 /* AttachPicCell.m in Sources */,
+				04B0D46F1D693DA400BAD522 /* UIImageView+CornerRadius.m in Sources */,
 				046D48B11D5616890000ECC4 /* MoreViewController.m in Sources */,
 				1B03888A1D509C6F00D0B7D0 /* TaskMemberCellCell.m in Sources */,
 				1B36FCD81D35EC90006694E4 /* CalendarView.m in Sources */,
