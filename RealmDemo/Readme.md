@@ -20,3 +20,4 @@ UIScreenEdgePanGestureRecognizer 继承自UIPanGestureRecognizer ，它可以让
 我们现在可以使用 UIDocumentPickerViewController 来从第三方存储 (以及第三方 app 通过应用扩展所实现的存储) 中选取文件。
 动态监测内存泄漏MLeaksFinder
 离屏渲染如有问题，用UIImageView+CornerRadius解决
+响应式编程ReactiveCocoa来改善用户体验

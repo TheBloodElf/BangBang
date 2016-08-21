@@ -1,6 +1,7 @@
 platform :ios, '8.0'
 
 target 'RealmDemo' do
+#   pod 'ReactiveCocoa'
    pod 'MLeaksFinder', '~> 0.1.1'
    pod 'MJExtension', '~> 3.0.10'   
    pod 'MBProgressHUD', '~> 0.9.2'
