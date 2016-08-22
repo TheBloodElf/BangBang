@@ -19,8 +19,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.userImage.layer.cornerRadius = 5;
-    self.userImage.clipsToBounds = YES;
+    [self.userImage zy_cornerRadiusRoundingRect];
     // Initialization code
 }
 - (void)dataDidChange {

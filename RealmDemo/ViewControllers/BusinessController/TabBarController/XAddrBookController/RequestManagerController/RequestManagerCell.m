@@ -22,8 +22,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.userAvater.layer.cornerRadius = 25.f;
-    self.userAvater.clipsToBounds = YES;
+    [self.userAvater zy_cornerRadiusRoundingRect];
     
     self.agreeBtn.layer.cornerRadius = 5.f;
     self.agreeBtn.clipsToBounds = YES;

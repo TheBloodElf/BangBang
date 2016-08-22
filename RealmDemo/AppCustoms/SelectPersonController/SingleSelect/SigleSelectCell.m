@@ -21,8 +21,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.avaterImage.layer.cornerRadius = 20.f;
-    self.avaterImage.clipsToBounds = YES;
+    [self.avaterImage zy_cornerRadiusRoundingRect];
     // Initialization code
 }
 - (void)dataDidChange {

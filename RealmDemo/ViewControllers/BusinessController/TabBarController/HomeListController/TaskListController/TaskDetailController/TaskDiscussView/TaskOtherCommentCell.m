@@ -24,8 +24,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.avaterImage.clipsToBounds = YES;
-    self.avaterImage.layer.cornerRadius = 14;
+    [self.avaterImage zy_cornerRadiusRoundingRect];
     UILongPressGestureRecognizer *longTap = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longClicked:)];
     [self.contentLabel addGestureRecognizer:longTap];
     //禁用双击手势

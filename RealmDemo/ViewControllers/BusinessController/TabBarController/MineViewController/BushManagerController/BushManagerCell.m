@@ -23,8 +23,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.bushImage.layer.cornerRadius = 5.f;
-    self.bushImage.clipsToBounds = YES;
+    [self.bushImage zy_cornerRadiusAdvance:5.f rectCornerType:UIRectCornerAllCorners];
     // Initialization code
 }
 - (void)dataDidChange {

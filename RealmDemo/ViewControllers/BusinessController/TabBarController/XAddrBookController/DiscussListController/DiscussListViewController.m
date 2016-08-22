@@ -51,7 +51,7 @@
     [UserHttp getUserDiscuss:_userManager.user.user_no handler:^(id data, MError *error) {
         [self.navigationController.view dismissTips];
         if(error) {
-            [self.navigationController.view showFailureTips:@"失败，请重试"];
+            [self.navigationController.view showFailureTips:error.statsMsg];
             return ;
         }
         NSMutableArray<UserDiscuss*> *array = [@[] mutableCopy];

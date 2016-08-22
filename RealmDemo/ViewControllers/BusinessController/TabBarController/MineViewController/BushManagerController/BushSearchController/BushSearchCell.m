@@ -24,8 +24,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.bushImage.layer.cornerRadius = 25.f;
-    self.bushImage.clipsToBounds = YES;
+    [self.bushImage zy_cornerRadiusRoundingRect];
     self.joinBtn.layer.cornerRadius = 5.f;
     self.joinBtn.clipsToBounds = YES;
     [self.joinBtn addTarget:self action:@selector(joinBtnClicked:) forControlEvents:UIControlEventTouchUpInside];

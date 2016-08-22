@@ -90,7 +90,7 @@
         [UserHttp getEmployeeCompnyNo:_userManager.user.currCompany.company_no status:5 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
             [self.navigationController.view dismissTips];
             if(error) {
-                [self.navigationController.view showFailureTips:@"获取失败，请重试"];
+                [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
             NSMutableArray *array = [@[] mutableCopy];
@@ -101,7 +101,7 @@
             [UserHttp getEmployeeCompnyNo:_userManager.user.currCompany.company_no status:0 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
                 [self.navigationController.view dismissTips];
                 if(error) {
-                    [self.navigationController.view showFailureTips:@"获取失败，请重试"];
+                    [self.navigationController.view showFailureTips:error.statsMsg];
                     return ;
                 }
                 for (NSDictionary *dic in data[@"list"]) {
@@ -150,9 +150,8 @@
     UIButton *view = [UIButton buttonWithType:UIButtonTypeCustom];
     view.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 60);
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 5, 50, 50)];
+    [imageView zy_cornerRadiusRoundingRect];
     imageView.image = [UIImage imageNamed:@"discussion_portrait"];
-    imageView.clipsToBounds = YES;
-    imageView.layer.cornerRadius = 25.f;
     [view addSubview:imageView];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(75, 21, MAIN_SCREEN_WIDTH - 85, 17)];
     label.text = @"讨论组";

@@ -18,8 +18,14 @@
 @interface UserLoginController ()<TencentSessionDelegate,WXApiManagerDeleagate,WBApiManagerDelegate> {
     UserManager *_userManager;
     IdentityManager *_identityManager;
-    
     TencentOAuth *_tencentOAuth;//QQ登录认证
+    
+    
+    RACSignal *_getAccessToken;//获取accessToken
+    RACSignal *_getCompanys;//获取所有圈子
+    RACSignal *_getEmployee;//获取所有圈子的员工
+    RACSignal *_getRYToken;//获取融云token
+    RACSignal *_palinLogin;//普通账号密码登录
 }
 @property (weak, nonatomic) IBOutlet UITextField *accountField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
@@ -31,6 +37,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _userManager = [UserManager manager];
+    _identityManager = [IdentityManager manager];
+    _tencentOAuth = [[TencentOAuth alloc] initWithAppId:@"1103790262" andDelegate:self];
     // 设置占位文字的颜色为红色(注意下面的'self'代表你要修改占位文字的UITextField控件)
     [self.accountField setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
     [self.passwordField setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
@@ -40,9 +49,6 @@
     if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
-    _userManager = [UserManager manager];
-    _identityManager = [IdentityManager manager];
-    _tencentOAuth = [[TencentOAuth alloc] initWithAppId:@"1103790262" andDelegate:self];
     if(![TencentOAuth iphoneQQInstalled]) {
         self.qqLoginBtn.hidden = YES;
     }
@@ -54,6 +60,97 @@
             return @(NO);
         return @(YES);
     }];
+    //创建几个都会用到的数据请求
+    _getAccessToken = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        [IdentityHttp getAccessTokenhandler:^(id data, MError *error) {
+            if(error) {
+                [subscriber sendError:(id)error];
+                return ;
+            }
+            NSString *accessToken = data[@"access_token"];
+            _identityManager.identity.accessToken = accessToken;
+            [_identityManager saveAuthorizeData];
+            [subscriber sendCompleted];
+        }];
+        return nil;
+    }];
+    _getCompanys = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        User *user = [[_userManager user] deepCopy];
+        [UserHttp getCompanysUserGuid:user.user_guid handler:^(id data, MError *error) {
+            if(error) {
+                [subscriber sendError:(id)error];
+                return ;
+            }
+            NSMutableArray *companys = [@[] mutableCopy];
+            for (NSDictionary *tempDic in data) {
+                Company *company = [[Company alloc] initWithJSONDictionary:tempDic];
+                [companys addObject:company];
+            }
+            [_userManager updateCompanyArr:companys];
+            if(companys.count != 0) {
+                user.currCompany = [companys[0] deepCopy];
+            }
+            [_userManager updateUser:user];
+            [subscriber sendCompleted];
+        }];
+        return nil;
+    }];
+    _getEmployee = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        User *user = [_userManager user];
+        [UserHttp getEmployeeCompnyNo:0 status:5 userGuid:user.user_guid handler:^(id data, MError *error) {
+            if(error) {
+                [subscriber sendError:(id)error];
+                return ;
+            }
+            NSMutableArray *array = [@[] mutableCopy];
+            for (NSDictionary *dic in data[@"list"]) {
+                Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
+                [array addObject:employee];
+            }
+            [UserHttp getEmployeeCompnyNo:0 status:0 userGuid:user.user_guid handler:^(id data, MError *error) {
+                if(error) {
+                    [subscriber sendError:(id)error];
+                    return ;
+                }
+                for (NSDictionary *dic in data[@"list"]) {
+                    Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
+                    [array addObject:employee];
+                }
+                [_userManager updateEmployee:array companyNo:0];
+                [subscriber sendCompleted];
+            }];
+        }];
+        return nil;
+    }];
+    _getRYToken = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        User *user = [_userManager user];
+        [UserHttp getRYToken:user.user_no handler:^(id data, MError *error) {
+            [self.navigationController dismissTips];
+            if(error) {
+                [subscriber sendError:(id)error];
+                return ;
+            }
+            _identityManager.identity.RYToken = data;
+            [_identityManager saveAuthorizeData];
+            [subscriber sendCompleted];
+        }];
+        return nil;
+    }];
+    _palinLogin = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        [IdentityHttp loginWithEmail:self.accountField.text password:self.passwordField.text handler:^(id data, MError *error) {
+            if(error) {
+                [subscriber sendError:(id)error];
+                return ;
+            }
+            User *user = [[User alloc] initWithJSONDictionary:data];
+            [_userManager updateUser:user];
+            [_userManager loadUserWithGuid:user.user_guid];
+            _identityManager.identity.user_guid = user.user_guid;
+            [_identityManager saveAuthorizeData];
+            [subscriber sendCompleted];
+        }];
+        return nil;
+    }];
     // Do any additional setup after loading the view from its nib.
 }
 - (void)viewWillAppear:(BOOL)animated {
@@ -63,99 +160,16 @@
 //账号密码登录
 - (IBAction)palinLoginClicked:(id)sender {
     [self.view endEditing:YES];
-    //获取token
-    [self.navigationController showLoadingTips:@"获取token..."];
-    [IdentityHttp getAccessTokenhandler:^(id data, MError *error) {
-        if(error) {
-            [self.navigationController dismissTips];
-            [self.navigationController.view showFailureTips:@"登录失败，请重试"];
-            return ;
-        }
-        NSString *accessToken = data[@"access_token"];
-        _identityManager.identity.accessToken = accessToken;
+    [self.navigationController.view showLoadingTips:@"登录..."];
+    [[[[[_getAccessToken concat:_palinLogin] concat:_getCompanys] concat:_getEmployee] concat:_getRYToken] subscribeError:^(NSError *error) {
+        [self.navigationController dismissTips];
+        _identityManager.identity.user_guid = @"";
         [_identityManager saveAuthorizeData];
-        //登录
-        [self.navigationController showLoadingTips:@"登录..."];
-        [IdentityHttp loginWithEmail:self.accountField.text password:self.passwordField.text handler:^(id data, MError *error) {
-            if(error) {
-                [self.navigationController dismissTips];
-                _identityManager.identity.user_guid = @"";
-                [_identityManager saveAuthorizeData];
-                [self.navigationController.view showFailureTips:error.statsMsg];
-                return ;
-            }
-            User *user = [[User alloc] initWithJSONDictionary:data];
-            UserManager *manager = [UserManager manager];
-            [manager loadUserWithGuid:user.user_guid];
-            _identityManager.identity.user_guid = user.user_guid;
-            [_identityManager saveAuthorizeData];
-            //获取所有圈子 所有状态员工
-            [self.navigationController showLoadingTips:@"获取圈子信息..."];
-            [UserHttp getCompanysUserGuid:user.user_guid handler:^(id data, MError *error) {
-                if(error) {
-                    [self.navigationController dismissTips];
-                    _identityManager.identity.user_guid = @"";
-                    [_identityManager saveAuthorizeData];
-                    [self.navigationController.view showFailureTips:error.statsMsg];
-                    return ;
-                }
-                NSMutableArray *companys = [@[] mutableCopy];
-                for (NSDictionary *tempDic in data) {
-                    Company *company = [[Company alloc] initWithJSONDictionary:tempDic];
-                    [companys addObject:company];
-                }
-                [manager updateCompanyArr:companys];
-                if(companys.count != 0) {
-                    user.currCompany = [companys[0] deepCopy];
-                }
-                [manager updateUser:user];
-                //获取所有圈子的员工信息
-                [self.navigationController showLoadingTips:@"获取员工信息..."];
-                [UserHttp getEmployeeCompnyNo:0 status:5 userGuid:user.user_guid handler:^(id data, MError *error) {
-                    if(error) {
-                        [self.navigationController dismissTips];
-                        _identityManager.identity.user_guid = @"";
-                        [_identityManager saveAuthorizeData];
-                        [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
-                        return ;
-                    }
-                    NSMutableArray *array = [@[] mutableCopy];
-                    for (NSDictionary *dic in data[@"list"]) {
-                        Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
-                        [array addObject:employee];
-                    }
-                    [UserHttp getEmployeeCompnyNo:0 status:0 userGuid:user.user_guid handler:^(id data, MError *error) {
-                        if(error) {
-                            [self.navigationController dismissTips];
-                            _identityManager.identity.user_guid = @"";
-                            [_identityManager saveAuthorizeData];
-                            [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
-                            return ;
-                        }
-                        for (NSDictionary *dic in data[@"list"]) {
-                            Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
-                            [array addObject:employee];
-                        }
-                        [manager updateEmployee:array companyNo:0];
-                        //获取融云token
-                        [self.navigationController showLoadingTips:@"获取token..."];
-                        [UserHttp getRYToken:user.user_no handler:^(id data, MError *error) {
-                            [self.navigationController dismissTips];
-                            if(error) {
-                                _identityManager.identity.user_guid = @"";
-                                [_identityManager saveAuthorizeData];
-                                [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
-                                return ;
-                            }
-                            _identityManager.identity.RYToken = data;
-                            [_identityManager saveAuthorizeData];
-                            //发通知 登录成功
-                            [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginDidFinish" object:nil];
-                        }];
-                    }];
-                }];
-            }];
-        }];
+        MError *errorr = (id)error;
+        [self.navigationController.view showFailureTips:errorr.statsMsg];
+    } completed:^{
+        [self.navigationController dismissTips];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginDidFinish" object:nil];
     }];
 }
 //微信登录
@@ -171,10 +185,15 @@
 - (IBAction)qqLoginClicked:(id)sender {
     [self.view endEditing:YES];
     [self.navigationController.view showLoadingTips:@"获取token..."];
+    [_getAccessToken subscribeError:^(NSError *error) {
+        
+    } completed:^{
+        
+    }];
     [IdentityHttp getAccessTokenhandler:^(id data, MError *error) {
         [self.navigationController dismissTips];
         if(error) {
-            [self.navigationController.view showFailureTips:@"失败，请重试"];
+            [self.navigationController.view showFailureTips:error.statsMsg];
             return ;
         }
         NSString *accessToken = data[@"access_token"];
@@ -235,7 +254,7 @@
                     [IdentityHttp getAccessTokenhandler:^(id data, MError *error) {
                         if(error) {
                             [self.navigationController dismissTips];
-                            [self.navigationController.view showFailureTips:@"登录失败，请重试"];
+                            [self.navigationController.view showFailureTips:error.statsMsg];
                             return ;
                         }
                         NSString *accessToken = data[@"access_token"];
@@ -283,7 +302,7 @@
                                         [self.navigationController dismissTips];
                                         _identityManager.identity.user_guid = @"";
                                         [_identityManager saveAuthorizeData];
-                                        [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
+                                        [self.navigationController.view showFailureTips:error.statsMsg];
                                         return ;
                                     }
                                     NSMutableArray *array = [@[] mutableCopy];
@@ -296,7 +315,7 @@
                                             [self.navigationController dismissTips];
                                             _identityManager.identity.user_guid = @"";
                                             [_identityManager saveAuthorizeData];
-                                            [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
+                                            [self.navigationController.view showFailureTips:error.statsMsg];
                                             return ;
                                         }
                                         for (NSDictionary *dic in data[@"list"]) {
@@ -311,7 +330,7 @@
                                             if(error) {
                                                 _identityManager.identity.user_guid = @"";
                                                 [_identityManager saveAuthorizeData];
-                                                [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
+                                                [self.navigationController.view showFailureTips:error.statsMsg];
                                                 return ;
                                             }
                                             _identityManager.identity.RYToken = data;
@@ -376,7 +395,7 @@
                     [self.navigationController dismissTips];
                     _identityManager.identity.user_guid = @"";
                     [_identityManager saveAuthorizeData];
-                    [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
+                    [self.navigationController.view showFailureTips:error.statsMsg];
                     return ;
                 }
                 NSMutableArray *array = [@[] mutableCopy];
@@ -389,7 +408,7 @@
                         [self.navigationController dismissTips];
                         _identityManager.identity.user_guid = @"";
                         [_identityManager saveAuthorizeData];
-                        [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
+                        [self.navigationController.view showFailureTips:error.statsMsg];
                         return ;
                     }
                     for (NSDictionary *dic in data[@"list"]) {
@@ -404,7 +423,7 @@
                         if(error) {
                             _identityManager.identity.user_guid = @"";
                             [_identityManager saveAuthorizeData];
-                            [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
+                            [self.navigationController.view showFailureTips:error.statsMsg];
                             return ;
                         }
                         _identityManager.identity.RYToken = data;
@@ -447,7 +466,7 @@
             [IdentityHttp getAccessTokenhandler:^(id data, MError *error) {
                 if(error) {
                     [self.navigationController dismissTips];
-                    [self.navigationController.view showFailureTips:@"登录失败，请重试"];
+                    [self.navigationController.view showFailureTips:error.statsMsg];
                     return ;
                 }
                 NSString *accessToken = data[@"access_token"];
@@ -482,7 +501,7 @@
                                 [self.navigationController dismissTips];
                                 _identityManager.identity.user_guid = @"";
                                 [_identityManager saveAuthorizeData];
-                                [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
+                                [self.navigationController.view showFailureTips:error.statsMsg];
                                 return ;
                             }
                             NSMutableArray *array = [@[] mutableCopy];
@@ -495,7 +514,7 @@
                                     [self.navigationController dismissTips];
                                     _identityManager.identity.user_guid = @"";
                                     [_identityManager saveAuthorizeData];
-                                    [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
+                                    [self.navigationController.view showFailureTips:error.statsMsg];
                                     return ;
                                 }
                                 for (NSDictionary *dic in data[@"list"]) {
@@ -510,7 +529,7 @@
                                     if(error) {
                                         _identityManager.identity.user_guid = @"";
                                         [_identityManager saveAuthorizeData];
-                                        [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
+                                        [self.navigationController.view showFailureTips:error.statsMsg];
                                         return ;
                                     }
                                     _identityManager.identity.RYToken = data;

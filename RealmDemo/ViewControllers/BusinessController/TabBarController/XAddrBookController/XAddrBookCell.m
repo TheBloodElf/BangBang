@@ -22,8 +22,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.userImage.layer.cornerRadius = 25.f;
-    self.userImage.clipsToBounds = YES;
+    [self.userImage zy_cornerRadiusRoundingRect];
     _userManager = [UserManager manager];
     // Initialization code
 }

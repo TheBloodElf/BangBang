@@ -36,8 +36,7 @@
     _userFetchedResultsController = [_userManager createUserFetchedResultsController];
     _userFetchedResultsController.delegate = self;
     User *user = _userManager.user;
-    self.avaterImageView.layer.cornerRadius = 30.f;
-    self.avaterImageView.clipsToBounds = YES;
+    [self.avaterImageView zy_cornerRadiusRoundingRect];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerNib:[UINib nibWithNibName:@"LeftMenuCell" bundle:nil] forCellReuseIdentifier:@"LeftMenuCell"];

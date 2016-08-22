@@ -10,6 +10,8 @@
 #import "CreateBushModel.h"
 #import "UserHttp.h"
 #import "UserManager.h"
+//圈子名称最长多少字符
+#define MAX_STARWORDS_LENGTH 20
 
 @interface CreateBushController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate,UITextViewDelegate,UITextFieldDelegate> {
     UserManager *_userManager;//用户管理器
@@ -33,6 +35,9 @@
     _createBushModel.type = 6;
     _createBushModel.typeString = @"其他";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightButtonClicked:)];
+    //限制圈子名称的长度
+    UITextField *text = [self.nameCell viewWithTag:1000];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:) name:@"UITextFieldTextDidChangeNotification" object:text];
     //按钮是否能够被点击
     RACSignal *nameSignal = RACObserve(_createBushModel, name);
     RACSignal *imageSignal = RACObserve(_createBushModel, hasImage);
@@ -60,6 +65,45 @@
 }
 #pragma mark --
 #pragma mark -- TextFieldDelegate
+-(void)textFiledEditChanged:(NSNotification *)obj
+{
+    UITextField *textField = (UITextField *)obj.object;
+    NSString *toBeString = textField.text;
+    NSString *lang = [textField.textInputMode primaryLanguage];
+    if ([lang isEqualToString:@"zh-Hans"])// 简体中文输入
+    {
+        //获取高亮部分
+        UITextRange *selectedRange = [textField markedTextRange];
+        UITextPosition *position = [textField positionFromPosition:selectedRange.start offset:0];
+        
+        // 没有高亮选择的字，则对已输入的文字进行字数统计和限制
+        if (!position)
+        {
+            if (toBeString.length > MAX_STARWORDS_LENGTH)
+            {
+                textField.text = [toBeString substringToIndex:MAX_STARWORDS_LENGTH];
+            }
+        }
+        
+    }
+    // 中文输入法以外的直接对其统计限制即可，不考虑其他语种情况
+    else
+    {
+        if (toBeString.length > MAX_STARWORDS_LENGTH)
+        {
+            NSRange rangeIndex = [toBeString rangeOfComposedCharacterSequenceAtIndex:MAX_STARWORDS_LENGTH];
+            if (rangeIndex.length == 1)
+            {
+                textField.text = [toBeString substringToIndex:MAX_STARWORDS_LENGTH];
+            }
+            else
+            {
+                NSRange rangeRange = [toBeString rangeOfComposedCharacterSequencesForRange:NSMakeRange(0, MAX_STARWORDS_LENGTH)];
+                textField.text = [toBeString substringWithRange:rangeRange];
+            }
+        }
+    }
+}
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [self.view endEditing:YES];
     _createBushModel.name = textField.text;

@@ -380,7 +380,7 @@
     [UserHttp updateImageGuid:app_guid image:uploadPhotos[uploadPhotoNumber] handler:^(id data, MError *error) {
         if(error) {
             [self.navigationController.view dismissTips];
-            [self.navigationController.view showFailureTips:@"有图片上传失败"];
+            [self.navigationController.view showFailureTips:error.statsMsg];
         } else {
             uploadPhotoNumber = uploadPhotoNumber - 1;
             [_bridge callHandler:@"selectedFilesIOS" data:data[@"data"] responseCallback:^(id responseData){

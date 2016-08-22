@@ -91,8 +91,7 @@
         if(!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:topIdentifier];
             UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 30 - 15 - 30, 5, 40, 40)];
-            imageView.layer.cornerRadius = 20.f;
-            imageView.clipsToBounds = YES;
+            [imageView zy_cornerRadiusRoundingRect];
             [cell.contentView addSubview:imageView];
             imageView.tag = 1000;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

@@ -19,8 +19,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.iamge.layer.cornerRadius = 25;
-    self.iamge.clipsToBounds = YES;
+    [self.iamge zy_cornerRadiusRoundingRect];
     // Initialization code
 }
 - (void)dataDidChange {

@@ -22,8 +22,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         _bottomImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
-        _bottomImageView.layer.cornerRadius = frame.size.width / 2.f;
-        _bottomImageView.clipsToBounds = YES;
+        [_bottomImageView zy_cornerRadiusRoundingRect];
         [self addSubview:_bottomImageView];
         
         _topBtn = [UIButton buttonWithType:UIButtonTypeSystem];

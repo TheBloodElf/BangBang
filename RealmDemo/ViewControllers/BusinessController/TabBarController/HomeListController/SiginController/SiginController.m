@@ -234,8 +234,7 @@
     [_leftNavigationBarButton addSubview:arrowImage];
     //创建头像
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(arrowImage.frame) + 5, 2, 33, 33)];
-    imageView.layer.cornerRadius = 33 / 2.f;
-    imageView.clipsToBounds = YES;
+    [imageView zy_cornerRadiusRoundingRect];
     imageView.tag = 1001;
     [imageView sd_setImageWithURL:[NSURL URLWithString:user.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
     [_leftNavigationBarButton addSubview:imageView];

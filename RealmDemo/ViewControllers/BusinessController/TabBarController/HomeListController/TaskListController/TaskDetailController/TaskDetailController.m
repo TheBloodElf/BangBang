@@ -52,8 +52,7 @@
     _lineView.backgroundColor = [UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1];
     [self.view addSubview:_lineView];
     
-    self.createAvater.layer.cornerRadius = 21;
-    self.createAvater.clipsToBounds = YES;
+    [self.createAvater zy_cornerRadiusRoundingRect];
     [self.createAvater sd_setImageWithURL:[NSURL URLWithString:_taskModel.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
     self.createName.text = _taskModel.create_realname;
     Employee *employee = [_userManager getEmployeeWithGuid:_taskModel.user_guid companyNo:_taskModel.company_no];

@@ -38,8 +38,7 @@
     CGFloat currX = 0;
     for (NSString *str in array) {
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(currX, 0, 29, 29)];
-        imageView.clipsToBounds = YES;
-        imageView.layer.cornerRadius = 14.5;
+        [imageView zy_cornerRadiusRoundingRect];
         [imageView sd_setImageWithURL:[NSURL URLWithString:str] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
         [self.memberImage addSubview:imageView];
         

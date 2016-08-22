@@ -19,8 +19,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
-    self.companyImage.layer.cornerRadius = 15.f;
-    self.companyImage.clipsToBounds = YES;
+    [self.companyImage zy_cornerRadiusAdvance:15.f rectCornerType:UIRectCornerAllCorners];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 - (void)dataDidChange {

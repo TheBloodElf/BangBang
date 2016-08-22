@@ -32,8 +32,7 @@
     self.title = @"圈子详情";
     self.tableView.tableFooterView = [UIView new];
     self.companyAvater = [[UIImageView alloc] initWithFrame:CGRectMake(10, 170, 60, 60)];
-    self.companyAvater.layer.cornerRadius = 30.f;
-    self.companyAvater.clipsToBounds = YES;
+    [self.companyAvater zy_cornerRadiusRoundingRect];
     [self.tableView addSubview:self.companyAvater];
     _userManager = [UserManager manager];
     //操作按钮应该显示什么内容
@@ -61,7 +60,7 @@
      //用圈主信息来填充内容
     [UserHttp getCompanyOwner:_currCompany.company_no handler:^(id data, MError *error) {
         if(error) {
-            [self.navigationController.view showFailureTips:@"圈主信息获取失败,请重新进入此页面获取"];
+            [self.navigationController.view showFailureTips:error.statsMsg];
             return ;
         }
         self.companyOwer.text = data[@"real_name"];

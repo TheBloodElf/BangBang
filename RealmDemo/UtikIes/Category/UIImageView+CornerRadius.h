@@ -6,11 +6,8 @@
 //  Copyright © 2016年 lzy. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-
+//离屏渲染终极解决方案
 @interface UIImageView (CornerRadius)
-
 
 - (instancetype)initWithCornerRadiusAdvance:(CGFloat)cornerRadius rectCornerType:(UIRectCorner)rectCornerType;
 

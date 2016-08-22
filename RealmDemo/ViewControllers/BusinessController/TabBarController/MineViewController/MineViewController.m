@@ -38,8 +38,7 @@
     _userFetchedResultsController = [_userManager createUserFetchedResultsController];
     _userFetchedResultsController.delegate = self;
     User *user = _userManager.user;
-    self.avaterImage.layer.cornerRadius = 30.f;
-    self.avaterImage.clipsToBounds = YES;
+    [self.avaterImage zy_cornerRadiusRoundingRect];
     [self.avaterImage sd_setImageWithURL:[NSURL URLWithString:user.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
     self.userName.text = [NSString stringWithFormat:@"%@(%@)",user.real_name,@(user.user_no)];
     self.userMood.text = user.mood;
