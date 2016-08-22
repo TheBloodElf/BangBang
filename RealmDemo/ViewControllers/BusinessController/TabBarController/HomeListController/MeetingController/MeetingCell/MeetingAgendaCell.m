@@ -29,9 +29,14 @@
     self.agendaText.text = meetingAgenda.title;
     self.agendaNumber.text = [NSString stringWithFormat:@"%d",meetingAgenda.index];
 }
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+- (void)textFieldDidEndEditing:(UITextField *)textField {
     MeetingAgenda *meetingAgenda = self.data;
     meetingAgenda.title = textField.text;
+    if(self.delegate && [self.delegate respondsToSelector:@selector(MeetingAgendaFinishEdit)]) {
+        [self.delegate MeetingAgendaFinishEdit];
+    }
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
 }

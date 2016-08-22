@@ -23,7 +23,8 @@
 }
 @property (weak, nonatomic) IBOutlet UITextField *accountField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
-@property (weak, nonatomic) IBOutlet UIButton *qqLoginBtn;
+@property (weak, nonatomic) IBOutlet UIButton *qqLoginBtn;//qq登录按钮
+@property (weak, nonatomic) IBOutlet UIButton *okBtn;//提交按钮
 @end
 
 @implementation UserLoginController
@@ -45,6 +46,14 @@
     if(![TencentOAuth iphoneQQInstalled]) {
         self.qqLoginBtn.hidden = YES;
     }
+    //使用ARC来限制提交按钮是否能被点击
+    RAC(self.okBtn, enabled) = [RACSignal combineLatest:@[self.accountField.rac_textSignal,self.passwordField.rac_textSignal] reduce:^(NSString *account,NSString *password){
+        if([NSString isBlank:account])
+            return @(NO);
+        if([NSString isBlank:password])
+            return @(NO);
+        return @(YES);
+    }];
     // Do any additional setup after loading the view from its nib.
 }
 - (void)viewWillAppear:(BOOL)animated {
@@ -54,15 +63,6 @@
 //账号密码登录
 - (IBAction)palinLoginClicked:(id)sender {
     [self.view endEditing:YES];
-    //判断值是否填满
-    if([NSString isBlank:self.accountField.text]) {
-        [self.navigationController.view showFailureTips:@"请输入账号"];
-        return;
-    }
-    if([NSString isBlank:self.passwordField.text]) {
-        [self.navigationController.view showFailureTips:@"请输入密码"];
-        return;
-    }
     //获取token
     [self.navigationController showLoadingTips:@"获取token..."];
     [IdentityHttp getAccessTokenhandler:^(id data, MError *error) {

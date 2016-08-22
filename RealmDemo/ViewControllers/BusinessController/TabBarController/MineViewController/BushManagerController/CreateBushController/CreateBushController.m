@@ -12,15 +12,14 @@
 #import "UserManager.h"
 
 @interface CreateBushController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate,UITextViewDelegate,UITextFieldDelegate> {
-    CreateBushModel *_createBushModel;//创建圈子传给服务器的模型
     UserManager *_userManager;//用户管理器
+    CreateBushModel *_createBushModel;//创建圈子传给服务器的模;
 }
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *nameCell;//圈子名字
 @property (weak, nonatomic) IBOutlet UITableViewCell *imageCell;//圈子图标
 @property (weak, nonatomic) IBOutlet UITableViewCell *typeCell;//圈子类型
 @property (weak, nonatomic) IBOutlet UITableViewCell *detailCell;//圈子详情
-
 @end
 
 @implementation CreateBushController
@@ -34,27 +33,30 @@
     _createBushModel.type = 6;
     _createBushModel.typeString = @"其他";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightButtonClicked:)];
+    //按钮是否能够被点击
+    RACSignal *nameSignal = RACObserve(_createBushModel, name);
+    RACSignal *imageSignal = RACObserve(_createBushModel, hasImage);
+    RAC(self.navigationItem.rightBarButtonItem,enabled) = [RACSignal combineLatest:@[nameSignal,imageSignal] reduce:^(NSString *name,UIImage *image){
+        if([NSString isBlank:name])
+            return @(NO);
+        if(!image)
+            return @(NO);
+        return @(YES);
+    }];
 }
 - (void)rightButtonClicked:(UIBarButtonItem*)item {
-    //创建圈子前腰看看是否满足提交的条件
-    if ([NSString isBlank:_createBushModel.name]) {
-        [self.navigationController.view showFailureTips:@"圈子名称不能为空"];
-    } else if (!_createBushModel.hasImage) {
-        [self.navigationController.view showFailureTips:@"请选择圈子图标"];
-    } else {
-        [self.navigationController.view showLoadingTips:@""];
-        [UserHttp createCompany:_createBushModel.name userGuid:_userManager.user.user_guid image:_createBushModel.hasImage companyType:(int)_createBushModel.type handler:^(id data, MError *error) {
-            [self.navigationController.view dismissTips];
-            if(error) {
-                [self.navigationController.view showFailureTips:error.statsMsg];
-                return ;
-            }
-            Company *company = [[Company alloc] initWithJSONDictionary:data];
-            [self.navigationController.view showSuccessTips:@"创建成功"];
-            [_userManager addCompany:company];
-            [self.navigationController popViewControllerAnimated:YES];
-        }];
-    }
+    [self.navigationController.view showLoadingTips:@""];
+    [UserHttp createCompany:_createBushModel.name userGuid:_userManager.user.user_guid image:_createBushModel.hasImage companyType:(int)_createBushModel.type handler:^(id data, MError *error) {
+        [self.navigationController.view dismissTips];
+        if(error) {
+            [self.navigationController.view showFailureTips:error.statsMsg];
+            return ;
+        }
+        Company *company = [[Company alloc] initWithJSONDictionary:data];
+        [self.navigationController.view showSuccessTips:@"创建成功"];
+        [_userManager addCompany:company];
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
 }
 #pragma mark --
 #pragma mark -- TextFieldDelegate

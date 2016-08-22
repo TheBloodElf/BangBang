@@ -83,7 +83,7 @@
 ///            exception if `nil` is received (which might occur if an intermediate
 ///            object is set to `nil`).
 #if OS_OBJECT_HAVE_OBJC_SUPPORT
-- (id)initWithTarget:(__weak NSObject *)target keyPath:(NSString *)keyPath nilValue:(id)nilValue;
+- (id)initWithTarget:(NSObject *)target keyPath:(NSString *)keyPath nilValue:(id)nilValue;
 #else
 // Swift builds with OS_OBJECT_HAVE_OBJC_SUPPORT=0 for Playgrounds and LLDB :(
 - (id)initWithTarget:(NSObject *)target keyPath:(NSString *)keyPath nilValue:(id)nilValue;

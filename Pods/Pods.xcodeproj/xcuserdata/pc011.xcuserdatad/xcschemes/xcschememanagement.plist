@@ -39,6 +39,11 @@
 			<key>orderHint</key>
 			<integer>6</integer>
 		</dict>
+		<key>MLeaksFinder.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>18</integer>
+		</dict>
 		<key>Pods-RealmDemo.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -78,6 +83,11 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>0D2D8B369ED36FEE3BE710DA8519A3E3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0F65CE265E0A6C9B2325307446CA1BA8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -122,6 +132,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>4B0AAE735757EF07E0B89C9D45FE7DC4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>5608794BBA79738B2E234D3F040F7585</key>
 		<dict>
 			<key>primary</key>
@@ -148,6 +163,11 @@
 			<true/>
 		</dict>
 		<key>773B9CF207704757DAFD9D9E7E3603A0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7B3183228D7816E68025F3AB25C66887</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -187,12 +207,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>D4C3ED4629E9EDBD4BBB92DE6CDBDC2E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>D986EA9C9C1683687F9FE2BD97CE2A42</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>E1DB27DCDCEA18D74A7B41E96A478A91</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E4F9334BD29DD273AEF3EE42F9203CE6</key>
 		<dict>
 			<key>primary</key>
 			<true/>

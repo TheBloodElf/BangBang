@@ -30,6 +30,7 @@
     [self.view addSubview:_scrollView];
     _textField = [[UITextField alloc] initWithFrame:CGRectMake(20, 20, MAIN_SCREEN_WIDTH - 40, 30)];
     _textField.delegate = self;
+    _textField.returnKeyType = UIReturnKeyDone;
     _textField.placeholder = @"帮帮号必须5个字以上!";
     if([_currUser.user_name rangeOfString:@"@"].location != NSNotFound || [NSString isBlank:_currUser.user_name]) {
         _textField.text = @"";
@@ -50,6 +51,15 @@
     [_scrollView addSubview:label];
     [self.view addSubview:_scrollView];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightButtonClicked:)];
+    //按钮是否能够被点击
+    RACSignal *nameSignal = RACObserve(_currUser, user_name);
+    RAC(self.navigationItem.rightBarButtonItem,enabled) = [nameSignal map:^(NSString *user_name) {
+       if([NSString isBlank:user_name])
+           return @(NO);
+        if(user_name.length < 5)
+            return @(NO);
+        return @(YES);
+    }];
     // Do any additional setup after loading the view from its nib.
 }
 - (void)viewWillAppear:(BOOL)animated {
@@ -59,20 +69,16 @@
 - (void)rightButtonClicked:(UIBarButtonItem*)item
 {
     [self.view endEditing:YES];
-    if([NSString isBlank:_textField.text]) {
-        [self.navigationController.view showMessageTips:@"请输入内容"];
-        return;
-    }
-    if(_textField.text.length <= 5) {
-        [self.navigationController.view showMessageTips:@"帮帮号必须5个字以上"];
-        return;
-    }
     [self.delegate changeUserInfo:_currUser];
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     _currUser.user_name = textField.text;
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
 }
 
 @end

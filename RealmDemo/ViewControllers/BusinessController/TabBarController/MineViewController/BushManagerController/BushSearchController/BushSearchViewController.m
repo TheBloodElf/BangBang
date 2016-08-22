@@ -50,7 +50,7 @@
     _tableView.showsVerticalScrollIndicator = NO;
     [_tableView registerNib:[UINib nibWithNibName:@"BushSearchCell" bundle:nil] forCellReuseIdentifier:@"BushSearchCell"];
     [self.view addSubview:_tableView];
-    __weak typeof(self) weakSelf = self;
+    WeakSelf(weakSelf)
     _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         currentPage = 1;
         [weakSelf search];
@@ -81,12 +81,13 @@
         [_tableView reloadData];
         return;
     }
+    WeakSelf(weakSelf)
     [UserHttp getCompanyList:self.searchBar.text pageSize:20 pageIndex:currentPage handler:^(id data, MError *error) {
         if(_tableView.mj_footer != _noDataView)
             [_tableView.mj_footer endRefreshing];
         [_tableView.mj_header endRefreshing];
         if(error) {
-            [self.navigationController.view showMessageTips:error.statsMsg];
+            [weakSelf.navigationController.view showMessageTips:error.statsMsg];
             return ;
         }
         if(currentPage == 1)
@@ -100,7 +101,7 @@
         } else {
             _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
                 currentPage ++;
-                [self search];
+                [weakSelf search];
             }];
         }
         [_tableView reloadData];
@@ -124,16 +125,17 @@
         if([NSString isBlank:field.text]) {
            field.text = [NSString stringWithFormat:@"我是%@，请求加入圈子",_userManager.user.real_name];
         }
+        WeakSelf(weakSelf)
         [UserHttp joinCompany:model.company_no userGuid:_userManager.user.user_guid joinReason:field.text handler:^(id data, MError *error) {
             if(error) {
-                [self.navigationController.view showFailureTips:error.statsMsg];
+                [weakSelf.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
             //这里要把这个圈子加入到本地 员工信息加入到本地
             [_userManager addCompany:model];
             [UserHttp getEmployeeCompnyNo:model.company_no status:0 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
                 if(error) {
-                    [self.navigationController.view showFailureTips:error.statsMsg];
+                    [weakSelf.navigationController.view showFailureTips:error.statsMsg];
                     return ;
                 }
                 NSMutableArray *array = [@[] mutableCopy];
@@ -143,7 +145,7 @@
                 }
                 [UserHttp getEmployeeCompnyNo:model.company_no status:5 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
                     if(error) {
-                        [self.navigationController.view showFailureTips:error.statsMsg];
+                        [weakSelf.navigationController.view showFailureTips:error.statsMsg];
                         return ;
                     }
                     for (NSDictionary *dic in data[@"list"]) {
@@ -151,8 +153,8 @@
                         [array addObject:employee];
                     }
                     [_userManager updateEmployee:array companyNo:model.company_no];
-                    [self.navigationController showSuccessTips:@"请求已发出，请等待"];
-                    [self.navigationController popViewControllerAnimated:YES];
+                    [weakSelf.navigationController showSuccessTips:@"请求已发出，请等待"];
+                    [weakSelf.navigationController popViewControllerAnimated:YES];
                 }];
             }];
         }];

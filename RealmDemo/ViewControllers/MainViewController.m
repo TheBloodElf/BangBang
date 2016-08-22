@@ -41,7 +41,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
+    return UIStatusBarStyleDefault;
 }
 //弹出登录控制器
 - (void)showLogin:(NSNotification*)noti{

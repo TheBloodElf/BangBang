@@ -30,6 +30,7 @@
     [self.view addSubview:_scrollView];
     _textField = [[UITextField alloc] initWithFrame:CGRectMake(20, 20, MAIN_SCREEN_WIDTH - 40, 30)];
     _textField.delegate = self;
+    _textField.returnKeyType = UIReturnKeyDone;
     _textField.placeholder = @"在这里写你的个性签名";
     _textField.text = _currUser.mood;
     [_scrollView addSubview:_textField];
@@ -45,6 +46,13 @@
     [_scrollView addSubview:label];
     [self.view addSubview:_scrollView];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightButtonClicked:)];
+    //按钮是否能够被点击
+    RACSignal *nameSignal = RACObserve(_currUser, mood);
+    RAC(self.navigationItem.rightBarButtonItem,enabled) = [nameSignal map:^(NSString *mood) {
+        if([NSString isBlank:mood])
+            return @(NO);
+        return @(YES);
+    }];
     // Do any additional setup after loading the view from its nib.
 }
 - (void)viewWillAppear:(BOOL)animated {
@@ -54,11 +62,6 @@
 - (void)rightButtonClicked:(UIBarButtonItem*)item
 {
     [self.view endEditing:YES];
-    if([NSString isBlank:_textField.text])
-    {
-        [self.navigationController.view showMessageTips:@"请输入内容"];
-        return;
-    }
     [self.delegate changeUserInfo:_currUser];
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -66,5 +69,9 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     _currUser.mood = textField.text;
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
 }
 @end

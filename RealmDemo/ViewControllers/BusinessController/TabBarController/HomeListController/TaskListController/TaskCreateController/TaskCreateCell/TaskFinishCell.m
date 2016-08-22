@@ -21,12 +21,8 @@
 }
 - (void)dataDidChange {
     TaskModel *model = self.data;
-    if(model.enddate_utc == 0)
-        self.finishLabel.text = @"请选择";
-    else {
-        NSDate *date = [NSDate dateWithTimeIntervalSince1970:model.enddate_utc / 1000];
-        self.finishLabel.text = [NSString stringWithFormat:@"%d-%02ld-%02ld %02ld:%02ld",date.year,date.month,date.day,date.hour,date.minute];
-    }
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:model.enddate_utc / 1000];
+    self.finishLabel.text = [NSString stringWithFormat:@"%d-%02ld-%02ld %02ld:%02ld",date.year,date.month,date.day,date.hour,date.minute];
 }
 
 @end

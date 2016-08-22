@@ -37,6 +37,13 @@
     self.companyType.text = [_currCompany companyTypeStr];
     [self.companyImage sd_setImageWithURL:[NSURL URLWithString:_currCompany.logo] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(rightButtonClicked:)];
+    //确定按钮是否能够被点击
+    RACSignal *nameSignal = RACObserve(_currCompany, company_name);
+    RAC(self.navigationItem.rightBarButtonItem,enabled) = [nameSignal map:^(NSString* name) {
+        if([NSString isBlank:name])
+            return @(NO);
+        return @(YES);
+    }];
 }
 - (void)dataDidChange {
     _currCompany = [self.data deepCopy];
@@ -97,10 +104,8 @@
         }];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             UITextField *field = alertVC.textFields[0];
-            if([NSString isBlank:field.text]) { } else {
-                _currCompany.company_name = field.text;
-                self.companyName.text = field.text;
-            }
+            _currCompany.company_name = field.text;
+            self.companyName.text = field.text;
         }];
         UIAlertAction *cancleActio = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
         [alertVC addAction:cancleActio];

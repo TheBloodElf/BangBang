@@ -38,7 +38,7 @@
                             <constraint firstAttribute="width" constant="1" id="7L5-tE-m3K"/>
                         </constraints>
                     </view>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ebl-sa-b8S">
+                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ebl-sa-b8S">
                         <rect key="frame" x="285" y="19" width="20" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="20" id="aKN-9n-fWd"/>

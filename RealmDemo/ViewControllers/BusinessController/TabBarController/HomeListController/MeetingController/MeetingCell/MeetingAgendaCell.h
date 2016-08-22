@@ -12,6 +12,7 @@
 @protocol MeetingAgendaDelegate <NSObject>
 
 - (void)MeetingAgendaDelete:(MeetingAgenda*)meetingAgenda;
+- (void)MeetingAgendaFinishEdit;
 
 @end
 

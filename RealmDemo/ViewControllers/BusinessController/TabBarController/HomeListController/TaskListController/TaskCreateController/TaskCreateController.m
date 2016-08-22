@@ -53,6 +53,7 @@
     _taskModel = [TaskModel new];
     _taskModel.status = 1;
     _taskModel.createdby = employee.employee_guid;
+    _taskModel.enddate_utc = [[NSDate date] timeIntervalSince1970] * 1000;
     _taskModel.user_guid = _userManager.user.user_guid;
     _taskModel.avatar = _userManager.user.avatar;
     _taskModel.company_no = _userManager.user.currCompany.company_no;
@@ -75,6 +76,16 @@
     [self.view addSubview:_tableView];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightClicked:)];
+    //按钮是否能够被点击
+    RACSignal *nameSignal = RACObserve(_taskModel, task_name);
+    RACSignal *inchargeSignal = RACObserve(_taskModel, incharge_name);
+    RAC(self.navigationItem.rightBarButtonItem,enabled) = [RACSignal combineLatest:@[nameSignal,inchargeSignal] reduce:^(NSString *task_name,NSString *incharge_name){
+        if([NSString isBlank:task_name])
+            return @(NO);
+        if([NSString isBlank:incharge_name])
+            return @(NO);
+        return @(YES);
+    }];
     // Do any additional setup after loading the view.
 }
 - (void)viewWillAppear:(BOOL)animated {
@@ -89,20 +100,6 @@
     }
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
-    if([NSString isBlank:_taskModel.task_name]) {
-        [self.navigationController.view showMessageTips:@"请填写名称"];
-        return;
-    }
-    if(_taskModel.enddate_utc == 0) {
-        [self.navigationController.view showMessageTips:@"请选择结束时间"];
-        return;
-    }
-    if(_incharge.id == 0) {
-        [self.navigationController.view showMessageTips:@"请选择负责人"];
-        return;
-    }
-    _taskModel.incharge = _incharge.employee_guid;
-    _taskModel.incharge_name = _incharge.real_name;
     NSMutableArray<NSString*> *members = [@[] mutableCopy];
     for (Employee * employee in _memberArr) {
         [members addObject:employee.employee_guid];
@@ -317,6 +314,8 @@
 //单选回调
 - (void)singleSelect:(Employee*)employee {
     _incharge = employee;
+    _taskModel.incharge = _incharge.employee_guid;
+    _taskModel.incharge_name = _incharge.real_name;
     [_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:3]] withRowAnimation:UITableViewRowAnimationNone];
 }
 #pragma mark -- MuliteSelectDelegate

@@ -34,6 +34,13 @@
     _comCalendarView.delegate = self;
     [self.view addSubview:_comCalendarView];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightClicked:)];
+    //确定按钮是否能够被点击
+    RACSignal *nameSignal = RACObserve(_currCalendar, event_name);
+    RAC(self.navigationItem.rightBarButtonItem,enabled) = [nameSignal map:^(NSString* name) {
+        if([NSString isBlank:name])
+            return @(NO);
+        return @(YES);
+    }];
     // Do any additional setup after loading the view.
 }
 - (void)viewWillAppear:(BOOL)animated {

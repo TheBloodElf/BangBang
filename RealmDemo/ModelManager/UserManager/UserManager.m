@@ -544,7 +544,7 @@
     [_rlmRealm beginWriteTransaction];
     RLMResults *rLMResults = [Calendar allObjects];
     while (rLMResults.count) {
-        [_rlmRealm deleteObject:[rLMResults objectAtIndex:0]];
+        [_rlmRealm deleteObject:rLMResults.firstObject];
     }
     for (Calendar *calendar in calendarArr) {
         [Calendar createOrUpdateInRealm:_rlmRealm withValue:calendar];
@@ -669,7 +669,7 @@
 - (NSMutableArray<SiginRuleSet*>*)getSiginRule:(int)companyNo {
     NSMutableArray *array = [@[] mutableCopy];
     [_rlmRealm beginWriteTransaction];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(company_no = %d )",companyNo];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(company_no = %d)",companyNo];
     RLMResults *calendarResult = [SiginRuleSet objectsInRealm:_rlmRealm withPredicate:predicate];
     for (int i = 0; i < calendarResult.count; i ++) {
         [array addObject:[calendarResult objectAtIndex:i]];
@@ -680,7 +680,7 @@
 //更新圈子的所有签到规则
 - (void)updateSiginRule:(NSMutableArray<SiginRuleSet*>*)sigRules companyNo:(int)companyNo {
     [_rlmRealm beginWriteTransaction];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(company_no = %d )",companyNo];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(company_no = %d)",companyNo];
     RLMResults *calendarResult = [SiginRuleSet objectsInRealm:_rlmRealm withPredicate:predicate];
     while (calendarResult.count) {
         [_rlmRealm deleteObject:calendarResult.firstObject];
@@ -715,7 +715,7 @@
 //更新圈子的任务
 - (void)updateTask:(NSMutableArray<TaskModel*>*)taskArr companyNo:(int)companyNo {
     [_rlmRealm beginWriteTransaction];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(company_no = %d )",companyNo];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(company_no = %d)",companyNo];
     RLMResults *calendarResult = [TaskModel objectsInRealm:_rlmRealm withPredicate:predicate];
     while (calendarResult.count) {
         [_rlmRealm deleteObject:calendarResult.firstObject];
@@ -729,7 +729,7 @@
 - (NSMutableArray<TaskModel*>*)getTaskArr:(int)companyNo {
     NSMutableArray<TaskModel*> *pushMessageArr = [@[] mutableCopy];
     [_rlmRealm beginWriteTransaction];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"company_no = %d and status != 0",companyNo];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"(company_no = %d and status != 0)",companyNo];
     RLMResults *results = [[TaskModel objectsInRealm:_rlmRealm withPredicate:pred] sortedResultsUsingProperty:@"createdon_utc" ascending:NO];
     for (int index = 0;index < results.count;index ++) {
         TaskModel *company = [results objectAtIndex:index];

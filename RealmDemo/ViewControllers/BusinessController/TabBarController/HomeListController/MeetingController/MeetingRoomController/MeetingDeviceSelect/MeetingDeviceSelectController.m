@@ -61,13 +61,10 @@
         [self.view addSubview:_tableView];
     }];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightClicked:)];
+    self.navigationItem.rightBarButtonItem.enabled = NO;
     // Do any additional setup after loading the view.
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
-    if(_employee.id == 0) {
-        [self.navigationController.view showMessageTips:@"选择准备人"];
-        return;
-    }
     NSMutableArray<MeetingEquipmentsModel*> *array = [@[] mutableCopy];
     [array addObjectsFromArray:_sureEquipmentsArr];
     for (MeetingEquipmentsModel *model in _publicEquipmentsArr) {
@@ -130,6 +127,7 @@
 #pragma mark -- SingleSelectDelegate
 -(void)singleSelect:(Employee *)employee {
     _employee = employee;
+    self.navigationItem.rightBarButtonItem.enabled = YES;
     [_tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
 }
 @end
