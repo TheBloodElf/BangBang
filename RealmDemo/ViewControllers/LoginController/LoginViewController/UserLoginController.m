@@ -25,7 +25,6 @@
     RACSignal *_getCompanys;//获取所有圈子
     RACSignal *_getEmployee;//获取所有圈子的员工
     RACSignal *_getRYToken;//获取融云token
-    RACSignal *_palinLogin;//普通账号密码登录
 }
 @property (weak, nonatomic) IBOutlet UITextField *accountField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
@@ -136,7 +135,16 @@
         }];
         return nil;
     }];
-    _palinLogin = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+    // Do any additional setup after loading the view from its nib.
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
+//账号密码登录
+- (IBAction)palinLoginClicked:(id)sender {
+    [self.view endEditing:YES];
+    RACSignal *palinLogin = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         [IdentityHttp loginWithEmail:self.accountField.text password:self.passwordField.text handler:^(id data, MError *error) {
             if(error) {
                 [subscriber sendError:(id)error];
@@ -151,17 +159,9 @@
         }];
         return nil;
     }];
-    // Do any additional setup after loading the view from its nib.
-}
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-}
-//账号密码登录
-- (IBAction)palinLoginClicked:(id)sender {
-    [self.view endEditing:YES];
+    //普通登录
     [self.navigationController.view showLoadingTips:@"登录..."];
-    [[[[[_getAccessToken concat:_palinLogin] concat:_getCompanys] concat:_getEmployee] concat:_getRYToken] subscribeError:^(NSError *error) {
+    [[[[[_getAccessToken concat:palinLogin] concat:_getCompanys] concat:_getEmployee] concat:_getRYToken] subscribeError:^(NSError *error) {
         [self.navigationController dismissTips];
         _identityManager.identity.user_guid = @"";
         [_identityManager saveAuthorizeData];
@@ -184,25 +184,9 @@
 //QQ登录
 - (IBAction)qqLoginClicked:(id)sender {
     [self.view endEditing:YES];
-    [self.navigationController.view showLoadingTips:@"获取token..."];
-    [_getAccessToken subscribeError:^(NSError *error) {
-        
-    } completed:^{
-        
-    }];
-    [IdentityHttp getAccessTokenhandler:^(id data, MError *error) {
-        [self.navigationController dismissTips];
-        if(error) {
-            [self.navigationController.view showFailureTips:error.statsMsg];
-            return ;
-        }
-        NSString *accessToken = data[@"access_token"];
-        _identityManager.identity.accessToken = accessToken;
-        [_identityManager saveAuthorizeData];
-        //获取QQ用户信息
-        NSArray* permissions =  [NSArray arrayWithObjects:@"get_user_info",@"get_simple_userinfo", nil];
-        [_tencentOAuth authorize:permissions inSafari:NO];
-    }];
+    //获取QQ用户信息
+    NSArray* permissions =  [NSArray arrayWithObjects:@"get_user_info",@"get_simple_userinfo", nil];
+    [_tencentOAuth authorize:permissions inSafari:NO];
 }
 #pragma mark - WXApiManagerDeleagate
 -(void)managerDidRecvAuthResponse:(SendAuthResp *)response {
@@ -249,99 +233,32 @@
                 NSString *userAvatar = [dic objectForKey:@"headimgurl"];
                 NSString *unionId = [dic objectForKey:@"unionid"];
                 if (userName && userAvatar) {
-                    //获取accessToken
-                    [self.navigationController.view showLoadingTips:@"获取token..."];
-                    [IdentityHttp getAccessTokenhandler:^(id data, MError *error) {
-                        if(error) {
-                            [self.navigationController dismissTips];
-                            [self.navigationController.view showFailureTips:error.statsMsg];
-                            return ;
-                        }
-                        NSString *accessToken = data[@"access_token"];
-                        _identityManager.identity.accessToken = accessToken;
-                        [_identityManager saveAuthorizeData];
-                        //登录
-                        [self.navigationController.view showLoadingTips:@"登录..."];
+                    RACSignal *wxLogin = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
                         [UserHttp socialLogin:unionId media_type:2 token:accessToken expires_in:expiresWeixin client_type:@"ios" name:userName avatar_url:userAvatar handler:^(id data, MError *error) {
                             if(error) {
-                                [self.navigationController dismissTips];
-                                _identityManager.identity.user_guid = @"";
-                                [_identityManager saveAuthorizeData];
-                                [self.navigationController.view showFailureTips:error.statsMsg];
+                                [subscriber sendError:(id)error];
                                 return ;
                             }
                             User *user = [[User alloc] initWithJSONDictionary:data];
-                            UserManager *manager = [UserManager manager];
-                            [manager loadUserWithGuid:user.user_guid];
+                            [_userManager updateUser:user];
+                            [_userManager loadUserWithGuid:user.user_guid];
                             _identityManager.identity.user_guid = user.user_guid;
                             [_identityManager saveAuthorizeData];
-                            //获取所有圈子 所有状态员工
-                            [self.navigationController showLoadingTips:@"获取圈子信息..."];
-                            [UserHttp getCompanysUserGuid:user.user_guid handler:^(id data, MError *error) {
-                                if(error) {
-                                    [self.navigationController dismissTips];
-                                    _identityManager.identity.user_guid = @"";
-                                    [_identityManager saveAuthorizeData];
-                                    [self.navigationController.view showFailureTips:error.statsMsg];
-                                    return ;
-                                }
-                                NSMutableArray *companys = [@[] mutableCopy];
-                                for (NSDictionary *tempDic in data) {
-                                    Company *company = [[Company alloc] initWithJSONDictionary:tempDic];
-                                    [companys addObject:company];
-                                }
-                                [manager updateCompanyArr:companys];
-                                if(companys.count != 0) {
-                                    user.currCompany = [companys[0] deepCopy];
-                                }
-                                [manager updateUser:user];
-                                //获取所有圈子的员工信息
-                                [self.navigationController showLoadingTips:@"获取员工信息..."];
-                                [UserHttp getEmployeeCompnyNo:0 status:5 userGuid:user.user_guid handler:^(id data, MError *error) {
-                                    if(error) {
-                                        [self.navigationController dismissTips];
-                                        _identityManager.identity.user_guid = @"";
-                                        [_identityManager saveAuthorizeData];
-                                        [self.navigationController.view showFailureTips:error.statsMsg];
-                                        return ;
-                                    }
-                                    NSMutableArray *array = [@[] mutableCopy];
-                                    for (NSDictionary *dic in data[@"list"]) {
-                                        Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
-                                        [array addObject:employee];
-                                    }
-                                    [UserHttp getEmployeeCompnyNo:0 status:0 userGuid:user.user_guid handler:^(id data, MError *error) {
-                                        if(error) {
-                                            [self.navigationController dismissTips];
-                                            _identityManager.identity.user_guid = @"";
-                                            [_identityManager saveAuthorizeData];
-                                            [self.navigationController.view showFailureTips:error.statsMsg];
-                                            return ;
-                                        }
-                                        for (NSDictionary *dic in data[@"list"]) {
-                                            Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
-                                            [array addObject:employee];
-                                        }
-                                        [manager updateEmployee:array companyNo:0];
-                                        //获取融云token
-                                        [self.navigationController showLoadingTips:@"获取token..."];
-                                        [UserHttp getRYToken:user.user_no handler:^(id data, MError *error) {
-                                            [self.navigationController dismissTips];
-                                            if(error) {
-                                                _identityManager.identity.user_guid = @"";
-                                                [_identityManager saveAuthorizeData];
-                                                [self.navigationController.view showFailureTips:error.statsMsg];
-                                                return ;
-                                            }
-                                            _identityManager.identity.RYToken = data;
-                                            [_identityManager saveAuthorizeData];
-                                            //发通知 登录成功
-                                            [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginDidFinish" object:nil];
-                                        }];
-                                    }];
-                                }];
-                            }];
+                            [subscriber sendCompleted];
                         }];
+                        return nil;
+                    }];
+                    //微信登录
+                    [self.navigationController.view showLoadingTips:@"登录..."];
+                    [[[[[_getAccessToken concat:wxLogin] concat:_getCompanys] concat:_getEmployee] concat:_getRYToken] subscribeError:^(NSError *error) {
+                        [self.navigationController dismissTips];
+                        _identityManager.identity.user_guid = @"";
+                        [_identityManager saveAuthorizeData];
+                        MError *errorr = (id)error;
+                        [self.navigationController.view showFailureTips:errorr.statsMsg];
+                    } completed:^{
+                        [self.navigationController.view dismissTips];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginDidFinish" object:nil];
                     }];
                 }else{
                     [self.navigationController.view showMessageTips:@"获取微信用户信息失败"];
@@ -362,78 +279,31 @@
     NSString *avatar = [response.jsonResponse objectForKey:@"figureurl_qq_1"];
     NSString *name = [response.jsonResponse objectForKey:@"nickname"];
     long exptime = [[_tencentOAuth expirationDate] timeIntervalSinceDate:[NSDate date]];
-//    登录
-    [self.navigationController.view showLoadingTips:@"登录..."];
-    [UserHttp socialLogin:[_tencentOAuth openId] media_type:1 token:[_tencentOAuth accessToken] expires_in:[NSString stringWithFormat:@"%ld",exptime] client_type:@"ios" name:name avatar_url:avatar handler:^(id data, MError *error) {
-        if(error) {
-            [self.navigationController.view dismissTips];
-            [self.navigationController.view showFailureTips:error.statsMsg];
-            return ;
-        }
-        User *user = [[User alloc] initWithJSONDictionary:data];
-        UserManager *manager = [UserManager manager];
-        [manager loadUserWithGuid:user.user_guid];
-        _identityManager.identity.user_guid = user.user_guid;
-        [_identityManager saveAuthorizeData];
-        //获取所有圈子 所有状态员工
-        [self.navigationController showLoadingTips:@"获取圈子信息..."];
-        [UserHttp getCompanysUserGuid:user.user_guid handler:^(id data, MError *error) {
-            NSMutableArray *companys = [@[] mutableCopy];
-            for (NSDictionary *tempDic in data) {
-                Company *company = [[Company alloc] initWithJSONDictionary:tempDic];
-                [companys addObject:company];
+    RACSignal *qqLogin = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        [UserHttp socialLogin:[_tencentOAuth openId] media_type:1 token:[_tencentOAuth accessToken] expires_in:[NSString stringWithFormat:@"%ld",exptime] client_type:@"ios" name:name avatar_url:avatar handler:^(id data, MError *error) {
+            if(error) {
+                [subscriber sendError:(id)error];
+                return ;
             }
-            [manager updateCompanyArr:companys];
-            if(companys.count != 0) {
-                user.currCompany = [companys[0] deepCopy];
-            }
-            [manager updateUser:user];
-            //获取所有圈子的员工信息
-            [self.navigationController showLoadingTips:@"获取员工信息..."];
-            [UserHttp getEmployeeCompnyNo:0 status:5 userGuid:user.user_guid handler:^(id data, MError *error) {
-                if(error) {
-                    [self.navigationController dismissTips];
-                    _identityManager.identity.user_guid = @"";
-                    [_identityManager saveAuthorizeData];
-                    [self.navigationController.view showFailureTips:error.statsMsg];
-                    return ;
-                }
-                NSMutableArray *array = [@[] mutableCopy];
-                for (NSDictionary *dic in data[@"list"]) {
-                    Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
-                    [array addObject:employee];
-                }
-                [UserHttp getEmployeeCompnyNo:0 status:0 userGuid:user.user_guid handler:^(id data, MError *error) {
-                    if(error) {
-                        [self.navigationController dismissTips];
-                        _identityManager.identity.user_guid = @"";
-                        [_identityManager saveAuthorizeData];
-                        [self.navigationController.view showFailureTips:error.statsMsg];
-                        return ;
-                    }
-                    for (NSDictionary *dic in data[@"list"]) {
-                        Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
-                        [array addObject:employee];
-                    }
-                    [manager updateEmployee:array companyNo:0];
-                    //获取融云token
-                    [self.navigationController showLoadingTips:@"获取token..."];
-                    [UserHttp getRYToken:user.user_no handler:^(id data, MError *error) {
-                        [self.navigationController dismissTips];
-                        if(error) {
-                            _identityManager.identity.user_guid = @"";
-                            [_identityManager saveAuthorizeData];
-                            [self.navigationController.view showFailureTips:error.statsMsg];
-                            return ;
-                        }
-                        _identityManager.identity.RYToken = data;
-                        [_identityManager saveAuthorizeData];
-                        //发通知 登录成功
-                        [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginDidFinish" object:nil];
-                    }];
-                }];
-            }];
+            User *user = [[User alloc] initWithJSONDictionary:data];
+            [_userManager updateUser:user];
+            [_userManager loadUserWithGuid:user.user_guid];
+            _identityManager.identity.user_guid = user.user_guid;
+            [_identityManager saveAuthorizeData];
         }];
+        return nil;
+    }];
+    //qq登录
+    [self.navigationController.view showLoadingTips:@"登录..."];
+    [[[[[_getAccessToken concat:qqLogin] concat:_getCompanys] concat:_getEmployee] concat:_getRYToken] subscribeError:^(NSError *error) {
+        [self.navigationController dismissTips];
+        _identityManager.identity.user_guid = @"";
+        [_identityManager saveAuthorizeData];
+        MError *errorr = (id)error;
+        [self.navigationController.view showFailureTips:errorr.statsMsg];
+    } completed:^{
+        [self.navigationController.view dismissTips];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginDidFinish" object:nil];
     }];
 }
 //微博登录
@@ -455,92 +325,37 @@
     long intervalLong = interval;
     NSString *expiresWeiBo = [NSString stringWithFormat:@"%ld",intervalLong];
     NSString *currentUserId = response.userID;
-    
     [WBHttpRequest requestForUserProfile:currentUserId withAccessToken:accessTokenWeiBo andOtherProperties:nil queue:nil withCompletionHandler:^(WBHttpRequest *httpRequest,id result,NSError *error){
         if (error) {
             [self.navigationController.view showMessageTips:@"微博获取用户信息失败！"];
-        }else{
-            WeiboUser *user = (WeiboUser *)result;
-            //获取token
-            [self.navigationController showLoadingTips:@"获取token..."];
-            [IdentityHttp getAccessTokenhandler:^(id data, MError *error) {
-                if(error) {
-                    [self.navigationController dismissTips];
-                    [self.navigationController.view showFailureTips:error.statsMsg];
-                    return ;
-                }
-                NSString *accessToken = data[@"access_token"];
-                _identityManager.identity.accessToken = accessToken;
-                [_identityManager saveAuthorizeData];
-                //登录
-                [self.navigationController showLoadingTips:@"登录..."];
-                [UserHttp socialLogin:user.userID media_type:3 token:accessTokenWeiBo expires_in:expiresWeiBo client_type:@"ios" name:user.name avatar_url:user.avatarLargeUrl handler:^(id data, MError *error) {
+        } else {
+            WeiboUser *weiboUser = (WeiboUser *)result;
+            RACSignal *wbLogin = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+                [UserHttp socialLogin:weiboUser.userID media_type:3 token:accessTokenWeiBo expires_in:expiresWeiBo client_type:@"ios" name:weiboUser.name avatar_url:weiboUser.avatarLargeUrl handler:^(id data, MError *error) {
                     if(error) {
-                        [self.navigationController.view dismissTips];
-                        [self.navigationController.view showFailureTips:error.statsMsg];
+                        [subscriber sendError:(id)error];
                         return ;
                     }
                     User *user = [[User alloc] initWithJSONDictionary:data];
-                    UserManager *manager = [UserManager manager];
-                    [manager loadUserWithGuid:user.user_guid];
+                    [_userManager updateUser:user];
+                    [_userManager loadUserWithGuid:user.user_guid];
                     _identityManager.identity.user_guid = user.user_guid;
                     [_identityManager saveAuthorizeData];
-                    //获取所有圈子 所有状态员工
-                    [UserHttp getCompanysUserGuid:user.user_guid handler:^(id data, MError *error) {
-                        NSMutableArray *companys = [@[] mutableCopy];
-                        for (NSDictionary *tempDic in data) {
-                            Company *company = [[Company alloc] initWithJSONDictionary:tempDic];
-                            [companys addObject:company];
-                        }
-                        [manager updateCompanyArr:companys];
-                        [manager updateUser:user];
-                        //获取所有圈子的员工信息
-                        [self.navigationController showLoadingTips:@"获取员工信息..."];
-                        [UserHttp getEmployeeCompnyNo:0 status:5 userGuid:user.user_guid handler:^(id data, MError *error) {
-                            if(error) {
-                                [self.navigationController dismissTips];
-                                _identityManager.identity.user_guid = @"";
-                                [_identityManager saveAuthorizeData];
-                                [self.navigationController.view showFailureTips:error.statsMsg];
-                                return ;
-                            }
-                            NSMutableArray *array = [@[] mutableCopy];
-                            for (NSDictionary *dic in data[@"list"]) {
-                                Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
-                                [array addObject:employee];
-                            }
-                            [UserHttp getEmployeeCompnyNo:0 status:0 userGuid:user.user_guid handler:^(id data, MError *error) {
-                                if(error) {
-                                    [self.navigationController dismissTips];
-                                    _identityManager.identity.user_guid = @"";
-                                    [_identityManager saveAuthorizeData];
-                                    [self.navigationController.view showFailureTips:error.statsMsg];
-                                    return ;
-                                }
-                                for (NSDictionary *dic in data[@"list"]) {
-                                    Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
-                                    [array addObject:employee];
-                                }
-                                [manager updateEmployee:array companyNo:0];
-                                //获取融云token
-                                [self.navigationController showLoadingTips:@"获取token..."];
-                                [UserHttp getRYToken:user.user_no handler:^(id data, MError *error) {
-                                    [self.navigationController dismissTips];
-                                    if(error) {
-                                        _identityManager.identity.user_guid = @"";
-                                        [_identityManager saveAuthorizeData];
-                                        [self.navigationController.view showFailureTips:error.statsMsg];
-                                        return ;
-                                    }
-                                    _identityManager.identity.RYToken = data;
-                                    [_identityManager saveAuthorizeData];
-                                    //发通知 登录成功
-                                    [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginDidFinish" object:nil];
-                                }];
-                            }];
-                        }];
-                    }];
+                    [subscriber sendCompleted];
                 }];
+                return nil;
+            }];
+             //微博登录
+            [self.navigationController.view showLoadingTips:@"登录..."];
+            [[[[[_getAccessToken concat:wbLogin] concat:_getCompanys] concat:_getEmployee] concat:_getRYToken] subscribeError:^(NSError *error) {
+                [self.navigationController dismissTips];
+                _identityManager.identity.user_guid = @"";
+                [_identityManager saveAuthorizeData];
+                MError *errorr = (id)error;
+                [self.navigationController.view showFailureTips:errorr.statsMsg];
+            } completed:^{
+                [self.navigationController.view dismissTips];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginDidFinish" object:nil];
             }];
         }
     }];
