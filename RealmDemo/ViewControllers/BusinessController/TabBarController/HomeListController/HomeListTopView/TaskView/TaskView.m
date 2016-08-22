@@ -77,6 +77,7 @@
     NSMutableArray<TaskModel*> *taskArr = [_userManager getTaskArr:_userManager.user.currCompany.company_no];
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
     for (TaskModel *model in taskArr) {
+        if(model.company_no != _userManager.user.currCompany.company_no) continue;
         if(model.status == 0 || model.status == 7 || model.status == 8) continue;
         if([model.createdby isEqualToString:employee.employee_guid]) {//我委派的
             _leftAllCount ++;

@@ -17,11 +17,17 @@
 #import "TaskDetailController.h"
 #import "MoreSelectView.h"
 
-@interface TaskListController ()<UIScrollViewDelegate,TaskClickedDelegate,MoreSelectViewDelegate> {
+@interface TaskListController ()<UIScrollViewDelegate,TaskClickedDelegate,MoreSelectViewDelegate,RBQFetchedResultsControllerDelegate> {
     UserManager *_userManager;
     UISegmentedControl *_topSegmentedControl;//上面的分段控件
     UIScrollView *_bottomScrollView;//下面的滚动视图
     MoreSelectView *_moreSelectView;//多选视图
+    RBQFetchedResultsController *_taskFetchedResultsController;//当前用户任务数据监听
+    
+    InchargeTaskView *_incharge;//负责
+    CreateTaskView *_create;//委派
+    MemberTaskView *_member;//知悉
+    FinishTaskView *_finish;//完结
 }
 
 @end
@@ -32,6 +38,8 @@
     [super viewDidLoad];
     self.title = @"任务列表";
     _userManager = [UserManager manager];
+    _taskFetchedResultsController = [_userManager createTaskFetchedResultsController:_userManager.user.currCompany.company_no];
+    _taskFetchedResultsController.delegate = self;
     self.view.backgroundColor = [UIColor whiteColor];
     
     _topSegmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"负责的",@"委派的",@"知悉的",@"已完结"]];
@@ -62,21 +70,21 @@
     self.data = @"YES";
     
     //负责的
-    InchargeTaskView *incharge = [[InchargeTaskView alloc] initWithFrame:CGRectMake(0, 0, _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height)];
-    incharge.delegate = self;
-    [_bottomScrollView addSubview:incharge];
+    _incharge = [[InchargeTaskView alloc] initWithFrame:CGRectMake(0, 0, _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height)];
+    _incharge.delegate = self;
+    [_bottomScrollView addSubview:_incharge];
     //委派的
-    CreateTaskView *create = [[CreateTaskView alloc] initWithFrame:CGRectMake(_bottomScrollView.frame.size.width, 0, _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height)];
-    create.delegate = self;
-    [_bottomScrollView addSubview:create];
+    _create = [[CreateTaskView alloc] initWithFrame:CGRectMake(_bottomScrollView.frame.size.width, 0, _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height)];
+    _create.delegate = self;
+    [_bottomScrollView addSubview:_create];
     //知悉的
-    MemberTaskView *member = [[MemberTaskView alloc] initWithFrame:CGRectMake(2 * _bottomScrollView.frame.size.width, 0, _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height)];
-    member.delegate = self;
-    [_bottomScrollView addSubview:member];
+    _member = [[MemberTaskView alloc] initWithFrame:CGRectMake(2 * _bottomScrollView.frame.size.width, 0, _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height)];
+    _member.delegate = self;
+    [_bottomScrollView addSubview:_member];
     //完结的
-    FinishTaskView *finish = [[FinishTaskView alloc] initWithFrame:CGRectMake(3 * _bottomScrollView.frame.size.width, 0, _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height)];
-    finish.delegate = self;
-    [_bottomScrollView addSubview:finish];
+    _finish = [[FinishTaskView alloc] initWithFrame:CGRectMake(3 * _bottomScrollView.frame.size.width, 0, _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height)];
+    _finish.delegate = self;
+    [_bottomScrollView addSubview:_finish];
     
     //创建多选视图
     _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100, 0, 100, 80)];
@@ -92,6 +100,44 @@
     else
         _topSegmentedControl.selectedSegmentIndex = 1;
     [self segmentedClicked:_topSegmentedControl];
+    [self getCurrData];
+}
+#pragma mark -- RBQFetchedResultsControllerDelegate
+- (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
+    [self getCurrData];
+}
+- (void)getCurrData {
+    NSMutableArray *inchargeArr = [@[] mutableCopy];
+    NSMutableArray *createArr = [@[] mutableCopy];
+    NSMutableArray *memberArr = [@[] mutableCopy];
+    NSMutableArray *finishArr = [@[] mutableCopy];
+    
+    NSArray *allTaskArr = [_userManager getTaskArr:_userManager.user.currCompany.company_no];
+    Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
+    for (TaskModel *model in allTaskArr) {
+        if(model.company_no != _userManager.user.currCompany.company_no) continue;
+        if(model.status == 0) continue;
+        //得到已终止的任务
+        if(model.status == 7 && model.status == 8) {
+            [finishArr addObject:model];
+        }
+        //得到委派的任务
+        if([model.createdby isEqualToString:employee.employee_guid]) {
+            [createArr addObject:model];
+        }
+        //得到负责的任务
+        if([model.incharge isEqualToString:employee.employee_guid]) {
+            [inchargeArr addObject:model];
+        }
+        //得到我知悉的任务
+        if([model.members rangeOfString:employee.employee_guid].location != NSNotFound) {
+            [memberArr addObject:model];
+        }
+    }
+    _finish.data = finishArr;
+    _create.data = createArr;
+    _incharge.data = inchargeArr;
+    _member.data = memberArr;
 }
 - (void)moreClicked:(UIBarButtonItem*)item {
     if(_moreSelectView.isHide)

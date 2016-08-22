@@ -243,11 +243,12 @@
         [self.navigationController pushViewController:calendar animated:YES];
     } else {
         [self.navigationController.view showLoadingTips:@"正在同步..."];
+        WeakSelf(weakSelf)
         //    这里是用户向服务器提交数据 现在还没有改
         [UserHttp getUserCalendar:_userManager.user.user_guid handler:^(id data, MError *error) {
             [self.navigationController.view dismissTips];
             if(error) {
-                [self.navigationController.view showFailureTips:error.statsMsg];
+                [weakSelf.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
             NSMutableArray *array = [@[] mutableCopy];
@@ -257,7 +258,7 @@
                 [array addObject:calendar];
             }
             [_userManager updateCalendars:array];
-            [self.navigationController.view showSuccessTips:@"同步成功"];
+            [weakSelf.navigationController.view showSuccessTips:@"同步成功"];
         }];
     }
 }

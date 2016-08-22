@@ -151,8 +151,8 @@
                 return ;
             }
             User *user = [[User alloc] initWithJSONDictionary:data];
-            [_userManager updateUser:user];
             [_userManager loadUserWithGuid:user.user_guid];
+            [_userManager updateUser:user];
             _identityManager.identity.user_guid = user.user_guid;
             [_identityManager saveAuthorizeData];
             [subscriber sendCompleted];
@@ -190,15 +190,11 @@
 }
 #pragma mark - WXApiManagerDeleagate
 -(void)managerDidRecvAuthResponse:(SendAuthResp *)response {
-    if (response.errCode == 0) {
-        [self getAccessTokenWeiXin:response.code];
-    } else {
+    if(response.errCode != 0) {
         [self.navigationController.view showMessageTips:@"微信授权失败"];
+        return;
     }
-}
- //获取微信token
-- (void)getAccessTokenWeiXin:(NSString*)codeWeixin {
-     NSString *urlStr = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code",@"wxbd349c9a6abf20f8",@"30068a0f26955393f85428d97fece628",codeWeixin];
+    NSString *urlStr = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/access_token?appid=%@&secret=%@&code=%d&grant_type=authorization_code",@"wxbd349c9a6abf20f8",@"30068a0f26955393f85428d97fece628",response.errCode];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSURL *url = [NSURL URLWithString:urlStr];
         NSString *requestStr = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
@@ -240,8 +236,8 @@
                                 return ;
                             }
                             User *user = [[User alloc] initWithJSONDictionary:data];
-                            [_userManager updateUser:user];
                             [_userManager loadUserWithGuid:user.user_guid];
+                            [_userManager updateUser:user];
                             _identityManager.identity.user_guid = user.user_guid;
                             [_identityManager saveAuthorizeData];
                             [subscriber sendCompleted];
@@ -286,8 +282,8 @@
                 return ;
             }
             User *user = [[User alloc] initWithJSONDictionary:data];
-            [_userManager updateUser:user];
             [_userManager loadUserWithGuid:user.user_guid];
+            [_userManager updateUser:user];
             _identityManager.identity.user_guid = user.user_guid;
             [_identityManager saveAuthorizeData];
         }];
@@ -337,8 +333,8 @@
                         return ;
                     }
                     User *user = [[User alloc] initWithJSONDictionary:data];
-                    [_userManager updateUser:user];
                     [_userManager loadUserWithGuid:user.user_guid];
+                    [_userManager updateUser:user];
                     _identityManager.identity.user_guid = user.user_guid;
                     [_identityManager saveAuthorizeData];
                     [subscriber sendCompleted];

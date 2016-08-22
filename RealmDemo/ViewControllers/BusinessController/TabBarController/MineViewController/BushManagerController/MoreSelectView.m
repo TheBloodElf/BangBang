@@ -29,19 +29,21 @@
     [_tableView reloadData];
 }
 - (void)showSelectView {
+    WeakSelf(weakSelf)
    [UIView animateWithDuration:0.2 animations:^{
-       self.alpha = 1;
+       weakSelf.alpha = 1;
    } completion:^(BOOL finished) {
-       self.hidden = NO;
-       self.isHide = NO;
+       weakSelf.hidden = NO;
+       weakSelf.isHide = NO;
    }];
 }
 - (void)hideSelectView {
+    WeakSelf(weakSelf)
     [UIView animateWithDuration:0.2 animations:^{
-        self.alpha = 0;
+        weakSelf.alpha = 0;
     } completion:^(BOOL finished) {
-        self.hidden = YES;
-        self.isHide = YES;
+        weakSelf.hidden = YES;
+        weakSelf.isHide = YES;
     }];
 }
 #pragma mark --

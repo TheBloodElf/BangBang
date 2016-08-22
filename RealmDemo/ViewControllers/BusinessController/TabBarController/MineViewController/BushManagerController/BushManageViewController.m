@@ -47,11 +47,12 @@
     _tableView.tableFooterView = [UIView new];
     [_tableView registerNib:[UINib nibWithNibName:@"BushManagerCell" bundle:nil] forCellReuseIdentifier:@"BushManagerCell"];
     [self.view addSubview:_tableView];
+    WeakSelf(weakSelf)
     _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [UserHttp getCompanysUserGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
             [_tableView.mj_header endRefreshing];
             if(error) {
-                [self.navigationController.view showFailureTips:error.statsMsg];
+                [weakSelf.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
             NSMutableArray<Company*> *companys = [@[] mutableCopy];

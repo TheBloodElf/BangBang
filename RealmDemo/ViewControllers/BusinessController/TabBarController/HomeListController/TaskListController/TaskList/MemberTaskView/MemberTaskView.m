@@ -7,15 +7,13 @@
 //
 
 #import "MemberTaskView.h"
-#import "UserManager.h"
+#import "TaskModel.h"
 #import "TaskListCell.h"
 #import "NoResultView.h"
 
-@interface MemberTaskView  ()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource,RBQFetchedResultsControllerDelegate> {
-    UserManager *_userManager;
+@interface MemberTaskView  ()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource> {
     UISearchBar *_searchBar;
-    NSMutableArray<TaskModel*> *_taskArr;
-    RBQFetchedResultsController *_inchargeFetchedResultsController;
+    NSMutableArray<TaskModel*> *_currArr;
     UITableView *_tableView;
     NoResultView *_noDataView;
 }
@@ -30,10 +28,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _taskArr = [@[] mutableCopy];
-        _userManager = [UserManager manager];
-        _inchargeFetchedResultsController = [_userManager createTaskFetchedResultsController:_userManager.user.currCompany.company_no];
-        _inchargeFetchedResultsController.delegate = self;
+        _currArr = [@[] mutableCopy];
         //创建搜索框
         _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 55)];
         _searchBar.delegate = self;
@@ -51,35 +46,27 @@
         [_tableView registerNib:[UINib nibWithNibName:@"TaskListCell" bundle:nil] forCellReuseIdentifier:@"TaskListCell"];
         [self addSubview:_tableView];
         _noDataView = [[NoResultView alloc] initWithFrame:_tableView.bounds];
-        [self getCurrData];
     }
     return self;
 }
+- (void)dataDidChange {
+    [self getCurrData];
+    [_tableView reloadData];
+}
 - (void)getCurrData {
-    [_taskArr removeAllObjects];
-    //获取我委派的数据
-    Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
-    NSArray *array = [_userManager getTaskArr:_userManager.user.currCompany.company_no];
-    for (TaskModel *model in array) {
-        if(model.status == 0 || model.status == 7 || model.status == 8) continue;
-        if([model.members rangeOfString:employee.employee_guid].location != NSNotFound) {
-            if([NSString isBlank:_searchBar.text]) {
-                [_taskArr addObject:model];
-            } else {
-                if([model.descriptionStr rangeOfString:_searchBar.text].location != NSNotFound)
-                    [_taskArr addObject:model];
-            }
+    [_currArr removeAllObjects];
+    for (TaskModel *model in self.data) {
+        if([NSString isBlank:_searchBar.text]) {
+            [_currArr addObject:model];
+        } else {
+            if([model.descriptionStr rangeOfString:_searchBar.text].location != NSNotFound)
+                [_currArr addObject:model];
         }
     }
-    if(_taskArr.count == 0)
+    if(_currArr.count == 0)
         _tableView.tableFooterView = _noDataView;
     else
         _tableView.tableFooterView = [UIView new];
-}
-#pragma mark -- RBQFetchedResultsControllerDelegate
-- (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
-    [self getCurrData];
-    [_tableView reloadData];
 }
 #pragma mark -- UISearchBarDelegate
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
@@ -93,17 +80,17 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _taskArr.count;
+    return _currArr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TaskListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskListCell" forIndexPath:indexPath];
-    cell.data = _taskArr[indexPath.row];
+    cell.data = _currArr[indexPath.row];
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if(self.delegate && [self.delegate respondsToSelector:@selector(taskClicked:)]) {
-        [self.delegate taskClicked:_taskArr[indexPath.row]];
+        [self.delegate taskClicked:_currArr[indexPath.row]];
     }
 }
 

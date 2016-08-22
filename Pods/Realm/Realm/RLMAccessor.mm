@@ -65,14 +65,15 @@ static inline void RLMSetValue(__unsafe_unretained RLMObjectBase *const obj, NSU
     RLMVerifyInWriteTransaction(obj);
     obj->_row.set_int(colIndex, val);
 }
-static inline void RLMSetValueUnique(__unsafe_unretained RLMObjectBase *const obj, NSUInteger colIndex, NSString *propName, long long val) {
+static inline void RLMSetValueUnique(__unsafe_unretained RLMObjectBase *obj, NSUInteger colIndex, NSString *propName, long long val) {
     RLMVerifyInWriteTransaction(obj);
     size_t row = obj->_row.get_table()->find_first_int(colIndex, val);
     if (row == obj->_row.get_index()) {
         return;
     }
     if (row != realm::not_found) {
-        @throw RLMException(@"Can't set primary key property '%@' to existing value '%lld'.", propName, val);
+        NSString *reason = [NSString stringWithFormat:@"Can't set primary key property '%@' to existing value '%lld'.", propName, val];
+        @throw [NSException exceptionWithName:@"RLMException" reason:reason userInfo:nil];
     }
     obj->_row.set_int(colIndex, val);
 }

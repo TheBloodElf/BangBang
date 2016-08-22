@@ -741,8 +741,7 @@
 //任务数据监听
 - (RBQFetchedResultsController*)createTaskFetchedResultsController:(int)companyNo {
     RBQFetchedResultsController *fetchedResultsController = nil;
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(company_no = %d and status != 0)",companyNo];
-    RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"TaskModel" inRealm:_rlmRealm predicate:predicate];
+    RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"TaskModel" inRealm:_rlmRealm predicate:nil];
     fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:nil];
     [fetchedResultsController performFetch];
     return fetchedResultsController;
