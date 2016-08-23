@@ -22,5 +22,6 @@
 @interface ComCalendarView : UIView
 
 @property (nonatomic, weak) id<ComCalendarViewDelegate> delegate;
+@property (nonatomic, assign) BOOL isDetail;//是否在详情页面，用户不能操作
 
 @end

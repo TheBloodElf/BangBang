@@ -47,8 +47,7 @@
     [self.view addSubview:_scrollView];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightButtonClicked:)];
     //按钮是否能够被点击
-    RACSignal *nameSignal = RACObserve(_currUser, mood);
-    RAC(self.navigationItem.rightBarButtonItem,enabled) = [nameSignal map:^(NSString *mood) {
+    RAC(self.navigationItem.rightBarButtonItem,enabled) = [_textField.rac_textSignal map:^(NSString *mood) {
         if([NSString isBlank:mood])
             return @(NO);
         return @(YES);
@@ -62,13 +61,9 @@
 - (void)rightButtonClicked:(UIBarButtonItem*)item
 {
     [self.view endEditing:YES];
+    _currUser.mood = _textField.text;
     [self.delegate changeUserInfo:_currUser];
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField
-{
-    _currUser.mood = textField.text;
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];

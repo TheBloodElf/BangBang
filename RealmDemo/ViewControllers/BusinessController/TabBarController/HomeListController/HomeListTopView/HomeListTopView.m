@@ -50,7 +50,7 @@
         [_taskBtn addTarget:self action:@selector(btnClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_taskBtn];
         //创建线
-        _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 30, frame.size.width / 2, 2)];
+        _lineView = [[UIView alloc] initWithFrame:CGRectMake(10, 30, frame.size.width / 2 - 20, 2)];
         _lineView.backgroundColor = [UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1];
         [self addSubview:_lineView];
         //创建滚动视图
@@ -117,6 +117,6 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     //线条移动
     CGFloat scrollX = scrollView.contentOffset.x;
-    _lineView.frame = CGRectMake(scrollX / 2, 30, scrollView.frame.size.width / 2, 2);
+    _lineView.frame = CGRectMake(scrollX / 2 + 10, 30, scrollView.frame.size.width / 2 - 20, 2);
 }
 @end

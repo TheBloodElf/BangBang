@@ -11,7 +11,6 @@
 #import "UserManager.h"
 #import "ComCalendarDetailViewController.h"
 #import "RepCalendarDetailController.h"
-
 #import "NoResultView.h"
 
 @interface CalendarListController ()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource,RBQFetchedResultsControllerDelegate> {

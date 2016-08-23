@@ -8,12 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-//@protocol AreaControllerDelegate <NSObject>
-//
-//- (void)areaSelectAdress:(NSString*)region city:(NSString*)city area:(NSString*)area;
-//
-//@end
-
 @interface AreaController : UIViewController
 /**
  *  该市所有区的数组

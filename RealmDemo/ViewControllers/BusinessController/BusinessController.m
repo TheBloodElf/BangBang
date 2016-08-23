@@ -37,7 +37,5 @@
     _businessNav.navigationBar.translucent = NO;
     _businessNav.navigationBar.barTintColor = [UIColor homeListColor];
     [self.view addSubview:_businessNav.view];
-    
-    
 }
 @end

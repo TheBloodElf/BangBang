@@ -41,8 +41,8 @@
             self.detailLabel.hidden = YES;
             for (int index = 0;index < employeeArr.count; index ++) {
                 UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(30 * index, 1.5, 27, 27)];
-                [imageView sd_setImageWithURL:[NSURL URLWithString:[employeeArr[index] avatar]] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
                 [imageView zy_cornerRadiusRoundingRect];
+                [imageView sd_setImageWithURL:[NSURL URLWithString:[employeeArr[index] avatar]] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
                 [self.memberImage addSubview:imageView];
             }
         } else {
@@ -50,15 +50,15 @@
                 self.detailLabel.hidden = YES;
                 for (int index = 0;index < employeeArr.count; index ++) {
                     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(30 * index, 1.5, 27, 27)];
-                    [imageView sd_setImageWithURL:[NSURL URLWithString:[employeeArr[index] avatar]] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
                     [imageView zy_cornerRadiusRoundingRect];
+                    [imageView sd_setImageWithURL:[NSURL URLWithString:[employeeArr[index] avatar]] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
                     [self.memberImage addSubview:imageView];
                 }
             } else {
                 for (int index = 0;index < 6; index ++) {//只显示前面6个
                     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(30 * index, 1.5, 27, 27)];
-                    [imageView sd_setImageWithURL:[NSURL URLWithString:[employeeArr[index] avatar]] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
                     [imageView zy_cornerRadiusRoundingRect];
+                    [imageView sd_setImageWithURL:[NSURL URLWithString:[employeeArr[index] avatar]] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
                     [self.memberImage addSubview:imageView];
                 }
                 self.detailLabel.hidden = NO;

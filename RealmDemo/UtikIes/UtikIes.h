@@ -30,6 +30,7 @@
 #import <JTCalendar/JTCalendar.h>//日历库
 #import "WebViewJavascriptBridge.h"//JS 原生交互
 #import "NSDate+Format.h"//时间分类 取出时/分/秒等
+#import "UIView+parentViewController.h"//找到自己所在的视图控制器
 #import "InterfaceConfig.h"//网络地址配置
 #import "NSString+StringSize.h"//求字符串长/高
 #import <RongIMKit/RongIMKit.h>//融云

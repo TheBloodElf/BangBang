@@ -28,6 +28,7 @@
     [self.view addSubview:_scrollView];
     _textField = [[UITextField alloc] initWithFrame:CGRectMake(20, 20, MAIN_SCREEN_WIDTH - 40, 30)];
     _textField.delegate = self;
+    _textField.returnKeyType = UIReturnKeyDone;
     _textField.placeholder = @"输入讨论组名称";
     _textField.text = _currRCDiscussion.discussionName;
     [_scrollView addSubview:_textField];
@@ -43,20 +44,25 @@
     [_scrollView addSubview:label];
     [self.view addSubview:_scrollView];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightButtonClicked:)];
+    RAC(self.navigationItem.rightBarButtonItem,enabled) = [_textField.rac_textSignal map:^(NSString *value) {
+        if([NSString isBlank:value])
+            return @(NO);
+        return @(YES);
+    }];
     // Do any additional setup after loading the view.
 }
 - (void)dataDidChange {
     _currRCDiscussion = self.data;
 }
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
 - (void)rightButtonClicked:(UIBarButtonItem*)item
 {
     [self.view endEditing:YES];
-    if([NSString isBlank:_textField.text])
-    {
-        [self.navigationController.view showMessageTips:@"请输入名称"];
-        return;
-    }
-    [self.delegate RYGroupSetName:_textField.text];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(RYGroupSetName:)])
+        [self.delegate RYGroupSetName:_textField.text];
     [self.navigationController popViewControllerAnimated:YES];
 }
 @end

@@ -29,7 +29,7 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g7h-Qf-O9a">
-                    <rect key="frame" x="59" y="13" width="210" height="17"/>
+                    <rect key="frame" x="59" y="13" width="185" height="17"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="17" id="RY3-cV-TcV"/>
                     </constraints>
@@ -46,11 +46,11 @@
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2016-08-12 23:10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cpc-aE-bcc">
-                    <rect key="frame" x="279" y="14" width="125" height="15"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2016-08-12 23:10" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cpc-aE-bcc">
+                    <rect key="frame" x="254" y="14" width="150" height="15"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="15" id="H5b-cD-fHK"/>
-                        <constraint firstAttribute="width" constant="125" id="pfy-Rc-1oG"/>
+                        <constraint firstAttribute="width" constant="150" id="pfy-Rc-1oG"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>

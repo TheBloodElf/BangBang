@@ -32,6 +32,7 @@
     _comCalendarView = [[ComCalendarView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT)];
     _comCalendarView.data = _currCalendar;
     _comCalendarView.delegate = self;
+    _comCalendarView.isDetail = NO;
     [self.view addSubview:_comCalendarView];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightClicked:)];
     //确定按钮是否能够被点击

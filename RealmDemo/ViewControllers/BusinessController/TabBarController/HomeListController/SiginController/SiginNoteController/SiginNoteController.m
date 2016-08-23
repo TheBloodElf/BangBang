@@ -71,7 +71,10 @@
     UITapGestureRecognizer *tgr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tgrAction:)];
     [_rightBarLabel addGestureRecognizer:tgr];
     _rightBarLabel.userInteractionEnabled = YES;
-    
+    NSMutableAttributedString *content = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@年%@月",@(_currDate.year),@(_currDate.month)]];
+    NSRange contentRange = {0, [content length]};
+    [content addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:contentRange];
+    _rightBarLabel.attributedText = content;
     [self getSiginWithDate:_currDate];
 }
 ///选择时间

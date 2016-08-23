@@ -100,12 +100,17 @@
     else
         _topSegmentedControl.selectedSegmentIndex = 1;
     [self segmentedClicked:_topSegmentedControl];
-    [self getCurrData];
+    NSArray *allTaskArr = [_userManager getTaskArr:_userManager.user.currCompany.company_no];
+    if(allTaskArr.count == 0)
+        [self tongBuTask];
+    else
+        [self getCurrData];
 }
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
     [self getCurrData];
 }
+//获得各个页面对应的数据
 - (void)getCurrData {
     NSMutableArray *inchargeArr = [@[] mutableCopy];
     NSMutableArray *createArr = [@[] mutableCopy];
@@ -118,8 +123,9 @@
         if(model.company_no != _userManager.user.currCompany.company_no) continue;
         if(model.status == 0) continue;
         //得到已终止的任务
-        if(model.status == 7 && model.status == 8) {
+        if(model.status == 7 || model.status == 8) {
             [finishArr addObject:model];
+            continue;
         }
         //得到委派的任务
         if([model.createdby isEqualToString:employee.employee_guid]) {
@@ -153,24 +159,28 @@
         TaskCreateController *create = [TaskCreateController new];
         [self.navigationController pushViewController:create animated:YES];
     } else {
-        Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
-        [self.navigationController.view showLoadingTips:@"同步任务..."];
-        [UserHttp getTaskList:employee.employee_guid handler:^(id data, MError *error) {
-            [self.navigationController.view dismissTips];
-            if(error) {
-                [self.navigationController.view showFailureTips:error.statsMsg];
-                return ;
-            }
-            NSMutableArray<TaskModel*> *array = [@[] mutableCopy];
-            for (NSDictionary *dic in data[@"list"]) {
-                TaskModel *model = [[TaskModel alloc] initWithJSONDictionary:dic];
-                model.descriptionStr = dic[@"description"];
-                [array addObject:model];
-            }
-            [_userManager updateTask:array companyNo:_userManager.user.currCompany.company_no];
-            [self.navigationController.view showSuccessTips:@"同步成功"];
-        }];
+        [self tongBuTask];
     }
+}
+//同步任务
+- (void)tongBuTask {
+    Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
+    [self.navigationController.view showLoadingTips:@"同步任务..."];
+    [UserHttp getTaskList:employee.employee_guid handler:^(id data, MError *error) {
+        [self.navigationController.view dismissTips];
+        if(error) {
+            [self.navigationController.view showFailureTips:error.statsMsg];
+            return ;
+        }
+        NSMutableArray<TaskModel*> *array = [@[] mutableCopy];
+        for (NSDictionary *dic in data[@"list"]) {
+            TaskModel *model = [[TaskModel alloc] initWithJSONDictionary:dic];
+            model.descriptionStr = dic[@"description"];
+            [array addObject:model];
+        }
+        [_userManager updateTask:array companyNo:_userManager.user.currCompany.company_no];
+        [self.navigationController.view showSuccessTips:@"同步成功"];
+    }];
 }
 #pragma mark -- TaskClickedDelegate
 - (void)taskClicked:(TaskModel *)taskModel {

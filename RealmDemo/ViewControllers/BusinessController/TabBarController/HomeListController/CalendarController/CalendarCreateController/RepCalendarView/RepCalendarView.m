@@ -167,6 +167,9 @@
         cell.data = _calendar;
     }
     
+    if(self.isDetail)
+        cell.userInteractionEnabled = NO;
+    
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
