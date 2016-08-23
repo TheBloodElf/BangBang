@@ -102,19 +102,13 @@
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
     if(controller == _pushMessageFetchedResultsController) {
-        UILabel *label = [_rightNavigationBarButton viewWithTag:1001];
+        PPDragDropBadgeView *label = [_rightNavigationBarButton viewWithTag:1001];
         int count = 0;
         for (PushMessage *push in controller.fetchedObjects) {
             if(push.unread == YES)
                 count ++;
         }
-        label.backgroundColor = [UIColor redColor];
-        if(count)
-            label.text = [NSString stringWithFormat:@"%d",count];
-        else {
-            label.text = nil;
-            label.backgroundColor = [UIColor clearColor];
-        }
+        label.text = [NSString stringWithFormat:@"%d",count];
     } else if(controller == _userFetchedResultsController) {
         User *user = [_userManager user];
         //重新设置签到记录的数据监听
@@ -164,9 +158,9 @@
 {
     if(_userManager.user.currCompany.company_no == 0) {
         [self.navigationController.view showMessageTips:@"请选择一个圈子后再进行此操作"];
-    } else {
-        aBlock();
+        return;
     }
+    aBlock();
 }
 //今天完成日程被点击
 - (void)todayFinishCalendar {
@@ -300,24 +294,15 @@
     [_rightNavigationBarButton addTarget:self action:@selector(rightNavigationBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     _rightNavigationBarButton.clipsToBounds = NO;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_rightNavigationBarButton];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, -5, 15, 15)];
+    PPDragDropBadgeView *label = [[PPDragDropBadgeView alloc] initWithFrame:CGRectMake(20, -5, 15, 15)];
     int count = 0;
     for (PushMessage *push in [_userManager getPushMessageArr]) {
         if(push.unread == YES)
             count ++;
     }
-    label.backgroundColor = [UIColor redColor];
-    if(count)
-        label.text = [NSString stringWithFormat:@"%d",count];
-    else {
-        label.text = nil;
-        label.backgroundColor = [UIColor clearColor];
-    }
-    label.layer.cornerRadius = 7.5;
-    label.clipsToBounds = YES;
+    label.text = [NSString stringWithFormat:@"%d",count];
     label.textColor = [UIColor whiteColor];
     label.font = [UIFont systemFontOfSize:10];
-    label.textAlignment = NSTextAlignmentCenter;
     label.tag = 1001;
     [_rightNavigationBarButton addSubview:label];
 }

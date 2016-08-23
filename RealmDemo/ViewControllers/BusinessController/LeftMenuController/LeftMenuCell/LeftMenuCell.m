@@ -13,6 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *companyImage;
 @property (weak, nonatomic) IBOutlet UILabel *companyName;
+
 @end
 
 @implementation LeftMenuCell

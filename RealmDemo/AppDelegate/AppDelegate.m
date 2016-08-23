@@ -20,6 +20,10 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    //启动JSPath
+    [JPEngine startEngine];
+    NSString *sourcePath = [[NSBundle mainBundle] pathForResource:@"RealmJs" ofType:@"js"];
+    [JPEngine evaluateScriptWithPath:sourcePath];
     //Realm数据库版本
     RLMRealmConfiguration *config = [RLMRealmConfiguration defaultConfiguration];
     config.schemaVersion = 2;
@@ -50,19 +54,10 @@
     self.window.rootViewController = [MainViewController new];
     [self.window makeKeyAndVisible];
     //注册3d touch功能
-    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0f) {
-        UIApplicationShortcutItem *shortcutItem = [launchOptions objectForKeyedSubscript:UIApplicationLaunchOptionsShortcutItemKey];
-        int currIndex = 0;
-        if ([shortcutItem.type isEqualToString:@"今日日程"]) {
-            currIndex = 0;
-        } else if ([shortcutItem.type isEqualToString:@"签到"]) {
-            currIndex = 1;
-        }
-        //发出通知弹出控制器
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"OpenSoft_FormTouch_Notication" object:@(currIndex)];
-    }
+    [self start3DTouch:launchOptions];
     return YES;
 }
+//3d touch入口
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler
 {
     int currIndex = 0;
@@ -84,8 +79,8 @@
     }
     return YES;
 }
+//today扩展进来的
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(nullable NSString *)sourceApplication annotation:(id)annotation {
-    //today扩展进来的
     if([[url.absoluteString componentsSeparatedByString:@"//"][1] isEqualToString:@"openCalendar"]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"OpenSoft_FormToday_openCalendar_Notication" object:[url.absoluteString componentsSeparatedByString:@"//"][2]];
     } else if ([[url.absoluteString componentsSeparatedByString:@"//"][1] isEqualToString:@"addCalendar"]) {
@@ -110,6 +105,21 @@
     //交给管理器去处理
     [[ApnsManager manager] application:application didReceiveLocalNotification:notification];
 }
+//注册3D TOUCH
+- (void)start3DTouch:(NSDictionary *)launchOptions {
+    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0f) {
+        UIApplicationShortcutItem *shortcutItem = [launchOptions objectForKeyedSubscript:UIApplicationLaunchOptionsShortcutItemKey];
+        int currIndex = 0;
+        if ([shortcutItem.type isEqualToString:@"今日日程"]) {
+            currIndex = 0;
+        } else if ([shortcutItem.type isEqualToString:@"签到"]) {
+            currIndex = 1;
+        }
+        //发出通知弹出控制器
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"OpenSoft_FormTouch_Notication" object:@(currIndex)];
+    }
+}
+//注册百度统计
 - (void)startBDMobStat {
     BaiduMobStat* statTracker = [BaiduMobStat defaultStat];
     statTracker.enableExceptionLog = YES; // 是否允许截获并发送崩溃信息，请设置YES或者NO

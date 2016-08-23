@@ -276,9 +276,9 @@
 {
     if([UserManager manager].user.currCompany.company_no == 0) {
         [self.navigationController.view showMessageTips:@"请选择一个圈子后再进行此操作"];
-    } else {
-        aBlock();
+        return;
     }
+    aBlock();
 }
 - (UINavigationController*)homeListController {
     HomeListController *home = [HomeListController new];

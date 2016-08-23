@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-//业务控制器
+//业务控制器 通过JSPath创建得到
 @interface BusinessController : UIViewController
 
 @end

@@ -7,35 +7,31 @@
 //
 
 #import "BusinessController.h"
-#import "REFrostedViewController.h"
-#import "LeftMenuController.h"
-#import "RequestManagerController.h"
-#import "BushManageViewController.h"
-#import "MainBusinessController.h"
+//#import "REFrostedViewController.h"
+//#import "LeftMenuController.h"
+//#import "MainBusinessController.h"
 
 @interface BusinessController () {
-    UINavigationController *_businessNav;//这个导航用于弹出通知信息，是业务模块的根控制器
-}
+    }
 @end
 
 @implementation BusinessController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
-    //创建界面
-    REFrostedViewController *_rEFrostedView = [[REFrostedViewController alloc] initWithContentViewController:[MainBusinessController new] menuViewController:[LeftMenuController new]];
-    _rEFrostedView.direction = REFrostedViewControllerDirectionLeft;
-    _rEFrostedView.menuViewSize = CGSizeMake(MAIN_SCREEN_WIDTH*3/4, MAIN_SCREEN_HEIGHT + 44);
-    _rEFrostedView.liveBlur = YES;
-    //创建业务根视图控制器
-    _businessNav = [[UINavigationController alloc] initWithRootViewController:_rEFrostedView];
-    [self addChildViewController:_businessNav];
-    [_businessNav.view willMoveToSuperview:self.view];
-    [_businessNav willMoveToParentViewController:self];
-    [_businessNav setNavigationBarHidden:YES animated:YES];
-    _businessNav.navigationBar.translucent = NO;
-    _businessNav.navigationBar.barTintColor = [UIColor homeListColor];
-    [self.view addSubview:_businessNav.view];
+//    self.view.backgroundColor = [UIColor whiteColor];
+//    //创建界面
+//    REFrostedViewController *_rEFrostedView = [[REFrostedViewController alloc] initWithContentViewController:[MainBusinessController new] menuViewController:[LeftMenuController new]];
+//    _rEFrostedView.direction = REFrostedViewControllerDirectionLeft;
+//    _rEFrostedView.liveBlur = YES;
+//    //这个导航用于弹出通知信息，是业务模块的根控制器
+//    UINavigationController *businessNav = [[UINavigationController alloc] initWithRootViewController:_rEFrostedView];
+//    [self addChildViewController:businessNav];
+//    [businessNav.view willMoveToSuperview:self.view];
+//    [businessNav willMoveToParentViewController:self];
+//    [businessNav setNavigationBarHidden:YES animated:YES];
+//    businessNav.navigationBar.translucent = NO;
+//    businessNav.navigationBar.barTintColor = [UIColor colorWithRed:8/255.f green:21/255.f blue:63/255.f alpha:1];
+//    [self.view addSubview:businessNav.view];
 }
 @end

@@ -50,6 +50,9 @@
     _tableView.dataSource = self;
     _tableView.tableHeaderView = [self tableViewHeaderView];
     _tableView.tableFooterView = [UIView new];
+    //自动计算CELL高度
+//    _tableView.estimatedRowHeight = 68.0;
+//    _tableView.rowHeight = UITableViewAutomaticDimension;
     [_tableView registerNib:[UINib nibWithNibName:@"XAddrBookCell" bundle:nil] forCellReuseIdentifier:@"XAddrBookCell"];
     [self.view addSubview:_tableView];
     //创建选择视图
@@ -273,7 +276,25 @@
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)sender {
     return _employeekeyArr;
 }
-
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    view.alpha = 0;
+    [UIView animateWithDuration:0.6 animations:^{
+        view.alpha = 1;
+    }];
+}
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    cell.alpha = 0;
+    [UIView animateWithDuration:0.6 animations:^{
+        cell.alpha = 1;
+    }];
+    //让CELL的分割线距离左边为0
+//    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+//        [cell setSeparatorInset:UIEdgeInsetsZero];
+//    }
+//    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+//        [cell setLayoutMargins:UIEdgeInsetsZero];
+//    }
+}
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     XAddrBookCell *cell = [tableView dequeueReusableCellWithIdentifier:@"XAddrBookCell" forIndexPath:indexPath];
     Employee * employee = [[_employeeDataArr objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];

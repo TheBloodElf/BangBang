@@ -193,24 +193,25 @@
                 //得到所有的时间
                 NSArray * occurences = [s occurencesBetween:[NSDate dateWithTimeIntervalSince1970:tempCalendar.r_begin_date_utc/1000] andDate:[NSDate dateWithTimeIntervalSince1970:tempCalendar.r_end_date_utc/1000]];
                 for (NSDate *tempDate in occurences) {
+                    //值加载今天的日程
                     if(tempDate.year == _userSelectedDate.year && tempDate.month == _userSelectedDate.month && tempDate.day == _userSelectedDate.day) {
-                        if([tempCalendar haveDeleteDate:_userSelectedDate]) continue;
-                        if([tempCalendar haveFinishDate:_userSelectedDate]) {//当前已完成
-                            Calendar *calendar = [[Calendar alloc] initWithJSONDictionary:[tempCalendar JSONDictionary]];
+                        if([tempCalendar haveDeleteDate:tempDate]) continue;
+                        if([tempCalendar haveFinishDate:tempDate]) {//当前已完成
+                            Calendar *calendar = [tempCalendar deepCopy];
                             calendar.status = 2;
-                            if(tempCalendar.is_allday == YES)
+                            if(calendar.is_allday == YES)
                                 [_todayAlldayCalendarArr addObject:calendar];
-                            else if (tempCalendar.r_end_date_utc - tempCalendar.r_begin_date_utc > (24 * 60 * 60 * 1000))
-                                [_todayOverdayCalendarArr addObject:tempCalendar];
+                            else if (calendar.r_end_date_utc - calendar.r_begin_date_utc > (24 * 60 * 60 * 1000))
+                                [_todayOverdayCalendarArr addObject:calendar];
                             else
                                 [_todayOtherCalendarArr addObject:calendar];
                         } else {//当前未完成
                             Calendar *calendar = [tempCalendar deepCopy];
                             calendar.rdate = @(tempDate.timeIntervalSince1970 * 1000).stringValue;
-                            if(tempCalendar.is_allday == YES)
+                            if(calendar.is_allday == YES)
                                 [_todayAlldayCalendarArr addObject:calendar];
-                            else if (tempCalendar.r_end_date_utc - tempCalendar.r_begin_date_utc > (24 * 60 * 60 * 1000))
-                                [_todayOverdayCalendarArr addObject:tempCalendar];
+                            else if (calendar.r_end_date_utc - calendar.r_begin_date_utc > (24 * 60 * 60 * 1000))
+                                [_todayOverdayCalendarArr addObject:calendar];
                             else
                                 [_todayOtherCalendarArr addObject:calendar];
                         }
@@ -305,6 +306,18 @@
         return _todayOverdayCalendarArr.count;
     return _todayOtherCalendarArr.count;
 }
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    view.alpha = 0;
+    [UIView animateWithDuration:0.6 animations:^{
+        view.alpha = 1;
+    }];
+}
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    cell.alpha = 0;
+    [UIView animateWithDuration:0.6 animations:^{
+        cell.alpha = 1;
+    }];
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CalenderEventTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"CalenderEventTableViewCell" forIndexPath:indexPath];
     if(indexPath.section == 0)
@@ -368,7 +381,7 @@
 }
 - (void)calendar:(JTCalendarManager *)calendar didTouchDayView:(JTCalendarDayView *)dayView {
     _userSelectedDate = dayView.date;
-    [_calendarManager reload];
+    [_calendarManager setDate:_userSelectedDate];
     [self getTodayCalendarArr];
 }
 - (void)calendarDidLoadPreviousPage:(JTCalendarManager *)calendar;

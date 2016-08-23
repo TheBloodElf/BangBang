@@ -58,6 +58,8 @@
 #import <MLeaksFinder/MLeaksFinder.h>//ARC下正确检查内存泄露
 #import "ReactiveCocoa.h"//决战UI必备工具
 #import "UIImageView+CornerRadius.h"//离屏渲染解决方案
+#import "PPDragDropBadgeView.h"//QQ消息数字拖曳消失
+#import "JPEngine.h"//通过JS来创建界面
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
     #import <CoreSpotlight/CoreSpotlight.h>//Spotlight搜索

@@ -178,6 +178,12 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _companyArr.count;
 }
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    cell.alpha = 0;
+    [UIView animateWithDuration:0.6 animations:^{
+        cell.alpha = 1;
+    }];
+}
 - (UITableViewCell*)tableView:(UITableView *)sender cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     BushSearchCell *cell = [_tableView dequeueReusableCellWithIdentifier:@"BushSearchCell" forIndexPath:indexPath];
     cell.delegate = self;
