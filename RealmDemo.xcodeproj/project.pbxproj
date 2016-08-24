@@ -601,6 +601,7 @@
 		1BD872291D38DD6C0074CDC7 /* BushSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD872251D38DD6C0074CDC7 /* BushSearchViewController.m */; };
 		1BD8722A1D38DD6C0074CDC7 /* BushSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD872271D38DD6C0074CDC7 /* BushSearchCell.m */; };
 		1BD8722B1D38DD6C0074CDC7 /* BushSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BD872281D38DD6C0074CDC7 /* BushSearchCell.xib */; };
+		1BDA9EFF1D6D34D800341FC9 /* UIViewController+jumpRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDA9EFE1D6D34D800341FC9 /* UIViewController+jumpRouter.m */; };
 		1BDF20B71D3C61BF00666814 /* RYChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDF20B61D3C61BF00666814 /* RYChatManager.m */; };
 		1BDFB7B11D581EB500D13BC7 /* default_image_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BDFB7B01D581EB500D13BC7 /* default_image_icon.png */; };
 		1BDFB7FB1D58329A00D13BC7 /* IQNSArray+Sort.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFB7D91D58329900D13BC7 /* IQNSArray+Sort.m */; };
@@ -1837,6 +1838,8 @@
 		1BD872261D38DD6C0074CDC7 /* BushSearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BushSearchCell.h; sourceTree = "<group>"; };
 		1BD872271D38DD6C0074CDC7 /* BushSearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BushSearchCell.m; sourceTree = "<group>"; };
 		1BD872281D38DD6C0074CDC7 /* BushSearchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BushSearchCell.xib; sourceTree = "<group>"; };
+		1BDA9EFD1D6D34D800341FC9 /* UIViewController+jumpRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+jumpRouter.h"; sourceTree = "<group>"; };
+		1BDA9EFE1D6D34D800341FC9 /* UIViewController+jumpRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+jumpRouter.m"; sourceTree = "<group>"; };
 		1BDF20B51D3C61BF00666814 /* RYChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RYChatManager.h; sourceTree = "<group>"; };
 		1BDF20B61D3C61BF00666814 /* RYChatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RYChatManager.m; sourceTree = "<group>"; };
 		1BDFB7B01D581EB500D13BC7 /* default_image_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_image_icon.png; sourceTree = "<group>"; };
@@ -3908,6 +3911,8 @@
 				1B18B2E31D5969B400858C83 /* UISearchBar+BackgroundColor.m */,
 				1B47D6BC1D6BF21200837BFD /* UIView+parentViewController.h */,
 				1B47D6BD1D6BF21200837BFD /* UIView+parentViewController.m */,
+				1BDA9EFD1D6D34D800341FC9 /* UIViewController+jumpRouter.h */,
+				1BDA9EFE1D6D34D800341FC9 /* UIViewController+jumpRouter.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -6067,6 +6072,7 @@
 				046DAF641D4C3EB500718F2A /* CreateMeetingController.m in Sources */,
 				1BC2AE8B1D42113800842153 /* SelectAttendanceSpaceTime.m in Sources */,
 				0471C0951D3B262600377178 /* PushMessageCell.m in Sources */,
+				1BDA9EFF1D6D34D800341FC9 /* UIViewController+jumpRouter.m in Sources */,
 				1B0388661D5074BF00D0B7D0 /* TaskAttenmentCell.m in Sources */,
 				04B0D8561D698E8800BAD522 /* UISwitch+RACSignalSupport.m in Sources */,
 				1B03E9081D4078E400FB6E1E /* ComCalendarDetailViewController.m in Sources */,

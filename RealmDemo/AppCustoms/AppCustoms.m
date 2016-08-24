@@ -9,10 +9,7 @@
 
 #import "AppCustoms.h"
 
-
-
 @implementation AppCustoms
-
 
 #pragma mark -
 #pragma mark - SINGLETON

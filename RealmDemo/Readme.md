@@ -22,3 +22,4 @@ UIScreenEdgePanGestureRecognizer 继承自UIPanGestureRecognizer ，它可以让
 动态监测内存泄漏MLeaksFinder
 离屏渲染如有问题，用UIImageView+CornerRadius解决
 响应式编程ReactiveCocoa来改善用户体验
+利用JSPath来实现热更新，目前我们没有这个需求

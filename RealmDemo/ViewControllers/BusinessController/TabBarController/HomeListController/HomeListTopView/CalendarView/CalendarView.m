@@ -129,24 +129,23 @@
 - (void)getCurrCount {
     //today扩展数组
     NSMutableArray<TodayCalendarModel*> *todayCalendarArr = [@[] mutableCopy];
-    
     //先获取今天的
     NSDate *todayDate = [NSDate date];
     NSArray *todayArr = [_userManager getCalendarArrWithDate:todayDate];
     for (Calendar *tempCalendar in todayArr) {
         if(tempCalendar.repeat_type == 0) {//不是重复的就直接加
-            if(tempCalendar.status == 1) {
-                TodayCalendarModel *model = [TodayCalendarModel new];
-                model.id = tempCalendar.id;
-                model.begindate_utc = tempCalendar.begindate_utc;
-                model.enddate_utc = tempCalendar.enddate_utc;
-                model.event_name = tempCalendar.event_name;
-                model.descriptionStr = tempCalendar.descriptionStr;
-                [todayCalendarArr addObject:model];
-                _todayNoFinishCount ++;
-            }
-            else
+            if(tempCalendar.status == 2)  {
                 _todayFinishCount ++;
+                continue;
+            }
+            TodayCalendarModel *model = [TodayCalendarModel new];
+            model.id = tempCalendar.id;
+            model.begindate_utc = tempCalendar.begindate_utc;
+            model.enddate_utc = tempCalendar.enddate_utc;
+            model.event_name = tempCalendar.event_name;
+            model.descriptionStr = tempCalendar.descriptionStr;
+            [todayCalendarArr addObject:model];
+            _todayNoFinishCount ++;
         } else {//重复的要加上经过自己一天的
             if (tempCalendar.rrule.length > 0&&tempCalendar.r_begin_date_utc >0&&tempCalendar.r_end_date_utc>0) {
                 Scheduler * s = [[Scheduler alloc] initWithDate:[NSDate dateWithTimeIntervalSince1970:tempCalendar.begindate_utc/1000] andRule:tempCalendar.rrule];
@@ -154,20 +153,20 @@
                 NSArray * occurences = [s occurencesBetween:[NSDate dateWithTimeIntervalSince1970:tempCalendar.r_begin_date_utc/1000] andDate:[NSDate dateWithTimeIntervalSince1970:tempCalendar.r_end_date_utc/1000]];
                 for (NSDate *tempDate in occurences) {
                     if(tempDate.year == todayDate.year && tempDate.month == todayDate.month && tempDate.day == todayDate.day) {
-                        if([tempCalendar haveDeleteDate:tempDate]) {
+                        if([tempCalendar haveDeleteDate:tempDate])
                             continue;
-                        } else if([tempCalendar haveFinishDate:tempDate]) {
+                        if([tempCalendar haveFinishDate:tempDate]) {
                             _todayFinishCount ++;
-                        } else {
-                            TodayCalendarModel *model = [TodayCalendarModel new];
-                            model.id = tempCalendar.id;
-                            model.begindate_utc = tempCalendar.begindate_utc;
-                            model.enddate_utc = tempCalendar.enddate_utc;
-                            model.event_name = tempCalendar.event_name;
-                            model.descriptionStr = tempCalendar.descriptionStr;
-                            [todayCalendarArr addObject:model];
-                            _todayNoFinishCount ++;
+                            continue;
                         }
+                        TodayCalendarModel *model = [TodayCalendarModel new];
+                        model.id = tempCalendar.id;
+                        model.begindate_utc = tempCalendar.begindate_utc;
+                        model.enddate_utc = tempCalendar.enddate_utc;
+                        model.event_name = tempCalendar.event_name;
+                        model.descriptionStr = tempCalendar.descriptionStr;
+                        [todayCalendarArr addObject:model];
+                        _todayNoFinishCount ++;
                     }
                 }
             }

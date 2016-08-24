@@ -78,7 +78,6 @@
     _containerViewController = [[REFrostedContainerViewController alloc] init];
     _containerViewController.frostedViewController = self;
     _menuViewSize = CGSizeMake([UIScreen mainScreen].bounds.size.width * 3 / 4, [UIScreen mainScreen].bounds.size.height + 44);
-    _liveBlur = REUIKitIsFlatMode();
     _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:_containerViewController action:@selector(panGestureRecognized:)];
     _automaticSize = YES;
 }
@@ -188,14 +187,6 @@
         self.calculatedMenuViewSize = CGSizeMake(_menuViewSize.width > 0 ? _menuViewSize.width : self.contentViewController.view.frame.size.width,
                                                  _menuViewSize.height > 0 ? _menuViewSize.height : self.contentViewController.view.frame.size.height);
     }
-    
-    if (!self.liveBlur) {
-        if (REUIKitIsFlatMode() && !self.blurTintColor) {
-            self.blurTintColor = [UIColor colorWithWhite:1 alpha:0.75f];
-        }
-        self.containerViewController.screenshotImage = [[self.contentViewController.view re_screenshot] re_applyBlurWithRadius:self.blurRadius tintColor:self.blurTintColor saturationDeltaFactor:self.blurSaturationDeltaFactor maskImage:nil];
-    }
-        
     [self re_displayController:self.containerViewController frame:self.contentViewController.view.frame];
     self.visible = YES;
 }
@@ -205,19 +196,11 @@
     if (!self.visible) {//when call hide menu before menuViewController added to containerViewController, the menuViewController will never added to containerViewController
         return;
     }
-    if (!self.liveBlur) {
-        self.containerViewController.screenshotImage = [[self.contentViewController.view re_screenshot] re_applyBlurWithRadius:self.blurRadius tintColor:self.blurTintColor saturationDeltaFactor:self.blurSaturationDeltaFactor maskImage:nil];
-        [self.containerViewController refreshBackgroundImage];
-    }
     [self.containerViewController hideWithCompletionHandler:completionHandler];
 }
 
 - (void)resizeMenuViewControllerToSize:(CGSize)size
 {
-    if (!self.liveBlur) {
-        self.containerViewController.screenshotImage = [[self.contentViewController.view re_screenshot] re_applyBlurWithRadius:self.blurRadius tintColor:self.blurTintColor saturationDeltaFactor:self.blurSaturationDeltaFactor maskImage:nil];
-        [self.containerViewController refreshBackgroundImage];
-    }
     [self.containerViewController resizeToSize:size];
 }
 
