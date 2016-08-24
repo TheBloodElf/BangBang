@@ -80,21 +80,15 @@
     _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:_containerViewController action:@selector(panGestureRecognized:)];
     _automaticSize = YES;
 }
-
-- (id)initWithContentViewController:(UIViewController *)contentViewController menuViewController:(UIViewController *)menuViewController
-{
-    self = [self init];
-    if (self) {
-        _contentViewController = contentViewController;
-        _menuViewController = menuViewController;
-        _menuViewSize = CGSizeMake([UIScreen mainScreen].bounds.size.width * 3 / 4, [UIScreen mainScreen].bounds.size.height + 44);
-    }
-    return self;
+- (void)dataDidChange {
+    NSDictionary *currDic = self.data;
+    _contentViewController = currDic[@"contentViewController"];
+    _menuViewController = currDic[@"menuViewController"];
 }
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    _menuViewSize = CGSizeMake([UIScreen mainScreen].bounds.size.width * 3 / 4, [UIScreen mainScreen].bounds.size.height + 44);
     [self re_displayController:self.contentViewController frame:self.view.bounds];
 }
 
