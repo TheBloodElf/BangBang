@@ -12,10 +12,6 @@
 #import "MoreSelectView.h"
 #import "CalenderEventTableViewCell.h"
 #import "IdentityManager.h"
-#import "CalendarCreateController.h"
-#import "CalendarListController.h"
-#import "ComCalendarDetailViewController.h"
-#import "RepCalendarDetailController.h"
 #import "NoResultView.h"
 
 @interface CalendarController ()<RBQFetchedResultsControllerDelegate,JTCalendarDelegate,UITableViewDelegate,UITableViewDataSource,MoreSelectViewDelegate> {
@@ -247,11 +243,9 @@
         [_calendarManager setDate:_userSelectedDate];
         [self getTodayCalendarArr];
     } else if(index == 1) {
-        CalendarListController *calendar = [CalendarListController new];
-        [self.navigationController pushViewController:calendar animated:YES];
+        [self.navigationController pushControler:@"CalendarListController" parameters:@{}];
     } else if (index == 2) {
-        CalendarCreateController *calendar = [CalendarCreateController new];
-        [self.navigationController pushViewController:calendar animated:YES];
+        [self.navigationController pushControler:@"CalendarCreateController" parameters:@{}];
     } else {
         [self tongBuCalendar];
     }
@@ -340,13 +334,9 @@
     else
         calendar = _todayOtherCalendarArr[indexPath.row];
     if(calendar.repeat_type == 0) {
-        ComCalendarDetailViewController *com = [ComCalendarDetailViewController new];
-        com.data = calendar;
-        [self.navigationController pushViewController:com animated:YES];
+        [self.navigationController pushControler:@"ComCalendarDetailViewController" parameters:@{@"calendar":calendar}];
     } else {
-        RepCalendarDetailController *rep = [RepCalendarDetailController new];
-        rep.data = calendar;
-        [self.navigationController pushViewController:rep animated:YES];
+        [self.navigationController pushControler:@"RepCalendarDetailController" parameters:@{@"calendar":calendar}];
     }
 }
 #pragma mark --

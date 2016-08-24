@@ -62,15 +62,12 @@
         }
     }
 }
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
+- (void)textFieldDidEndEditing:(UITextField *)textField {
     TaskModel *model = self.data;
     model.task_name = textField.text;
-    return YES;
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    TaskModel *model = self.data;
-    model.task_name = textField.text;
-    [self.contentView endEditing:YES];
+    [textField endEditing:YES];
     return YES;
 }
 - (void)dataDidChange {

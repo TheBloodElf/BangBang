@@ -28,8 +28,10 @@
     _calendar = self.data;
     self.adressLabel.text = _calendar.address;
 }
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+- (void)textFieldDidEndEditing:(UITextField *)textField {
     _calendar.address = textField.text;
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
 }

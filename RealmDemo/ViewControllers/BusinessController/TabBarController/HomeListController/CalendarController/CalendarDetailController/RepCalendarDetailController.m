@@ -22,7 +22,13 @@
 @end
 
 @implementation RepCalendarDetailController
-
+- (instancetype)initWithParameters:(NSDictionary *)parameters {
+    if(self = [super initWithNibName:nil bundle:nil]) {
+        Calendar *calendar = parameters[@"calendar"];
+        _calendar = [calendar deepCopy];
+    }
+    return self;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"日程详情";

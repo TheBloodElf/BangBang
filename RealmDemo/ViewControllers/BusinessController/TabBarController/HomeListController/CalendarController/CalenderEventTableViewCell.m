@@ -27,7 +27,6 @@
 
 - (void)awakeFromNib {
     // Initialization code
-    _status.layer.masksToBounds = YES;
     _status.layer.cornerRadius = _status.frame.size.height / 3.f;
     _status.layer.borderWidth = 1;
 }
@@ -109,9 +108,13 @@
     }
     //状态
    if (calendar.status == 1) {
-        _status.text = @"进行中";
+       _status.text = @"进行中";
+       _status.textColor = [UIColor grayColor];
+       _status.layer.borderColor = [UIColor grayColor].CGColor;
     } else if (calendar.status == 2) {
         _status.text = @"已完成";
+        _status.textColor = [UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1];
+        _status.layer.borderColor = [UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1].CGColor;
     }
     
     //紧急度

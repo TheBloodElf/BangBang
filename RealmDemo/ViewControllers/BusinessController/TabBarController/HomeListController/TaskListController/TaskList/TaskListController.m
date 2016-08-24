@@ -42,7 +42,7 @@
     _taskFetchedResultsController.delegate = self;
     self.view.backgroundColor = [UIColor whiteColor];
     
-    _topSegmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"负责的",@"委派的",@"知悉的",@"已完结"]];
+    _topSegmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"委派的",@"负责的",@"知悉的",@"已完结"]];
     _topSegmentedControl.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 35);
     _topSegmentedControl.tintColor = [UIColor siginColor];
     [_topSegmentedControl addTarget:self action:@selector(segmentedClicked:) forControlEvents:UIControlEventValueChanged];
@@ -57,7 +57,7 @@
     _bottomScrollView.scrollEnabled = NO;
     _bottomScrollView.contentSize = CGSizeMake(4 * _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height);
     [self.view addSubview:_bottomScrollView];
-    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar_menu"] style:UIBarButtonItemStylePlain target:self action:@selector(moreClicked:)];
     // Do any additional setup after loading the view.
 }
 - (void)viewWillAppear:(BOOL)animated {
@@ -69,14 +69,14 @@
     if([self.data isEqualToString:@"YES"]) return;
     self.data = @"YES";
     
-    //负责的
-    _incharge = [[InchargeTaskView alloc] initWithFrame:CGRectMake(0, 0, _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height)];
-    _incharge.delegate = self;
-    [_bottomScrollView addSubview:_incharge];
     //委派的
-    _create = [[CreateTaskView alloc] initWithFrame:CGRectMake(_bottomScrollView.frame.size.width, 0, _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height)];
+    _create = [[CreateTaskView alloc] initWithFrame:CGRectMake(0, 0, _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height)];
     _create.delegate = self;
     [_bottomScrollView addSubview:_create];
+    //负责的
+    _incharge = [[InchargeTaskView alloc] initWithFrame:CGRectMake(_bottomScrollView.frame.size.width, 0, _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height)];
+    _incharge.delegate = self;
+    [_bottomScrollView addSubview:_incharge];
     //知悉的
     _member = [[MemberTaskView alloc] initWithFrame:CGRectMake(2 * _bottomScrollView.frame.size.width, 0, _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height)];
     _member.delegate = self;
@@ -192,23 +192,13 @@
 - (void)segmentedClicked:(UISegmentedControl*)control {
     if(!_moreSelectView.isHide)
         [_moreSelectView hideSelectView];
-    if(control.selectedSegmentIndex == 0)
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar_menu"] style:UIBarButtonItemStylePlain target:self action:@selector(moreClicked:)];
-    else
-        self.navigationItem.rightBarButtonItems = nil;
     [_bottomScrollView setContentOffset:CGPointMake(control.selectedSegmentIndex * _bottomScrollView.frame.size.width, 0) animated:NO];
-    
     [self.view endEditing:YES];
 }
 #pragma mark -- UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     int index = (scrollView.contentOffset.x + scrollView.frame.size.width / 2.f) / scrollView.frame.size.width;
     [_topSegmentedControl setSelectedSegmentIndex:index];
-    if(index == 0)
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar_menu"] style:UIBarButtonItemStylePlain target:self action:@selector(moreClicked:)];
-    else
-        self.navigationItem.rightBarButtonItems = nil;
-    
     [self.view endEditing:YES];
 }
 @end

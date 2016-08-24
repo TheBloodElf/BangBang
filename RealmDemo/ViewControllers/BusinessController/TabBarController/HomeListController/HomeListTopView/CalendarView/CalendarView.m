@@ -72,28 +72,32 @@
     leftLayer.bounds = self.leftView.bounds;
     leftLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
     leftLayer.contentsScale = [UIScreen mainScreen].scale;
-    leftLayer.color = [UIColor colorWithRed:43 / 255.f green:181 / 255.f blue:162 / 255.f alpha:1];
-    if (_todayFinishCount + _todayNoFinishCount == 0) {
-        
-    }else{
+    if (_todayFinishCount + _todayNoFinishCount == 0) {//如果今天没有日程 就是灰色 而且只加载一次
+        leftLayer.color = [UIColor colorFromHexCode:@"0x0ab499"];//灰色
+        leftLayer.completed = leftLayer.total;
+        [leftLayer setNeedsDisplay];
+        [leftLayer showAnimate];
+        [self.leftView.layer insertSublayer:leftLayer atIndex:0];
+    } else {//如果有日程 那么先画一层进行中 然后在上面画一层已完成
         leftLayer.animationDuration = 1.0 * 1.5;
-        leftLayer.completed = 1.0 *leftLayer.total;
-        leftLayer.completedColor = [UIColor colorWithRed:251 / 255.f green:214 / 255.f blue:66 / 255.f alpha:1];
+        leftLayer.completed = leftLayer.total;
+        leftLayer.completedColor = [UIColor colorWithRed:251 / 255.f green:214 / 255.f blue:66 / 255.f alpha:1];//黄色
+        [leftLayer setNeedsDisplay];
+        [leftLayer showAnimate];
+        [self.leftView.layer insertSublayer:leftLayer atIndex:0];
+        
+        leftScondLayer = [LineProgressLayer layer];
+        leftScondLayer.bounds = self.leftView.bounds;
+        leftScondLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
+        leftScondLayer.contentsScale = [UIScreen mainScreen].scale;
+        leftScondLayer.animationDuration = tempValue * 1.5;
+        leftScondLayer.completed = tempValue *leftLayer.total;
+        leftScondLayer.color = [UIColor clearColor];
+        leftScondLayer.completedColor = [UIColor colorWithRed:45 / 255.f green:148 / 255.f blue:121 / 255.f alpha:1];//绿色
+        [leftScondLayer setNeedsDisplay];
+        [leftScondLayer showAnimate];
+        [self.leftView.layer insertSublayer:leftScondLayer above:leftLayer];
     }
-    [leftLayer setNeedsDisplay];
-    [leftLayer showAnimate];
-    [self.leftView.layer insertSublayer:leftLayer atIndex:0];
-    leftScondLayer = [LineProgressLayer layer];
-    leftScondLayer.bounds = self.leftView.bounds;
-    leftScondLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
-    leftScondLayer.contentsScale = [UIScreen mainScreen].scale;
-    leftScondLayer.animationDuration = tempValue * 1.5;
-    leftScondLayer.completed = tempValue *leftLayer.total;
-    leftScondLayer.color = [UIColor clearColor];
-    leftScondLayer.completedColor = [UIColor colorFromHexCode:@"0x0ab499"];
-    [leftScondLayer setNeedsDisplay];
-    [leftScondLayer showAnimate];
-    [self.leftView.layer insertSublayer:leftScondLayer above:leftLayer];
     //本周
     //本月的数据面板
     float finishValue = _weekFinishCount / (float)(_weekNoFinishCount + _weekFinishCount);
@@ -101,29 +105,32 @@
     rightLayer.bounds = self.rightView.bounds;
     rightLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
     rightLayer.contentsScale = [UIScreen mainScreen].scale;
-    rightLayer.color = [UIColor colorWithRed:43 / 255.f green:181 / 255.f blue:162 / 255.f alpha:1];
-    if (_weekNoFinishCount + _weekFinishCount == 0) {
-        
-    } else {
+    if (_weekNoFinishCount + _weekFinishCount == 0) {//如果本周没有日程 就是灰色
+        rightLayer.color = [UIColor colorFromHexCode:@"0x0ab499"];//灰色
+        rightLayer.completed = 1.0 *rightLayer.total;
+        [rightLayer setNeedsDisplay];
+        [rightLayer showAnimate];
+        [self.rightView.layer insertSublayer:rightLayer atIndex:0];
+    } else {//先黄色 再绿色
         rightLayer.animationDuration = 1.0 * 1.5;
         rightLayer.completed = 1.0 *rightLayer.total;
-        rightLayer.completedColor = [UIColor colorWithRed:251 / 255.f green:214 / 255.f blue:66 / 255.f alpha:1];
+        rightLayer.completedColor = [UIColor colorWithRed:251 / 255.f green:214 / 255.f blue:66 / 255.f alpha:1];//黄色
+        [rightLayer setNeedsDisplay];
+        [rightLayer showAnimate];
+        [self.rightView.layer insertSublayer:rightLayer atIndex:0];
+        
+        rightScondLayer = [LineProgressLayer layer];
+        rightScondLayer.bounds = self.rightView.bounds;
+        rightScondLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
+        rightScondLayer.contentsScale = [UIScreen mainScreen].scale;
+        rightScondLayer.animationDuration = finishValue * 1.5;
+        rightScondLayer.completed = finishValue *rightLayer.total;
+        rightScondLayer.color = [UIColor clearColor];
+        rightScondLayer.completedColor = [UIColor colorWithRed:45 / 255.f green:148 / 255.f blue:121 / 255.f alpha:1];//绿色
+        [rightScondLayer setNeedsDisplay];
+        [rightScondLayer showAnimate];
+        [self.rightView.layer insertSublayer:rightScondLayer above:rightLayer];
     }
-    [rightLayer setNeedsDisplay];
-    [rightLayer showAnimate];
-    [self.rightView.layer insertSublayer:rightLayer atIndex:0];
-    
-    rightScondLayer = [LineProgressLayer layer];
-    rightScondLayer.bounds = self.rightView.bounds;
-    rightScondLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
-    rightScondLayer.contentsScale = [UIScreen mainScreen].scale;
-    rightScondLayer.animationDuration = finishValue * 1.5;
-    rightScondLayer.completed = finishValue *rightLayer.total;
-    rightScondLayer.color = [UIColor clearColor];
-    rightScondLayer.completedColor = [UIColor colorFromHexCode:@"0x0ab499"];
-    [rightScondLayer setNeedsDisplay];
-    [rightScondLayer showAnimate];
-    [self.rightView.layer insertSublayer:rightScondLayer above:rightLayer];
 }
 //获取这四个数字
 - (void)getCurrCount {

@@ -27,8 +27,10 @@
     _calendar = self.data;
     self.nameLabel.text = _calendar.event_name;
 }
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+- (void)textFieldDidEndEditing:(UITextField *)textField {
     _calendar.event_name = textField.text;
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
 }

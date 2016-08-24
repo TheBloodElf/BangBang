@@ -25,10 +25,12 @@
     self.inputFixed.returnKeyType = UIReturnKeyDone;
     // Initialization code
 }
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [textField resignFirstResponder];
+- (void)textFieldDidEndEditing:(UITextField *)textField {
     SiginRuleSet *currSiginRule = self.data;
     currSiginRule.setting_name = textField.text;
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
     return YES;
 }
 - (void)dataDidChange {

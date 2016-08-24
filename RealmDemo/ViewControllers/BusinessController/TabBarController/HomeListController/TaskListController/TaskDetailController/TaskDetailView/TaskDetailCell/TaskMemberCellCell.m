@@ -10,7 +10,6 @@
 #import "TaskModel.h"
 
 @interface TaskMemberCellCell () {
-    NSTimer *_timer;
     CGFloat _currScrollWidth;
     CGFloat _maxScrollWidth;
 }
@@ -23,8 +22,6 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(scrollMember) userInfo:nil repeats:YES];
-    [_timer setFireDate:[NSDate dateWithTimeIntervalSinceNow:1000000]];
     // Initialization code
 }
 - (void)dataDidChange {
@@ -45,26 +42,5 @@
         currX += 31;
     }
     self.memberImage.contentSize = CGSizeMake(currX, 29);
-    if(currX > self.memberImage.frame.size.width) {
-        _maxScrollWidth = currX - self.memberImage.frame.size.width;
-        _currScrollWidth = 10;
-        [_timer setFireDate:[NSDate dateWithTimeIntervalSince1970:0]];
-    } else  {
-        [_timer setFireDate:[NSDate dateWithTimeIntervalSinceNow:1000000]];
-    }
 }
-- (void)scrollMember {
-    [UIView animateWithDuration:1 animations:^{
-        _memberImage.contentOffset = CGPointMake(_currScrollWidth, 0);
-    }];
-    _currScrollWidth += 10;
-    if(_currScrollWidth > _maxScrollWidth)
-        _currScrollWidth = 10;
-}
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-
 @end

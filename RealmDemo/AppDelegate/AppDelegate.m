@@ -13,7 +13,9 @@
 #import "GeTuiSdkManager.h"
 #import "ApnsManager.h"
 
-@interface AppDelegate ()
+@interface AppDelegate ()<CLLocationManagerDelegate> {
+    CLLocationManager *_locationManager;
+}
 
 @end
 
@@ -44,6 +46,10 @@
     [AppCustoms customs];
     //设置融云代理
     [[RYChatManager shareInstance] registerRYChat];
+    //要求定位权限
+    _locationManager = [CLLocationManager new];
+    _locationManager.delegate = self;
+    [_locationManager requestAlwaysAuthorization];
     //清空应用红点
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     //注册远程推送

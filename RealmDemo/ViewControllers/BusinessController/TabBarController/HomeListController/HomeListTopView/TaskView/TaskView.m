@@ -124,7 +124,7 @@
         leftLayer.bounds = self.leftView.bounds;
         leftLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
         leftLayer.contentsScale = [UIScreen mainScreen].scale;
-        leftLayer.color = [UIColor colorWithRed:43 / 255.f green:181 / 255.f blue:162 / 255.f alpha:1];
+        leftLayer.color = [UIColor colorWithRed:43 / 255.f green:181 / 255.f blue:162 / 255.f alpha:1];//绿色
         [leftLayer setNeedsDisplay];
         [leftLayer showAnimate];
         [self.leftView.layer insertSublayer:leftLayer atIndex:0];
@@ -134,10 +134,10 @@
         leftLayer.bounds = self.leftView.bounds;
         leftLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
         leftLayer.contentsScale = [UIScreen mainScreen].scale;
-        leftLayer.color = [UIColor colorWithRed:43 / 255.f green:181 / 255.f blue:162 / 255.f alpha:1];
+        leftLayer.color = [UIColor colorWithRed:43 / 255.f green:181 / 255.f blue:162 / 255.f alpha:1];//绿色
         leftLayer.animationDuration = tempValueRed * 1.5;
         leftLayer.completed =  leftLayer.total;
-        leftLayer.completedColor = [UIColor colorWithRed:1 green:105/255.f blue:64/255.f alpha:1];
+        leftLayer.completedColor = [UIColor colorWithRed:1 green:105/255.f blue:64/255.f alpha:1];//红色
         [leftLayer setNeedsDisplay];
         [leftLayer showAnimate];
         [self.leftView.layer insertSublayer:leftLayer atIndex:0];
@@ -149,7 +149,7 @@
         greenLayer.color = [UIColor clearColor];
         greenLayer.animationDuration = tempValueYellow * 1.5;
         greenLayer.completed = tempValueYellow *leftLayer.total;
-        greenLayer.completedColor = [UIColor colorWithRed:251/255.f green:214/255.f blue:66/255.f alpha:1];
+        greenLayer.completedColor = [UIColor colorWithRed:251/255.f green:214/255.f blue:66/255.f alpha:1];//黄色
         [greenLayer setNeedsDisplay];
         [greenLayer showAnimate];
         [self.leftView.layer insertSublayer:greenLayer above:leftLayer];
@@ -161,7 +161,7 @@
         leftThridLayer.color = [UIColor clearColor];
         leftThridLayer.animationDuration = tempValueGreen * 1.5;
         leftThridLayer.completed = tempValueGreen *leftLayer.total;
-        leftThridLayer.completedColor = [UIColor colorFromHexCode:@"0x0ab499"];
+        leftThridLayer.completedColor = [UIColor colorFromHexCode:@"0x0ab499"];//灰色
         [leftThridLayer setNeedsDisplay];
         [leftThridLayer showAnimate];
         [self.leftView.layer insertSublayer:leftThridLayer above:greenLayer];
@@ -178,7 +178,7 @@
         rightLayer.bounds = self.rightView.bounds;
         rightLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
         rightLayer.contentsScale = [UIScreen mainScreen].scale;
-        rightLayer.color = [UIColor colorWithRed:43 / 255.f green:181 / 255.f blue:162 / 255.f alpha:1];
+        rightLayer.color = [UIColor colorWithRed:43 / 255.f green:181 / 255.f blue:162 / 255.f alpha:1];//绿色
         [rightLayer setNeedsDisplay];
         [rightLayer showAnimate];
         [self.rightView.layer insertSublayer:rightLayer atIndex:0];
@@ -188,10 +188,10 @@
         rightLayer.bounds = self.rightView.bounds;
         rightLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
         rightLayer.contentsScale = [UIScreen mainScreen].scale;
-        rightLayer.color = [UIColor colorWithRed:43 / 255.f green:181 / 255.f blue:162 / 255.f alpha:1];
+        rightLayer.color = [UIColor colorWithRed:43 / 255.f green:181 / 255.f blue:162 / 255.f alpha:1];//绿色
         rightLayer.animationDuration = rightValueRed * 1.5;
         rightLayer.completed = rightValueRed *rightLayer.total;
-        rightLayer.completedColor = [UIColor colorWithRed:1 green:105/255.f blue:64/255.f alpha:1];
+        rightLayer.completedColor = [UIColor colorWithRed:1 green:105/255.f blue:64/255.f alpha:1];//红色
         [rightLayer setNeedsDisplay];
         [rightLayer showAnimate];
         [self.rightView.layer insertSublayer:rightLayer atIndex:0];
@@ -203,7 +203,7 @@
         rightGreenLayer.color = [UIColor clearColor];
         rightGreenLayer.animationDuration = rightValueYellow * 1.5;
         rightGreenLayer.completed = rightValueYellow *rightLayer.total;
-        rightGreenLayer.completedColor = [UIColor colorWithRed:251/255.f green:214/255.f blue:66/255.f alpha:1];
+        rightGreenLayer.completedColor = [UIColor colorWithRed:251/255.f green:214/255.f blue:66/255.f alpha:1];//黄色
         [rightGreenLayer setNeedsDisplay];
         [rightGreenLayer showAnimate];
         [self.rightView.layer insertSublayer:rightGreenLayer above:rightLayer];
@@ -215,7 +215,7 @@
         rightThirdLayer.color = [UIColor clearColor];
         rightThirdLayer.animationDuration = rightValueGreen * 1.5;
         rightThirdLayer.completed = rightValueGreen *rightLayer.total;
-        rightThirdLayer.completedColor = [UIColor colorFromHexCode:@"0x0ab499"];
+        rightThirdLayer.completedColor = [UIColor colorFromHexCode:@"0x0ab499"];//灰色
         [rightThirdLayer setNeedsDisplay];
         [rightThirdLayer showAnimate];
         [self.rightView.layer insertSublayer:rightThirdLayer above:rightGreenLayer];

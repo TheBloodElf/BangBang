@@ -23,7 +23,7 @@
         label.textAlignment = NSTextAlignmentCenter;
         label.textColor = [UIColor grayColor];
         label.font = [UIFont systemFontOfSize:14];
-        label.text = @"对不起，已没有更多数据";
+        label.text = @"对不起，没有更多数据";
         [iamgeView addSubview:label];
     }
     return self;

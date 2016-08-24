@@ -41,11 +41,12 @@
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 60, MAIN_SCREEN_WIDTH, frame.size.height - 60) style:UITableViewStylePlain];
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        _tableView.tableFooterView = [UIView new];
         _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
         [_tableView registerNib:[UINib nibWithNibName:@"TaskListCell" bundle:nil] forCellReuseIdentifier:@"TaskListCell"];
         [self addSubview:_tableView];
         _noDataView = [[NoResultView alloc] initWithFrame:_tableView.bounds];
+        [self getCurrData];
+        [_tableView reloadData];
     }
     return self;
 }

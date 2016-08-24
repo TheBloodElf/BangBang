@@ -33,8 +33,7 @@
         btn.frame = CGRectMake((self.remindTime.frame.size.width / 2.f) * (index % 2), (index / 2) * 30, (self.remindTime.frame.size.width / 2.f), 15);
         if(createDate.timeIntervalSince1970 < [NSDate date].timeIntervalSince1970)
             [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        
-        [btn setTitle:[NSString stringWithFormat:@"%d-%02ld-%02ld %02ld:%02ld",createDate.year,createDate.month,createDate.day,createDate.hour,createDate.minute] forState:UIControlStateNormal];
+        [btn setTitle:[NSString stringWithFormat:@"%d-%ld-%ld %02ld:%02ld",createDate.year,createDate.month,createDate.day,createDate.hour,createDate.minute] forState:UIControlStateNormal];
         [self.remindTime addSubview:btn];
     }
 }

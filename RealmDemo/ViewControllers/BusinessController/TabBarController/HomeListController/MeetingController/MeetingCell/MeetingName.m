@@ -24,9 +24,11 @@
     Meeting *meeting = self.data;
     self.meetingName.text = meeting.title;
 }
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+- (void)textFieldDidEndEditing:(UITextField *)textField {
     Meeting *meeting = self.data;
     meeting.title = textField.text;
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
 }
