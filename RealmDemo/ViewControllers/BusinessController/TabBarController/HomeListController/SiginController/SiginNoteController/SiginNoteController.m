@@ -21,6 +21,7 @@
     NSDate *_currDate;//当前用户选择的时间
     UIWebView *_webView;//下面显示签到记录的网页
     NSMutableArray<NSString*> *_siginedArr;//所有签到记录数组 以便统计有异常的天进行标记
+    BOOL isFirstLoad;
 }
 @property (nonatomic, strong) JTCalendarManager *calendarManager;//日历管理器
 @property (strong, nonatomic) JTHorizontalCalendarView *calendarContentView;//日历视图
@@ -45,8 +46,9 @@
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if([self.data isEqualToString:@"YES"]) return;
-    self.data = @"YES";
+    //是不是第一次加载这个页面
+    if(isFirstLoad) return;
+    isFirstLoad = YES;
     
     _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, Calendar_Height + 1 , MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - Calendar_Height - 1 - 64)];
     [self.view addSubview:_webView];

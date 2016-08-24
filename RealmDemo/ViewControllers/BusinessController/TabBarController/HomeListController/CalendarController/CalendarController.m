@@ -28,6 +28,8 @@
     MoreSelectView *_moreSelectView;//多选视图
     UILabel *_centerNavLabel;//导航中间视图
     NoResultView *_noDataView;//没有数据显示的视图
+    
+    BOOL isFirstLoad;
 }
 @end
 
@@ -78,8 +80,8 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     //是不是第一次加载这个页面
-    if([self.data isEqualToString:@"YES"]) return;
-    self.data = @"YES";
+    if(isFirstLoad) return;
+    isFirstLoad = YES;
     
     //创建日历管理器
     _calendarManager = [JTCalendarManager new];

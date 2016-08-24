@@ -54,7 +54,7 @@
                 break;
             }
         }
-        UIStoryboard *story = [UIStoryboard storyboardWithName:@"MineView" bundle:nil];
+        UIStoryboard *story = [UIStoryboard storyboardWithName:@"MainStory" bundle:nil];
         BushDetailController * con = [story instantiateViewControllerWithIdentifier:@"BushDetailController"];
         con.data = tempCompany;
         [self.navigationController pushViewController:con animated:YES];

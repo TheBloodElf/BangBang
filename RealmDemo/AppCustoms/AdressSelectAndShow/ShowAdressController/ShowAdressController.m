@@ -7,6 +7,7 @@
 //
 
 #import "ShowAdressController.h"
+#import "POIAnnotation.h"
 
 @interface ShowAdressController () {
     MAMapView *_mapView;//百度地图
@@ -27,6 +28,11 @@
     [self.view addSubview:_mapView];
     //把中心店移动到用户输入位置
     [_mapView setCenterCoordinate:self.cLLocationCoordinate2D animated:YES];
+    
+    AMapPOI *aMapPOI = [AMapPOI new];
+    aMapPOI.location = [AMapGeoPoint locationWithLatitude:self.cLLocationCoordinate2D.latitude longitude:self.cLLocationCoordinate2D.longitude];
+    POIAnnotation *currentPOIAnnotation = [[POIAnnotation alloc] initWithPOI:aMapPOI];
+    [_mapView addAnnotation:currentPOIAnnotation];
     // Do any additional setup after loading the view.
 }
 - (void)viewWillAppear:(BOOL)animated {

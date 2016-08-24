@@ -79,7 +79,7 @@
 }
 //修改圈子信息
 - (void)updateCompanyInfo:(UIBarButtonItem*)item {
-    UIStoryboard *story = [UIStoryboard storyboardWithName:@"MineView" bundle:nil];
+    UIStoryboard *story = [UIStoryboard storyboardWithName:@"MainStory" bundle:nil];
     UpdateBushController *bush = [story instantiateViewControllerWithIdentifier:@"UpdateBushController"];
     bush.data = _currCompany;
     [self.navigationController pushViewController:bush animated:YES];

@@ -10,8 +10,17 @@
 
 @implementation ViewControllerGenerator
 //创建对象
-+ (UIViewController*)getViewController:(NSString*)name parameters:(NSDictionary*)parameters{
-    UIViewController *viewController = [[NSClassFromString(name) alloc] initWithParameters:parameters];
++ (UIViewController*)getViewController:(NSString*)name{
+    UIViewController *viewController = nil;
+    //先从story中加载 看有没有
+    UIStoryboard *story = [UIStoryboard storyboardWithName:@"MainStory" bundle:nil];
+    NSDictionary *allNibName = [story mj_keyValues][@"identifierToNibNameMap"];
+    if([allNibName.allValues containsObject:name]) {
+        viewController = [story instantiateViewControllerWithIdentifier:name];
+        return viewController;
+    }
+    //直接初始化
+    viewController = [NSClassFromString(name) new];
     [self checkViewController:viewController];
     return viewController;
 }

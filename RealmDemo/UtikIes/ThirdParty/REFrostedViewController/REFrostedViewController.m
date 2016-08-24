@@ -77,7 +77,6 @@
     _blurRadius = 10.0f;
     _containerViewController = [[REFrostedContainerViewController alloc] init];
     _containerViewController.frostedViewController = self;
-    _menuViewSize = CGSizeMake([UIScreen mainScreen].bounds.size.width * 3 / 4, [UIScreen mainScreen].bounds.size.height + 44);
     _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:_containerViewController action:@selector(panGestureRecognized:)];
     _automaticSize = YES;
 }
@@ -88,6 +87,7 @@
     if (self) {
         _contentViewController = contentViewController;
         _menuViewController = menuViewController;
+        _menuViewSize = CGSizeMake([UIScreen mainScreen].bounds.size.width * 3 / 4, [UIScreen mainScreen].bounds.size.height + 44);
     }
     return self;
 }

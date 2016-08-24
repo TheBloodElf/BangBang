@@ -29,6 +29,8 @@
     RBQFetchedResultsController *_userFetchedResultsController;//用户数据库监听
     MoreSelectView *_moreSelectView;//多选视图
     NSMutableArray<SignIn*> *_todaySigInArr;//今天签到的数组
+    
+    BOOL isFirstLoad;
 }
 @property (weak, nonatomic) IBOutlet UILabel *todatSiginNumber;
 @property (weak, nonatomic) IBOutlet UILabel *weatherLabel;
@@ -63,8 +65,10 @@
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if([self.data isEqualToString:@"YES"]) return;
-    self.data = @"YES";
+    //是不是第一次加载这个页面
+    if(isFirstLoad) return;
+    isFirstLoad = YES;
+    
     self.navigationController.navigationBar.barTintColor = [UIColor siginColor];
     [self updateTime];
     [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(updateTime) userInfo:nil repeats:YES];
@@ -314,7 +318,7 @@
         [self.navigationController.view showMessageTips:@"无法签到，请管理员设置签到规则"];
         return;
     }
-    UIStoryboard *story = [UIStoryboard storyboardWithName:@"SiginStory" bundle:nil];
+    UIStoryboard *story = [UIStoryboard storyboardWithName:@"MainStory" bundle:nil];
     CreateSiginController *sigin = [story instantiateViewControllerWithIdentifier:@"CreateSiginController"];
     [self.navigationController pushViewController:sigin animated:YES];
 }

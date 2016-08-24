@@ -263,7 +263,6 @@
 		1B0591E01D66B4E20090B4D2 /* KeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0591DF1D66B4E20090B4D2 /* KeyboardViewController.m */; };
 		1B0591E41D66B4E20090B4D2 /* RealmKeyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1B0591DC1D66B4E10090B4D2 /* RealmKeyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1B06D5D31D362FA8002D06A7 /* Company.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B06D5D21D362FA8002D06A7 /* Company.m */; };
-		1B0715ED1D386CBC00D7881D /* MineView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B0715EC1D386CBC00D7881D /* MineView.storyboard */; };
 		1B0CF79B1D64384E00096CF9 /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B0CF7851D6430C100096CF9 /* PhotosUI.framework */; };
 		1B0CF79C1D64384E00096CF9 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BF3FD241D5AD25200026351 /* Photos.framework */; };
 		1B0CF7A01D64384E00096CF9 /* PhotoEditingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0CF79F1D64384E00096CF9 /* PhotoEditingViewController.m */; };
@@ -563,7 +562,6 @@
 		1BBED3A71D6559660001868B /* MoreSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BBED3A51D6559660001868B /* MoreSelectController.m */; };
 		1BBED3A81D6559660001868B /* MoreSelectController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BBED3A61D6559660001868B /* MoreSelectController.xib */; };
 		1BC008371D646445004A6FA5 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BC008361D646445004A6FA5 /* MobileCoreServices.framework */; };
-		1BC2AE3F1D41F46500842153 /* SiginStory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BC2AE3E1D41F46500842153 /* SiginStory.storyboard */; };
 		1BC2AE421D41F48A00842153 /* CreateSiginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC2AE411D41F48A00842153 /* CreateSiginController.m */; };
 		1BC2AE461D4208CB00842153 /* SiginImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC2AE441D4208CB00842153 /* SiginImageCell.m */; };
 		1BC2AE471D4208CB00842153 /* SiginImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BC2AE451D4208CB00842153 /* SiginImageCell.xib */; };
@@ -603,6 +601,7 @@
 		1BD8722B1D38DD6C0074CDC7 /* BushSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BD872281D38DD6C0074CDC7 /* BushSearchCell.xib */; };
 		1BDA9F031D6D704900341FC9 /* ViewControllerGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDA9F021D6D704900341FC9 /* ViewControllerGenerator.m */; };
 		1BDA9F061D6D710C00341FC9 /* UIViewController+jumpRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDA9F051D6D710C00341FC9 /* UIViewController+jumpRouter.m */; };
+		1BDA9F0E1D6D8A0300341FC9 /* MainStory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BDA9F0D1D6D8A0300341FC9 /* MainStory.storyboard */; };
 		1BDF20B71D3C61BF00666814 /* RYChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDF20B61D3C61BF00666814 /* RYChatManager.m */; };
 		1BDFB7B11D581EB500D13BC7 /* default_image_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BDFB7B01D581EB500D13BC7 /* default_image_icon.png */; };
 		1BDFB7FB1D58329A00D13BC7 /* IQNSArray+Sort.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFB7D91D58329900D13BC7 /* IQNSArray+Sort.m */; };
@@ -1241,7 +1240,6 @@
 		1B0591E11D66B4E20090B4D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1B06D5D11D362FA8002D06A7 /* Company.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Company.h; sourceTree = "<group>"; };
 		1B06D5D21D362FA8002D06A7 /* Company.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Company.m; sourceTree = "<group>"; };
-		1B0715EC1D386CBC00D7881D /* MineView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MineView.storyboard; sourceTree = "<group>"; };
 		1B0CF7851D6430C100096CF9 /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = System/Library/Frameworks/PhotosUI.framework; sourceTree = SDKROOT; };
 		1B0CF79A1D64384E00096CF9 /* RealmPhoto.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RealmPhoto.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B0CF79E1D64384E00096CF9 /* PhotoEditingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoEditingViewController.h; sourceTree = "<group>"; };
@@ -1777,7 +1775,6 @@
 		1BBED3A51D6559660001868B /* MoreSelectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreSelectController.m; sourceTree = "<group>"; };
 		1BBED3A61D6559660001868B /* MoreSelectController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoreSelectController.xib; sourceTree = "<group>"; };
 		1BC008361D646445004A6FA5 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		1BC2AE3E1D41F46500842153 /* SiginStory.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SiginStory.storyboard; sourceTree = "<group>"; };
 		1BC2AE401D41F48A00842153 /* CreateSiginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateSiginController.h; sourceTree = "<group>"; };
 		1BC2AE411D41F48A00842153 /* CreateSiginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateSiginController.m; sourceTree = "<group>"; };
 		1BC2AE431D4208CB00842153 /* SiginImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SiginImageCell.h; sourceTree = "<group>"; };
@@ -1843,6 +1840,7 @@
 		1BDA9F021D6D704900341FC9 /* ViewControllerGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewControllerGenerator.m; sourceTree = "<group>"; };
 		1BDA9F041D6D710C00341FC9 /* UIViewController+jumpRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+jumpRouter.h"; sourceTree = "<group>"; };
 		1BDA9F051D6D710C00341FC9 /* UIViewController+jumpRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+jumpRouter.m"; sourceTree = "<group>"; };
+		1BDA9F0D1D6D8A0300341FC9 /* MainStory.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStory.storyboard; sourceTree = "<group>"; };
 		1BDF20B51D3C61BF00666814 /* RYChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RYChatManager.h; sourceTree = "<group>"; };
 		1BDF20B61D3C61BF00666814 /* RYChatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RYChatManager.m; sourceTree = "<group>"; };
 		1BDFB7B01D581EB500D13BC7 /* default_image_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_image_icon.png; sourceTree = "<group>"; };
@@ -4053,7 +4051,6 @@
 			children = (
 				1B4B16191D37675E00E71B3D /* MineViewController.h */,
 				1B4B161A1D37675E00E71B3D /* MineViewController.m */,
-				1B0715EC1D386CBC00D7881D /* MineView.storyboard */,
 				04E7E5991D3A660800C653B4 /* UserInfoController */,
 				1B4B16211D37858400E71B3D /* BushManagerController */,
 			);
@@ -4953,7 +4950,6 @@
 				1B0FECBF1D40B68400DB4369 /* SigInListCell.h */,
 				1B0FECC01D40B68400DB4369 /* SigInListCell.m */,
 				1B0FECC11D40B68400DB4369 /* SigInListCell.xib */,
-				1BC2AE3E1D41F46500842153 /* SiginStory.storyboard */,
 				0482FBCF1D42FE4200B1CBB2 /* SiginNoteController */,
 				1BC2AE531D42113800842153 /* AttendanceRollController */,
 				1BC2AE3D1D41F40B00842153 /* CreateSiginController */,
@@ -4993,6 +4989,7 @@
 			children = (
 				1B55856E1D34D80D00DCD3A0 /* MainViewController.h */,
 				1B55856F1D34D80D00DCD3A0 /* MainViewController.m */,
+				1BDA9F0D1D6D8A0300341FC9 /* MainStory.storyboard */,
 				1B5585711D34D90900DCD3A0 /* BusinessController */,
 				1B5585721D34D90900DCD3A0 /* LoginController */,
 				1B5585731D34D90900DCD3A0 /* WelcomeController */,
@@ -5433,12 +5430,10 @@
 				1BDFB8091D58329A00D13BC7 /* IQKeyboardManager.bundle in Resources */,
 				1B18B3531D59D6F300858C83 /* AttachPicCell.xib in Resources */,
 				1B877F221D178E7D000144B2 /* Assets.xcassets in Resources */,
-				1BC2AE3F1D41F46500842153 /* SiginStory.storyboard in Resources */,
 				1B6D164A1D48A8D00070D2E5 /* ic_check_off@3x.png in Resources */,
 				046DAF6D1D4C3EB500718F2A /* MeetingDevice.xib in Resources */,
 				1B158A6B1D45BB4D003237A7 /* RYGroupSetDelUserCell.xib in Resources */,
 				1B6D165E1D48A8D00070D2E5 /* login_botton@3x.png in Resources */,
-				1B0715ED1D386CBC00D7881D /* MineView.storyboard in Resources */,
 				1B6D164D1D48A8D00070D2E5 /* ic_check_on@3x.png in Resources */,
 				1B89FF991D4F53DC00466F6D /* AddAttenmentCell.xib in Resources */,
 				049586391D3A1D2900544259 /* SelectDateController.xib in Resources */,
@@ -5454,6 +5449,7 @@
 				1B6D16151D48A8970070D2E5 /* UserLoginController.xib in Resources */,
 				1B47D6C81D6BFEDB00837BFD /* PPDragDropBadgeView.bundle in Resources */,
 				1BC2AE7E1D42113800842153 /* AttendanceRollCell.xib in Resources */,
+				1BDA9F0E1D6D8A0300341FC9 /* MainStory.storyboard in Resources */,
 				1B5585A11D34E2C800DCD3A0 /* ic_welcome_avatar_2_2.png in Resources */,
 				046DAF731D4C3EB500718F2A /* MeetingDeviceCell.xib in Resources */,
 				1BC2AE871D42113800842153 /* WorkAdressCell.xib in Resources */,

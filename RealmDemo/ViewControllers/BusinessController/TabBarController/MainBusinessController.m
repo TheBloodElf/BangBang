@@ -14,7 +14,6 @@
 
 #import "HomeListController.h"
 #import "MessageController.h"
-#import "MineViewController.h"
 #import "MoreSelectController.h"
 #import "XAddrBookController.h"
 
@@ -25,8 +24,6 @@
 #import "CreateMeetingController.h"
 #import "BushSearchViewController.h"
 #import "WebNonstandarViewController.h"
-#import "RepCalendarDetailController.h"
-#import "ComCalendarDetailViewController.h"
 #import "TaskDetailController.h"
 
 @interface MainBusinessController ()<UITabBarControllerDelegate,MoreViewControllerDelegate> {
@@ -79,17 +76,13 @@
         if(calendar.id == [notification.object intValue]) {
             //展示详情
             if(calendar.repeat_type == 0) {
-                ComCalendarDetailViewController *com = [ComCalendarDetailViewController new];
                 Calendar *tempTemp = [calendar deepCopy];
                 tempTemp.rdate = @([NSDate date].timeIntervalSince1970 * 1000).stringValue;
-                com.data = tempTemp;
-                [self.navigationController pushViewController:com animated:YES];
+                [self.navigationController pushControler:@"ComCalendarDetailViewController" parameters:@{@"calendar":tempTemp}];
             } else {
-                RepCalendarDetailController *com = [RepCalendarDetailController new];
                 Calendar *tempTemp = [calendar deepCopy];
                 tempTemp.rdate = @([NSDate date].timeIntervalSince1970 * 1000).stringValue;
-                com.data = tempTemp;
-                [self.navigationController pushViewController:com animated:YES];
+                [self.navigationController pushControler:@"RepCalendarDetailController" parameters:@{@"calendar":tempTemp}];
             }
             break;
         }
@@ -140,17 +133,13 @@
             if(calendar.id == message.target_id.intValue) {
                 //展示详情
                 if(calendar.repeat_type == 0) {
-                    ComCalendarDetailViewController *com = [ComCalendarDetailViewController new];
                     Calendar *tempTemp = [calendar deepCopy];
                     tempTemp.rdate = @(message.addTime.timeIntervalSince1970 * 1000).stringValue;
-                    com.data = tempTemp;
-                    [self.navigationController pushViewController:com animated:YES];
+                    [self.navigationController pushControler:@"ComCalendarDetailViewController" parameters:@{@"calendar":tempTemp}];
                 } else {
-                    RepCalendarDetailController *com = [RepCalendarDetailController new];
                     Calendar *tempTemp = [calendar deepCopy];
                     tempTemp.rdate = @(message.addTime.timeIntervalSince1970 * 1000).stringValue;
-                    com.data = tempTemp;
-                    [self.navigationController pushViewController:com animated:YES];
+                    [self.navigationController pushControler:@"RepCalendarDetailController" parameters:@{@"calendar":tempTemp}];
                 }
                 break;
             }
@@ -162,17 +151,13 @@
         sharedCalendar.descriptionStr = calendarDic[@"description"];
         //展示详情
         if(sharedCalendar.repeat_type == 0) {
-            ComCalendarDetailViewController *com = [ComCalendarDetailViewController new];
             Calendar *tempTemp = [sharedCalendar deepCopy];
             tempTemp.rdate = @(message.addTime.timeIntervalSince1970 * 1000).stringValue;
-            com.data = tempTemp;
-            [self.navigationController pushViewController:com animated:YES];
+            [self.navigationController pushControler:@"ComCalendarDetailViewController" parameters:@{@"calendar":tempTemp}];
         } else {
-            RepCalendarDetailController *com = [RepCalendarDetailController new];
             Calendar *tempTemp = [sharedCalendar deepCopy];
             tempTemp.rdate = @(message.addTime.timeIntervalSince1970 * 1000).stringValue;
-            com.data = tempTemp;
-            [self.navigationController pushViewController:com animated:YES];
+            [self.navigationController pushControler:@"RepCalendarDetailController" parameters:@{@"calendar":tempTemp}];
         }
     }else if ([message.type isEqualToString:@"REQUEST"]) {//网页
         WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
@@ -211,7 +196,7 @@
         [self.navigationController pushViewController:[CalendarController new] animated:YES];
     } else if (currIndex == 1) {//签到
         [self executeNeedSelectCompany:^{
-            UIStoryboard *story = [UIStoryboard storyboardWithName:@"SiginStory" bundle:nil];
+            UIStoryboard *story = [UIStoryboard storyboardWithName:@"MainStory" bundle:nil];
             CreateSiginController *sigin = [story instantiateViewControllerWithIdentifier:@"CreateSiginController"];
             [self.navigationController pushViewController:sigin animated:YES];
         }];
@@ -320,8 +305,7 @@
     return nav;
 }
 - (UINavigationController*)mineViewController {
-    UIStoryboard *story = [UIStoryboard storyboardWithName:@"MineView" bundle:nil];
-    MineViewController *home = [story instantiateViewControllerWithIdentifier:@"MineViewController"];
+    UIViewController *home = [ViewControllerGenerator getViewController:@"MineViewController"];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:home];
     nav.tabBarItem.title = @"我的";
     nav.navigationBar.translucent = NO;

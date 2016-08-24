@@ -28,6 +28,8 @@
     CreateTaskView *_create;//委派
     MemberTaskView *_member;//知悉
     FinishTaskView *_finish;//完结
+    
+    BOOL isFirstLoad;
 }
 
 @end
@@ -66,8 +68,9 @@
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if([self.data isEqualToString:@"YES"]) return;
-    self.data = @"YES";
+    //是不是第一次加载这个页面
+    if(isFirstLoad) return;
+    isFirstLoad = YES;
     
     //委派的
     _create = [[CreateTaskView alloc] initWithFrame:CGRectMake(0, 0, _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height)];

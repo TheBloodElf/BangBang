@@ -27,6 +27,8 @@
     UIScrollView *_bottomScrollView;//下面的滚动视图
     
     NSMutableArray<Attachment*> *_userSelectAttachmentArr;//用户已经选择的附件数组
+    
+    BOOL isFirstLoad;
 }
 
 @end
@@ -86,8 +88,10 @@
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if([self.data isEqualToString:@"YES"]) return;
-    self.data = @"YES";
+    //是不是第一次加载这个页面
+    if(isFirstLoad) return;
+    isFirstLoad = YES;
+    
     //在这里加载每个页面应该显示的数据
     NSMutableArray<Attachment*> *attachDocumentArr = [@[] mutableCopy];//文档
     NSMutableArray<Attachment*> *attachVideoArr = [@[] mutableCopy];//视频

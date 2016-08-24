@@ -12,6 +12,6 @@
 @interface ViewControllerGenerator : NSObject
 
 //创建对象
-+ (UIViewController*)getViewController:(NSString*)name parameters:(NSDictionary*)parameters;
++ (UIViewController*)getViewController:(NSString*)name;
 
 @end

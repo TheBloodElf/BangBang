@@ -26,6 +26,8 @@
     MAUserLocation *currUserLocation;//当前位置，提高定位精准度
     MAMapView *_mapView;//使用地图来定位 更准确
     AMapSearchAPI *_search;//搜索地址
+    
+    BOOL isFirstLoad;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *siginDeatilLabel;//签到详情的辅助提示
@@ -75,8 +77,9 @@
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if([self.data isEqualToString:@"YES"]) return;
-    self.data = @"YES";
+    //是不是第一次加载这个页面
+    if(isFirstLoad) return;
+    isFirstLoad = YES;
     
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
     //看是否有签到记录数据 没有就从服务器获取

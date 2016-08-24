@@ -108,7 +108,7 @@
     }];
 }
 - (void)rightBarButtonClicked:(UIBarButtonItem*)item {
-    UIStoryboard *story = [UIStoryboard storyboardWithName:@"MineView" bundle:nil];
+    UIStoryboard *story = [UIStoryboard storyboardWithName:@"MainStory" bundle:nil];
     CreateBushController *vc = [story instantiateViewControllerWithIdentifier:@"CreateBushController"];
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -194,7 +194,7 @@
 // 点击查看信息
 - (void)tableView:(UITableView *)sender didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [sender deselectRowAtIndexPath:indexPath animated:YES];
-    UIStoryboard *story = [UIStoryboard storyboardWithName:@"MineView" bundle:nil];
+    UIStoryboard *story = [UIStoryboard storyboardWithName:@"MainStory" bundle:nil];
     BushDetailController *vc = [story instantiateViewControllerWithIdentifier:@"BushDetailController"];
     vc.data = [_companyArr objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:vc animated:YES];

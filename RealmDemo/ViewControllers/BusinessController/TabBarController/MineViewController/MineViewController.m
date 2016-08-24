@@ -98,7 +98,7 @@
     } else if (indexPath.section == 3) {
         if(indexPath.row == 0) {
             //用户设置
-            UIStoryboard *story = [UIStoryboard storyboardWithName:@"MineView" bundle:nil];
+            UIStoryboard *story = [UIStoryboard storyboardWithName:@"MainStory" bundle:nil];
             UserSettingController *user = [story instantiateViewControllerWithIdentifier:@"UserSettingController"];
             user.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:user animated:YES];

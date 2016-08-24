@@ -23,14 +23,6 @@
 
 @implementation ComCalendarDetailViewController
 
-- (instancetype)initWithParameters:(NSDictionary *)parameters {
-    if(self = [super initWithNibName:nil bundle:nil]) {
-        Calendar *calendar = parameters[@"calendar"];
-        _calendar = [calendar deepCopy];
-    }
-    return self;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"日程详情";
@@ -84,7 +76,7 @@
     }
 }
 - (void)dataDidChange {
-    _calendar = [[Calendar alloc] initWithJSONDictionary:[self.data JSONDictionary]];
+    _calendar = [self.data[@"calendar"] deepCopy];
 }
 //完成日程
 - (void)finishCalendarClicked:(UIButton*)btn {

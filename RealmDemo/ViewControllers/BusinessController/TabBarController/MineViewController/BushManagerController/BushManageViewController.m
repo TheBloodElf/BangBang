@@ -109,7 +109,7 @@
         BushSearchViewController *search = [BushSearchViewController new];
         [self.navigationController pushViewController:search animated:YES];
     } else if (index == 1) {//创建圈子
-        UIStoryboard *story = [UIStoryboard storyboardWithName:@"MineView" bundle:nil];
+        UIStoryboard *story = [UIStoryboard storyboardWithName:@"MainStory" bundle:nil];
         CreateBushController *bush = [story instantiateViewControllerWithIdentifier:@"CreateBushController"];
         [self.navigationController pushViewController:bush animated:YES];
     } else {//申请管理
@@ -156,7 +156,7 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    UIStoryboard *story = [UIStoryboard storyboardWithName:@"MineView" bundle:nil];
+    UIStoryboard *story = [UIStoryboard storyboardWithName:@"MainStory" bundle:nil];
     BushDetailController *bushDetail = [story instantiateViewControllerWithIdentifier:@"BushDetailController"];
     bushDetail.data = _companyArr[indexPath.row];
     [self.navigationController pushViewController:bushDetail animated:YES];

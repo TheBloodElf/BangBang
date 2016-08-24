@@ -23,3 +23,4 @@ UIScreenEdgePanGestureRecognizer 继承自UIPanGestureRecognizer ，它可以让
 离屏渲染如有问题，用UIImageView+CornerRadius解决
 响应式编程ReactiveCocoa来改善用户体验
 利用JSPath来实现热更新，目前我们没有这个需求
+利用路由解耦，目前只解了日程详情，登录\欢迎\业务这几个，后面有时间再解

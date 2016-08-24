@@ -11,8 +11,6 @@
 #import "WebNonstandarViewController.h"
 #import "RequestManagerController.h"
 #import "BushManageViewController.h"
-#import "ComCalendarDetailViewController.h"
-#import "RepCalendarDetailController.h"
 #import "PushMessage.h"
 #import "UserManager.h"
 #import "IdentityManager.h"
@@ -29,6 +27,7 @@
     NoResultView *_noDataView;//没有数据的视图
     UISearchBar *_searchBar;//搜索视图
     RBQFetchedResultsController *_pushMessageFetchedResultsController;//推送消息数据监听
+    BOOL isFirstLoad;
 }
 
 @end
@@ -58,8 +57,9 @@
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if([self.data isEqualToString:@"YES"]) return;
-    self.data = @"YES";
+    //是不是第一次加载这个页面
+    if(isFirstLoad) return;
+    isFirstLoad = YES;
     
     _identityManager = [IdentityManager manager];
     _pushMessageFetchedResultsController = [_userManager createPushMessagesFetchedResultsController];
@@ -253,34 +253,27 @@
             sharedCalendar.descriptionStr = calendarDic[@"description"];
             //展示详情
             if(sharedCalendar.repeat_type == 0) {
-                ComCalendarDetailViewController *com = [ComCalendarDetailViewController new];
                 Calendar *tempTemp = [sharedCalendar deepCopy];
                 tempTemp.rdate = @(message.addTime.timeIntervalSince1970 * 1000).stringValue;
-                com.data = tempTemp;
-                [self.navigationController pushViewController:com animated:YES];
+                [self.navigationController pushControler:@"ComCalendarDetailViewController" parameters:@{@"calendar":tempTemp}];
             } else {
-                RepCalendarDetailController *com = [RepCalendarDetailController new];
                 Calendar *tempTemp = [sharedCalendar deepCopy];
                 tempTemp.rdate = @(message.addTime.timeIntervalSince1970 * 1000).stringValue;
-                com.data = tempTemp;
-                [self.navigationController pushViewController:com animated:YES];
+                [self.navigationController pushControler:@"RepCalendarDetailController" parameters:@{@"calendar":tempTemp}];
             }
         } else if ([message.type isEqualToString:@"CALENDARTIP"]) {//日程推送：
             NSArray<Calendar*> *calendarArr = [[UserManager manager] getCalendarArr];
             for (Calendar *temp in calendarArr) {
                 if(message.target_id.intValue == temp.id) {
+                    //展示详情
                     if(temp.repeat_type == 0) {
-                        ComCalendarDetailViewController *com = [ComCalendarDetailViewController new];
                         Calendar *tempTemp = [temp deepCopy];
                         tempTemp.rdate = @(message.addTime.timeIntervalSince1970 * 1000).stringValue;
-                        com.data = tempTemp;
-                        [self.navigationController pushViewController:com animated:YES];
+                        [self.navigationController pushControler:@"ComCalendarDetailViewController" parameters:@{@"calendar":tempTemp}];
                     } else {
-                        RepCalendarDetailController *com = [RepCalendarDetailController new];
                         Calendar *tempTemp = [temp deepCopy];
                         tempTemp.rdate = @(message.addTime.timeIntervalSince1970 * 1000).stringValue;
-                        com.data = tempTemp;
-                        [self.navigationController pushViewController:com animated:YES];
+                        [self.navigationController pushControler:@"RepCalendarDetailController" parameters:@{@"calendar":tempTemp}];
                     }
                     break;
                 }
