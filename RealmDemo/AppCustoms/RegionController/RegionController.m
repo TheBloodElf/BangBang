@@ -61,6 +61,9 @@
     [locationManager startUpdatingLocation];
     // Do any additional setup after loading the view.
 }
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+}
 - (void)dataDidChange
 {
     selectStr = self.data;

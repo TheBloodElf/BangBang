@@ -64,7 +64,7 @@
 - (IBAction)palinLoginClicked:(id)sender {
     [self.view endEditing:YES];
     //获取token
-    [self.navigationController showLoadingTips:@"获取token..."];
+    [self.navigationController showLoadingTips:@""];
     [IdentityHttp getAccessTokenhandler:^(id data, MError *error) {
         if(error) {
             [self.navigationController dismissTips];
@@ -75,7 +75,6 @@
         _identityManager.identity.accessToken = accessToken;
         [_identityManager saveAuthorizeData];
         //登录
-        [self.navigationController showLoadingTips:@"登录..."];
         [IdentityHttp loginWithEmail:self.accountField.text password:self.passwordField.text handler:^(id data, MError *error) {
             if(error) {
                 [self.navigationController dismissTips];
@@ -104,7 +103,7 @@
 //QQ登录
 - (IBAction)qqLoginClicked:(id)sender {
     [self.view endEditing:YES];
-    [self.navigationController.view showLoadingTips:@"获取token..."];
+    [self.navigationController.view showLoadingTips:@""];
     [IdentityHttp getAccessTokenhandler:^(id data, MError *error) {
         [self.navigationController dismissTips];
         if(error) {
@@ -165,7 +164,6 @@
                 NSString *unionId = [dic objectForKey:@"unionid"];
                 if (userName && userAvatar) {
                     //获取accessToken
-                    [self.navigationController.view showLoadingTips:@"获取token..."];
                     [IdentityHttp getAccessTokenhandler:^(id data, MError *error) {
                         if(error) {
                             [self.navigationController dismissTips];
@@ -203,7 +201,6 @@
 #pragma mark -- TencentSessionDelegate
 - (void)tencentDidLogin
 {
-    [self.navigationController.view showLoadingTips:@"获取QQ信息..."];
     [_tencentOAuth getUserInfo];
 }
 -(void)getUserInfoResponse:(APIResponse *)response
@@ -212,7 +209,7 @@
     NSString *name = [response.jsonResponse objectForKey:@"nickname"];
     long exptime = [[_tencentOAuth expirationDate] timeIntervalSinceDate:[NSDate date]];
     //    登录
-    [self.navigationController.view showLoadingTips:@"登录..."];
+    [self.navigationController.view showLoadingTips:@""];
     [UserHttp socialLogin:[_tencentOAuth openId] media_type:1 token:[_tencentOAuth accessToken] expires_in:[NSString stringWithFormat:@"%ld",exptime] client_type:@"ios" name:name avatar_url:avatar handler:^(id data, MError *error) {
         if(error) {
             [self.navigationController.view dismissTips];
@@ -252,7 +249,7 @@
         }else{
             WeiboUser *user = (WeiboUser *)result;
             //获取token
-            [self.navigationController showLoadingTips:@"获取token..."];
+            [self.navigationController showLoadingTips:@""];
             [IdentityHttp getAccessTokenhandler:^(id data, MError *error) {
                 if(error) {
                     [self.navigationController dismissTips];
@@ -263,7 +260,6 @@
                 _identityManager.identity.accessToken = accessToken;
                 [_identityManager saveAuthorizeData];
                 //登录
-                [self.navigationController showLoadingTips:@"登录..."];
                 [UserHttp socialLogin:user.userID media_type:3 token:accessTokenWeiBo expires_in:expiresWeiBo client_type:@"ios" name:user.name avatar_url:user.avatarLargeUrl handler:^(id data, MError *error) {
                     if(error) {
                         [self.navigationController.view dismissTips];
@@ -283,7 +279,6 @@
 //共同的请求部分
 - (void)comconRequestHttp:(User*)user {
     //获取所有圈子 所有状态员工
-    [self.navigationController showLoadingTips:@"获取圈子信息..."];
     [UserHttp getCompanysUserGuid:user.user_guid handler:^(id data, MError *error) {
         if(error) {
             [self.navigationController dismissTips];
@@ -303,7 +298,6 @@
         }
         [_userManager updateUser:user];
         //获取所有圈子的员工信息
-        [self.navigationController showLoadingTips:@"获取员工信息..."];
         [UserHttp getEmployeeCompnyNo:0 status:5 userGuid:user.user_guid handler:^(id data, MError *error) {
             if(error) {
                 [self.navigationController dismissTips];
@@ -331,7 +325,6 @@
                 }
                 [_userManager updateEmployee:array companyNo:0];
                 //获取融云token
-                [self.navigationController showLoadingTips:@"获取token..."];
                 [UserHttp getRYToken:user.user_no handler:^(id data, MError *error) {
                     [self.navigationController dismissTips];
                     if(error) {

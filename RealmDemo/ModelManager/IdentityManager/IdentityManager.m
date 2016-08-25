@@ -45,6 +45,7 @@
     //登录模块重新初始化
     IdentityManager *manager = [IdentityManager manager];
     manager.identity = [Identity new];
+    manager.identity.firstUseSoft = NO;
     [manager saveAuthorizeData];
     //停止个推
     [[GeTuiSdkManager manager] stopGeTuiSdk];
@@ -52,11 +53,6 @@
     [[RCIM sharedRCIM] logout];
 }
 - (void)showLogin:(NSString *)alertStr {
-    if([NSString isBlank:alertStr]) {
-        IdentityManager *manager = [IdentityManager manager];
-        manager.identity.firstUseSoft = NO;
-        [manager saveAuthorizeData];
-    }
      [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowLogin" object:alertStr];
 }
 @end

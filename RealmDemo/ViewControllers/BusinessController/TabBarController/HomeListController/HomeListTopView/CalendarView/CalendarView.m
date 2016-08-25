@@ -73,8 +73,9 @@
     leftLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
     leftLayer.contentsScale = [UIScreen mainScreen].scale;
     if (_todayFinishCount + _todayNoFinishCount == 0) {//如果今天没有日程 就是灰色 而且只加载一次
-        leftLayer.color = [UIColor colorFromHexCode:@"0x0ab499"];//灰色
+        leftLayer.animationDuration = 1.0 * 1.5;
         leftLayer.completed = leftLayer.total;
+        leftLayer.completedColor = [UIColor colorFromHexCode:@"#999999"];//灰色
         [leftLayer setNeedsDisplay];
         [leftLayer showAnimate];
         [self.leftView.layer insertSublayer:leftLayer atIndex:0];
@@ -106,8 +107,7 @@
     rightLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
     rightLayer.contentsScale = [UIScreen mainScreen].scale;
     if (_weekNoFinishCount + _weekFinishCount == 0) {//如果本周没有日程 就是灰色
-        rightLayer.color = [UIColor colorFromHexCode:@"0x0ab499"];//灰色
-        rightLayer.completed = 1.0 *rightLayer.total;
+        rightLayer.color = [UIColor colorFromHexCode:@"#999999"];//灰色
         [rightLayer setNeedsDisplay];
         [rightLayer showAnimate];
         [self.rightView.layer insertSublayer:rightLayer atIndex:0];
@@ -162,7 +162,7 @@
                     if(tempDate.year == todayDate.year && tempDate.month == todayDate.month && tempDate.day == todayDate.day) {
                         if([tempCalendar haveDeleteDate:tempDate])
                             continue;
-                        if([tempCalendar haveFinishDate:tempDate]) {
+                        if([tempCalendar haveFinishDate:tempDate] || tempCalendar.status == 2) {
                             _todayFinishCount ++;
                             continue;
                         }
@@ -205,7 +205,7 @@
                         if(tempDateDate.year == tempDate.year && tempDateDate.month == tempDate.month && tempDateDate.day == tempDate.day) {
                             if([tempCalendar haveDeleteDate:tempDate]) {
                                 continue;
-                            } else if([tempCalendar haveFinishDate:tempDate]) {
+                            } else if([tempCalendar haveFinishDate:tempDate] || tempCalendar.status == 2) {
                                 _weekFinishCount ++;
                             } else {
                                 _weekNoFinishCount ++;

@@ -13,9 +13,8 @@
 #import "ChangeUserName.h"
 #import "ChangeUserBBH.h"
 #import "ChangeUserDetail.h"
-#import "RegionController.h"
 
-@interface MineInfoEditController ()<UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate, UIImagePickerControllerDelegate,ChangeUserInfoDelegate,RBQFetchedResultsControllerDelegate,RegionSelectAdressDelegate>
+@interface MineInfoEditController ()<UITableViewDelegate,UITableViewDataSource, UINavigationControllerDelegate, UIImagePickerControllerDelegate,ChangeUserInfoDelegate,RBQFetchedResultsControllerDelegate>
 {
     UITableView *_tableView;//表格视图
     UserManager *_userManager;//用户管理器
@@ -76,7 +75,7 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return section ? 3 : 3;
+    return section ? 2 : 3;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -130,9 +129,6 @@
                 sex = @"男";
             }
             cell.detailTextLabel.text = sex;
-        } else if (indexPath.row == 1) {
-            cell.textLabel.text = @"地区";
-            cell.detailTextLabel.text = [NSString isBlank:currUser.region] ? @"未选择" : [NSString stringWithFormat:@"%@-%@-%@",currUser.region,currUser.city,currUser.area];
         } else {
             cell.textLabel.text = @"个性签名";
             cell.detailTextLabel.text = [NSString isBlank:currUser.mood] ? @"未填写" : currUser.mood;
@@ -207,11 +203,6 @@
             [alertVC addAction:selectAction2];
             [alertVC addAction:selectAction3];
             [self presentViewController:alertVC animated:YES completion:nil];
-        } else if(indexPath.row == 1) {
-            RegionController *selectRegion = [RegionController new];
-            selectRegion.delegate = self;
-            selectRegion.data = _userManager.user.region;
-            [self.navigationController pushViewController:selectRegion animated:YES];
         } else {
             ChangeUserDetail *vc = [ChangeUserDetail new];
             vc.delegate = self;
@@ -241,14 +232,6 @@
             [_userManager updateEmployee:employee];
         }
     }];
-}
-#pragma mark -- RegionSelectAdressDelegate
-- (void)regionSelectAdress:(NSString*)region city:(NSString*)city area:(NSString*)area {
-    User *_tempUser = [[UserManager manager].user deepCopy];
-    _tempUser.region = region;
-    _tempUser.city = city;
-    _tempUser.area = area;
-    [self changeUserInfo:_tempUser];
 }
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(nullable NSDictionary<NSString *,id> *)editingInfo {
     

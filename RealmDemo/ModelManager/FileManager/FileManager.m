@@ -44,7 +44,15 @@
 - (NSURLSessionDownloadTask*)downFile:(NSString*)fileUrl handler:(completionHandler)handler {
     return [[HttpService service] downRequesURLPath:fileUrl locFilePath:_defaultFilePath completionHandler:handler];
 }
-
+//删除后缀名为xxx的文件
+- (void)deleteExtionName:(NSString*)extionName {
+    NSArray *files = [[NSFileManager defaultManager] subpathsAtPath:_defaultFilePath];
+    for (NSString *fileNameTemp in files) {
+        if([fileNameTemp.pathExtension isEqualToString:extionName]) {
+            [[NSFileManager defaultManager] removeItemAtPath:[self fileStr:fileNameTemp] error:nil];
+        }
+    }
+}
 //文件是否存在
 - (BOOL)fileIsExit:(NSString*)fileName {
     //获取文件夹下的所有文件
@@ -78,7 +86,7 @@
         return 1;
     if([@"BMP、JPG、JPEG、PNG、GIF" rangeOfString:fileExe options:NSCaseInsensitiveSearch].location != NSNotFound)
         return 2;
-    if([@"mp3/wav/mid/" rangeOfString:fileExe options:NSCaseInsensitiveSearch].location != NSNotFound)
+    if([@"mp3,wav,mid,aac" rangeOfString:fileExe options:NSCaseInsensitiveSearch].location != NSNotFound)
         return 3;
     return 4;
 }

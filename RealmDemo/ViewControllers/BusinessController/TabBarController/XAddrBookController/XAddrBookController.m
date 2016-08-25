@@ -113,9 +113,6 @@
                 }
                 //存入本地数据库
                 [_userManager updateEmployee:array companyNo:_userManager.user.currCompany.company_no];
-                _employeeArr = array;
-                [self sortEmployee];
-                [_tableView reloadData];
             }];
         }];
     }

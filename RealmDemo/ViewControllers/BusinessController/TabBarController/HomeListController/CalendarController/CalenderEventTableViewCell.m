@@ -113,8 +113,8 @@
        _status.layer.borderColor = [UIColor grayColor].CGColor;
     } else if (calendar.status == 2) {
         _status.text = @"已完成";
-        _status.textColor = [UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1];
-        _status.layer.borderColor = [UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1].CGColor;
+        _status.textColor = [UIColor calendarColor];
+        _status.layer.borderColor = [UIColor calendarColor].CGColor;
     }
     
     //紧急度

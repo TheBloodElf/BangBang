@@ -193,7 +193,7 @@
                     //值加载今天的日程
                     if(tempDate.year == _userSelectedDate.year && tempDate.month == _userSelectedDate.month && tempDate.day == _userSelectedDate.day) {
                         if([tempCalendar haveDeleteDate:tempDate]) continue;
-                        if([tempCalendar haveFinishDate:tempDate]) {//当前已完成
+                        if([tempCalendar haveFinishDate:tempDate] || tempCalendar.status == 2) {//当前已完成
                             Calendar *calendar = [tempCalendar deepCopy];
                             calendar.status = 2;
                             if(calendar.is_allday == YES)

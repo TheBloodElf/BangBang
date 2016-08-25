@@ -22,11 +22,11 @@
 /** 手机号 */
 @property (nonatomic, strong) NSString  * mobile;
 /** 省 */
-@property (nonatomic, strong) NSString  * region;
+//@property (nonatomic, strong) NSString  * region;
 /** 市 */
-@property (nonatomic, strong) NSString  * city;
+//@property (nonatomic, strong) NSString  * city;
 /** 区 */
-@property (nonatomic, strong) NSString  * area;
+//@property (nonatomic, strong) NSString  * area;
 /** 心情动态 */
 @property (nonatomic, strong) NSString  * mood;
 /** 姓名 必填 */

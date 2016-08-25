@@ -55,6 +55,8 @@
     
     _taskFetchedResultsController = [_userManager createTaskFetchedResultsController:_userManager.user.currCompany.company_no];
     _taskFetchedResultsController.delegate = self;
+    self.leftWillEnd.textColor =  [UIColor colorWithRed:255 / 255.f green:105 / 255.f blue:64 / 255.f alpha:1];
+    self.rightWillEnd.textColor =  [UIColor colorWithRed:255 / 255.f green:105 / 255.f blue:64 / 255.f alpha:1];
     //给这几个数字填充值
     [self getCurrCount];
     //添加动画
@@ -84,7 +86,7 @@
             if(model.status == 2) {
                 if(model.enddate_utc < [NSDate date].timeIntervalSince1970 * 1000) {//已经延期的
                     _leftDidEndCount ++;
-                } else if(model.enddate_utc > ([NSDate date].timeIntervalSince1970 * 1000 + (NumberOfDealy * 24 * 60 * 60 * 1000))){//将要到期的
+                } else if((model.enddate_utc / 1000) < (([NSDate date].timeIntervalSince1970 + (NumberOfDealy * 24 * 60 * 60)))){//将要到期的
                     _leftWillEndCount ++;
                 }
             }
@@ -93,7 +95,7 @@
             if(model.status == 2) {
                 if(model.enddate_utc < [NSDate date].timeIntervalSince1970 * 1000) {//已经延期的
                     _rightDidEndCount ++;
-                } else if(model.enddate_utc > ([NSDate date].timeIntervalSince1970 * 1000 + (NumberOfDealy * 24 * 60 * 60 * 1000))){//将要到期的
+                } else if((model.enddate_utc / 1000) < ([NSDate date].timeIntervalSince1970  + (NumberOfDealy * 24 * 60 * 60))){//将要到期的
                     _rightWillEndCount ++;
                 }
             }
@@ -118,30 +120,35 @@
     float tempValueRed = 1.0;
     float tempValueYellow = (_leftAllCount - _leftDidEndCount)/(float)_leftAllCount;
     float tempValueGreen = (_leftAllCount - _leftDidEndCount - _leftWillEndCount)/(float)_leftAllCount;
+    
+    //都没有 灰色 [UIColor colorFromHexCode:@"#999999"]
+    //已延期 红色 [UIColor colorWithRed:1 green:105/255.f blue:64/255.f alpha:1]
+    //将到期 粽色 [UIColor colorWithRed:255 / 255.f green:105 / 255.f blue:64 / 255.f alpha:1]
+    //进行中 黄色 [UIColor colorWithRed:251 / 255.f green:214 / 255.f blue:66 / 255.f alpha:1]
+    
     //我委派的数字动画和动画时间
-    if (_leftWillEndCount == 0 && _leftDidEndCount == 0) {
+    if (_leftAllCount == 0) {//将到期和已经延期都没有 就是灰色
         leftLayer = [LineProgressLayer layer];
         leftLayer.bounds = self.leftView.bounds;
         leftLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
         leftLayer.contentsScale = [UIScreen mainScreen].scale;
-        leftLayer.color = [UIColor colorWithRed:43 / 255.f green:181 / 255.f blue:162 / 255.f alpha:1];//绿色
+        leftLayer.color = [UIColor colorFromHexCode:@"#999999"];//灰色
         [leftLayer setNeedsDisplay];
         [leftLayer showAnimate];
         [self.leftView.layer insertSublayer:leftLayer atIndex:0];
     } else {
-        //第一层
+        //第一层  已延期
         leftLayer = [LineProgressLayer layer];
         leftLayer.bounds = self.leftView.bounds;
         leftLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
         leftLayer.contentsScale = [UIScreen mainScreen].scale;
-        leftLayer.color = [UIColor colorWithRed:43 / 255.f green:181 / 255.f blue:162 / 255.f alpha:1];//绿色
         leftLayer.animationDuration = tempValueRed * 1.5;
         leftLayer.completed =  leftLayer.total;
         leftLayer.completedColor = [UIColor colorWithRed:1 green:105/255.f blue:64/255.f alpha:1];//红色
         [leftLayer setNeedsDisplay];
         [leftLayer showAnimate];
         [self.leftView.layer insertSublayer:leftLayer atIndex:0];
-        //第二层
+        //第二层  将到期
         greenLayer = [LineProgressLayer layer];
         greenLayer.bounds = self.leftView.bounds;
         greenLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
@@ -149,11 +156,11 @@
         greenLayer.color = [UIColor clearColor];
         greenLayer.animationDuration = tempValueYellow * 1.5;
         greenLayer.completed = tempValueYellow *leftLayer.total;
-        greenLayer.completedColor = [UIColor colorWithRed:251/255.f green:214/255.f blue:66/255.f alpha:1];//黄色
+        greenLayer.completedColor = [UIColor colorWithRed:255 / 255.f green:105 / 255.f blue:64 / 255.f alpha:1];//棕色
         [greenLayer setNeedsDisplay];
         [greenLayer showAnimate];
         [self.leftView.layer insertSublayer:greenLayer above:leftLayer];
-        //第三层
+        //第三层 进行中
         leftThridLayer = [LineProgressLayer layer];
         leftThridLayer.bounds = self.leftView.bounds;
         leftThridLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
@@ -161,7 +168,7 @@
         leftThridLayer.color = [UIColor clearColor];
         leftThridLayer.animationDuration = tempValueGreen * 1.5;
         leftThridLayer.completed = tempValueGreen *leftLayer.total;
-        leftThridLayer.completedColor = [UIColor colorFromHexCode:@"0x0ab499"];//灰色
+        leftThridLayer.completedColor = [UIColor colorWithRed:251 / 255.f green:214 / 255.f blue:66 / 255.f alpha:1];//黄色
         [leftThridLayer setNeedsDisplay];
         [leftThridLayer showAnimate];
         [self.leftView.layer insertSublayer:leftThridLayer above:greenLayer];
@@ -169,33 +176,32 @@
     
     
     //我接受的任务正常数
-    float rightValueRed = 1.0;
-    float rightValueYellow = (_rightAllCount - _rightWillEndCount)/(float)_rightAllCount;
+    float rightValueRed = 1.0;//已经延期
+    float rightValueYellow = (_rightAllCount - _rightDidEndCount)/(float)_rightAllCount;//将到期
     float rightValueGreen = (_rightAllCount - _rightDidEndCount - _rightWillEndCount)/(float)_rightAllCount;
-    if (_rightWillEndCount == 0 && _rightDidEndCount == 0) {
+    if (_rightAllCount == 0) {//没有任务
         //第一层
         rightLayer = [LineProgressLayer layer];
         rightLayer.bounds = self.rightView.bounds;
         rightLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
         rightLayer.contentsScale = [UIScreen mainScreen].scale;
-        rightLayer.color = [UIColor colorWithRed:43 / 255.f green:181 / 255.f blue:162 / 255.f alpha:1];//绿色
+        rightLayer.color = [UIColor colorFromHexCode:@"#999999"];//灰色
         [rightLayer setNeedsDisplay];
         [rightLayer showAnimate];
         [self.rightView.layer insertSublayer:rightLayer atIndex:0];
     } else {
-        //第一层
+        //第一层 已延期
         rightLayer = [LineProgressLayer layer];
         rightLayer.bounds = self.rightView.bounds;
         rightLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
         rightLayer.contentsScale = [UIScreen mainScreen].scale;
-        rightLayer.color = [UIColor colorWithRed:43 / 255.f green:181 / 255.f blue:162 / 255.f alpha:1];//绿色
         rightLayer.animationDuration = rightValueRed * 1.5;
-        rightLayer.completed = rightValueRed *rightLayer.total;
-        rightLayer.completedColor = [UIColor colorWithRed:1 green:105/255.f blue:64/255.f alpha:1];//红色
+        rightLayer.completed = rightLayer.total;
+        rightLayer.completedColor = [UIColor colorWithRed:1 green:105/255.f blue:64/255.f alpha:1];
         [rightLayer setNeedsDisplay];
         [rightLayer showAnimate];
         [self.rightView.layer insertSublayer:rightLayer atIndex:0];
-        //第二层
+        //第二层 将到期
         rightGreenLayer = [LineProgressLayer layer];
         rightGreenLayer.bounds = self.rightView.bounds;
         rightGreenLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
@@ -203,11 +209,11 @@
         rightGreenLayer.color = [UIColor clearColor];
         rightGreenLayer.animationDuration = rightValueYellow * 1.5;
         rightGreenLayer.completed = rightValueYellow *rightLayer.total;
-        rightGreenLayer.completedColor = [UIColor colorWithRed:251/255.f green:214/255.f blue:66/255.f alpha:1];//黄色
+        rightGreenLayer.completedColor = [UIColor colorWithRed:255 / 255.f green:105 / 255.f blue:64 / 255.f alpha:1];
         [rightGreenLayer setNeedsDisplay];
         [rightGreenLayer showAnimate];
         [self.rightView.layer insertSublayer:rightGreenLayer above:rightLayer];
-        //第三层
+        //第三层 进行中
         rightThirdLayer = [LineProgressLayer layer];
         rightThirdLayer.bounds = self.rightView.bounds;
         rightThirdLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
@@ -215,7 +221,7 @@
         rightThirdLayer.color = [UIColor clearColor];
         rightThirdLayer.animationDuration = rightValueGreen * 1.5;
         rightThirdLayer.completed = rightValueGreen *rightLayer.total;
-        rightThirdLayer.completedColor = [UIColor colorFromHexCode:@"0x0ab499"];//灰色
+        rightThirdLayer.completedColor = [UIColor colorWithRed:251 / 255.f green:214 / 255.f blue:66 / 255.f alpha:1];//黄色
         [rightThirdLayer setNeedsDisplay];
         [rightThirdLayer showAnimate];
         [self.rightView.layer insertSublayer:rightThirdLayer above:rightGreenLayer];

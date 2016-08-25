@@ -144,9 +144,7 @@
 }
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     cell.alpha = 0;
-    [UIView animateWithDuration:0.6 animations:^{
-        cell.alpha = 1;
-    }];
+    [UIView animateWithDuration:0.6 animations:^{ cell.alpha = 1; }];
 }
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     BushManagerCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BushManagerCell" forIndexPath:indexPath];

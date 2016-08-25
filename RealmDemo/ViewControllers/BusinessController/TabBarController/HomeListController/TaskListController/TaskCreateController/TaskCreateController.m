@@ -109,7 +109,6 @@
     for (NSDate *date in _alertDateArr) {
         [alerts addObject:@(date.timeIntervalSince1970 * 1000).stringValue];
     }
-    _taskModel.alert_date_list = [alerts componentsJoinedByString:@","];
     _taskModel.begindate_utc = [NSDate date].timeIntervalSince1970 * 1000;
     _taskModel.attachment_count = _attanmentArr.count;
     //提交任务数据后上传任务附件

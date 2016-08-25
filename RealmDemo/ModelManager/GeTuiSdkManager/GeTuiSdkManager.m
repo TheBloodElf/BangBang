@@ -69,6 +69,7 @@
         [dict setObject:@(_userManager.user.user_no) forKey:@"to_user_no"];
     if(![dict.allKeys containsObject:@"unread"])
         [dict setObject:@(1) forKey:@"unread"];
+    [dict setObject:@([NSDate date].timeIntervalSince1970 * 1000).stringValue forKey:@"id"];
     PushMessage *message = [[PushMessage alloc] initWithJSONDictionary:dict];
     AudioServicesPlaySystemSound(1007); //系统的通知声音
     AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);//震动

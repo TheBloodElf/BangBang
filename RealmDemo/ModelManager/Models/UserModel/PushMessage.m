@@ -28,7 +28,7 @@
 @implementation PushMessage
 
 + (NSString*)primaryKey {
-    return @"target_id";
+    return @"id";
 }
 - (NSString*)readImageName {
     NSString *type = self.type;

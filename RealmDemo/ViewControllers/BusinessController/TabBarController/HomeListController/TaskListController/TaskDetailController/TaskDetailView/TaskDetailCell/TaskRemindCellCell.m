@@ -26,6 +26,7 @@
         [view removeFromSuperview];
     }
     NSArray *array = [taskModel.alert_date_list componentsSeparatedByString:@","];
+    if([NSString isBlank:taskModel.alert_date_list]) return;
     for (int index = 0; index < array.count; index ++) {
         NSDate *createDate = [NSDate dateWithTimeIntervalSince1970:[array[index] doubleValue] / 1000];
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
