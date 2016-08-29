@@ -365,6 +365,30 @@
     };
     return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
 }
+//添加日程完成时间
++ (NSURLSessionDataTask*)addCalendarFinishDate:(int64_t)eventID finishDate:(int64_t)finishDate handler:(completionHandler)handler {
+    NSString *urlPath = @"Calendars/add_finish_date_v3";
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:@(eventID) forKey:@"event_id"];
+    [params setObject:@(finishDate) forKey:@"finish_date"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
+//添加日程删除时间
++ (NSURLSessionDataTask*)addCalendarDeleteDate:(int64_t)eventID deleteDate:(int64_t)deleteDate handler:(completionHandler)handler  {
+    NSString *urlPath = @"Calendars/add_deleted_date_v3";
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:@(eventID) forKey:@"event_id"];
+    [params setObject:@(deleteDate) forKey:@"deleted_date"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
 //获取用户所有日程
 + (NSURLSessionDataTask*)getUserCalendar:(NSString*)userGuid handler:(completionHandler)handler {
     NSString *urlPath = @"Calendars/list_v3";
@@ -628,6 +652,56 @@
     [params setObject:@(status) forKey:@"status"];
     [params setObject:comment forKey:@"comment"];
     [params setObject:updatedby forKey:@"updatedby"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
+#pragma mark -- 应用中心
+//获取应用列表
++ (NSURLSessionDataTask*)getCenterAppListHandler:(completionHandler)handler {
+    NSString *urlPath = @"Applications/list";
+    NSMutableDictionary *params = [@{} mutableCopy];
+    [params setObject:@(100) forKey:@"page_size"];
+    [params setObject:@(2) forKey:@"client_type"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_GET URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
+//获取我的应用
++ (NSURLSessionDataTask*)getMyAppList:(NSString*)userGuid handler:(completionHandler)handler {
+    NSString *urlPath = @"Applications/my_list";
+    NSMutableDictionary *params = [@{} mutableCopy];
+    [params setObject:@(100) forKey:@"page_size"];
+    [params setObject:userGuid forKey:@"user_guid"];
+    [params setObject:@(2) forKey:@"client_type"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_GET URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
+//添加应用
++ (NSURLSessionDataTask*)addApp:(NSString*)userGuid appGuid:(NSString*)appGuid handler:(completionHandler)handler {
+    NSString *urlPath = @"Applications/add";
+    NSMutableDictionary *params = [@{} mutableCopy];
+    [params setObject:userGuid forKey:@"user_guid"];
+    [params setObject:appGuid forKey:@"app_guid"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
+//删除应用
++ (NSURLSessionDataTask*)deleteApp:(NSString*)userGuid appGuid:(NSString*)appGuid handler:(completionHandler)handler {
+    NSString *urlPath = @"Applications/delete";
+    NSMutableDictionary *params = [@{} mutableCopy];
+    [params setObject:userGuid forKey:@"user_guid"];
+    [params setObject:appGuid forKey:@"app_guid"];
     [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
     completionHandler compleionHandler = ^(id data,MError *error) {
         handler(data,error);

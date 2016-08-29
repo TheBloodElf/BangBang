@@ -13,53 +13,5 @@
             stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "RealmDemo/ViewControllers/BusinessController/TabBarController/HomeListController/CalendarController/CalendarDetailController/RepCalendarDetailController.m"
-            timestampString = "493803633.055089"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
-            landmarkName = "-finishCalendarClicked:"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__53-[RepCalendarDetailController finishCalendarClicked:]_block_invoke"
-                  moduleName = "&#x5e2e;&#x5e2e;&#x7ba1;&#x7406;&#x52a9;&#x624b;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/pc011/Desktop/%E5%B8%AE%E5%B8%AE%E9%A1%B9%E7%9B%AE%E5%B0%86%E8%A6%81%E4%BD%BF%E7%94%A8%E7%9A%84%E6%96%87%E4%BB%B6/BangBang/RealmDemo/ViewControllers/BusinessController/TabBarController/HomeListController/CalendarController/CalendarDetailController/RepCalendarDetailController.m"
-                  timestampString = "493810082.773082"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "94"
-                  endingLineNumber = "94"
-                  offsetFromSymbolStart = "632">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__53-[RepCalendarDetailController finishCalendarClicked:]_block_invoke_2"
-                  moduleName = "&#x5e2e;&#x5e2e;&#x7ba1;&#x7406;&#x52a9;&#x624b;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/pc011/Desktop/%E5%B8%AE%E5%B8%AE%E9%A1%B9%E7%9B%AE%E5%B0%86%E8%A6%81%E4%BD%BF%E7%94%A8%E7%9A%84%E6%96%87%E4%BB%B6/BangBang/RealmDemo/ViewControllers/BusinessController/TabBarController/HomeListController/CalendarController/CalendarDetailController/RepCalendarDetailController.m"
-                  timestampString = "493810082.773497"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "94"
-                  endingLineNumber = "94"
-                  offsetFromSymbolStart = "24">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

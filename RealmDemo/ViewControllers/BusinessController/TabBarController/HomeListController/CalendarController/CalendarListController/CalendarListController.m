@@ -124,7 +124,7 @@
 
                         }  else {//未完成的日程
                             Calendar *calendar = [tempCalendar deepCopy];
-                            calendar.rdate = @(tempDate.timeIntervalSince1970 * 1000).stringValue;//加上本次触发的时间
+                            calendar.rdate = @(tempDate.timeIntervalSince1970).stringValue;//加上本次触发的时间
                             if([dateCalendarDic.allKeys containsObject:tempDate]) {//如果已经有这个值了
                                 //是否初始化了对应的value
                                 if(dateCalendarDic[tempDate]) {

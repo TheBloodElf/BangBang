@@ -13,6 +13,7 @@
 
 @interface SearchAdressController ()<UISearchBarDelegate,AMapSearchDelegate,UITableViewDelegate,UITableViewDataSource> {
     AMapSearchAPI *_searchAPI;//百度搜索API
+    AMapPOIKeywordsSearchRequest *_searchPOIRequest;//关键字搜索
     NSMutableArray<AMapPOI*> *_searchDataArr;//搜索结果数组
     AMapPOI *_userSelectedPOI;//用户已经选择的位置
 
@@ -43,11 +44,11 @@
     [self.view addSubview:_tableView];
     _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         _searchPOIRequest.page = 0;
-        [_searchAPI AMapPOIAroundSearch:_searchPOIRequest];
+        [_searchAPI AMapPOIKeywordsSearch:_searchPOIRequest];
     }];
     _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         _searchPOIRequest.page ++;
-        [_searchAPI AMapPOIAroundSearch:_searchPOIRequest];
+        [_searchAPI AMapPOIKeywordsSearch:_searchPOIRequest];
     }];
     _noResultView = [[NoResultView alloc] initWithFrame:_tableView.bounds];
     
@@ -56,6 +57,9 @@
     _searchAPI.delegate = self;
     _searchDataArr = [@[] mutableCopy];
     _userSelectedPOI = [AMapPOI new];
+    _searchPOIRequest = [AMapPOIKeywordsSearchRequest new];
+    _searchPOIRequest.requireExtension = YES;
+    _searchPOIRequest.sortrule = 1;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightNavigationBarAction:)];
     [_tableView.mj_header beginRefreshing];

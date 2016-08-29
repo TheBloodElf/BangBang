@@ -16,7 +16,6 @@
 
 @interface SearchAdressController : UIViewController
 
-@property (nonatomic, strong) AMapPOIAroundSearchRequest *searchPOIRequest;//周边搜索句柄
 @property (nonatomic, weak) id<SearchAdressDelegate> delegate;
 
 @end

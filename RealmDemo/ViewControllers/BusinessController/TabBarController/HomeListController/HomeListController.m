@@ -17,6 +17,7 @@
 #import "TaskListController.h"
 #import "IdentityManager.h"
 #import "UserHttp.h"
+#import "AppListController.h"
 
 @interface HomeListController ()<HomeListTopDelegate,HomeListBottomDelegate,RBQFetchedResultsControllerDelegate> {
     UIScrollView *_scrollView;//整体的滚动视图
@@ -194,6 +195,63 @@
 }
 #pragma mark -- 
 #pragma mark -- HomeListBottomDelegate
+- (void)homeListBottomLocalAppSelect:(LocalUserApp*)localUserApp {
+    if([localUserApp.titleName isEqualToString:@"公告"]) {//公告
+        [self executeNeedSelectCompany:^{
+            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
+            NSString *str = [NSString stringWithFormat:@"%@Notice?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,[UserManager manager].user.user_guid,[UserManager manager].user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+            webViewcontroller.applicationUrl = str;
+            webViewcontroller.hidesBottomBarWhenPushed = YES;
+            [[self navigationController] pushViewController:webViewcontroller animated:YES];
+        }];
+    } else if ([localUserApp.titleName isEqualToString:@"动态"]) {//动态
+        [self executeNeedSelectCompany:^{
+            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
+            NSString *str = [NSString stringWithFormat:@"%@Dynamic?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,[UserManager manager].user.user_guid,[UserManager manager].user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+            webViewcontroller.applicationUrl = str;
+            webViewcontroller.hidesBottomBarWhenPushed = YES;
+            [[self navigationController] pushViewController:webViewcontroller animated:YES];
+        }];
+    } else if ([localUserApp.titleName isEqualToString:@"签到"]) {//签到
+        [self executeNeedSelectCompany:^{
+            SiginController *sigin = [SiginController new];
+            sigin.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:sigin animated:YES];
+        }];
+    } else if([localUserApp.titleName isEqualToString:@"审批"]) {//审批
+        [self executeNeedSelectCompany:^{
+            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
+            NSString *str = [NSString stringWithFormat:@"%@ApprovalByFormBuilder?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,[UserManager manager].user.user_guid,[UserManager manager].user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+            webViewcontroller.applicationUrl = str;
+            webViewcontroller.hidesBottomBarWhenPushed = YES;
+            [[self navigationController] pushViewController:webViewcontroller animated:YES];
+        }];
+    } else if ([localUserApp.titleName isEqualToString:@"邮件"]) {//邮件 调用手机上的邮件
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:"]];
+    } else if ([localUserApp.titleName isEqualToString:@"会议"]) {//会议
+        [self executeNeedSelectCompany:^{
+            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
+            NSString *str = [NSString stringWithFormat:@"%@meeting?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,[UserManager manager].user.user_guid,[UserManager manager].user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+            webViewcontroller.applicationUrl = str;
+            webViewcontroller.hidesBottomBarWhenPushed = YES;
+            [[self navigationController] pushViewController:webViewcontroller animated:YES];
+        }];
+    } else if([localUserApp.titleName isEqualToString:@"投票"]){//投票
+        [self executeNeedSelectCompany:^{
+            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
+            NSString *str = [NSString stringWithFormat:@"%@Vote?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,[UserManager manager].user.user_guid,[UserManager manager].user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+            webViewcontroller.applicationUrl = str;
+            webViewcontroller.hidesBottomBarWhenPushed = YES;
+            [[self navigationController] pushViewController:webViewcontroller animated:YES];
+        }];
+    }
+}
+//更多
+- (void)homeListBottomMoreApp {
+    AppListController *appList = [AppListController new];
+    appList.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:appList animated:YES];
+}
 //第几个按钮被点击了
 - (void)homeListBottomClicked:(NSInteger)index {
     if(index == 0) {//公告

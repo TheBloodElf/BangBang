@@ -120,10 +120,10 @@
 #pragma mark -- SearchAdressDelegate
 - (void)searchAdress:(AMapPOI *)aMapPOI
 {
+    [self.navigationController popToViewController:self.navigationController.viewControllers[self.navigationController.viewControllers.count - 3] animated:YES];
     if(self.delegate && [self.delegate respondsToSelector:@selector(selectAdress:)]) {
         [self.delegate selectAdress:aMapPOI];
     }
-    [self.navigationController popToViewController:self.navigationController.viewControllers[self.navigationController.viewControllers.count - 3] animated:YES];
 }
 
 #pragma mark -- 
@@ -213,18 +213,14 @@
 - (void)goToSearchAdressController:(UIBarButtonItem*)item {
     SearchAdressController *search = [SearchAdressController new];
     search.delegate = self;
-    AMapPOIAroundSearchRequest *searchRequest = [AMapPOIAroundSearchRequest new];
-    searchRequest.location = _searchPOIRequest.location;
-    searchRequest.requireExtension = YES;
-    search.searchPOIRequest = searchRequest;
     [self.navigationController pushViewController:search animated:YES];
 }
 
 - (void)rightNavigationBarAction:(UIBarButtonItem*)item {
+    [self.navigationController popViewControllerAnimated:YES];
     if (self.delegate && [self.delegate respondsToSelector:@selector(selectAdress:)]) {
         [self.delegate selectAdress:_userSelectedPOI];
     }
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

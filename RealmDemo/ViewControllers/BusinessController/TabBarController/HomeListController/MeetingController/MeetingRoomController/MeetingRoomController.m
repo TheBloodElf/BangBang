@@ -71,8 +71,8 @@
     self.navigationItem.rightBarButtonItem.enabled = NO;
     // Do any additional setup after loading the view.
 }
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 - (void)rightClicked:(UIBarButtonItem*)item {

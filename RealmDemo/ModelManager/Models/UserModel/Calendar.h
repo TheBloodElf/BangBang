@@ -55,15 +55,15 @@
  *  RRule字符串
  */
 @property (nonatomic, strong) NSString *rrule;
-@property (nonatomic, strong) NSString *rdate;
+@property (nonatomic, strong) NSString *rdate;//单位秒
 /**
  *  日程的紧急程度 0普通 1紧急 2非常紧急
  */
 @property (nonatomic,assign) int emergency_status;
 //周期性已删除日期
-@property (nonatomic,strong) NSString   *deleted_dates;
+@property (nonatomic,strong) NSString   *deleted_dates;//单位秒
 //周期性已完成日期
-@property (nonatomic,strong) NSString   *finished_dates;
+@property (nonatomic,strong) NSString   *finished_dates;//单位秒
 
 /**
  *  有重复周期的开始时间

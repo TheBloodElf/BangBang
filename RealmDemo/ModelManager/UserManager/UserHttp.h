@@ -76,6 +76,10 @@
 + (NSURLSessionDataTask*)createUserCalendar:(Calendar*)calendar handler:(completionHandler)handler;
 //修改日程
 + (NSURLSessionDataTask*)updateUserCalendar:(Calendar*)calendar handler:(completionHandler)handler;
+//添加日程完成时间
++ (NSURLSessionDataTask*)addCalendarFinishDate:(int64_t)eventID finishDate:(int64_t)finishDate handler:(completionHandler)handler;
+//添加日程删除时间
++ (NSURLSessionDataTask*)addCalendarDeleteDate:(int64_t)eventID deleteDate:(int64_t)deleteDate handler:(completionHandler)handler;
 //获取用户所有日程
 + (NSURLSessionDataTask*)getUserCalendar:(NSString*)userGuid handler:(completionHandler)handler;
 #pragma mark -- 签到
@@ -123,4 +127,13 @@
 + (NSURLSessionDataTask*)addTaskComment:(int)taskId taskStatus:(int)taskStatus comment:(NSString*)comment createdby:(NSString*)createdby createdRealname:(NSString*)createdRealname repEmployeeGuid:(NSString*)repEmployeeGuid repEmployeeName:(NSString*)repEmployeeName handler:(completionHandler)handler;
 //更新任务状态和原因
 + (NSURLSessionDataTask*)updateTask:(int)taskId status:(int)status comment:(NSString*)comment updatedby:(NSString*)updatedby handler:(completionHandler)handler;
+#pragma mark -- 应用中心
+//获取应用列表
++ (NSURLSessionDataTask*)getCenterAppListHandler:(completionHandler)handler;
+//获取我的应用
++ (NSURLSessionDataTask*)getMyAppList:(NSString*)userGuid handler:(completionHandler)handler;
+//添加应用
++ (NSURLSessionDataTask*)addApp:(NSString*)userGuid appGuid:(NSString*)appGuid handler:(completionHandler)handler;
+//删除应用
++ (NSURLSessionDataTask*)deleteApp:(NSString*)userGuid appGuid:(NSString*)appGuid handler:(completionHandler)handler;
 @end

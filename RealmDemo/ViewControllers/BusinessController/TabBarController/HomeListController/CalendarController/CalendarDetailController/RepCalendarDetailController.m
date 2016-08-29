@@ -91,7 +91,7 @@
         [array addObject:_calendar.rdate];
         _calendar.finished_dates = [array componentsJoinedByString:@","];
         [self.navigationController.view showLoadingTips:@""];
-        [UserHttp updateUserCalendar:_calendar handler:^(id data, MError *error) {
+        [UserHttp addCalendarFinishDate:_calendar.id finishDate:_calendar.rdate.doubleValue handler:^(id data, MError *error) {
             [self.navigationController.view dismissTips];
             if(error) {
                 [self.navigationController.view showFailureTips:error.statsMsg];
@@ -138,7 +138,7 @@
         [array addObject:_calendar.rdate];
         _calendar.deleted_dates = [array componentsJoinedByString:@","];
         [self.navigationController.view showLoadingTips:@""];
-        [UserHttp updateUserCalendar:_calendar handler:^(id data, MError *error) {
+        [UserHttp addCalendarDeleteDate:_calendar.id deleteDate:_calendar.rdate.doubleValue handler:^(id data, MError *error) {
             [self.navigationController.view dismissTips];
             if(error) {
                 [self.navigationController.view showFailureTips:error.statsMsg];

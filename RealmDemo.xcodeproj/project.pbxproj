@@ -355,12 +355,26 @@
 		1B1B9BF91D3E198600F53EDC /* ComCalendarInstruction.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B1B9BF71D3E198600F53EDC /* ComCalendarInstruction.xib */; };
 		1B1B9BFD1D3E376200F53EDC /* CalendarSelectAlertTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1B9BFB1D3E376200F53EDC /* CalendarSelectAlertTime.m */; };
 		1B1B9BFE1D3E376200F53EDC /* CalendarSelectAlertTime.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B1B9BFC1D3E376200F53EDC /* CalendarSelectAlertTime.xib */; };
+		1B3312261D740F5A00E77741 /* AppListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3312241D740F5A00E77741 /* AppListController.m */; };
+		1B3312271D740F5A00E77741 /* AppListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B3312251D740F5A00E77741 /* AppListController.xib */; };
+		1B3312301D74127B00E77741 /* UserApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B33122F1D74127B00E77741 /* UserApp.m */; };
+		1B3312331D74164400E77741 /* LocalUserApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3312321D74164400E77741 /* LocalUserApp.m */; };
+		1B3312371D7418F900E77741 /* HomeListBottomViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3312351D7418F900E77741 /* HomeListBottomViewCell.m */; };
+		1B3312381D7418F900E77741 /* HomeListBottomViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B3312361D7418F900E77741 /* HomeListBottomViewCell.xib */; };
+		1B33123C1D74199D00E77741 /* MoreAppCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B33123A1D74199D00E77741 /* MoreAppCollectionCell.m */; };
+		1B33123D1D74199D00E77741 /* MoreAppCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B33123B1D74199D00E77741 /* MoreAppCollectionCell.xib */; };
+		1B33124D1D741E9900E77741 /* AppCenterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3312401D741E9900E77741 /* AppCenterView.m */; };
+		1B33124E1D741E9900E77741 /* AppCenterViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3312421D741E9900E77741 /* AppCenterViewCell.m */; };
+		1B33124F1D741E9900E77741 /* AppCenterViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B3312431D741E9900E77741 /* AppCenterViewCell.xib */; };
+		1B3312501D741E9900E77741 /* MyAppView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3312461D741E9900E77741 /* MyAppView.m */; };
+		1B3312511D741E9900E77741 /* MyAppViewAddCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3312481D741E9900E77741 /* MyAppViewAddCell.m */; };
+		1B3312521D741E9900E77741 /* MyAppViewAddCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B3312491D741E9900E77741 /* MyAppViewAddCell.xib */; };
+		1B3312531D741E9900E77741 /* MyAppViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B33124B1D741E9900E77741 /* MyAppViewCell.m */; };
+		1B3312541D741E9900E77741 /* MyAppViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B33124C1D741E9900E77741 /* MyAppViewCell.xib */; };
 		1B36FCD01D35E748006694E4 /* HomeListTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B36FCCF1D35E748006694E4 /* HomeListTopView.m */; };
 		1B36FCD31D35E750006694E4 /* HomeListBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B36FCD21D35E750006694E4 /* HomeListBottomView.m */; };
 		1B36FCD81D35EC90006694E4 /* CalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B36FCD71D35EC90006694E4 /* CalendarView.m */; };
 		1B36FCDB1D35EC96006694E4 /* TaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B36FCDA1D35EC96006694E4 /* TaskView.m */; };
-		1B36FCDF1D35F01B006694E4 /* BottomViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B36FCDE1D35F01B006694E4 /* BottomViewItem.m */; };
-		1B36FCE21D360A4D006694E4 /* BottomItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B36FCE11D360A4D006694E4 /* BottomItemModel.m */; };
 		1B36FCE51D360B9F006694E4 /* NSObject+data.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B36FCE41D360B9F006694E4 /* NSObject+data.m */; };
 		1B381DB81D6E919E00644147 /* VideoRecordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B381DB71D6E919E00644147 /* VideoRecordController.m */; };
 		1B381DBF1D6E9B3000644147 /* changeCamer.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B381DB91D6E9B3000644147 /* changeCamer.png */; };
@@ -1447,6 +1461,32 @@
 		1B1B9BFA1D3E376200F53EDC /* CalendarSelectAlertTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarSelectAlertTime.h; sourceTree = "<group>"; };
 		1B1B9BFB1D3E376200F53EDC /* CalendarSelectAlertTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarSelectAlertTime.m; sourceTree = "<group>"; };
 		1B1B9BFC1D3E376200F53EDC /* CalendarSelectAlertTime.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarSelectAlertTime.xib; sourceTree = "<group>"; };
+		1B3312231D740F5A00E77741 /* AppListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppListController.h; sourceTree = "<group>"; };
+		1B3312241D740F5A00E77741 /* AppListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppListController.m; sourceTree = "<group>"; };
+		1B3312251D740F5A00E77741 /* AppListController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AppListController.xib; sourceTree = "<group>"; };
+		1B33122E1D74127B00E77741 /* UserApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserApp.h; sourceTree = "<group>"; };
+		1B33122F1D74127B00E77741 /* UserApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserApp.m; sourceTree = "<group>"; };
+		1B3312311D74164400E77741 /* LocalUserApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalUserApp.h; sourceTree = "<group>"; };
+		1B3312321D74164400E77741 /* LocalUserApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalUserApp.m; sourceTree = "<group>"; };
+		1B3312341D7418F900E77741 /* HomeListBottomViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeListBottomViewCell.h; sourceTree = "<group>"; };
+		1B3312351D7418F900E77741 /* HomeListBottomViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeListBottomViewCell.m; sourceTree = "<group>"; };
+		1B3312361D7418F900E77741 /* HomeListBottomViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeListBottomViewCell.xib; sourceTree = "<group>"; };
+		1B3312391D74199D00E77741 /* MoreAppCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreAppCollectionCell.h; sourceTree = "<group>"; };
+		1B33123A1D74199D00E77741 /* MoreAppCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreAppCollectionCell.m; sourceTree = "<group>"; };
+		1B33123B1D74199D00E77741 /* MoreAppCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoreAppCollectionCell.xib; sourceTree = "<group>"; };
+		1B33123F1D741E9900E77741 /* AppCenterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppCenterView.h; sourceTree = "<group>"; };
+		1B3312401D741E9900E77741 /* AppCenterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppCenterView.m; sourceTree = "<group>"; };
+		1B3312411D741E9900E77741 /* AppCenterViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppCenterViewCell.h; sourceTree = "<group>"; };
+		1B3312421D741E9900E77741 /* AppCenterViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppCenterViewCell.m; sourceTree = "<group>"; };
+		1B3312431D741E9900E77741 /* AppCenterViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AppCenterViewCell.xib; sourceTree = "<group>"; };
+		1B3312451D741E9900E77741 /* MyAppView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAppView.h; sourceTree = "<group>"; };
+		1B3312461D741E9900E77741 /* MyAppView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAppView.m; sourceTree = "<group>"; };
+		1B3312471D741E9900E77741 /* MyAppViewAddCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAppViewAddCell.h; sourceTree = "<group>"; };
+		1B3312481D741E9900E77741 /* MyAppViewAddCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAppViewAddCell.m; sourceTree = "<group>"; };
+		1B3312491D741E9900E77741 /* MyAppViewAddCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyAppViewAddCell.xib; sourceTree = "<group>"; };
+		1B33124A1D741E9900E77741 /* MyAppViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAppViewCell.h; sourceTree = "<group>"; };
+		1B33124B1D741E9900E77741 /* MyAppViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAppViewCell.m; sourceTree = "<group>"; };
+		1B33124C1D741E9900E77741 /* MyAppViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyAppViewCell.xib; sourceTree = "<group>"; };
 		1B36FCCE1D35E748006694E4 /* HomeListTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeListTopView.h; sourceTree = "<group>"; };
 		1B36FCCF1D35E748006694E4 /* HomeListTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeListTopView.m; sourceTree = "<group>"; };
 		1B36FCD11D35E750006694E4 /* HomeListBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeListBottomView.h; sourceTree = "<group>"; };
@@ -1455,10 +1495,6 @@
 		1B36FCD71D35EC90006694E4 /* CalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarView.m; sourceTree = "<group>"; };
 		1B36FCD91D35EC96006694E4 /* TaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskView.h; sourceTree = "<group>"; };
 		1B36FCDA1D35EC96006694E4 /* TaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskView.m; sourceTree = "<group>"; };
-		1B36FCDD1D35F01B006694E4 /* BottomViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomViewItem.h; sourceTree = "<group>"; };
-		1B36FCDE1D35F01B006694E4 /* BottomViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomViewItem.m; sourceTree = "<group>"; };
-		1B36FCE01D360A4D006694E4 /* BottomItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomItemModel.h; sourceTree = "<group>"; };
-		1B36FCE11D360A4D006694E4 /* BottomItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomItemModel.m; sourceTree = "<group>"; };
 		1B36FCE31D360B9F006694E4 /* NSObject+data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+data.h"; sourceTree = "<group>"; };
 		1B36FCE41D360B9F006694E4 /* NSObject+data.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+data.m"; sourceTree = "<group>"; };
 		1B381DB61D6E919E00644147 /* VideoRecordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoRecordController.h; sourceTree = "<group>"; };
@@ -3517,12 +3553,58 @@
 			path = ComCalendarCell;
 			sourceTree = "<group>";
 		};
+		1B3312221D740F1500E77741 /* AppListController */ = {
+			isa = PBXGroup;
+			children = (
+				1B3312231D740F5A00E77741 /* AppListController.h */,
+				1B3312241D740F5A00E77741 /* AppListController.m */,
+				1B3312251D740F5A00E77741 /* AppListController.xib */,
+				1B33123E1D741E9900E77741 /* AppCenterView */,
+				1B3312441D741E9900E77741 /* MyAppView */,
+			);
+			path = AppListController;
+			sourceTree = "<group>";
+		};
+		1B33123E1D741E9900E77741 /* AppCenterView */ = {
+			isa = PBXGroup;
+			children = (
+				1B33123F1D741E9900E77741 /* AppCenterView.h */,
+				1B3312401D741E9900E77741 /* AppCenterView.m */,
+				1B3312411D741E9900E77741 /* AppCenterViewCell.h */,
+				1B3312421D741E9900E77741 /* AppCenterViewCell.m */,
+				1B3312431D741E9900E77741 /* AppCenterViewCell.xib */,
+			);
+			path = AppCenterView;
+			sourceTree = "<group>";
+		};
+		1B3312441D741E9900E77741 /* MyAppView */ = {
+			isa = PBXGroup;
+			children = (
+				1B3312451D741E9900E77741 /* MyAppView.h */,
+				1B3312461D741E9900E77741 /* MyAppView.m */,
+				1B3312471D741E9900E77741 /* MyAppViewAddCell.h */,
+				1B3312481D741E9900E77741 /* MyAppViewAddCell.m */,
+				1B3312491D741E9900E77741 /* MyAppViewAddCell.xib */,
+				1B33124A1D741E9900E77741 /* MyAppViewCell.h */,
+				1B33124B1D741E9900E77741 /* MyAppViewCell.m */,
+				1B33124C1D741E9900E77741 /* MyAppViewCell.xib */,
+			);
+			path = MyAppView;
+			sourceTree = "<group>";
+		};
 		1B36FCCC1D35E71F006694E4 /* HomeListBottomView */ = {
 			isa = PBXGroup;
 			children = (
 				1B36FCD11D35E750006694E4 /* HomeListBottomView.h */,
 				1B36FCD21D35E750006694E4 /* HomeListBottomView.m */,
-				1B36FCDC1D35F00F006694E4 /* BottomViewItem */,
+				1B3312311D74164400E77741 /* LocalUserApp.h */,
+				1B3312321D74164400E77741 /* LocalUserApp.m */,
+				1B3312341D7418F900E77741 /* HomeListBottomViewCell.h */,
+				1B3312351D7418F900E77741 /* HomeListBottomViewCell.m */,
+				1B3312361D7418F900E77741 /* HomeListBottomViewCell.xib */,
+				1B3312391D74199D00E77741 /* MoreAppCollectionCell.h */,
+				1B33123A1D74199D00E77741 /* MoreAppCollectionCell.m */,
+				1B33123B1D74199D00E77741 /* MoreAppCollectionCell.xib */,
 			);
 			path = HomeListBottomView;
 			sourceTree = "<group>";
@@ -3559,17 +3641,6 @@
 				1B6D160F1D4862820070D2E5 /* TaskView.xib */,
 			);
 			path = TaskView;
-			sourceTree = "<group>";
-		};
-		1B36FCDC1D35F00F006694E4 /* BottomViewItem */ = {
-			isa = PBXGroup;
-			children = (
-				1B36FCE01D360A4D006694E4 /* BottomItemModel.h */,
-				1B36FCE11D360A4D006694E4 /* BottomItemModel.m */,
-				1B36FCDD1D35F01B006694E4 /* BottomViewItem.h */,
-				1B36FCDE1D35F01B006694E4 /* BottomViewItem.m */,
-			);
-			path = BottomViewItem;
 			sourceTree = "<group>";
 		};
 		1B381DB51D6E915500644147 /* VideoRecordController */ = {
@@ -4184,6 +4255,7 @@
 			children = (
 				1B5585C31D34FA7D00DCD3A0 /* HomeListController.h */,
 				1B5585C41D34FA7D00DCD3A0 /* HomeListController.m */,
+				1B3312221D740F1500E77741 /* AppListController */,
 				1B46863B1D4F1B0B00F3C068 /* TaskListController */,
 				046DAF281D4C3EB500718F2A /* MeetingController */,
 				1BFBC1831D3F80E000A5511A /* SiginController */,
@@ -5242,6 +5314,8 @@
 			children = (
 				75E5FF7B1D27D68300F77961 /* User.h */,
 				75E5FF7C1D27D68300F77961 /* User.m */,
+				1B33122E1D74127B00E77741 /* UserApp.h */,
+				1B33122F1D74127B00E77741 /* UserApp.m */,
 				1B06D5D11D362FA8002D06A7 /* Company.h */,
 				1B06D5D21D362FA8002D06A7 /* Company.m */,
 				1B4B160E1D3731D900E71B3D /* Employee.h */,
@@ -5511,6 +5585,7 @@
 				040BB6051D4A44FD00511FFC /* LaunchScreen.xib in Resources */,
 				1BF3FD231D5ABBA700026351 /* AttachVideoCell.xib in Resources */,
 				1B381E1C1D6ED7AB00644147 /* VoiceSearchFeedback020.png in Resources */,
+				1B3312381D7418F900E77741 /* HomeListBottomViewCell.xib in Resources */,
 				1B381DFA1D6ED7AB00644147 /* VoiceSearchFeedback003.png in Resources */,
 				1B6D16511D48A8D00070D2E5 /* ic_logo_cn@2x.png in Resources */,
 				1B381DF71D6ED7AB00644147 /* VoiceSearchFeedback001@2x.png in Resources */,
@@ -5533,6 +5608,7 @@
 				1B6D16461D48A8D00070D2E5 /* ic_action_back_pressed.png in Resources */,
 				1B6D16471D48A8D00070D2E5 /* ic_action_back_pressed@2x.png in Resources */,
 				1BC2AE811D42113800842153 /* PalneTableViewCell.xib in Resources */,
+				1B33124F1D741E9900E77741 /* AppCenterViewCell.xib in Resources */,
 				1B47D77D1D6C3F2000837BFD /* RealmJs.js in Resources */,
 				1B6D16041D484CA10070D2E5 /* CalendarView.xib in Resources */,
 				1B381E081D6ED7AB00644147 /* VoiceSearchFeedback010.png in Resources */,
@@ -5572,6 +5648,7 @@
 				046DAF671D4C3EB500718F2A /* MeetingAgendaCell.xib in Resources */,
 				1B6D16591D48A8D00070D2E5 /* login_botton.png in Resources */,
 				1B6D16541D48A8D00070D2E5 /* ic_reg_password.png in Resources */,
+				1B3312521D741E9900E77741 /* MyAppViewAddCell.xib in Resources */,
 				1B1B9BEF1D3E178F00F53EDC /* ComCalendarDetail.xib in Resources */,
 				1BC2AE851D42113800842153 /* SiginName.xib in Resources */,
 				1B0388861D509B7900D0B7D0 /* TaskInchargeCellCell.xib in Resources */,
@@ -5647,6 +5724,7 @@
 				1BC2AE7E1D42113800842153 /* AttendanceRollCell.xib in Resources */,
 				1BDA9F0E1D6D8A0300341FC9 /* MainStory.storyboard in Resources */,
 				1B5585A11D34E2C800DCD3A0 /* ic_welcome_avatar_2_2.png in Resources */,
+				1B33123D1D74199D00E77741 /* MoreAppCollectionCell.xib in Resources */,
 				046DAF731D4C3EB500718F2A /* MeetingDeviceCell.xib in Resources */,
 				1BC2AE871D42113800842153 /* WorkAdressCell.xib in Resources */,
 				1B381E041D6ED7AB00644147 /* VoiceSearchFeedback008.png in Resources */,
@@ -5663,6 +5741,7 @@
 				1B6D16491D48A8D00070D2E5 /* ic_check_off@2x.png in Resources */,
 				1B158A6F1D45BB4D003237A7 /* RYGroupSetUserImageCell.xib in Resources */,
 				1B6D16611D48A8D00070D2E5 /* login_line@3x.png in Resources */,
+				1B3312271D740F5A00E77741 /* AppListController.xib in Resources */,
 				1B1B9BF41D3E18D300F53EDC /* ComCalendarAdress.xib in Resources */,
 				1B0388951D509DF800D0B7D0 /* TaskRemindCellCell.xib in Resources */,
 				1BC2AE4C1D4208DB00842153 /* SiginSelectCell.xib in Resources */,
@@ -5694,6 +5773,7 @@
 				1BFBC1491D3F0F0100A5511A /* RepCalendarRep.xib in Resources */,
 				1B381DFF1D6ED7AB00644147 /* VoiceSearchFeedback005@2x.png in Resources */,
 				040A09B01D3D182F00156C16 /* DiscussListCell.xib in Resources */,
+				1B3312541D741E9900E77741 /* MyAppViewCell.xib in Resources */,
 				046DAF801D4C3EB500718F2A /* MeetingRoomTimeCell.xib in Resources */,
 				1B89FF9E1D4F541D00466F6D /* AddRemindCell.xib in Resources */,
 				1BC2AE901D42113800842153 /* SelectAttendanceWorkDay.xib in Resources */,
@@ -5915,6 +5995,7 @@
 				1B18B3111D59A67D00858C83 /* Photo.m in Sources */,
 				1B47D7781D6C3E8000837BFD /* zip.c in Sources */,
 				04E7E5B41D3A7D2500C653B4 /* PushMessage.m in Sources */,
+				1B3312301D74127B00E77741 /* UserApp.m in Sources */,
 				1BC2AE8D1D42113800842153 /* SelectAttendanceTime.m in Sources */,
 				1B47D6D21D6C185400837BFD /* PRTweenTimingFunctions.m in Sources */,
 				1BBED3A31D6559450001868B /* XXXRoundMenuButton.m in Sources */,
@@ -5926,6 +6007,7 @@
 				1B5585681D34CF4F00DCD3A0 /* RECommonFunctions.m in Sources */,
 				1B1648C91D5490FE003DC778 /* RCTransferSelectViewController.m in Sources */,
 				046DAF761D4C3EB500718F2A /* MeetingDeviceSelectCell.m in Sources */,
+				1B3312371D7418F900E77741 /* HomeListBottomViewCell.m in Sources */,
 				04B0D82D1D698E8800BAD522 /* RACMulticastConnection.m in Sources */,
 				04B0D8531D698E8800BAD522 /* UISegmentedControl+RACSignalSupport.m in Sources */,
 				1B18B3151D59A67D00858C83 /* AllowSelectPhotoBrose.m in Sources */,
@@ -5948,6 +6030,7 @@
 				1BF5DFA71D4995E50039704E /* WBApiManager.m in Sources */,
 				04B0D8511D698E8800BAD522 /* UIImagePickerController+RACSignalSupport.m in Sources */,
 				1B1B9BBC1D3DCB8000F53EDC /* NSCalendar+NSCalendar_Atipik.m in Sources */,
+				1B3312511D741E9900E77741 /* MyAppViewAddCell.m in Sources */,
 				1B89FF6C1D4F50BF00466F6D /* TaskListCell.m in Sources */,
 				1B5585CE1D34FA9600DCD3A0 /* XAddrBookController.m in Sources */,
 				1BFBC1581D3F269400A5511A /* CalendarRepSelect.m in Sources */,
@@ -5961,6 +6044,7 @@
 				04E7E5A81D3A660800C653B4 /* ChangeUserBBH.m in Sources */,
 				046DAF701D4C3EB500718F2A /* MeetingName.m in Sources */,
 				1B5585801D34DD4E00DCD3A0 /* NSString+isBlank.m in Sources */,
+				1B3312331D74164400E77741 /* LocalUserApp.m in Sources */,
 				1B47D7791D6C3E8000837BFD /* RSA.m in Sources */,
 				1B6D160D1D4853930070D2E5 /* LineProgressView.m in Sources */,
 				1BFBC17F1D3F7B3100A5511A /* ComCalendarEditController.m in Sources */,
@@ -5991,7 +6075,6 @@
 				04B0D8031D698E8800BAD522 /* NSDictionary+RACSequenceAdditions.m in Sources */,
 				1B36FCDB1D35EC96006694E4 /* TaskView.m in Sources */,
 				04B0D7FF1D698E8800BAD522 /* EXTRuntimeExtensions.m in Sources */,
-				1B36FCDF1D35F01B006694E4 /* BottomViewItem.m in Sources */,
 				04B0D82C1D698E8800BAD522 /* RACKVOTrampoline.m in Sources */,
 				1B4B162A1D37858400E71B3D /* BushManageViewController.m in Sources */,
 				04B0D8071D698E8800BAD522 /* NSInvocation+RACTypeParsing.m in Sources */,
@@ -6025,7 +6108,6 @@
 				1B5585BA1D34F7FB00DCD3A0 /* MainBusinessController.m in Sources */,
 				049CDF951D4F896D00F8890F /* TaskUpdateController.m in Sources */,
 				1B18B3311D59A6C100858C83 /* SelectAdressTableCell.m in Sources */,
-				1B36FCE21D360A4D006694E4 /* BottomItemModel.m in Sources */,
 				04B0D82F1D698E8800BAD522 /* RACPassthroughSubscriber.m in Sources */,
 				1BDFB8011D58329A00D13BC7 /* IQKeyboardManager.m in Sources */,
 				1B1B9BDF1D3E11FA00F53EDC /* ComCalendarName.m in Sources */,
@@ -6114,6 +6196,7 @@
 				1BD871EA1D38AE200074CDC7 /* CreateBushController.m in Sources */,
 				75E5FF801D27D68C00F77961 /* Identity.m in Sources */,
 				1B18B3161D59A67D00858C83 /* BigPhotoSelectController.m in Sources */,
+				1B3312261D740F5A00E77741 /* AppListController.m in Sources */,
 				1B18B3131D59A67D00858C83 /* AvaterBroseController.m in Sources */,
 				1BED8C061D517DDD00340809 /* MeetingEquipmentsModel.m in Sources */,
 				04B0D8261D698E8800BAD522 /* RACEvent.m in Sources */,
@@ -6149,6 +6232,7 @@
 				04E7E5AA1D3A660800C653B4 /* ChangeUserName.m in Sources */,
 				1B158A681D45BB4D003237A7 /* RYGroupSetAddUserCell.m in Sources */,
 				049586171D39D3A500544259 /* MuliteSelectCell.m in Sources */,
+				1B3312501D741E9900E77741 /* MyAppView.m in Sources */,
 				1BC2AE4F1D42109E00842153 /* SiginRuleSet.m in Sources */,
 				1BC2AE7F1D42113800842153 /* AttendanceRollController.m in Sources */,
 				046DAF651D4C3EB500718F2A /* MeetingAgenda.m in Sources */,
@@ -6194,6 +6278,7 @@
 				1B18B3371D59B66300858C83 /* Attachment.m in Sources */,
 				1B1648CD1D54911F003DC778 /* RCTransferDiscussCell.m in Sources */,
 				0482FBEF1D436FE500B1CBB2 /* MANaviPolyline.m in Sources */,
+				1B33124D1D741E9900E77741 /* AppCenterView.m in Sources */,
 				046DAF781D4C3EB500718F2A /* MeetingDeviceSelectController.m in Sources */,
 				1B89FF681D4F50BF00466F6D /* CreateTaskView.m in Sources */,
 				04B0D82B1D698E8800BAD522 /* RACKVOProxy.m in Sources */,
@@ -6216,6 +6301,7 @@
 				1BC2AE921D42113800842153 /* NoSiginruleView.m in Sources */,
 				1B47D7541D6C3E8000837BFD /* raw_api.c in Sources */,
 				1B47D76C1D6C3E8000837BFD /* SGDirWatchdog.m in Sources */,
+				1B33124E1D741E9900E77741 /* AppCenterViewCell.m in Sources */,
 				1B4B161B1D37675E00E71B3D /* MineViewController.m in Sources */,
 				1BDF20B71D3C61BF00666814 /* RYChatManager.m in Sources */,
 				04B0D8471D698E8800BAD522 /* RACValueTransformer.m in Sources */,
@@ -6251,6 +6337,7 @@
 				0482FBF01D436FE500B1CBB2 /* LineDashPolyline.m in Sources */,
 				1B18B3171D59A67D00858C83 /* PhotoGroupController.m in Sources */,
 				1B4B16281D37858400E71B3D /* BushManagerCell.m in Sources */,
+				1B3312531D741E9900E77741 /* MyAppViewCell.m in Sources */,
 				04B0D80B1D698E8800BAD522 /* NSObject+RACKVOWrapper.m in Sources */,
 				04B0D8181D698E8800BAD522 /* RACBlockTrampoline.m in Sources */,
 				046DB0881D4CA12800718F2A /* MeetDeviceDetailController.m in Sources */,
@@ -6258,6 +6345,7 @@
 				1BC2AE911D42113800842153 /* UpdateAttendanceController.m in Sources */,
 				04B0D83E1D698E8800BAD522 /* RACSubscriber.m in Sources */,
 				1B47D75E1D6C3E8000837BFD /* JPCGGeometry.m in Sources */,
+				1B33123C1D74199D00E77741 /* MoreAppCollectionCell.m in Sources */,
 				0495862B1D3A1A3F00544259 /* WebViewJavascriptBridge.m in Sources */,
 				1B5585691D34CF4F00DCD3A0 /* REFrostedContainerViewController.m in Sources */,
 				04B0D80D1D698E8800BAD522 /* NSObject+RACPropertySubscribing.m in Sources */,

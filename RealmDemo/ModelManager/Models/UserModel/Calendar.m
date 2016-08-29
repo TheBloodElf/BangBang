@@ -18,7 +18,7 @@
     if(timeArr.count == 0) return NO;
     for (NSString *timeStr in timeArr) {
         //直接计算1970距离现在多少天 这样更快
-        if((int)(date.timeIntervalSince1970 / (24 * 60 * 60)) == (int)(timeStr.doubleValue / (24 * 60 * 60 * 1000)))
+        if((int)(date.timeIntervalSince1970 / (24 * 60 * 60)) == (int)(timeStr.doubleValue / (24 * 60 * 60)))
             return YES;
     }
     return NO;
@@ -28,7 +28,7 @@
     if(timeArr.count == 0) return NO;
     for (NSString *timeStr in timeArr) {
         //直接计算1970距离现在多少天 这样更快
-        if((int)(date.timeIntervalSince1970 / (24 * 60 * 60)) == (int)(timeStr.doubleValue / (24 * 60 * 60 * 1000)))
+        if((int)(date.timeIntervalSince1970 / (24 * 60 * 60)) == (int)(timeStr.doubleValue / (24 * 60 * 60)))
             return YES;
     }
     return NO;

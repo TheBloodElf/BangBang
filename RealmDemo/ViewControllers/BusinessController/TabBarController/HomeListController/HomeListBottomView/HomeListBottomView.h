@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LocalUserApp.h"
+#import "UserApp.h"
+
 //首页底部的按钮组
 @protocol HomeListBottomDelegate <NSObject>
-//第几个按钮被点击了
-- (void)homeListBottomClicked:(NSInteger)index;
+
+- (void)homeListBottomLocalAppSelect:(LocalUserApp*)localUserApp;
+- (void)homeListBottomMoreApp;
 
 @end
 

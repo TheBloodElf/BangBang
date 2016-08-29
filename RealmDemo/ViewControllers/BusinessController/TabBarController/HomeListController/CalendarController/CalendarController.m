@@ -204,7 +204,7 @@
                                 [_todayOtherCalendarArr addObject:calendar];
                         } else {//当前未完成
                             Calendar *calendar = [tempCalendar deepCopy];
-                            calendar.rdate = @(tempDate.timeIntervalSince1970 * 1000).stringValue;
+                            calendar.rdate = @(tempDate.timeIntervalSince1970).stringValue;
                             if(calendar.is_allday == YES)
                                 [_todayAlldayCalendarArr addObject:calendar];
                             else if (calendar.r_end_date_utc - calendar.r_begin_date_utc > (24 * 60 * 60 * 1000))

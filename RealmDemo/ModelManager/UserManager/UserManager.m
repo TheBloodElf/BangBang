@@ -746,4 +746,50 @@
     [fetchedResultsController performFetch];
     return fetchedResultsController;
 }
+#pragma mark -- UserApp
+//添加一个应用
+- (void)addUserApp:(UserApp*)userApp {
+    [_rlmRealm beginWriteTransaction];
+    [UserApp createOrUpdateInRealm:_rlmRealm withValue:userApp];
+    [_rlmRealm commitWriteTransaction];
+}
+//删除一个应用
+- (void)delUserApp:(UserApp*)userApp {
+    [_rlmRealm beginWriteTransaction];
+    [_rlmRealm deleteObject:userApp];
+    [_rlmRealm commitWriteTransaction];
+}
+//更新所有应用
+- (void)updateUserAppArr:(NSMutableArray<UserApp*>*)userAppArr {
+    [_rlmRealm beginWriteTransaction];
+    RLMResults *calendarResult = [UserApp objectsInRealm:_rlmRealm withPredicate:nil];
+    while (calendarResult.count) {
+        [_rlmRealm deleteObject:calendarResult.firstObject];
+    }
+    for (UserApp *model in userAppArr) {
+        [UserApp createOrUpdateInRealm:_rlmRealm withValue:model];
+    }
+    [_rlmRealm commitWriteTransaction];
+}
+//获取所有应用
+- (NSMutableArray<UserApp*>*)getUserAppArr {
+    [_rlmRealm beginWriteTransaction];
+    NSMutableArray *pushMessageArr = [@[] mutableCopy];
+    RLMResults *results = [UserApp objectsInRealm:_rlmRealm withPredicate:nil];
+    for (int index = 0;index < results.count;index ++) {
+        UserApp *company = [results objectAtIndex:index];
+        [pushMessageArr addObject:company];
+    }
+    [_rlmRealm commitWriteTransaction];
+    return pushMessageArr;
+}
+//应用数据监听
+- (RBQFetchedResultsController*)createUserAppFetchedResultsController {
+    RBQFetchedResultsController *fetchedResultsController = nil;
+    RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"UserApp" inRealm:_rlmRealm predicate:nil];
+    fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:nil];
+    [fetchedResultsController performFetch];
+    return fetchedResultsController;
+}
+
 @end

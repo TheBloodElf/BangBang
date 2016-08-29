@@ -254,11 +254,11 @@
             //展示详情
             if(sharedCalendar.repeat_type == 0) {
                 Calendar *tempTemp = [sharedCalendar deepCopy];
-                tempTemp.rdate = @(message.addTime.timeIntervalSince1970 * 1000).stringValue;
+                tempTemp.rdate = @(message.addTime.timeIntervalSince1970).stringValue;
                 [self.navigationController pushControler:@"ComCalendarDetailViewController" parameters:@{@"calendar":tempTemp}];
             } else {
                 Calendar *tempTemp = [sharedCalendar deepCopy];
-                tempTemp.rdate = @(message.addTime.timeIntervalSince1970 * 1000).stringValue;
+                tempTemp.rdate = @(message.addTime.timeIntervalSince1970).stringValue;
                 [self.navigationController pushControler:@"RepCalendarDetailController" parameters:@{@"calendar":tempTemp}];
             }
         } else if ([message.type isEqualToString:@"CALENDARTIP"]) {//日程推送：
@@ -268,11 +268,11 @@
                     //展示详情
                     if(temp.repeat_type == 0) {
                         Calendar *tempTemp = [temp deepCopy];
-                        tempTemp.rdate = @(message.addTime.timeIntervalSince1970 * 1000).stringValue;
+                        tempTemp.rdate = @(message.addTime.timeIntervalSince1970).stringValue;
                         [self.navigationController pushControler:@"ComCalendarDetailViewController" parameters:@{@"calendar":tempTemp}];
                     } else {
                         Calendar *tempTemp = [temp deepCopy];
-                        tempTemp.rdate = @(message.addTime.timeIntervalSince1970 * 1000).stringValue;
+                        tempTemp.rdate = @(message.addTime.timeIntervalSince1970).stringValue;
                         [self.navigationController pushControler:@"RepCalendarDetailController" parameters:@{@"calendar":tempTemp}];
                     }
                     break;
