@@ -173,6 +173,7 @@
     WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
     webViewcontroller.applicationUrl = userApp.app_url;
     webViewcontroller.hidesBottomBarWhenPushed = YES;
+    webViewcontroller.showNavigationBar = YES;
     [[self navigationController] pushViewController:webViewcontroller animated:YES];
 }
 - (void)editChangeClicked:(UIBarButtonItem*)item {

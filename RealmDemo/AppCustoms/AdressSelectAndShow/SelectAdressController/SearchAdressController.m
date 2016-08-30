@@ -62,7 +62,6 @@
     _searchPOIRequest.sortrule = 1;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightNavigationBarAction:)];
-    [_tableView.mj_header beginRefreshing];
     // Do any additional setup after loading the view.
 }
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {

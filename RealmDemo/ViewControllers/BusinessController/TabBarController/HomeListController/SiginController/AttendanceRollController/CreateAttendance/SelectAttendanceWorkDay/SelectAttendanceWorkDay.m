@@ -49,6 +49,8 @@
 }
 
 - (IBAction)okBtnAction:(id)sender {
+    NSArray *array = [self getSelectedBtn];
+    if(array.count == 0) array = @[@(1)];
     if(self.delegate && [self.delegate respondsToSelector:@selector(selectAttendanceWorkDay:)]) {
         [self.delegate selectAttendanceWorkDay:[self getSelectedBtn]];
     }

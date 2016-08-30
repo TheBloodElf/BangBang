@@ -7,9 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LeftMenuController.h"
+#import "UserManager.h"
+#import "LeftMenuCell.h"
+//如果代理中涉及到修改界面的 那么修改操作就放到本类中，保证只有一处修改界面的同一部分
+//代理中涉及到操作数据的 数据定义应该放到本类  保证数据修改同步
+@interface LeftMenuOpertion : NSObject<UITableViewDataSource,UITableViewDelegate,RBQFetchedResultsControllerDelegate>
+//开始监听
+- (void)startConnect;
 
-@interface LeftMenuOpertion : NSObject
-
-@property (nonatomic, strong) UIViewController *viewController;
+@property (nonatomic, strong) LeftMenuController *viewController;
 
 @end

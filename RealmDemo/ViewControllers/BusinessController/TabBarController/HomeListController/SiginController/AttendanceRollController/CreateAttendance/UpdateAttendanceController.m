@@ -127,8 +127,11 @@
     } else if (indexPath.section == 2) {
         if(indexPath.row == 0) {//打卡
             cell = [tableView dequeueReusableCellWithIdentifier:@"PunchCardRemind" forIndexPath:indexPath];
-        } else {//普通
-            cell = [tableView dequeueReusableCellWithIdentifier:@"PalneTableViewCell" forIndexPath:indexPath];
+        } else {//普通 没有左边的图标
+            cell = [tableView dequeueReusableCellWithIdentifier:@"TableViewCell"];
+            if(!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TableViewCell"];
+            }
         }
     } else if (indexPath.section == 3) {
         if (indexPath.row == 0) {//普通
@@ -181,22 +184,20 @@
             remidCell.delegate = self;
             remidCell.onOffSwitch.on = _currSiginRule.is_alert;
         } else if(indexPath.row == 1) {//上班提醒
-            PalneTableViewCell * palneCell = (id)cell;
-            palneCell.leftImageView.image = [UIImage imageNamed:@"work_up_time"];
-            palneCell.titleLabel.text = @"上班提醒";
+            UITableViewCell * palneCell = (id)cell;
+            palneCell.textLabel.text = @"上班提醒";
             if (_currSiginRule.start_work_time_alert == 0) {
-                palneCell.detailLabel.text = @"准时";
+                palneCell.detailTextLabel.text = @"准时";
             } else {
-                palneCell.detailLabel.text = [NSString stringWithFormat:@"%ld分钟前",_currSiginRule.start_work_time_alert];
+                palneCell.detailTextLabel.text = [NSString stringWithFormat:@"%@分钟前",@(_currSiginRule.start_work_time_alert)];
             }
         } else {//下班提醒
-            PalneTableViewCell * palneCell = (id)cell;
-            palneCell.leftImageView.image = [UIImage imageNamed:@"work_down_time"];
-            palneCell.titleLabel.text = @"下班提醒";
+            UITableViewCell * palneCell = (id)cell;
+            palneCell.textLabel.text = @"下班提醒";
             if (_currSiginRule.end_work_time_alert == 0) {
-                palneCell.detailLabel.text = @"准时";
+                palneCell.detailTextLabel.text = @"准时";
             } else {
-                palneCell.detailLabel.text = [NSString stringWithFormat:@"%ld分钟前",_currSiginRule.end_work_time_alert];
+                palneCell.detailTextLabel.text = [NSString stringWithFormat:@"%@分钟前",@(_currSiginRule.end_work_time_alert)];
             }
         }
     } else if (indexPath.section == 3) {
@@ -309,7 +310,7 @@
     PunchCardAddressSetting * ruleSet = [[PunchCardAddressSetting alloc] initWithAMapPOI:adress];
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"完善地址信息" message:ruleSet.name preferredStyle:UIAlertControllerStyleAlert];
     [alertVC addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.text = _userManager.user.currCompany.company_name;
+        textField.text = ruleSet.name;
         textField.placeholder = @"修改签到点名称";
     }];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {

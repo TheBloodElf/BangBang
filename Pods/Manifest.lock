@@ -19,7 +19,7 @@ PODS:
   - AMapFoundation (1.1.0)
   - AMapSearch (4.1.0):
     - AMapFoundation (~> 1.0)
-  - Bugtags (1.3.0)
+  - Bugtags (1.3.1)
   - GTSDK (1.4.3)
   - JTCalendar (2.1.7)
   - MBProgressHUD (0.9.2)
@@ -40,7 +40,7 @@ DEPENDENCIES:
   - AFNetworking (~> 3.1.0)
   - AMap3DMap
   - AMapSearch
-  - Bugtags (~> 1.3.0)
+  - Bugtags (~> 1.3.1)
   - GTSDK
   - JTCalendar (~> 2.0)
   - MBProgressHUD (~> 0.9.2)
@@ -57,7 +57,7 @@ SPEC CHECKSUMS:
   AMap3DMap: 8619d67fe7b3bbe45abf74b3434eb9ab20220507
   AMapFoundation: 15db20567e6512422a086a01b42a88b145bc2500
   AMapSearch: cb4722480d2d4331a032d43bd1070ed0fa55dac9
-  Bugtags: e3cb5b6622d4a8c51267af8a29c4d370ddcd7db8
+  Bugtags: a2f1671df9dacfdfd53fa59d3e6ffe7575bb2212
   GTSDK: b5a84db52e4d341af3ec8bad7e1cced010a8ee62
   JTCalendar: bc7f3086a4df02aa2e02ac4d505ef888cc2283a0
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
@@ -69,6 +69,6 @@ SPEC CHECKSUMS:
   RongCloudIMKit: f9a8dfea996b9eb301c2d3bbd0374b420bf6da21
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
 
-PODFILE CHECKSUM: b2a590d438d252a3062ca3217c915b7557fbb831
+PODFILE CHECKSUM: afa04ec3deaf749d6d84aec9ce646ec5f8efefed
 
 COCOAPODS: 1.0.1

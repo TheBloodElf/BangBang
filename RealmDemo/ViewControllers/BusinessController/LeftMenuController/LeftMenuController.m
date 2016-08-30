@@ -8,20 +8,16 @@
 
 #import "LeftMenuController.h"
 #import "UserManager.h"
-#import "LeftMenuCell.h"
 #import "MineInfoEditController.h"
 #import "BushSearchViewController.h"
+#import "LeftMenuOpertion.h"
 
-@interface LeftMenuController ()<UITableViewDataSource,UITableViewDelegate,RBQFetchedResultsControllerDelegate> {
+@interface LeftMenuController () {
     UserManager *_userManager;//用户管理器
-    NSMutableArray<Company*> *_companyArr;//圈子数组
+    LeftMenuOpertion *_leftMenuOpertion;//本页面显示和某些操作的封装
     RBQFetchedResultsController *_userFetchedResultsController;//用户数据库监听
     RBQFetchedResultsController *_commpanyFetchedResultsController;//圈子数据监听
 }
-@property (weak, nonatomic) IBOutlet UIImageView *avaterImageView;
-@property (weak, nonatomic) IBOutlet UILabel *userName;
-@property (weak, nonatomic) IBOutlet UILabel *userMood;
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -29,53 +25,26 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _userManager  = [UserManager manager];
-    _companyArr = [@[] mutableCopy];
-    _commpanyFetchedResultsController = [_userManager createCompanyFetchedResultsController];
-    _commpanyFetchedResultsController.delegate = self;
-    _userFetchedResultsController = [_userManager createUserFetchedResultsController];
-    _userFetchedResultsController.delegate = self;
-    User *user = _userManager.user;
     [self.avaterImageView zy_cornerRadiusRoundingRect];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
+    self.view.backgroundColor = [UIColor clearColor];
+    _userManager  = [UserManager manager];
+    _leftMenuOpertion = [LeftMenuOpertion new];
+    _leftMenuOpertion.viewController = self;
+    [_leftMenuOpertion startConnect];
+    //创建数据监听
+    _commpanyFetchedResultsController = [_userManager createCompanyFetchedResultsController];
+    _commpanyFetchedResultsController.data = @"commpanyFetchedResultsController";
+    _commpanyFetchedResultsController.delegate = _leftMenuOpertion;
+    _userFetchedResultsController = [_userManager createUserFetchedResultsController];
+    _userFetchedResultsController.data = @"userFetchedResultsController";
+    _userFetchedResultsController.delegate = _leftMenuOpertion;
+    //设置表格视图
+    self.tableView.delegate = _leftMenuOpertion;
+    self.tableView.dataSource = _leftMenuOpertion;
     [self.tableView registerNib:[UINib nibWithNibName:@"LeftMenuCell" bundle:nil] forCellReuseIdentifier:@"LeftMenuCell"];
     self.tableView.tableFooterView = [UIView new];
-    //设置用户信息
-    [self.avaterImageView sd_setImageWithURL:[NSURL URLWithString:user.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
-    self.userName.text = user.real_name;
-    self.userMood.text = user.mood;
-    //设置圈子信息 只显示自己状态为1或者4的
-    for (Company *company in [_userManager getCompanyArr]) {
-        Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:company.company_no];
-        if(employee.status == 1 || employee.status == 4) {
-            [_companyArr addObject:company];
-        }
-    }
     [self.tableView reloadData];
-    self.view.backgroundColor = [UIColor clearColor];
     // Do any additional setup after loading the view from its nib.
-}
-#pragma mark -- 
-#pragma mark -- RBQFetchedResultsControllerDelegate
-- (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
-    if(controller == _userFetchedResultsController) {
-        User *user = _userManager.user;
-        [self.avaterImageView sd_setImageWithURL:[NSURL URLWithString:user.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
-        self.userName.text = user.real_name;
-        self.userMood.text = user.mood;
-        [_tableView reloadData];//圈子变化了也要刷新表格视图
-    } else {
-        [_companyArr removeAllObjects];
-        //只显示自己状态为4或者1的
-        for (Company *company in [_userManager getCompanyArr]) {
-            Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:company.company_no];
-            if(employee.status == 1 || employee.status == 4) {
-                [_companyArr addObject:company];
-            }
-        }
-        [_tableView reloadData];
-    }
 }
 //加入圈子被点击
 - (IBAction)joinCompanyClicked:(id)sender {
@@ -91,26 +60,5 @@
     //隐藏菜单控制器
     [self.frostedViewController hideMenuViewController];
 }
-#pragma mark --
-#pragma mark -- UITableViewDelegate
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _companyArr.count;
-}
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    LeftMenuCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LeftMenuCell" forIndexPath:indexPath];
-    cell.data = _companyArr[indexPath.row];
-    return cell;
-}
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    //改变用户当前圈子
-    Company *company = [_companyArr[indexPath.row] deepCopy];
-    User *user = [_userManager.user deepCopy];
-    user.currCompany = [company deepCopy];
-    [_userManager updateUser:user];
-    //刷新表格视图
-    [_tableView reloadData];
-    //隐藏菜单控制器
-    [self.frostedViewController hideMenuViewController];
-}
+
 @end

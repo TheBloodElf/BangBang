@@ -10,25 +10,20 @@
 #import "HomeListTopView.h"
 #import "HomeListBottomView.h"
 #import "UserManager.h"
-#import "SiginController.h"
-#import "CalendarController.h"
-#import "WebNonstandarViewController.h"
 #import "PushMessageController.h"
-#import "TaskListController.h"
-#import "IdentityManager.h"
 #import "UserHttp.h"
-#import "AppListController.h"
 
-@interface HomeListController ()<HomeListTopDelegate,HomeListBottomDelegate,RBQFetchedResultsControllerDelegate> {
+#import "HomeListOpertion.h"
+
+@interface HomeListController () {
     UIScrollView *_scrollView;//整体的滚动视图
     HomeListTopView *_homeListTopView;//头部数据视图
     HomeListBottomView *_homeListBottomView;//底部的按钮视图
-    UIButton *_leftNavigationBarButton;//左边导航的按钮
-    UIButton *_rightNavigationBarButton;//右边导航的按钮
     UserManager *_userManager;//用户管理器
     RBQFetchedResultsController *_userFetchedResultsController;//用户数据库监听
     RBQFetchedResultsController *_pushMessageFetchedResultsController;//推送消息数据监听
-    RBQFetchedResultsController *_sigRuleFetchedResultsController;//签到规则数据监听
+    
+    HomeListOpertion *_homeListOpertion;
 }
 
 @end
@@ -37,26 +32,29 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     _userManager = [UserManager manager];
+    _homeListOpertion = [HomeListOpertion new];
+    _homeListOpertion.homeListController = self;
+    [_homeListOpertion startConnect];
+    //创建数据监听
     _userFetchedResultsController = [_userManager createUserFetchedResultsController];
-    _userFetchedResultsController.delegate = self;
+    _userFetchedResultsController.data = @"userFetchedResultsController";
+    _userFetchedResultsController.delegate = _homeListOpertion;
     _pushMessageFetchedResultsController = [_userManager createPushMessagesFetchedResultsController];
-    _pushMessageFetchedResultsController.delegate = self;
-    _sigRuleFetchedResultsController = [_userManager createSiginRuleFetchedResultsController:_userManager.user.currCompany.company_no];
-    _sigRuleFetchedResultsController.delegate = self;
-    
+    _pushMessageFetchedResultsController.delegate = _homeListOpertion;
+    _pushMessageFetchedResultsController.data = @"pushMessageFetchedResultsController";
+    //创建界面
     _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     _scrollView.showsVerticalScrollIndicator = NO;
     //创建头部数据视图
     CGFloat topViewHeight = 32 + MAIN_SCREEN_WIDTH / 2.f;
     _homeListTopView = [[HomeListTopView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, topViewHeight)];
-    _homeListTopView.delegate = self;
+    _homeListTopView.delegate = _homeListOpertion;
     [_scrollView addSubview:_homeListTopView];
     //创建底部按钮视图
     CGFloat bottomViewHeight = MAIN_SCREEN_WIDTH / 2;
     _homeListBottomView = [[HomeListBottomView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_homeListTopView.frame), MAIN_SCREEN_WIDTH, bottomViewHeight)];
-    _homeListBottomView.delegate = self;
+    _homeListBottomView.delegate = _homeListOpertion;
     [_scrollView addSubview:_homeListBottomView];
     _scrollView.contentSize = CGSizeMake(MAIN_SCREEN_WIDTH, CGRectGetMaxY(_homeListBottomView.frame));
     [self.view addSubview:_scrollView];
@@ -66,29 +64,6 @@
     [self.view addGestureRecognizer:screenEdgePanGesture];
     [self setLeftNavigationBarItem];
     [self setRightNavigationBarItem];
-    //在这里统一获取一些必须获取的值
-    //从服务器获取一次规则
-    [UserHttp getSiginRule:_userManager.user.currCompany.company_no handler:^(id data, MError *error) {
-        if(error) {
-            [self.navigationController.view showFailureTips:error.statsMsg];
-            return ;
-        }
-        NSMutableArray *array = [@[] mutableCopy];
-        for (NSDictionary *dic in data) {
-            NSMutableDictionary *dicDic = [dic mutableCopy];
-            dicDic[@"work_day"] = [dicDic[@"work_day"] componentsJoinedByString:@","];
-            SiginRuleSet *set = [[SiginRuleSet alloc] initWithJSONDictionary:dicDic];
-            //这里动态添加签到地址
-            RLMArray<PunchCardAddressSetting> *settingArr = [[RLMArray<PunchCardAddressSetting> alloc] initWithObjectClassName:@"PunchCardAddressSetting"];
-            for (NSDictionary *settingDic in dicDic[@"address_settings"]) {
-                PunchCardAddressSetting *setting = [[PunchCardAddressSetting alloc] initWithJSONDictionary:settingDic];
-                [settingArr addObject:setting];
-            }
-            set.json_list_address_settings = settingArr;
-            [array addObject:set];
-        }
-        [_userManager updateSiginRule:array companyNo:_userManager.user.currCompany.company_no];
-    }];
     // Do any additional setup after loading the view.
 }
 - (void)viewWillAppear:(BOOL)animated {
@@ -98,219 +73,6 @@
 }
 - (void)showLeftClicked:(UIScreenEdgePanGestureRecognizer*)sepr {
     [self.navigationController.frostedViewController presentMenuViewController];
-}
-#pragma mark --
-#pragma mark -- RBQFetchedResultsControllerDelegate
-- (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
-    if(controller == _pushMessageFetchedResultsController) {
-        PPDragDropBadgeView *label = [_rightNavigationBarButton viewWithTag:1001];
-        int count = 0;
-        for (PushMessage *push in controller.fetchedObjects) {
-            if(push.unread == YES)
-                count ++;
-        }
-        label.text = [NSString stringWithFormat:@"%d",count];
-    } else if(controller == _userFetchedResultsController) {
-        User *user = [_userManager user];
-        //重新设置签到记录的数据监听
-        _sigRuleFetchedResultsController = [_userManager createSiginRuleFetchedResultsController:user.currCompany.company_no];
-        _sigRuleFetchedResultsController.delegate = self;
-        UIImageView *imageView = [_leftNavigationBarButton viewWithTag:1001];
-        UILabel *nameLabel = [_leftNavigationBarButton viewWithTag:1002];
-        UILabel *companyLabel = [_leftNavigationBarButton viewWithTag:1003];
-        [imageView sd_setImageWithURL:[NSURL URLWithString:user.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
-        nameLabel.text = user.real_name;
-        if([NSString isBlank:user.currCompany.company_name])
-            companyLabel.text = @"未选择圈子";
-        else {
-            companyLabel.text = user.currCompany.company_name;
-            //圈子变了 就要获取一次对应圈子的签到规则
-            //从服务器获取一次规则
-            [UserHttp getSiginRule:_userManager.user.currCompany.company_no handler:^(id data, MError *error) {
-                if(error) {
-                    [self.navigationController.view showFailureTips:error.statsMsg];
-                    return ;
-                }
-                NSMutableArray *array = [@[] mutableCopy];
-                for (NSDictionary *dic in data) {
-                    NSMutableDictionary *dicDic = [dic mutableCopy];
-                    dicDic[@"work_day"] = [dicDic[@"work_day"] componentsJoinedByString:@","];
-                    SiginRuleSet *set = [[SiginRuleSet alloc] initWithJSONDictionary:dicDic];
-                    //这里动态添加签到地址
-                    RLMArray<PunchCardAddressSetting> *settingArr = [[RLMArray<PunchCardAddressSetting> alloc] initWithObjectClassName:@"PunchCardAddressSetting"];
-                    for (NSDictionary *settingDic in dicDic[@"address_settings"]) {
-                        PunchCardAddressSetting *setting = [[PunchCardAddressSetting alloc] initWithJSONDictionary:settingDic];
-                        [settingArr addObject:setting];
-                    }
-                    set.json_list_address_settings = settingArr;
-                    [array addObject:set];
-                }
-                [_userManager updateSiginRule:array companyNo:_userManager.user.currCompany.company_no];
-            }];
-        }
-    } else {//重新加一次上下班提醒
-        [_userManager addSiginRuleNotfition];
-    }
-}
-#pragma mark -- 
-#pragma mark -- HomeListTopDelegate 
-//需要选择圈子后才能操作
-- (void)executeNeedSelectCompany:(void (^)(void))aBlock
-{
-    if(_userManager.user.currCompany.company_no == 0) {
-        [self.navigationController.view showMessageTips:@"请选择一个圈子后再进行此操作"];
-        return;
-    }
-    aBlock();
-}
-//今天完成日程被点击
-- (void)todayFinishCalendar {
-    CalendarController *calendar = [CalendarController new];
-    calendar.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:calendar animated:YES];
-}
-//本周完成日程被点击
-- (void)weekFinishCalendar {
-    CalendarController *calendar = [CalendarController new];
-    calendar.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:calendar animated:YES];
-}
-//我委派的任务被点击
-- (void)createTaskClicked {
-    [self executeNeedSelectCompany:^{
-        TaskListController *list = [TaskListController new];
-        list.type = 1;
-        list.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:list animated:YES];
-    }];
-}
-//我负责的任务被点击
-- (void)chargeTaskClicked {
-    [self executeNeedSelectCompany:^{
-        TaskListController *list = [TaskListController new];
-        list.type = 0;
-        list.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:list animated:YES];
-    }];
-}
-#pragma mark -- 
-#pragma mark -- HomeListBottomDelegate
-- (void)homeListBottomLocalAppSelect:(LocalUserApp*)localUserApp {
-    if([localUserApp.titleName isEqualToString:@"公告"]) {//公告
-        [self executeNeedSelectCompany:^{
-            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
-            NSString *str = [NSString stringWithFormat:@"%@Notice?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,[UserManager manager].user.user_guid,[UserManager manager].user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
-            webViewcontroller.applicationUrl = str;
-            webViewcontroller.hidesBottomBarWhenPushed = YES;
-            [[self navigationController] pushViewController:webViewcontroller animated:YES];
-        }];
-    } else if ([localUserApp.titleName isEqualToString:@"动态"]) {//动态
-        [self executeNeedSelectCompany:^{
-            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
-            NSString *str = [NSString stringWithFormat:@"%@Dynamic?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,[UserManager manager].user.user_guid,[UserManager manager].user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
-            webViewcontroller.applicationUrl = str;
-            webViewcontroller.hidesBottomBarWhenPushed = YES;
-            [[self navigationController] pushViewController:webViewcontroller animated:YES];
-        }];
-    } else if ([localUserApp.titleName isEqualToString:@"签到"]) {//签到
-        [self executeNeedSelectCompany:^{
-            SiginController *sigin = [SiginController new];
-            sigin.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:sigin animated:YES];
-        }];
-    } else if([localUserApp.titleName isEqualToString:@"审批"]) {//审批
-        [self executeNeedSelectCompany:^{
-            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
-            NSString *str = [NSString stringWithFormat:@"%@ApprovalByFormBuilder?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,[UserManager manager].user.user_guid,[UserManager manager].user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
-            webViewcontroller.applicationUrl = str;
-            webViewcontroller.hidesBottomBarWhenPushed = YES;
-            [[self navigationController] pushViewController:webViewcontroller animated:YES];
-        }];
-    } else if ([localUserApp.titleName isEqualToString:@"邮件"]) {//邮件 调用手机上的邮件
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:"]];
-    } else if ([localUserApp.titleName isEqualToString:@"会议"]) {//会议
-        [self executeNeedSelectCompany:^{
-            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
-            NSString *str = [NSString stringWithFormat:@"%@meeting?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,[UserManager manager].user.user_guid,[UserManager manager].user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
-            webViewcontroller.applicationUrl = str;
-            webViewcontroller.hidesBottomBarWhenPushed = YES;
-            [[self navigationController] pushViewController:webViewcontroller animated:YES];
-        }];
-    } else if([localUserApp.titleName isEqualToString:@"投票"]){//投票
-        [self executeNeedSelectCompany:^{
-            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
-            NSString *str = [NSString stringWithFormat:@"%@Vote?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,[UserManager manager].user.user_guid,[UserManager manager].user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
-            webViewcontroller.applicationUrl = str;
-            webViewcontroller.hidesBottomBarWhenPushed = YES;
-            [[self navigationController] pushViewController:webViewcontroller animated:YES];
-        }];
-    }
-}
-//更多
-- (void)homeListBottomMoreApp {
-    AppListController *appList = [AppListController new];
-    appList.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:appList animated:YES];
-}
-//第几个按钮被点击了
-- (void)homeListBottomClicked:(NSInteger)index {
-    if(index == 0) {//公告
-        [self executeNeedSelectCompany:^{
-            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
-            NSString *str = [NSString stringWithFormat:@"%@Notice?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,[UserManager manager].user.user_guid,[UserManager manager].user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
-            webViewcontroller.applicationUrl = str;
-            webViewcontroller.hidesBottomBarWhenPushed = YES;
-            [[self navigationController] pushViewController:webViewcontroller animated:YES];
-        }];
-    } else if (index == 1) {//动态
-        [self executeNeedSelectCompany:^{
-            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
-            NSString *str = [NSString stringWithFormat:@"%@Dynamic?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,[UserManager manager].user.user_guid,[UserManager manager].user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
-            webViewcontroller.applicationUrl = str;
-            webViewcontroller.hidesBottomBarWhenPushed = YES;
-            [[self navigationController] pushViewController:webViewcontroller animated:YES];
-        }];
-    } else if (index == 2) {//签到
-        [self executeNeedSelectCompany:^{
-            SiginController *sigin = [SiginController new];
-            sigin.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:sigin animated:YES]; 
-        }];
-    } else if(index == 3) {//审批
-        [self executeNeedSelectCompany:^{
-            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
-            NSString *str = [NSString stringWithFormat:@"%@ApprovalByFormBuilder?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,[UserManager manager].user.user_guid,[UserManager manager].user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
-            webViewcontroller.applicationUrl = str;
-            webViewcontroller.hidesBottomBarWhenPushed = YES;
-            [[self navigationController] pushViewController:webViewcontroller animated:YES];
-        }];
-    } else if (index == 4) {//邮件 调用手机上的邮件
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:"]];
-    } else if (index == 5) {//会议
-        [self executeNeedSelectCompany:^{
-            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
-            NSString *str = [NSString stringWithFormat:@"%@meeting?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,[UserManager manager].user.user_guid,[UserManager manager].user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
-            webViewcontroller.applicationUrl = str;
-            webViewcontroller.hidesBottomBarWhenPushed = YES;
-            [[self navigationController] pushViewController:webViewcontroller animated:YES];
-        }];
-    } else if (index == 6) {//投票
-        [self executeNeedSelectCompany:^{
-            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
-            NSString *str = [NSString stringWithFormat:@"%@Vote?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,[UserManager manager].user.user_guid,[UserManager manager].user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
-            webViewcontroller.applicationUrl = str;
-            webViewcontroller.hidesBottomBarWhenPushed = YES;
-            [[self navigationController] pushViewController:webViewcontroller animated:YES];
-        }];
-    } else {//通用审批
-        [self executeNeedSelectCompany:^{
-            WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
-            NSString *str = [NSString stringWithFormat:@"%@Approval?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,[UserManager manager].user.user_guid,[UserManager manager].user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
-            webViewcontroller.applicationUrl = str;
-            webViewcontroller.hidesBottomBarWhenPushed = YES;
-            [[self navigationController] pushViewController:webViewcontroller animated:YES];
-        }];
-    }
 }
 #pragma mark --
 #pragma mark -- setNavigationBar

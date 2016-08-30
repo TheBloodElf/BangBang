@@ -37,7 +37,7 @@
 - (NSDate*)firstTime;
 - (NSDate*)lastTime;
 
-//+ (NSDate*)dateWithFormat:(NSString *)format;
++ (NSDate*)dateWithFormat:(NSString *)format;
 
 - (NSString*)weekdayStr;
 

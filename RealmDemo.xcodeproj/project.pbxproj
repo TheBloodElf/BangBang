@@ -624,6 +624,9 @@
 		1BBED3A81D6559660001868B /* MoreSelectController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BBED3A61D6559660001868B /* MoreSelectController.xib */; };
 		1BC008371D646445004A6FA5 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BC008361D646445004A6FA5 /* MobileCoreServices.framework */; };
 		1BC284E01D75241000135116 /* LeftMenuOpertion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC284DF1D75241000135116 /* LeftMenuOpertion.m */; };
+		1BC284E31D75324400135116 /* MainBusinessOpertion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC284E21D75324400135116 /* MainBusinessOpertion.m */; };
+		1BC284E61D7538B700135116 /* HomeListOpertion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC284E51D7538B700135116 /* HomeListOpertion.m */; };
+		1BC284E91D755F3900135116 /* PushMessageOpertion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC284E81D755F3900135116 /* PushMessageOpertion.m */; };
 		1BC2AE421D41F48A00842153 /* CreateSiginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC2AE411D41F48A00842153 /* CreateSiginController.m */; };
 		1BC2AE461D4208CB00842153 /* SiginImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC2AE441D4208CB00842153 /* SiginImageCell.m */; };
 		1BC2AE471D4208CB00842153 /* SiginImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BC2AE451D4208CB00842153 /* SiginImageCell.xib */; };
@@ -1910,6 +1913,12 @@
 		1BC008361D646445004A6FA5 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		1BC284DE1D75241000135116 /* LeftMenuOpertion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftMenuOpertion.h; sourceTree = "<group>"; };
 		1BC284DF1D75241000135116 /* LeftMenuOpertion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftMenuOpertion.m; sourceTree = "<group>"; };
+		1BC284E11D75324400135116 /* MainBusinessOpertion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainBusinessOpertion.h; sourceTree = "<group>"; };
+		1BC284E21D75324400135116 /* MainBusinessOpertion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainBusinessOpertion.m; sourceTree = "<group>"; };
+		1BC284E41D7538B700135116 /* HomeListOpertion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeListOpertion.h; sourceTree = "<group>"; };
+		1BC284E51D7538B700135116 /* HomeListOpertion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeListOpertion.m; sourceTree = "<group>"; };
+		1BC284E71D755F3900135116 /* PushMessageOpertion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushMessageOpertion.h; sourceTree = "<group>"; };
+		1BC284E81D755F3900135116 /* PushMessageOpertion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushMessageOpertion.m; sourceTree = "<group>"; };
 		1BC2AE401D41F48A00842153 /* CreateSiginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateSiginController.h; sourceTree = "<group>"; };
 		1BC2AE411D41F48A00842153 /* CreateSiginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateSiginController.m; sourceTree = "<group>"; };
 		1BC2AE431D4208CB00842153 /* SiginImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SiginImageCell.h; sourceTree = "<group>"; };
@@ -3029,6 +3038,8 @@
 			children = (
 				1B6D16001D4846E60070D2E5 /* PushMessageController.h */,
 				1B6D16011D4846E60070D2E5 /* PushMessageController.m */,
+				1BC284E71D755F3900135116 /* PushMessageOpertion.h */,
+				1BC284E81D755F3900135116 /* PushMessageOpertion.m */,
 				0471C0921D3B262600377178 /* PushMessageCell.h */,
 				0471C0931D3B262600377178 /* PushMessageCell.m */,
 				0471C0941D3B262600377178 /* PushMessageCell.xib */,
@@ -4225,9 +4236,9 @@
 				04FE7CC81D3670AD00362702 /* LeftMenuController.h */,
 				04FE7CC91D3670AD00362702 /* LeftMenuController.m */,
 				04FE7CCA1D3670AD00362702 /* LeftMenuController.xib */,
-				04FE7CD01D367CC500362702 /* LeftMenuCell */,
 				1BC284DE1D75241000135116 /* LeftMenuOpertion.h */,
 				1BC284DF1D75241000135116 /* LeftMenuOpertion.m */,
+				04FE7CD01D367CC500362702 /* LeftMenuCell */,
 			);
 			path = LeftMenuController;
 			sourceTree = "<group>";
@@ -4237,6 +4248,8 @@
 			children = (
 				1B5585B81D34F7FB00DCD3A0 /* MainBusinessController.h */,
 				1B5585B91D34F7FB00DCD3A0 /* MainBusinessController.m */,
+				1BC284E11D75324400135116 /* MainBusinessOpertion.h */,
+				1BC284E21D75324400135116 /* MainBusinessOpertion.m */,
 				1B5585BF1D34FA7100DCD3A0 /* HomeListController */,
 				1B5585C01D34FA7100DCD3A0 /* MessageController */,
 				046D48AD1D5616760000ECC4 /* MoreViewController */,
@@ -4260,6 +4273,8 @@
 			children = (
 				1B5585C31D34FA7D00DCD3A0 /* HomeListController.h */,
 				1B5585C41D34FA7D00DCD3A0 /* HomeListController.m */,
+				1BC284E41D7538B700135116 /* HomeListOpertion.h */,
+				1BC284E51D7538B700135116 /* HomeListOpertion.m */,
 				1B3312221D740F1500E77741 /* AppListController */,
 				1B46863B1D4F1B0B00F3C068 /* TaskListController */,
 				046DAF281D4C3EB500718F2A /* MeetingController */,
@@ -6130,6 +6145,7 @@
 				0437F4331D4658FF0054077C /* MCJSONDateTransformer.m in Sources */,
 				0437F4361D4658FF0054077C /* MCJSONValueTransformer.m in Sources */,
 				1B47D75D1D6C3E8000837BFD /* JPCGContext.m in Sources */,
+				1BC284E31D75324400135116 /* MainBusinessOpertion.m in Sources */,
 				1B47D7741D6C3E8000837BFD /* JPLoader.m in Sources */,
 				1BC284E01D75241000135116 /* LeftMenuOpertion.m in Sources */,
 				04B0D8591D698E8800BAD522 /* UITextField+RACSignalSupport.m in Sources */,
@@ -6278,6 +6294,7 @@
 				1B6D160E1D4853930070D2E5 /* XYFAnimateLabel.m in Sources */,
 				1B47D7721D6C3E8000837BFD /* JPEngine.m in Sources */,
 				04B0D8491D698E8800BAD522 /* UIAlertView+RACSignalSupport.m in Sources */,
+				1BC284E61D7538B700135116 /* HomeListOpertion.m in Sources */,
 				04B0D84C1D698E8800BAD522 /* UICollectionReusableView+RACSignalSupport.m in Sources */,
 				04B0D80E1D698E8800BAD522 /* NSObject+RACSelectorSignal.m in Sources */,
 				04FE7CCB1D3670AD00362702 /* LeftMenuController.m in Sources */,
@@ -6433,6 +6450,7 @@
 				1B47D7621D6C3E8000837BFD /* JPCoreGraphics.m in Sources */,
 				0482FBF11D436FE500B1CBB2 /* MANaviAnnotationView.m in Sources */,
 				1BFBC15C1D3F26B500A5511A /* RepDayView.m in Sources */,
+				1BC284E91D755F3900135116 /* PushMessageOpertion.m in Sources */,
 				04B0D8151D698E8800BAD522 /* NSUserDefaults+RACSupport.m in Sources */,
 				04B0D8351D698E8800BAD522 /* RACSequence.m in Sources */,
 				1BFBC1871D3F811900A5511A /* SiginController.m in Sources */,
