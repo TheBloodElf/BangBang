@@ -623,6 +623,7 @@
 		1BBED3A71D6559660001868B /* MoreSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BBED3A51D6559660001868B /* MoreSelectController.m */; };
 		1BBED3A81D6559660001868B /* MoreSelectController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BBED3A61D6559660001868B /* MoreSelectController.xib */; };
 		1BC008371D646445004A6FA5 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BC008361D646445004A6FA5 /* MobileCoreServices.framework */; };
+		1BC284E01D75241000135116 /* LeftMenuOpertion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC284DF1D75241000135116 /* LeftMenuOpertion.m */; };
 		1BC2AE421D41F48A00842153 /* CreateSiginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC2AE411D41F48A00842153 /* CreateSiginController.m */; };
 		1BC2AE461D4208CB00842153 /* SiginImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC2AE441D4208CB00842153 /* SiginImageCell.m */; };
 		1BC2AE471D4208CB00842153 /* SiginImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BC2AE451D4208CB00842153 /* SiginImageCell.xib */; };
@@ -1907,6 +1908,8 @@
 		1BBED3A51D6559660001868B /* MoreSelectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreSelectController.m; sourceTree = "<group>"; };
 		1BBED3A61D6559660001868B /* MoreSelectController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoreSelectController.xib; sourceTree = "<group>"; };
 		1BC008361D646445004A6FA5 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		1BC284DE1D75241000135116 /* LeftMenuOpertion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftMenuOpertion.h; sourceTree = "<group>"; };
+		1BC284DF1D75241000135116 /* LeftMenuOpertion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftMenuOpertion.m; sourceTree = "<group>"; };
 		1BC2AE401D41F48A00842153 /* CreateSiginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateSiginController.h; sourceTree = "<group>"; };
 		1BC2AE411D41F48A00842153 /* CreateSiginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateSiginController.m; sourceTree = "<group>"; };
 		1BC2AE431D4208CB00842153 /* SiginImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SiginImageCell.h; sourceTree = "<group>"; };
@@ -4223,6 +4226,8 @@
 				04FE7CC91D3670AD00362702 /* LeftMenuController.m */,
 				04FE7CCA1D3670AD00362702 /* LeftMenuController.xib */,
 				04FE7CD01D367CC500362702 /* LeftMenuCell */,
+				1BC284DE1D75241000135116 /* LeftMenuOpertion.h */,
+				1BC284DF1D75241000135116 /* LeftMenuOpertion.m */,
 			);
 			path = LeftMenuController;
 			sourceTree = "<group>";
@@ -6126,6 +6131,7 @@
 				0437F4361D4658FF0054077C /* MCJSONValueTransformer.m in Sources */,
 				1B47D75D1D6C3E8000837BFD /* JPCGContext.m in Sources */,
 				1B47D7741D6C3E8000837BFD /* JPLoader.m in Sources */,
+				1BC284E01D75241000135116 /* LeftMenuOpertion.m in Sources */,
 				04B0D8591D698E8800BAD522 /* UITextField+RACSignalSupport.m in Sources */,
 				1BED8C151D51962A00340809 /* TaskOtherCommentCell.m in Sources */,
 				04B0D81E1D698E8800BAD522 /* RACDisposable.m in Sources */,
