@@ -10,9 +10,4 @@
 
 @implementation MyAppViewAddCell
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
-
 @end

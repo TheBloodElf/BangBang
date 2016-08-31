@@ -15,11 +15,11 @@
 - (void)appCenterDelApp:(UserApp*)app;
 
 @end
-
+//应用中心
 @interface AppCenterView : UIView
 
 @property (nonatomic, assign) BOOL isEditStatue;//是不是编辑状态
-@property (nonatomic, weak) id<AppCenterDelegate> delegate;
+@property (nonatomic,   weak) id<AppCenterDelegate> delegate;
 
 - (void)reloadCollentionView;//重新加载界面
 

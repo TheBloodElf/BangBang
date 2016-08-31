@@ -18,6 +18,6 @@
 @interface MyAppViewCell : UICollectionViewCell
 
 @property (nonatomic, assign) BOOL isEditStatue;//是不是编辑状态
-@property (nonatomic, weak) id<MyAppViewDelegate> delegate;
+@property (nonatomic,   weak) id<MyAppViewDelegate> delegate;
 
 @end

@@ -22,10 +22,6 @@
 
 @implementation TaskListCell
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
 - (void)dataDidChange {
     self.attachmentWidth.constant = self.remindWidth.constant = 13;
     TaskModel *model = self.data;

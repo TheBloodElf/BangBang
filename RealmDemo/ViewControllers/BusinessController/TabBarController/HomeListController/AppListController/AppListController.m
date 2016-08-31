@@ -13,7 +13,6 @@
 #import "UserHttp.h"
 #import "LocalUserApp.h"
 #import "IdentityManager.h"
-
 #import "WebNonstandarViewController.h"
 #import "SiginController.h"
 
@@ -21,12 +20,11 @@
     MyAppView *_myAppView;
     AppCenterView *_appCenterView;
     UserManager *_userManager;
-    
     BOOL _isFirst;
 }
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewLeft;
-@property (weak, nonatomic) IBOutlet UIScrollView *bootomScrollView;
+@property (weak,   nonatomic) IBOutlet NSLayoutConstraint *viewLeft;
+@property (weak,   nonatomic) IBOutlet UIScrollView *bootomScrollView;
 @property (nonatomic, assign) BOOL isEditStatue;//是不是编辑状态
 
 @end
@@ -36,6 +34,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"应用中心";
+    _userManager = [UserManager manager];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editChangeClicked:)];
     // Do any additional setup after loading the view from its nib.
 }
@@ -48,13 +47,24 @@
     if(_isFirst) return;
     _isFirst = YES;
     
-    _userManager = [UserManager manager];
     _myAppView = [[MyAppView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 36)];
     _myAppView.delegate = self;
     _appCenterView = [[AppCenterView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 36)];
     _appCenterView.delegate = self;
     [self.bootomScrollView addSubview:_appCenterView];
     [self.bootomScrollView addSubview:_myAppView];
+}
+- (void)editChangeClicked:(UIBarButtonItem*)item {
+    self.isEditStatue = !self.isEditStatue;
+    if(self.isEditStatue == YES) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(editChangeClicked:)];
+    } else {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editChangeClicked:)];
+    }
+    _appCenterView.isEditStatue = self.isEditStatue;
+    _myAppView.isEditStatue = self.isEditStatue;
+    [_appCenterView reloadCollentionView];
+    [_myAppView reloadCollentionView];
 }
 //需要选择圈子后才能操作
 - (void)executeNeedSelectCompany:(void (^)(void))aBlock
@@ -175,18 +185,6 @@
     webViewcontroller.hidesBottomBarWhenPushed = YES;
     webViewcontroller.showNavigationBar = YES;
     [[self navigationController] pushViewController:webViewcontroller animated:YES];
-}
-- (void)editChangeClicked:(UIBarButtonItem*)item {
-    self.isEditStatue = !self.isEditStatue;
-    if(self.isEditStatue == YES) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(editChangeClicked:)];
-    } else {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editChangeClicked:)];
-    }
-    _appCenterView.isEditStatue = self.isEditStatue;
-    _myAppView.isEditStatue = self.isEditStatue;
-    [_appCenterView reloadCollentionView];
-    [_myAppView reloadCollentionView];
 }
 - (IBAction)btnClicked:(UIButton*)sender {
     UIButton *myApp = [self.view viewWithTag:1000];

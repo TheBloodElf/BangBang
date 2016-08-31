@@ -17,11 +17,11 @@
 - (void)MyAppNetAppSelect:(UserApp*)userApp;
 
 @end
-
+//我的应用
 @interface MyAppView : UIView
 
 @property (nonatomic, assign) BOOL isEditStatue;//是不是编辑状态
-@property (nonatomic, weak) id<MyAppDelegate> delegate;
+@property (nonatomic,   weak) id<MyAppDelegate> delegate;
 
 - (void)reloadCollentionView;//重新加载界面
 

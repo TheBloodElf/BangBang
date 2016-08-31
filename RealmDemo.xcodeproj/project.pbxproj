@@ -260,8 +260,6 @@
 		1B0591D31D66B0ED0090B4D2 /* add_schedule@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B0591D01D66B0ED0090B4D2 /* add_schedule@2x.png */; };
 		1B0591D41D66B0ED0090B4D2 /* add_schedule@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B0591D11D66B0ED0090B4D2 /* add_schedule@3x.png */; };
 		1B0591D71D66B1870090B4D2 /* NSString+isBlank.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0591D61D66B1870090B4D2 /* NSString+isBlank.m */; };
-		1B0591E01D66B4E20090B4D2 /* KeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0591DF1D66B4E20090B4D2 /* KeyboardViewController.m */; };
-		1B0591E41D66B4E20090B4D2 /* RealmKeyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1B0591DC1D66B4E10090B4D2 /* RealmKeyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1B06D5D31D362FA8002D06A7 /* Company.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B06D5D21D362FA8002D06A7 /* Company.m */; };
 		1B0CF79B1D64384E00096CF9 /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B0CF7851D6430C100096CF9 /* PhotosUI.framework */; };
 		1B0CF79C1D64384E00096CF9 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BF3FD241D5AD25200026351 /* Photos.framework */; };
@@ -784,13 +782,6 @@
 			remoteGlobalIDString = 046DAF881D4C812C00718F2A;
 			remoteInfo = RealmShare;
 		};
-		1B0591E21D66B4E20090B4D2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1B877F0A1D178E7C000144B2 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1B0591DB1D66B4E10090B4D2;
-			remoteInfo = RealmKeyboard;
-		};
 		1B0CF7A51D64384E00096CF9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1B877F0A1D178E7C000144B2 /* Project object */;
@@ -815,7 +806,6 @@
 			dstSubfolderSpec = 13;
 			files = (
 				1BEAD3271D62F14700B8C3FD /* RealmToday.appex in Embed App Extensions */,
-				1B0591E41D66B4E20090B4D2 /* RealmKeyboard.appex in Embed App Extensions */,
 				046DAF941D4C812C00718F2A /* 帮帮.appex in Embed App Extensions */,
 				1B0CF7A71D64384E00096CF9 /* RealmPhoto.appex in Embed App Extensions */,
 			);
@@ -1291,10 +1281,6 @@
 		1B0591D11D66B0ED0090B4D2 /* add_schedule@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_schedule@3x.png"; sourceTree = "<group>"; };
 		1B0591D51D66B1870090B4D2 /* NSString+isBlank.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+isBlank.h"; sourceTree = "<group>"; };
 		1B0591D61D66B1870090B4D2 /* NSString+isBlank.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+isBlank.m"; sourceTree = "<group>"; };
-		1B0591DC1D66B4E10090B4D2 /* RealmKeyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RealmKeyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		1B0591DE1D66B4E20090B4D2 /* KeyboardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyboardViewController.h; sourceTree = "<group>"; };
-		1B0591DF1D66B4E20090B4D2 /* KeyboardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyboardViewController.m; sourceTree = "<group>"; };
-		1B0591E11D66B4E20090B4D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1B06D5D11D362FA8002D06A7 /* Company.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Company.h; sourceTree = "<group>"; };
 		1B06D5D21D362FA8002D06A7 /* Company.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Company.m; sourceTree = "<group>"; };
 		1B0CF7851D6430C100096CF9 /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = System/Library/Frameworks/PhotosUI.framework; sourceTree = SDKROOT; };
@@ -2178,13 +2164,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				472366F962A662ECAFC40E17 /* libPods-RealmShare.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1B0591D91D66B4E10090B4D2 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3114,16 +3093,6 @@
 				1B0591D11D66B0ED0090B4D2 /* add_schedule@3x.png */,
 			);
 			path = ImageIcon;
-			sourceTree = "<group>";
-		};
-		1B0591DD1D66B4E20090B4D2 /* RealmKeyboard */ = {
-			isa = PBXGroup;
-			children = (
-				1B0591DE1D66B4E20090B4D2 /* KeyboardViewController.h */,
-				1B0591DF1D66B4E20090B4D2 /* KeyboardViewController.m */,
-				1B0591E11D66B4E20090B4D2 /* Info.plist */,
-			);
-			path = RealmKeyboard;
 			sourceTree = "<group>";
 		};
 		1B0CF79D1D64384E00096CF9 /* RealmPhoto */ = {
@@ -4533,7 +4502,6 @@
 				046DAF8A1D4C812C00718F2A /* RealmShare */,
 				1BEAD31D1D62F14700B8C3FD /* RealmToday */,
 				1B0CF79D1D64384E00096CF9 /* RealmPhoto */,
-				1B0591DD1D66B4E20090B4D2 /* RealmKeyboard */,
 				1B877F131D178E7D000144B2 /* Products */,
 				4D6CC168BC56EB689405D00C /* Pods */,
 				AE1CB48D1985A705EE5EEAD9 /* Frameworks */,
@@ -4547,7 +4515,6 @@
 				046DAF891D4C812C00718F2A /* 帮帮.appex */,
 				1BEAD31B1D62F14700B8C3FD /* RealmToday.appex */,
 				1B0CF79A1D64384E00096CF9 /* RealmPhoto.appex */,
-				1B0591DC1D66B4E10090B4D2 /* RealmKeyboard.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -5360,23 +5327,6 @@
 			productReference = 046DAF891D4C812C00718F2A /* 帮帮.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		1B0591DB1D66B4E10090B4D2 /* RealmKeyboard */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1B0591E51D66B4E20090B4D2 /* Build configuration list for PBXNativeTarget "RealmKeyboard" */;
-			buildPhases = (
-				1B0591D81D66B4E10090B4D2 /* Sources */,
-				1B0591D91D66B4E10090B4D2 /* Frameworks */,
-				1B0591DA1D66B4E10090B4D2 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = RealmKeyboard;
-			productName = RealmKeyboard;
-			productReference = 1B0591DC1D66B4E10090B4D2 /* RealmKeyboard.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 		1B0CF7991D64384E00096CF9 /* RealmPhoto */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1B0CF7A81D64384E00096CF9 /* Build configuration list for PBXNativeTarget "RealmPhoto" */;
@@ -5412,7 +5362,6 @@
 				046DAF931D4C812C00718F2A /* PBXTargetDependency */,
 				1BEAD3261D62F14700B8C3FD /* PBXTargetDependency */,
 				1B0CF7A61D64384E00096CF9 /* PBXTargetDependency */,
-				1B0591E31D66B4E20090B4D2 /* PBXTargetDependency */,
 			);
 			name = RealmDemo;
 			productName = RealmDemo;
@@ -5453,10 +5402,6 @@
 								enabled = 1;
 							};
 						};
-					};
-					1B0591DB1D66B4E10090B4D2 = {
-						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = W488V5C95D;
 					};
 					1B0CF7991D64384E00096CF9 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -5502,7 +5447,6 @@
 				046DAF881D4C812C00718F2A /* RealmShare */,
 				1BEAD31A1D62F14700B8C3FD /* RealmToday */,
 				1B0CF7991D64384E00096CF9 /* RealmPhoto */,
-				1B0591DB1D66B4E10090B4D2 /* RealmKeyboard */,
 			);
 		};
 /* End PBXProject section */
@@ -5519,13 +5463,6 @@
 				046DB0751D4C85FD00718F2A /* ShareContentTopCell.xib in Resources */,
 				046DAF901D4C812C00718F2A /* MainInterface.storyboard in Resources */,
 				046DB0721D4C85FD00718F2A /* appicon@3x.png in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1B0591DA1D66B4E10090B4D2 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5876,14 +5813,6 @@
 				046DB0701D4C85FD00718F2A /* ShareSelectDepartController.m in Sources */,
 				046DB0791D4C85FD00718F2A /* ShareSelectModel.m in Sources */,
 				1B4686371D4EF31D00F3C068 /* Identity.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1B0591D81D66B4E10090B4D2 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1B0591E01D66B4E20090B4D2 /* KeyboardViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6430,11 +6359,6 @@
 			target = 046DAF881D4C812C00718F2A /* RealmShare */;
 			targetProxy = 046DAF921D4C812C00718F2A /* PBXContainerItemProxy */;
 		};
-		1B0591E31D66B4E20090B4D2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1B0591DB1D66B4E10090B4D2 /* RealmKeyboard */;
-			targetProxy = 1B0591E21D66B4E20090B4D2 /* PBXContainerItemProxy */;
-		};
 		1B0CF7A61D64384E00096CF9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 1B0CF7991D64384E00096CF9 /* RealmPhoto */;
@@ -6497,34 +6421,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lottak.BangBang.share;
 				PRODUCT_NAME = "帮帮";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		1B0591E61D66B4E20090B4D2 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = RealmKeyboard/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.lottak.BangBang.RealmKeyboard;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		1B0591E71D66B4E20090B4D2 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				INFOPLIST_FILE = RealmKeyboard/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.lottak.BangBang.RealmKeyboard;
-				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -6895,15 +6791,6 @@
 			buildConfigurations = (
 				046DAF961D4C812D00718F2A /* Debug */,
 				046DAF971D4C812D00718F2A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		1B0591E51D66B4E20090B4D2 /* Build configuration list for PBXNativeTarget "RealmKeyboard" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1B0591E61D66B4E20090B4D2 /* Debug */,
-				1B0591E71D66B4E20090B4D2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
