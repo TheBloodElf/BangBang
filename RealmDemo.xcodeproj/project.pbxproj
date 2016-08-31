@@ -492,13 +492,13 @@
 		1B4B162A1D37858400E71B3D /* BushManageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4B16261D37858400E71B3D /* BushManageViewController.m */; };
 		1B4B162E1D3794B800E71B3D /* MoreSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4B162D1D3794B800E71B3D /* MoreSelectView.m */; };
 		1B4B16361D37C22600E71B3D /* BushDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4B16351D37C22600E71B3D /* BushDetailController.m */; };
+		1B4DCF541D766B39004BA3C4 /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4DCF491D766B39004BA3C4 /* RECommonFunctions.m */; };
+		1B4DCF551D766B39004BA3C4 /* REFrostedContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4DCF4B1D766B39004BA3C4 /* REFrostedContainerViewController.m */; };
+		1B4DCF561D766B39004BA3C4 /* REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4DCF4D1D766B39004BA3C4 /* REFrostedViewController.m */; };
+		1B4DCF571D766B39004BA3C4 /* UIImage+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4DCF4F1D766B39004BA3C4 /* UIImage+REFrostedViewController.m */; };
+		1B4DCF581D766B39004BA3C4 /* UIView+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4DCF511D766B39004BA3C4 /* UIView+REFrostedViewController.m */; };
+		1B4DCF591D766B39004BA3C4 /* UIViewController+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4DCF531D766B39004BA3C4 /* UIViewController+REFrostedViewController.m */; };
 		1B5585551D34CA2C00DCD3A0 /* IdentityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5585541D34CA2C00DCD3A0 /* IdentityManager.m */; };
-		1B5585681D34CF4F00DCD3A0 /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B55855D1D34CF4F00DCD3A0 /* RECommonFunctions.m */; };
-		1B5585691D34CF4F00DCD3A0 /* REFrostedContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B55855F1D34CF4F00DCD3A0 /* REFrostedContainerViewController.m */; };
-		1B55856A1D34CF4F00DCD3A0 /* REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5585611D34CF4F00DCD3A0 /* REFrostedViewController.m */; };
-		1B55856B1D34CF4F00DCD3A0 /* UIImage+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5585631D34CF4F00DCD3A0 /* UIImage+REFrostedViewController.m */; };
-		1B55856C1D34CF4F00DCD3A0 /* UIView+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5585651D34CF4F00DCD3A0 /* UIView+REFrostedViewController.m */; };
-		1B55856D1D34CF4F00DCD3A0 /* UIViewController+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5585671D34CF4F00DCD3A0 /* UIViewController+REFrostedViewController.m */; };
 		1B5585701D34D80D00DCD3A0 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B55856F1D34D80D00DCD3A0 /* MainViewController.m */; };
 		1B5585761D34D93800DCD3A0 /* BusinessController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5585751D34D93800DCD3A0 /* BusinessController.m */; };
 		1B5585791D34D94100DCD3A0 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5585781D34D94100DCD3A0 /* LoginController.m */; };
@@ -623,10 +623,6 @@
 		1BBED3A71D6559660001868B /* MoreSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BBED3A51D6559660001868B /* MoreSelectController.m */; };
 		1BBED3A81D6559660001868B /* MoreSelectController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BBED3A61D6559660001868B /* MoreSelectController.xib */; };
 		1BC008371D646445004A6FA5 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BC008361D646445004A6FA5 /* MobileCoreServices.framework */; };
-		1BC284E01D75241000135116 /* LeftMenuOpertion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC284DF1D75241000135116 /* LeftMenuOpertion.m */; };
-		1BC284E31D75324400135116 /* MainBusinessOpertion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC284E21D75324400135116 /* MainBusinessOpertion.m */; };
-		1BC284E61D7538B700135116 /* HomeListOpertion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC284E51D7538B700135116 /* HomeListOpertion.m */; };
-		1BC284E91D755F3900135116 /* PushMessageOpertion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC284E81D755F3900135116 /* PushMessageOpertion.m */; };
 		1BC2AE421D41F48A00842153 /* CreateSiginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC2AE411D41F48A00842153 /* CreateSiginController.m */; };
 		1BC2AE461D4208CB00842153 /* SiginImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC2AE441D4208CB00842153 /* SiginImageCell.m */; };
 		1BC2AE471D4208CB00842153 /* SiginImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BC2AE451D4208CB00842153 /* SiginImageCell.xib */; };
@@ -1686,20 +1682,20 @@
 		1B4B162D1D3794B800E71B3D /* MoreSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreSelectView.m; sourceTree = "<group>"; };
 		1B4B16341D37C22600E71B3D /* BushDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BushDetailController.h; sourceTree = "<group>"; };
 		1B4B16351D37C22600E71B3D /* BushDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BushDetailController.m; sourceTree = "<group>"; };
+		1B4DCF481D766B39004BA3C4 /* RECommonFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RECommonFunctions.h; sourceTree = "<group>"; };
+		1B4DCF491D766B39004BA3C4 /* RECommonFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RECommonFunctions.m; sourceTree = "<group>"; };
+		1B4DCF4A1D766B39004BA3C4 /* REFrostedContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REFrostedContainerViewController.h; sourceTree = "<group>"; };
+		1B4DCF4B1D766B39004BA3C4 /* REFrostedContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REFrostedContainerViewController.m; sourceTree = "<group>"; };
+		1B4DCF4C1D766B39004BA3C4 /* REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REFrostedViewController.h; sourceTree = "<group>"; };
+		1B4DCF4D1D766B39004BA3C4 /* REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REFrostedViewController.m; sourceTree = "<group>"; };
+		1B4DCF4E1D766B39004BA3C4 /* UIImage+REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+REFrostedViewController.h"; sourceTree = "<group>"; };
+		1B4DCF4F1D766B39004BA3C4 /* UIImage+REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+REFrostedViewController.m"; sourceTree = "<group>"; };
+		1B4DCF501D766B39004BA3C4 /* UIView+REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+REFrostedViewController.h"; sourceTree = "<group>"; };
+		1B4DCF511D766B39004BA3C4 /* UIView+REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+REFrostedViewController.m"; sourceTree = "<group>"; };
+		1B4DCF521D766B39004BA3C4 /* UIViewController+REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+REFrostedViewController.h"; sourceTree = "<group>"; };
+		1B4DCF531D766B39004BA3C4 /* UIViewController+REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+REFrostedViewController.m"; sourceTree = "<group>"; };
 		1B5585531D34CA2C00DCD3A0 /* IdentityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdentityManager.h; sourceTree = "<group>"; };
 		1B5585541D34CA2C00DCD3A0 /* IdentityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentityManager.m; sourceTree = "<group>"; };
-		1B55855C1D34CF4F00DCD3A0 /* RECommonFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RECommonFunctions.h; sourceTree = "<group>"; };
-		1B55855D1D34CF4F00DCD3A0 /* RECommonFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RECommonFunctions.m; sourceTree = "<group>"; };
-		1B55855E1D34CF4F00DCD3A0 /* REFrostedContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REFrostedContainerViewController.h; sourceTree = "<group>"; };
-		1B55855F1D34CF4F00DCD3A0 /* REFrostedContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REFrostedContainerViewController.m; sourceTree = "<group>"; };
-		1B5585601D34CF4F00DCD3A0 /* REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REFrostedViewController.h; sourceTree = "<group>"; };
-		1B5585611D34CF4F00DCD3A0 /* REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REFrostedViewController.m; sourceTree = "<group>"; };
-		1B5585621D34CF4F00DCD3A0 /* UIImage+REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+REFrostedViewController.h"; sourceTree = "<group>"; };
-		1B5585631D34CF4F00DCD3A0 /* UIImage+REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+REFrostedViewController.m"; sourceTree = "<group>"; };
-		1B5585641D34CF4F00DCD3A0 /* UIView+REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+REFrostedViewController.h"; sourceTree = "<group>"; };
-		1B5585651D34CF4F00DCD3A0 /* UIView+REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+REFrostedViewController.m"; sourceTree = "<group>"; };
-		1B5585661D34CF4F00DCD3A0 /* UIViewController+REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+REFrostedViewController.h"; sourceTree = "<group>"; };
-		1B5585671D34CF4F00DCD3A0 /* UIViewController+REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+REFrostedViewController.m"; sourceTree = "<group>"; };
 		1B55856E1D34D80D00DCD3A0 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		1B55856F1D34D80D00DCD3A0 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		1B5585741D34D93800DCD3A0 /* BusinessController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusinessController.h; sourceTree = "<group>"; };
@@ -1911,14 +1907,6 @@
 		1BBED3A51D6559660001868B /* MoreSelectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreSelectController.m; sourceTree = "<group>"; };
 		1BBED3A61D6559660001868B /* MoreSelectController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoreSelectController.xib; sourceTree = "<group>"; };
 		1BC008361D646445004A6FA5 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		1BC284DE1D75241000135116 /* LeftMenuOpertion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftMenuOpertion.h; sourceTree = "<group>"; };
-		1BC284DF1D75241000135116 /* LeftMenuOpertion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftMenuOpertion.m; sourceTree = "<group>"; };
-		1BC284E11D75324400135116 /* MainBusinessOpertion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainBusinessOpertion.h; sourceTree = "<group>"; };
-		1BC284E21D75324400135116 /* MainBusinessOpertion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainBusinessOpertion.m; sourceTree = "<group>"; };
-		1BC284E41D7538B700135116 /* HomeListOpertion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeListOpertion.h; sourceTree = "<group>"; };
-		1BC284E51D7538B700135116 /* HomeListOpertion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeListOpertion.m; sourceTree = "<group>"; };
-		1BC284E71D755F3900135116 /* PushMessageOpertion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushMessageOpertion.h; sourceTree = "<group>"; };
-		1BC284E81D755F3900135116 /* PushMessageOpertion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushMessageOpertion.m; sourceTree = "<group>"; };
 		1BC2AE401D41F48A00842153 /* CreateSiginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateSiginController.h; sourceTree = "<group>"; };
 		1BC2AE411D41F48A00842153 /* CreateSiginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateSiginController.m; sourceTree = "<group>"; };
 		1BC2AE431D4208CB00842153 /* SiginImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SiginImageCell.h; sourceTree = "<group>"; };
@@ -3038,8 +3026,6 @@
 			children = (
 				1B6D16001D4846E60070D2E5 /* PushMessageController.h */,
 				1B6D16011D4846E60070D2E5 /* PushMessageController.m */,
-				1BC284E71D755F3900135116 /* PushMessageOpertion.h */,
-				1BC284E81D755F3900135116 /* PushMessageOpertion.m */,
 				0471C0921D3B262600377178 /* PushMessageCell.h */,
 				0471C0931D3B262600377178 /* PushMessageCell.m */,
 				0471C0941D3B262600377178 /* PushMessageCell.xib */,
@@ -4057,9 +4043,29 @@
 			path = BushDetailController;
 			sourceTree = "<group>";
 		};
+		1B4DCF471D766B39004BA3C4 /* REFrostedViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1B4DCF481D766B39004BA3C4 /* RECommonFunctions.h */,
+				1B4DCF491D766B39004BA3C4 /* RECommonFunctions.m */,
+				1B4DCF4A1D766B39004BA3C4 /* REFrostedContainerViewController.h */,
+				1B4DCF4B1D766B39004BA3C4 /* REFrostedContainerViewController.m */,
+				1B4DCF4C1D766B39004BA3C4 /* REFrostedViewController.h */,
+				1B4DCF4D1D766B39004BA3C4 /* REFrostedViewController.m */,
+				1B4DCF4E1D766B39004BA3C4 /* UIImage+REFrostedViewController.h */,
+				1B4DCF4F1D766B39004BA3C4 /* UIImage+REFrostedViewController.m */,
+				1B4DCF501D766B39004BA3C4 /* UIView+REFrostedViewController.h */,
+				1B4DCF511D766B39004BA3C4 /* UIView+REFrostedViewController.m */,
+				1B4DCF521D766B39004BA3C4 /* UIViewController+REFrostedViewController.h */,
+				1B4DCF531D766B39004BA3C4 /* UIViewController+REFrostedViewController.m */,
+			);
+			path = REFrostedViewController;
+			sourceTree = "<group>";
+		};
 		1B5585561D34CB4E00DCD3A0 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				1B4DCF471D766B39004BA3C4 /* REFrostedViewController */,
 				1B47D6D31D6C3E8000837BFD /* JSPath */,
 				1B47D6BF1D6BFEDB00837BFD /* PPDragDropBadgeView */,
 				04B0D7271D698E8700BAD522 /* ReactiveCocoa */,
@@ -4072,28 +4078,8 @@
 				045D8BA91D444A86002E0344 /* 百度统计 */,
 				1B1B9B9D1D3DC46900F53EDC /* RRule */,
 				049586221D3A1A3F00544259 /* WebViewJavascriptBridge */,
-				1B55855B1D34CF4F00DCD3A0 /* REFrostedViewController */,
 			);
 			path = ThirdParty;
-			sourceTree = "<group>";
-		};
-		1B55855B1D34CF4F00DCD3A0 /* REFrostedViewController */ = {
-			isa = PBXGroup;
-			children = (
-				1B55855C1D34CF4F00DCD3A0 /* RECommonFunctions.h */,
-				1B55855D1D34CF4F00DCD3A0 /* RECommonFunctions.m */,
-				1B55855E1D34CF4F00DCD3A0 /* REFrostedContainerViewController.h */,
-				1B55855F1D34CF4F00DCD3A0 /* REFrostedContainerViewController.m */,
-				1B5585601D34CF4F00DCD3A0 /* REFrostedViewController.h */,
-				1B5585611D34CF4F00DCD3A0 /* REFrostedViewController.m */,
-				1B5585621D34CF4F00DCD3A0 /* UIImage+REFrostedViewController.h */,
-				1B5585631D34CF4F00DCD3A0 /* UIImage+REFrostedViewController.m */,
-				1B5585641D34CF4F00DCD3A0 /* UIView+REFrostedViewController.h */,
-				1B5585651D34CF4F00DCD3A0 /* UIView+REFrostedViewController.m */,
-				1B5585661D34CF4F00DCD3A0 /* UIViewController+REFrostedViewController.h */,
-				1B5585671D34CF4F00DCD3A0 /* UIViewController+REFrostedViewController.m */,
-			);
-			path = REFrostedViewController;
 			sourceTree = "<group>";
 		};
 		1B5585711D34D90900DCD3A0 /* BusinessController */ = {
@@ -4236,8 +4222,6 @@
 				04FE7CC81D3670AD00362702 /* LeftMenuController.h */,
 				04FE7CC91D3670AD00362702 /* LeftMenuController.m */,
 				04FE7CCA1D3670AD00362702 /* LeftMenuController.xib */,
-				1BC284DE1D75241000135116 /* LeftMenuOpertion.h */,
-				1BC284DF1D75241000135116 /* LeftMenuOpertion.m */,
 				04FE7CD01D367CC500362702 /* LeftMenuCell */,
 			);
 			path = LeftMenuController;
@@ -4248,8 +4232,6 @@
 			children = (
 				1B5585B81D34F7FB00DCD3A0 /* MainBusinessController.h */,
 				1B5585B91D34F7FB00DCD3A0 /* MainBusinessController.m */,
-				1BC284E11D75324400135116 /* MainBusinessOpertion.h */,
-				1BC284E21D75324400135116 /* MainBusinessOpertion.m */,
 				1B5585BF1D34FA7100DCD3A0 /* HomeListController */,
 				1B5585C01D34FA7100DCD3A0 /* MessageController */,
 				046D48AD1D5616760000ECC4 /* MoreViewController */,
@@ -4273,8 +4255,6 @@
 			children = (
 				1B5585C31D34FA7D00DCD3A0 /* HomeListController.h */,
 				1B5585C41D34FA7D00DCD3A0 /* HomeListController.m */,
-				1BC284E41D7538B700135116 /* HomeListOpertion.h */,
-				1BC284E51D7538B700135116 /* HomeListOpertion.m */,
 				1B3312221D740F1500E77741 /* AppListController */,
 				1B46863B1D4F1B0B00F3C068 /* TaskListController */,
 				046DAF281D4C3EB500718F2A /* MeetingController */,
@@ -5991,7 +5971,6 @@
 				1B47D76A1D6C3E8000837BFD /* JPPlayground.m in Sources */,
 				1BEAD2E81D62A8D200B8C3FD /* RegionController.m in Sources */,
 				045D8BA41D443E16002E0344 /* GeTuiSdkManager.m in Sources */,
-				1B55856D1D34CF4F00DCD3A0 /* UIViewController+REFrostedViewController.m in Sources */,
 				1B1B9BD21D3E07B300F53EDC /* CalendarCreateController.m in Sources */,
 				1BFBC1821D3F7B3D00A5511A /* RepCalendarEditController.m in Sources */,
 				04B0D8241D698E8800BAD522 /* RACEmptySignal.m in Sources */,
@@ -6024,7 +6003,6 @@
 				0495861D1D39D3A500544259 /* MuliteSelectTopView.m in Sources */,
 				1B5585931D34E22800DCD3A0 /* EAIntroViewController.m in Sources */,
 				1B6C70581D361BE60028033D /* NSObject+Tips.m in Sources */,
-				1B5585681D34CF4F00DCD3A0 /* RECommonFunctions.m in Sources */,
 				1B1648C91D5490FE003DC778 /* RCTransferSelectViewController.m in Sources */,
 				046DAF761D4C3EB500718F2A /* MeetingDeviceSelectCell.m in Sources */,
 				1B3312371D7418F900E77741 /* HomeListBottomViewCell.m in Sources */,
@@ -6033,6 +6011,7 @@
 				1B18B3151D59A67D00858C83 /* AllowSelectPhotoBrose.m in Sources */,
 				1BED8C051D517DDD00340809 /* Meeting.m in Sources */,
 				1BF5DFDC1D49A90A0039704E /* split.c in Sources */,
+				1B4DCF581D766B39004BA3C4 /* UIView+REFrostedViewController.m in Sources */,
 				1B1B9BBD1D3DCB8000F53EDC /* NSMutableArray+Atipik.m in Sources */,
 				1BF3FD1D1D5AB59600026351 /* AttachDocumentCell.m in Sources */,
 				1B6D16141D48A8970070D2E5 /* UserLoginController.m in Sources */,
@@ -6063,6 +6042,7 @@
 				1B5585551D34CA2C00DCD3A0 /* IdentityManager.m in Sources */,
 				04E7E5A81D3A660800C653B4 /* ChangeUserBBH.m in Sources */,
 				046DAF701D4C3EB500718F2A /* MeetingName.m in Sources */,
+				1B4DCF571D766B39004BA3C4 /* UIImage+REFrostedViewController.m in Sources */,
 				1B5585801D34DD4E00DCD3A0 /* NSString+isBlank.m in Sources */,
 				1B3312331D74164400E77741 /* LocalUserApp.m in Sources */,
 				1B47D7791D6C3E8000837BFD /* RSA.m in Sources */,
@@ -6115,7 +6095,6 @@
 				1BC2AE821D42113800842153 /* PunchCardRemind.m in Sources */,
 				1BFBC16D1D3F4C0100A5511A /* RepYearView.m in Sources */,
 				1BF3FD221D5ABBA700026351 /* AttachVideoCell.m in Sources */,
-				1B55856C1D34CF4F00DCD3A0 /* UIView+REFrostedViewController.m in Sources */,
 				04E7E5AC1D3A660800C653B4 /* MineInfoEditController.m in Sources */,
 				1B6D160C1D4853930070D2E5 /* LineProgressLayer.m in Sources */,
 				1B5585701D34D80D00DCD3A0 /* MainViewController.m in Sources */,
@@ -6125,6 +6104,7 @@
 				1BD872291D38DD6C0074CDC7 /* BushSearchViewController.m in Sources */,
 				1B18B3301D59A6C100858C83 /* SelectAdressController.m in Sources */,
 				1B47D7561D6C3E8000837BFD /* darwin64_x86_64.S in Sources */,
+				1B4DCF561D766B39004BA3C4 /* REFrostedViewController.m in Sources */,
 				1B5585BA1D34F7FB00DCD3A0 /* MainBusinessController.m in Sources */,
 				049CDF951D4F896D00F8890F /* TaskUpdateController.m in Sources */,
 				1B18B3311D59A6C100858C83 /* SelectAdressTableCell.m in Sources */,
@@ -6145,9 +6125,7 @@
 				0437F4331D4658FF0054077C /* MCJSONDateTransformer.m in Sources */,
 				0437F4361D4658FF0054077C /* MCJSONValueTransformer.m in Sources */,
 				1B47D75D1D6C3E8000837BFD /* JPCGContext.m in Sources */,
-				1BC284E31D75324400135116 /* MainBusinessOpertion.m in Sources */,
 				1B47D7741D6C3E8000837BFD /* JPLoader.m in Sources */,
-				1BC284E01D75241000135116 /* LeftMenuOpertion.m in Sources */,
 				04B0D8591D698E8800BAD522 /* UITextField+RACSignalSupport.m in Sources */,
 				1BED8C151D51962A00340809 /* TaskOtherCommentCell.m in Sources */,
 				04B0D81E1D698E8800BAD522 /* RACDisposable.m in Sources */,
@@ -6294,7 +6272,6 @@
 				1B6D160E1D4853930070D2E5 /* XYFAnimateLabel.m in Sources */,
 				1B47D7721D6C3E8000837BFD /* JPEngine.m in Sources */,
 				04B0D8491D698E8800BAD522 /* UIAlertView+RACSignalSupport.m in Sources */,
-				1BC284E61D7538B700135116 /* HomeListOpertion.m in Sources */,
 				04B0D84C1D698E8800BAD522 /* UICollectionReusableView+RACSignalSupport.m in Sources */,
 				04B0D80E1D698E8800BAD522 /* NSObject+RACSelectorSignal.m in Sources */,
 				04FE7CCB1D3670AD00362702 /* LeftMenuController.m in Sources */,
@@ -6370,14 +6347,15 @@
 				1B47D75E1D6C3E8000837BFD /* JPCGGeometry.m in Sources */,
 				1B33123C1D74199D00E77741 /* MoreAppCollectionCell.m in Sources */,
 				0495862B1D3A1A3F00544259 /* WebViewJavascriptBridge.m in Sources */,
-				1B5585691D34CF4F00DCD3A0 /* REFrostedContainerViewController.m in Sources */,
 				04B0D80D1D698E8800BAD522 /* NSObject+RACPropertySubscribing.m in Sources */,
 				1B1B98721D3DBD0300F53EDC /* Calendar.m in Sources */,
 				1B89FF7F1D4F536A00466F6D /* TaskDetailCell.m in Sources */,
 				1B18B3571D59D83200858C83 /* AttachPicCollection.m in Sources */,
 				1B47D6C91D6BFEDB00837BFD /* PPDragDropBadgeView.m in Sources */,
 				1B18B31F1D59A67D00858C83 /* ShowBigImageScroller.m in Sources */,
+				1B4DCF551D766B39004BA3C4 /* REFrostedContainerViewController.m in Sources */,
 				1B18B3421D59BC9700858C83 /* AttachDocumentView.m in Sources */,
+				1B4DCF591D766B39004BA3C4 /* UIViewController+REFrostedViewController.m in Sources */,
 				04B0D8391D698E8800BAD522 /* RACSignalProvider.d in Sources */,
 				1B47D7771D6C3E8000837BFD /* unzip.c in Sources */,
 				1BC2AE841D42113800842153 /* SiginName.m in Sources */,
@@ -6405,7 +6383,6 @@
 				04B0D8561D698E8800BAD522 /* UISwitch+RACSignalSupport.m in Sources */,
 				1B03E9081D4078E400FB6E1E /* ComCalendarDetailViewController.m in Sources */,
 				04B0D84A1D698E8800BAD522 /* UIBarButtonItem+RACCommandSupport.m in Sources */,
-				1B55856A1D34CF4F00DCD3A0 /* REFrostedViewController.m in Sources */,
 				046DAF7F1D4C3EB500718F2A /* MeetingRoomTimeCell.m in Sources */,
 				1B47D7511D6C3E8000837BFD /* sysv_armv7.S in Sources */,
 				04B0D80A1D698E8800BAD522 /* NSObject+RACDescription.m in Sources */,
@@ -6416,8 +6393,8 @@
 				1BFBC1681D3F473B00A5511A /* RepMonthView.m in Sources */,
 				1BC2AE521D4210C700842153 /* PunchCardAddressSetting.m in Sources */,
 				1BDFB7FC1D58329A00D13BC7 /* IQUIScrollView+Additions.m in Sources */,
+				1B4DCF541D766B39004BA3C4 /* RECommonFunctions.m in Sources */,
 				046DAF6C1D4C3EB500718F2A /* MeetingDevice.m in Sources */,
-				1B55856B1D34CF4F00DCD3A0 /* UIImage+REFrostedViewController.m in Sources */,
 				1B5585BE1D34F8E000DCD3A0 /* CMDeviceInfo.m in Sources */,
 				046DAF811D4C3EB500718F2A /* MeetingRoomTimeCollectionCell.m in Sources */,
 				04B0D8081D698E8800BAD522 /* NSNotificationCenter+RACSupport.m in Sources */,
@@ -6450,7 +6427,6 @@
 				1B47D7621D6C3E8000837BFD /* JPCoreGraphics.m in Sources */,
 				0482FBF11D436FE500B1CBB2 /* MANaviAnnotationView.m in Sources */,
 				1BFBC15C1D3F26B500A5511A /* RepDayView.m in Sources */,
-				1BC284E91D755F3900135116 /* PushMessageOpertion.m in Sources */,
 				04B0D8151D698E8800BAD522 /* NSUserDefaults+RACSupport.m in Sources */,
 				04B0D8351D698E8800BAD522 /* RACSequence.m in Sources */,
 				1BFBC1871D3F811900A5511A /* SiginController.m in Sources */,

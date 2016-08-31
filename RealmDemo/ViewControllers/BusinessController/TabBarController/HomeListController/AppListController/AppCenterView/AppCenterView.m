@@ -70,14 +70,16 @@
 }
 - (void)reloadCollentionView {
     //把已经选中的状态改了
-    [_netUserAppArr enumerateObjectsUsingBlock:^(UserApp * _Nonnull temp, NSUInteger idx, BOOL * _Nonnull stop) {
-        [[_userManager getUserAppArr] enumerateObjectsUsingBlock:^(UserApp * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if([temp.app_guid isEqualToString:obj.app_guid]) {
-                temp.isSelected = YES;
-                *stop = YES;
+    for (UserApp *tempApp in _netUserAppArr) {
+        BOOL have = NO;
+        for (UserApp *temp in [_userManager getUserAppArr]) {
+            if([temp.app_guid isEqualToString:tempApp.app_guid]) {
+                have = YES;
+                break;
             }
-        }];
-    }];
+        }
+        tempApp.isSelected = have;
+    }
     [appcollection reloadData];
 }
 #pragma mark - UICollectionDelegate

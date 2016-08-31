@@ -10,9 +10,4 @@
 //侧滑菜单栏
 @interface LeftMenuController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UIImageView *avaterImageView;
-@property (weak, nonatomic) IBOutlet UILabel *userName;
-@property (weak, nonatomic) IBOutlet UILabel *userMood;
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
-
 @end

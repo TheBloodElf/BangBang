@@ -59,9 +59,6 @@
 #import "ReactiveCocoa.h"//决战UI必备工具
 #import "UIImageView+CornerRadius.h"//离屏渲染解决方案
 #import "PPDragDropBadgeView.h"//QQ消息数字拖曳消失
-#import "JPEngine.h"//通过JS来创建界面
-#import "ViewControllerGenerator.h"//控制器创建工具 解耦
-#import "UIViewController+jumpRouter.h"//控制器之间解耦 中间件来跳转
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
     #import <CoreSpotlight/CoreSpotlight.h>//Spotlight搜索

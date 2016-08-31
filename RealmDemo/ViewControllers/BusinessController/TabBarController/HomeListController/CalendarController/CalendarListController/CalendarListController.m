@@ -10,6 +10,8 @@
 #import "CalenderEventTableViewCell.h"
 #import "UserManager.h"
 #import "NoResultView.h"
+#import "ComCalendarDetailViewController.h"
+#import "RepCalendarDetailController.h"
 
 @interface CalendarListController ()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource,RBQFetchedResultsControllerDelegate> {
     UITableView *_tableView;//表格视图
@@ -202,6 +204,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     Calendar *calendar = _calendarArr[indexPath.section][indexPath.row];
-    [self.navigationController pushControler:(calendar.repeat_type == 0) ? @"ComCalendarDetailViewController" : @"RepCalendarDetailController" parameters:@{@"calendar":calendar}];
+    UIViewController *vc = nil;
+    if(calendar.repeat_type == 0)
+        vc = [ComCalendarDetailViewController new];
+    else
+        vc = [RepCalendarDetailController new];
+    vc.data = calendar;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 @end

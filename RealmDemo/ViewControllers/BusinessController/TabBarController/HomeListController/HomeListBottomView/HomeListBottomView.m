@@ -39,7 +39,7 @@
         [appcollection registerNib:[UINib nibWithNibName:@"HomeListBottomViewCell" bundle:nil] forCellWithReuseIdentifier:@"HomeListBottomViewCell"];
         appcollection.delegate = self;
         appcollection.dataSource = self;
-        appcollection.backgroundColor = [UIColor colorWithRed:248/255.f green:248/255.f blue:248/255.f alpha:1];
+        appcollection.backgroundColor = [UIColor whiteColor];
         appcollection.userInteractionEnabled = YES;
         appcollection.showsVerticalScrollIndicator = NO;
         [self addSubview:appcollection];

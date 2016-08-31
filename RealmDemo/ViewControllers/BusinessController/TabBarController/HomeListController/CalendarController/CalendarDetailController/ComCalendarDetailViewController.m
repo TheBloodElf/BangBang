@@ -76,7 +76,7 @@
     }
 }
 - (void)dataDidChange {
-    _calendar = [self.data[@"calendar"] deepCopy];
+    _calendar = [self.data deepCopy];
 }
 //完成日程
 - (void)finishCalendarClicked:(UIButton*)btn {

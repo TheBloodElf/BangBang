@@ -67,10 +67,15 @@
     self.containerView.clipsToBounds = YES;
     [self.view addSubview:self.containerView];
     
-    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:self.view.bounds];
-    toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    toolbar.barStyle = (UIBarStyle)self.frostedViewController.liveBlurBackgroundStyle;
-    [self.containerView addSubview:toolbar];
+    if (self.frostedViewController.liveBlur) {
+        UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:self.view.bounds];
+        toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        toolbar.barStyle = (UIBarStyle)self.frostedViewController.liveBlurBackgroundStyle;
+        [self.containerView addSubview:toolbar];
+    } else {
+        self.backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+        [self.containerView addSubview:self.backgroundImageView];
+    }
     
     if (self.frostedViewController.menuViewController) {
         [self addChildViewController:self.frostedViewController.menuViewController];

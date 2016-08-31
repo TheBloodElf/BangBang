@@ -22,9 +22,6 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    //启动JSPath
-//    NSString *sourcePath = [[NSBundle mainBundle] pathForResource:@"RealmJs" ofType:@"js"];
-//    [JPEngine evaluateScriptWithPath:sourcePath];
     //Realm数据库版本
     RLMRealmConfiguration *config = [RLMRealmConfiguration defaultConfiguration];
     config.schemaVersion = 2;

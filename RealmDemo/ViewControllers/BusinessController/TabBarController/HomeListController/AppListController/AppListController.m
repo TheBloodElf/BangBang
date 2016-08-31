@@ -149,7 +149,7 @@
             webViewcontroller.hidesBottomBarWhenPushed = YES;
             [[self navigationController] pushViewController:webViewcontroller animated:YES];
         }];
-    } else if ([localUserApp.titleName isEqualToString:@"邮件"]) {//邮件 调用手机上的邮件
+    } else if ([localUserApp.titleName isEqualToString:@"帮邮"]) {//邮件 调用手机上的邮件
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:"]];
     } else if ([localUserApp.titleName isEqualToString:@"会议"]) {//会议
         [self executeNeedSelectCompany:^{

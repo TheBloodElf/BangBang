@@ -7,6 +7,9 @@
 //
 
 #import "BusinessController.h"
+#import "REFrostedViewController.h"
+#import "MainBusinessController.h"
+#import "LeftMenuController.h"
 
 @implementation BusinessController
 
@@ -14,8 +17,10 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     //创建界面
-    UIViewController *_rEFrostedView = [ViewControllerGenerator getViewController:@"REFrostedViewController"];
-    _rEFrostedView.data = @{@"contentViewController":[ViewControllerGenerator getViewController:@"MainBusinessController"],@"menuViewController":[ViewControllerGenerator getViewController:@"LeftMenuController"]};
+    REFrostedViewController *_rEFrostedView = [[REFrostedViewController alloc] initWithContentViewController:[MainBusinessController new] menuViewController:[LeftMenuController new]];
+    _rEFrostedView.direction = REFrostedViewControllerDirectionLeft;
+    _rEFrostedView.menuViewSize = CGSizeMake(MAIN_SCREEN_WIDTH * 3 / 4, MAIN_SCREEN_HEIGHT);
+    _rEFrostedView.liveBlur = YES;
     //这个导航用于弹出通知信息，是业务模块的根控制器
     UINavigationController *businessNav = [[UINavigationController alloc] initWithRootViewController:_rEFrostedView];
     [self addChildViewController:businessNav];

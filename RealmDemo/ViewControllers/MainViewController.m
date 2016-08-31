@@ -11,6 +11,10 @@
 #import "UserManager.h"
 #import "GeTuiSdkManager.h"
 
+#import "LoginController.h"
+#import "WelcomeController.h"
+#import "BusinessController.h"
+
 @interface MainViewController () {
     UIViewController *_welcome;//欢迎界面
     UIViewController *_login;//登录界面
@@ -67,7 +71,7 @@
     IdentityManager *manager = [IdentityManager manager];
     //看用户是不是第一次使用软件
     if(manager.identity.firstUseSoft) {
-        _welcome = [ViewControllerGenerator getViewController:@"WelcomeController"];
+        _welcome = [WelcomeController new];
         _welcome.view.alpha = 0;
         [self addChildViewController:_welcome];
         [self.view addSubview:_welcome.view];
@@ -86,7 +90,7 @@
     } else {
         //看用户是否登录
         if([NSString isBlank:manager.identity.user_guid]) {
-            _login = [ViewControllerGenerator getViewController:@"LoginController"];
+            _login = [LoginController new];
             _login.view = 0;
             [self addChildViewController:_login];
             [self.view addSubview:_login.view];
@@ -119,7 +123,7 @@
             //用融云登录聊天
             [[RYChatManager shareInstance] syncRYGroup];
             [[RCIM sharedRCIM] connectWithToken:identityManager.identity.RYToken success:nil error:nil tokenIncorrect:nil];
-            _business = [ViewControllerGenerator getViewController:@"BusinessController"];
+            _business = [BusinessController new];
             _business.view.alpha = 0;
             [self addChildViewController:_business];
             [self.view addSubview:_business.view];

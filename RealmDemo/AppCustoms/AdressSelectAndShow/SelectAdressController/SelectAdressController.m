@@ -39,6 +39,7 @@
     _mapView.delegate = self;
     _mapView.showsUserLocation = YES;
     _mapView.zoomLevel = 16.f;
+    _mapView.rotateEnabled = NO;
     [self.view addSubview:_mapView];
     UIImageView *centerView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"location_center_icon"]];
     centerView.frame = CGRectMake(0.5 * (_mapView.frame.size.width - centerView.frame.size.width), 125 - centerView.frame.size.height, centerView.frame.size.width, centerView.frame.size.height);
@@ -120,10 +121,7 @@
 #pragma mark -- SearchAdressDelegate
 - (void)searchAdress:(AMapPOI *)aMapPOI
 {
-    [self.navigationController popToViewController:self.navigationController.viewControllers[self.navigationController.viewControllers.count - 3] animated:YES];
-    if(self.delegate && [self.delegate respondsToSelector:@selector(selectAdress:)]) {
-        [self.delegate selectAdress:aMapPOI];
-    }
+    [_mapView setCenterCoordinate:CLLocationCoordinate2DMake(aMapPOI.location.latitude, aMapPOI.location.longitude) animated:YES];
 }
 
 #pragma mark -- 
