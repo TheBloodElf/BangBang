@@ -60,57 +60,8 @@
     //加上spotlight进来的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReciveOpenSpotlight:) name:@"OpenSoft_FormSpotlight_Notication" object:nil];
 }
-- (UINavigationController*)homeListController {
-    HomeListController *home = [HomeListController new];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:home];
-    nav.tabBarItem.title = @"首页";
-    nav.navigationBar.translucent = NO;
-    [nav.tabBarItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor grayColor]} forState:UIControlStateNormal];
-    [nav.tabBarItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]} forState:UIControlStateSelected];
-    nav.tabBarItem.image = [[UIImage imageNamed:@"index-gray"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    nav.tabBarItem.selectedImage = [[UIImage imageNamed:@"index-green"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    return nav;
-}
-- (UINavigationController*)xAddrBookController {
-    XAddrBookController *home = [XAddrBookController new];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:home];
-    nav.tabBarItem.title = @"联系人";
-    nav.navigationBar.translucent = NO;
-    [nav.tabBarItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor grayColor]} forState:UIControlStateNormal];
-    [nav.tabBarItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]} forState:UIControlStateSelected];
-    nav.tabBarItem.image = [[UIImage imageNamed:@"set-gray"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    nav.tabBarItem.selectedImage = [[UIImage imageNamed:@"set-green"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    return nav;
-}
-- (UIViewController*)centerController {
-    UIViewController *view = [UIViewController new];
-    view.tabBarItem.image = [[UIImage imageNamed:@"home_add"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    view.tabBarItem.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0);
-    return view;
-}
-- (UINavigationController*)messageController {
-    MessageController *home = [MessageController new];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:home];
-    nav.tabBarItem.title = @"消息";
-    nav.navigationBar.translucent = NO;
-    [nav.tabBarItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor grayColor]} forState:UIControlStateNormal];
-    [nav.tabBarItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]} forState:UIControlStateSelected];
-    nav.tabBarItem.image = [[UIImage imageNamed:@"message-gray"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    nav.tabBarItem.selectedImage = [[UIImage imageNamed:@"message-green"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    return nav;
-}
-- (UINavigationController*)mineViewController {
-    UIStoryboard *story = [UIStoryboard storyboardWithName:@"MainStory" bundle:nil];
-    MineViewController *home = [story instantiateViewControllerWithIdentifier:@"MineViewController"];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:home];
-    nav.tabBarItem.title = @"我的";
-    nav.navigationBar.translucent = NO;
-    [nav.tabBarItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor grayColor]} forState:UIControlStateNormal];
-    [nav.tabBarItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]} forState:UIControlStateSelected];
-    nav.tabBarItem.image = [[UIImage imageNamed:@"contact-gray"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    nav.tabBarItem.selectedImage = [[UIImage imageNamed:@"contact-green"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    return nav;
-}
+#pragma mark -- 
+#pragma mark -- Notification
 //Spotlight进来的
 - (void)didReciveOpenSpotlight:(NSNotification*)notification {
     //    NSString *currStr = notification.object;
@@ -275,6 +226,7 @@
     aBlock();
 }
 //这里写回调
+#pragma mark --
 #pragma mark -- MoreViewControllerDelegate
 - (void)MoreViewDidClicked:(int)index {
     if(index == 6) {//投票
@@ -315,6 +267,7 @@
         }];
     }
 }
+#pragma mark --
 #pragma mark -- UITabBarControllerDelegate
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     if([viewController isMemberOfClass:[UIViewController class]]) {
@@ -338,5 +291,58 @@
     // domainId      id,通过这个id来判断是哪个spotlight
     CSSearchableItem *item = [[CSSearchableItem alloc] initWithUniqueIdentifier:spotlightInfo domainIdentifier:domainId attributeSet:attributeSet];
     [[CSSearchableIndex defaultSearchableIndex] indexSearchableItems:@[item] completionHandler:^(NSError * error) {}];
+}
+#pragma mark --
+#pragma mark -- Custom
+- (UINavigationController*)homeListController {
+    HomeListController *home = [HomeListController new];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:home];
+    nav.tabBarItem.title = @"首页";
+    nav.navigationBar.translucent = NO;
+    [nav.tabBarItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor grayColor]} forState:UIControlStateNormal];
+    [nav.tabBarItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]} forState:UIControlStateSelected];
+    nav.tabBarItem.image = [[UIImage imageNamed:@"index-gray"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    nav.tabBarItem.selectedImage = [[UIImage imageNamed:@"index-green"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    return nav;
+}
+- (UINavigationController*)xAddrBookController {
+    XAddrBookController *home = [XAddrBookController new];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:home];
+    nav.tabBarItem.title = @"联系人";
+    nav.navigationBar.translucent = NO;
+    [nav.tabBarItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor grayColor]} forState:UIControlStateNormal];
+    [nav.tabBarItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]} forState:UIControlStateSelected];
+    nav.tabBarItem.image = [[UIImage imageNamed:@"set-gray"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    nav.tabBarItem.selectedImage = [[UIImage imageNamed:@"set-green"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    return nav;
+}
+- (UIViewController*)centerController {
+    UIViewController *view = [UIViewController new];
+    view.tabBarItem.image = [[UIImage imageNamed:@"home_add"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    view.tabBarItem.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0);
+    return view;
+}
+- (UINavigationController*)messageController {
+    MessageController *home = [MessageController new];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:home];
+    nav.tabBarItem.title = @"消息";
+    nav.navigationBar.translucent = NO;
+    [nav.tabBarItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor grayColor]} forState:UIControlStateNormal];
+    [nav.tabBarItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]} forState:UIControlStateSelected];
+    nav.tabBarItem.image = [[UIImage imageNamed:@"message-gray"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    nav.tabBarItem.selectedImage = [[UIImage imageNamed:@"message-green"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    return nav;
+}
+- (UINavigationController*)mineViewController {
+    UIStoryboard *story = [UIStoryboard storyboardWithName:@"MainStory" bundle:nil];
+    MineViewController *home = [story instantiateViewControllerWithIdentifier:@"MineViewController"];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:home];
+    nav.tabBarItem.title = @"我的";
+    nav.navigationBar.translucent = NO;
+    [nav.tabBarItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor grayColor]} forState:UIControlStateNormal];
+    [nav.tabBarItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]} forState:UIControlStateSelected];
+    nav.tabBarItem.image = [[UIImage imageNamed:@"contact-gray"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    nav.tabBarItem.selectedImage = [[UIImage imageNamed:@"contact-green"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    return nav;
 }
 @end

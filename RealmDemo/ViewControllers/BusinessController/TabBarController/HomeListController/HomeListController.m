@@ -102,13 +102,14 @@
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
     if(controller == _pushMessageFetchedResultsController) {
-        PPDragDropBadgeView *label = [self.rightNavigationBarButton viewWithTag:1001];
+        UILabel *label = [self.rightNavigationBarButton viewWithTag:1001];
         int count = 0;
         for (PushMessage *push in controller.fetchedObjects) {
             if(push.unread == YES)
                 count ++;
         }
         label.text = [NSString stringWithFormat:@"%d",count];
+        label.hidden = !count;
     } else if(controller == _userFetchedResultsController) {
         User *user = [_userManager user];
         //重新设置签到记录的数据监听
@@ -291,7 +292,13 @@
     [_rightNavigationBarButton addTarget:self action:@selector(rightNavigationBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     _rightNavigationBarButton.clipsToBounds = NO;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_rightNavigationBarButton];
-    PPDragDropBadgeView *label = [[PPDragDropBadgeView alloc] initWithFrame:CGRectMake(20, -5, 15, 15)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(24, -5, 18, 18)];
+    label.textColor = [UIColor whiteColor];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.layer.cornerRadius = 9;
+    label.font = [UIFont systemFontOfSize:15];
+    label.clipsToBounds = YES;
+    label.backgroundColor = [UIColor redColor];
     label.userInteractionEnabled = NO;
     int count = 0;
     for (PushMessage *push in [_userManager getPushMessageArr]) {
@@ -299,9 +306,8 @@
             count ++;
     }
     label.text = [NSString stringWithFormat:@"%d",count];
-    label.textColor = [UIColor whiteColor];
-    label.font = [UIFont systemFontOfSize:10];
     label.tag = 1001;
+    label.hidden = !count;
     [_rightNavigationBarButton addSubview:label];
 }
 - (void)rightNavigationBtnClicked:(UIButton*)item {
