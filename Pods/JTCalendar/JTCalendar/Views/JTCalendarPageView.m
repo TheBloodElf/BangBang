@@ -65,9 +65,10 @@
     if(_manager.settings.pageViewHaveWeekDaysView && !_weekDayView){
         _weekDayView = [_manager.delegateManager buildWeekDayView];
         [self addSubview:_weekDayView];
+        
+        _weekDayView.manager = _manager;
+        [_weekDayView reload];
     }
-    _weekDayView.manager = _manager;
-    [_weekDayView reload];
     
     if(!_weeksViews){
         _weeksViews = [NSMutableArray new];
@@ -84,7 +85,8 @@
     NSDate *weekDate = nil;
     
     if(_manager.settings.weekModeEnabled){
-        _numberOfWeeksDisplayed = MIN(MAX(_manager.settings.pageViewWeekModeNumberOfWeeks, 1), MAX_WEEKS_BY_MONTH);
+        _numberOfWeeksDisplayed = 1;
+        
         weekDate = [_manager.dateHelper firstWeekDayOfWeek:_date];
     }
     else{
@@ -121,8 +123,6 @@
 
 - (void)layoutSubviews
 {    
-    [super layoutSubviews];
-
     if(!_weeksViews){
         return;
     }

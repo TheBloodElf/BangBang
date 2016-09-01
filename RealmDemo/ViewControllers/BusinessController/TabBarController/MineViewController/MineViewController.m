@@ -12,6 +12,7 @@
 #import "UserSettingController.h"
 #import "AboutViewController.h"
 #import "WebNonstandarViewController.h"
+#import "MineInfoEditController.h"
 #import "IdentityManager.h"
 #import "UserHttp.h"
 
@@ -47,6 +48,11 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     self.navigationController.navigationBar.barTintColor = [UIColor homeListColor];
+}
+- (IBAction)goToMineInfo:(id)sender {
+    MineInfoEditController *mine = [MineInfoEditController new];
+    mine.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:mine animated:YES];
 }
 #pragma mark -- 
 #pragma mark -- RBQFetchedResultsControllerDelegate

@@ -199,7 +199,7 @@
         }
         WebNonstandarViewController *vc = [WebNonstandarViewController new];
         vc.applicationUrl = [urlOpen stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        vc.showNavigationBar = YES;
+        vc.showNavigationBar = NO;
         [self.navigationController pushViewController:vc animated:YES];
     }];
     //图片预览

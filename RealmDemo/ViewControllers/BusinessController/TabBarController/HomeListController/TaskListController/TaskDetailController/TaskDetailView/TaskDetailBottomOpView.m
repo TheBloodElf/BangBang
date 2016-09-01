@@ -93,7 +93,7 @@
             [self addSubview:btn];
         } else if (_taskModel.status == 4) {//退回 通过 终止
             UIButton *returnBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-            returnBtn.frame = CGRectMake(10, 10, (MAIN_SCREEN_WIDTH - 40) / 3 , 30);
+            returnBtn.frame = CGRectMake(10, 0, (MAIN_SCREEN_WIDTH - 40) / 3 , 30);
             [returnBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [returnBtn setTitle:@"退回" forState:UIControlStateNormal];
             [returnBtn setBackgroundColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]];
@@ -104,7 +104,7 @@
             
             UIButton *stopBtn = [UIButton buttonWithType:UIButtonTypeSystem];
             [stopBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            stopBtn.frame = CGRectMake(CGRectGetMaxX(returnBtn.frame) + 10 , 10, (MAIN_SCREEN_WIDTH - 40) / 3 , 30);
+            stopBtn.frame = CGRectMake(CGRectGetMaxX(returnBtn.frame) + 10 , 0, (MAIN_SCREEN_WIDTH - 40) / 3 , 30);
             [stopBtn setTitle:@"终止" forState:UIControlStateNormal];
             [stopBtn setBackgroundColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]];
             stopBtn.layer.cornerRadius = 3;
@@ -114,7 +114,7 @@
             
             UIButton *passBtn = [UIButton buttonWithType:UIButtonTypeSystem];
             [passBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            passBtn.frame = CGRectMake(CGRectGetMaxX(stopBtn.frame) + 10, 10, (MAIN_SCREEN_WIDTH - 40) / 3, 30);
+            passBtn.frame = CGRectMake(CGRectGetMaxX(stopBtn.frame) + 10, 0, (MAIN_SCREEN_WIDTH - 40) / 3, 30);
             [passBtn setTitle:@"通过" forState:UIControlStateNormal];
             [passBtn setBackgroundColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]];
             passBtn.layer.cornerRadius = 3;

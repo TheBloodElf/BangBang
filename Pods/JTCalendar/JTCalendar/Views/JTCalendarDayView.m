@@ -48,20 +48,22 @@
         
         _circleView.backgroundColor = [UIColor colorWithRed:0x33/256. green:0xB3/256. blue:0xEC/256. alpha:.5];
         _circleView.hidden = YES;
-
-        _circleView.layer.rasterizationScale = [UIScreen mainScreen].scale;
-        _circleView.layer.shouldRasterize = YES;
     }
     
     {
         _dotView = [UIView new];
         [self addSubview:_dotView];
-        
         _dotView.backgroundColor = [UIColor redColor];
         _dotView.hidden = YES;
-
-        _dotView.layer.rasterizationScale = [UIScreen mainScreen].scale;
-        _dotView.layer.shouldRasterize = YES;
+        
+        _dotLabelView = [UILabel new];
+        [self addSubview:_dotLabelView];
+        _dotLabelView.backgroundColor = [UIColor redColor];
+        _dotLabelView.textColor = [UIColor whiteColor];
+        _dotLabelView.alpha = 0.5;
+        _dotLabelView.textAlignment = NSTextAlignmentCenter;
+        _dotLabelView.font = [UIFont systemFontOfSize:10];
+        _dotLabelView.hidden = YES;
     }
     
     {
@@ -83,8 +85,6 @@
 
 - (void)layoutSubviews
 {
-    [super layoutSubviews];
-    
     _textLabel.frame = self.bounds;
     
     CGFloat sizeCircle = MIN(self.frame.size.width, self.frame.size.height);
@@ -103,6 +103,10 @@
     _dotView.frame = CGRectMake(0, 0, sizeDot, sizeDot);
     _dotView.center = CGPointMake(self.frame.size.width / 2., (self.frame.size.height / 2.) +sizeDot * 2.5);
     _dotView.layer.cornerRadius = sizeDot / 2.;
+    
+    _dotLabelView.frame = CGRectMake(0.5 * (self.frame.size.width - 12), self.frame.size.height - 12, 12, 12);
+    _dotLabelView.layer.cornerRadius = 6;
+    _dotLabelView.clipsToBounds = YES;
 }
 
 - (void)setDate:(NSDate *)date

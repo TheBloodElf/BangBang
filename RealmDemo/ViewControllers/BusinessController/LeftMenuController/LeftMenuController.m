@@ -28,7 +28,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.avaterImageView zy_cornerRadiusRoundingRect];
     self.view.backgroundColor = [UIColor clearColor];
     _userManager  = [UserManager manager];
     //创建数据监听
@@ -53,6 +52,7 @@
     self.tableView.tableFooterView = [UIView new];
     [self.tableView reloadData];
     //设置用户信息
+    [self.avaterImageView zy_cornerRadiusRoundingRect];
     [self.avaterImageView sd_setImageWithURL:[NSURL URLWithString:_userManager.user.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
     self.userName.text = _userManager.user.real_name;
     self.userMood.text = _userManager.user.mood;

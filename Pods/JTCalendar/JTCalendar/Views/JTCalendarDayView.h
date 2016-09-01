@@ -16,8 +16,9 @@
 @property (nonatomic) NSDate *date;
 
 @property (nonatomic, readonly) UIView *circleView;
-@property (nonatomic, readonly) UIView *dotView;
-@property (nonatomic, readonly) UILabel *textLabel;
+@property (nonatomic, readonly) UIView *dotView;//这个是显示小红点
+@property (nonatomic, readonly) UILabel *dotLabelView;//这个是显示红色的数组
+@property (nonatomic, readonly) UILabel *textLabel;//中间的数字
 
 @property (nonatomic) CGFloat circleRatio;
 @property (nonatomic) CGFloat dotRatio;

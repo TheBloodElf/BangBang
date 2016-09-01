@@ -23,6 +23,7 @@
     self.hidden = YES;
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, _selectArr.count * 40) style:UITableViewStylePlain];
     _tableView.delegate = self;
+    _tableView.scrollEnabled = NO;
     _tableView.dataSource = self;
     [self addSubview:_tableView];
     [self hideSelectView];

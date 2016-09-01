@@ -30,6 +30,7 @@
     _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 364)];
     _mapView.delegate = self;
     _mapView.zoomLevel = 13;//地图缩放级别
+    _mapView.rotateEnabled = NO;
     _mapView.distanceFilter = 100;
     _mapView.desiredAccuracy = kCLLocationAccuracyBest;
     //是否定位

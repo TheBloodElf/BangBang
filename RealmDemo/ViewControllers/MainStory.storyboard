@@ -28,12 +28,16 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner.png" translatesAutoresizingMaskIntoConstraints="NO" id="j3M-C4-TnC">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="199"/>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IF4-4F-0vQ">
+                                                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IF4-4F-0vQ">
                                                     <rect key="frame" x="130" y="48" width="60" height="60"/>
+                                                    <gestureRecognizers/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="60" id="6U1-ce-OmL"/>
                                                         <constraint firstAttribute="height" constant="60" id="7UE-OO-G74"/>
                                                     </constraints>
+                                                    <connections>
+                                                        <outletCollection property="gestureRecognizers" destination="zTd-ko-DCs" appends="YES" id="gzW-8W-vmD"/>
+                                                    </connections>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="李勇" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bje-x4-QiU">
                                                     <rect key="frame" x="143" y="115" width="34" height="17"/>
@@ -257,6 +261,11 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lF7-kC-UiY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="zTd-ko-DCs">
+                    <connections>
+                        <action selector="goToMineInfo:" destination="tLS-WW-Kua" id="dev-r8-cEG"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1290" y="71"/>
         </scene>

@@ -25,6 +25,7 @@
     _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT)];
     _mapView.showsUserLocation = YES;
     _mapView.zoomLevel = 16.f;
+    _mapView.rotateEnabled = NO;
     [self.view addSubview:_mapView];
     //把中心店移动到用户输入位置
     [_mapView setCenterCoordinate:self.cLLocationCoordinate2D animated:YES];

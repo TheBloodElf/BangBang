@@ -492,6 +492,8 @@
 		1B4DCF571D766B39004BA3C4 /* UIImage+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4DCF4F1D766B39004BA3C4 /* UIImage+REFrostedViewController.m */; };
 		1B4DCF581D766B39004BA3C4 /* UIView+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4DCF511D766B39004BA3C4 /* UIView+REFrostedViewController.m */; };
 		1B4DCF591D766B39004BA3C4 /* UIViewController+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4DCF531D766B39004BA3C4 /* UIViewController+REFrostedViewController.m */; };
+		1B52FCAD1D77BDE600AB2859 /* TaskDraftModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B52FCAC1D77BDE600AB2859 /* TaskDraftModel.m */; };
+		1B52FCB01D77C49000AB2859 /* UIView+hotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B52FCAF1D77C49000AB2859 /* UIView+hotView.m */; };
 		1B5585551D34CA2C00DCD3A0 /* IdentityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5585541D34CA2C00DCD3A0 /* IdentityManager.m */; };
 		1B5585701D34D80D00DCD3A0 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B55856F1D34D80D00DCD3A0 /* MainViewController.m */; };
 		1B5585761D34D93800DCD3A0 /* BusinessController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5585751D34D93800DCD3A0 /* BusinessController.m */; };
@@ -1669,6 +1671,10 @@
 		1B4DCF511D766B39004BA3C4 /* UIView+REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+REFrostedViewController.m"; sourceTree = "<group>"; };
 		1B4DCF521D766B39004BA3C4 /* UIViewController+REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+REFrostedViewController.h"; sourceTree = "<group>"; };
 		1B4DCF531D766B39004BA3C4 /* UIViewController+REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+REFrostedViewController.m"; sourceTree = "<group>"; };
+		1B52FCAB1D77BDE600AB2859 /* TaskDraftModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskDraftModel.h; sourceTree = "<group>"; };
+		1B52FCAC1D77BDE600AB2859 /* TaskDraftModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskDraftModel.m; sourceTree = "<group>"; };
+		1B52FCAE1D77C49000AB2859 /* UIView+hotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+hotView.h"; sourceTree = "<group>"; };
+		1B52FCAF1D77C49000AB2859 /* UIView+hotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+hotView.m"; sourceTree = "<group>"; };
 		1B5585531D34CA2C00DCD3A0 /* IdentityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdentityManager.h; sourceTree = "<group>"; };
 		1B5585541D34CA2C00DCD3A0 /* IdentityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentityManager.m; sourceTree = "<group>"; };
 		1B55856E1D34D80D00DCD3A0 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
@@ -4077,6 +4083,8 @@
 				1B18B2E31D5969B400858C83 /* UISearchBar+BackgroundColor.m */,
 				1B47D6BC1D6BF21200837BFD /* UIView+parentViewController.h */,
 				1B47D6BD1D6BF21200837BFD /* UIView+parentViewController.m */,
+				1B52FCAE1D77C49000AB2859 /* UIView+hotView.h */,
+				1B52FCAF1D77C49000AB2859 /* UIView+hotView.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -5267,6 +5275,8 @@
 				1BC2AE511D4210C700842153 /* PunchCardAddressSetting.m */,
 				1B4686381D4EFD4F00F3C068 /* TaskModel.h */,
 				1B4686391D4EFD4F00F3C068 /* TaskModel.m */,
+				1B52FCAB1D77BDE600AB2859 /* TaskDraftModel.h */,
+				1B52FCAC1D77BDE600AB2859 /* TaskDraftModel.m */,
 				1B42B5151D61BA6400393A85 /* TaskFinishState.h */,
 				1B42B5161D61BA6400393A85 /* TaskFinishState.m */,
 				046DB0811D4C895800718F2A /* ShareModel */,
@@ -6021,6 +6031,7 @@
 				1B47D7741D6C3E8000837BFD /* JPLoader.m in Sources */,
 				04B0D8591D698E8800BAD522 /* UITextField+RACSignalSupport.m in Sources */,
 				1BED8C151D51962A00340809 /* TaskOtherCommentCell.m in Sources */,
+				1B52FCAD1D77BDE600AB2859 /* TaskDraftModel.m in Sources */,
 				04B0D81E1D698E8800BAD522 /* RACDisposable.m in Sources */,
 				04B0D83B1D698E8800BAD522 /* RACStream.m in Sources */,
 				0437F4381D4658FF0054077C /* RLMObject+JSON.m in Sources */,
@@ -6088,6 +6099,7 @@
 				1BD871EA1D38AE200074CDC7 /* CreateBushController.m in Sources */,
 				75E5FF801D27D68C00F77961 /* Identity.m in Sources */,
 				1B18B3161D59A67D00858C83 /* BigPhotoSelectController.m in Sources */,
+				1B52FCB01D77C49000AB2859 /* UIView+hotView.m in Sources */,
 				1B3312261D740F5A00E77741 /* AppListController.m in Sources */,
 				1B18B3131D59A67D00858C83 /* AvaterBroseController.m in Sources */,
 				1BED8C061D517DDD00340809 /* MeetingEquipmentsModel.m in Sources */,

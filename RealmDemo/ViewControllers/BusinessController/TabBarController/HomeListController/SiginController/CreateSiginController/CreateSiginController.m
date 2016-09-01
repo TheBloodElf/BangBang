@@ -145,6 +145,7 @@
     _mapView.hidden = YES;
     _mapView.zoomLevel = 13;//地图缩放级别
     _mapView.distanceFilter = 100;
+    _mapView.rotateEnabled = NO;
     _mapView.showsUserLocation = YES;
     _mapView.desiredAccuracy = kCLLocationAccuracyBest;
     [self.view addSubview:_mapView];

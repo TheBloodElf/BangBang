@@ -66,8 +66,9 @@
     SystemSoundID ID;
     AudioServicesCreateSystemSoundID((__bridge CFURLRef)(url), &ID);
     AudioServicesPlayAlertSound(ID);
-    
-    PushMessage *pushMessage = [[PushMessage alloc] initWithJSONDictionary:notification.userInfo];
+    NSMutableDictionary *dictionary = [notification.userInfo mutableCopy];
+    [dictionary setObject:@([NSDate date].timeIntervalSince1970 * 1000).stringValue forKey:@"id"];
+    PushMessage *pushMessage = [[PushMessage alloc] initWithJSONDictionary:dictionary];
     pushMessage.addTime = [NSDate date];
     [_userManager addPushMessage:pushMessage];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"DidRecivePushMessage" object:pushMessage];

@@ -21,8 +21,10 @@
     UserManager *_userManager;
     UISegmentedControl *_topSegmentedControl;//上面的分段控件
     UIScrollView *_bottomScrollView;//下面的滚动视图
+    UIButton *_rightBarButton;//右边导航按钮
     MoreSelectView *_moreSelectView;//多选视图
     RBQFetchedResultsController *_taskFetchedResultsController;//当前用户任务数据监听
+    RBQFetchedResultsController *_taskDraftFetchedResultsController;//当前用户任务数据监听
     
     InchargeTaskView *_incharge;//负责
     CreateTaskView *_create;//委派
@@ -42,6 +44,8 @@
     _userManager = [UserManager manager];
     _taskFetchedResultsController = [_userManager createTaskFetchedResultsController:_userManager.user.currCompany.company_no];
     _taskFetchedResultsController.delegate = self;
+    _taskDraftFetchedResultsController = [_userManager createTaskDraftFetchedResultsController];
+    _taskDraftFetchedResultsController.delegate = self;
     self.view.backgroundColor = [UIColor whiteColor];
     
     _topSegmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"委派的",@"负责的",@"知悉的",@"已完结"]];
@@ -59,7 +63,14 @@
     _bottomScrollView.scrollEnabled = NO;
     _bottomScrollView.contentSize = CGSizeMake(4 * _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height);
     [self.view addSubview:_bottomScrollView];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar_menu"] style:UIBarButtonItemStylePlain target:self action:@selector(moreClicked:)];
+    
+    _rightBarButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    _rightBarButton.frame = CGRectMake(0, 0, 35, 35);
+    [_rightBarButton setImage:[UIImage imageNamed:@"navigationbar_menu"] forState:UIControlStateNormal];
+    [_rightBarButton addTarget:self action:@selector(moreClicked:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_rightBarButton];
+    if([_userManager getTaskDraftArr:_userManager.user.currCompany.company_no].count != 0)
+        [_rightBarButton addHotView:HOTVIEW_ALIGNMENT_TOP_RIGHT];
     // Do any additional setup after loading the view.
 }
 - (void)viewWillAppear:(BOOL)animated {
@@ -111,7 +122,15 @@
 }
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
-    [self getCurrData];
+    if(controller == _taskDraftFetchedResultsController) {
+        if([_userManager getTaskDraftArr:_userManager.user.currCompany.company_no].count != 0) {
+            [_rightBarButton addHotView:HOTVIEW_ALIGNMENT_TOP_RIGHT];
+        } else {
+            [_rightBarButton removeHotView];
+        }
+    } else {
+        [self getCurrData];
+    }
 }
 //获得各个页面对应的数据
 - (void)getCurrData {

@@ -27,7 +27,7 @@
     NSMutableArray<Calendar*> *_todayAlldayCalendarArr;//当天全天的日程
     NSMutableArray<Calendar*> *_todayOverdayCalendarArr;//当天跨天的日程
     NSMutableArray<Calendar*> *_todayOtherCalendarArr;//当天一般的日程
-    NSMutableArray<NSDate*> *_haveCalendarArr;//有日程的时间数组
+    NSMutableArray<NSDate*> *_haveCalendarArr;//有日程的字典 时间-事件数量
     NSDate *_userSelectedDate;//用户选择的时间
     MoreSelectView *_moreSelectView;//多选视图
     UILabel *_centerNavLabel;//导航中间视图
@@ -150,14 +150,13 @@
 //加载有日程的时间数组
 - (void)loadHaveCalendarTimeArr {
     NSMutableArray *calendarArr = [_userManager getCalendarArr];
-    [_haveCalendarArr removeAllObjects];
+    _haveCalendarArr = [@[] mutableCopy];
     for (Calendar *tempCalendar in calendarArr) {
         if(tempCalendar.status != 1) continue;
         if(tempCalendar.repeat_type == 0) {//如果是不重复的日程
             for (int64_t startTime = tempCalendar.begindate_utc; startTime <= tempCalendar.enddate_utc; startTime += (24 * 60 * 60 * 1000)) {
                 NSDate *startTimeTemp = [NSDate dateWithTimeIntervalSince1970:startTime / 1000];
-                if(![_haveCalendarArr containsObject:startTimeTemp])
-                    [_haveCalendarArr addObject:startTimeTemp];
+                [_haveCalendarArr addObject:startTimeTemp];
             }
         } else {//如果是重复的日程
             Scheduler * scheduler = [[Scheduler alloc] initWithDate:[NSDate dateWithTimeIntervalSince1970:tempCalendar.begindate_utc/1000] andRule:tempCalendar.rrule];
@@ -168,8 +167,7 @@
                 if([tempDate timeIntervalSince1970] < tempCalendar.r_begin_date_utc/1000) continue;
                 if ([tempCalendar haveDeleteDate:tempDate]) continue;
                 if ([tempCalendar haveFinishDate:tempDate]) continue;
-                if(![_haveCalendarArr containsObject:tempDate])
-                    [_haveCalendarArr addObject:tempDate];
+                [_haveCalendarArr addObject:tempDate];
             }
         }
     }
@@ -340,7 +338,7 @@
     else
         calendar = _todayOtherCalendarArr[indexPath.row];
     if(calendar.repeat_type == 0) {
-        RepCalendarDetailController *vc = [ComCalendarDetailViewController new];
+        ComCalendarDetailViewController *vc = [ComCalendarDetailViewController new];
         vc.data = calendar;
         [self.navigationController pushViewController:vc animated:YES];
         
@@ -355,21 +353,28 @@
 #pragma mark -- JTCalendarDelegate
 - (void)calendar:(JTCalendarManager *)calendar prepareDayView:(JTCalendarDayView *)dayView {
     dayView.circleView.hidden = YES;
-    dayView.dotView.hidden = YES;
+    dayView.dotLabelView.hidden = YES;
     dayView.textLabel.textColor = [UIColor blackColor];
     if([dayView isFromAnotherMonth])
         dayView.textLabel.textColor = [UIColor grayColor];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         //是否有日程
         for (NSDate *tempDate in _haveCalendarArr) {
-            if(tempDate.year == dayView.date.year)
-            if(tempDate.month == dayView.date.month)
-            if(tempDate.day == dayView.date.day) {
+            if(tempDate.year != dayView.date.year) continue;
+            if(tempDate.month != dayView.date.month) continue;
+            if(tempDate.day != dayView.date.day) continue;
             dispatch_async(dispatch_get_main_queue(), ^{
-                dayView.dotView.hidden = NO;
+                dayView.dotLabelView.hidden = NO;
+                int number = 0;
+                for (NSDate *tempTemp in _haveCalendarArr) {
+                    if(tempTemp.year != tempDate.year) continue;
+                    if(tempTemp.month != tempDate.month) continue;
+                    if(tempTemp.day != tempDate.day) continue;
+                    number ++;
+                }
+                dayView.dotLabelView.text = @(number).stringValue;
             });
             break;
-            }
         }
     });
     //当前显示灰色

@@ -49,14 +49,21 @@
     
     _userManager = [UserManager manager];
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
-    //初始化模型
-    _taskModel = [TaskModel new];
-    _taskModel.status = 1;
-    _taskModel.createdby = employee.employee_guid;
-    _taskModel.enddate_utc = [[NSDate date] timeIntervalSince1970] * 1000;
-    _taskModel.user_guid = _userManager.user.user_guid;
-    _taskModel.avatar = _userManager.user.avatar;
-    _taskModel.company_no = _userManager.user.currCompany.company_no;
+    //初始化模型 看看有没有草稿
+    NSMutableArray<TaskDraftModel*> *taskDraftModelArr = [_userManager getTaskDraftArr:_userManager.user.currCompany.company_no];
+    if(taskDraftModelArr.count) {
+        TaskDraftModel *model = taskDraftModelArr.firstObject;
+        _taskModel = [[TaskModel alloc] initWithJSONDictionary:model.JSONDictionary];
+    } else {
+        _taskModel = [TaskModel new];
+        _taskModel.status = 1;
+        _taskModel.id = [NSDate date].timeIntervalSince1970;
+        _taskModel.createdby = employee.employee_guid;
+        _taskModel.enddate_utc = [[NSDate date] timeIntervalSince1970] * 1000;
+        _taskModel.user_guid = _userManager.user.user_guid;
+        _taskModel.avatar = _userManager.user.avatar;
+        _taskModel.company_no = _userManager.user.currCompany.company_no;
+    }
     
     //创建表格视图
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 64) style:UITableViewStyleGrouped];
@@ -76,6 +83,7 @@
     [self.view addSubview:_tableView];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightClicked:)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(leftClicked:)];
     //按钮是否能够被点击
     RACSignal *nameSignal = RACObserve(_taskModel, task_name);
     RACSignal *inchargeSignal = RACObserve(_taskModel, incharge_name);
@@ -99,6 +107,24 @@
         [self.navigationController setNavigationBarHidden:YES animated:YES];
     }
 }
+- (void)leftClicked:(UIBarButtonItem*)item {
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"保存为草稿?" message:nil preferredStyle:(UIAlertControllerStyleAlert)];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        TaskDraftModel *model = [[TaskDraftModel alloc] initWithJSONDictionary:_taskModel.JSONDictionary];
+        [_userManager updateTaskDraft:model companyNo:_userManager.user.currCompany.company_no];
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        NSMutableArray<TaskDraftModel*> *array = [_userManager getTaskDraftArr:_userManager.user.currCompany.company_no];
+        for (TaskDraftModel *model in array) {
+            [_userManager deleteTaskDraft:model];
+        }
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+    [alertVC addAction:cancleAction];
+    [alertVC addAction:okAction];
+    [self presentViewController:alertVC animated:YES completion:nil];
+}
 - (void)rightClicked:(UIBarButtonItem*)item {
     NSMutableArray<NSString*> *members = [@[] mutableCopy];
     for (Employee * employee in _memberArr) {
@@ -109,6 +135,7 @@
     for (NSDate *date in _alertDateArr) {
         [alerts addObject:@(date.timeIntervalSince1970 * 1000).stringValue];
     }
+    _taskModel.alert_date_list = [alerts componentsJoinedByString:@","];
     _taskModel.begindate_utc = [NSDate date].timeIntervalSince1970 * 1000;
     _taskModel.attachment_count = _attanmentArr.count;
     //提交任务数据后上传任务附件

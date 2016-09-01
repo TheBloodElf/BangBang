@@ -746,6 +746,44 @@
     [fetchedResultsController performFetch];
     return fetchedResultsController;
 }
+#pragma mark -- TaskDraftModel
+//存储任务草稿
+- (void)updateTaskDraft:(TaskDraftModel*)taskDraftModel companyNo:(int)companyNo {
+    [_rlmRealm beginWriteTransaction];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"(company_no = %d)",companyNo];
+    RLMResults *results = [TaskDraftModel objectsInRealm:_rlmRealm withPredicate:pred];
+    while (results.count)
+        [_rlmRealm deleteObject:results.firstObject];
+    [TaskDraftModel createOrUpdateInRealm:_rlmRealm withValue:taskDraftModel];
+    [_rlmRealm commitWriteTransaction];
+}
+//删除任务草稿
+- (void)deleteTaskDraft:(TaskDraftModel*)taskDraftModel {
+    [_rlmRealm beginWriteTransaction];
+    [_rlmRealm deleteObject:taskDraftModel];
+    [_rlmRealm commitWriteTransaction];
+}
+//读取任务草稿
+- (NSMutableArray<TaskDraftModel*>*)getTaskDraftArr:(int)companyNo {
+    NSMutableArray<TaskDraftModel*> *pushMessageArr = [@[] mutableCopy];
+    [_rlmRealm beginWriteTransaction];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"(company_no = %d)",companyNo];
+    RLMResults *results = [TaskDraftModel objectsInRealm:_rlmRealm withPredicate:pred];
+    for (int index = 0;index < results.count;index ++) {
+        TaskDraftModel *company = [results objectAtIndex:index];
+        [pushMessageArr addObject:company];
+    }
+    [_rlmRealm commitWriteTransaction];
+    return pushMessageArr;
+}
+//任务草稿数据监听
+- (RBQFetchedResultsController*)createTaskDraftFetchedResultsController {
+    RBQFetchedResultsController *fetchedResultsController = nil;
+    RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"TaskDraftModel" inRealm:_rlmRealm predicate:nil];
+    fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:nil];
+    [fetchedResultsController performFetch];
+    return fetchedResultsController;
+}
 #pragma mark -- UserApp
 //添加一个应用
 - (void)addUserApp:(UserApp*)userApp {

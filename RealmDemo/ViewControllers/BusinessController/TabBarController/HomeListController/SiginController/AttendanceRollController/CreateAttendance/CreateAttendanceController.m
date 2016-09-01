@@ -316,7 +316,7 @@
     if(!adress) return;
     //百度地图地址选择成功
     PunchCardAddressSetting * ruleSet = [[PunchCardAddressSetting alloc] initWithAMapPOI:adress];
-    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"完善地址信息" message:ruleSet.name preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"完善地址信息" message:nil preferredStyle:UIAlertControllerStyleAlert];
     [alertVC addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.text = ruleSet.name;
         textField.placeholder = @"修改签到点名称";
@@ -326,9 +326,7 @@
         [_currSiginRule.json_list_address_settings addObject:ruleSet];
         [_tableView reloadSections:[NSIndexSet indexSetWithIndex:3] withRowAnimation:UITableViewRowAnimationNone];
     }];
-    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     [alertVC addAction:okAction];
-    [alertVC addAction:cancleAction];
     [self presentViewController:alertVC animated:YES completion:nil];
 }
 

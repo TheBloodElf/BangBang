@@ -19,13 +19,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "RealmDemo/UtikIes/ThirdParty/PPDragDropBadgeView/PPDragDropBadgeView.m"
-            timestampString = "494241167.300713"
+            filePath = "RealmDemo/ModelManager/GeTuiSdkManager/GeTuiSdkManager.m"
+            timestampString = "494407063.07427"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "403"
-            endingLineNumber = "403"
-            landmarkName = "-touchesEnded:"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "-GeTuiSdkDidReceivePayload:andTaskId:andMessageId:andOffLine:fromApplication:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

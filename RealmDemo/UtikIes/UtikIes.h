@@ -58,6 +58,7 @@
 #import <MLeaksFinder/MLeaksFinder.h>//ARC下正确检查内存泄露
 #import "ReactiveCocoa.h"//决战UI必备工具
 #import "UIImageView+CornerRadius.h"//离屏渲染解决方案
+#import "UIView+hotView.h"//给视图加红点
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
     #import <CoreSpotlight/CoreSpotlight.h>//Spotlight搜索

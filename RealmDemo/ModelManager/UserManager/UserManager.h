@@ -18,6 +18,7 @@
 #import "SignIn.h"
 #import "SiginRuleSet.h"
 #import "TaskModel.h"
+#import "TaskDraftModel.h"
 #import "UserApp.h"
 
 @interface UserManager : NSObject
@@ -137,6 +138,15 @@
 - (NSMutableArray<TaskModel*>*)getTaskArr:(int)companyNo;
 //任务数据监听
 - (RBQFetchedResultsController*)createTaskFetchedResultsController:(int)companyNo;
+#pragma mark -- TaskDraftModel
+//存储任务草稿
+- (void)updateTaskDraft:(TaskDraftModel*)taskDraftModel companyNo:(int)companyNo;
+//删除任务草稿
+- (void)deleteTaskDraft:(TaskDraftModel*)taskDraftModel;
+//读取任务草稿
+- (NSMutableArray<TaskDraftModel*>*)getTaskDraftArr:(int)companyNo;
+//任务草稿数据监听
+- (RBQFetchedResultsController*)createTaskDraftFetchedResultsController;
 #pragma mark -- UserApp
 //添加一个应用
 - (void)addUserApp:(UserApp*)userApp;
