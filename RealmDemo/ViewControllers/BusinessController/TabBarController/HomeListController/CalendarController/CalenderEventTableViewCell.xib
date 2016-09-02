@@ -44,13 +44,18 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="帮帮几点几分快了大家" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HXR-Rf-z39" userLabel="3Title">
-                        <rect key="frame" x="64" y="8" width="169" height="17"/>
+                        <rect key="frame" x="64" y="8" width="140" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="169" id="mkq-Ct-tol"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="FZLTHK--GBK1-0" family="FZLanTingHei-R-GBK" pointSize="14"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="mkq-Ct-tol"/>
+                            </mask>
+                        </variation>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="阿斯顿阿斯顿阿斯顿阿斯顿阿斯顿阿斯顿" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ldV-y7-vYi" userLabel="4Description Lab">
                         <rect key="frame" x="64" y="33" width="208" height="14"/>
@@ -68,14 +73,14 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar_dangerous" translatesAutoresizingMaskIntoConstraints="NO" id="Q5Z-HU-K6w">
-                        <rect key="frame" x="243" y="8" width="13" height="15"/>
+                        <rect key="frame" x="214" y="8" width="13" height="15"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="13" id="ahr-4e-OJa"/>
                             <constraint firstAttribute="height" constant="15" id="zgE-Ub-EtW"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="07/24" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JUP-Jw-E6B">
-                        <rect key="frame" x="8" y="21" width="36" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="全天" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JUP-Jw-E6B">
+                        <rect key="frame" x="8" y="21" width="28" height="17"/>
                         <fontDescription key="fontDescription" name="FZLTHK--GBK1-0" family="FZLanTingHei-R-GBK" pointSize="14"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -101,6 +106,7 @@
                     <constraint firstItem="HXR-Rf-z39" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="Wjz-g6-qwF"/>
                     <constraint firstItem="qt6-Le-pQe" firstAttribute="centerX" secondItem="5vm-vO-9oD" secondAttribute="centerX" id="bVb-QQ-JhU"/>
                     <constraint firstItem="ldV-y7-vYi" firstAttribute="top" secondItem="HXR-Rf-z39" secondAttribute="bottom" constant="8" id="eW2-Io-Iwf"/>
+                    <constraint firstItem="5vm-vO-9oD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Q5Z-HU-K6w" secondAttribute="trailing" constant="5" id="ftb-5P-yJA"/>
                     <constraint firstItem="Q5Z-HU-K6w" firstAttribute="top" secondItem="HXR-Rf-z39" secondAttribute="top" id="g69-Sb-Z1l"/>
                     <constraint firstAttribute="leadingMargin" secondItem="54M-xN-lGL" secondAttribute="leading" id="hp0-2h-5wb"/>
                     <constraint firstItem="HXR-Rf-z39" firstAttribute="leading" secondItem="21E-Io-Vor" secondAttribute="trailing" constant="20" id="jY1-wo-xbU"/>

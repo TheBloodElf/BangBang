@@ -27,6 +27,8 @@
     self.endTime.titleLabel.numberOfLines = 0;
     self.beginTime.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.endTime.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.allDayBtn.layer.cornerRadius = 5.f;
+    self.allDayBtn.clipsToBounds = YES;
 }
 - (IBAction)beginTime:(id)sender {
     if(self.delegate && [self.delegate respondsToSelector:@selector(comCalendarTimeBeginTime)]) {

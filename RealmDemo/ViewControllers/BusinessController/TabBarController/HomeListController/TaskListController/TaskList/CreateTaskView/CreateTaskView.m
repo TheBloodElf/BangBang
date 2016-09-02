@@ -38,7 +38,6 @@
         _searchBar.returnKeyType = UIReturnKeySearch;
         [self addSubview:_searchBar];
         
-        
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 60, MAIN_SCREEN_WIDTH, frame.size.height - 60) style:UITableViewStylePlain];
         _tableView.delegate = self;
         _tableView.dataSource = self;

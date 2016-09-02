@@ -33,10 +33,10 @@
 
 - (void)dataDidChange {
     Calendar *calendar = self.data;
+    _startDate.hidden = NO;
+    _endDate.hidden = NO;
+    _allDayDate.hidden = YES;
     if (calendar.is_over_day && calendar.repeat_type == 0) {
-        _startDate.hidden = NO;
-        _endDate.hidden = NO;
-        _allDayDate.hidden =YES;
         //开始时间
         static NSDateFormatter *startDateOverDayFormatter = nil;
         if (startDateOverDayFormatter == nil) {
@@ -56,24 +56,12 @@
         NSDate *end = [NSDate dateWithTimeIntervalSince1970:calendar.enddate_utc/1000];
         NSString *endStr = [endDateOverFormatter stringFromDate:end];
         _endDate.text = endStr;
-    }
-    else if(calendar.is_allday){
+    } else if(calendar.is_allday) {
         //开始时间
+        _allDayDate.hidden = NO;
         _startDate.hidden = YES;
         _endDate.hidden = YES;
-        static NSDateFormatter *startDateAllDayFormatter = nil;
-        if (startDateAllDayFormatter == nil) {
-            startDateAllDayFormatter = [[NSDateFormatter alloc] init];
-            [startDateAllDayFormatter setDateFormat:@"MM/dd"];
-        }
-        NSDate *start = [NSDate dateWithTimeIntervalSince1970:calendar.begindate_utc/1000];
-        NSString *startStr = [startDateAllDayFormatter stringFromDate:start];
-        _allDayDate.text = startStr;
-    }
-    else{
-        _startDate.hidden = NO;
-        _endDate.hidden = NO;
-        _allDayDate.hidden =YES;
+    } else{
         //开始时间
         static NSDateFormatter *startDateFormatter = nil;
         if (startDateFormatter == nil) {

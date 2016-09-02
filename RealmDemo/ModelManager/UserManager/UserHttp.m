@@ -313,11 +313,11 @@
     [params setObject:calendar.address forKey:@"address"];
     [params setObject:@(calendar.begindate_utc) forKey:@"begindate_utc"];
     [params setObject:@(calendar.enddate_utc) forKey:@"enddate_utc"];
-    [params setObject:@(calendar.is_allday) forKey:@"is_allday"];
+    [params setObject:calendar.is_allday ? @"true" : @"false" forKey:@"is_allday"];
     [params setObject:calendar.app_guid forKey:@"app_guid"];
     [params setObject:calendar.target_id forKey:@"target_id"];
     [params setObject:@(calendar.repeat_type) forKey:@"repeat_type"];
-    [params setObject:@(calendar.is_alert) forKey:@"is_alert"];
+    [params setObject:calendar.is_alert ? @"true" : @"false" forKey:@"is_alert"];
     [params setObject:@(calendar.status) forKey:@"status"];
     [params setObject:@(calendar.alert_minutes_before) forKey:@"alert_minutes_before"];
     [params setObject:@(calendar.alert_minutes_after) forKey:@"alert_minutes_after"];
@@ -346,11 +346,11 @@
     [params setObject:@(calendar.status) forKey:@"status"];
     [params setObject:@(calendar.begindate_utc) forKey:@"begindate_utc"];
     [params setObject:@(calendar.enddate_utc) forKey:@"enddate_utc"];
-    [params setObject:@(calendar.is_allday) forKey:@"is_allday"];
+    [params setObject:calendar.is_allday ? @"true" : @"false" forKey:@"is_allday"];
     [params setObject:calendar.app_guid forKey:@"app_guid"];
     [params setObject:calendar.target_id forKey:@"article_id"];
     [params setObject:@(calendar.repeat_type) forKey:@"repeat_type"];
-    [params setObject:@(calendar.is_alert) forKey:@"is_alert"];
+    [params setObject:calendar.is_alert ? @"true" : @"false" forKey:@"is_alert"];
     [params setObject:@(calendar.alert_minutes_before) forKey:@"alert_minutes_before"];
     [params setObject:@(calendar.alert_minutes_after) forKey:@"alert_minutes_after"];
     [params setObject:calendar.user_guid forKey:@"user_guid"];
