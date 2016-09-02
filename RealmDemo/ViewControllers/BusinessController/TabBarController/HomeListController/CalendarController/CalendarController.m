@@ -18,7 +18,7 @@
 #import "ComCalendarDetailViewController.h"
 #import "RepCalendarDetailController.h"
 
-@interface CalendarController ()<RBQFetchedResultsControllerDelegate,JTCalendarDelegate,UITableViewDelegate,UITableViewDataSource,MoreSelectViewDelegate,UIViewControllerPreviewingDelegate> {
+@interface CalendarController ()<RBQFetchedResultsControllerDelegate,JTCalendarDelegate,UITableViewDelegate,UITableViewDataSource,MoreSelectViewDelegate> {
     UserManager *_userManager;//用户管理器
     JTCalendarManager *_calendarManager;//日程管理器
     JTHorizontalCalendarView *_calendarContentView;//日历内容
@@ -132,33 +132,6 @@
         [_calendarManager reload];
         [self getTodayCalendarArr];
     }
-    //3dTouch进入个人详情
-    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0f)
-        [self registerForPreviewingWithDelegate:self sourceView:_tableView];
-}
-#pragma mark -- UIViewControllerPreviewingDelegate
-- (UIViewController *)previewingContext:(id <UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location NS_AVAILABLE_IOS(9_0) {
-    NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint:CGPointMake(location.x, location.y + _tableView.contentOffset.y)];
-    Calendar *calendar = nil;
-    if(indexPath.section == 0)
-        calendar = _todayAlldayCalendarArr[indexPath.row];
-    else if(indexPath.section == 1)
-        calendar = _todayOverdayCalendarArr[indexPath.row];
-    else
-        calendar = _todayOtherCalendarArr[indexPath.row];
-    if(calendar.repeat_type == 0) {
-        ComCalendarDetailViewController *vc = [ComCalendarDetailViewController new];
-        vc.data = calendar;
-        return vc;
-        
-    } else {
-        RepCalendarDetailController *vc = [RepCalendarDetailController new];
-        vc.data = calendar;
-        return vc;
-    }
-}
-- (void)previewingContext:(id <UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit NS_AVAILABLE_IOS(9_0) {
-    [self showViewController:viewControllerToCommit sender:self];
 }
 - (void)topClicked:(UISwipeGestureRecognizer*)sw {
     [UIView animateWithDuration:0.2 animations:^{
@@ -382,6 +355,7 @@
     dayView.circleView.hidden = YES;
     dayView.dotLabelView.hidden = YES;
     dayView.dotView.hidden = YES;
+    dayView.circleView.layer.borderColor = [UIColor clearColor].CGColor;;
     dayView.textLabel.textColor = [UIColor blackColor];
     if([dayView isFromAnotherMonth])
         dayView.textLabel.textColor = [UIColor grayColor];
@@ -414,7 +388,9 @@
     if(dayView.date.month == [NSDate date].month)
     if(dayView.date.day == [NSDate date].day) {
         dayView.circleView.hidden = NO;
-        dayView.circleView.backgroundColor = [UIColor grayColor];
+        dayView.circleView.backgroundColor = [UIColor clearColor];
+        dayView.circleView.layer.borderWidth = 0.5;
+        dayView.circleView.layer.borderColor = [UIColor grayColor].CGColor;
     }
     //用户选中为蓝色
     if(dayView.date.year == _userSelectedDate.year)
@@ -422,6 +398,7 @@
     if(dayView.date.day == _userSelectedDate.day) {
         dayView.circleView.hidden = NO;
         dayView.circleView.backgroundColor = [UIColor calendarColor];
+        dayView.textLabel.textColor = [UIColor whiteColor];
     }
 }
 - (void)calendar:(JTCalendarManager *)calendar didTouchDayView:(JTCalendarDayView *)dayView {

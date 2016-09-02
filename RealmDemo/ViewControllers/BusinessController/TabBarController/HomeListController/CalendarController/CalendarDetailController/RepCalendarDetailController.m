@@ -101,7 +101,6 @@
             [self.navigationController.view showSuccessTips:@"完成成功"];
             [self.navigationController popViewControllerAnimated:YES];
         }];
-        
 //        [_userManager updateCalendar:_calendar];
 //        [self.navigationController popViewControllerAnimated:YES];
     }];

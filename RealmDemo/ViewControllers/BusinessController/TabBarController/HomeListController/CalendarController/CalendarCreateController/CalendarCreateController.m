@@ -40,9 +40,9 @@
     _currCalendar.begindate_utc = [[NSDate date] timeIntervalSince1970] * 1000;
     _currCalendar.enddate_utc = _currCalendar.begindate_utc;
     _currCalendar.repeat_type = 0;//先不重复
-    _currCalendar.alert_minutes_after = 10;
-    _currCalendar.alert_minutes_before = 10;
-    _currCalendar.is_alert = NO;
+    _currCalendar.alert_minutes_after = 0;
+    _currCalendar.alert_minutes_before = 0;
+    _currCalendar.is_alert = false;
     _currCalendar.user_guid = _userManager.user.user_guid;
     _currCalendar.created_by = _userManager.user.user_guid;
     _currCalendar.emergency_status = 0;
@@ -57,13 +57,17 @@
     _currCalendar.member_names= @"";
     //创建分段控件
     _segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"一般事务",@"例行事务"]];
-    _segmentedControl.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 36);
+    _segmentedControl.frame = CGRectMake(10, 5, MAIN_SCREEN_WIDTH - 20, 30);
     _segmentedControl.tintColor = [UIColor calendarColor];
     _segmentedControl.selectedSegmentIndex = 0;
     [_segmentedControl addTarget:self action:@selector(segmentClicked:) forControlEvents:UIControlEventValueChanged];
+    _segmentedControl.backgroundColor = [UIColor whiteColor];
+    UIView *bagView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 35)];
+    bagView.backgroundColor = [UIColor colorWithRed:247 / 255.f green:247 / 255.f blue:247 / 255.f alpha:1];
+    [self.view addSubview:bagView];
     [self.view addSubview:_segmentedControl];
     //创建表格视图
-    _bottomScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 36, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 36)];
+    _bottomScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 35, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 35)];
     _bottomScrollView.showsVerticalScrollIndicator = _bottomScrollView.showsHorizontalScrollIndicator = NO;
     _bottomScrollView.contentSize = CGSizeMake(MAIN_SCREEN_WIDTH * 2, MAIN_SCREEN_HEIGHT - 100);
     _bottomScrollView.pagingEnabled = YES;
@@ -80,13 +84,6 @@
     [self.view addSubview:_bottomScrollView];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightClicked:)];
-    //确定按钮是否能够被点击
-    RACSignal *nameSignal = RACObserve(_currCalendar, event_name);
-    RAC(self.navigationItem.rightBarButtonItem,enabled) = [nameSignal map:^(NSString* name) {
-        if([NSString isBlank:name])
-            return @(NO);
-        return @(YES);
-    }];
     // Do any additional setup after loading the view.
 }
 - (void)viewWillAppear:(BOOL)animated {
@@ -104,6 +101,11 @@
     [_bottomScrollView setContentOffset:CGPointMake(seControl.selectedSegmentIndex * _bottomScrollView.frame.size.width, 0) animated:YES];
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
+    [self.view endEditing:YES];
+    if([NSString isBlank:_currCalendar.event_name]) {
+        [self.navigationController.view showMessageTips:@"请填写事务名称"];
+        return;
+    }
     //创建日程
     [self.navigationController.view showLoadingTips:@""];
     [UserHttp createUserCalendar:_currCalendar handler:^(id data, MError *error) {
@@ -222,7 +224,7 @@
     CalendarSelectAlertTime *select = [CalendarSelectAlertTime new];
     select.calendarSelectTime = ^(int date) {
         _currCalendar.alert_minutes_before = date;
-        _currCalendar.is_alert = YES;
+        _currCalendar.is_alert = true;
         _comCalendarView.data = _currCalendar;
         _repCalendarView.data = _currCalendar;
     };
@@ -237,7 +239,7 @@
     CalendarSelectAlertTime *select = [CalendarSelectAlertTime new];
     select.calendarSelectTime = ^(int date) {
         _currCalendar.alert_minutes_after = date;
-        _currCalendar.is_alert = YES;
+        _currCalendar.is_alert = true;
         _comCalendarView.data = _currCalendar;
         _repCalendarView.data = _currCalendar;
     };

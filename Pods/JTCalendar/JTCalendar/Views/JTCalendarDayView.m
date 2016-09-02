@@ -104,7 +104,7 @@
     _dotView.center = CGPointMake(self.frame.size.width / 2., (self.frame.size.height / 2.) +sizeDot * 2.5);
     _dotView.layer.cornerRadius = sizeDot / 2.;
     
-    _dotLabelView.frame = CGRectMake(0.5 * (self.frame.size.width - 12), self.frame.size.height - 12, 12, 12);
+    _dotLabelView.frame = CGRectMake(0.5 * (self.frame.size.width - 12), 0, 12, 12);
     _dotLabelView.layer.cornerRadius = 6;
     _dotLabelView.clipsToBounds = YES;
 }

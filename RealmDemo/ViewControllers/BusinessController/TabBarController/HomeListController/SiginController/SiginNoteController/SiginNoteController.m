@@ -121,6 +121,8 @@
 {
     dayView.circleView.hidden = YES;
     dayView.textLabel.textColor = [UIColor blackColor];
+    dayView.circleView.layer.borderColor = [UIColor clearColor].CGColor;
+    dayView.circleView.backgroundColor = [UIColor whiteColor];
     if([dayView isFromAnotherMonth])
         dayView.textLabel.textColor = [UIColor grayColor];
     if(dayView.date.year == _currDate.year)
@@ -129,6 +131,7 @@
             {
                 dayView.circleView.hidden = NO;
                 dayView.circleView.backgroundColor = [UIColor siginColor];
+                dayView.textLabel.textColor = [UIColor whiteColor];
                 return;
             }
     NSDate *date = [NSDate date];
@@ -137,7 +140,8 @@
             if(dayView.date.day == date.day)
             {
                 dayView.circleView.hidden = NO;
-                dayView.circleView.backgroundColor = [UIColor grayColor];
+                dayView.circleView.layer.borderColor = [UIColor grayColor].CGColor;
+                dayView.circleView.layer.borderWidth = 0.5;
             }   
     if([self isHavaError:dayView.date])
         dayView.dotView.hidden = NO;

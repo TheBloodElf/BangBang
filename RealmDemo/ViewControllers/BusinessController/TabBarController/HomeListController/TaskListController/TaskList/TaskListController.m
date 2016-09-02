@@ -49,12 +49,16 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     _topSegmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"委派的",@"负责的",@"知悉的",@"已完结"]];
-    _topSegmentedControl.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 35);
+    _topSegmentedControl.frame = CGRectMake(10, 5, MAIN_SCREEN_WIDTH - 20, 30);
     _topSegmentedControl.tintColor = [UIColor siginColor];
     [_topSegmentedControl addTarget:self action:@selector(segmentedClicked:) forControlEvents:UIControlEventValueChanged];
+    _topSegmentedControl.backgroundColor = [UIColor whiteColor];
+    UIView *bagView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 40)];
+    bagView.backgroundColor = [UIColor colorWithRed:247 / 255.f green:247 / 255.f blue:247 / 255.f alpha:1];
+    [self.view addSubview:bagView];
     [self.view addSubview:_topSegmentedControl];
     
-    _bottomScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 35, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 64 - 35)];
+    _bottomScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 40, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 64 - 40)];
     _bottomScrollView.delegate = self;
     _bottomScrollView.showsVerticalScrollIndicator = NO;
     _bottomScrollView.showsHorizontalScrollIndicator = NO;
