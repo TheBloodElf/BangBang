@@ -20,6 +20,7 @@
     UserManager *_userManager;//用户管理器
     RBQFetchedResultsController *_userFetchedResultsController;//用户数据监听
 }
+
 @end
 
 @implementation MineInfoEditController

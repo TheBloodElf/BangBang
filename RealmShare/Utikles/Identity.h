@@ -38,4 +38,5 @@
 @property (nonatomic, strong) NSDate *ryDisturbBeginTime;
 //融云免打扰结束时间
 @property (nonatomic, strong) NSDate *ryDisturbEndTime;
+
 @end

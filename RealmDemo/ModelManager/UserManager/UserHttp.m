@@ -619,6 +619,7 @@
     NSMutableDictionary *params = [@{} mutableCopy];
     [params setObject:@(taskId) forKey:@"task_id"];
     [params setObject:@(10000) forKey:@"page_size"];
+    [params setObject:@(YES) forKey:@"is_greenwich"];
     [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
     completionHandler compleionHandler = ^(id data,MError *error) {
         handler(data,error);

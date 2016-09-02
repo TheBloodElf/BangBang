@@ -16,7 +16,7 @@
 #import "IdentityManager.h"
 #import "UserHttp.h"
 
-@interface MineViewController ()<RBQFetchedResultsControllerDelegate> {
+@interface MineViewController ()<RBQFetchedResultsControllerDelegate,UIViewControllerPreviewingDelegate> {
     UserManager *_userManager;
     RBQFetchedResultsController *_userFetchedResultsController;
 }
@@ -43,6 +43,9 @@
     [self.avaterImage sd_setImageWithURL:[NSURL URLWithString:user.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
     self.userName.text = [NSString stringWithFormat:@"%@(%@)",user.real_name,@(user.user_no)];
     self.userMood.text = user.mood;
+    //3dTouch进入个人详情
+    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0f)
+        [self registerForPreviewingWithDelegate:self sourceView:self.avaterImage];
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -53,6 +56,15 @@
     MineInfoEditController *mine = [MineInfoEditController new];
     mine.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:mine animated:YES];
+}
+#pragma mark -- UIViewControllerPreviewingDelegate
+- (UIViewController *)previewingContext:(id <UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location NS_AVAILABLE_IOS(9_0) {
+    MineInfoEditController *mine = [MineInfoEditController new];
+    mine.hidesBottomBarWhenPushed = YES;
+    return mine;
+}
+- (void)previewingContext:(id <UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit NS_AVAILABLE_IOS(9_0) {
+    [self showViewController:viewControllerToCommit sender:self];
 }
 #pragma mark -- 
 #pragma mark -- RBQFetchedResultsControllerDelegate

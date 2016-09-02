@@ -18,7 +18,7 @@
 #import "ComCalendarDetailViewController.h"
 #import "RepCalendarDetailController.h"
 
-@interface CalendarController ()<RBQFetchedResultsControllerDelegate,JTCalendarDelegate,UITableViewDelegate,UITableViewDataSource,MoreSelectViewDelegate> {
+@interface CalendarController ()<RBQFetchedResultsControllerDelegate,JTCalendarDelegate,UITableViewDelegate,UITableViewDataSource,MoreSelectViewDelegate,UIViewControllerPreviewingDelegate> {
     UserManager *_userManager;//用户管理器
     JTCalendarManager *_calendarManager;//日程管理器
     JTHorizontalCalendarView *_calendarContentView;//日历内容
@@ -132,6 +132,33 @@
         [_calendarManager reload];
         [self getTodayCalendarArr];
     }
+    //3dTouch进入个人详情
+    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0f)
+        [self registerForPreviewingWithDelegate:self sourceView:_tableView];
+}
+#pragma mark -- UIViewControllerPreviewingDelegate
+- (UIViewController *)previewingContext:(id <UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location NS_AVAILABLE_IOS(9_0) {
+    NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint:CGPointMake(location.x, location.y + _tableView.contentOffset.y)];
+    Calendar *calendar = nil;
+    if(indexPath.section == 0)
+        calendar = _todayAlldayCalendarArr[indexPath.row];
+    else if(indexPath.section == 1)
+        calendar = _todayOverdayCalendarArr[indexPath.row];
+    else
+        calendar = _todayOtherCalendarArr[indexPath.row];
+    if(calendar.repeat_type == 0) {
+        ComCalendarDetailViewController *vc = [ComCalendarDetailViewController new];
+        vc.data = calendar;
+        return vc;
+        
+    } else {
+        RepCalendarDetailController *vc = [RepCalendarDetailController new];
+        vc.data = calendar;
+        return vc;
+    }
+}
+- (void)previewingContext:(id <UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit NS_AVAILABLE_IOS(9_0) {
+    [self showViewController:viewControllerToCommit sender:self];
 }
 - (void)topClicked:(UISwipeGestureRecognizer*)sw {
     [UIView animateWithDuration:0.2 animations:^{
@@ -354,30 +381,42 @@
 - (void)calendar:(JTCalendarManager *)calendar prepareDayView:(JTCalendarDayView *)dayView {
     dayView.circleView.hidden = YES;
     dayView.dotLabelView.hidden = YES;
+    dayView.dotView.hidden = YES;
     dayView.textLabel.textColor = [UIColor blackColor];
     if([dayView isFromAnotherMonth])
         dayView.textLabel.textColor = [UIColor grayColor];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        //是否有日程
         for (NSDate *tempDate in _haveCalendarArr) {
             if(tempDate.year != dayView.date.year) continue;
             if(tempDate.month != dayView.date.month) continue;
             if(tempDate.day != dayView.date.day) continue;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                dayView.dotLabelView.hidden = NO;
-                int number = 0;
-                for (NSDate *tempTemp in _haveCalendarArr) {
-                    if(tempTemp.year != tempDate.year) continue;
-                    if(tempTemp.month != tempDate.month) continue;
-                    if(tempTemp.day != tempDate.day) continue;
-                    number ++;
+            //是否是周模式
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                if(_calendarManager.settings.weekModeEnabled == YES) {
+                    dayView.dotLabelView.hidden = NO;
+                    int number = 0;
+                    for (NSDate *tempTemp in _haveCalendarArr) {
+                        if(tempTemp.year != tempDate.year) continue;
+                        if(tempTemp.month != tempDate.month) continue;
+                        if(tempTemp.day != tempDate.day) continue;
+                        number ++;
+                    }
+                    dayView.dotLabelView.text = @(number).stringValue;
+                } else {
+                    dayView.dotView.hidden = NO;
                 }
-                dayView.dotLabelView.text = @(number).stringValue;
             });
             break;
         }
     });
     //当前显示灰色
+    if(dayView.date.year == [NSDate date].year)
+    if(dayView.date.month == [NSDate date].month)
+    if(dayView.date.day == [NSDate date].day) {
+        dayView.circleView.hidden = NO;
+        dayView.circleView.backgroundColor = [UIColor grayColor];
+    }
+    //用户选中为蓝色
     if(dayView.date.year == _userSelectedDate.year)
     if(dayView.date.month == _userSelectedDate.month)
     if(dayView.date.day == _userSelectedDate.day) {

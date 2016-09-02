@@ -8,9 +8,9 @@
 
 #import "UtikIesTool.h"
 //正式
-NSString* const KBSSDKAPIDomain = @"http://open.59bang.com/api/";
+//NSString* const KBSSDKAPIDomain = @"http://open.59bang.com/api/";
 //测试
-//NSString* const KBSSDKAPIDomain = @"http://open.test.59bang.com/api/";
+NSString* const KBSSDKAPIDomain = @"http://open.test.59bang.com/api/";
 
 @implementation UtikIesTool
 

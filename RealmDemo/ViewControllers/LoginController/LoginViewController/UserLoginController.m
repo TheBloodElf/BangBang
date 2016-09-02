@@ -25,6 +25,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 @property (weak, nonatomic) IBOutlet UIButton *qqLoginBtn;
 @property (weak, nonatomic) IBOutlet UIButton *okBtn;//提交按钮
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *thridLoginTop;
+
 @end
 
 @implementation UserLoginController
@@ -54,6 +56,7 @@
             return @(NO);
         return @(YES);
     }];
+    self.thridLoginTop.constant = (MAIN_SCREEN_HEIGHT - 369 - 37 - 45) / 2.f;
     // Do any additional setup after loading the view from its nib.
 }
 - (void)viewWillAppear:(BOOL)animated {
