@@ -14,7 +14,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="more" translatesAutoresizingMaskIntoConstraints="NO" id="iZu-gG-g0V">
-                        <rect key="frame" x="40" y="48" width="21" height="4"/>
+                        <rect key="frame" x="40" y="40" width="21" height="4"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="60" id="Dyb-Zk-cu8"/>
                             <constraint firstAttribute="height" constant="10" id="bNN-jA-hyJ"/>
@@ -43,7 +43,7 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="更多" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xkq-1m-WrP">
-                        <rect key="frame" x="35" y="77" width="30" height="18"/>
+                        <rect key="frame" x="35" y="64" width="30" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -54,9 +54,10 @@
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="d15-PU-0dA" secondAttribute="trailing" id="5vr-z9-BIr"/>
                 <constraint firstItem="d15-PU-0dA" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="836-D3-0S4"/>
+                <constraint firstItem="Xkq-1m-WrP" firstAttribute="top" secondItem="iZu-gG-g0V" secondAttribute="bottom" constant="5" id="FOM-F5-cUx"/>
                 <constraint firstAttribute="bottom" secondItem="d15-PU-0dA" secondAttribute="bottom" id="KTU-Qa-ykk"/>
                 <constraint firstItem="pzG-WO-pJQ" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="O6g-ko-6Tm"/>
-                <constraint firstItem="iZu-gG-g0V" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="Okc-25-Ame"/>
+                <constraint firstItem="iZu-gG-g0V" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" constant="-8" id="Okc-25-Ame"/>
                 <constraint firstAttribute="trailing" secondItem="iZu-gG-g0V" secondAttribute="trailing" constant="20" id="ZMc-LC-leJ"/>
                 <constraint firstItem="iZu-gG-g0V" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="cn1-eT-E6R"/>
                 <constraint firstAttribute="trailing" secondItem="pzG-WO-pJQ" secondAttribute="trailing" id="hDF-Ye-g2O"/>
@@ -64,14 +65,21 @@
                 <constraint firstItem="Xkq-1m-WrP" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="icD-cn-PdO"/>
                 <constraint firstAttribute="bottom" secondItem="pzG-WO-pJQ" secondAttribute="bottom" id="jlw-pe-Pii"/>
                 <constraint firstAttribute="bottom" secondItem="Xkq-1m-WrP" secondAttribute="bottom" constant="5" id="k4y-NF-vaz"/>
+                <constraint firstItem="Xkq-1m-WrP" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" constant="23" id="nQk-hG-rRf"/>
+                <constraint firstItem="Xkq-1m-WrP" firstAttribute="top" secondItem="iZu-gG-g0V" secondAttribute="bottom" constant="5" id="tfN-R3-Zsu"/>
+                <constraint firstAttribute="bottom" secondItem="Xkq-1m-WrP" secondAttribute="bottom" constant="6" id="wwR-0n-wBJ"/>
             </constraints>
             <variation key="default">
                 <mask key="constraints">
                     <exclude reference="ZMc-LC-leJ"/>
                     <exclude reference="cn1-eT-E6R"/>
+                    <exclude reference="FOM-F5-cUx"/>
+                    <exclude reference="k4y-NF-vaz"/>
+                    <exclude reference="tfN-R3-Zsu"/>
+                    <exclude reference="wwR-0n-wBJ"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="260" y="236"/>
+            <point key="canvasLocation" x="488" y="295"/>
         </collectionViewCell>
     </objects>
     <resources>

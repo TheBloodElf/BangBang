@@ -14,10 +14,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="189" height="145"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="big_scale_icon" translatesAutoresizingMaskIntoConstraints="NO" id="iWh-nw-3Ul">
-                        <rect key="frame" x="88" y="66" width="13" height="13"/>
+                        <rect key="frame" x="88" y="58" width="13" height="13"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="添加" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QeT-6f-Cf4">
-                        <rect key="frame" x="80" y="122" width="30" height="18"/>
+                        <rect key="frame" x="80" y="87" width="30" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -41,20 +41,22 @@
             </view>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="Zsl-tE-xEU" secondAttribute="bottom" id="Eem-d2-ELB"/>
-                <constraint firstAttribute="bottom" secondItem="QeT-6f-Cf4" secondAttribute="bottom" constant="5" id="GfV-zq-kuW"/>
+                <constraint firstAttribute="bottom" secondItem="QeT-6f-Cf4" secondAttribute="bottom" constant="10" id="GfV-zq-kuW"/>
                 <constraint firstAttribute="trailing" secondItem="1fI-RV-RQi" secondAttribute="trailing" constant="108" id="LgK-ya-AA3"/>
                 <constraint firstItem="Zsl-tE-xEU" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="NAm-Am-M5s"/>
                 <constraint firstAttribute="bottom" secondItem="1fI-RV-RQi" secondAttribute="bottom" id="PJI-Jx-ufC"/>
                 <constraint firstItem="iWh-nw-3Ul" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="SXa-8i-ygV"/>
                 <constraint firstAttribute="trailing" secondItem="1fI-RV-RQi" secondAttribute="trailing" id="UQQ-GO-Zds"/>
                 <constraint firstItem="QeT-6f-Cf4" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="cKi-XQ-5qw"/>
-                <constraint firstItem="iWh-nw-3Ul" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="f0I-t4-Vno"/>
+                <constraint firstItem="iWh-nw-3Ul" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" constant="-8" id="f0I-t4-Vno"/>
                 <constraint firstItem="1fI-RV-RQi" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="fue-Yf-6uV"/>
                 <constraint firstAttribute="trailing" secondItem="Zsl-tE-xEU" secondAttribute="trailing" id="sI0-dK-a6f"/>
+                <constraint firstItem="QeT-6f-Cf4" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" constant="23" id="sNq-dE-dwH"/>
             </constraints>
             <size key="customSize" width="189" height="145"/>
             <variation key="default">
                 <mask key="constraints">
+                    <exclude reference="GfV-zq-kuW"/>
                     <exclude reference="LgK-ya-AA3"/>
                 </mask>
             </variation>

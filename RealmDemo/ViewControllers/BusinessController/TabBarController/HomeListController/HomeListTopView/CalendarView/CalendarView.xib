@@ -67,7 +67,7 @@
                                     </connections>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" red="0.0" green="0.050980392159999999" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.031372549020000001" green="0.08235294118" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstItem="Z6a-Th-DFf" firstAttribute="centerX" secondItem="kOn-7N-S0r" secondAttribute="centerX" id="2uP-9r-XJy"/>
                                 <constraint firstAttribute="bottom" secondItem="L1H-oT-BcP" secondAttribute="bottom" id="4lT-NT-JIX"/>
@@ -150,7 +150,7 @@
                                     </connections>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" red="0.0" green="0.050980392159999999" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.031372549020000001" green="0.08235294118" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="UxR-dV-CtF" secondAttribute="trailing" id="490-Nt-RqV"/>
                                 <constraint firstItem="JSS-LT-r9I" firstAttribute="centerY" secondItem="b2N-F8-tNA" secondAttribute="centerY" id="49c-YP-0E0"/>
@@ -183,7 +183,7 @@
                             </variation>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" red="0.0" green="0.050980392159999999" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="kOn-7N-S0r" firstAttribute="top" secondItem="JHM-QT-ygL" secondAttribute="top" id="26a-oM-cbp"/>
                         <constraint firstItem="eSi-Ja-biD" firstAttribute="width" secondItem="kOn-7N-S0r" secondAttribute="width" id="BBZ-kG-gXx"/>

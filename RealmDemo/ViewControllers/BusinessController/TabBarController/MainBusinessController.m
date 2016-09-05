@@ -325,7 +325,7 @@
 - (UINavigationController*)messageController {
     MessageController *home = [MessageController new];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:home];
-    nav.tabBarItem.title = @"消息";
+    nav.tabBarItem.title = @"会话";
     nav.navigationBar.translucent = NO;
     [nav.tabBarItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor grayColor]} forState:UIControlStateNormal];
     [nav.tabBarItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]} forState:UIControlStateSelected];

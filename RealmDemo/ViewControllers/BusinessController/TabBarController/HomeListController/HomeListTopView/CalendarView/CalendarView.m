@@ -73,7 +73,6 @@
     leftLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
     leftLayer.contentsScale = [UIScreen mainScreen].scale;
     if (_todayFinishCount + _todayNoFinishCount == 0) {//如果今天没有日程 就是灰色 而且只加载一次
-        leftLayer.animationDuration = 1.0 * 1.5;
         leftLayer.completed = leftLayer.total;
         leftLayer.completedColor = [UIColor colorFromHexCode:@"#999999"];//灰色
         [leftLayer setNeedsDisplay];

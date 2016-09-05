@@ -278,10 +278,10 @@
 #pragma mark -- UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if(section == 0)
-        return _todayAlldayCalendarArr.count ? 20 : 0.01;
+        return _todayAlldayCalendarArr.count ? 30 : 0.01;
     if(section == 1)
-        return _todayOverdayCalendarArr.count ? 20 : 0.01;
-    return _todayOtherCalendarArr.count ? 20 : 0.01;
+        return _todayOverdayCalendarArr.count ? 30 : 0.01;
+    return _todayOtherCalendarArr.count ? 30 : 0.01;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return 0.01;
@@ -289,12 +289,35 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 3;
 }
-- (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if(section == 0)
-        return _todayAlldayCalendarArr.count ? @"全天" : @"";;
-    if(section == 1)
-        return _todayOverdayCalendarArr.count ? @"跨天" : @"";
-    return _todayOtherCalendarArr.count ? @"一般" : @"";
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *bagView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 30)];
+    bagView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    if(section == 0) {//全天
+        if(_todayAlldayCalendarArr.count) {
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"calendar_allday_icon"]];
+            imageView.frame = CGRectMake(0, bagView.frame.size.height - imageView.frame.size.height, imageView.frame.size.width, imageView.frame.size.height);
+            [bagView addSubview:imageView];
+        } else {
+            bagView = [UIView new];
+        }
+    } else if (section == 1) {//跨天
+        if(_todayOverdayCalendarArr.count) {
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"calendar_overday_icon"]];
+            imageView.frame = CGRectMake(0, bagView.frame.size.height - imageView.frame.size.height, imageView.frame.size.width, imageView.frame.size.height);
+            [bagView addSubview:imageView];
+        } else {
+            bagView = [UIView new];
+        }
+    } else {//一般
+        if(_todayOtherCalendarArr.count) {
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"calendar_otherday_icon"]];
+            imageView.frame = CGRectMake(0, bagView.frame.size.height - imageView.frame.size.height, imageView.frame.size.width, imageView.frame.size.height);
+            [bagView addSubview:imageView];
+        } else {
+            bagView = [UIView new];
+        }
+    }
+    return bagView;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if(section == 0)

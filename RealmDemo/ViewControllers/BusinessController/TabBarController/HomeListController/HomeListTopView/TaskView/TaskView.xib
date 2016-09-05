@@ -107,6 +107,12 @@
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我委派的" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4s4-5Z-95A">
+                                    <rect key="frame" x="48" y="40" width="64" height="20"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GBy-tt-5t5">
                                     <rect key="frame" x="0.0" y="0.0" width="160" height="180"/>
                                     <constraints>
@@ -123,12 +129,6 @@
                                         <action selector="todayClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="8hq-XX-JWh"/>
                                     </connections>
                                 </button>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我委派的" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4s4-5Z-95A">
-                                    <rect key="frame" x="48" y="40" width="64" height="20"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
                             </subviews>
                             <color key="backgroundColor" red="0.031372549020000001" green="0.08235294118" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
@@ -328,7 +328,6 @@
                             </variation>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" red="0.25098039220000001" green="0.56078431370000004" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="Sip-ti-rNk" firstAttribute="leading" secondItem="l98-Fb-FbL" secondAttribute="trailing" id="0tM-56-Lfw"/>
                         <constraint firstItem="Sip-ti-rNk" firstAttribute="top" secondItem="pVh-WQ-5ce" secondAttribute="top" id="8Gh-8L-ed7"/>

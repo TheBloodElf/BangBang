@@ -275,15 +275,29 @@
                         vc.data = tempTemp;
                         [self.navigationController pushViewController:vc animated:YES];
                     } else {
-                        Calendar *tempTemp = [temp deepCopy];
-                        tempTemp.rdate = @(message.addTime.timeIntervalSince1970).stringValue;
+                        //判断是否已经删除
+                        if([temp haveDeleteDate:message.addTime]) {
+                            [self.navigationController.view showMessageTips:@"当次日程已被删除！"];
+                            return;
+                        }
+                        Calendar *tempCalendar = [temp deepCopy];
+                        //判断是否是完成
+                        if (tempCalendar.status == 2 || [tempCalendar haveFinishDate:message.addTime]) {
+                            tempCalendar.status = 2;
+                        } else {
+                            tempCalendar.rdate = @(message.addTime.timeIntervalSince1970).stringValue;
+                        }
+                        //显示
                         RepCalendarDetailController *vc = [RepCalendarDetailController new];
-                        vc.data = tempTemp;
+                        vc.data = tempCalendar;
                         [self.navigationController pushViewController:vc animated:YES];
                     }
-                    break;
+                    //找到一个对应的就结束函数
+                    return;
                 }
             }
+            //如果没有找到对应的，就提示已经被删除
+            [self.navigationController.view showMessageTips:@"该日程已被删除！"];
         } else if ([message.type isEqualToString:@"TASKTIP"]) {//任务提醒推送
             //进入任务详情
             for (TaskModel *model in [_userManager getTaskArr:message.company_no]) {

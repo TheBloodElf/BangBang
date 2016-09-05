@@ -15,7 +15,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_image_icon" translatesAutoresizingMaskIntoConstraints="NO" id="khT-rt-QQV">
-                        <rect key="frame" x="20" y="20" width="60" height="60"/>
+                        <rect key="frame" x="20" y="12" width="60" height="60"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="khT-rt-QQV" secondAttribute="height" multiplier="1:1" id="BfS-zD-mXB"/>
                         </constraints>
@@ -26,7 +26,7 @@
                         </variation>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fas-Ea-rBz">
-                        <rect key="frame" x="31" y="77" width="38" height="18"/>
+                        <rect key="frame" x="31" y="64" width="38" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -49,11 +49,13 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
-                <constraint firstItem="khT-rt-QQV" firstAttribute="centerY" secondItem="6ru-Wr-WfZ" secondAttribute="centerY" id="00l-I6-8dv"/>
+                <constraint firstItem="khT-rt-QQV" firstAttribute="centerY" secondItem="6ru-Wr-WfZ" secondAttribute="centerY" constant="-8" id="00l-I6-8dv"/>
                 <constraint firstItem="PJJ-ve-TIg" firstAttribute="leading" secondItem="6ru-Wr-WfZ" secondAttribute="leading" id="1fE-Al-1HE"/>
                 <constraint firstItem="khT-rt-QQV" firstAttribute="centerX" secondItem="6ru-Wr-WfZ" secondAttribute="centerX" id="4E5-Wq-NKc"/>
+                <constraint firstItem="fas-Ea-rBz" firstAttribute="top" secondItem="khT-rt-QQV" secondAttribute="bottom" constant="5" id="K2r-Xn-HwX"/>
                 <constraint firstAttribute="trailing" secondItem="Inl-op-aQX" secondAttribute="trailing" id="Nuf-ic-nyV"/>
                 <constraint firstAttribute="bottom" secondItem="Inl-op-aQX" secondAttribute="bottom" id="QDC-Xt-ZSs"/>
+                <constraint firstItem="fas-Ea-rBz" firstAttribute="centerY" secondItem="6ru-Wr-WfZ" secondAttribute="centerY" constant="23" id="WDF-km-CCe"/>
                 <constraint firstItem="khT-rt-QQV" firstAttribute="top" secondItem="6ru-Wr-WfZ" secondAttribute="top" constant="30" id="X4I-9c-117"/>
                 <constraint firstAttribute="bottom" secondItem="PJJ-ve-TIg" secondAttribute="bottom" id="YxI-Zy-9y7"/>
                 <constraint firstItem="fas-Ea-rBz" firstAttribute="centerX" secondItem="6ru-Wr-WfZ" secondAttribute="centerX" id="b8D-GJ-bQa"/>
@@ -66,13 +68,15 @@
                 <mask key="constraints">
                     <exclude reference="X4I-9c-117"/>
                     <exclude reference="c2k-L5-myN"/>
+                    <exclude reference="K2r-Xn-HwX"/>
+                    <exclude reference="uPq-ZB-NYB"/>
                 </mask>
             </variation>
             <connections>
                 <outlet property="appImage" destination="khT-rt-QQV" id="bd3-nB-mrw"/>
                 <outlet property="appName" destination="fas-Ea-rBz" id="zQN-bw-gcq"/>
             </connections>
-            <point key="canvasLocation" x="95" y="257"/>
+            <point key="canvasLocation" x="169" y="299"/>
         </collectionViewCell>
     </objects>
     <resources>
