@@ -315,13 +315,13 @@
 }
 - (NSDate*)firstTime {
     int64_t currSecond = self.timeIntervalSince1970;
-    currSecond = currSecond - self.hour * 60 * 60;//算出今天凌晨时间
+    currSecond = currSecond - self.hour * 60 * 60 - self.minute * 60 - self.second;//算出今天凌晨时间
     NSDate * currDate = [NSDate dateWithTimeIntervalSince1970:currSecond];
     return currDate;
 }
 - (NSDate*)lastTime {
     int64_t currSecond = self.timeIntervalSince1970;
-    currSecond = currSecond - self.hour * 60 * 60;//算出今天凌晨时间
+    currSecond = currSecond - self.hour * 60 * 60 - self.minute * 60 - self.second;//算出今天凌晨时间
     currSecond = currSecond + (24 * 60 * 60);
     currSecond = currSecond - 1;//算出明天天凌晨时间 -1是为了不要和明天的时间冲突
     NSDate * currDate = [NSDate dateWithTimeIntervalSince1970:currSecond];

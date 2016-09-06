@@ -30,6 +30,8 @@
     LineProgressLayer *rightLayer; // 右面动画图层第一层
     LineProgressLayer *rightGreenLayer;//右边第二层
     LineProgressLayer *rightThirdLayer;//右边第三层
+    
+    NSTimer *_dateTimer;//定时器 用于每天早上更新内容
 }
 //左边视图
 @property (weak, nonatomic) IBOutlet UIView *leftView;
@@ -49,6 +51,9 @@
 
 - (void)setupUI {
     self.userInteractionEnabled = YES;
+    //算出距离明天早上还有多少秒
+    int second = [NSDate date].lastTime.timeIntervalSince1970 - [NSDate date].timeIntervalSince1970 + 10;
+    _dateTimer = [NSTimer scheduledTimerWithTimeInterval:second target:self selector:@selector(updateCalendar:) userInfo:nil repeats:NO];
     _userManager = [UserManager manager];
     _userFetchedResultsController = [_userManager createUserFetchedResultsController];
     _userFetchedResultsController.delegate = self;
@@ -57,6 +62,16 @@
     _taskFetchedResultsController.delegate = self;
     self.leftWillEnd.textColor =  [UIColor colorWithRed:255 / 255.f green:105 / 255.f blue:64 / 255.f alpha:1];
     self.rightWillEnd.textColor =  [UIColor colorWithRed:255 / 255.f green:105 / 255.f blue:64 / 255.f alpha:1];
+    //给这几个数字填充值
+    [self getCurrCount];
+    //添加动画
+    [self createPie];
+    [_userManager addTaskNotfition];
+}
+- (void)updateCalendar:(NSTimer*)timer {
+    //算出距离明天早上还有多少秒
+    int second = [NSDate date].lastTime.timeIntervalSince1970 - [NSDate date].timeIntervalSince1970 + 10;
+    _dateTimer = [NSTimer scheduledTimerWithTimeInterval:second target:self selector:@selector(updateCalendar:) userInfo:nil repeats:NO];
     //给这几个数字填充值
     [self getCurrCount];
     //添加动画
