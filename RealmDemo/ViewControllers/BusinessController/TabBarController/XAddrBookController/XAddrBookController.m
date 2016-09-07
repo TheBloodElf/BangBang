@@ -35,7 +35,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"讨论组";
+    self.title = @"联系人";
     _employeeArr = [@[] mutableCopy];
     _employeekeyArr = [@[] mutableCopy];
     _employeeDataArr = [@[] mutableCopy];

@@ -12,7 +12,7 @@
 #import "BushSearchViewController.h"
 #import "LeftMenuCell.h"
 
-@interface LeftMenuController ()<UITableViewDataSource,UITableViewDelegate,RBQFetchedResultsControllerDelegate> {
+@interface LeftMenuController ()<UITableViewDelegate,UITableViewDataSource,RBQFetchedResultsControllerDelegate> {
     UserManager *_userManager;//用户管理器
     NSMutableArray<Company*> *_companyArr;//圈子数组
     RBQFetchedResultsController *_userFetchedResultsController;//用户数据库监听
@@ -93,7 +93,7 @@
     //改变用户当前圈子
     Company *company = [_companyArr[indexPath.row] deepCopy];
     User *user = [_userManager.user deepCopy];
-    user.currCompany = [company deepCopy];
+    user.currCompany = company;
     [_userManager updateUser:user];
     //刷新表格视图
     [tableView reloadData];

@@ -10,7 +10,7 @@
 #import "User.h"
 @protocol ChangeUserInfoDelegate <NSObject>
 
-- (void)changeUserInfo:(User*)user;
+- (void)changeUserBBH:(User*)user;
 
 @end
 

@@ -69,7 +69,7 @@
 {
     [self.view endEditing:YES];
     _currUser.user_name = _textField.text;
-    [self.delegate changeUserInfo:_currUser];
+    [self.delegate changeUserBBH:_currUser];
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

@@ -38,7 +38,10 @@
 //获取推广链接
 + (NSURLSessionDataTask*)getReferrerURL:(int)userNo handler:(completionHandler)handler;
 #pragma mark -- 修改用户信息
+//修改用户信息
 + (NSURLSessionDataTask*)updateUserInfo:(User*)user handler:(completionHandler)handler;
+//修改用户帮帮号
++ (NSURLSessionDataTask*)updateUserName:(NSString*)userGuid userName:(NSString*)userName handler:(completionHandler)handler;
 //修改用户头像
 + (NSURLSessionDataTask*)updateUserAvater:(UIImage*)image userGuid:(NSString*)userGuid handler:(completionHandler)handler;
 #pragma mark -- 工作圈

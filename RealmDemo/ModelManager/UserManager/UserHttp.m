@@ -120,9 +120,22 @@
     return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_GET URLPath:urlPath parameters:params completionHandler:compleionHandler];
 }
 #pragma mark -- 修改用户信息
+//修改用户信息
 + (NSURLSessionDataTask*)updateUserInfo:(User*)user handler:(completionHandler)handler {
     NSString *urlPath = @"Users/update_user";
     NSMutableDictionary *params = [user.JSONDictionary mutableCopy];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
+//修改用户帮帮号
++ (NSURLSessionDataTask*)updateUserName:(NSString*)userGuid userName:(NSString*)userName handler:(completionHandler)handler {
+    NSString *urlPath = @"Users/update_username";
+    NSMutableDictionary *params = [@{} mutableCopy];
+    [params setObject:userGuid forKey:@"user_guid"];
+    [params setObject:userName forKey:@"username"];
     [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
     completionHandler compleionHandler = ^(id data,MError *error) {
         handler(data,error);

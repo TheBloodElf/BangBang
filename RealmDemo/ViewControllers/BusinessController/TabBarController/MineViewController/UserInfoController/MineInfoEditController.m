@@ -213,6 +213,27 @@
 }
 #pragma mark --
 #pragma mark -- PrivateMethod
+//修改用户帮帮号
+- (void)changeUserBBH:(User*)user {
+    [UserHttp updateUserName:user.user_guid userName:user.user_name handler:^(id data, MError *error) {
+        if(error) {
+            [self.navigationController.view showFailureTips:error.statsMsg];
+            return ;
+        }
+        [[UserManager manager] updateUser:user];
+        //更新用户员工
+        for (Company *company in [_userManager getCompanyArr]) {
+            Employee *employee = [[_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:company.company_no] deepCopy];
+            employee.real_name = user.real_name;
+            employee.user_real_name = user.real_name;
+            employee.user_name = user.user_name;
+            employee.sex = user.sex;
+            employee.mood = user.mood;
+            [_userManager updateEmployee:employee];
+        }
+    }];
+}
+//修改用户信息（头像、帮帮号除外）
 - (void)changeUserInfo:(User *)user
 {
     [UserHttp updateUserInfo:user handler:^(id data, MError *error) {
@@ -245,7 +266,7 @@
         User *user = [_userManager.user deepCopy];
         user.avatar = data[@"data"][@"avatar"];
         [_userManager updateUser:user];
-        
+
         //更新用户员工
         for (Company *company in [_userManager getCompanyArr]) {
             Employee *employee = [[_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:company.company_no] deepCopy];

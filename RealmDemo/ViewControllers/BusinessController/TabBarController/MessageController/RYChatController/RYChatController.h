@@ -10,6 +10,6 @@
 
 @interface RYChatController : RCConversationViewController
 
-@property (nonatomic,strong)Employee * friends;
+@property (nonatomic,strong) Employee * friends;
 
 @end

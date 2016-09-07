@@ -11,14 +11,14 @@
 //当前用户
 @interface User : RLMObject
 
+/** id  */
+@property (nonatomic, assign) int id;
 /** qq */
 @property (nonatomic, strong) NSString  * QQ;
 /** 头像 */
 @property (nonatomic, strong) NSString  * avatar;
 /** email(帐号) */
 @property (nonatomic, strong) NSString  * email;
-/** id  */
-@property (nonatomic, assign) int id;
 /** 手机号 */
 @property (nonatomic, strong) NSString  * mobile;
 /** 省 */
