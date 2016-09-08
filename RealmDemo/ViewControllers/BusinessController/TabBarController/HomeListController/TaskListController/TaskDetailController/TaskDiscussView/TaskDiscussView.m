@@ -21,8 +21,6 @@
     TaskModel *_taskModel;
     UIView *_bottomView;//下面的操作视图
     NSMutableArray<TaskCommentModel *> *_taskCommentModelArr;//评论列表
-    
-    
     TaskCommentModel *_currCommentModel;//当前需要发送的评论
 }
 

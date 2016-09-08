@@ -86,13 +86,8 @@
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
     [_joinDataArr removeAllObjects];
     [_exitDataArr removeAllObjects];
-    for (Employee *employee in (id)_joinFetchedResultsController.fetchedObjects) {
-        if(employee.status == 0) {
-            [_joinDataArr addObject:employee];
-        } else if (employee.status == 4) {
-            [_exitDataArr addObject:employee];
-        }
-    }
+    [_joinDataArr addObjectsFromArray:[_userManager getEmployeeWithCompanyNo:_userManager.user.currCompany.company_no status:0]];
+    [_exitDataArr addObjectsFromArray:[_userManager getEmployeeWithCompanyNo:_userManager.user.currCompany.company_no status:4]];
     [_tableView reloadData];
 }
 #pragma mark --

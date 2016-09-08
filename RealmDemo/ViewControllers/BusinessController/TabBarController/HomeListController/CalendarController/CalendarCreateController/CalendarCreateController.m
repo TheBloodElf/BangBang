@@ -38,7 +38,7 @@
     _currCalendar = [Calendar new];
     _currCalendar.company_no = _userManager.user.currCompany.company_no;
     _currCalendar.begindate_utc = [[NSDate date] timeIntervalSince1970] * 1000;
-    _currCalendar.enddate_utc = _currCalendar.begindate_utc;
+    _currCalendar.enddate_utc = _currCalendar.begindate_utc + 30 * 60 * 1000;
     _currCalendar.repeat_type = 0;//先不重复
     _currCalendar.alert_minutes_after = 0;
     _currCalendar.alert_minutes_before = 0;
@@ -105,6 +105,32 @@
     if([NSString isBlank:_currCalendar.event_name]) {
         [self.navigationController.view showMessageTips:@"请填写事务名称"];
         return;
+    }
+    if(_currCalendar.repeat_type == 0) {
+        if(_currCalendar.enddate_utc < _currCalendar.begindate_utc) {
+            [self.navigationController.view showMessageTips:@"开始时间不能晚于结束时间"];
+            return;
+        }
+    } else {
+        if(_currCalendar.r_end_date_utc < _currCalendar.r_begin_date_utc) {
+            [self.navigationController.view showMessageTips:@"重复开始时间不能晚于重复结束时间"];
+            return;
+        }
+        Scheduler * s = [[Scheduler alloc] initWithDate:[NSDate dateWithTimeIntervalSince1970:_currCalendar.begindate_utc/1000] andRule:_currCalendar.rrule];
+        //得到所有的时间 起始时间不会算在里面（*）
+        NSArray * occurences = [s occurencesBetween:[NSDate dateWithTimeIntervalSince1970:_currCalendar.r_begin_date_utc/1000] andDate:[NSDate dateWithTimeIntervalSince1970:_currCalendar.r_end_date_utc/1000]];
+        int count = occurences.count;
+        if(count == 0) {
+            [self.navigationController.view showMessageTips:@"重复间隔应小于重复时间段"];
+            return;
+        }
+        NSDate *firstDate = occurences[0];
+        if(firstDate.timeIntervalSince1970 < (_currCalendar.r_begin_date_utc / 1000))
+            count -- ;
+        if(count == 0) {
+            [self.navigationController.view showMessageTips:@"重复间隔应小于重复时间段"];
+            return;
+        }
     }
     //创建日程
     [self.navigationController.view showLoadingTips:@""];

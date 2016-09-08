@@ -36,6 +36,12 @@
         _searchBar.tintColor = [UIColor colorWithRed:247 / 255.f green:247 / 255.f blue:247 / 255.f alpha:1];
         [_searchBar setSearchBarBackgroundColor:[UIColor colorWithRed:247 / 255.f green:247 / 255.f blue:247 / 255.f alpha:1]];
         _searchBar.returnKeyType = UIReturnKeySearch;
+        for(UIView * view in [_searchBar.subviews[0] subviews]) {
+            if([view isKindOfClass:[UITextField class]]) {
+                [(UITextField*)view setEnablesReturnKeyAutomatically:NO];
+                break;
+            }
+        }
         [self addSubview:_searchBar];
         
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 60, MAIN_SCREEN_WIDTH, frame.size.height - 60) style:UITableViewStylePlain];
@@ -82,12 +88,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _currArr.count;
-}
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    cell.alpha = 0;
-    [UIView animateWithDuration:0.6 animations:^{
-        cell.alpha = 1;
-    }];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TaskListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskListCell" forIndexPath:indexPath];

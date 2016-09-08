@@ -46,6 +46,12 @@
     _searchBar.tintColor = [UIColor colorWithRed:247 / 255.f green:247 / 255.f blue:247 / 255.f alpha:1];
     [_searchBar setSearchBarBackgroundColor:[UIColor colorWithRed:247 / 255.f green:247 / 255.f blue:247 / 255.f alpha:1]];
     _searchBar.returnKeyType = UIReturnKeySearch;
+    for(UIView * view in [_searchBar.subviews[0] subviews]) {
+        if([view isKindOfClass:[UITextField class]]) {
+            [(UITextField*)view setEnablesReturnKeyAutomatically:NO];
+            break;
+        }
+    }
     [self.view addSubview:_searchBar];
     //创建导航栏
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"标记" style:UIBarButtonItemStylePlain target:self action:@selector(biaojiClicked:)];
@@ -176,8 +182,8 @@
 #pragma mark -- UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if([NSString isBlank:[_pushMessageArr[indexPath.row] content]])
-        return [@"会议有新的消息" textSizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH - 113, 10000)].height + 40;
-    return [[_pushMessageArr[indexPath.row] content] textSizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH - 113, 10000)].height + 40;
+        return [@"会议有新的消息" textSizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH - 113, 10000)].height + 45;
+    return [[_pushMessageArr[indexPath.row] content] textSizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH - 113, 10000)].height + 45;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _pushMessageArr.count;
@@ -187,22 +193,14 @@
     cell.data = _pushMessageArr[indexPath.row];
     return cell;
 }
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    cell.alpha = 0;
-    [UIView animateWithDuration:0.6 animations:^{
-        cell.alpha = 1;
-    }];
-}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if(tableView.editing == YES)
         return;
     else {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         PushMessage *message = [_pushMessageArr[indexPath.row] deepCopy];
-        if(message.unread == YES) {
-            message.unread = NO;
-            [_userManager updatePushMessage:message];
-        }
+        message.unread = NO;
+        [_userManager updatePushMessage:message];
         //分别进入对应的界面进行操作
         //如果是圈子操作
         if([message.type isEqualToString:@"COMPANY"]) {

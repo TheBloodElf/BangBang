@@ -64,8 +64,6 @@
     self.rightWillEnd.textColor =  [UIColor colorWithRed:255 / 255.f green:105 / 255.f blue:64 / 255.f alpha:1];
     //给这几个数字填充值
     [self getCurrCount];
-    //添加动画
-    [self createPie];
     [_userManager addTaskNotfition];
 }
 - (void)updateCalendar:(NSTimer*)timer {
@@ -74,8 +72,6 @@
     _dateTimer = [NSTimer scheduledTimerWithTimeInterval:second target:self selector:@selector(updateCalendar:) userInfo:nil repeats:NO];
     //给这几个数字填充值
     [self getCurrCount];
-    //添加动画
-    [self createPie];
     [_userManager addTaskNotfition];
 }
 #pragma mark --
@@ -87,35 +83,38 @@
     }
     _leftWillEndCount = _leftDidEndCount = _leftAllCount = _rightAllCount = _rightDidEndCount = _rightWillEndCount = 0;
     [self getCurrCount];
-    [self createPie];
     [_userManager addTaskNotfition];
 }
 - (void)getCurrCount {
-    NSMutableArray<TaskModel*> *taskArr = [_userManager getTaskArr:_userManager.user.currCompany.company_no];
-    Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
-    for (TaskModel *model in taskArr) {
-        if(model.company_no != _userManager.user.currCompany.company_no) continue;
-        if(model.status == 0 || model.status == 7 || model.status == 8) continue;
-        if([model.createdby isEqualToString:employee.employee_guid]) {//我委派的
-            _leftAllCount ++;
-            if(model.status == 2) {
-                if(model.enddate_utc < [NSDate date].timeIntervalSince1970 * 1000) {//已经延期的
-                    _leftDidEndCount ++;
-                } else if((model.enddate_utc / 1000) < (([NSDate date].timeIntervalSince1970 + (NumberOfDealy * 24 * 60 * 60)))){//将要到期的
-                    _leftWillEndCount ++;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSMutableArray<TaskModel*> *taskArr = [_userManager getTaskArr:_userManager.user.currCompany.company_no];
+        Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
+        for (TaskModel *model in taskArr) {
+            if(model.company_no != _userManager.user.currCompany.company_no) continue;
+            if(model.status == 0 || model.status == 7 || model.status == 8) continue;
+            if([model.createdby isEqualToString:employee.employee_guid]) {//我委派的
+                _leftAllCount ++;
+                if(model.status == 2) {
+                    if(model.enddate_utc < [NSDate date].timeIntervalSince1970 * 1000) {//已经延期的
+                        _leftDidEndCount ++;
+                    } else if((model.enddate_utc / 1000) < (([NSDate date].timeIntervalSince1970 + (NumberOfDealy * 24 * 60 * 60)))){//将要到期的
+                        _leftWillEndCount ++;
+                    }
                 }
-            }
-        } else if ([model.incharge isEqualToString:employee.employee_guid]) {//我负责的
-            _rightAllCount ++;
-            if(model.status == 2) {
-                if(model.enddate_utc < [NSDate date].timeIntervalSince1970 * 1000) {//已经延期的
-                    _rightDidEndCount ++;
-                } else if((model.enddate_utc / 1000) < ([NSDate date].timeIntervalSince1970  + (NumberOfDealy * 24 * 60 * 60))){//将要到期的
-                    _rightWillEndCount ++;
+            } else if ([model.incharge isEqualToString:employee.employee_guid]) {//我负责的
+                _rightAllCount ++;
+                if(model.status == 2) {
+                    if(model.enddate_utc < [NSDate date].timeIntervalSince1970 * 1000) {//已经延期的
+                        _rightDidEndCount ++;
+                    } else if((model.enddate_utc / 1000) < ([NSDate date].timeIntervalSince1970  + (NumberOfDealy * 24 * 60 * 60))){//将要到期的
+                        _rightWillEndCount ++;
+                    }
                 }
             }
         }
-    }
+        //创建动画
+        [self createPie];
+    });
 }
 - (void)createPie {
     [leftLayer removeFromSuperlayer];

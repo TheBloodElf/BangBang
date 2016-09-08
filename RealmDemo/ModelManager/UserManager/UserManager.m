@@ -325,12 +325,6 @@
     return [Employee new];
 }
 #pragma mark -- Company
-//更新某个圈子信息
-- (void)updateCompany:(Company*)company {
-    [_rlmRealm beginWriteTransaction];
-    [Company createOrUpdateInRealm:_rlmRealm withValue:company];
-    [_rlmRealm commitWriteTransaction];
-}
 //添加某个圈子
 - (void)addCompany:(Company*)company {
     [_rlmRealm beginWriteTransaction];
@@ -341,6 +335,12 @@
 - (void)deleteCompany:(Company*)company {
     [_rlmRealm beginWriteTransaction];
     [_rlmRealm deleteObject:company];
+    [_rlmRealm commitWriteTransaction];
+}
+//更新某个圈子信息
+- (void)updateCompany:(Company*)company {
+    [_rlmRealm beginWriteTransaction];
+    [Company createOrUpdateInRealm:_rlmRealm withValue:company];
     [_rlmRealm commitWriteTransaction];
 }
 //更新所有圈子数据
@@ -691,10 +691,9 @@
     [_rlmRealm commitWriteTransaction];
 }
 //创建圈子的数据监听
-- (RBQFetchedResultsController*)createSiginRuleFetchedResultsController:(int)companyNo {
+- (RBQFetchedResultsController*)createSiginRuleFetchedResultsController {
     RBQFetchedResultsController *fetchedResultsController = nil;
-     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(company_no = %d )",companyNo];
-    RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"SiginRuleSet" inRealm:_rlmRealm predicate:predicate];
+    RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"SiginRuleSet" inRealm:_rlmRealm predicate:nil];
     fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:nil];
     [fetchedResultsController performFetch];
     return fetchedResultsController;

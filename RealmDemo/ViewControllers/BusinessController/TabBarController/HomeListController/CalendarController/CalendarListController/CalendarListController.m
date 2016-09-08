@@ -42,6 +42,12 @@
     _searchBar.returnKeyType = UIReturnKeySearch;
     _searchBar.tintColor = [UIColor colorWithRed:247 / 255.f green:247 / 255.f blue:247 / 255.f alpha:1];
     [_searchBar setSearchBarBackgroundColor:[UIColor colorWithRed:247 / 255.f green:247 / 255.f blue:247 / 255.f alpha:1]];
+    for(UIView * view in [_searchBar.subviews[0] subviews]) {
+        if([view isKindOfClass:[UITextField class]]) {
+            [(UITextField*)view setEnablesReturnKeyAutomatically:NO];
+            break;
+        }
+    }
     [self.view addSubview:_searchBar];
     //创建表格视图
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 55, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 55 - 64) style:UITableViewStylePlain];
@@ -193,12 +199,6 @@
     view.alpha = 0;
     [UIView animateWithDuration:0.6 animations:^{
         view.alpha = 1;
-    }];
-}
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    cell.alpha = 0;
-    [UIView animateWithDuration:0.6 animations:^{
-        cell.alpha = 1;
     }];
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

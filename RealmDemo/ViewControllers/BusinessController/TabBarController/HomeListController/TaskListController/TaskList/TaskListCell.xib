@@ -40,13 +40,13 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_task_attachment" translatesAutoresizingMaskIntoConstraints="NO" id="McW-Yb-Qfh">
-                        <rect key="frame" x="274" y="66" width="13" height="15"/>
+                        <rect key="frame" x="272" y="66" width="13" height="15"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="13" id="qGS-6a-3s5"/>
                         </constraints>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_task_remind" translatesAutoresizingMaskIntoConstraints="NO" id="2TT-k1-rIT">
-                        <rect key="frame" x="256" y="66" width="13" height="15"/>
+                        <rect key="frame" x="254" y="66" width="13" height="15"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="13" id="Fll-cO-d3Y"/>
                         </constraints>
@@ -69,6 +69,17 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aWJ-OA-gOB">
+                        <rect key="frame" x="290" y="66" width="15" height="15"/>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.058823529409999999" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="LfR-Ym-ZAM"/>
+                            <constraint firstAttribute="width" constant="15" id="cq1-de-5ky"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="2TT-k1-rIT" firstAttribute="centerY" secondItem="McW-Yb-Qfh" secondAttribute="centerY" id="7r2-XW-BFU"/>
@@ -79,17 +90,27 @@
                     <constraint firstAttribute="trailing" secondItem="GSe-oq-VAv" secondAttribute="trailing" constant="15" id="Ke6-mX-07g"/>
                     <constraint firstAttribute="trailing" secondItem="McW-Yb-Qfh" secondAttribute="trailing" constant="33" id="M15-FQ-zp8"/>
                     <constraint firstAttribute="trailing" secondItem="SMv-dN-CKd" secondAttribute="trailing" constant="15" id="ORk-NX-afO"/>
+                    <constraint firstItem="aWJ-OA-gOB" firstAttribute="leading" secondItem="McW-Yb-Qfh" secondAttribute="trailing" constant="5" id="P6K-mb-qKf"/>
                     <constraint firstItem="GSe-oq-VAv" firstAttribute="top" secondItem="LnC-Wv-IS0" secondAttribute="bottom" constant="12" id="R80-Vg-IDD"/>
                     <constraint firstItem="HQf-8n-bEU" firstAttribute="top" secondItem="GSe-oq-VAv" secondAttribute="bottom" constant="5" id="WPy-Kn-65s"/>
                     <constraint firstItem="Edd-r3-cdB" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Xmj-JG-GwQ"/>
                     <constraint firstItem="LnC-Wv-IS0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="da7-Iu-Mck"/>
                     <constraint firstItem="GSe-oq-VAv" firstAttribute="leading" secondItem="Edd-r3-cdB" secondAttribute="trailing" constant="13" id="fk8-0e-SqQ"/>
                     <constraint firstItem="HQf-8n-bEU" firstAttribute="leading" secondItem="Edd-r3-cdB" secondAttribute="trailing" constant="13" id="gLb-5C-slS"/>
+                    <constraint firstAttribute="trailing" secondItem="aWJ-OA-gOB" secondAttribute="trailing" constant="15" id="gM5-Pq-rjf"/>
+                    <constraint firstItem="aWJ-OA-gOB" firstAttribute="centerY" secondItem="McW-Yb-Qfh" secondAttribute="centerY" id="iHC-1b-Zh3"/>
                     <constraint firstItem="McW-Yb-Qfh" firstAttribute="leading" secondItem="2TT-k1-rIT" secondAttribute="trailing" constant="5" id="tIY-Zb-1Zw"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="M15-FQ-zp8"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="attachmentWidth" destination="qGS-6a-3s5" id="tuX-zy-Yhd"/>
+                <outlet property="messageLabel" destination="aWJ-OA-gOB" id="6Vt-b7-Zho"/>
+                <outlet property="messageWidth" destination="cq1-de-5ky" id="DNb-f2-5rW"/>
                 <outlet property="remindWidth" destination="Fll-cO-d3Y" id="338-O4-pHd"/>
                 <outlet property="taskCreateName" destination="LnC-Wv-IS0" id="Q0U-hL-aM8"/>
                 <outlet property="taskCreateTime" destination="SMv-dN-CKd" id="kpJ-pA-2lz"/>
@@ -97,7 +118,7 @@
                 <outlet property="taskStatusImage" destination="Edd-r3-cdB" id="hi7-ee-JXo"/>
                 <outlet property="taskTimeStr" destination="HQf-8n-bEU" id="IUE-Qk-7Ue"/>
             </connections>
-            <point key="canvasLocation" x="198" y="248"/>
+            <point key="canvasLocation" x="381" y="222"/>
         </tableViewCell>
     </objects>
     <resources>

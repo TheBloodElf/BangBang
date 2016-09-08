@@ -33,7 +33,7 @@
     self.title = @"公司考勤点";
     self.view.backgroundColor = [UIColor whiteColor];
     _userManager = [UserManager manager];
-    _siginRuleFetchedResultsController = [_userManager createSiginRuleFetchedResultsController:_userManager.user.currCompany.company_no];
+    _siginRuleFetchedResultsController = [_userManager createSiginRuleFetchedResultsController];
     _siginRuleFetchedResultsController.delegate = self;
     _dataArr = [_userManager getSiginRule:_userManager.user.currCompany.company_no];
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
@@ -60,7 +60,7 @@
 #pragma mark --
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
-    _dataArr = (id)controller.fetchedObjects;
+    _dataArr = [_userManager getSiginRule:_userManager.user.currCompany.company_no];
     [_tableView reloadData];
     if(_dataArr.count == 0) {
         _tableView.tableFooterView = _noSiginruleView;

@@ -7,7 +7,7 @@
 //
 
 #import "TaskListCell.h"
-#import "TaskModel.h"
+#import "UserManager.h"
 
 @interface TaskListCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *taskStatusImage;//任务状态图片
@@ -17,10 +17,18 @@
 @property (weak, nonatomic) IBOutlet UILabel *taskCreateTime;//任务创建时间
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *attachmentWidth;//是否有附件
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *remindWidth;//是否有提醒
+@property (weak, nonatomic) IBOutlet UILabel *messageLabel;//消息数量
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *messageWidth;//是否有消息
 
 @end
 
 @implementation TaskListCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.messageLabel.layer.cornerRadius = 7.5;
+    self.messageLabel.clipsToBounds = YES;
+}
 
 - (void)dataDidChange {
     self.attachmentWidth.constant = self.remindWidth.constant = 13;
@@ -42,6 +50,21 @@
     //任务创建时间
     NSDate *createDate = [NSDate dateWithTimeIntervalSince1970:model.createdon_utc / 1000];
     self.taskCreateTime.text = [NSString stringWithFormat:@"%d-%02ld-%02ld %02ld:%02ld",createDate.year,createDate.month,createDate.day,createDate.hour,createDate.minute];
+    //是否有消息 是不是创建者
+    Employee *employee = [[UserManager manager] getEmployeeWithGuid:[UserManager manager].user.user_guid companyNo:model.company_no];
+    self.messageWidth.constant = 0;
+    if([employee.employee_guid isEqualToString:model.createdby]) {//是不是创建者
+        if(model.creator_unread_commentcount) {
+            self.messageWidth.constant = 15.f;
+            self.messageLabel.text = @(model.creator_unread_commentcount).stringValue;
+        }
+    }
+    if([employee.employee_guid isEqualToString:model.incharge]) {//是不是负责人
+        if(model.incharge_unread_commentcount) {
+            self.messageWidth.constant = 15.f;
+            self.messageLabel.text = @(model.incharge_unread_commentcount).stringValue;
+        }
+    }
     //是否有附件
     if(model.attachment_count == 0)
         self.attachmentWidth.constant = 0;

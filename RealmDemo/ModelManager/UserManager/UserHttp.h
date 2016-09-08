@@ -128,6 +128,8 @@
 + (NSURLSessionDataTask*)getTaskComment:(int)taskId handler:(completionHandler)handler;
 //添加评论
 + (NSURLSessionDataTask*)addTaskComment:(int)taskId taskStatus:(int)taskStatus comment:(NSString*)comment createdby:(NSString*)createdby createdRealname:(NSString*)createdRealname repEmployeeGuid:(NSString*)repEmployeeGuid repEmployeeName:(NSString*)repEmployeeName handler:(completionHandler)handler;
+//更新评论状态为已读
++ (NSURLSessionDataTask*)updateTaskCommentStatus:(int)taskId employeeGuid:(NSString*)employeeGuid handler:(completionHandler)handler;
 //更新任务状态和原因
 + (NSURLSessionDataTask*)updateTask:(int)taskId status:(int)status comment:(NSString*)comment updatedby:(NSString*)updatedby handler:(completionHandler)handler;
 #pragma mark -- 应用中心

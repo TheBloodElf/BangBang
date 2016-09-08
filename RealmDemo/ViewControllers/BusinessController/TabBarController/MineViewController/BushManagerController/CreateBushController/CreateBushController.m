@@ -51,13 +51,14 @@
 }
 - (void)rightButtonClicked:(UIBarButtonItem*)item {
     [self.navigationController.view showLoadingTips:@""];
-    [UserHttp createCompany:_createBushModel.name userGuid:_userManager.user.user_guid image:_createBushModel.hasImage companyType:(int)_createBushModel.type handler:^(id data, MError *error) {
+    [UserHttp createCompany:_createBushModel.name userGuid:_userManager.user.user_guid image:_createBushModel.hasImage companyType:_createBushModel.type handler:^(id data, MError *error) {
         [self.navigationController.view dismissTips];
         if(error) {
             [self.navigationController.view showFailureTips:error.statsMsg];
             return ;
         }
-        Company *company = [[Company alloc] initWithJSONDictionary:data];
+        Company *company = [Company new];
+        [company mj_setKeyValues:data];
         [self.navigationController.view showSuccessTips:@"创建成功"];
         [_userManager addCompany:company];
         [self.navigationController popViewControllerAnimated:YES];
@@ -70,34 +71,22 @@
     UITextField *textField = (UITextField *)obj.object;
     NSString *toBeString = textField.text;
     NSString *lang = [textField.textInputMode primaryLanguage];
-    if ([lang isEqualToString:@"zh-Hans"])// 简体中文输入
-    {
+    if ([lang isEqualToString:@"zh-Hans"]){// 简体中文输入
         //获取高亮部分
         UITextRange *selectedRange = [textField markedTextRange];
         UITextPosition *position = [textField positionFromPosition:selectedRange.start offset:0];
-        
         // 没有高亮选择的字，则对已输入的文字进行字数统计和限制
-        if (!position)
-        {
-            if (toBeString.length > MAX_STARWORDS_LENGTH)
-            {
+        if (!position) {
+            if (toBeString.length > MAX_STARWORDS_LENGTH) {
                 textField.text = [toBeString substringToIndex:MAX_STARWORDS_LENGTH];
             }
         }
-        
-    }
-    // 中文输入法以外的直接对其统计限制即可，不考虑其他语种情况
-    else
-    {
-        if (toBeString.length > MAX_STARWORDS_LENGTH)
-        {
+    } else {// 中文输入法以外的直接对其统计限制即可，不考虑其他语种情况
+        if (toBeString.length > MAX_STARWORDS_LENGTH) {
             NSRange rangeIndex = [toBeString rangeOfComposedCharacterSequenceAtIndex:MAX_STARWORDS_LENGTH];
-            if (rangeIndex.length == 1)
-            {
+            if (rangeIndex.length == 1) {
                 textField.text = [toBeString substringToIndex:MAX_STARWORDS_LENGTH];
-            }
-            else
-            {
+            } else {
                 NSRange rangeRange = [toBeString rangeOfComposedCharacterSequencesForRange:NSMakeRange(0, MAX_STARWORDS_LENGTH)];
                 textField.text = [toBeString substringWithRange:rangeRange];
             }

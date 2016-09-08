@@ -122,7 +122,7 @@
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
     [_companyArr removeAllObjects];
     //只显示自己状态为4或者1的
-    for (Company *company in (id)controller.fetchedObjects) {
+    for (Company *company in [_userManager getCompanyArr]) {
         Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:company.company_no];
         if(employee.status == 1 || employee.status == 4) {
             [_companyArr addObject:company];
@@ -141,10 +141,6 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _companyArr.count;
-}
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    cell.alpha = 0;
-    [UIView animateWithDuration:0.6 animations:^{ cell.alpha = 1; }];
 }
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     BushManagerCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BushManagerCell" forIndexPath:indexPath];

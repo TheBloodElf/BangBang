@@ -92,7 +92,7 @@
         }
         if(currentPage == 1)
             [_companyArr removeAllObjects];
-        for (NSDictionary *dic in data[@"list"]) {
+        for (NSDictionary *dic in data) {
             Company *company = [[Company alloc] initWithJSONDictionary:dic];
             [_companyArr addObject:company];
         }
@@ -177,12 +177,6 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _companyArr.count;
-}
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    cell.alpha = 0;
-    [UIView animateWithDuration:0.6 animations:^{
-        cell.alpha = 1;
-    }];
 }
 - (UITableViewCell*)tableView:(UITableView *)sender cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     BushSearchCell *cell = [_tableView dequeueReusableCellWithIdentifier:@"BushSearchCell" forIndexPath:indexPath];

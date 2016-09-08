@@ -243,9 +243,10 @@
 }
 //获取工作圈列表
 + (NSURLSessionDataTask*)getCompanyList:(NSString*)companyName pageSize:(int)pageSize pageIndex:(int)pageIndex handler:(completionHandler)handler {
-    NSString *urlPath = @"Companies/list";
+    NSString *urlPath = @"Companies/company_list";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params setObject:companyName forKey:@"company_name"];
+    [params setObject:companyName forKey:@"company_no"];
     [params setObject:@(pageIndex) forKey:@"page_index"];
     [params setObject:@(pageSize) forKey:@"page_size"];
     [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
@@ -638,6 +639,18 @@
         handler(data,error);
     };
     return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_GET URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
+//更新评论状态为已读
++ (NSURLSessionDataTask*)updateTaskCommentStatus:(int)taskId employeeGuid:(NSString*)employeeGuid handler:(completionHandler)handler {
+    NSString *urlPath = @"Tasks/update_comment_readstatus";
+    NSMutableDictionary *params = [@{} mutableCopy];
+    [params setObject:@(taskId) forKey:@"task_id"];
+    [params setObject:employeeGuid forKey:@"employee_guid"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
 }
 //添加评论
 + (NSURLSessionDataTask*)addTaskComment:(int)taskId taskStatus:(int)taskStatus comment:(NSString*)comment createdby:(NSString*)createdby createdRealname:(NSString*)createdRealname repEmployeeGuid:(NSString*)repEmployeeGuid repEmployeeName:(NSString*)repEmployeeName handler:(completionHandler)handler {

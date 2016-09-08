@@ -53,38 +53,27 @@
 
 - (void)dataDidChange {
     _taskModel = self.data;
-    //获取任务详情
-    [UserHttp getTaskInfo:_taskModel.id handler:^(id data, MError *error) {
-        [self dismissTips];
-        if(error) {
-            [self showFailureTips:error.statsMsg];
-            return ;
-        }
-        _taskModel = [[TaskModel alloc] initWithJSONDictionary:data];
-        _taskModel.descriptionStr = data[@"description"];
-        [_userManager upadteTask:_taskModel];
-        [_tableView reloadData];
-        //判断自己是否有操作按钮
-        BOOL haveOpertion = NO;
-        Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_taskModel.company_no];
-        //如果是负责人
-        if([_taskModel.incharge isEqualToString:employee.employee_guid]) {
-            if(_taskModel.status == 1 || _taskModel.status == 2 || _taskModel.status == 6)
-                haveOpertion = YES;
-        }
-        //如果是创建者
-        if([_taskModel.createdby isEqualToString:employee.employee_guid]) {
-            if(_taskModel.status == 1 || _taskModel.status == 2 || _taskModel.status == 4 || _taskModel.status == 6)
-                haveOpertion = YES;
-        }
-        //调整表格视图和操作视图的位置
-        if(haveOpertion == YES) {
-            _tableView.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, self.frame.size.height - 40);
-            _taskDetailBottomOpView.data = _taskModel;
-        } else {
-            _tableView.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, self.frame.size.height);
-        }
-    }];
+    [_tableView reloadData];
+    //判断自己是否有操作按钮
+    BOOL haveOpertion = NO;
+    Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_taskModel.company_no];
+    //如果是负责人
+    if([_taskModel.incharge isEqualToString:employee.employee_guid]) {
+        if(_taskModel.status == 1 || _taskModel.status == 2 || _taskModel.status == 6)
+            haveOpertion = YES;
+    }
+    //如果是创建者
+    if([_taskModel.createdby isEqualToString:employee.employee_guid]) {
+        if(_taskModel.status == 1 || _taskModel.status == 2 || _taskModel.status == 4 || _taskModel.status == 6)
+            haveOpertion = YES;
+    }
+    //调整表格视图和操作视图的位置
+    if(haveOpertion == YES) {
+        _tableView.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, self.frame.size.height - 40);
+        _taskDetailBottomOpView.data = _taskModel;
+    } else {
+        _tableView.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, self.frame.size.height);
+    }
 }
 #pragma mark -- TaskDetailBottomOpDelegate
 //接收

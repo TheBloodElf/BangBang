@@ -63,7 +63,6 @@
     
     self.bottomScrollView.contentSize = CGSizeMake(3 * MAIN_SCREEN_WIDTH, self.bottomScrollView.frame.size.height);
     _taskDetailView = [[TaskDetailView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 150 - 64)];
-    _taskDetailView.data = _taskModel;
     _taskDetailView.delegate = self;
     [self.bottomScrollView addSubview:_taskDetailView];
     _taskDiscussView = [[TaskDiscussView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 150 - 64)];
@@ -72,8 +71,33 @@
     _taskFileView = [[TaskFileView alloc] initWithFrame:CGRectMake(2 *MAIN_SCREEN_WIDTH, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 150 - 64)];
     _taskFileView.delegate = self;
     _taskFileView.data = _taskModel;
+    
     [self.bottomScrollView addSubview:_taskFileView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTaskInfo:) name:@"ReloadTaskInfo" object:nil];
+    //获取任务详情  因为这里要控制红点的显示 不然都放到详情VIEW处理了
+    [UserHttp getTaskInfo:_taskModel.id handler:^(id data, MError *error) {
+        [self dismissTips];
+        if(error) {
+            [self showFailureTips:error.statsMsg];
+            return ;
+        }
+        _taskModel = [[TaskModel alloc] initWithJSONDictionary:data];
+        _taskModel.descriptionStr = data[@"description"];
+        [_userManager upadteTask:_taskModel];
+        _taskDetailView.data = _taskModel;
+        //是否有消息 讨论显示小红点
+        Employee *employeeOfMe = [[UserManager manager] getEmployeeWithGuid:[UserManager manager].user.user_guid companyNo:_taskModel.company_no];
+        if([employeeOfMe.employee_guid isEqualToString:_taskModel.createdby]) {//是不是创建者
+            if(_taskModel.creator_unread_commentcount) {
+                [[self.view viewWithTag:1001] addHotView:HOTVIEW_ALIGNMENT_TOP_RIGHT];
+            }
+        }
+        if([employeeOfMe.employee_guid isEqualToString:_taskModel.incharge]) {//是不是负责人
+            if(_taskModel.incharge_unread_commentcount) {
+                [[self.view viewWithTag:1001] addHotView:HOTVIEW_ALIGNMENT_TOP_RIGHT];
+            }
+        }
+    }];
     // Do any additional setup after loading the view from its nib.
 }
 - (void)viewWillAppear:(BOOL)animated {
@@ -89,12 +113,37 @@
 - (void)dataDidChange {
     _taskModel = [self.data deepCopy];
 }
+//任务有更新
 - (void)reloadTaskInfo:(NSNotification*)noti {
     PushMessage *message = noti.object;
     if(message.target_id.intValue == _taskModel.id) {
         _taskFileView.data = _taskModel;
-        _taskDetailView.data = _taskModel;
         _taskDiscussView.data = _taskModel;
+        //获取任务详情
+        [UserHttp getTaskInfo:_taskModel.id handler:^(id data, MError *error) {
+            [self dismissTips];
+            if(error) {
+                [self showFailureTips:error.statsMsg];
+                return ;
+            }
+            _taskModel = [[TaskModel alloc] initWithJSONDictionary:data];
+            _taskModel.descriptionStr = data[@"description"];
+            [_userManager upadteTask:_taskModel];
+            _taskDetailView.data = _taskModel;
+            //是否有消息 讨论显示小红点 如果当前在讨论界面 直接返回 因为自己发的消息肯定没有未读数量
+            if(_bottomScrollView.contentOffset.x == _bottomScrollView.frame.size.width) return;
+            Employee *employeeOfMe = [[UserManager manager] getEmployeeWithGuid:[UserManager manager].user.user_guid companyNo:_taskModel.company_no];
+            if([employeeOfMe.employee_guid isEqualToString:_taskModel.createdby]) {//是不是创建者
+                if(_taskModel.creator_unread_commentcount) {
+                    [[self.view viewWithTag:1001] addHotView:HOTVIEW_ALIGNMENT_TOP_RIGHT];
+                }
+            }
+            if([employeeOfMe.employee_guid isEqualToString:_taskModel.incharge]) {//是不是负责人
+                if(_taskModel.incharge_unread_commentcount) {
+                    [[self.view viewWithTag:1001] addHotView:HOTVIEW_ALIGNMENT_TOP_RIGHT];
+                }
+            }
+        }];
     }
 }
 //详情/讨论/附件被点击
@@ -110,6 +159,39 @@
     int index = sender.tag - 1000;
     [self.view endEditing:YES];
     [self.bottomScrollView setContentOffset:CGPointMake(index * MAIN_SCREEN_WIDTH, 0) animated:NO];
+    if(sender.tag == 1001) {//点击的是评论 就消除小红点
+        [sender removeHotView];
+        Employee *employeeOfMe = [[UserManager manager] getEmployeeWithGuid:[UserManager manager].user.user_guid companyNo:_taskModel.company_no];
+        //更新评论状态  如果本来就没有数量就不管 不是负责人/创建者也不用管
+        BOOL needUpdate = NO;
+        //如果是负责人
+        if([_taskModel.incharge isEqualToString:employeeOfMe.employee_guid]) {
+            if(_taskModel.incharge_unread_commentcount == 0) return;
+            needUpdate = YES;
+        }
+        //如果是创建者
+        if([_taskModel.createdby isEqualToString:employeeOfMe.employee_guid]) {
+            if(_taskModel.creator_unread_commentcount == 0) return;
+            needUpdate = YES;
+        }
+        if(!needUpdate) return;
+        [UserHttp updateTaskCommentStatus:_taskModel.id employeeGuid:employeeOfMe.employee_guid handler:^(id data, MError *error) {
+            if(error) {
+                [self showFailureTips:error.statsMsg];
+                return ;
+            }
+            //如果是负责人
+            if([_taskModel.incharge isEqualToString:employeeOfMe.employee_guid]) {
+                _taskModel.incharge_unread_commentcount = 0;
+                [_userManager upadteTask:_taskModel];
+            }
+            //如果是创建者
+            if([_taskModel.createdby isEqualToString:employeeOfMe.employee_guid]) {
+                _taskModel.creator_unread_commentcount = 0;
+                [_userManager upadteTask:_taskModel];
+            }
+        }];
+    }
 }
 #pragma mark -- TaskDetailDelegate
 //接收

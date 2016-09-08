@@ -42,7 +42,7 @@
     _userFetchedResultsController.delegate = self;
     _pushMessageFetchedResultsController = [_userManager createPushMessagesFetchedResultsController];
     _pushMessageFetchedResultsController.delegate = self;
-    _sigRuleFetchedResultsController = [_userManager createSiginRuleFetchedResultsController:_userManager.user.currCompany.company_no];
+    _sigRuleFetchedResultsController = [_userManager createSiginRuleFetchedResultsController];
     _sigRuleFetchedResultsController.delegate = self;
     //创建界面
     _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
@@ -104,7 +104,7 @@
     if(controller == _pushMessageFetchedResultsController) {
         UILabel *label = [self.rightNavigationBarButton viewWithTag:1001];
         int count = 0;
-        for (PushMessage *push in controller.fetchedObjects) {
+        for (PushMessage *push in [_userManager getPushMessageArr]) {
             if(push.unread == YES)
                 count ++;
         }
@@ -113,7 +113,7 @@
     } else if(controller == _userFetchedResultsController) {
         User *user = [_userManager user];
         //重新设置签到记录的数据监听
-        _sigRuleFetchedResultsController = [_userManager createSiginRuleFetchedResultsController:user.currCompany.company_no];
+        _sigRuleFetchedResultsController = [_userManager createSiginRuleFetchedResultsController];
         _sigRuleFetchedResultsController.delegate = self;
         UIImageView *imageView = [self.leftNavigationBarButton viewWithTag:1001];
         UILabel *nameLabel = [self.leftNavigationBarButton viewWithTag:1002];

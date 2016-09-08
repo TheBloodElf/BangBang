@@ -66,7 +66,7 @@
 #pragma mark --
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
-    _userDiscussArr = (id)controller.fetchedObjects;
+    _userDiscussArr = [_userManager getUserDiscussArr];
     if(_userDiscussArr.count == 0)
         _tableView.tableFooterView = _noDataView;
     else

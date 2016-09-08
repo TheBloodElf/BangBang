@@ -138,7 +138,7 @@ static HttpService * __singleton__;
         if([responseObject[@"code"] integerValue] == 0) {
             completionHandler(responseObject,nil);
         } else {
-            completionHandler(nil,[[MError alloc] initWithCode:task.error.code statsMsg:task.error.domain]);
+            completionHandler(nil,[[MError alloc] initWithCode:[responseObject[@"code"] intValue] statsMsg:responseObject[@"message"]]);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         completionHandler(nil,[[MError alloc] initWithCode:error.code statsMsg:error.domain]);

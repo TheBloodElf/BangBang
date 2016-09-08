@@ -126,7 +126,7 @@
 //更新圈子的所有签到规则
 - (void)updateSiginRule:(NSMutableArray<SiginRuleSet*>*)sigRules companyNo:(int)companyNo;
 //创建圈子的数据监听
-- (RBQFetchedResultsController*)createSiginRuleFetchedResultsController:(int)companyNo;
+- (RBQFetchedResultsController*)createSiginRuleFetchedResultsController;
 #pragma mark -- TaskModel
 //添加任务
 - (void)addTask:(TaskModel*)model;
