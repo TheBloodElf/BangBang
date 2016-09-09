@@ -11,8 +11,6 @@
 //当前用户
 @interface User : RLMObject
 
-/** id  */
-@property (nonatomic, assign) int id;
 /** qq */
 @property (nonatomic, strong) NSString  * QQ;
 /** 头像 */

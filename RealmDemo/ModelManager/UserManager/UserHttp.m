@@ -410,7 +410,7 @@
     [params setObject:@"1" forKey:@"begin_date"];
     [params setObject:@"1756809030000" forKey:@"end_date"];
     [params setObject:@(1) forKey:@"page_index"];
-    [params setObject:@(100000000000) forKey:@"page_size"];
+    [params setObject:@(10000) forKey:@"page_size"];
     [params setObject:@"desc" forKey:@"order_by"];
     [params setObject:userGuid forKey:@"user_guid"];
     [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
@@ -571,7 +571,7 @@
     [params setObject:employeeGuid forKey:@"in_charge"];
     [params setObject:employeeGuid forKey:@"member"];
     [params setObject:@(NSIntegerMax) forKey:@"end_date"];
-    [params setObject:@(NSIntegerMax) forKey:@"page_size"];
+    [params setObject:@(10000) forKey:@"page_size"];
     [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
     completionHandler compleionHandler = ^(id data,MError *error) {
         handler(data,error);
@@ -690,7 +690,7 @@
 + (NSURLSessionDataTask*)getCenterAppListHandler:(completionHandler)handler {
     NSString *urlPath = @"Applications/list";
     NSMutableDictionary *params = [@{} mutableCopy];
-    [params setObject:@(100) forKey:@"page_size"];
+    [params setObject:@(10000) forKey:@"page_size"];
     [params setObject:@(2) forKey:@"client_type"];
     [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
     completionHandler compleionHandler = ^(id data,MError *error) {
@@ -702,7 +702,7 @@
 + (NSURLSessionDataTask*)getMyAppList:(NSString*)userGuid handler:(completionHandler)handler {
     NSString *urlPath = @"Applications/my_list";
     NSMutableDictionary *params = [@{} mutableCopy];
-    [params setObject:@(100) forKey:@"page_size"];
+    [params setObject:@(10000) forKey:@"page_size"];
     [params setObject:userGuid forKey:@"user_guid"];
     [params setObject:@(2) forKey:@"client_type"];
     [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];

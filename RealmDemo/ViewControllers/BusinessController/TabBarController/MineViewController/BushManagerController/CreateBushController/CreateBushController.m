@@ -39,9 +39,8 @@
     UITextField *text = [self.nameCell viewWithTag:1000];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:) name:@"UITextFieldTextDidChangeNotification" object:text];
     //按钮是否能够被点击
-    RACSignal *nameSignal = RACObserve(_createBushModel, name);
     RACSignal *imageSignal = RACObserve(_createBushModel, hasImage);
-    RAC(self.navigationItem.rightBarButtonItem,enabled) = [RACSignal combineLatest:@[nameSignal,imageSignal] reduce:^(NSString *name,UIImage *image){
+    RAC(self.navigationItem.rightBarButtonItem,enabled) = [RACSignal combineLatest:@[text.rac_textSignal,imageSignal] reduce:^(NSString *name,UIImage *image){
         if([NSString isBlank:name])
             return @(NO);
         if(!image)
@@ -51,6 +50,8 @@
 }
 - (void)rightButtonClicked:(UIBarButtonItem*)item {
     [self.navigationController.view showLoadingTips:@""];
+    UITextField *text = [self.nameCell viewWithTag:1000];
+    _createBushModel.name = text.text;
     [UserHttp createCompany:_createBushModel.name userGuid:_userManager.user.user_guid image:_createBushModel.hasImage companyType:_createBushModel.type handler:^(id data, MError *error) {
         [self.navigationController.view dismissTips];
         if(error) {

@@ -59,6 +59,7 @@
 #import "ReactiveCocoa.h"//决战UI必备工具
 #import "UIImageView+CornerRadius.h"//离屏渲染解决方案
 #import "UIView+hotView.h"//给视图加红点
+#import "FMDB.h"//同步之前的数据临时加入的库
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
     #import <CoreSpotlight/CoreSpotlight.h>//Spotlight搜索

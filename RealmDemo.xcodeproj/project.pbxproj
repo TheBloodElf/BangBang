@@ -353,6 +353,12 @@
 		1B1B9BF91D3E198600F53EDC /* ComCalendarInstruction.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B1B9BF71D3E198600F53EDC /* ComCalendarInstruction.xib */; };
 		1B1B9BFD1D3E376200F53EDC /* CalendarSelectAlertTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1B9BFB1D3E376200F53EDC /* CalendarSelectAlertTime.m */; };
 		1B1B9BFE1D3E376200F53EDC /* CalendarSelectAlertTime.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B1B9BFC1D3E376200F53EDC /* CalendarSelectAlertTime.xib */; };
+		1B205B791D8284D60037572B /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B205B6E1D8284D60037572B /* FMDatabase.m */; };
+		1B205B7A1D8284D60037572B /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B205B701D8284D60037572B /* FMDatabaseAdditions.m */; };
+		1B205B7B1D8284D60037572B /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B205B721D8284D60037572B /* FMDatabasePool.m */; };
+		1B205B7C1D8284D60037572B /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B205B741D8284D60037572B /* FMDatabaseQueue.m */; };
+		1B205B7D1D8284D60037572B /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B205B771D8284D60037572B /* FMResultSet.m */; };
+		1B205B7E1D8284D60037572B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1B205B781D8284D60037572B /* Info.plist */; };
 		1B3312261D740F5A00E77741 /* AppListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3312241D740F5A00E77741 /* AppListController.m */; };
 		1B3312271D740F5A00E77741 /* AppListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B3312251D740F5A00E77741 /* AppListController.xib */; };
 		1B3312301D74127B00E77741 /* UserApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B33122F1D74127B00E77741 /* UserApp.m */; };
@@ -1446,6 +1452,18 @@
 		1B1B9BFA1D3E376200F53EDC /* CalendarSelectAlertTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarSelectAlertTime.h; sourceTree = "<group>"; };
 		1B1B9BFB1D3E376200F53EDC /* CalendarSelectAlertTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarSelectAlertTime.m; sourceTree = "<group>"; };
 		1B1B9BFC1D3E376200F53EDC /* CalendarSelectAlertTime.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarSelectAlertTime.xib; sourceTree = "<group>"; };
+		1B205B6D1D8284D60037572B /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		1B205B6E1D8284D60037572B /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		1B205B6F1D8284D60037572B /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		1B205B701D8284D60037572B /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		1B205B711D8284D60037572B /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		1B205B721D8284D60037572B /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		1B205B731D8284D60037572B /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		1B205B741D8284D60037572B /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		1B205B751D8284D60037572B /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		1B205B761D8284D60037572B /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		1B205B771D8284D60037572B /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		1B205B781D8284D60037572B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1B3312231D740F5A00E77741 /* AppListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppListController.h; sourceTree = "<group>"; };
 		1B3312241D740F5A00E77741 /* AppListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppListController.m; sourceTree = "<group>"; };
 		1B3312251D740F5A00E77741 /* AppListController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AppListController.xib; sourceTree = "<group>"; };
@@ -3520,6 +3538,25 @@
 			path = ComCalendarCell;
 			sourceTree = "<group>";
 		};
+		1B205B6C1D8284D60037572B /* fmdb */ = {
+			isa = PBXGroup;
+			children = (
+				1B205B6D1D8284D60037572B /* FMDatabase.h */,
+				1B205B6E1D8284D60037572B /* FMDatabase.m */,
+				1B205B6F1D8284D60037572B /* FMDatabaseAdditions.h */,
+				1B205B701D8284D60037572B /* FMDatabaseAdditions.m */,
+				1B205B711D8284D60037572B /* FMDatabasePool.h */,
+				1B205B721D8284D60037572B /* FMDatabasePool.m */,
+				1B205B731D8284D60037572B /* FMDatabaseQueue.h */,
+				1B205B741D8284D60037572B /* FMDatabaseQueue.m */,
+				1B205B751D8284D60037572B /* FMDB.h */,
+				1B205B761D8284D60037572B /* FMResultSet.h */,
+				1B205B771D8284D60037572B /* FMResultSet.m */,
+				1B205B781D8284D60037572B /* Info.plist */,
+			);
+			path = fmdb;
+			sourceTree = "<group>";
+		};
 		1B3312221D740F1500E77741 /* AppListController */ = {
 			isa = PBXGroup;
 			children = (
@@ -4010,6 +4047,7 @@
 		1B5585561D34CB4E00DCD3A0 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				1B205B6C1D8284D60037572B /* fmdb */,
 				1B4DCF471D766B39004BA3C4 /* REFrostedViewController */,
 				1B47D6D31D6C3E8000837BFD /* JSPath */,
 				04B0D7271D698E8700BAD522 /* ReactiveCocoa */,
@@ -5625,6 +5663,7 @@
 				04FE7CCC1D3670AD00362702 /* LeftMenuController.xib in Resources */,
 				1B89FF6D1D4F50BF00466F6D /* TaskListCell.xib in Resources */,
 				1BD8722B1D38DD6C0074CDC7 /* BushSearchCell.xib in Resources */,
+				1B205B7E1D8284D60037572B /* Info.plist in Resources */,
 				1B381E031D6ED7AB00644147 /* VoiceSearchFeedback007@2x.png in Resources */,
 				1B6D165F1D48A8D00070D2E5 /* login_line.png in Resources */,
 				1B381E061D6ED7AB00644147 /* VoiceSearchFeedback009.png in Resources */,
@@ -5979,6 +6018,7 @@
 				1B47D7751D6C3E8000837BFD /* ioapi.c in Sources */,
 				1B03886B1D50810C00D0B7D0 /* TaskDetailController.m in Sources */,
 				1BF3FD291D5B01DD00026351 /* AttachMusicCell.m in Sources */,
+				1B205B7D1D8284D60037572B /* FMResultSet.m in Sources */,
 				04B0D8031D698E8800BAD522 /* NSDictionary+RACSequenceAdditions.m in Sources */,
 				1B36FCDB1D35EC96006694E4 /* TaskView.m in Sources */,
 				04B0D7FF1D698E8800BAD522 /* EXTRuntimeExtensions.m in Sources */,
@@ -6012,6 +6052,7 @@
 				1B18B3301D59A6C100858C83 /* SelectAdressController.m in Sources */,
 				1B47D7561D6C3E8000837BFD /* darwin64_x86_64.S in Sources */,
 				1B4DCF561D766B39004BA3C4 /* REFrostedViewController.m in Sources */,
+				1B205B791D8284D60037572B /* FMDatabase.m in Sources */,
 				1B5585BA1D34F7FB00DCD3A0 /* MainBusinessController.m in Sources */,
 				049CDF951D4F896D00F8890F /* TaskUpdateController.m in Sources */,
 				1B18B3311D59A6C100858C83 /* SelectAdressTableCell.m in Sources */,
@@ -6175,6 +6216,7 @@
 				1B89FFA21D4F542900466F6D /* TaskRemindCell.m in Sources */,
 				04B0D83A1D698E8800BAD522 /* RACSignalSequence.m in Sources */,
 				1BDFB7FE1D58329A00D13BC7 /* IQUIView+Hierarchy.m in Sources */,
+				1B205B7B1D8284D60037572B /* FMDatabasePool.m in Sources */,
 				1BED8BF81D517C8900340809 /* TaskFileImageCell.m in Sources */,
 				1BEAD2E71D62A8D200B8C3FD /* CityController.m in Sources */,
 				1B6D160E1D4853930070D2E5 /* XYFAnimateLabel.m in Sources */,
@@ -6294,6 +6336,7 @@
 				1B47D7511D6C3E8000837BFD /* sysv_armv7.S in Sources */,
 				04B0D80A1D698E8800BAD522 /* NSObject+RACDescription.m in Sources */,
 				1BD872221D38C8010074CDC7 /* UpdateBushController.m in Sources */,
+				1B205B7A1D8284D60037572B /* FMDatabaseAdditions.m in Sources */,
 				1B6D16021D4846E60070D2E5 /* PushMessageController.m in Sources */,
 				046DAF681D4C3EB500718F2A /* MeetingAgendaTitle.m in Sources */,
 				0495861E1D39D3A500544259 /* SigleSelectCell.m in Sources */,
@@ -6330,6 +6373,7 @@
 				04B0D82A1D698E8800BAD522 /* RACKVOChannel.m in Sources */,
 				04B0D84F1D698E8800BAD522 /* UIDatePicker+RACSignalSupport.m in Sources */,
 				1B18B31E1D59A67D00858C83 /* SelectImageController.m in Sources */,
+				1B205B7C1D8284D60037572B /* FMDatabaseQueue.m in Sources */,
 				1B47D7691D6C3E8000837BFD /* JPNumber.m in Sources */,
 				1B47D7621D6C3E8000837BFD /* JPCoreGraphics.m in Sources */,
 				0482FBF11D436FE500B1CBB2 /* MANaviAnnotationView.m in Sources */,

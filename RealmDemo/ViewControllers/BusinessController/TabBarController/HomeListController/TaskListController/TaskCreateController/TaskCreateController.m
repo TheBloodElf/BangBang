@@ -63,6 +63,7 @@
         _taskModel.user_guid = _userManager.user.user_guid;
         _taskModel.avatar = _userManager.user.avatar;
         _taskModel.company_no = _userManager.user.currCompany.company_no;
+        _taskModel.descriptionStr = @"";
     }
     
     //创建表格视图

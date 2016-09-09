@@ -217,7 +217,6 @@
         rose.index = (int)index;
         rose.photoArr = photos;
         [self.navigationController pushViewController:rose animated:YES];
-        
     }];
     //文件下载
     [_bridge registerHandler:@"fileDownloadObj" handler:^(id data,WVJBResponseCallback responseCallback){

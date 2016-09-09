@@ -107,6 +107,13 @@
             //其他的不用管
         }
     } else if ([message.type isEqualToString:@"TASK"]) {//任务推送
+        //因为任务发送给你和任务状态改变都是一样的action=GENERAL，所以这里我们这里要看本地是否有数据来判断是不是新添加的任务 以此来判断是否需要发送更新通知
+        for (TaskModel *taskModel in [_userManager getTaskArr:message.company_no]) {
+            if(message.target_id.intValue == taskModel.id) {
+                 [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadTaskInfo" object:message];
+                break;
+            }
+        }
         //获取任务详情 弹窗
         [UserHttp getTaskInfo:message.target_id.intValue handler:^(id data, MError *error) {
             if(error) {
@@ -121,10 +128,10 @@
             task.data = taskModel;
             [self.navigationController pushViewController:task animated:YES];
         }];
-    } else if([message.type isEqualToString:@"WORKTIP"]){//上下班提醒
-        
     } else if([message.type isEqualToString:@"TASK_COMMENT_STATUS"]){//任务评论推送
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadTaskInfo" object:message];
+    } else if([message.type isEqualToString:@"WORKTIP"]){//上下班提醒
+        
     } else if([message.type isEqualToString:@"TASKTIP"]) { //任务提醒推送 进入任务详情
         for (TaskModel *taskModel in [_userManager getTaskArr:message.company_no]) {
             if(message.target_id.intValue == taskModel.id) {

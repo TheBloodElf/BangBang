@@ -202,9 +202,9 @@
             [self.navigationController.view showFailureTips:error.statsMsg];
             return ;
         }
-        _taskDetailView.data = _taskModel;
         _taskModel = [task deepCopy];
         _taskModel.status = 2;
+        _taskDetailView.data = _taskModel;
         [_userManager upadteTask:_taskModel];
     }];
 }
@@ -218,9 +218,9 @@
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
-            _taskDetailView.data = _taskModel;
             _taskModel = [task deepCopy];
             _taskModel.status = 8;
+            _taskDetailView.data = _taskModel;
             [_userManager upadteTask:_taskModel];
         }];
     };
@@ -239,9 +239,9 @@
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
-            _taskDetailView.data = _taskModel;
             _taskModel = [task deepCopy];
             _taskModel.status = 6;
+            _taskDetailView.data = _taskModel;
             [_userManager upadteTask:_taskModel];
         }];
     };
@@ -260,9 +260,9 @@
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
-            _taskDetailView.data = _taskModel;
             _taskModel = [task deepCopy];
             _taskModel.status = 7;
+            _taskDetailView.data = _taskModel;
             [_userManager upadteTask:_taskModel];
         }];
     };
@@ -281,9 +281,9 @@
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
-            _taskDetailView.data = _taskModel;
             _taskModel = [task deepCopy];
             _taskModel.status = 4;
+            _taskDetailView.data = _taskModel;
             [_userManager upadteTask:_taskModel];
         }];
     };

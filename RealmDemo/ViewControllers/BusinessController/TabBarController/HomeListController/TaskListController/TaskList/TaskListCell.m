@@ -48,7 +48,7 @@
     //任务标题
     self.taskDestr.text = model.task_name;
     //任务创建时间
-    NSDate *createDate = [NSDate dateWithTimeIntervalSince1970:model.createdon_utc / 1000];
+    NSDate *createDate = [NSDate dateWithTimeIntervalSince1970:model.begindate_utc / 1000];
     self.taskCreateTime.text = [NSString stringWithFormat:@"%d-%02ld-%02ld %02ld:%02ld",createDate.year,createDate.month,createDate.day,createDate.hour,createDate.minute];
     //是否有消息 是不是创建者
     Employee *employee = [[UserManager manager] getEmployeeWithGuid:[UserManager manager].user.user_guid companyNo:model.company_no];

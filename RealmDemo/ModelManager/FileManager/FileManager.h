@@ -26,4 +26,5 @@
 - (NSArray*)fileUrlArr;
 //文件属于哪种类型 0文档 1视频 2相册 3音乐 4其他
 - (int)fileType:(NSString*)fileName;
+
 @end

@@ -53,7 +53,6 @@
 
 - (void)dataDidChange {
     _taskModel = self.data;
-    [_tableView reloadData];
     //判断自己是否有操作按钮
     BOOL haveOpertion = NO;
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_taskModel.company_no];
@@ -74,6 +73,7 @@
     } else {
         _tableView.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, self.frame.size.height);
     }
+    [_tableView reloadData];
 }
 #pragma mark -- TaskDetailBottomOpDelegate
 //接收

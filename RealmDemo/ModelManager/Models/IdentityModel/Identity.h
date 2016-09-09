@@ -12,14 +12,14 @@
 @property (nonatomic, copy) NSString *user_guid;
 //是不是第一次使用软件
 @property (nonatomic, assign) BOOL firstUseSoft;
+//是否需要迁移数据
+@property (nonatomic, assign) BOOL needLoadOldData;
+//上一次软件的版本号
+@property (nonatomic, strong) NSString *lastSoftVersion;
 //请求接口的token
 @property (nonatomic, copy) NSString *accessToken;
 //连接融云的token
 @property (nonatomic, copy) NSString *RYToken;
-//七牛SDK连接的token
-@property (nonatomic, copy) NSString *QNToken;
-//应用的Guid 上传图片时候用
-@property (nonatomic, copy) NSString *appGuid;
 //推送的设备标示符号
 @property (nonatomic, copy) NSString *deviceIDAPNS;
 //新消息来了是否播放声音
