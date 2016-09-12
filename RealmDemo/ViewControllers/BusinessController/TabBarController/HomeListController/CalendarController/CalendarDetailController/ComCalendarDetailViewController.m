@@ -112,7 +112,7 @@
         //status 状态0-已删除，1-正常，2-已完成
         _calendar.status = 0;
         [self.navigationController.view showLoadingTips:@""];
-        [UserHttp updateUserCalendar:_calendar handler:^(id data, MError *error) {
+        [UserHttp deleteUserCalendar:_calendar.id handler:^(id data, MError *error) {
             [self.navigationController.view dismissTips];
             if(error) {
                 [self.navigationController.view showFailureTips:error.statsMsg];

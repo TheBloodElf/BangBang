@@ -379,6 +379,17 @@
     };
     return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
 }
+//删除日程
++ (NSURLSessionDataTask*)deleteUserCalendar:(int64_t)eventId handler:(completionHandler)handler {
+    NSString *urlPath = @"Calendars/delete";
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:@(eventId) forKey:@"event_id"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
 //添加日程完成时间
 + (NSURLSessionDataTask*)addCalendarFinishDate:(int64_t)eventID finishDate:(int64_t)finishDate handler:(completionHandler)handler {
     NSString *urlPath = @"Calendars/add_finish_date_v3";

@@ -79,6 +79,8 @@
 + (NSURLSessionDataTask*)createUserCalendar:(Calendar*)calendar handler:(completionHandler)handler;
 //修改日程
 + (NSURLSessionDataTask*)updateUserCalendar:(Calendar*)calendar handler:(completionHandler)handler;
+//删除日程
++ (NSURLSessionDataTask*)deleteUserCalendar:(int64_t)eventId handler:(completionHandler)handler;
 //添加日程完成时间
 + (NSURLSessionDataTask*)addCalendarFinishDate:(int64_t)eventID finishDate:(int64_t)finishDate handler:(completionHandler)handler;
 //添加日程删除时间
