@@ -58,7 +58,7 @@
     _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [_tableView registerNib:[UINib nibWithNibName:@"CalenderEventTableViewCell" bundle:nil] forCellReuseIdentifier:@"CalenderEventTableViewCell"];
     [self.view addSubview:_tableView];
-     [self searchTextFromLoc];
+    [self searchTextFromLoc];
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -77,34 +77,15 @@
             if(![NSString isBlank:_searchBar.text])
                 if([tempCalendar.event_name rangeOfString:_searchBar.text].location == NSNotFound) continue;
             if(tempCalendar.repeat_type == 0) {//如果是不重复的日程
-                //先把今天加上
-                NSDate *startTimeTemp = [NSDate dateWithTimeIntervalSince1970:tempCalendar.begindate_utc / 1000];
-                if([dateCalendarDic.allKeys containsObject:startTimeTemp]) {//如果已经有这个值了
-                    //是否初始化了对应的value
-                    if(dateCalendarDic[startTimeTemp]) {
-                        [dateCalendarDic[startTimeTemp] addObject:tempCalendar];
-                    } else {
-                        [dateCalendarDic setObject:[@[tempCalendar] mutableCopy] forKey:startTimeTemp];
-                    }
-                } else {//没有这个值就设置一个键值对
-                    [dateCalendarDic setObject:[@[tempCalendar] mutableCopy] forKey:startTimeTemp];
-                }
-                if(tempCalendar.is_over_day == YES) {//如果是跨天的日程就要循环获取时间
-                    do {
-                        //加一天时间再判断
-                        startTimeTemp = [startTimeTemp dateByAddingTimeInterval:24 * 60 * 60];
-                        if([dateCalendarDic.allKeys containsObject:startTimeTemp]) {//如果已经有这个值了
-                            //是否初始化了对应的value
-                            if(dateCalendarDic[startTimeTemp]) {
-                                [dateCalendarDic[startTimeTemp] addObject:tempCalendar];
-                            } else {
-                                [dateCalendarDic setObject:[@[tempCalendar] mutableCopy] forKey:startTimeTemp];
-                            }
-                        } else {//没有这个值就设置一个键值对
-                            [dateCalendarDic setObject:[@[tempCalendar] mutableCopy] forKey:startTimeTemp];
-                        }
-                    } while (tempCalendar.enddate_utc >= ([startTimeTemp timeIntervalSince1970] + 24 * 60 * 60) * 1000);
-                }
+                 for (int64_t startTime = tempCalendar.begindate_utc; startTime <= tempCalendar.enddate_utc; startTime += (24 * 60 * 60 * 1000)) {
+                     NSDate *startTimeTemp = [NSDate dateWithTimeIntervalSince1970:startTime / 1000];
+                     //是否初始化了对应的value
+                     if(dateCalendarDic[startTimeTemp]) {
+                         [dateCalendarDic[startTimeTemp] addObject:tempCalendar];
+                     } else {
+                         [dateCalendarDic setObject:[@[tempCalendar] mutableCopy] forKey:startTimeTemp];
+                     }
+                 }
             } else {//如果是重复的日程
                 if(tempCalendar.rrule.length > 0 && tempCalendar.r_begin_date_utc>0 && tempCalendar.r_end_date_utc > 0) {
                     Scheduler * s = [[Scheduler alloc] initWithDate:[NSDate dateWithTimeIntervalSince1970:tempCalendar.begindate_utc/1000] andRule:tempCalendar.rrule];
@@ -114,35 +95,36 @@
                     for (NSDate *tempDate in occurences) {
                         if([tempDate timeIntervalSince1970] < tempCalendar.r_begin_date_utc/1000) {
                             continue;
-                        } else if ([tempCalendar haveDeleteDate:tempDate]) {//删除的不管
+                        }
+                        if(tempCalendar.status == 2) {//如果是完成的 就全部完成
+                            //加入所有事件字典
+                            if(dateCalendarDic[tempDate]) {
+                                [dateCalendarDic[tempDate] addObject:tempCalendar];
+                            } else {
+                                [dateCalendarDic setObject:[@[tempCalendar] mutableCopy] forKey:tempDate];
+                            }
                             continue;
-                        } else if([tempCalendar haveFinishDate:tempDate]) {//完成的就要改变状态后再加
+                        }
+                        if ([tempCalendar haveDeleteDate:tempDate])//删除的不管
+                            continue;
+                        if([tempCalendar haveFinishDate:tempDate]) {//完成的就要改变状态后再加
                             Calendar *calendar = [tempCalendar deepCopy];
                             calendar.status = 2;
-                            if([dateCalendarDic.allKeys containsObject:tempDate]) {//如果已经有这个值了
-                                //是否初始化了对应的value
-                                if(dateCalendarDic[tempDate]) {
-                                    [dateCalendarDic[tempDate] addObject:calendar];
-                                } else {
-                                    [dateCalendarDic setObject:[@[calendar] mutableCopy] forKey:tempDate];
-                                }
-                            } else {//没有这个值就设置一个键值对
+                            //是否初始化了对应的value
+                            if(dateCalendarDic[tempDate]) {
+                                [dateCalendarDic[tempDate] addObject:calendar];
+                            } else {
                                 [dateCalendarDic setObject:[@[calendar] mutableCopy] forKey:tempDate];
                             }
-
-                        }  else {//未完成的日程
-                            Calendar *calendar = [tempCalendar deepCopy];
-                            calendar.rdate = @(tempDate.timeIntervalSince1970).stringValue;//加上本次触发的时间
-                            if([dateCalendarDic.allKeys containsObject:tempDate]) {//如果已经有这个值了
-                                //是否初始化了对应的value
-                                if(dateCalendarDic[tempDate]) {
-                                    [dateCalendarDic[tempDate] addObject:calendar];
-                                } else {
-                                    [dateCalendarDic setObject:[@[calendar] mutableCopy] forKey:tempDate];
-                                }
-                            } else {//没有这个值就设置一个键值对
-                                [dateCalendarDic setObject:[@[calendar] mutableCopy] forKey:tempDate];
-                            }
+                            continue;
+                        } //未完成的日程
+                        Calendar *calendar = [tempCalendar deepCopy];
+                        calendar.rdate = @(tempDate.timeIntervalSince1970).stringValue;//加上本次触发的时间
+                        //是否初始化了对应的value
+                        if(dateCalendarDic[tempDate]) {
+                            [dateCalendarDic[tempDate] addObject:calendar];
+                        } else {
+                            [dateCalendarDic setObject:[@[calendar] mutableCopy] forKey:tempDate];
                         }
                     }
                 }

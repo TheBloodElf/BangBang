@@ -17,8 +17,9 @@
 #import "SelectImageController.h"
 #import "LookMemberController.h"
 #import "InputTextController.h"
+#import "TaskDiscussSelectPersonController.h"
 
-@interface TaskDetailController ()<TaskDetailDelegate,TaskFileDelegate,SelectImageDelegate,UIDocumentInteractionControllerDelegate> {
+@interface TaskDetailController ()<TaskDetailDelegate,TaskFileDelegate,SelectImageDelegate,UIDocumentInteractionControllerDelegate,TaskDiscussDelegate,TaskDiscussSelectPersonDelegate> {
     TaskModel *_taskModel;//要展示的任务模型
     UserManager *_userManager;
     
@@ -67,6 +68,7 @@
     [self.bottomScrollView addSubview:_taskDetailView];
     _taskDiscussView = [[TaskDiscussView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 150 - 64)];
     _taskDiscussView.data = _taskModel;
+    _taskDiscussView.delegate = self;
     [self.bottomScrollView addSubview:_taskDiscussView];
     _taskFileView = [[TaskFileView alloc] initWithFrame:CGRectMake(2 *MAIN_SCREEN_WIDTH, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 150 - 64)];
     _taskFileView.delegate = self;
@@ -192,6 +194,20 @@
             }
         }];
     }
+}
+#pragma mark -- TaskDiscussSelectPersonDelegate
+- (void)taskDiscussSelectPerson:(Employee*)employee {
+    [_taskDiscussView setEmployee:employee];
+}
+- (void)taskDiscussSelectCancle {
+    [_taskDiscussView selectCancle];
+}
+#pragma makr -- TaskDiscussDelegate
+- (void)taskDiscussSelectPersion{
+    TaskDiscussSelectPersonController *taskSelect = [TaskDiscussSelectPersonController new];
+    taskSelect.data = _taskModel;
+    taskSelect.delegate = self;
+    [self.navigationController pushViewController:taskSelect animated:YES];
 }
 #pragma mark -- TaskDetailDelegate
 //接收

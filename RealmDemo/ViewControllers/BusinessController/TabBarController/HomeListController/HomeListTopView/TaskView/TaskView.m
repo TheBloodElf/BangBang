@@ -32,6 +32,7 @@
     LineProgressLayer *rightThirdLayer;//右边第三层
     
     NSTimer *_dateTimer;//定时器 用于每天早上更新内容
+    NSDate *_updateDate;
 }
 //左边视图
 @property (weak, nonatomic) IBOutlet UIView *leftView;
@@ -50,10 +51,9 @@
 @implementation TaskView
 
 - (void)setupUI {
+    _updateDate = [NSDate date];
     self.userInteractionEnabled = YES;
-    //算出距离明天早上还有多少秒
-    int second = [NSDate date].lastTime.timeIntervalSince1970 - [NSDate date].timeIntervalSince1970 + 10;
-    _dateTimer = [NSTimer scheduledTimerWithTimeInterval:second target:self selector:@selector(updateCalendar:) userInfo:nil repeats:NO];
+    _dateTimer = [NSTimer scheduledTimerWithTimeInterval:60 * 60 target:self selector:@selector(updateCalendar:) userInfo:nil repeats:YES];
     _userManager = [UserManager manager];
     _userFetchedResultsController = [_userManager createUserFetchedResultsController];
     _userFetchedResultsController.delegate = self;
@@ -67,9 +67,8 @@
     [_userManager addTaskNotfition];
 }
 - (void)updateCalendar:(NSTimer*)timer {
-    //算出距离明天早上还有多少秒
-    int second = [NSDate date].lastTime.timeIntervalSince1970 - [NSDate date].timeIntervalSince1970 + 10;
-    _dateTimer = [NSTimer scheduledTimerWithTimeInterval:second target:self selector:@selector(updateCalendar:) userInfo:nil repeats:NO];
+    if([NSDate date].day == _updateDate.day) return;
+    _updateDate = [NSDate date];
     //给这几个数字填充值
     [self getCurrCount];
     [_userManager addTaskNotfition];

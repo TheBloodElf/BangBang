@@ -26,6 +26,7 @@
     RBQFetchedResultsController *_calendarFetchedResultsController;
     
     NSTimer *_dateTimer;
+    NSDate *_updateDate;
 }
 @property (weak, nonatomic) IBOutlet UIButton *todayFinish;
 @property (weak, nonatomic) IBOutlet UILabel *todayNoFinish;
@@ -44,9 +45,9 @@
 
 - (void)setupUI {
     self.userInteractionEnabled = YES;
+    _updateDate = [NSDate date];
     //算出距离明天早上还有多少秒
-    int second = [NSDate date].lastTime.timeIntervalSince1970 - [NSDate date].timeIntervalSince1970 + 10;
-    _dateTimer = [NSTimer scheduledTimerWithTimeInterval:second target:self selector:@selector(updateCalendar:) userInfo:nil repeats:NO];
+    _dateTimer = [NSTimer scheduledTimerWithTimeInterval:60 * 60 target:self selector:@selector(updateCalendar:) userInfo:nil repeats:YES];
     _userManager = [UserManager manager];
     _calendarFetchedResultsController = [_userManager createCalendarFetchedResultsController];
     _calendarFetchedResultsController.delegate = self;
@@ -57,10 +58,8 @@
     [_userManager addCalendarNotfition];
 }
 - (void)updateCalendar:(NSTimer*)timer {
-    //算出距离明天早上还有多少秒
-    int second = [NSDate date].lastTime.timeIntervalSince1970 - [NSDate date].timeIntervalSince1970 + 10;
-    _dateTimer = [NSTimer scheduledTimerWithTimeInterval:second target:self selector:@selector(updateCalendar:) userInfo:nil repeats:NO];
-    NSLog(@"新的一天开始了，帮帮也要开始忙碌了！");
+    if([NSDate date].day == _updateDate.day) return;
+    _updateDate = [NSDate date];
     //给这几个数字填充值
     [self getCurrCount];
     //添加动画

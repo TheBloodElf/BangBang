@@ -236,6 +236,7 @@
 		04FE7CCF1D36725A00362702 /* menu_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 04FE7CCE1D36725A00362702 /* menu_background.png */; };
 		04FE7CD41D367CE000362702 /* LeftMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FE7CD21D367CE000362702 /* LeftMenuCell.m */; };
 		04FE7CD51D367CE000362702 /* LeftMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04FE7CD31D367CE000362702 /* LeftMenuCell.xib */; };
+		1B0124261D86461600A4F0C1 /* TaskDiscussSelectPersonController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0124251D86461600A4F0C1 /* TaskDiscussSelectPersonController.m */; };
 		1B0388661D5074BF00D0B7D0 /* TaskAttenmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0388641D5074BF00D0B7D0 /* TaskAttenmentCell.m */; };
 		1B0388671D5074BF00D0B7D0 /* TaskAttenmentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B0388651D5074BF00D0B7D0 /* TaskAttenmentCell.xib */; };
 		1B03886B1D50810C00D0B7D0 /* TaskDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0388691D50810C00D0B7D0 /* TaskDetailController.m */; };
@@ -1252,6 +1253,8 @@
 		04FE7CD11D367CE000362702 /* LeftMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftMenuCell.h; sourceTree = "<group>"; };
 		04FE7CD21D367CE000362702 /* LeftMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftMenuCell.m; sourceTree = "<group>"; };
 		04FE7CD31D367CE000362702 /* LeftMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeftMenuCell.xib; sourceTree = "<group>"; };
+		1B0124241D86461600A4F0C1 /* TaskDiscussSelectPersonController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskDiscussSelectPersonController.h; sourceTree = "<group>"; };
+		1B0124251D86461600A4F0C1 /* TaskDiscussSelectPersonController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskDiscussSelectPersonController.m; sourceTree = "<group>"; };
 		1B0388631D5074BF00D0B7D0 /* TaskAttenmentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskAttenmentCell.h; sourceTree = "<group>"; };
 		1B0388641D5074BF00D0B7D0 /* TaskAttenmentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskAttenmentCell.m; sourceTree = "<group>"; };
 		1B0388651D5074BF00D0B7D0 /* TaskAttenmentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskAttenmentCell.xib; sourceTree = "<group>"; };
@@ -4671,6 +4674,8 @@
 				1BED8C221D51C6E900340809 /* InputTextController.m */,
 				1BED8C0C1D518A0400340809 /* LookMemberController.h */,
 				1BED8C0D1D518A0400340809 /* LookMemberController.m */,
+				1B0124241D86461600A4F0C1 /* TaskDiscussSelectPersonController.h */,
+				1B0124251D86461600A4F0C1 /* TaskDiscussSelectPersonController.m */,
 				1B03886D1D508F3B00D0B7D0 /* TaskDetailView */,
 				1B03886E1D508F3B00D0B7D0 /* TaskDiscussView */,
 				1B03886F1D508F3B00D0B7D0 /* TaskFileView */,
@@ -6144,6 +6149,7 @@
 				1BD871EA1D38AE200074CDC7 /* CreateBushController.m in Sources */,
 				75E5FF801D27D68C00F77961 /* Identity.m in Sources */,
 				1B18B3161D59A67D00858C83 /* BigPhotoSelectController.m in Sources */,
+				1B0124261D86461600A4F0C1 /* TaskDiscussSelectPersonController.m in Sources */,
 				1B52FCB01D77C49000AB2859 /* UIView+hotView.m in Sources */,
 				1B3312261D740F5A00E77741 /* AppListController.m in Sources */,
 				1B18B3131D59A67D00858C83 /* AvaterBroseController.m in Sources */,

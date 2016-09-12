@@ -7,7 +7,6 @@
 //
 
 #import "TaskDiscussView.h"
-#import "UserManager.h"
 #import "UserHttp.h"
 #import "TaskModel.h"
 #import "TaskCommentModel.h"
@@ -22,6 +21,8 @@
     UIView *_bottomView;//下面的操作视图
     NSMutableArray<TaskCommentModel *> *_taskCommentModelArr;//评论列表
     TaskCommentModel *_currCommentModel;//当前需要发送的评论
+    
+    NSRange _userSelectRange;//用户输入@时的位置
 }
 
 @end
@@ -109,8 +110,41 @@
             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:_taskCommentModelArr.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }];
 }
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    //如果用户想要@某人 就进入选择界面
+    if([string isEqualToString:@"@"]) {
+        _userSelectRange = range;
+        if(self.delegate && [self.delegate respondsToSelector:@selector(taskDiscussSelectPersion)]) {
+            [self.delegate taskDiscussSelectPersion];
+        }
+        [textField resignFirstResponder];
+        return NO;
+    }
+    return YES;
+}
+//选择@的人
+- (void)setEmployee:(Employee*)employee {
+    UIView *whiteView = [_bottomView viewWithTag:1001];
+    UIButton *nameBtn = [whiteView viewWithTag:1002];
+    UITextField *textField = [whiteView viewWithTag:1003];
+    UIButton *deleBtn = [nameBtn viewWithTag:1004];
+    //当前名字占的宽度
+    CGFloat width = [[NSString stringWithFormat:@"@%@",employee.user_real_name] textSizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(10000, 30)].width;
+    nameBtn.frame = CGRectMake(15, 0, width, 30);
+    deleBtn.frame = CGRectMake(width - 10, 0, 10, 10);
+    [nameBtn setTitle:[NSString stringWithFormat:@"@%@",employee.user_real_name] forState:UIControlStateNormal];
+    
+    textField.frame = CGRectMake(width + 15, 0, whiteView.frame.size.width - width - 15, 30);
+    _currCommentModel.reply_employeename = employee.user_real_name;
+    _currCommentModel.reply_employeeguid = employee.employee_guid;
+}
+- (void)selectCancle {
+    UIView *whiteView = [_bottomView viewWithTag:1001];
+    UITextField *textField = [whiteView viewWithTag:1003];
+    textField.text = [textField.text stringByReplacingCharactersInRange:NSMakeRange(_userSelectRange.location, 0) withString:@"@"];
+}
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [self endEditing:YES];
     if([NSString isBlank:textField.text]) return YES;
    //添加评论
     [UserHttp addTaskComment:_currCommentModel.task_id taskStatus:_currCommentModel.task_status comment:textField.text createdby:_currCommentModel.created_by createdRealname:_currCommentModel.created_realname repEmployeeGuid:_currCommentModel.reply_employeeguid repEmployeeName:_currCommentModel.reply_employeename handler:^(id data, MError *error) {
@@ -121,7 +155,6 @@
         textField.text = @"";
         self.data = _taskModel;
     }];
-
     return YES;
 }
 - (void)clearRepClicked:(UIButton*)btn {
