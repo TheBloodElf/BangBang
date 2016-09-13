@@ -296,7 +296,7 @@
     label.textColor = [UIColor whiteColor];
     label.textAlignment = NSTextAlignmentCenter;
     label.layer.cornerRadius = 9;
-    label.font = [UIFont systemFontOfSize:15];
+    label.font = [UIFont systemFontOfSize:13];
     label.clipsToBounds = YES;
     label.backgroundColor = [UIColor redColor];
     label.userInteractionEnabled = NO;

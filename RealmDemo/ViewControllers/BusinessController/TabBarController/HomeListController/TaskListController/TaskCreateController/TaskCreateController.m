@@ -127,6 +127,10 @@
     [self presentViewController:alertVC animated:YES completion:nil];
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
+    if(_taskModel.enddate_utc < ([NSDate date].timeIntervalSince1970 * 1000)) {
+        [self.navigationController showMessageTips:@"请选择正确的结束时间！"];
+        return;
+    }
     NSMutableArray<NSString*> *members = [@[] mutableCopy];
     for (Employee * employee in _memberArr) {
         [members addObject:employee.employee_guid];

@@ -9,7 +9,7 @@
 #import "TaskDetailCell.h"
 #import "TaskModel.h"
 //名称最长多少字符
-#define MAX_STARWORDS_LENGTH 30
+#define MAX_STARWORDS_LENGTH 500
 
 @interface TaskDetailCell ()<UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *taskDetail;

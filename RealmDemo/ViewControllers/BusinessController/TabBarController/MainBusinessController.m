@@ -111,7 +111,6 @@
         for (TaskModel *taskModel in [_userManager getTaskArr:message.company_no]) {
             if(message.target_id.intValue == taskModel.id) {
                  [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadTaskInfo" object:message];
-                break;
             }
         }
         //获取任务详情 弹窗
