@@ -117,4 +117,9 @@
     }
     [_tableView reloadData];
 }
+- (void)AMapSearchRequest:(id)request didFailWithError:(NSError *)error {
+    if(error.code == 1806) {
+        [self.navigationController.view showFailureTips:@"网络不可用，请连接网络"];
+    }
+}
 @end

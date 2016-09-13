@@ -164,6 +164,9 @@
             //发起行政区划查询
             [_search AMapWeatherSearch:request];
         }else {
+            if(error.code == 2) {
+                [self.navigationController.view showFailureTips:@"网络不可用，请连接网络"];
+            }
             self.weatherLabel.text = @"定位失败...";
         }
     }];
@@ -315,7 +318,7 @@
 - (IBAction)siginClicked:(id)sender {
     //看是否有签到规则
     if([_userManager getSiginRule:_userManager.user.currCompany.company_no].count == 0) {
-        [self.navigationController.view showMessageTips:@"无法签到，请管理员设置签到规则"];
+        [self.navigationController.view showMessageTips:@"管理员还未设置考勤点"];
         return;
     }
     UIStoryboard *story = [UIStoryboard storyboardWithName:@"MainStory" bundle:nil];

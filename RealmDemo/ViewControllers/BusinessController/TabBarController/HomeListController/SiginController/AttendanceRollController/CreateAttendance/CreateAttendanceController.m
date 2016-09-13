@@ -322,7 +322,7 @@
         textField.placeholder = @"修改签到点名称";
     }];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        ruleSet.name = [alertVC.textFields[0] text];
+        ruleSet.name = [alertVC.textFields[0] text] ?: ruleSet.name;
         [_currSiginRule.json_list_address_settings addObject:ruleSet];
         [_tableView reloadSections:[NSIndexSet indexSetWithIndex:3] withRowAnimation:UITableViewRowAnimationNone];
     }];
@@ -429,7 +429,7 @@
         return NO;
     }
     if(_currSiginRule.json_list_address_settings.count == 0) {
-        [self.navigationController.view showMessageTips:@"请选择地址"];
+        [self.navigationController.view showMessageTips:@"请设置办公地点"];
         return NO;
     }
     return YES;

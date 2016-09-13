@@ -87,6 +87,9 @@
             [self changeState:@"定位成功"];
             return;
         }
+        if(error.code == 2) {
+            [self.navigationController.view showFailureTips:@"网络不可用，请连接网络"];
+        }
         [self changeState:@"无法定位"];
     }];
 }

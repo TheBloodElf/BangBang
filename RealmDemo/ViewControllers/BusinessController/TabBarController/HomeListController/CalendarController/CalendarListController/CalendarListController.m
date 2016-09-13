@@ -78,7 +78,7 @@
                 if([tempCalendar.event_name rangeOfString:_searchBar.text].location == NSNotFound) continue;
             if(tempCalendar.repeat_type == 0) {//如果是不重复的日程
                  for (int64_t startTime = tempCalendar.begindate_utc; startTime <= tempCalendar.enddate_utc; startTime += (24 * 60 * 60 * 1000)) {
-                     NSDate *startTimeTemp = [NSDate dateWithTimeIntervalSince1970:startTime / 1000];
+                     NSDate *startTimeTemp = [NSDate dateWithTimeIntervalSince1970:startTime / 1000].lastTime;
                      //是否初始化了对应的value
                      if(dateCalendarDic[startTimeTemp]) {
                          [dateCalendarDic[startTimeTemp] addObject:tempCalendar];
@@ -96,12 +96,13 @@
                         if([tempDate timeIntervalSince1970] < tempCalendar.r_begin_date_utc/1000) {
                             continue;
                         }
+                        NSDate *tempDateTemp = tempDate.lastTime;
                         if(tempCalendar.status == 2) {//如果是完成的 就全部完成
                             //加入所有事件字典
-                            if(dateCalendarDic[tempDate]) {
-                                [dateCalendarDic[tempDate] addObject:tempCalendar];
+                            if(dateCalendarDic[tempDateTemp]) {
+                                [dateCalendarDic[tempDateTemp] addObject:tempCalendar];
                             } else {
-                                [dateCalendarDic setObject:[@[tempCalendar] mutableCopy] forKey:tempDate];
+                                [dateCalendarDic setObject:[@[tempCalendar] mutableCopy] forKey:tempDateTemp];
                             }
                             continue;
                         }
@@ -111,20 +112,20 @@
                             Calendar *calendar = [tempCalendar deepCopy];
                             calendar.status = 2;
                             //是否初始化了对应的value
-                            if(dateCalendarDic[tempDate]) {
-                                [dateCalendarDic[tempDate] addObject:calendar];
+                            if(dateCalendarDic[tempDateTemp]) {
+                                [dateCalendarDic[tempDateTemp] addObject:calendar];
                             } else {
-                                [dateCalendarDic setObject:[@[calendar] mutableCopy] forKey:tempDate];
+                                [dateCalendarDic setObject:[@[calendar] mutableCopy] forKey:tempDateTemp];
                             }
                             continue;
                         } //未完成的日程
                         Calendar *calendar = [tempCalendar deepCopy];
                         calendar.rdate = @(tempDate.timeIntervalSince1970).stringValue;//加上本次触发的时间
                         //是否初始化了对应的value
-                        if(dateCalendarDic[tempDate]) {
-                            [dateCalendarDic[tempDate] addObject:calendar];
+                        if(dateCalendarDic[tempDateTemp]) {
+                            [dateCalendarDic[tempDateTemp] addObject:calendar];
                         } else {
-                            [dateCalendarDic setObject:[@[calendar] mutableCopy] forKey:tempDate];
+                            [dateCalendarDic setObject:[@[calendar] mutableCopy] forKey:tempDateTemp];
                         }
                     }
                 }

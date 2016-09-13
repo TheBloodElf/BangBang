@@ -19,10 +19,9 @@
 @end
 
 @implementation SelectAttendanceWorkDay
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //先初始化第一个被选中
-    [self setSelectedAtIndex:0];
     // Do any additional setup after loading the view from its nib.
 }
 

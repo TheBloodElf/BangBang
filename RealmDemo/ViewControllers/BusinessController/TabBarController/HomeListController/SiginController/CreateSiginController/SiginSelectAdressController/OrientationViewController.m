@@ -74,7 +74,7 @@
     if (_setting && _category < 2) {
         //判断当前选择位置是否在圈内
         if(!MACircleContainsCoordinate(CLLocationCoordinate2DMake(_setting.latitude, _setting.longitude),CLLocationCoordinate2DMake(selectedPoi.location.latitude, selectedPoi.location.longitude),_currSiginRule.scope)){
-            [self.navigationController.view showMessageTips:@"你选取的签到点,离公司太远啦!"];
+            [self.navigationController.view showMessageTips:@"当前离签到点太远"];
             return;
         }
     }
@@ -126,6 +126,11 @@
     currentPOIAnnotation = [[POIAnnotation alloc] initWithPOI:[poiArray objectAtIndex:selectedRow]];
     [_mapView addAnnotation:currentPOIAnnotation];
 
+}
+- (void)AMapSearchRequest:(id)request didFailWithError:(NSError *)error {
+    if(error.code == 1806) {
+        [self.navigationController.view showFailureTips:@"网络不可用，请连接网络"];
+    }
 }
 #pragma mark - TableViewDelegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

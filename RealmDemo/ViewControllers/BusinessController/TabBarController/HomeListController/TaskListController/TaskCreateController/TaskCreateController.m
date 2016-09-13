@@ -110,12 +110,12 @@
 }
 - (void)leftClicked:(UIBarButtonItem*)item {
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"保存为草稿?" message:nil preferredStyle:(UIAlertControllerStyleAlert)];
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"保存" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         TaskDraftModel *model = [[TaskDraftModel alloc] initWithJSONDictionary:_taskModel.JSONDictionary];
         [_userManager updateTaskDraft:model companyNo:_userManager.user.currCompany.company_no];
         [self.navigationController popViewControllerAnimated:YES];
     }];
-    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"不保存" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         NSMutableArray<TaskDraftModel*> *array = [_userManager getTaskDraftArr:_userManager.user.currCompany.company_no];
         for (TaskDraftModel *model in array) {
             [_userManager deleteTaskDraft:model];
@@ -151,6 +151,25 @@
     [UserHttp createTask:dicc handler:^(id data, MError *error) {
         if(error) {
             [self.navigationController.view dismissTips];
+            if(error.statsCode == -1009) {//没有网络可以保存到本地
+                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"网络不可用，保存为草稿?" message:nil preferredStyle:(UIAlertControllerStyleAlert)];
+                UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"保存" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    TaskDraftModel *model = [[TaskDraftModel alloc] initWithJSONDictionary:_taskModel.JSONDictionary];
+                    [_userManager updateTaskDraft:model companyNo:_userManager.user.currCompany.company_no];
+                    [self.navigationController popViewControllerAnimated:YES];
+                }];
+                UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"不保存" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    NSMutableArray<TaskDraftModel*> *array = [_userManager getTaskDraftArr:_userManager.user.currCompany.company_no];
+                    for (TaskDraftModel *model in array) {
+                        [_userManager deleteTaskDraft:model];
+                    }
+                    [self.navigationController popViewControllerAnimated:YES];
+                }];
+                [alertVC addAction:cancleAction];
+                [alertVC addAction:okAction];
+                [self presentViewController:alertVC animated:YES completion:nil];
+                return ;
+            }
             return ;
         }
         _taskModel = [[TaskModel alloc] initWithJSONDictionary:data];

@@ -228,6 +228,11 @@
         }
     }
 }
+- (void)AMapSearchRequest:(id)request didFailWithError:(NSError *)error {
+    if(error.code == 1806) {
+        [self.navigationController.view showFailureTips:@"网络不可用，请连接网络"];
+    }
+}
 - (void)setMapImageViewWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude {
     NSString *imageUrl = [NSString stringWithFormat:@"http://restapi.amap.com/v3/staticmap?location=%f,%f&zoom=15&size=300*300&markers=mid,,A:%f,%f&key=ee95e52bf08006f63fd29bcfbcf21df0",longitude,latitude,longitude,latitude];
     [self.currAdressImage sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"signin_position"]];
@@ -343,7 +348,7 @@
         //判断当前选择位置是否在圈内
         CGFloat distance = MAMetersBetweenMapPoints(MAMapPointForCoordinate(CLLocationCoordinate2DMake(_currPunchCardAddressSetting.latitude, _currPunchCardAddressSetting.longitude)),MAMapPointForCoordinate(CLLocationCoordinate2DMake(_currSignIn.latitude, _currSignIn.longitude)));
         if(distance > _currSiginRuleSet.scope){
-            [self.navigationController.view showMessageTips:@"当前位置离公司签到点太远啦!"];
+            [self.navigationController.view showMessageTips:@"当前离签到点太远"];
             return;
         }
         _currSignIn.distance = distance;
