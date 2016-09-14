@@ -16,6 +16,12 @@
     dispatch_once(&onceToken, ^{
         model = [ShareModel new];
         model.shareImage = @"";
+        model.shareUrl = @"";
+        model.shareText = @"";
+        model.shareToken = @"";
+        model.shareUserText = @"";
+        model.shareCompanyNo = @"";
+        model.shareUserGuid = @"";
     });
     return model;
 }

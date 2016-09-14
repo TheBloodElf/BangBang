@@ -22,6 +22,7 @@
 @end
 
 @implementation ShareViewController
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -34,7 +35,7 @@
     //获取inputItems，在这里itemProvider是你要分享的图片
     NSExtensionItem *firstItem = self.extensionContext.inputItems.firstObject;
     for (NSItemProvider *itemProvider in firstItem.attachments) {
-        //这里的kUTTypeURL代指网站链接，如在Safari中打开，则应该拷贝保存当前网页的链接
+        //是否有网址
         if ([itemProvider hasItemConformingToTypeIdentifier:(NSString *)kUTTypeURL]) {
             [itemProvider loadItemForTypeIdentifier:(NSString *)kUTTypeURL options:nil completionHandler:^(id<NSSecureCoding>  _Nullable item, NSError * _Null_unspecified error) {
                 if (!error) {
@@ -44,12 +45,21 @@
                 }
             }];
         }
+        //是否有文字
         if ([itemProvider hasItemConformingToTypeIdentifier:(NSString *)kUTTypeText]) {
             [itemProvider loadItemForTypeIdentifier:(NSString *)kUTTypeText options:nil completionHandler:^(id<NSSecureCoding>  _Nullable item, NSError * _Null_unspecified error) {
                 if (!error) {
                     //对itemProvider夹带着的图片进行解析
                     NSString *url = (NSString *)item;
                     model.shareText = url;
+                }
+            }];
+        }
+        //是否有图片
+        if ([itemProvider hasItemConformingToTypeIdentifier:(NSString *)kUTTypeData]) {
+            [itemProvider loadItemForTypeIdentifier:(NSString *)kUTTypeData options:nil completionHandler:^(id<NSSecureCoding>  _Nullable item, NSError * _Null_unspecified error) {
+                if (!error) {
+                    model.imageData = [NSData dataWithContentsOfFile:(NSString*)item];
                 }
             }];
         }

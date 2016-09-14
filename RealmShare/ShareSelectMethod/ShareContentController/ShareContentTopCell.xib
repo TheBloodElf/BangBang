@@ -28,7 +28,7 @@
                             <constraint firstAttribute="height" constant="1" id="LfP-4Y-EMq"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="内容内容" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lXZ-8Y-HNo">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="内容分享" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lXZ-8Y-HNo">
                         <rect key="frame" x="100" y="13" width="275" height="74"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="74" id="KGS-RV-GA8"/>
@@ -37,7 +37,7 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="appicon.png" translatesAutoresizingMaskIntoConstraints="NO" id="h1v-vv-vI2">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="appicon.png" translatesAutoresizingMaskIntoConstraints="NO" id="h1v-vv-vI2">
                         <rect key="frame" x="5" y="5" width="90" height="90"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="90" id="bZz-ZD-5Ey"/>
@@ -77,7 +77,7 @@
                 <outlet property="text" destination="Bwq-Rw-NL0" id="win-c9-jvZ"/>
                 <outlet property="title" destination="lXZ-8Y-HNo" id="i8m-nY-cwG"/>
             </connections>
-            <point key="canvasLocation" x="371" y="205"/>
+            <point key="canvasLocation" x="280" y="204"/>
         </tableViewCell>
     </objects>
     <resources>

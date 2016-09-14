@@ -13,7 +13,6 @@
 #import "SignIn.h"
 
 @interface UserHttp : NSObject
-//下载文件
 #pragma mark -- 上传图片
 //上传图片 得到地址 网页上传用的
 + (NSURLSessionDataTask*)updateImageGuid:(NSString*)guid image:(UIImage*)image handler:(completionHandler)handler;

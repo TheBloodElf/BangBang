@@ -22,11 +22,7 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
-    self.webView.hidden = YES;
-    [self.contentView addSubview:self.webView];
     self.text.delegate = self;
-    self.webView.delegate = self;
     [self setModel];
 }
 - (BOOL)textViewShouldEndEditing:(UITextView *)textView {
@@ -45,15 +41,24 @@
 {
     ShareModel *model = [ShareModel shareInstance];
     if([self isBlankStr:model.shareText])
-        model.shareText = @"分享内容";
+        model.shareText = @"内容分享";
     self.title.text = model.shareText;
     self.text.text = model.shareUserText;
     if([self isBlankStr:model.shareUserText])
         self.phLabel.hidden = NO;
     else
         self.phLabel.hidden = YES;
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:model.shareUrl]];
-    [self.webView loadRequest:request];
+    if(model.imageData)//如果有图片 就不用加载网页去取图片url
+        self.image.image = [UIImage imageWithData:model.imageData];
+    else {
+        if([self isBlankStr:model.shareUrl]) return;//没有图片 没有URL 就没有imageUrl
+        self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
+        self.webView.hidden = YES;
+        [self.contentView addSubview:self.webView];
+        self.webView.delegate = self;
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:model.shareUrl]];
+        [self.webView loadRequest:request];
+    }
 }
 - (BOOL)isBlankStr:(NSString*)str
 {
