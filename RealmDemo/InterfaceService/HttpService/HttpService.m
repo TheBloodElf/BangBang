@@ -11,8 +11,6 @@
 
 @implementation HttpService
 {
-    //检查网络是否连接
-    AFNetworkReachabilityManager *_reachabilityManager;
     //一般的网络请求服务
     AFHTTPSessionManager *_dataSessionManager;
     //上传文件
@@ -39,8 +37,6 @@ static HttpService * __singleton__;
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _reachabilityManager = [AFNetworkReachabilityManager sharedManager];
-        [_reachabilityManager startMonitoring];
         [self initManagers];
     }
     return self;

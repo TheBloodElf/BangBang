@@ -19,7 +19,7 @@
 #import "WebNonstandarViewController.h"
 #import "SiginController.h"
 
-@interface HomeListController ()<HomeListTopDelegate,HomeListBottomDelegate,RBQFetchedResultsControllerDelegate,NetWorkStatusChangeDelegate> {
+@interface HomeListController ()<HomeListTopDelegate,HomeListBottomDelegate,RBQFetchedResultsControllerDelegate> {
     UIScrollView *_scrollView;//整体的滚动视图
     HomeListTopView *_homeListTopView;//头部数据视图
     HomeListBottomView *_homeListBottomView;//底部的按钮视图
@@ -37,8 +37,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _userManager = [UserManager manager];
-    //监听网络变化 用来获取一些必要的信息
-    [RYChatManager shareInstance].netWorkDelegate = self;
+    //检查网络是否连接
+    AFNetworkReachabilityManager *reachabilityManager = [AFNetworkReachabilityManager sharedManager];
+    [reachabilityManager startMonitoring];
+    [reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        //这里进程序就会回调一次 所以可以在这里进行程序进入后加载所需要的最新数据 进入时加载必要的最新数据
+        if(status == -1 || status == 0) {
+            [self.navigationController.view showFailureTips:@"网络不可用，请连接网络"];
+            return;
+        }
+        if(_userManager.user.currCompany.company_no) {
+            //获取一次签到规则
+            [self getCompanySiginRule];
+            //获取任务
+            [self getCurrcompanyTasks];
+        }
+    }];
     //创建数据监听
     _userFetchedResultsController = [_userManager createUserFetchedResultsController];
     _userFetchedResultsController.delegate = self;
@@ -61,15 +75,6 @@
     [_scrollView addSubview:_homeListBottomView];
     _scrollView.contentSize = CGSizeMake(MAIN_SCREEN_WIDTH, CGRectGetMaxY(_homeListBottomView.frame));
     [self.view addSubview:_scrollView];
-    //在这里统一获取一些必须获取的值
-    if(_userManager.user.currCompany.company_no) {
-        //从服务器获取一次规则
-        [self getCompanySiginRule];
-        //当前圈子员工
-        [self getCurrcompanyEmployees];
-        //获取任务
-        [self getCurrcompanyTasks];
-    }
     //加上左边边界侧滑手势
     UIScreenEdgePanGestureRecognizer * screenEdgePanGesture = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(showLeftClicked:)];
     screenEdgePanGesture.edges = UIRectEdgeLeft;
@@ -85,20 +90,6 @@
 }
 - (void)showLeftClicked:(UIScreenEdgePanGestureRecognizer*)sepr {
     [self.navigationController.frostedViewController presentMenuViewController];
-}
-#pragma mark --
-#pragma mark -- NetWorkStatusChangeDelegate
-- (void)netWorkStatusChange:(RCConnectionStatus)status {
-    if(status == 3 || status == 4 || status == 5) {//2、3、4G或者WIFI下 获取一些重要的数据 就是尽量保证有数据的东西
-        if(_userManager.user.currCompany.company_no) {
-            //获取一次签到规则
-            [self getCompanySiginRule];
-            //当前圈子员工
-            [self getCurrcompanyEmployees];
-            //获取任务
-            [self getCurrcompanyTasks];
-        }
-    }
 }
 #pragma mark --
 #pragma mark -- RBQFetchedResultsControllerDelegate
@@ -128,8 +119,6 @@
             companyLabel.text = user.currCompany.company_name;
             //圈子变了 就要获取一次对应圈子的签到规则
             [self getCompanySiginRule];
-            //获取当前圈子的员工
-            [self getCurrcompanyEmployees];
             //获取任务
             [self getCurrcompanyTasks];
         }

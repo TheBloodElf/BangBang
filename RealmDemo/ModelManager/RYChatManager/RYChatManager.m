@@ -103,9 +103,9 @@
         case 31011:result = @"服务器断开连接。";break;
         default:result = @"其他状态。";break;
     }
-    if(self.netWorkDelegate && [self.netWorkDelegate respondsToSelector:@selector(netWorkStatusChange:)]) {
-        [self.netWorkDelegate netWorkStatusChange:status];
-    }
+//    if(self.netWorkDelegate && [self.netWorkDelegate respondsToSelector:@selector(netWorkStatusChange:)]) {
+//        [self.netWorkDelegate netWorkStatusChange:status];
+//    }
     if (status == ConnectionStatus_KICKED_OFFLINE_BY_OTHER_CLIENT) {
         [[IdentityManager manager] logOut];
         [[IdentityManager manager] showLogin:@"你的账号在其他设备上登录，请重新登录"];
