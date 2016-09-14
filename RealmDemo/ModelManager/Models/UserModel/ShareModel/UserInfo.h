@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+//这个是和today扩展统一的模型 目前只需要这些属性
 @interface UserInfo : NSObject
 
 /** 用户唯一编号 */

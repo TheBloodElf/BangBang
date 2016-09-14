@@ -23,4 +23,5 @@ MJExtensionCodingImplementation
     }
     return self;
 }
+
 @end

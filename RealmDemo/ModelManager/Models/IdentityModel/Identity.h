@@ -8,6 +8,7 @@
 
 //用来判断是否登录的 不存在数据库 归档处理
 @interface Identity : NSObject
+
 //当前登录的用户guid
 @property (nonatomic, copy) NSString *user_guid;
 //是不是第一次使用软件
@@ -34,4 +35,5 @@
 @property (nonatomic, strong) NSDate *ryDisturbBeginTime;
 //融云免打扰结束时间
 @property (nonatomic, strong) NSDate *ryDisturbEndTime;
+
 @end

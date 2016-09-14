@@ -17,9 +17,9 @@
 #import "BusinessController.h"
 
 @interface MainViewController () {
-    UIViewController *_welcome;//欢迎界面
-    UIViewController *_login;//登录界面
-    UIViewController *_business;//业务界面
+    WelcomeController *_welcome;//欢迎界面
+    LoginController *_login;//登录界面
+    BusinessController *_business;//业务界面
     NSUserDefaults * defaults;
 }
 @end

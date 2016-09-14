@@ -71,7 +71,7 @@
     [IdentityHttp getAccessTokenhandler:^(id data, MError *error) {
         if(error) {
             [self.navigationController dismissTips];
-            [self.navigationController.view showFailureTips:@"登录失败，请重试"];
+            [self.navigationController.view showFailureTips:error.statsMsg];
             return ;
         }
         NSString *accessToken = data[@"access_token"];
@@ -110,7 +110,7 @@
     [IdentityHttp getAccessTokenhandler:^(id data, MError *error) {
         [self.navigationController dismissTips];
         if(error) {
-            [self.navigationController.view showFailureTips:@"失败，请重试"];
+            [self.navigationController.view showFailureTips:error.statsMsg];
             return ;
         }
         NSString *accessToken = data[@"access_token"];
@@ -170,7 +170,7 @@
                     [IdentityHttp getAccessTokenhandler:^(id data, MError *error) {
                         if(error) {
                             [self.navigationController dismissTips];
-                            [self.navigationController.view showFailureTips:@"登录失败，请重试"];
+                            [self.navigationController.view showFailureTips:error.statsMsg];
                             return ;
                         }
                         NSString *accessToken = data[@"access_token"];
@@ -178,7 +178,7 @@
                         [_identityManager saveAuthorizeData];
                         //登录
                         [self.navigationController.view showLoadingTips:@"登录..."];
-                        [UserHttp socialLogin:unionId media_type:2 token:accessToken expires_in:expiresWeixin client_type:@"ios" name:userName avatar_url:userAvatar handler:^(id data, MError *error) {
+                        [IdentityHttp socialLogin:unionId media_type:2 token:accessToken expires_in:expiresWeixin client_type:@"ios" name:userName avatar_url:userAvatar handler:^(id data, MError *error) {
                             if(error) {
                                 [self.navigationController dismissTips];
                                 _identityManager.identity.user_guid = @"";
@@ -213,7 +213,7 @@
     long exptime = [[_tencentOAuth expirationDate] timeIntervalSinceDate:[NSDate date]];
     //    登录
     [self.navigationController.view showLoadingTips:@""];
-    [UserHttp socialLogin:[_tencentOAuth openId] media_type:1 token:[_tencentOAuth accessToken] expires_in:[NSString stringWithFormat:@"%ld",exptime] client_type:@"ios" name:name avatar_url:avatar handler:^(id data, MError *error) {
+    [IdentityHttp socialLogin:[_tencentOAuth openId] media_type:1 token:[_tencentOAuth accessToken] expires_in:[NSString stringWithFormat:@"%ld",exptime] client_type:@"ios" name:name avatar_url:avatar handler:^(id data, MError *error) {
         if(error) {
             [self.navigationController.view dismissTips];
             [self.navigationController.view showFailureTips:error.statsMsg];
@@ -256,14 +256,14 @@
             [IdentityHttp getAccessTokenhandler:^(id data, MError *error) {
                 if(error) {
                     [self.navigationController dismissTips];
-                    [self.navigationController.view showFailureTips:@"登录失败，请重试"];
+                    [self.navigationController.view showFailureTips:error.statsMsg];
                     return ;
                 }
                 NSString *accessToken = data[@"access_token"];
                 _identityManager.identity.accessToken = accessToken;
                 [_identityManager saveAuthorizeData];
                 //登录
-                [UserHttp socialLogin:user.userID media_type:3 token:accessTokenWeiBo expires_in:expiresWeiBo client_type:@"ios" name:user.name avatar_url:user.avatarLargeUrl handler:^(id data, MError *error) {
+                [IdentityHttp socialLogin:user.userID media_type:3 token:accessTokenWeiBo expires_in:expiresWeiBo client_type:@"ios" name:user.name avatar_url:user.avatarLargeUrl handler:^(id data, MError *error) {
                     if(error) {
                         [self.navigationController.view dismissTips];
                         [self.navigationController.view showFailureTips:error.statsMsg];
@@ -306,7 +306,7 @@
                 [self.navigationController dismissTips];
                 _identityManager.identity.user_guid = @"";
                 [_identityManager saveAuthorizeData];
-                [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
+                [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
             NSMutableArray *array = [@[] mutableCopy];
@@ -319,7 +319,7 @@
                     [self.navigationController dismissTips];
                     _identityManager.identity.user_guid = @"";
                     [_identityManager saveAuthorizeData];
-                    [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
+                    [self.navigationController.view showFailureTips:error.statsMsg];
                     return ;
                 }
                 for (NSDictionary *dic in data[@"list"]) {
@@ -333,7 +333,7 @@
                     if(error) {
                         _identityManager.identity.user_guid = @"";
                         [_identityManager saveAuthorizeData];
-                        [self.navigationController.view showFailureTips:@"登陆失败，请重试"];
+                        [self.navigationController.view showFailureTips:error.statsMsg];
                         return ;
                     }
                     _identityManager.identity.RYToken = data;

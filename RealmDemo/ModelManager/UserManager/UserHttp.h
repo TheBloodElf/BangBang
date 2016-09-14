@@ -16,9 +16,6 @@
 #pragma mark -- 上传图片
 //上传图片 得到地址 网页上传用的
 + (NSURLSessionDataTask*)updateImageGuid:(NSString*)guid image:(UIImage*)image handler:(completionHandler)handler;
-#pragma mark -- 社会化登录 
-//QQ = 1, WeChat = 2, Weibo = 3
-+ (NSURLSessionDataTask*)socialLogin:(NSString *)social_id media_type:(int)media_type token:(NSString *)token expires_in:(NSString *)expires_in client_type:(NSString *)client_type name:(NSString *)name avatar_url:(NSString *)avatar_url handler:(completionHandler)handler;
 #pragma mark -- 个推
 //绑定个推别名
 + (NSURLSessionDataTask*)setupAPNSDevice:(NSString*)clientId userNo:(int)userNo handler:(completionHandler)handler;

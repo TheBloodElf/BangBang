@@ -10,10 +10,13 @@
 #import "HttpService.h"
 
 @interface IdentityHttp : NSObject
+
 //获取accessToken
 + (NSURLSessionDataTask*)getAccessTokenhandler:(completionHandler)handler;
 //系统账号密码登陆
 + (NSURLSessionDataTask*)loginWithEmail:(NSString*)email password:(NSString*)password handler:(completionHandler)handler;
-//第三方登陆
-+ (NSURLSessionDataTask*)regWithphone:(NSString *)phone password:(NSString *)password confirm_password:(NSString *)confirm_password real_name:(NSString *)real_name captcha:(NSString *)captcha handler:(completionHandler)handler;
+//社会化登录
+//QQ = 1, WeChat = 2, Weibo = 3
++ (NSURLSessionDataTask*)socialLogin:(NSString *)social_id media_type:(int)media_type token:(NSString *)token expires_in:(NSString *)expires_in client_type:(NSString *)client_type name:(NSString *)name avatar_url:(NSString *)avatar_url handler:(completionHandler)handler;
+
 @end

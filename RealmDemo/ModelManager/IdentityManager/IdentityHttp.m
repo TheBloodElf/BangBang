@@ -28,22 +28,21 @@
     };
     return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:parameter completionHandler:compleionHandler];
 }
-//第三方登陆
-+ (NSURLSessionDataTask*)regWithphone:(NSString *)phone password:(NSString *)password confirm_password:(NSString *)confirm_password real_name:(NSString *)real_name captcha:(NSString *)captcha handler:(completionHandler)handler {
-    NSString *urlPath = @"Users/login";
+#pragma mark -- 社会化登录
++ (NSURLSessionDataTask*)socialLogin:(NSString *)social_id media_type:(int)media_type token:(NSString *)token expires_in:(NSString *)expires_in client_type:(NSString *)client_type name:(NSString *)name avatar_url:(NSString *)avatar_url handler:(completionHandler)handler {
+    NSString *urlPath = @"Users/social_login_new";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    [params setObject:phone forKey:@"phone"];
-    [params setObject:password forKey:@"password"];
-    [params setObject:confirm_password forKey:@"confirm_password"];
-    if (captcha) {
-        [params setObject:captcha forKey:@"captcha"];
-    }
-    [params setObject:@"iOS" forKey:@"client_type"];
-    real_name = [real_name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    [params setObject:real_name forKey:@"real_name"];
+    [params setObject:social_id forKey:@"social_id"];
+    [params setObject:@(media_type) forKey:@"media_type"];
+    [params setObject:token forKey:@"token"];
+    [params setObject:expires_in forKey:@"expires_in"];
+    [params setObject:client_type forKey:@"client_type"];
+    [params setObject:name forKey:@"name"];
+    [params setObject:avatar_url forKey:@"avatar_url"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
     completionHandler compleionHandler = ^(id data,MError *error) {
         handler(data,error);
     };
-    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_GET URLPath:urlPath parameters:params completionHandler:compleionHandler];
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
 }
 @end
