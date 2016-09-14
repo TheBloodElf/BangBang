@@ -59,6 +59,7 @@
 }
 - (void)updateCalendar:(NSTimer*)timer {
     if([NSDate date].day == _updateDate.day) return;
+    _todayFinishCount = _todayNoFinishCount = _weekFinishCount = _weekNoFinishCount = 0;
     _updateDate = [NSDate date];
     //给这几个数字填充值
     [self getCurrCount];

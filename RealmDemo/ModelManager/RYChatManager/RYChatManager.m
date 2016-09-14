@@ -13,7 +13,6 @@
 
 @implementation RYChatManager
 
-
 - (instancetype)init
 {
     self = [super init];
@@ -31,7 +30,6 @@
     static dispatch_once_t predicate;
     dispatch_once(&predicate, ^{
         instance = [[[self class] alloc] init];
-        
     });
     return instance;
 }
@@ -104,6 +102,9 @@
         case 31004:result = @"Token无效，可能是token错误，token过期或者后台刷新了密钥等原因。";break;
         case 31011:result = @"服务器断开连接。";break;
         default:result = @"其他状态。";break;
+    }
+    if(self.netWorkDelegate && [self.netWorkDelegate respondsToSelector:@selector(netWorkStatusChange:)]) {
+        [self.netWorkDelegate netWorkStatusChange:status];
     }
     if (status == ConnectionStatus_KICKED_OFFLINE_BY_OTHER_CLIENT) {
         [[IdentityManager manager] logOut];

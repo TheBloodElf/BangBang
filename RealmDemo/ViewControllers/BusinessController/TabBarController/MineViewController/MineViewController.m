@@ -35,6 +35,7 @@
     if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
+    self.tableView.contentInset = UIEdgeInsetsMake(-1, 0, 0, 0);
     _userManager = [UserManager manager];
     _userFetchedResultsController = [_userManager createUserFetchedResultsController];
     _userFetchedResultsController.delegate = self;

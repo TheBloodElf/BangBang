@@ -19,7 +19,7 @@
 #import "WebNonstandarViewController.h"
 #import "SiginController.h"
 
-@interface HomeListController ()<HomeListTopDelegate,HomeListBottomDelegate,RBQFetchedResultsControllerDelegate> {
+@interface HomeListController ()<HomeListTopDelegate,HomeListBottomDelegate,RBQFetchedResultsControllerDelegate,NetWorkStatusChangeDelegate> {
     UIScrollView *_scrollView;//整体的滚动视图
     HomeListTopView *_homeListTopView;//头部数据视图
     HomeListBottomView *_homeListBottomView;//底部的按钮视图
@@ -37,6 +37,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _userManager = [UserManager manager];
+    //监听网络变化 用来获取一些必要的信息
+    [RYChatManager shareInstance].netWorkDelegate = self;
     //创建数据监听
     _userFetchedResultsController = [_userManager createUserFetchedResultsController];
     _userFetchedResultsController.delegate = self;
@@ -60,28 +62,14 @@
     _scrollView.contentSize = CGSizeMake(MAIN_SCREEN_WIDTH, CGRectGetMaxY(_homeListBottomView.frame));
     [self.view addSubview:_scrollView];
     //在这里统一获取一些必须获取的值
-    //从服务器获取一次规则
-    [UserHttp getSiginRule:_userManager.user.currCompany.company_no handler:^(id data, MError *error) {
-        if(error) {
-            [self.navigationController.view showFailureTips:error.statsMsg];
-            return ;
-        }
-        NSMutableArray *array = [@[] mutableCopy];
-        for (NSDictionary *dic in data) {
-            NSMutableDictionary *dicDic = [dic mutableCopy];
-            dicDic[@"work_day"] = [dicDic[@"work_day"] componentsJoinedByString:@","];
-            SiginRuleSet *set = [[SiginRuleSet alloc] initWithJSONDictionary:dicDic];
-            //这里动态添加签到地址
-            RLMArray<PunchCardAddressSetting> *settingArr = [[RLMArray<PunchCardAddressSetting> alloc] initWithObjectClassName:@"PunchCardAddressSetting"];
-            for (NSDictionary *settingDic in dicDic[@"address_settings"]) {
-                PunchCardAddressSetting *setting = [[PunchCardAddressSetting alloc] initWithJSONDictionary:settingDic];
-                [settingArr addObject:setting];
-            }
-            set.json_list_address_settings = settingArr;
-            [array addObject:set];
-        }
-        [_userManager updateSiginRule:array companyNo:_userManager.user.currCompany.company_no];
-    }];
+    if(_userManager.user.currCompany.company_no) {
+        //从服务器获取一次规则
+        [self getCompanySiginRule];
+        //当前圈子员工
+        [self getCurrcompanyEmployees];
+        //获取任务
+        [self getCurrcompanyTasks];
+    }
     //加上左边边界侧滑手势
     UIScreenEdgePanGestureRecognizer * screenEdgePanGesture = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(showLeftClicked:)];
     screenEdgePanGesture.edges = UIRectEdgeLeft;
@@ -97,6 +85,20 @@
 }
 - (void)showLeftClicked:(UIScreenEdgePanGestureRecognizer*)sepr {
     [self.navigationController.frostedViewController presentMenuViewController];
+}
+#pragma mark --
+#pragma mark -- NetWorkStatusChangeDelegate
+- (void)netWorkStatusChange:(RCConnectionStatus)status {
+    if(status == 3 || status == 4 || status == 5) {//2、3、4G或者WIFI下 获取一些重要的数据 就是尽量保证有数据的东西
+        if(_userManager.user.currCompany.company_no) {
+            //获取一次签到规则
+            [self getCompanySiginRule];
+            //当前圈子员工
+            [self getCurrcompanyEmployees];
+            //获取任务
+            [self getCurrcompanyTasks];
+        }
+    }
 }
 #pragma mark --
 #pragma mark -- RBQFetchedResultsControllerDelegate
@@ -125,32 +127,83 @@
         else {
             companyLabel.text = user.currCompany.company_name;
             //圈子变了 就要获取一次对应圈子的签到规则
-            //从服务器获取一次规则
-            [UserHttp getSiginRule:_userManager.user.currCompany.company_no handler:^(id data, MError *error) {
-                if(error) {
-                    [self.navigationController.view showFailureTips:error.statsMsg];
-                    return ;
-                }
-                NSMutableArray *array = [@[] mutableCopy];
-                for (NSDictionary *dic in data) {
-                    NSMutableDictionary *dicDic = [dic mutableCopy];
-                    dicDic[@"work_day"] = [dicDic[@"work_day"] componentsJoinedByString:@","];
-                    SiginRuleSet *set = [[SiginRuleSet alloc] initWithJSONDictionary:dicDic];
-                    //这里动态添加签到地址
-                    RLMArray<PunchCardAddressSetting> *settingArr = [[RLMArray<PunchCardAddressSetting> alloc] initWithObjectClassName:@"PunchCardAddressSetting"];
-                    for (NSDictionary *settingDic in dicDic[@"address_settings"]) {
-                        PunchCardAddressSetting *setting = [[PunchCardAddressSetting alloc] initWithJSONDictionary:settingDic];
-                        [settingArr addObject:setting];
-                    }
-                    set.json_list_address_settings = settingArr;
-                    [array addObject:set];
-                }
-                [_userManager updateSiginRule:array companyNo:_userManager.user.currCompany.company_no];
-            }];
+            [self getCompanySiginRule];
+            //获取当前圈子的员工
+            [self getCurrcompanyEmployees];
+            //获取任务
+            [self getCurrcompanyTasks];
         }
     } else {//重新加一次上下班提醒
         [_userManager addSiginRuleNotfition];
     }
+}
+//获取圈子信息
+- (void)getCompanySiginRule {
+    [UserHttp getSiginRule:_userManager.user.currCompany.company_no handler:^(id data, MError *error) {
+        if(error) {
+            [self.navigationController.view showFailureTips:error.statsMsg];
+            return ;
+        }
+        NSMutableArray *array = [@[] mutableCopy];
+        for (NSDictionary *dic in data) {
+            NSMutableDictionary *dicDic = [dic mutableCopy];
+            dicDic[@"work_day"] = [dicDic[@"work_day"] componentsJoinedByString:@","];
+            SiginRuleSet *set = [[SiginRuleSet alloc] initWithJSONDictionary:dicDic];
+            //这里动态添加签到地址
+            RLMArray<PunchCardAddressSetting> *settingArr = [[RLMArray<PunchCardAddressSetting> alloc] initWithObjectClassName:@"PunchCardAddressSetting"];
+            for (NSDictionary *settingDic in dicDic[@"address_settings"]) {
+                PunchCardAddressSetting *setting = [[PunchCardAddressSetting alloc] initWithJSONDictionary:settingDic];
+                [settingArr addObject:setting];
+            }
+            set.json_list_address_settings = settingArr;
+            [array addObject:set];
+        }
+        [_userManager updateSiginRule:array companyNo:_userManager.user.currCompany.company_no];
+    }];
+}
+//获取当前圈子员工
+- (void)getCurrcompanyEmployees {
+    [UserHttp getEmployeeCompnyNo:_userManager.user.currCompany.company_no status:5 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+        if(error) {
+            [self.navigationController.view showFailureTips:error.statsMsg];
+            return ;
+        }
+        NSMutableArray *array = [@[] mutableCopy];
+        for (NSDictionary *dic in data[@"list"]) {
+            Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
+            [array addObject:employee];
+        }
+        [UserHttp getEmployeeCompnyNo:_userManager.user.currCompany.company_no status:0 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+            [self.navigationController.view dismissTips];
+            if(error) {
+                [self.navigationController.view showFailureTips:error.statsMsg];
+                return ;
+            }
+            for (NSDictionary *dic in data[@"list"]) {
+                Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
+                [array addObject:employee];
+            }
+            //存入本地数据库
+            [_userManager updateEmployee:array companyNo:_userManager.user.currCompany.company_no];
+        }];
+    }];
+}
+//获取当前圈子的任务列表
+- (void)getCurrcompanyTasks {
+    Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
+    [UserHttp getTaskList:employee.employee_guid handler:^(id data, MError *error) {
+        if(error) {
+            [self.navigationController.view showFailureTips:error.statsMsg];
+            return ;
+        }
+        NSMutableArray<TaskModel*> *array = [@[] mutableCopy];
+        for (NSDictionary *dic in data[@"list"]) {
+            TaskModel *model = [[TaskModel alloc] initWithJSONDictionary:dic];
+            model.descriptionStr = dic[@"description"];
+            [array addObject:model];
+        }
+        [_userManager updateTask:array companyNo:_userManager.user.currCompany.company_no];
+    }];
 }
 #pragma mark --
 #pragma mark -- HomeListTopDelegate

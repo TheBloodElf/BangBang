@@ -266,6 +266,7 @@
 		1B0CF79C1D64384E00096CF9 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BF3FD241D5AD25200026351 /* Photos.framework */; };
 		1B0CF7A01D64384E00096CF9 /* PhotoEditingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0CF79F1D64384E00096CF9 /* PhotoEditingViewController.m */; };
 		1B0CF7A71D64384E00096CF9 /* RealmPhoto.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1B0CF79A1D64384E00096CF9 /* RealmPhoto.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1B0EDD6F1D88EB0A00B0B4D0 /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B0EDD6E1D88EB0A00B0B4D0 /* Reveal.framework */; };
 		1B0FECB91D40AD7600DB4369 /* SignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0FECB81D40AD7600DB4369 /* SignIn.m */; };
 		1B0FECC21D40B68400DB4369 /* SigInListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0FECC01D40B68400DB4369 /* SigInListCell.m */; };
 		1B0FECC31D40B68400DB4369 /* SigInListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B0FECC11D40B68400DB4369 /* SigInListCell.xib */; };
@@ -622,7 +623,6 @@
 		1B89FF9E1D4F541D00466F6D /* AddRemindCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B89FF9C1D4F541D00466F6D /* AddRemindCell.xib */; };
 		1B89FFA21D4F542900466F6D /* TaskRemindCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B89FFA01D4F542900466F6D /* TaskRemindCell.m */; };
 		1B89FFA31D4F542900466F6D /* TaskRemindCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B89FFA11D4F542900466F6D /* TaskRemindCell.xib */; };
-		1BA6FF001D7974060073D05B /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BA6FEFF1D7974060073D05B /* Reveal.framework */; };
 		1BBED3A31D6559450001868B /* XXXRoundMenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BBED3A21D6559450001868B /* XXXRoundMenuButton.m */; };
 		1BBED3A71D6559660001868B /* MoreSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BBED3A51D6559660001868B /* MoreSelectController.m */; };
 		1BBED3A81D6559660001868B /* MoreSelectController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BBED3A61D6559660001868B /* MoreSelectController.xib */; };
@@ -1300,6 +1300,7 @@
 		1B0CF79E1D64384E00096CF9 /* PhotoEditingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoEditingViewController.h; sourceTree = "<group>"; };
 		1B0CF79F1D64384E00096CF9 /* PhotoEditingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoEditingViewController.m; sourceTree = "<group>"; };
 		1B0CF7A41D64384E00096CF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1B0EDD6E1D88EB0A00B0B4D0 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
 		1B0FECB71D40AD7600DB4369 /* SignIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignIn.h; sourceTree = "<group>"; };
 		1B0FECB81D40AD7600DB4369 /* SignIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignIn.m; sourceTree = "<group>"; };
 		1B0FECBF1D40B68400DB4369 /* SigInListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SigInListCell.h; sourceTree = "<group>"; };
@@ -1904,7 +1905,6 @@
 		1B89FF9F1D4F542900466F6D /* TaskRemindCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskRemindCell.h; sourceTree = "<group>"; };
 		1B89FFA01D4F542900466F6D /* TaskRemindCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskRemindCell.m; sourceTree = "<group>"; };
 		1B89FFA11D4F542900466F6D /* TaskRemindCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskRemindCell.xib; sourceTree = "<group>"; };
-		1BA6FEFF1D7974060073D05B /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
 		1BBED3A11D6559450001868B /* XXXRoundMenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XXXRoundMenuButton.h; sourceTree = "<group>"; };
 		1BBED3A21D6559450001868B /* XXXRoundMenuButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XXXRoundMenuButton.m; sourceTree = "<group>"; };
 		1BBED3A41D6559660001868B /* MoreSelectController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreSelectController.h; sourceTree = "<group>"; };
@@ -2212,7 +2212,7 @@
 				1BC008371D646445004A6FA5 /* MobileCoreServices.framework in Frameworks */,
 				1BF3FD251D5AD25200026351 /* Photos.framework in Frameworks */,
 				1BF5DFC31D49A89A0039704E /* Foundation.framework in Frameworks */,
-				1BA6FF001D7974060073D05B /* Reveal.framework in Frameworks */,
+				1B0EDD6F1D88EB0A00B0B4D0 /* Reveal.framework in Frameworks */,
 				1BFBC1601D3F2BE300A5511A /* EventKit.framework in Frameworks */,
 				1B6D166C1D48AA730070D2E5 /* TencentOpenAPI.framework in Frameworks */,
 				1B6D16811D48AA8A0070D2E5 /* libWeChatSDK.a in Frameworks */,
@@ -5344,7 +5344,7 @@
 		AE1CB48D1985A705EE5EEAD9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1BA6FEFF1D7974060073D05B /* Reveal.framework */,
+				1B0EDD6E1D88EB0A00B0B4D0 /* Reveal.framework */,
 				1BC008361D646445004A6FA5 /* MobileCoreServices.framework */,
 				1BF3FD241D5AD25200026351 /* Photos.framework */,
 				046D48A01D556A7F0000ECC4 /* QuickLook.framework */,

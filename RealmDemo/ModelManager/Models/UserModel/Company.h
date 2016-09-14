@@ -20,5 +20,4 @@
 
 - (NSString*)companyTypeStr;//圈子类型
 
-
 @end

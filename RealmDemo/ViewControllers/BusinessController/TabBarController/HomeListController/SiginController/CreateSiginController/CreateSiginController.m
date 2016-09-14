@@ -82,39 +82,6 @@
     isFirstLoad = YES;
     
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
-    //看是否有签到记录数据 没有就从服务器获取
-    if([_userManager getTodaySigInListGuid:employee.employee_guid].count == 0) {
-        if([self.navigationController.viewControllers[0] isMemberOfClass:[NSClassFromString(@"REFrostedViewController") class]]) {
-            [self.navigationController.view showLoadingTips:@""];
-        }
-        [UserHttp getSiginList:_userManager.user.currCompany.company_no employeeGuid:employee.employee_guid handler:^(id data, MError *error) {
-            [self.navigationController.view dismissTips];
-            if(error) {
-                [self.navigationController.view showFailureTips:error.statsMsg];
-                return ;
-            }
-            NSMutableArray *array = [@[] mutableCopy];
-            for (NSDictionary *dic in data) {
-                SignIn *sigIn = [[SignIn alloc] initWithJSONDictionary:dic];
-                sigIn.descriptionStr = dic[@"description"];
-                [array addObject:sigIn];
-            }
-            [_userManager updateTodaySinInList:array guid:employee.employee_guid];
-            if([_userManager getSiginRule:_userManager.user.currCompany.company_no].count == 0) {
-                [self.navigationController.view showMessageTips:@"无法签到，请管理员设置签到规则"];
-                [self.navigationController popToRootViewControllerAnimated:YES];
-                return;
-            }
-            [self setupUI];
-        }];
-        return;
-    }
-    
-    [self setupUI];
-}
-//设置界面
-- (void)setupUI {
-    Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
     //获取签到规则
     _currSiginRuleSet = [_userManager getSiginRule:_userManager.user.currCompany.company_no][0];
     self.tableView.tableFooterView = [UIView new];

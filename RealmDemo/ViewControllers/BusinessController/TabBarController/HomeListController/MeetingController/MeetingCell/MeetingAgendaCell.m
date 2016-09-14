@@ -27,7 +27,7 @@
 - (void)dataDidChange {
     MeetingAgenda *meetingAgenda = self.data;
     self.agendaText.text = meetingAgenda.title;
-    self.agendaNumber.text = [NSString stringWithFormat:@"%d",meetingAgenda.index];
+    self.agendaNumber.text = [NSString stringWithFormat:@"%d",meetingAgenda.index + 1];
 }
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     MeetingAgenda *meetingAgenda = self.data;

@@ -25,8 +25,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="199"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner.png" translatesAutoresizingMaskIntoConstraints="NO" id="j3M-C4-TnC">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="199"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="banner.png" translatesAutoresizingMaskIntoConstraints="NO" id="j3M-C4-TnC">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                                                 </imageView>
                                                 <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IF4-4F-0vQ">
                                                     <rect key="frame" x="130" y="48" width="60" height="60"/>
@@ -477,7 +477,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qRd-Ui-B8p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1620" y="71"/>
+            <point key="canvasLocation" x="1625" y="-89"/>
         </scene>
         <!--Update Bush Controller-->
         <scene sceneID="Dlb-A8-3Zb">
@@ -654,7 +654,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ujy-Wd-i8S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2294" y="71"/>
+            <point key="canvasLocation" x="2297" y="-89"/>
         </scene>
         <!--User Setting Controller-->
         <scene sceneID="8f6-ln-8jS">
@@ -1182,7 +1182,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QS6-Hi-TIX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1961" y="71"/>
+            <point key="canvasLocation" x="1962" y="-89"/>
         </scene>
         <!--Create Sigin Controller-->
         <scene sceneID="KA8-OW-m79">
