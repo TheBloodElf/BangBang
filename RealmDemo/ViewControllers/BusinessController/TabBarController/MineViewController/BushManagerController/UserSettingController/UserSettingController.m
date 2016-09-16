@@ -12,6 +12,7 @@
 #import "SelectDateController.h"
 #import "WebNonstandarViewController.h"
 #import "UserManager.h"
+#import "FileManager.h"
 //时间选择器的高度
 #define dataPickerViewHeight  200
 
@@ -116,6 +117,7 @@
     UIAlertAction *alertSure = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [[SDImageCache sharedImageCache] clearDisk];
         [[SDImageCache sharedImageCache] clearMemory];
+        [[FileManager shareManager] remoeAllFile];
         [self.navigationController.view showSuccessTips:@"缓存清理成功!"];
     }];
     [alertVC addAction:alertCancel];

@@ -33,18 +33,11 @@
     //从本地读取登录信息
     IdentityManager *manager = [IdentityManager manager];
     [manager readAuthorizeData];
-    //判断是否需要迁移数据 有新版的版本号 说明使用过新版本
-    if(![NSString isBlank:manager.identity.lastSoftVersion]) {
-        manager.identity.needLoadOldData = NO;
+    //有旧版本的版本号 说明是旧版本升级上来的
+    if([defaults.mj_keyValues.allKeys containsObject:@"WelcomeViewReadssss"]) {
+        manager.identity.needLoadOldData = YES;
     } else {
-        NSString *lastVersion = [NSString stringWithFormat:@"%@",[defaults objectForKey:@"WelcomeViewReadssss"]];
-        //有旧版本的版本号 说明是旧版本升级上来的
-        if(![NSString isBlank:lastVersion]) {
-            manager.identity.needLoadOldData = YES;
-        } else {//是第一次使用新版本 并且没有使用过旧版本
-            manager.identity.needLoadOldData = NO;
-        }
-        [defaults removeObjectForKey:@"WelcomeViewReadssss"];
+        manager.identity.needLoadOldData = NO;
     }
     //保存当前的版本号
     manager.identity.lastSoftVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
@@ -216,6 +209,7 @@
                     [userManager addUserDiscuss:userDiscuss];
                 }
             }
+            [defaults removeObjectForKey:@"WelcomeViewReadssss"];
         });
         manager.identity.accessToken = [defaults objectForKey:@"BangBangAccessToken"];
         manager.identity.RYToken = [defaults objectForKey:@"RongYunToken"];
