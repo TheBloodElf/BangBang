@@ -47,4 +47,6 @@
 @property (nonatomic, strong) NSString *member_realnames;//知悉人姓名，已","隔开
 @property (nonatomic, strong) NSString *alert_date_list;//提醒时间列表,已","隔开
 
+@property (nonatomic, strong) NSMutableArray<NSData*> *attachmentArr;//附件数组
+
 @end

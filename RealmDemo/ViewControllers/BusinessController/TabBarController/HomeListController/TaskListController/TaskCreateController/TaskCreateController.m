@@ -54,6 +54,12 @@
     if(taskDraftModelArr.count) {
         TaskDraftModel *model = taskDraftModelArr.firstObject;
         _taskModel = [[TaskModel alloc] initWithJSONDictionary:model.JSONDictionary];
+        NSMutableArray *imageArr = [@[] mutableCopy];
+        for (NSData *imageData in model.attachmentArr) {
+            UIImage *image = [UIImage imageWithData:imageData];
+            [imageArr addObject:image];
+        }
+        _attanmentArr = imageArr;
     } else {
         _taskModel = [TaskModel new];
         _taskModel.status = 1;
@@ -112,6 +118,11 @@
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"保存为草稿?" message:nil preferredStyle:(UIAlertControllerStyleAlert)];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"保存" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         TaskDraftModel *model = [[TaskDraftModel alloc] initWithJSONDictionary:_taskModel.JSONDictionary];
+        NSMutableArray<NSData*> *imageDataArr = [@[] mutableCopy];
+        for (UIImage *image in _attanmentArr) {
+            [imageDataArr addObject:UIImageJPEGRepresentation(image, 0.5)];
+        }
+        model.attachmentArr = imageDataArr;
         [_userManager updateTaskDraft:model companyNo:_userManager.user.currCompany.company_no];
         [self.navigationController popViewControllerAnimated:YES];
     }];
