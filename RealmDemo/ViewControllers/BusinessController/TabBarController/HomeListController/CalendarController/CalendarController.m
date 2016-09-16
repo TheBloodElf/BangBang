@@ -270,7 +270,7 @@
 - (void)tongBuCalendar {
     [self.navigationController.view showLoadingTips:@"正在同步..."];
     WeakSelf(weakSelf)
-    //    这里是用户向服务器提交数据 现在还没有改
+    //这里是用户向服务器提交数据 现在还没有改
     [UserHttp getUserCalendar:_userManager.user.user_guid handler:^(id data, MError *error) {
         [self.navigationController.view dismissTips];
         if(error) {
@@ -279,7 +279,8 @@
         }
         NSMutableArray *array = [@[] mutableCopy];
         for (NSDictionary *dic in data[@"list"]) {
-            Calendar *calendar = [[Calendar alloc] initWithJSONDictionary:dic];
+            Calendar *calendar = [Calendar new];
+            [calendar mj_setKeyValues:dic];
             calendar.descriptionStr = dic[@"description"];
             [array addObject:calendar];
         }

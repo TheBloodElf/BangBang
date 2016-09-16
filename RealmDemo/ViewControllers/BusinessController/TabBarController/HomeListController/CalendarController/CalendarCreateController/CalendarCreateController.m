@@ -137,10 +137,20 @@
     [UserHttp createUserCalendar:_currCalendar handler:^(id data, MError *error) {
         [self.navigationController.view dismissTips];
         if(error) {
+            if(error.statsCode == -1009) {
+                _currCalendar.needSync = YES;
+                _currCalendar.id = [NSDate date].timeIntervalSince1970 * 1000;
+                _currCalendar.status = 1;
+                [_userManager addCalendar:_currCalendar];
+                [self.navigationController showSuccessTips:@"添加成功"];
+                [self.navigationController popViewControllerAnimated:YES];
+                return;
+            }
             [self.navigationController.view showFailureTips:error.statsMsg];
             return ;
         }
-        Calendar *calendar = [[Calendar alloc] initWithJSONDictionary:data];
+        Calendar *calendar = [Calendar new];
+        [calendar mj_setKeyValues:data];
         calendar.descriptionStr = data[@"description"];
         [_userManager addCalendar:calendar];
         [self.navigationController showSuccessTips:@"添加成功"];
