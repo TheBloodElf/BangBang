@@ -91,6 +91,7 @@
             if(error) {
                 if(error.statsCode == -1009) {
                     _calendar.needSync = YES;
+                    _calendar.finishedon_utc = [NSDate date].timeIntervalSince1970 * 1000;
                     [_userManager updateCalendar:_calendar];
                     [self.navigationController.view showSuccessTips:@"完成成功"];
                     [self.navigationController popViewControllerAnimated:YES];

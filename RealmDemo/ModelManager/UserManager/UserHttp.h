@@ -71,6 +71,8 @@
 //删除讨论组
 + (NSURLSessionDataTask*)delUserDiscuss:(int)userNo discussId:(NSString*)discussId handler:(completionHandler)handler;
 #pragma mark -- 日程
+//同步日程
++ (NSURLSessionDataTask*)syncUserCalendar:(Calendar*)calendar handler:(completionHandler)handler;
 //创建日程
 + (NSURLSessionDataTask*)createUserCalendar:(Calendar*)calendar handler:(completionHandler)handler;
 //修改日程

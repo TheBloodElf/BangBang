@@ -34,7 +34,7 @@
 /** 是否提醒 */
 @property (nonatomic, assign) bool is_alert;
 /** 提前多少分钟提醒（1,2,5,10,15,20,25,30,45,60,90,120分钟） */
-@property (nonatomic, assign) int      alert_minutes_before;
+@property (nonatomic, assign) int  alert_minutes_before;
 /** 结束后多少分钟提醒（1,2,5,10,15,20,25,30,45,60,90,120分钟） */
 @property (nonatomic, assign) int  alert_minutes_after;
 /** 用户唯一标识 */
@@ -96,7 +96,7 @@
  */
 @property (nonatomic, strong) NSString *creator_name;
 /**
- *  是否需要同步
+ *  是否需要同步 也就是断网情况下是否操作过
  */
 @property (nonatomic, assign) int needSync;
 /**

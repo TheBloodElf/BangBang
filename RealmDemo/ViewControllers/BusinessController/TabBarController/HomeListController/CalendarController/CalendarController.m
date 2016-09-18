@@ -151,6 +151,8 @@
     _haveCalendarArr = [@[] mutableCopy];
     _dateCalendarDic = [@{} mutableCopy];
     for (Calendar *tempCalendar in calendarArr) {
+        //去掉删除的
+        if(tempCalendar.status == 0) continue;
         if(tempCalendar.repeat_type == 0) {//如果是不重复的日程
             for (int64_t startTime = tempCalendar.begindate_utc; startTime <= tempCalendar.enddate_utc; startTime += (24 * 60 * 60 * 1000)) {
                 NSDate *startTimeTemp = [NSDate dateWithTimeIntervalSince1970:startTime / 1000];

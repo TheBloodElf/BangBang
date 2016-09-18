@@ -533,12 +533,6 @@
     [Calendar createOrUpdateInRealm:_rlmRealm withValue:calendar];
     [_rlmRealm commitWriteTransaction];
 }
-//删除日程
-- (void)delCalendar:(Calendar*)calendar {
-    [_rlmRealm beginWriteTransaction];
-    [_rlmRealm deleteObject:calendar];
-    [_rlmRealm commitWriteTransaction];
-}
 //更新所有的日程
 - (void)updateCalendars:(NSMutableArray<Calendar*>*)calendarArr {
     [_rlmRealm beginWriteTransaction];
@@ -555,8 +549,7 @@
 - (NSMutableArray<Calendar*>*)getCalendarArrWithDate:(NSDate*)date {
     NSMutableArray<Calendar*> *pushMessageArr = [@[] mutableCopy];
     [_rlmRealm beginWriteTransaction];
-    NSString *resultStr = [NSString stringWithFormat:@"status != 0"];
-    RLMResults *calendarResult = [Calendar objectsInRealm:_rlmRealm where:resultStr];
+    RLMResults *calendarResult = [Calendar objectsInRealm:_rlmRealm where:nil];
     for (int index = 0;index < calendarResult.count;index ++) {
         Calendar *company = [calendarResult objectAtIndex:index];
         int64_t todayBegin = date.firstTime.timeIntervalSince1970 * 1000;
@@ -574,15 +567,14 @@
     [_rlmRealm commitWriteTransaction];
     return pushMessageArr;
 }
-//获取所有未删除的日程
+//获取所有的日程
 - (NSMutableArray<Calendar*>*)getCalendarArr {
     NSMutableArray<Calendar*> *pushMessageArr = [@[] mutableCopy];
     [_rlmRealm beginWriteTransaction];
     RLMResults *pushMessages = [Calendar allObjectsInRealm:_rlmRealm];
     for (int index = 0;index < pushMessages.count;index ++) {
         Calendar *company = [pushMessages objectAtIndex:index];
-        if (company.status != 0)
-            [pushMessageArr addObject:company];
+        [pushMessageArr addObject:company];
     }
     [_rlmRealm commitWriteTransaction];
     return pushMessageArr;

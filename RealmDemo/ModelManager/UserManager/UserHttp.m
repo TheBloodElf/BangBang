@@ -300,6 +300,49 @@
     return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
 }
 #pragma mark -- 日程
+//同步日程
++ (NSURLSessionDataTask*)syncUserCalendar:(Calendar*)calendar handler:(completionHandler)handler {
+    NSString *urlPath = @"Calendars/add_v3";
+    NSMutableDictionary *params = [@{} mutableCopy];
+    [params setObject:@(calendar.id) forKey:@"id"];
+    [params setObject:@(calendar.company_no) forKey:@"company_no"];
+    [params setObject:calendar.event_name forKey:@"event_name"];
+    [params setObject:calendar.descriptionStr forKey:@"description"];
+    [params setObject:calendar.address forKey:@"address"];
+    [params setObject:@(calendar.begindate_utc) forKey:@"begindate_utc"];
+    [params setObject:@(calendar.enddate_utc) forKey:@"enddate_utc"];
+    [params setObject:calendar.is_allday ? @"true" : @"false" forKey:@"is_allday"];
+    [params setObject:calendar.app_guid forKey:@"app_guid"];
+    [params setObject:calendar.target_id forKey:@"target_id"];
+    [params setObject:@(calendar.repeat_type) forKey:@"repeat_type"];
+    [params setObject:calendar.is_alert ? @"true" : @"false" forKey:@"is_alert"];
+    [params setObject:@(calendar.alert_minutes_before) forKey:@"alert_minutes_before"];
+    [params setObject:@(calendar.alert_minutes_after) forKey:@"alert_minutes_after"];
+    [params setObject:calendar.user_guid forKey:@"user_guid"];
+    [params setObject:calendar.created_by forKey:@"created_by"];
+    [params setObject:@(calendar.createdon_utc) forKey:@"createdon_utc"];
+    [params setObject:calendar.updated_by forKey:@"updated_by"];
+    [params setObject:@(calendar.updatedon_utc) forKey:@"updatedon_utc"];
+    [params setObject:@(calendar.status) forKey:@"status"];
+    [params setObject:@(calendar.finishedon_utc) forKey:@"finishedon_utc"];
+    [params setObject:calendar.rrule forKey:@"rrule"];
+    [params setObject:calendar.rdate forKey:@"rdate"];
+    [params setObject:@(calendar.emergency_status) forKey:@"emergency_status"];
+    [params setObject:calendar.deleted_dates forKey:@"deleted_dates"];
+    [params setObject:calendar.finished_dates forKey:@"finished_dates"];
+    [params setObject:@(calendar.r_begin_date_utc) forKey:@"r_begin_date_utc"];
+    [params setObject:@(calendar.r_end_date_utc) forKey:@"r_end_date_utc"];
+    [params setObject:calendar.members forKey:@"members"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    [params setObject:@(calendar.is_over_day) forKey:@"is_over_day"];
+    [params setObject:calendar.member_names forKey:@"member_names"];
+    [params setObject:calendar.event_guid forKey:@"event_guid"];
+    [params setObject:calendar.creator_name forKey:@"creator_name"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
 //创建日程
 + (NSURLSessionDataTask*)createUserCalendar:(Calendar*)calendar handler:(completionHandler)handler {
     NSString *urlPath = @"Calendars/add_v3";

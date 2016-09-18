@@ -76,6 +76,8 @@
         for (Calendar *tempCalendar in [_userManager getCalendarArr]) {
             if(![NSString isBlank:_searchBar.text])
                 if([tempCalendar.event_name rangeOfString:_searchBar.text].location == NSNotFound) continue;
+            //去掉删除的
+            if(tempCalendar.status == 0) continue;
             if(tempCalendar.repeat_type == 0) {//如果是不重复的日程
                  for (int64_t startTime = tempCalendar.begindate_utc; startTime <= tempCalendar.enddate_utc; startTime += (24 * 60 * 60 * 1000)) {
                      NSDate *startTimeTemp = [NSDate dateWithTimeIntervalSince1970:startTime / 1000].lastTime;

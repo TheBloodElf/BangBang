@@ -155,6 +155,8 @@
     NSDate *todayDate = [NSDate date];
     NSArray *todayArr = [_userManager getCalendarArrWithDate:todayDate];
     for (Calendar *tempCalendar in todayArr) {
+        //去掉删除的
+        if(tempCalendar.status == 0) continue;
         if(tempCalendar.repeat_type == 0) {//不是重复的就直接加
             if(tempCalendar.status == 2)  {
                 _todayFinishCount ++;
@@ -206,6 +208,8 @@
         NSDate *tempDate = [todayDate dateByAddingTimeInterval:(i - todayOfWeek) * 24 * 60 * 60];
         NSArray *tempArr = [_userManager getCalendarArrWithDate:tempDate];
         for (Calendar *tempCalendar in tempArr) {
+            //去掉删除的
+            if(tempCalendar.status == 0) continue;
             if(tempCalendar.repeat_type == 0) {//不是重复的就直接加
                 if(tempCalendar.status == 1)
                     _weekNoFinishCount ++;

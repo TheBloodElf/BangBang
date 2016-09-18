@@ -36,6 +36,7 @@
     _userManager = [UserManager manager];
     //初始化日程模型
     _currCalendar = [Calendar new];
+    _currCalendar.event_name = @"";
     _currCalendar.company_no = _userManager.user.currCompany.company_no;
     _currCalendar.begindate_utc = [[NSDate date] timeIntervalSince1970] * 1000;
     _currCalendar.enddate_utc = _currCalendar.begindate_utc + 30 * 60 * 1000;
@@ -43,18 +44,25 @@
     _currCalendar.alert_minutes_after = 0;
     _currCalendar.alert_minutes_before = 0;
     _currCalendar.is_alert = false;
+    _currCalendar.is_allday = false;
     _currCalendar.user_guid = _userManager.user.user_guid;
     _currCalendar.created_by = _userManager.user.user_guid;
+    _currCalendar.updated_by = _userManager.user.user_guid;
     _currCalendar.emergency_status = 0;
     _currCalendar.r_begin_date_utc = _currCalendar.r_end_date_utc = _currCalendar.begindate_utc;
     _currCalendar.app_guid = @"";
     _currCalendar.rrule = @"";
+    _currCalendar.is_over_day = NO;
     _currCalendar.descriptionStr = @"";
     _currCalendar.address = @"";
     _currCalendar.target_id = @"";
     _currCalendar.rdate = @"";
     _currCalendar.members = @"";
     _currCalendar.member_names= @"";
+    _currCalendar.event_guid = @"";
+    _currCalendar.deleted_dates = @"";
+    _currCalendar.finished_dates = @"";
+    _currCalendar.creator_name = _userManager.user.real_name;
     //创建分段控件
     _segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"一般事务",@"例行事务"]];
     _segmentedControl.frame = CGRectMake(10, 5, MAIN_SCREEN_WIDTH - 20, 30);
@@ -142,7 +150,10 @@
                 _currCalendar.locCreate = YES;
                 _currCalendar.id = [NSDate date].timeIntervalSince1970 * 1000;
                 _currCalendar.status = 1;
+                _currCalendar.createdon_utc = [NSDate date].timeIntervalSince1970 * 1000;
+                _currCalendar.updatedon_utc = [NSDate date].timeIntervalSince1970 * 1000;
                 [_userManager addCalendar:_currCalendar];
+                _currCalendar.finishedon_utc = [NSDate date].timeIntervalSince1970 * 1000;
                 [self.navigationController showSuccessTips:@"添加成功"];
                 [self.navigationController popViewControllerAnimated:YES];
                 return;

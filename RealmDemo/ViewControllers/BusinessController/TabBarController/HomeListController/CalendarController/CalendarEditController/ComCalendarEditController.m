@@ -55,6 +55,8 @@
         if(error) {
             if(error.statsCode == -1009) {//断网也可以操作，只是离线的而已
                 _currCalendar.needSync = YES;
+                _currCalendar.updated_by = _userManager.user.user_guid;
+                _currCalendar.updatedon_utc = [NSDate date].timeIntervalSince1970 * 1000;
                 [self.navigationController.view showSuccessTips:@"修改成功"];
                 if(self.delegate && [self.delegate respondsToSelector:@selector(ComCalendarEdit:)])
                     [self.delegate ComCalendarEdit:_currCalendar];

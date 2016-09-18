@@ -264,6 +264,8 @@
         } else if ([message.type isEqualToString:@"CALENDARTIP"]) {//日程推送：
             NSArray<Calendar*> *calendarArr = [[UserManager manager] getCalendarArr];
             for (Calendar *temp in calendarArr) {
+                //去掉删除的
+                if(temp.status == 0) continue;
                 if(message.target_id.intValue == temp.id) {
                     //展示详情
                     if(temp.repeat_type == 0) {

@@ -122,8 +122,12 @@
 - (void)checkSyncCalender {
     _needSyncCalender = [@[] mutableCopy];
     for (Calendar *calender in [_userManager getCalendarArr]) {
-        if(calender.needSync == YES)
+        //查看需要同步的日程
+        if(calender.needSync == YES) {
+            //这里要排除本地创建本地删除的
+            if(calender.locCreate == YES && calender.status == 0) continue;
             [_needSyncCalender addObject:calender];
+        }
     }
     if(!_needSyncCalender.count) return;
     [self.navigationController.view showLoadingTips:@"上传离线日程..."];
@@ -135,34 +139,55 @@
         [self.navigationController.view dismissTips];
         return;
     }
-    if([_needSyncCalender[0] locCreate] == 0) {//如果是本地创建的 就调用创建接口
-        [UserHttp createUserCalendar:_needSyncCalender[0] handler:^(id data, MError *error) {
+    Calendar *calendar = _needSyncCalender.firstObject;
+    //本地创建的就调用同步接口 id传0
+    if(calendar.locCreate == 0) {
+        Calendar *temp = [calendar deepCopy];
+        temp.id = 0;
+        [UserHttp createUserCalendar:temp handler:^(id data, MError *error) {
             if(error) {
+                [self.navigationController.view dismissTips];
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
-            [_userManager delCalendar:_needSyncCalender[0]];
+            //更新本地的日程
+            calendar.needSync = NO;
+            [_userManager updateCalendar:calendar];
             [_needSyncCalender removeObjectAtIndex:0];
-            Calendar *calendar = [Calendar new];
+            //添加新的日程
             [calendar mj_setKeyValues:data];
             calendar.descriptionStr = data[@"description"];
             [_userManager addCalendar:calendar];
             [self syncCalender];
         }];
-    } else {//调用修改接口
-        [UserHttp updateUserCalendar:_needSyncCalender[0] handler:^(id data, MError *error) {
-            if(error) {
-                [self.navigationController.view showFailureTips:error.statsMsg];
-                return ;
-            }
-            [_userManager delCalendar:_needSyncCalender[0]];
-            [_needSyncCalender removeObjectAtIndex:0];
-            Calendar *calendar = [Calendar new];
-            [calendar mj_setKeyValues:data];
-            calendar.descriptionStr = data[@"description"];
-            [_userManager addCalendar:calendar];
-            [self syncCalender];
-        }];
+    } else {//网络创建的如果删除了就调用删除接口
+        if(calendar.status == 0) {
+            [UserHttp deleteUserCalendar:calendar.id handler:^(id data, MError *error) {
+                if(error) {
+                    [self.navigationController.view dismissTips];
+                    [self.navigationController.view showFailureTips:error.statsMsg];
+                    return ;
+                }
+                //更新本地的日程
+                calendar.needSync = NO;
+                [_userManager updateCalendar:calendar];
+                [_needSyncCalender removeObjectAtIndex:0];
+                [self syncCalender];
+            }];
+        } else {//否则调用同步接口
+            [UserHttp updateUserCalendar:_needSyncCalender[0] handler:^(id data, MError *error) {
+                if(error) {
+                    [self.navigationController.view dismissTips];
+                    [self.navigationController.view showFailureTips:error.statsMsg];
+                    return ;
+                }
+                //更新本地日程
+                calendar.needSync = NO;
+                [_userManager updateCalendar:calendar];
+                [_needSyncCalender removeObjectAtIndex:0];
+                [self syncCalender];
+            }];
+        }
     }
 }
 #pragma mark -- 
@@ -180,6 +205,8 @@
 - (void)didReciveOpenToday:(NSNotification*)notification {
     //查看日程
     for (Calendar *calendar in [_userManager getCalendarArr]) {
+        //去掉删除的
+        if(calendar.status == 0) continue;
         if(calendar.id == [notification.object intValue]) {
             //展示详情
             if(calendar.repeat_type == 0) {
@@ -247,6 +274,8 @@
         }
     } else if([message.type isEqualToString:@"CALENDARTIP"]) {//日程提醒 进入日程详情
         for (Calendar *calendar in [_userManager getCalendarArr]) {
+            //去掉删除的
+            if(calendar.status == 0) continue;
             if(calendar.id == message.target_id.intValue) {
                 //展示详情
                 if(calendar.repeat_type == 0) {
