@@ -168,14 +168,12 @@
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
     if(controller == _employeeFetchedResultsController) {
-        [_employeeArr removeAllObjects];
         if(_userManager.user.currCompany.company_no) {
             _employeeArr = [_userManager getEmployeeWithCompanyNo:_userManager.user.currCompany.company_no status:5];
             [self sortEmployee];
         }
         [_tableView reloadData];
     } else {
-        [_employeeArr removeAllObjects];
         if(_userManager.user.currCompany.company_no) {
             _employeeArr = [_userManager getEmployeeWithCompanyNo:_userManager.user.currCompany.company_no status:5];
             [self sortEmployee];
@@ -203,8 +201,8 @@
 //对员工数组进行排序
 - (void)sortEmployee {
     NSMutableDictionary<NSString*,NSMutableArray*> *_currDataArr = [@{} mutableCopy];//根据搜索出的员工的首字母-员工数组的字典
-    [_employeeDataArr removeAllObjects];
-    [_employeekeyArr removeAllObjects];
+    NSMutableArray *dataArr = [@[] mutableCopy];
+    NSMutableArray *keyArr = [@[] mutableCopy];
     //先把字典填充A-Z对应的空数组
     for (int i = 0;i < 26;i ++) {
         char currChar = 'A' + i;
@@ -226,21 +224,23 @@
         }
     }
     //把key按照ABCDEFG...排序  分成两个数组装
-    _employeekeyArr = [_currDataArr.allKeys mutableCopy];
-    [_employeekeyArr sortUsingComparator:^NSComparisonResult(NSString* obj1,NSString* obj2) {
+    keyArr = [_currDataArr.allKeys mutableCopy];
+    [keyArr sortUsingComparator:^NSComparisonResult(NSString* obj1,NSString* obj2) {
         return [obj1 compare:obj2] == 1;
     }];
     //把#放最后
-    if(_employeekeyArr.count != 0) {
-        if([_employeekeyArr[0] isEqualToString:@"#"]) {
-            [_employeekeyArr removeObject:@"#"];
-            [_employeekeyArr addObject:@"#"];
+    if(keyArr.count != 0) {
+        if([keyArr[0] isEqualToString:@"#"]) {
+            [keyArr removeObject:@"#"];
+            [keyArr addObject:@"#"];
         }
     }
     //得到对应的名字数组
-    for (NSString *keyStr in _employeekeyArr) {
-        [_employeeDataArr addObject:_currDataArr[keyStr]];
+    for (NSString *keyStr in keyArr) {
+        [dataArr addObject:_currDataArr[keyStr]];
     }
+    _employeeDataArr = dataArr;
+    _employeekeyArr = keyArr;
 }
 
 #pragma mark - UITableViewDelegate

@@ -135,10 +135,11 @@
         _calendarDateArr = [_calendarDateArr sortedArrayUsingComparator:^NSComparisonResult(NSDate *obj1, NSDate *obj2) {
             return obj1.timeIntervalSince1970 < obj2.timeIntervalSince1970;
         }];
-        [_calendarArr removeAllObjects];
+        NSMutableArray *array = [@[] mutableCopy];
         for (NSDate *date in _calendarDateArr) {
-            [_calendarArr addObject:dateCalendarDic[date]];
+            [array addObject:dateCalendarDic[date]];
         }
+        _calendarArr = array;
         if(_calendarDateArr.count == 0)
             _tableView.tableFooterView = _noDataView;
         else

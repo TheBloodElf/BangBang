@@ -334,10 +334,11 @@
 }
 #pragma mark -- SelectImageDelegate
 - (void)selectImageFinish:(NSMutableArray<Photo*>*)photoArr {
-    [_attanmentArr removeAllObjects];
+    NSMutableArray *arary = [@[] mutableCopy];
     for (Photo * photo in photoArr) {
-        [_attanmentArr addObject:photo.oiginalImage];
+        [arary addObject:photo.oiginalImage];
     }
+    _attanmentArr = arary;
     _attanmantIndex = 0;
     [self.navigationController.view showLoadingTips:@"上传附件..."];
     [self uploadAttanment];

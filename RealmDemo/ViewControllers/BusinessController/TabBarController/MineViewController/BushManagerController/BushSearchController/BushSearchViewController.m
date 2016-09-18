@@ -77,7 +77,7 @@
     if([NSString isBlank:self.searchBar.text]) {
         [_tableView.mj_header endRefreshing];
         _tableView.mj_footer = (id)_noDataView;
-        [_companyArr removeAllObjects];
+        _companyArr = [@[] mutableCopy];
         [_tableView reloadData];
         return;
     }
@@ -90,12 +90,14 @@
             [weakSelf.navigationController.view showMessageTips:error.statsMsg];
             return ;
         }
-        if(currentPage == 1)
-            [_companyArr removeAllObjects];
+        NSMutableArray *array = [@[] mutableCopy];
+        if(currentPage != 1)//不是第一页就是要保存前面的数据
+            array = _companyArr;
         for (NSDictionary *dic in data) {
             Company *company = [[Company alloc] initWithJSONDictionary:dic];
-            [_companyArr addObject:company];
+            [array addObject:company];
         }
+        _companyArr = array;
         if(_companyArr.count == 0) {
             _tableView.tableFooterView = _noDataView;
         } else {

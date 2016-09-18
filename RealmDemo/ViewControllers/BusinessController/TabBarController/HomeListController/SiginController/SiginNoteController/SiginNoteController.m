@@ -100,8 +100,7 @@
 {
     //获取当前月的第一天和最后一天
     [UserHttp getUsualSigin:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no year:date.year month:date.month handler:^(id data, MError *error) {
-        [_siginedArr removeAllObjects];
-        [_siginedArr addObjectsFromArray:data];
+        _siginedArr = data;
         [self.calendarManager setDate:date];
         [self.calendarManager reload];
     }];

@@ -102,7 +102,7 @@
 {
     //POI搜索结果回调
     if(request.page == 0)
-        [_searchDataArr removeAllObjects];
+        _searchDataArr = [@[] mutableCopy];
     [_searchDataArr addObjectsFromArray:response.pois];
     [_tableView.mj_header endRefreshing];
     if(_tableView.mj_footer != (id)_noResultView)

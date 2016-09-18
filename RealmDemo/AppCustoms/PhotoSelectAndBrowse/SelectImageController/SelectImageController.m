@@ -230,9 +230,7 @@
     [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
         if (result == nil && index == NSNotFound) {
             dispatch_main_async_safe(^(){
-                [_photoArr removeAllObjects];
-                [_photoArr addObjectsFromArray:tempArr];
-                [tempArr removeAllObjects];
+                _photoArr = tempArr;
                 [_photoCollectView reloadData];
             });
             *stop = YES;

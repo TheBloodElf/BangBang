@@ -12,10 +12,16 @@
 
 + (BOOL)isBlank:(NSString*)str
 {
-    BOOL ret = NO;
-    if ((str == nil)|| ([[str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0) || [str isKindOfClass:[NSNull class]])
-        ret = YES;
-    return ret;
+    if (str == nil || str == NULL) {
+        return YES;
+    }
+    if ([str isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    if ([[str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        return YES;
+    }
+    return NO;
 }
 
 + (BOOL)isPhoneNumber:(NSString *)string

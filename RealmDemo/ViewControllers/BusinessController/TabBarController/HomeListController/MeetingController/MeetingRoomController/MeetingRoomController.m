@@ -158,7 +158,7 @@
     //清除用户选择的时间
     _userSelectDate = [MeetingRoomCellModel new];
     //移除设备
-    [_meetingEquipmentsArr removeAllObjects];
+    _meetingEquipmentsArr = [@[] mutableCopy];
     //重新刷新列表
     self.meetingRoomModel = device;
     [_tableView reloadData];

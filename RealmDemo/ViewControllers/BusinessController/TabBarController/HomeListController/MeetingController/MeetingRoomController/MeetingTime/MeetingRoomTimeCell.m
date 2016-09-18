@@ -89,14 +89,15 @@
     //得到要查询的开始和结束时间
     NSDate *begin = [_lineDate[@"0"] firstTime];
     NSDate *end = [_lineDate[@"6"] lastTime];
-    [_handlerArr removeAllObjects];
     [UserHttp getMeetHandlerTime:_meetingRoomModel.room_id begin:begin.timeIntervalSince1970 * 1000 end:end.timeIntervalSince1970 * 1000 handler:^(id data, MError *error) {
         if(error) return;
+        NSMutableArray *array = [@[] mutableCopy];
         for (NSDictionary *dic in data) {
             MeetingRoomHandlerTimeModel *model = [MeetingRoomHandlerTimeModel new];
             [model mj_setKeyValues:dic];
-            [_handlerArr addObject:model];
+            [array addObject:model];
         }
+        _handlerArr = array;
         for (UIView *view in _timeCollectionView.subviews) {
             if([view isMemberOfClass:[UILabel class]])
                 [view removeFromSuperview];

@@ -421,7 +421,7 @@
             [self.navigationController popToRootViewControllerAnimated:YES];
         } else {
             //进入上传图片逻辑
-            [_siginImageNameArr removeAllObjects];
+            _siginImageNameArr = [@[] mutableCopy];
             [self sendSiginPhoto];
         }
     }];

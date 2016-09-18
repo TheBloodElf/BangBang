@@ -13,7 +13,7 @@
 + (BOOL)isBlank:(NSString*)str
 {
     BOOL ret = NO;
-    if ((str == nil)|| ([[str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0) || [str isKindOfClass:[NSNull class]])
+    if ((str == nil)|| (str == NULL) || ([[str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0) || [str isKindOfClass:[NSNull class]])
         ret = YES;
     return ret;
 }

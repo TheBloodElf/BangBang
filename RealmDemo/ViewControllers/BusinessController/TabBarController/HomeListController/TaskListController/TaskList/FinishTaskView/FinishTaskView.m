@@ -61,15 +61,16 @@
     [_tableView reloadData];
 }
 - (void)getCurrData {
-    [_currArr removeAllObjects];
+    NSMutableArray *array = [@[] mutableCopy];
     for (TaskModel *model in self.data) {
             if([NSString isBlank:_searchBar.text]) {
-                [_currArr addObject:model];
+                [array addObject:model];
             } else {
                 if([model.descriptionStr rangeOfString:_searchBar.text].location != NSNotFound)
-                    [_currArr addObject:model];
+                    [array addObject:model];
             }
     }
+    _currArr = array;
     if(_currArr.count == 0)
         _tableView.tableFooterView = _noDataView;
     else

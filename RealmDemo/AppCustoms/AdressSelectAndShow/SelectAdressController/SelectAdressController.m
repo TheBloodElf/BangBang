@@ -188,7 +188,7 @@
 {
     //POI搜索结果回调
     if(request.page == 0)
-        [_searchDataArr removeAllObjects];
+        _searchDataArr = [@[] mutableCopy];
     [_searchDataArr addObjectsFromArray:response.pois];
     if(request.page == 0) {
         if(_searchDataArr.count != 0) {

@@ -120,14 +120,15 @@
 #pragma mark -- 
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
-    [_companyArr removeAllObjects];
+    NSMutableArray *array = [@[] mutableCopy];
     //只显示自己状态为4或者1的
     for (Company *company in [_userManager getCompanyArr]) {
         Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:company.company_no];
         if(employee.status == 1 || employee.status == 4) {
-            [_companyArr addObject:company];
+            [array addObject:company];
         }
     }
+    _companyArr = array;
     if(_companyArr.count == 0)
         _tableView.tableFooterView = _noDataView;
     else

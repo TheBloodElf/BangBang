@@ -114,12 +114,14 @@
 {
     if (response.pois.count == 0)
         return;
-    [poiAnnotations removeAllObjects];
-    [poiArray removeAllObjects];
+    NSMutableArray *annotionArr = [@[] mutableCopy];
+    NSMutableArray *poiArr = [@[] mutableCopy];
     [response.pois enumerateObjectsUsingBlock:^(AMapPOI *obj, NSUInteger idx, BOOL *stop) {
-        [poiAnnotations addObject:[[POIAnnotation alloc] initWithPOI:obj]];
-        [poiArray addObject:obj];
+        [annotionArr addObject:[[POIAnnotation alloc] initWithPOI:obj]];
+        [poiArr addObject:obj];
     }];
+    poiArray = poiArr;
+    poiAnnotations = annotionArr;
     selectedRow = 0;
     [poiTableView reloadData];
     //选中的地址改变了 刷新标注

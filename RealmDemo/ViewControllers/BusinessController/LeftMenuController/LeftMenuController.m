@@ -67,14 +67,15 @@
         self.userMood.text = _userManager.user.mood;
         [self.tableView reloadData];//圈子变化了也要刷新表格视图
     } else {
-        [_companyArr removeAllObjects];
+        NSMutableArray *array = [@[] mutableCopy];
         //只显示自己状态为4或者1的
         for (Company *company in [_userManager getCompanyArr]) {
             Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:company.company_no];
             if(employee.status == 1 || employee.status == 4) {
-                [_companyArr addObject:company];
+                [array addObject:company];
             }
         }
+        _companyArr = array;
         [self.tableView reloadData];
     }
 }

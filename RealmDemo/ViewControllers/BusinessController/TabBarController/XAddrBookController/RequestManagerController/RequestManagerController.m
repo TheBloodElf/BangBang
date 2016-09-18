@@ -84,10 +84,8 @@
 #pragma mark --
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
-    [_joinDataArr removeAllObjects];
-    [_exitDataArr removeAllObjects];
-    [_joinDataArr addObjectsFromArray:[_userManager getEmployeeWithCompanyNo:_userManager.user.currCompany.company_no status:0]];
-    [_exitDataArr addObjectsFromArray:[_userManager getEmployeeWithCompanyNo:_userManager.user.currCompany.company_no status:4]];
+    _joinDataArr = [_userManager getEmployeeWithCompanyNo:_userManager.user.currCompany.company_no status:0];
+    _exitDataArr = [_userManager getEmployeeWithCompanyNo:_userManager.user.currCompany.company_no status:4];
     [_tableView reloadData];
 }
 #pragma mark --
