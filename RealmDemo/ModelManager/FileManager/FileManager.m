@@ -69,10 +69,6 @@
    return [[NSFileManager defaultManager] subpathsAtPath:_defaultFilePath];
 }
 //文件名对应的本地路径
-- (NSURL*)fileUrl:(NSString*)fileName {
-    return [NSURL fileURLWithPath:[_defaultFilePath stringByAppendingPathComponent:fileName.lastPathComponent]];
-}
-//文件名对应的本地路径
 - (NSString*)fileStr:(NSString*)fileName {
     return [_defaultFilePath stringByAppendingPathComponent:fileName.lastPathComponent];
 }
@@ -89,6 +85,19 @@
     if([@"mp3,wav,mid,aac" rangeOfString:fileExe options:NSCaseInsensitiveSearch].location != NSNotFound)
         return 3;
     return 4;
+}
+//把文件写入本地
+- (void)writeData:(NSData*)date name:(NSString*)name {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    [fileManager createFileAtPath:[_defaultFilePath stringByAppendingPathComponent:name] contents:date attributes:nil];
+    
+}
+//删除本地所有文件
+- (void)remoeAllFile {
+    NSArray *files = [[NSFileManager defaultManager] subpathsAtPath:_defaultFilePath];
+    for (NSString *fileNameTemp in files) {
+        [[NSFileManager defaultManager] removeItemAtPath:[self fileStr:fileNameTemp] error:nil];
+    }
 }
 
 @end

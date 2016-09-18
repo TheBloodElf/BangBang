@@ -23,12 +23,14 @@
 #import "SingleSelectController.h"
 #import "MuliteSelectController.h"
 #import "SelectImageController.h"
+#import "FileManager.h"
 
 @interface TaskCreateController ()<UITableViewDataSource,UITableViewDelegate,MuliteSelectDelegate,SingleSelectDelegate,TaskRemindCellDelegate,SelectImageDelegate,TaskAttenmentDelegate> {
     UITableView *_tableView;//表格视图
     UserManager *_userManager;//用户管理器
     TaskModel *_taskModel;//任务模型
     NSMutableArray<UIImage*> *_attanmentArr;//附件数组
+    FileManager *_fileManager;//文件管理去 用来存取本地文件
     int _attanmantIndex;//任务上传数量下标
     NSMutableArray<NSDate*> *_alertDateArr;//提醒时间数组
     Employee *_incharge;//负责人
@@ -46,6 +48,7 @@
     _incharge = [Employee new];
     _alertDateArr = [@[] mutableCopy];
     _memberArr = [@[] mutableCopy];
+    _fileManager = [FileManager shareManager];
     
     _userManager = [UserManager manager];
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
@@ -54,6 +57,12 @@
     if(taskDraftModelArr.count) {
         TaskDraftModel *model = taskDraftModelArr.firstObject;
         _taskModel = [[TaskModel alloc] initWithJSONDictionary:model.JSONDictionary];
+        NSMutableArray *imageArr = [@[] mutableCopy];
+        for (NSString *str in [model.attachmentArr componentsSeparatedByString:@","]) {
+            UIImage *image = [UIImage imageWithContentsOfFile:[_fileManager fileStr:str]];
+            [imageArr addObject:image];
+        }
+        _attanmentArr = imageArr;
     } else {
         _taskModel = [TaskModel new];
         _taskModel.status = 1;
@@ -112,6 +121,13 @@
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"保存为草稿?" message:nil preferredStyle:(UIAlertControllerStyleAlert)];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"保存" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         TaskDraftModel *model = [[TaskDraftModel alloc] initWithJSONDictionary:_taskModel.JSONDictionary];
+        NSMutableArray *imageFileArr = [@[] mutableCopy];
+        for (UIImage *image in _attanmentArr) {
+            NSString *imageName = @([NSDate date].timeIntervalSince1970 * 1000).stringValue;
+            [imageFileArr addObject:imageName];
+            [_fileManager writeData:[image dataInNoSacleLimitBytes:MaXPicSize] name:imageName];
+        }
+        model.attachmentArr = [imageFileArr componentsJoinedByString:@","];
         [_userManager updateTaskDraft:model companyNo:_userManager.user.currCompany.company_no];
         [self.navigationController popViewControllerAnimated:YES];
     }];

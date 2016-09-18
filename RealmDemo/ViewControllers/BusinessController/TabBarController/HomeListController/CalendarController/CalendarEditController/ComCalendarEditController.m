@@ -53,9 +53,19 @@
     [UserHttp updateUserCalendar:_currCalendar handler:^(id data, MError *error) {
         [self.navigationController.view dismissTips];
         if(error) {
+            if(error.statsCode == -1009) {//断网也可以操作，只是离线的而已
+                _currCalendar.needSync = YES;
+                [self.navigationController.view showSuccessTips:@"修改成功"];
+                if(self.delegate && [self.delegate respondsToSelector:@selector(ComCalendarEdit:)])
+                    [self.delegate ComCalendarEdit:_currCalendar];
+                [_userManager updateCalendar:_currCalendar];
+                [self.navigationController popViewControllerAnimated:YES];
+                return ;
+            }
             [self.navigationController.view showFailureTips:error.statsMsg];
             return ;
         }
+        _currCalendar.needSync = NO;
         [self.navigationController.view showSuccessTips:@"修改成功"];
         if(self.delegate && [self.delegate respondsToSelector:@selector(ComCalendarEdit:)])
             [self.delegate ComCalendarEdit:_currCalendar];

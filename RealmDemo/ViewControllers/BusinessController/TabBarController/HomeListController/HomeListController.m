@@ -37,22 +37,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _userManager = [UserManager manager];
-    //检查网络是否连接
-    AFNetworkReachabilityManager *reachabilityManager = [AFNetworkReachabilityManager sharedManager];
-    [reachabilityManager startMonitoring];
-    [reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        //这里进程序就会回调一次 所以可以在这里进行程序进入后加载所需要的最新数据 进入时加载必要的最新数据
-        if(status == -1 || status == 0) {
-            [self.navigationController.view showFailureTips:@"网络不可用，请连接网络"];
-            return;
-        }
-        if(_userManager.user.currCompany.company_no) {
-            //获取一次签到规则
-            [self getCompanySiginRule];
-            //获取任务
-            [self getCurrcompanyTasks];
-        }
-    }];
     //创建数据监听
     _userFetchedResultsController = [_userManager createUserFetchedResultsController];
     _userFetchedResultsController.delegate = self;
@@ -148,33 +132,6 @@
             [array addObject:set];
         }
         [_userManager updateSiginRule:array companyNo:_userManager.user.currCompany.company_no];
-    }];
-}
-//获取当前圈子员工
-- (void)getCurrcompanyEmployees {
-    [UserHttp getEmployeeCompnyNo:_userManager.user.currCompany.company_no status:5 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
-        if(error) {
-            [self.navigationController.view showFailureTips:error.statsMsg];
-            return ;
-        }
-        NSMutableArray *array = [@[] mutableCopy];
-        for (NSDictionary *dic in data[@"list"]) {
-            Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
-            [array addObject:employee];
-        }
-        [UserHttp getEmployeeCompnyNo:_userManager.user.currCompany.company_no status:0 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
-            [self.navigationController.view dismissTips];
-            if(error) {
-                [self.navigationController.view showFailureTips:error.statsMsg];
-                return ;
-            }
-            for (NSDictionary *dic in data[@"list"]) {
-                Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
-                [array addObject:employee];
-            }
-            //存入本地数据库
-            [_userManager updateEmployee:array companyNo:_userManager.user.currCompany.company_no];
-        }];
     }];
 }
 //获取当前圈子的任务列表

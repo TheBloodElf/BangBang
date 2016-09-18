@@ -89,16 +89,21 @@
         [UserHttp updateUserCalendar:_calendar handler:^(id data, MError *error) {
             [self.navigationController.view dismissTips];
             if(error) {
+                if(error.statsCode == -1009) {
+                    _calendar.needSync = YES;
+                    [_userManager updateCalendar:_calendar];
+                    [self.navigationController.view showSuccessTips:@"完成成功"];
+                    [self.navigationController popViewControllerAnimated:YES];
+                    return ;
+                }
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
+            _calendar.needSync = NO;
             [_userManager updateCalendar:_calendar];
             [self.navigationController.view showSuccessTips:@"完成成功"];
             [self.navigationController popViewControllerAnimated:YES];
         }];
-        
-//        [_userManager updateCalendar:_calendar];
-//        [self.navigationController popViewControllerAnimated:YES];
     }];
     [alertVC addAction:alertCancel];
     [alertVC addAction:alertSure];
@@ -115,16 +120,21 @@
         [UserHttp deleteUserCalendar:_calendar.id handler:^(id data, MError *error) {
             [self.navigationController.view dismissTips];
             if(error) {
+                if(error.statsCode == -1009) {
+                    _calendar.needSync = YES;
+                    [_userManager updateCalendar:_calendar];
+                    [self.navigationController.view showSuccessTips:@"删除成功"];
+                    [self.navigationController popViewControllerAnimated:YES];
+                    return ;
+                }
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
+            _calendar.needSync = NO;
             [_userManager updateCalendar:_calendar];
             [self.navigationController.view showSuccessTips:@"删除成功"];
             [self.navigationController popViewControllerAnimated:YES];
         }];
-        
-//        [_userManager updateCalendar:_calendar];
-//        [self.navigationController popViewControllerAnimated:YES];
     }];
     [alertVC addAction:alertCancel];
     [alertVC addAction:alertSure];

@@ -32,11 +32,11 @@
 /** 重复周期类型：不重复-0,按天-1，按周-2，按月-3，按年-4 */
 @property (nonatomic, assign) int   repeat_type;
 /** 是否提醒 */
-@property (nonatomic, assign) bool          is_alert;
+@property (nonatomic, assign) bool is_alert;
 /** 提前多少分钟提醒（1,2,5,10,15,20,25,30,45,60,90,120分钟） */
 @property (nonatomic, assign) int      alert_minutes_before;
 /** 结束后多少分钟提醒（1,2,5,10,15,20,25,30,45,60,90,120分钟） */
-@property (nonatomic, assign) int     alert_minutes_after;
+@property (nonatomic, assign) int  alert_minutes_after;
 /** 用户唯一标识 */
 @property (nonatomic, strong) NSString      * user_guid;
 /** 创建者user_guid */
@@ -90,11 +90,15 @@
 /**
  *  分享日程的唯一标识
  */
-@property(nonatomic,strong) NSString *event_guid;
+@property (nonatomic,strong) NSString *event_guid;
 /**
  *  创建者姓名
  */
-@property(nonatomic,strong) NSString *creator_name;
+@property (nonatomic, strong) NSString *creator_name;
+/**
+ *  是否需要同步
+ */
+@property (nonatomic, assign) int needSync;
 
 //是否有这个删除时间
 - (BOOL)haveDeleteDate:(NSDate*)date;

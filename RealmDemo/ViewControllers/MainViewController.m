@@ -32,9 +32,12 @@
     defaults = [NSUserDefaults standardUserDefaults];
     //从本地读取登录信息
     IdentityManager *manager = [IdentityManager manager];
-    //有旧版本的信息 需要同步 这里每次都进行判断是因为 如果在一次同步中没有同步完 下次进入程序可以接着同步
+    [manager readAuthorizeData];
+    //有旧版本的版本号 说明是旧版本升级上来的
     if([defaults.mj_keyValues.allKeys containsObject:@"WelcomeViewReadssss"]) {
         manager.identity.needLoadOldData = YES;
+    } else {
+        manager.identity.needLoadOldData = NO;
     }
     //保存当前的版本号
     manager.identity.lastSoftVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
@@ -206,7 +209,6 @@
                     [userManager addUserDiscuss:userDiscuss];
                 }
             }
-            //必要的东西同步完了 就可以不需要迁移了
             [defaults removeObjectForKey:@"WelcomeViewReadssss"];
         });
         manager.identity.accessToken = [defaults objectForKey:@"BangBangAccessToken"];
