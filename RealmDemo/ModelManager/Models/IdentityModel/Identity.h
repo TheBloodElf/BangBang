@@ -13,8 +13,6 @@
 @property (nonatomic, copy) NSString *user_guid;
 //是不是第一次使用软件
 @property (nonatomic, assign) BOOL firstUseSoft;
-//是否需要迁移数据
-@property (nonatomic, assign) BOOL needLoadOldData;
 //上一次软件的版本号
 @property (nonatomic, strong) NSString *lastSoftVersion;
 //请求接口的token

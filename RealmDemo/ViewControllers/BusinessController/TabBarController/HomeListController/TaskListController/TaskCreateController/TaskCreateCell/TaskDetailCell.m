@@ -14,6 +14,7 @@
 @interface TaskDetailCell ()<UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *taskDetail;
 @property (weak, nonatomic) IBOutlet UILabel *detailLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewHeight;
 @end
 
 @implementation TaskDetailCell

@@ -65,7 +65,6 @@
             [self.navigationController.view showFailureTips:error.statsMsg];
             return ;
         }
-        _currCalendar.needSync = NO;
         [self.navigationController.view showSuccessTips:@"修改成功"];
         if(self.delegate && [self.delegate respondsToSelector:@selector(ComCalendarEdit:)])
             [self.delegate ComCalendarEdit:_currCalendar];

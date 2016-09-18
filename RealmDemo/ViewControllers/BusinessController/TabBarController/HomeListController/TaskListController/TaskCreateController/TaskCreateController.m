@@ -59,6 +59,7 @@
         _taskModel = [[TaskModel alloc] initWithJSONDictionary:model.JSONDictionary];
         NSMutableArray *imageArr = [@[] mutableCopy];
         for (NSString *str in [model.attachmentArr componentsSeparatedByString:@","]) {
+            if(![_fileManager fileIsExit:str]) continue;
             UIImage *image = [UIImage imageWithContentsOfFile:[_fileManager fileStr:str]];
             [imageArr addObject:image];
         }

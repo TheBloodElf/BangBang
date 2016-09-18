@@ -44,6 +44,7 @@
     if([self isBlankStr:model.shareUserText]) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"请填写分享内容" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController.view dismissTips];
         }];
         [alert addAction:alertAction];
         [self presentViewController:alert animated:YES completion:nil];
@@ -69,6 +70,8 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"分享失败，请稍后再试" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController.view dismissTips];
+            [self.extensionContext completeRequestReturningItems:@[] completionHandler:nil];
         }];
         [alert addAction:alertAction];
         [self presentViewController:alert animated:YES completion:nil];
@@ -76,10 +79,10 @@
 }
 - (void)shareContent {
     NSMutableDictionary *parameter = [@{@"transfer_title":model.shareText,@"describe":model.shareUserText,@"company_no":model.shareCompanyNo,@"user_guid":model.shareUserGuid,@"access_token":model.shareToken} mutableCopy];
-    if(![self isBlankStr:model.shareText]) {
-        [parameter setValue:model.shareText forKey:@"transfer_title"];
+    if(![self isBlankStr:model.shareUrl]) {//有网址就分享网址
+        [parameter setValue:model.shareUrl forKey:@"transfer_url"];
     }
-    if(![self isBlankStr:model.shareImage]) {
+    if(![self isBlankStr:model.shareImage]) {//有图片就分享图片
         [parameter setValue:model.shareImage forKey:@"transfer_image"];
     }
     [manager POST:@"Dynamic/share_to_dynamic" parameters:parameter progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

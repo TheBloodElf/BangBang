@@ -99,6 +99,10 @@
  *  是否需要同步
  */
 @property (nonatomic, assign) int needSync;
+/**
+ *  是不是本地创建的日程
+ */
+@property (nonatomic, assign) int locCreate;
 
 //是否有这个删除时间
 - (BOOL)haveDeleteDate:(NSDate*)date;

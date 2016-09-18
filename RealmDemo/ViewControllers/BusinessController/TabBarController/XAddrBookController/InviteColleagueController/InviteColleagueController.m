@@ -45,7 +45,8 @@
                 return ;
             }
             NSString *shareStr = [NSString stringWithFormat:@"我是\"%@\",为了提高工作效率,\"%@\"(圈子编号:%d)最近在使用帮帮管理助手(%@),我已经加入了,你也来吧!",_userManager.user.real_name,_userManager.user.currCompany.company_name,_userManager.user.currCompany.company_no,data[@"url_short"]];
-            UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:@[shareStr,@""] applicationActivities:nil];
+            NSURL *url = [NSURL URLWithString:@""];
+            UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:@[shareStr,url] applicationActivities:nil];
             [self presentViewController:vc animated:YES completion:nil];
         }];
     }

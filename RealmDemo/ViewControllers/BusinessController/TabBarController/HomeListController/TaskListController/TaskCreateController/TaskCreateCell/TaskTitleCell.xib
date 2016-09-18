@@ -30,6 +30,7 @@
             <connections>
                 <outlet property="taskTitle" destination="CJ5-k9-S4I" id="H2g-Db-bRd"/>
             </connections>
+            <point key="canvasLocation" x="234" y="330"/>
         </tableViewCell>
     </objects>
 </document>

@@ -259,6 +259,7 @@
         _userSelectedDate = [NSDate date];
         [_calendarManager setDate:_userSelectedDate];
         [self getTodayCalendarArr];
+        [_tableView reloadData];
     } else if(index == 1) {
         [self.navigationController pushViewController:[CalendarListController new] animated:YES];
     } else if (index == 2) {
@@ -390,8 +391,11 @@
     if([dayView isFromAnotherMonth])
         dayView.textLabel.textColor = [UIColor grayColor];
     NSString *dateStr = [NSString stringWithFormat:@"%ld-%02ld-%02ld",dayView.date.year,dayView.date.month,dayView.date.day];
-    //得到日程的数量  显示事件数量或者小红点
-    NSInteger count = [_dateCalendarDic[dateStr] count];
+    //得到未完成日程的数量  显示事件数量或者小红点
+    NSInteger count = 0;
+    for (Calendar *calendar in _dateCalendarDic[dateStr])
+        if(calendar.status == 1)
+            count++;
     //是否是周模式
     if(_calendarManager.settings.weekModeEnabled == YES) {
         if(count != 0) {

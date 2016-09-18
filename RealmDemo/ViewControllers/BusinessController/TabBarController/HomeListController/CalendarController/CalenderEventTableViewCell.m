@@ -29,6 +29,7 @@
     // Initialization code
     _status.layer.cornerRadius = _status.frame.size.height / 3.f;
     _status.layer.borderWidth = 1;
+    _status.clipsToBounds = YES;
 }
 
 - (void)dataDidChange {
@@ -94,15 +95,26 @@
     else{
         _descriptionLab.text = @"暂无描述";
     }
-    //状态
-   if (calendar.status == 1) {
-       _status.text = @"进行中";
-       _status.textColor = [UIColor grayColor];
-       _status.layer.borderColor = [UIColor grayColor].CGColor;
-    } else if (calendar.status == 2) {
-        _status.text = @"已完成";
-        _status.textColor = [UIColor calendarColor];
-        _status.layer.borderColor = [UIColor calendarColor].CGColor;
+    //未同步灰色
+    if(calendar.needSync == YES) {
+        _status.text = @"未同步";
+        _status.textColor = [UIColor grayColor];
+        _status.layer.borderColor = [UIColor grayColor].CGColor;
+        _status.backgroundColor = [UIColor whiteColor];
+    } else {
+        //状态
+        if (calendar.status == 1) {
+            _status.text = @"进行中";
+            _status.textColor = [UIColor calendarColor];
+            _status.layer.borderColor = [UIColor calendarColor].CGColor;
+            _status.backgroundColor = [UIColor whiteColor];
+
+        } else if (calendar.status == 2) {
+            _status.text = @"已完成";
+            _status.textColor = [UIColor whiteColor];
+            _status.layer.borderColor = [UIColor calendarColor].CGColor;
+            _status.backgroundColor = [UIColor calendarColor];
+        }
     }
     
     //紧急度

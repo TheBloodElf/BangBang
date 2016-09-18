@@ -33,12 +33,6 @@
     //从本地读取登录信息
     IdentityManager *manager = [IdentityManager manager];
     [manager readAuthorizeData];
-    //有旧版本的版本号 说明是旧版本升级上来的
-    if([defaults.mj_keyValues.allKeys containsObject:@"WelcomeViewReadssss"]) {
-        manager.identity.needLoadOldData = YES;
-    } else {
-        manager.identity.needLoadOldData = NO;
-    }
     //保存当前的版本号
     manager.identity.lastSoftVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     [manager saveAuthorizeData];
@@ -80,10 +74,8 @@
 //进入判断逻辑
 - (void)gotoIdentityVC {
     IdentityManager *manager = [IdentityManager manager];
-    //是不是新版本第一次进入应用
-    if(manager.identity.needLoadOldData == YES) {
-        manager.identity.needLoadOldData = NO;
-        [manager saveAuthorizeData];
+    //需不需要迁移数据
+    if([defaults.mj_keyValues.allKeys containsObject:@"WelcomeViewReadssss"]) {
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT)];
         imageView.image = [UIImage imageNamed:@"lauch_screen_background"];
         [self.view addSubview:imageView];

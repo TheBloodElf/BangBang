@@ -564,7 +564,6 @@
     [params setObject:employeeGuid forKey:@"created_by"];
     [params setObject:employeeGuid forKey:@"in_charge"];
     [params setObject:employeeGuid forKey:@"member"];
-    [params setObject:@(NSIntegerMax) forKey:@"end_date"];
     [params setObject:@(10000) forKey:@"page_size"];
     [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
     completionHandler compleionHandler = ^(id data,MError *error) {

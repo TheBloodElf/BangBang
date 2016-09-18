@@ -48,10 +48,10 @@
         self.phLabel.hidden = NO;
     else
         self.phLabel.hidden = YES;
-    if(model.imageData)//如果有图片 就不用加载网页去取图片url
+    if(model.imageData)//如果有图片 就上传图片获取imageUrl
         self.image.image = [UIImage imageWithData:model.imageData];
-    else {
-        if([self isBlankStr:model.shareUrl]) return;//没有图片 没有URL 就没有imageUrl
+    else {//看看有没有网址 有网址就获取网址中的imageUrl
+        if([self isBlankStr:model.shareUrl]) return;//没有网址就没有imageUrl和shareUrl
         self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
         self.webView.hidden = YES;
         [self.contentView addSubview:self.webView];

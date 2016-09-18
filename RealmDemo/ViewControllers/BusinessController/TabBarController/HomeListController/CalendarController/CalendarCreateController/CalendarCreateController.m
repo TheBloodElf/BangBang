@@ -139,6 +139,7 @@
         if(error) {
             if(error.statsCode == -1009) {
                 _currCalendar.needSync = YES;
+                _currCalendar.locCreate = YES;
                 _currCalendar.id = [NSDate date].timeIntervalSince1970 * 1000;
                 _currCalendar.status = 1;
                 [_userManager addCalendar:_currCalendar];

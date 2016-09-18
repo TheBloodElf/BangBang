@@ -99,7 +99,6 @@
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
-            _calendar.needSync = NO;
             [_userManager updateCalendar:_calendar];
             [self.navigationController.view showSuccessTips:@"完成成功"];
             [self.navigationController popViewControllerAnimated:YES];
@@ -130,7 +129,6 @@
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
-            _calendar.needSync = NO;
             [_userManager updateCalendar:_calendar];
             [self.navigationController.view showSuccessTips:@"删除成功"];
             [self.navigationController popViewControllerAnimated:YES];
