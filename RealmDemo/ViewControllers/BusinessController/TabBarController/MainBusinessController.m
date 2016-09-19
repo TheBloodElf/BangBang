@@ -71,7 +71,7 @@
         }
         if(!_userManager.user.currCompany.company_no) return;
         [self getCompanySiginRule];//获取签到规则
-        [self getCurrcompanyTasks];//获取任务
+//        [self getCurrcompanyTasks];//获取任务
         [self checkSyncCalender];//同步日程
     }];
 }
@@ -139,29 +139,10 @@
         [self.navigationController.view dismissTips];
         return;
     }
-    Calendar *calendar = _needSyncCalender.firstObject;
-    //本地创建的就调用同步接口 id传0
+    Calendar *calendar = [_needSyncCalender.firstObject deepCopy];
+    //网络创建的
     if(calendar.locCreate == 0) {
-        Calendar *temp = [calendar deepCopy];
-        temp.id = 0;
-        [UserHttp createUserCalendar:temp handler:^(id data, MError *error) {
-            if(error) {
-                [self.navigationController.view dismissTips];
-                [self.navigationController.view showFailureTips:error.statsMsg];
-                return ;
-            }
-            //更新本地的日程
-            calendar.needSync = NO;
-            [_userManager updateCalendar:calendar];
-            [_needSyncCalender removeObjectAtIndex:0];
-            //添加新的日程
-            [calendar mj_setKeyValues:data];
-            calendar.descriptionStr = data[@"description"];
-            [_userManager addCalendar:calendar];
-            [self syncCalender];
-        }];
-    } else {//网络创建的如果删除了就调用删除接口
-        if(calendar.status == 0) {
+        if(calendar.status == 0) {//删除日程
             [UserHttp deleteUserCalendar:calendar.id handler:^(id data, MError *error) {
                 if(error) {
                     [self.navigationController.view dismissTips];
@@ -174,20 +155,41 @@
                 [_needSyncCalender removeObjectAtIndex:0];
                 [self syncCalender];
             }];
-        } else {//否则调用同步接口
-            [UserHttp updateUserCalendar:_needSyncCalender[0] handler:^(id data, MError *error) {
+        } else {//同步日程
+            [UserHttp syncUserCalendar:calendar handler:^(id data, MError *error) {
                 if(error) {
                     [self.navigationController.view dismissTips];
                     [self.navigationController.view showFailureTips:error.statsMsg];
                     return ;
                 }
-                //更新本地日程
                 calendar.needSync = NO;
                 [_userManager updateCalendar:calendar];
                 [_needSyncCalender removeObjectAtIndex:0];
                 [self syncCalender];
             }];
         }
+    } else {//本地创建的
+       //调用同步接口
+        int64_t tempId = calendar.id;
+        calendar.id = 0;
+        [UserHttp syncUserCalendar:calendar handler:^(id data, MError *error) {
+            if(error) {
+                [self.navigationController.view dismissTips];
+                [self.navigationController.view showFailureTips:error.statsMsg];
+                return ;
+            }
+            //删除旧的日程
+            calendar.status = 0;
+            calendar.id = tempId;
+            calendar.needSync = NO;
+            [_userManager updateCalendar:calendar];
+            //添加新建日程
+            [calendar mj_setKeyValues:data];
+            calendar.descriptionStr = data[@"description"];
+            [_userManager updateCalendar:calendar];
+            [_needSyncCalender removeObjectAtIndex:0];
+            [self syncCalender];
+        }];
     }
 }
 #pragma mark -- 

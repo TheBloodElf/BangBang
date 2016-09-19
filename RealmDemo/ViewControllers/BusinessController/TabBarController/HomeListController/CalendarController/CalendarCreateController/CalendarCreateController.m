@@ -45,6 +45,7 @@
     _currCalendar.alert_minutes_before = 0;
     _currCalendar.is_alert = false;
     _currCalendar.is_allday = false;
+    _currCalendar.status = 1;
     _currCalendar.user_guid = _userManager.user.user_guid;
     _currCalendar.created_by = _userManager.user.user_guid;
     _currCalendar.updated_by = _userManager.user.user_guid;
@@ -149,7 +150,6 @@
                 _currCalendar.needSync = YES;
                 _currCalendar.locCreate = YES;
                 _currCalendar.id = [NSDate date].timeIntervalSince1970 * 1000;
-                _currCalendar.status = 1;
                 _currCalendar.createdon_utc = [NSDate date].timeIntervalSince1970 * 1000;
                 _currCalendar.updatedon_utc = [NSDate date].timeIntervalSince1970 * 1000;
                 [_userManager addCalendar:_currCalendar];

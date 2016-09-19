@@ -321,6 +321,13 @@
         _currSignIn.distance = distance;
         _currSignIn.setting_guid = _currPunchCardAddressSetting.setting_guid;
     }
+    //判断上下班提醒
+    [self checkUpDownWorkAlert];
+    //提交签到数据
+    [self siginMethod];
+}
+//判断上下班提醒
+- (void)checkUpDownWorkAlert {
     //判断时间是否迟到或者早退
     NSDate *currDate = [NSDate new];
     NSUInteger currDateSecond = currDate.hour * 60 * 60 + currDate.minute * 60 + currDate.second;
@@ -379,7 +386,7 @@
                 UIAlertAction *alertCancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
                 UIAlertAction *alertSure = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     _currSignIn.validity = NO;
-                     [self siginMethod];
+                    [self siginMethod];
                 }];
                 [alertVC addAction:alertCancel];
                 [alertVC addAction:alertSure];
@@ -390,15 +397,12 @@
             UIAlertAction *alertCancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
             UIAlertAction *alertSure = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 _currSignIn.validity = YES;
-                 [self siginMethod];
+                [self siginMethod];
             }];
             [alertVC addAction:alertCancel];
             [alertVC addAction:alertSure];
             [self presentViewController:alertVC animated:YES completion:nil];
         }
-    } else {
-        _currSignIn.validity = YES;
-        [self siginMethod];
     }
 }
 //统一一个签到方法 还要上传图片 很是蛋疼

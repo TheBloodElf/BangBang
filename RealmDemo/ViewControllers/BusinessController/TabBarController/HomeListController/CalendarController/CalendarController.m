@@ -126,9 +126,6 @@
     else {
         //先加载今天的数据
         [self loadHaveCalendarTimeArr];
-        [_calendarManager reload];
-        [self getTodayCalendarArr];
-        [_tableView reloadData];
     }
 }
 - (void)topClicked:(UISwipeGestureRecognizer*)sw {
@@ -150,6 +147,7 @@
     NSMutableArray *calendarArr = [_userManager getCalendarArr];
     _haveCalendarArr = [@[] mutableCopy];
     _dateCalendarDic = [@{} mutableCopy];
+    dispatch_async(dispatch_get_main_queue(), ^{
     for (Calendar *tempCalendar in calendarArr) {
         //去掉删除的
         if(tempCalendar.status == 0) continue;
@@ -218,6 +216,10 @@
             }
         }
     }
+        [_calendarManager reload];
+        [self getTodayCalendarArr];
+        [_tableView reloadData];
+    });
 }
 //获取用户所选日期的的日程
 - (void)getTodayCalendarArr {
@@ -250,9 +252,6 @@
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
     //刷新当前的事件表格视图，重新加载一次日历视图
     [self loadHaveCalendarTimeArr];
-    [_calendarManager reload];
-    [self getTodayCalendarArr];
-    [_tableView reloadData];
 }
 #pragma mark --
 #pragma mark -- MoreSelectViewDelegate

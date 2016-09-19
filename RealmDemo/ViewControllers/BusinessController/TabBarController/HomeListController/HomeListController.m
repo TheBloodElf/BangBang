@@ -192,43 +192,10 @@
         [self.navigationController pushViewController:list animated:YES];
     }];
 }
-- (void)addCalendar {
-    Calendar *calendar = [Calendar new];
-    calendar.company_no = _userManager.user.currCompany.company_no;
-    calendar.event_name = @"测试日程创建";
-    calendar.descriptionStr = @"测试日程创建";
-    calendar.address = @"成都";
-    calendar.begindate_utc = [NSDate date].timeIntervalSince1970 * 1000;
-    calendar.enddate_utc = [NSDate date].timeIntervalSince1970 * 1000 + 24 * 60 * 60 * 100;
-    calendar.is_allday = 0;
-    calendar.repeat_type = 1;
-    calendar.is_alert = NO;
-    calendar.alert_minutes_before = 0;
-    calendar.alert_minutes_after = 0;
-    calendar.user_guid = _userManager.user.user_guid;
-    calendar.created_by = _userManager.user.user_guid;
-    calendar.createdon_utc = [NSDate date].timeIntervalSince1970 * 1000;
-    calendar.updated_by = _userManager.user.user_guid;
-    calendar.status = 1;
-    calendar.emergency_status = 0;
-    calendar.app_guid = @"";
-    calendar.target_id = @"";
-    calendar.rrule = @"FREQ=DAILY;INTERVAL=1";
-    calendar.members = @"";
-    calendar.r_begin_date_utc = [NSDate date].timeIntervalSince1970 * 1000;
-    calendar.r_end_date_utc = [NSDate date].timeIntervalSince1970 * 1000 + 100 * 24 * 60 * 60 * 1000;
-    calendar.deleted_dates = @([NSDate date].timeIntervalSince1970 * 1000 + 24 * 60 * 60).stringValue;
-    calendar.finished_dates = @([NSDate date].timeIntervalSince1970 * 1000 + 24 * 60 * 60).stringValue;
-    calendar.is_over_day = YES;
-    [UserHttp createUserCalendar:calendar handler:^(id data, MError *error) {
-        
-    }];
-}
 #pragma mark --
 #pragma mark -- HomeListBottomDelegate
 - (void)homeListBottomLocalAppSelect:(LocalUserApp*)localUserApp {
     if([localUserApp.titleName isEqualToString:@"公告"]) {//公告
-        [self addCalendar]; return;
         [self executeNeedSelectCompany:^{
             WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
             NSString *str = [NSString stringWithFormat:@"%@Notice?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];

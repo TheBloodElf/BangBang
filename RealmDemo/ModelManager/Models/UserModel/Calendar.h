@@ -49,8 +49,10 @@
 @property (nonatomic, assign) int64_t      updatedon_utc;
 /** 0-已删除，1-正常，2-已完成*/
 @property (nonatomic, assign) int status;
-/**  */
+/** 完成时间 */
 @property (nonatomic, assign) int64_t     finishedon_utc;
+/** 删除时间 */
+@property (nonatomic, assign) int64_t     deletedon_utc;
 /**
  *  RRule字符串
  */
