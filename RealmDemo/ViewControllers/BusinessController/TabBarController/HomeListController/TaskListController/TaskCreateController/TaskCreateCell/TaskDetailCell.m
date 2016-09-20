@@ -41,6 +41,9 @@
         {
             if (toBeString.length > MAX_STARWORDS_LENGTH)
             {
+                if(self.delegate && [self.delegate respondsToSelector:@selector(taskDetailLenghtOver)]) {
+                    [self.delegate taskDetailLenghtOver];
+                }
                 textField.text = [toBeString substringToIndex:MAX_STARWORDS_LENGTH];
             }
         }
@@ -51,6 +54,9 @@
     {
         if (toBeString.length > MAX_STARWORDS_LENGTH)
         {
+            if(self.delegate && [self.delegate respondsToSelector:@selector(taskDetailLenghtOver)]) {
+                [self.delegate taskDetailLenghtOver];
+            }
             NSRange rangeIndex = [toBeString rangeOfComposedCharacterSequenceAtIndex:MAX_STARWORDS_LENGTH];
             if (rangeIndex.length == 1)
             {

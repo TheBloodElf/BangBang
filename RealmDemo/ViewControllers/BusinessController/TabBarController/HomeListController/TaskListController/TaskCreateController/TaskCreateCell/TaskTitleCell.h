@@ -9,6 +9,14 @@
 #import <UIKit/UIKit.h>
 //任务名称
 
+@protocol TaskTitleCellDelegate <NSObject>
+
+- (void)taskTitleLenghtOver;
+
+@end
+
 @interface TaskTitleCell : UITableViewCell
+
+@property (nonatomic, weak) id<TaskTitleCellDelegate> delegate;
 
 @end

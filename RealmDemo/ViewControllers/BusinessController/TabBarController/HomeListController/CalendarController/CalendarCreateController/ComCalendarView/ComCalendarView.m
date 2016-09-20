@@ -15,7 +15,7 @@
 #import "ComCalendarAdress.h"
 #import "ComCalendarInstruction.h"
 
-@interface ComCalendarView ()<UITableViewDelegate,UITableViewDataSource,ComCalendarTimeDelegate> {
+@interface ComCalendarView ()<UITableViewDelegate,UITableViewDataSource,ComCalendarTimeDelegate,ComCalendarNameDelegate> {
     Calendar *_calendar;
     UITableView *_tableView;
 }
@@ -84,8 +84,11 @@
     } else {
         cell = [tableView dequeueReusableCellWithIdentifier:@"ComCalendarInstruction" forIndexPath:indexPath];
     }
-    
-    if (indexPath.row == 1) {
+    if (indexPath.row == 0) {
+        ComCalendarName *name = (id)cell;
+        name.data = _calendar;
+        name.delegate = self;
+    } else if (indexPath.row == 1) {
         ComCalendarTime *time = (id)cell;
         time.data = _calendar;
         time.delegate = self;
@@ -115,6 +118,12 @@
         cell.userInteractionEnabled = NO;
     
     return cell;
+}
+#pragma mark -- 
+#pragma mark -- ComCalendarNameDelegate
+//名称超长
+- (void)comCalendarNameLengthOver {
+    [self showMessageTips:@"名称不能超过30"];
 }
 #pragma mark -- 
 #pragma mark -- ComCalendarTimeDelegate

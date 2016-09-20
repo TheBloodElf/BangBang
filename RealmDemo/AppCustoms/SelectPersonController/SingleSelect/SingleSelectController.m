@@ -109,7 +109,7 @@
         }
     }
     //得到对应的名字数组
-    for (NSString *keyStr in _employeekeyArr) {
+    for (NSString *keyStr in keyArr) {
         [dataArr addObject:_currDataArr[keyStr]];
     }
     _employeekeyArr = keyArr;

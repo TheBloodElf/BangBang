@@ -125,7 +125,7 @@
         //查看需要同步的日程
         if(calender.needSync == YES) {
             //这里要排除本地创建本地删除的
-            if(calender.locCreate == YES && calender.status == 0) continue;
+            if(calender.id < 0 && calender.status == 0) continue;
             [_needSyncCalender addObject:calender];
         }
     }
@@ -141,7 +141,7 @@
     }
     Calendar *calendar = [_needSyncCalender.firstObject deepCopy];
     //网络创建的
-    if(calendar.locCreate == 0) {
+    if(calendar.id > 0) {
         if(calendar.status == 0) {//删除日程
             [UserHttp deleteUserCalendar:calendar.id handler:^(id data, MError *error) {
                 if(error) {

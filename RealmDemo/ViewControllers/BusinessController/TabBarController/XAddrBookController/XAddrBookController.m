@@ -89,9 +89,9 @@
         _employeeArr = [@[] mutableCopy];
         [_tableView reloadData];
     } else {
+        [self.navigationController.view showLoadingTips:@""];
         //从网络上获取最新的员工数据
         [UserHttp getEmployeeCompnyNo:_userManager.user.currCompany.company_no status:5 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
-            [self.navigationController.view dismissTips];
             if(error) {
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
@@ -273,12 +273,15 @@
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)sender {
     return _employeekeyArr;
 }
-- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
-    view.alpha = 0;
-    [UIView animateWithDuration:0.6 animations:^{
-        view.alpha = 1;
-    }];
-}
+//将要显示的时候使用
+//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+//    //分割线长度 距离
+//    UIEdgeInsets edgeInset = UIEdgeInsetsZero;
+//    if ([cell respondsToSelector:@selector(setSeparatorInset:)])
+//        [cell setSeparatorInset:edgeInset];
+//    if ([cell respondsToSelector:@selector(setLayoutMargins:)])
+//        [cell setLayoutMargins:edgeInset];
+//}
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     XAddrBookCell *cell = [tableView dequeueReusableCellWithIdentifier:@"XAddrBookCell" forIndexPath:indexPath];
     Employee * employee = [[_employeeDataArr objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];

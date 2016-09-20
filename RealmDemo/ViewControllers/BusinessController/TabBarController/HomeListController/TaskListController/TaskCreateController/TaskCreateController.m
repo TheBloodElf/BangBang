@@ -25,7 +25,7 @@
 #import "SelectImageController.h"
 #import "FileManager.h"
 
-@interface TaskCreateController ()<UITableViewDataSource,UITableViewDelegate,MuliteSelectDelegate,SingleSelectDelegate,TaskRemindCellDelegate,SelectImageDelegate,TaskAttenmentDelegate> {
+@interface TaskCreateController ()<UITableViewDataSource,UITableViewDelegate,MuliteSelectDelegate,SingleSelectDelegate,TaskRemindCellDelegate,SelectImageDelegate,TaskAttenmentDelegate,TaskTitleCellDelegate,TaskDetailCellDelegate> {
     UITableView *_tableView;//表格视图
     UserManager *_userManager;//用户管理器
     TaskModel *_taskModel;//任务模型
@@ -95,16 +95,6 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightClicked:)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(leftClicked:)];
-    //按钮是否能够被点击
-    RACSignal *nameSignal = RACObserve(_taskModel, task_name);
-    RACSignal *inchargeSignal = RACObserve(_taskModel, incharge_name);
-    RAC(self.navigationItem.rightBarButtonItem,enabled) = [RACSignal combineLatest:@[nameSignal,inchargeSignal] reduce:^(NSString *task_name,NSString *incharge_name){
-        if([NSString isBlank:task_name])
-            return @(NO);
-        if([NSString isBlank:incharge_name])
-            return @(NO);
-        return @(YES);
-    }];
     // Do any additional setup after loading the view.
 }
 - (void)viewWillAppear:(BOOL)animated {
@@ -144,6 +134,14 @@
     [self presentViewController:alertVC animated:YES completion:nil];
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
+    if([NSString isBlank:_taskModel.task_name]) {
+        [self.navigationController showMessageTips:@"请输入任务名称"];
+        return;
+    }
+    if([NSString isBlank:_taskModel.incharge]) {
+        [self.navigationController showMessageTips:@"请选择负责人"];
+        return;
+    }
     if(_taskModel.enddate_utc < ([NSDate date].timeIntervalSince1970 * 1000)) {
         [self.navigationController showMessageTips:@"请选择正确的结束时间！"];
         return;
@@ -267,9 +265,12 @@
     }
     
     if(indexPath.section == 0) {//任务标题
-        cell.data = _taskModel;
+        TaskTitleCell *title = (id)cell;
+        title.data = _taskModel;
+        title.delegate = self;
     } else if(indexPath.section == 1) {//任务详情
-        cell.data = _taskModel;
+        TaskDetailCell *detail = (id)cell;
+        detail.data = _taskModel;
     } else if (indexPath.section == 2) {//结束时间
         cell.data = _taskModel;
     } else if (indexPath.section == 3) {
@@ -359,6 +360,14 @@
             [self presentViewController:select animated:NO completion:nil];
         }
     }
+}
+#pragma mark -- TaskTitleCellDelegate
+- (void)taskTitleLenghtOver {
+    [self.view showMessageTips:@"任务名称不能大于30"];
+}
+#pragma mark -- TaskDetailCellDelegate
+- (void)taskDetailLenghtOver {
+    [self.view showMessageTips:@"任务描述不能大于500"];
 }
 #pragma mark -- TaskRemindCellDelegate
 - (void)TaskRemindDeleteDate:(NSDate*)date {

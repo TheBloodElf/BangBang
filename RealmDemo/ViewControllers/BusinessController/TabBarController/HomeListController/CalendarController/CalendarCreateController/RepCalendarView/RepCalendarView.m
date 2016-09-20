@@ -17,7 +17,7 @@
 #import "ComCalendarInstruction.h"
 #import "RepCalendarRepTime.h"
 
-@interface RepCalendarView ()<UITableViewDelegate,UITableViewDataSource,RepCalendarTimeDelegate,RepCalendarRepDelegate,RepCalendarRepTimeDelegate> {
+@interface RepCalendarView ()<UITableViewDelegate,UITableViewDataSource,RepCalendarTimeDelegate,RepCalendarRepDelegate,RepCalendarRepTimeDelegate,ComCalendarNameDelegate> {
     Calendar *_calendar;
     UITableView *_tableView;
 }
@@ -92,6 +92,12 @@
         [self.delegate RepCalendarViewRepEnd];
     }
 }
+#pragma mark -- 
+#pragma mark -- ComCalendarNameDelegate
+//名称超长
+- (void)comCalendarNameLengthOver {
+    [self showMessageTips:@"名称不能超过30"];
+}
 #pragma mark --
 #pragma mark -- UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -132,8 +138,11 @@
     } else {
         cell = [tableView dequeueReusableCellWithIdentifier:@"ComCalendarInstruction" forIndexPath:indexPath];
     }
-    
-    if (indexPath.row == 1) {
+    if (indexPath.row == 0) {
+        ComCalendarName *name = (id)cell;
+        name.data = _calendar;
+        name.delegate = self;
+    } else if (indexPath.row == 1) {
         RepCalendarTime *time = (id)cell;
         time.data = _calendar;
         time.delegate = self;

@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 //名称
+
+@protocol ComCalendarNameDelegate <NSObject>
+//名称超长
+- (void)comCalendarNameLengthOver;
+
+@end
+
 @interface ComCalendarName : UITableViewCell
+
+@property (nonatomic, weak) id<ComCalendarNameDelegate> delegate;
 
 @end

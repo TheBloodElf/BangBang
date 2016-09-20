@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 //任务详情
+
+@protocol TaskDetailCellDelegate <NSObject>
+
+- (void)taskDetailLenghtOver;
+
+@end
+
 @interface TaskDetailCell : UITableViewCell
+
+@property (nonatomic, weak) id<TaskDetailCellDelegate> delegate;
 
 @end

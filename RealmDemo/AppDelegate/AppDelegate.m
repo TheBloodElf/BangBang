@@ -29,6 +29,7 @@
     //键盘遮挡问题解决方案
     [IQKeyboardManager sharedManager].enable = YES;
     [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
+    [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     //百度统计
     [self startBDMobStat];
     //注册微信APPID

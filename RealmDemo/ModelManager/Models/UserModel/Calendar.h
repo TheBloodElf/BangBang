@@ -9,7 +9,7 @@
 //日程
 @interface Calendar : RLMObject
 
-/** 事务编号 */
+/** 事务编号 为负数表示本地创建的 */
 @property (nonatomic, assign) int64_t id;
 /** 当前工作圈编号，如果没有输入0 */
 @property (nonatomic, assign) int  company_no;
@@ -101,10 +101,6 @@
  *  是否需要同步 也就是断网情况下是否操作过
  */
 @property (nonatomic, assign) int needSync;
-/**
- *  是不是本地创建的日程
- */
-@property (nonatomic, assign) int locCreate;
 
 //是否有这个删除时间
 - (BOOL)haveDeleteDate:(NSDate*)date;

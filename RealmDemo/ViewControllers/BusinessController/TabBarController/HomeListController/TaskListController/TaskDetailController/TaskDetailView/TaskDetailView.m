@@ -16,6 +16,7 @@
 #import "TaskMemberCellCell.h"
 #import "TaskFinishCellCell.h"
 #import "TaskRemindCellCell.h"
+#import "TaskFinishStatusCell.h"
 
 @interface TaskDetailView ()<UITableViewDelegate,UITableViewDataSource,TaskDetailBottomOpDelegate> {
     UserManager *_userManager;
@@ -46,6 +47,7 @@
         [_tableView registerNib:[UINib nibWithNibName:@"TaskMemberCellCell" bundle:nil] forCellReuseIdentifier:@"TaskMemberCellCell"];
         [_tableView registerNib:[UINib nibWithNibName:@"TaskFinishCellCell" bundle:nil] forCellReuseIdentifier:@"TaskFinishCellCell"];
         [_tableView registerNib:[UINib nibWithNibName:@"TaskRemindCellCell" bundle:nil] forCellReuseIdentifier:@"TaskRemindCellCell"];
+        [_tableView registerNib:[UINib nibWithNibName:@"TaskFinishStatusCell" bundle:nil] forCellReuseIdentifier:@"TaskFinishStatusCell"];
         [self addSubview:_tableView];
     }
     return self;
@@ -114,7 +116,10 @@
     return 0.001f;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 4;
+    int count = 4;
+    if(_taskModel.status == 4 || _taskModel.status == 6 || _taskModel.status == 7 || _taskModel.status == 8)
+        count ++;
+    return count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if(section == 1)
@@ -147,6 +152,14 @@
                 count ++;
             height = count * 15 + (count - 1) * 15 + 48;
         }
+    } else if (indexPath.section == 4) {
+        NSMutableString *str = [@"[完成理由]" mutableCopy];
+        if(_taskModel.status == 4) {
+            [str appendString:_taskModel.finish_comment];
+        } else {
+            [str appendString:_taskModel.approve_comment];
+        }
+        height = 84 + [str textSizeWithFont:[UIFont systemFontOfSize:13] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH - 20, 1000)].height + 5;
     }
     return height;
 }
@@ -162,8 +175,10 @@
         }
     } else if(indexPath.section == 2) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"TaskFinishCellCell" forIndexPath:indexPath];
-    } else {
+    } else if(indexPath.section == 3) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"TaskRemindCellCell" forIndexPath:indexPath];
+    } else if (indexPath.section == 4) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"TaskFinishStatusCell" forIndexPath:indexPath];
     }
     
     cell.data = _taskModel;
@@ -178,4 +193,5 @@
         }
     }
 }
+
 @end

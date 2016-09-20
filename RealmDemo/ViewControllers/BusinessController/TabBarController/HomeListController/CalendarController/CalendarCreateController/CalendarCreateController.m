@@ -148,8 +148,7 @@
         if(error) {
             if(error.statsCode == -1009) {
                 _currCalendar.needSync = YES;
-                _currCalendar.locCreate = YES;
-                _currCalendar.id = [NSDate date].timeIntervalSince1970 * 1000;
+                _currCalendar.id = -[NSDate date].timeIntervalSince1970;
                 _currCalendar.createdon_utc = [NSDate date].timeIntervalSince1970 * 1000;
                 _currCalendar.updatedon_utc = [NSDate date].timeIntervalSince1970 * 1000;
                 [_userManager addCalendar:_currCalendar];

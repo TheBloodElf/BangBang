@@ -724,6 +724,8 @@
 		1BED8C1A1D51963F00340809 /* TaskOwnerCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BED8C181D51963F00340809 /* TaskOwnerCommentCell.m */; };
 		1BED8C1B1D51963F00340809 /* TaskOwnerCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BED8C191D51963F00340809 /* TaskOwnerCommentCell.xib */; };
 		1BED8C231D51C6E900340809 /* InputTextController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BED8C221D51C6E900340809 /* InputTextController.m */; };
+		1BF065B91D90BEDB00BEDF03 /* TaskFinishStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF065B71D90BEDB00BEDF03 /* TaskFinishStatusCell.m */; };
+		1BF065BA1D90BEDB00BEDF03 /* TaskFinishStatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BF065B81D90BEDB00BEDF03 /* TaskFinishStatusCell.xib */; };
 		1BF151261D65840800809952 /* launch_screen_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BF151231D65840800809952 /* launch_screen_icon.png */; };
 		1BF151271D65840800809952 /* launch_screen_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BF151241D65840800809952 /* launch_screen_icon@2x.png */; };
 		1BF151281D65840800809952 /* launch_screen_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BF151251D65840800809952 /* launch_screen_icon@3x.png */; };
@@ -2086,6 +2088,9 @@
 		1BED8C191D51963F00340809 /* TaskOwnerCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskOwnerCommentCell.xib; sourceTree = "<group>"; };
 		1BED8C211D51C6E900340809 /* InputTextController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputTextController.h; sourceTree = "<group>"; };
 		1BED8C221D51C6E900340809 /* InputTextController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputTextController.m; sourceTree = "<group>"; };
+		1BF065B61D90BEDB00BEDF03 /* TaskFinishStatusCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskFinishStatusCell.h; sourceTree = "<group>"; };
+		1BF065B71D90BEDB00BEDF03 /* TaskFinishStatusCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskFinishStatusCell.m; sourceTree = "<group>"; };
+		1BF065B81D90BEDB00BEDF03 /* TaskFinishStatusCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskFinishStatusCell.xib; sourceTree = "<group>"; };
 		1BF151231D65840800809952 /* launch_screen_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch_screen_icon.png; sourceTree = "<group>"; };
 		1BF151241D65840800809952 /* launch_screen_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "launch_screen_icon@2x.png"; sourceTree = "<group>"; };
 		1BF151251D65840800809952 /* launch_screen_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "launch_screen_icon@3x.png"; sourceTree = "<group>"; };
@@ -3111,6 +3116,9 @@
 				1B0388911D509DF800D0B7D0 /* TaskRemindCellCell.h */,
 				1B0388921D509DF800D0B7D0 /* TaskRemindCellCell.m */,
 				1B0388931D509DF800D0B7D0 /* TaskRemindCellCell.xib */,
+				1BF065B61D90BEDB00BEDF03 /* TaskFinishStatusCell.h */,
+				1BF065B71D90BEDB00BEDF03 /* TaskFinishStatusCell.m */,
+				1BF065B81D90BEDB00BEDF03 /* TaskFinishStatusCell.xib */,
 			);
 			path = TaskDetailCell;
 			sourceTree = "<group>";
@@ -5625,6 +5633,7 @@
 				1BFBC1651D3F455500A5511A /* RepWeekView.xib in Resources */,
 				1B381E191D6ED7AB00644147 /* VoiceSearchFeedback018@2x.png in Resources */,
 				1B47D7731D6C3E8000837BFD /* JSPatch.js in Resources */,
+				1BF065BA1D90BEDB00BEDF03 /* TaskFinishStatusCell.xib in Resources */,
 				1B6D16581D48A8D00070D2E5 /* login_background@3x.png in Resources */,
 				0471C0961D3B262600377178 /* PushMessageCell.xib in Resources */,
 				1B381E161D6ED7AB00644147 /* VoiceSearchFeedback017.png in Resources */,
@@ -6232,6 +6241,7 @@
 				04B0D80E1D698E8800BAD522 /* NSObject+RACSelectorSignal.m in Sources */,
 				04FE7CCB1D3670AD00362702 /* LeftMenuController.m in Sources */,
 				1B18B3371D59B66300858C83 /* Attachment.m in Sources */,
+				1BF065B91D90BEDB00BEDF03 /* TaskFinishStatusCell.m in Sources */,
 				1B1648CD1D54911F003DC778 /* RCTransferDiscussCell.m in Sources */,
 				0482FBEF1D436FE500B1CBB2 /* MANaviPolyline.m in Sources */,
 				1B33124D1D741E9900E77741 /* AppCenterView.m in Sources */,
