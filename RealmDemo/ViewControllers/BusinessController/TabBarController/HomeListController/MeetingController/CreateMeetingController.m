@@ -32,7 +32,7 @@
     UITableView *_tableView;//表格视图
     Meeting *_meeting;//会议模型
     MeetingRoomModel *_meetingRoomModel;//会议室模型
-    NSMutableArray<MeetingEquipmentsModel*> *_meetingEquipmentsArr;//会议设备数组
+    NSMutableArray<MeetingEquipmentsModel*> *_meetingEquipmentsArr;//会议公共设备数组
     Employee *_meetingEmployee;//会议室准备人
     Employee *_incharge;//主持人
     NSMutableArray<MeetingAgenda*> *_meetingAgendaArr;//议程数组
@@ -218,6 +218,7 @@
             cell.detailTextLabel.text = timeStr;
         } else {//设备
             MeetingDevice *device = (id)cell;
+            device.meetingRoomModel = _meetingRoomModel;
             device.data = _meetingEquipmentsArr;
             device.delegate = self;
         }
@@ -393,6 +394,7 @@
 - (void)MeetingDeviceMore {
     MeetDeviceDetailController *meet = [MeetDeviceDetailController new];
     meet.employee = _meetingEmployee;
+    meet.meetingRoomModel = _meetingRoomModel;
     meet.meetingEquipments = _meetingEquipmentsArr;
     [self.navigationController pushViewController:meet animated:YES];
 }

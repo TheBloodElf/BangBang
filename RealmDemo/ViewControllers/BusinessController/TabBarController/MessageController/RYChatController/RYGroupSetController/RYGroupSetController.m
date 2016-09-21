@@ -345,7 +345,8 @@
         if(sw.on == YES) {//添加
             [UserHttp addUserDiscuss:_userManager.user.user_no discussId:_currRCDiscussion.discussionId discussTitle:_currRCDiscussion.discussionName handler:^(id data, MError *error) {
                 if(error) return ;
-                UserDiscuss *currDiscuss = [[UserDiscuss alloc] initWithJSONDictionary:data];
+                UserDiscuss *currDiscuss = [UserDiscuss new];
+                [currDiscuss mj_setKeyValues:data];
                 [_userManager addUserDiscuss:currDiscuss];
             }];
         } else {//删除

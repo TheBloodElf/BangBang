@@ -5462,6 +5462,7 @@
 					046DAF881D4C812C00718F2A = {
 						CreatedOnToolsVersion = 7.0.1;
 						DevelopmentTeam = W488V5C95D;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -5471,10 +5472,12 @@
 					1B0CF7991D64384E00096CF9 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = W488V5C95D;
+						ProvisioningStyle = Manual;
 					};
 					1B877F111D178E7D000144B2 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = W488V5C95D;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -5487,6 +5490,7 @@
 					1BEAD31A1D62F14700B8C3FD = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = W488V5C95D;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -6475,11 +6479,14 @@
 				CODE_SIGN_ENTITLEMENTS = RealmShare/RealmShare.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = W488V5C95D;
 				INFOPLIST_FILE = RealmShare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lottak.BangBang.share;
 				PRODUCT_NAME = "帮帮";
+				PROVISIONING_PROFILE = "3f282e38-78a6-4d78-8102-811a16b136b5";
+				PROVISIONING_PROFILE_SPECIFIER = dev_bangbang_share;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -6492,11 +6499,14 @@
 				CODE_SIGN_ENTITLEMENTS = RealmShare/RealmShare.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = W488V5C95D;
 				INFOPLIST_FILE = RealmShare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lottak.BangBang.share;
 				PRODUCT_NAME = "帮帮";
+				PROVISIONING_PROFILE = "324bfeee-a302-42cc-baf0-ace046d6240f";
+				PROVISIONING_PROFILE_SPECIFIER = "XC: com.lottak.BangBang.share";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -6506,11 +6516,14 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = W488V5C95D;
 				INFOPLIST_FILE = RealmPhoto/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lottak.BangBang.RealmPhoto;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "1815f9ca-3a57-4b43-995f-ce91b39b985d";
+				PROVISIONING_PROFILE_SPECIFIER = dev_bangbang_photo;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -6520,11 +6533,14 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = W488V5C95D;
 				INFOPLIST_FILE = RealmPhoto/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lottak.BangBang.RealmPhoto;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "90a1c143-25c1-4971-b621-d262609078bd";
+				PROVISIONING_PROFILE_SPECIFIER = dis_bangbang_photo;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -6621,6 +6637,7 @@
 				CODE_SIGN_ENTITLEMENTS = "RealmDemo/帮帮管理助手.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = W488V5C95D;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6720,7 +6737,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lottak.BangBang;
 				PRODUCT_NAME = "帮帮管理助手";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "a972c0b5-29b7-4bf0-907c-1dfe5d9b6ce7";
+				PROVISIONING_PROFILE_SPECIFIER = dev_bangbang;
 			};
 			name = Debug;
 		};
@@ -6732,6 +6750,7 @@
 				CODE_SIGN_ENTITLEMENTS = "RealmDemo/帮帮管理助手.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = W488V5C95D;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6831,7 +6850,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lottak.BangBang;
 				PRODUCT_NAME = "帮帮管理助手";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "ff5f779d-77b2-4582-8768-0cc8faeb5c34";
+				PROVISIONING_PROFILE_SPECIFIER = "XC: com.lottak.BangBang";
 			};
 			name = Release;
 		};
@@ -6842,11 +6862,14 @@
 				CODE_SIGN_ENTITLEMENTS = RealmToday/RealmToday.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = W488V5C95D;
 				INFOPLIST_FILE = RealmToday/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lottak.BangBang.RealmToday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "caaa0ae9-bf8d-46df-aa2a-a4df40b14c99";
+				PROVISIONING_PROFILE_SPECIFIER = dev_bangbang_today;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -6858,11 +6881,14 @@
 				CODE_SIGN_ENTITLEMENTS = RealmToday/RealmToday.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = W488V5C95D;
 				INFOPLIST_FILE = RealmToday/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lottak.BangBang.RealmToday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "a6d2663d-6ba2-4601-a41f-9b31fae65580";
+				PROVISIONING_PROFILE_SPECIFIER = dis_bangbang_today;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;

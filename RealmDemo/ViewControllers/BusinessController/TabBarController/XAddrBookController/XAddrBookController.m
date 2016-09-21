@@ -98,7 +98,8 @@
             }
             NSMutableArray *array = [@[] mutableCopy];
             for (NSDictionary *dic in data[@"list"]) {
-                Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
+                Employee *employee = [Employee new];
+                [employee mj_setKeyValues:dic];
                 [array addObject:employee];
             }
             [UserHttp getEmployeeCompnyNo:_userManager.user.currCompany.company_no status:0 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
@@ -108,7 +109,8 @@
                     return ;
                 }
                 for (NSDictionary *dic in data[@"list"]) {
-                    Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
+                    Employee *employee = [Employee new];
+                    [employee mj_setKeyValues:dic];
                     [array addObject:employee];
                 }
                 //存入本地数据库

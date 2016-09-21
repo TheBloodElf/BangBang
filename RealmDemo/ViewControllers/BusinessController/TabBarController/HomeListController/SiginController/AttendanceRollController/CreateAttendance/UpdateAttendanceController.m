@@ -60,7 +60,7 @@
     // Do any additional setup after loading the view.
 }
 - (void)dataDidChange {
-    _currSiginRule = [[SiginRuleSet alloc] initWithJSONDictionary:[self.data JSONDictionary]];
+    _currSiginRule = [self.data deepCopy];
 }
 - (void)viewWillAppear:(BOOL)animated
 {

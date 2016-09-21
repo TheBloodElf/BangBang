@@ -56,7 +56,8 @@
     NSMutableArray<TaskDraftModel*> *taskDraftModelArr = [_userManager getTaskDraftArr:_userManager.user.currCompany.company_no];
     if(taskDraftModelArr.count) {
         TaskDraftModel *model = taskDraftModelArr.firstObject;
-        _taskModel = [[TaskModel alloc] initWithJSONDictionary:model.JSONDictionary];
+        _taskModel = [TaskModel new];
+        [_taskModel mj_setKeyValues:[model JSONDictionary]];
         NSMutableArray *imageArr = [@[] mutableCopy];
         for (NSString *str in [model.attachmentArr componentsSeparatedByString:@","]) {
             if(![_fileManager fileIsExit:str]) continue;
@@ -111,7 +112,8 @@
 - (void)leftClicked:(UIBarButtonItem*)item {
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"保存为草稿?" message:nil preferredStyle:(UIAlertControllerStyleAlert)];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"保存" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        TaskDraftModel *model = [[TaskDraftModel alloc] initWithJSONDictionary:_taskModel.JSONDictionary];
+        TaskDraftModel *model = [TaskDraftModel new];
+        [model mj_setKeyValues:_taskModel.JSONDictionary];
         NSMutableArray *imageFileArr = [@[] mutableCopy];
         for (UIImage *image in _attanmentArr) {
             NSString *imageName = @([NSDate date].timeIntervalSince1970 * 1000).stringValue;
@@ -169,7 +171,8 @@
             if(error.statsCode == -1009) {//没有网络可以保存到本地
                 UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"网络不可用，保存为草稿?" message:nil preferredStyle:(UIAlertControllerStyleAlert)];
                 UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"保存" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    TaskDraftModel *model = [[TaskDraftModel alloc] initWithJSONDictionary:_taskModel.JSONDictionary];
+                    TaskDraftModel *model = [TaskDraftModel new];
+                    [model mj_setKeyValues:_taskModel.JSONDictionary];
                     [_userManager updateTaskDraft:model companyNo:_userManager.user.currCompany.company_no];
                     [self.navigationController popViewControllerAnimated:YES];
                 }];
@@ -187,7 +190,8 @@
             }
             return ;
         }
-        _taskModel = [[TaskModel alloc] initWithJSONDictionary:data];
+        _taskModel = [TaskModel new];
+        [_taskModel mj_setKeyValues:data];
         _taskModel.descriptionStr = data[@"description"];
         [_userManager addTask:_taskModel];
         [self uploadAttanment];

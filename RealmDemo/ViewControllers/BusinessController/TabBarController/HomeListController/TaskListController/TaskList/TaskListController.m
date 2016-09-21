@@ -200,7 +200,8 @@
         }
         NSMutableArray<TaskModel*> *array = [@[] mutableCopy];
         for (NSDictionary *dic in data[@"list"]) {
-            TaskModel *model = [[TaskModel alloc] initWithJSONDictionary:dic];
+            TaskModel *model = [TaskModel new];
+            [model mj_setKeyValues:dic];
             model.descriptionStr = dic[@"description"];
             [array addObject:model];
         }

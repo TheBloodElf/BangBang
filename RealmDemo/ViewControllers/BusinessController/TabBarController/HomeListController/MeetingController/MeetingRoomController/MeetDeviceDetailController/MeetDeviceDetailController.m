@@ -23,12 +23,18 @@
     self.title = @"设备详情";
     _sureEquipmentsArr = [@[] mutableCopy];
     _publicEquipmentsArr = [@[] mutableCopy];
+    //获取固定设备
+    int i = -1;
+    for (NSString *str in [self.meetingRoomModel.room_equipments componentsSeparatedByString:@","]) {
+        if([NSString isBlank:str]) continue;
+        MeetingEquipmentsModel *model = [MeetingEquipmentsModel new];
+        model.id = i--;
+        model.name = str;
+        model.type = 0;
+        [_sureEquipmentsArr addObject:model];
+    }
     for (MeetingEquipmentsModel *model in self.meetingEquipments) {
-        if(model.type == 0) {
-            [_sureEquipmentsArr addObject:model];
-        } else {
-            [_publicEquipmentsArr addObject:model];
-        }
+        [_publicEquipmentsArr addObject:model];
     }
     self.view.backgroundColor = [UIColor whiteColor];
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT) style:UITableViewStylePlain];

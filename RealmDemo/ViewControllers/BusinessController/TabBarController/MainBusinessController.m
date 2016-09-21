@@ -88,11 +88,13 @@
         for (NSDictionary *dic in data) {
             NSMutableDictionary *dicDic = [dic mutableCopy];
             dicDic[@"work_day"] = [dicDic[@"work_day"] componentsJoinedByString:@","];
-            SiginRuleSet *set = [[SiginRuleSet alloc] initWithJSONDictionary:dicDic];
+            SiginRuleSet *set = [SiginRuleSet new];
+            [set mj_setKeyValues:dicDic];
             //这里动态添加签到地址
             RLMArray<PunchCardAddressSetting> *settingArr = [[RLMArray<PunchCardAddressSetting> alloc] initWithObjectClassName:@"PunchCardAddressSetting"];
             for (NSDictionary *settingDic in dicDic[@"address_settings"]) {
-                PunchCardAddressSetting *setting = [[PunchCardAddressSetting alloc] initWithJSONDictionary:settingDic];
+                PunchCardAddressSetting *setting = [PunchCardAddressSetting new];
+                [setting mj_setKeyValues:settingDic];
                 [settingArr addObject:setting];
             }
             set.json_list_address_settings = settingArr;
@@ -111,7 +113,8 @@
         }
         NSMutableArray<TaskModel*> *array = [@[] mutableCopy];
         for (NSDictionary *dic in data[@"list"]) {
-            TaskModel *model = [[TaskModel alloc] initWithJSONDictionary:dic];
+            TaskModel *model = [TaskModel new];
+            [model mj_setKeyValues:dic];
             model.descriptionStr = dic[@"description"];
             [array addObject:model];
         }
@@ -253,7 +256,8 @@
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
-            TaskModel *taskModel = [[TaskModel alloc] initWithJSONDictionary:data];
+            TaskModel *taskModel = [TaskModel new];
+            [taskModel mj_setKeyValues:data];
             taskModel.descriptionStr = data[@"description"];
             [_userManager upadteTask:taskModel];
             
@@ -299,7 +303,8 @@
     } else if([message.type isEqualToString:@"CALENDAR"]){ //日程推送 分享日程
         NSData *calendarData = [message.entity dataUsingEncoding:NSUTF8StringEncoding];
         NSMutableDictionary *calendarDic = [NSJSONSerialization JSONObjectWithData:calendarData options:NSJSONReadingMutableContainers error:nil];
-        Calendar *sharedCalendar = [[Calendar alloc] initWithJSONDictionary:calendarDic];
+        Calendar *sharedCalendar = [Calendar new];
+        [sharedCalendar mj_setKeyValues:calendarDic];
         sharedCalendar.descriptionStr = calendarDic[@"description"];
         //展示详情
         if(sharedCalendar.repeat_type == 0) {

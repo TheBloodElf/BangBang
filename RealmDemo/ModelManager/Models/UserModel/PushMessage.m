@@ -12,7 +12,7 @@
 @"TASK":@{@"typeString":@"任务通知",@"unreadImageName":@"pushMessage_task.png",@"readImageName":@"pushMessage_task1.png"},\
 @"REQUEST":@{@"typeString":@"请示提醒通知",@"unreadImageName":@"pushMessage_approve.png",@"readImageName":@"pushMessage_approve1.png"},\
 @"NEW_APPROVAL":@{@"typeString":@"审批提醒通知",@"unreadImageName":@"pushMessage_approve.png",@"readImageName":@"pushMessage_approve1.png"},\
-@"SYSTEM":@{@"typeString":@"系统通知",@"unreadImageName":@"ic_notice_system.png",@"readImageName":@"ic_notice_system1.png"},\
+@"SYSTEM":@{@"typeString":@"系统通知",@"unreadImageName":@"pushMessage_system.png",@"readImageName":@"pushMessage_system1.png"},\
 @"CALENDARTIP":@{@"typeString":@"日程提醒通知",@"unreadImageName":@"pushMessage_schedule.png",@"readImageName":@"pushMessage_schedule1.png"},\
 @"WORKTIP":@{@"typeString":@"上下班通知",@"unreadImageName":@"pushMessage_task.png",@"readImageName":@"pushMessage_task1.png"},\
 @"CALENDAR":@{@"typeString":@"日程通知",@"unreadImageName":@"pushMessage_schedule.png",@"readImageName":@"pushMessage_schedule1.png"},\

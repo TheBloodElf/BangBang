@@ -266,11 +266,14 @@
 }
 #pragma mark -- MeetingSiginReaderDelegate
 - (void)reader:(MeetingSiginReaderController *)reader didScanResult:(NSString *)result {
-    [self.navigationController popViewControllerAnimated:YES];
     //调用JS刷新会议列表
     [_bridge callHandler:@"getScanningUrl" data:result responseCallback:^(id response) {
         NSLog(@"xyf-----------: %@", response);
     }];
+    //等一会儿退出当前页面
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.navigationController popViewControllerAnimated:YES];
+    });
 }
 //单选回调
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {

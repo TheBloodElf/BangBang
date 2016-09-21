@@ -14,10 +14,9 @@
 #import "SingleSelectController.h"
 
 @interface MeetingDeviceSelectController ()<UITableViewDelegate,UITableViewDataSource,SingleSelectDelegate> {
-    NSMutableArray<MeetingEquipmentsModel*> *_sureEquipmentsArr;//固定设备
-    NSMutableArray<MeetingEquipmentsModel*> *_publicEquipmentsArr;//公共设备
+    NSMutableArray<MeetingEquipmentsModel*> *_sureEquipmentsArr;//固定设备 是一个对象数组
+    NSMutableArray<MeetingEquipmentsModel*> *_publicEquipmentsArr;//公共设备 是一个对象数组
     Employee *_employee;//会议设备准备人
-    MeetingRoomCellModel *_userSelectDate;//用户选择的开始/结束时间
     UserManager *_userManager;
     UITableView *_tableView;
 }
@@ -40,7 +39,19 @@
     _tableView.tableFooterView = [UIView new];
     [_tableView registerNib:[UINib nibWithNibName:@"MeetingSelectPresonCell" bundle:nil] forCellReuseIdentifier:@"MeetingSelectPresonCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"MeetingDeviceSelectCell" bundle:nil] forCellReuseIdentifier:@"MeetingDeviceSelectCell"];
-    [self.navigationController.view showLoadingTips:@"获取设备..."];
+    //从会议室模型中获取固定设备
+    int i = -1;
+    for (NSString *str in [self.meetingRoomModel.room_equipments componentsSeparatedByString:@","]) {
+        if([NSString isBlank:str]) continue;
+        MeetingEquipmentsModel *model = [MeetingEquipmentsModel new];
+        model.type = 0;
+        model.id = i--;
+        model.name = str;
+        model.isSelect = YES;
+        [_sureEquipmentsArr addObject:model];
+    }
+    //获取公共设备
+    [self.navigationController.view showLoadingTips:@"获取公共设备..."];
     [UserHttp getMeetEquipments:_userManager.user.currCompany.company_no begin:_userSelectDate.begin.timeIntervalSince1970 * 1000 end:_userSelectDate.end.timeIntervalSince1970 * 1000 handler:^(id data, MError *error) {
         [self.navigationController.view dismissTips];
         if(error) {
@@ -51,12 +62,7 @@
         for (NSDictionary *dic in data) {
             MeetingEquipmentsModel *model = [MeetingEquipmentsModel new];
             [model mj_setKeyValues:dic];
-            if(model.type == 0) {
-                model.isSelect = YES;
-                [_sureEquipmentsArr addObject:model];
-            } else {
-                [_publicEquipmentsArr addObject:model];
-            }
+            [_publicEquipmentsArr addObject:model];
         }
         [self.view addSubview:_tableView];
     }];
@@ -65,8 +71,8 @@
     // Do any additional setup after loading the view.
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
+    //获取公共设备被选中的
     NSMutableArray<MeetingEquipmentsModel*> *array = [@[] mutableCopy];
-    [array addObjectsFromArray:_sureEquipmentsArr];
     for (MeetingEquipmentsModel *model in _publicEquipmentsArr) {
         if(model.isSelect == YES)
             [array addObject:model];
@@ -75,9 +81,6 @@
         [self.delegate MeetingDeviceSelect:array employee:_employee];
     }
     [self.navigationController popViewControllerAnimated:YES];
-}
-- (void)dataDidChange {
-    _userSelectDate = self.data;
 }
 #pragma mark --
 #pragma mark -- UITableViewDelegate

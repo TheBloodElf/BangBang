@@ -86,7 +86,8 @@
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
-            User *user = [[User alloc] initWithJSONDictionary:data];
+            User *user = [User new];
+            [user mj_setKeyValues:data];
             [_userManager loadUserWithGuid:user.user_guid];
             _identityManager.identity.user_guid = user.user_guid;
             [_identityManager saveAuthorizeData];
@@ -186,7 +187,8 @@
                                 [self.navigationController.view showFailureTips:error.statsMsg];
                                 return ;
                             }
-                            User *user = [[User alloc] initWithJSONDictionary:data];
+                            User *user = [User new];
+                            [user mj_setKeyValues:data];
                             [_userManager loadUserWithGuid:user.user_guid];
                             _identityManager.identity.user_guid = user.user_guid;
                             [_identityManager saveAuthorizeData];
@@ -219,7 +221,8 @@
             [self.navigationController.view showFailureTips:error.statsMsg];
             return ;
         }
-        User *user = [[User alloc] initWithJSONDictionary:data];
+        User *user = [User new];
+        [user mj_setKeyValues:data];
         [_userManager loadUserWithGuid:user.user_guid];
         _identityManager.identity.user_guid = user.user_guid;
         [_identityManager saveAuthorizeData];
@@ -269,7 +272,8 @@
                         [self.navigationController.view showFailureTips:error.statsMsg];
                         return ;
                     }
-                    User *user = [[User alloc] initWithJSONDictionary:data];
+                    User *user = [User new];
+                    [user mj_setKeyValues:data];
                     [_userManager loadUserWithGuid:user.user_guid];
                     _identityManager.identity.user_guid = user.user_guid;
                     [_identityManager saveAuthorizeData];
@@ -292,7 +296,8 @@
         }
         NSMutableArray *companys = [@[] mutableCopy];
         for (NSDictionary *tempDic in data) {
-            Company *company = [[Company alloc] initWithJSONDictionary:tempDic];
+            Company *company = [Company new];
+            [company mj_setKeyValues:tempDic];
             [companys addObject:company];
         }
         [_userManager updateCompanyArr:companys];
@@ -311,7 +316,8 @@
             }
             NSMutableArray *array = [@[] mutableCopy];
             for (NSDictionary *dic in data[@"list"]) {
-                Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
+                Employee *employee = [Employee new];
+                [employee mj_setKeyValues:dic];
                 [array addObject:employee];
             }
             [UserHttp getEmployeeCompnyNo:0 status:0 userGuid:user.user_guid handler:^(id data, MError *error) {
@@ -323,7 +329,8 @@
                     return ;
                 }
                 for (NSDictionary *dic in data[@"list"]) {
-                    Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
+                    Employee *employee = [Employee new];
+                    [employee mj_setKeyValues:dic];
                     [array addObject:employee];
                 }
                 [_userManager updateEmployee:array companyNo:0];

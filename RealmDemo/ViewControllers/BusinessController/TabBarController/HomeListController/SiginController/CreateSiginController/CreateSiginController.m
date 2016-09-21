@@ -416,7 +416,8 @@
             [self.navigationController.view showFailureTips:error.statsMsg];
             return ;
         }
-        _currSignIn = [[SignIn alloc] initWithJSONDictionary:data];
+        _currSignIn = [SignIn new];
+        [_currSignIn mj_setKeyValues:data];
         _currSignIn.descriptionStr = data[@"description"];
         if(_siginImageArr.count == 0) {
             [self.navigationController.view dismissTips];

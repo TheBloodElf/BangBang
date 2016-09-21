@@ -245,7 +245,8 @@
         }  else if ([message.type isEqualToString:@"CALENDAR"]) {//日程分享
             NSData *calendarData = [message.entity dataUsingEncoding:NSUTF8StringEncoding];
             NSMutableDictionary *calendarDic = [NSJSONSerialization JSONObjectWithData:calendarData options:NSJSONReadingMutableContainers error:nil];
-            Calendar *sharedCalendar = [[Calendar alloc] initWithJSONDictionary:calendarDic];
+            Calendar *sharedCalendar = [Calendar new];
+            [sharedCalendar mj_setKeyValues:calendarDic];
             sharedCalendar.descriptionStr = calendarDic[@"description"];
             //展示详情
             if(sharedCalendar.repeat_type == 0) {

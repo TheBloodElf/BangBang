@@ -22,6 +22,7 @@
     [super awakeFromNib];
     self.layer.cornerRadius = 5;
     self.clipsToBounds = YES;
+    self.roomName.adjustsFontSizeToFitWidth = YES;
     // Initialization code
 }
 - (void)dataDidChange {

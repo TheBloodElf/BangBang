@@ -94,7 +94,8 @@
         if(currentPage != 1)//不是第一页就是要保存前面的数据
             array = _companyArr;
         for (NSDictionary *dic in data) {
-            Company *company = [[Company alloc] initWithJSONDictionary:dic];
+            Company *company = [Company new];
+            [company mj_setKeyValues:dic];
             [array addObject:company];
         }
         _companyArr = array;
@@ -142,7 +143,8 @@
                 }
                 NSMutableArray *array = [@[] mutableCopy];
                 for (NSDictionary *dic in data[@"list"]) {
-                    Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
+                    Employee *employee = [Employee new];
+                    [employee mj_setKeyValues:dic];
                     [array addObject:employee];
                 }
                 [UserHttp getEmployeeCompnyNo:model.company_no status:5 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
@@ -151,7 +153,8 @@
                         return ;
                     }
                     for (NSDictionary *dic in data[@"list"]) {
-                        Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
+                        Employee *employee = [Employee new];
+                        [employee mj_setKeyValues:dic];
                         [array addObject:employee];
                     }
                     [_userManager updateEmployee:array companyNo:model.company_no];

@@ -31,6 +31,12 @@
 - (void)dataDidChange {
     NSMutableArray<MeetingEquipmentsModel*> *meetingEquipmentsArr = self.data;
     NSMutableArray<NSString*> *nameArr = [@[] mutableCopy];
+    //获取固定设备
+    for (NSString *str in [self.meetingRoomModel.room_equipments componentsSeparatedByString:@","]) {
+        if([NSString isBlank:str]) continue;
+        [nameArr addObject:str];
+    }
+    //获取公共设备
     for (MeetingEquipmentsModel *meetingEquipmentsModel in meetingEquipmentsArr) {
         [nameArr addObject:meetingEquipmentsModel.name];
     }

@@ -63,18 +63,15 @@
     }
     NSData *jsonData = [payloadMsg dataUsingEncoding:NSUTF8StringEncoding];
     NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
-    if(![dict.allKeys containsObject:@"from_user_no"])
-        [dict setObject:@(_userManager.user.user_no) forKey:@"from_user_no"];
-    if(![dict.allKeys containsObject:@"to_user_no"])
-        [dict setObject:@(_userManager.user.user_no) forKey:@"to_user_no"];
     if(![dict.allKeys containsObject:@"unread"])
         [dict setObject:@(1) forKey:@"unread"];
     [dict setObject:@([NSDate date].timeIntervalSince1970 * 1000).stringValue forKey:@"id"];
-    PushMessage *message = [[PushMessage alloc] initWithJSONDictionary:dict];
+    PushMessage *message = [PushMessage new];
+    [message mj_setKeyValues:dict];
+    message.addTime = [NSDate date];
     AudioServicesPlaySystemSound(1007); //系统的通知声音
     AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);//震动
-    message.addTime = [NSDate date];
-    //如果是投票和公告 因为没有存到本地数据库，所以不操作
+    //公告
     if ([message.type isEqualToString:@"VOTE"] || [message.type isEqualToString:@"NOTICE"]) {
         message.to_user_no = _userManager.user.user_no;
     }
@@ -82,7 +79,8 @@
     if ([message.type isEqualToString:@"CALENDAR"] && ![NSString isBlank:message.entity]) {
         NSData *calendarData = [[dict objectForKey:@"entity"] dataUsingEncoding:NSUTF8StringEncoding];
         NSMutableDictionary *calendarDic = [NSJSONSerialization JSONObjectWithData:calendarData options:NSJSONReadingMutableContainers error:nil];
-        Calendar *sharedCalendar = [[Calendar alloc] initWithJSONDictionary:calendarDic];
+        Calendar *sharedCalendar = [Calendar new];
+        [sharedCalendar mj_setKeyValues:calendarDic];
         sharedCalendar.descriptionStr = calendarDic[@"description"];
         if (sharedCalendar) {
             [_userManager addCalendar:sharedCalendar];
@@ -162,7 +160,8 @@
                 }
                 NSMutableArray *array = [@[] mutableCopy];
                 for (NSDictionary *dic in data[@"list"]) {
-                    Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
+                    Employee *employee = [Employee new];
+                    [employee mj_setKeyValues:dic];
                     [array addObject:employee];
                 }
                 [UserHttp getEmployeeCompnyNo:message.company_no status:4 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
@@ -170,7 +169,8 @@
                         return ;
                     }
                     for (NSDictionary *dic in data[@"list"]) {
-                        Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
+                        Employee *employee = [Employee new];
+                        [employee mj_setKeyValues:dic];
                         [array addObject:employee];
                     }
                     //存入本地数据库
@@ -191,7 +191,8 @@
         } else {
             NSData *calendarData = [[dict objectForKey:@"entity"] dataUsingEncoding:NSUTF8StringEncoding];
             NSMutableDictionary *calendarDic = [NSJSONSerialization JSONObjectWithData:calendarData options:NSJSONReadingMutableContainers error:nil];
-            Calendar *meetingCalendar = [[Calendar alloc] initWithJSONDictionary:calendarDic];
+            Calendar *meetingCalendar = [Calendar new];
+            [meetingCalendar mj_setKeyValues:calendarDic];
             meetingCalendar.descriptionStr = calendarDic[@"description"];
             if([message.action isEqualToString:@"MEETING_RECEIVE"]){//接收会议 加入本地日程
                 [_userManager addCalendar:meetingCalendar];

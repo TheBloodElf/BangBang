@@ -30,12 +30,14 @@
     }
     self.moreBtn.enabled = YES;
     NSMutableArray<NSString*> *nameArr = [@[] mutableCopy];
+    //获取固定设备
+    for (NSString *str in [self.meetingRoomModel.room_equipments componentsSeparatedByString:@","]) {
+        if([NSString isBlank:str]) continue;
+        [nameArr addObject:str];
+    }
+    //获取公共设备
     for (MeetingEquipmentsModel *model in array) {
-        if(model.type == 0) {//固定设备
-            [nameArr addObject:[NSString stringWithFormat:@"固定设备:%@",model.name]];
-        } else {//公用设备
-            [nameArr addObject:[NSString stringWithFormat:@"公用设备:%@",model.name]];
-        }
+        [nameArr addObject:model.name];
     }
     self.meetingDevice.text = [nameArr componentsJoinedByString:@","];
 }

@@ -45,4 +45,32 @@
     };
     return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
 }
+//获取在AppStore中的版本号
++ (NSURLSessionDataTask*)getSoftVersionHandler:(completionHandler)handler {
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"text/html"]];
+    [manager setRequestSerializer:[AFHTTPRequestSerializer serializer]];
+    [manager setResponseSerializer:[AFJSONResponseSerializer serializer]];
+    NSURLSessionDataTask * dataTask = [manager POST:@"http://itunes.apple.com/lookup?id=979426412" parameters:nil progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSArray *array = responseObject[@"results"];
+        NSDictionary *dict = [array lastObject];
+        //主线程执行回调
+        dispatch_async(dispatch_get_main_queue(), ^{
+            handler(dict[@"version"],nil);
+        });
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        MError *err = nil;
+        if(error.code == -1009)//网络不可用
+            err = [[MError alloc] initWithCode:-1009 statsMsg:@"网络不可用，请连接网络"];
+        else//其他错误
+            err = [[MError alloc] initWithCode:error.code statsMsg:error.domain];
+        //主线程执行回调
+        dispatch_async(dispatch_get_main_queue(), ^{
+            handler(nil,err);
+        });
+    }];
+    return dataTask;
+}
 @end

@@ -121,11 +121,13 @@
         for (NSDictionary *dic in data) {
             NSMutableDictionary *dicDic = [dic mutableCopy];
             dicDic[@"work_day"] = [dicDic[@"work_day"] componentsJoinedByString:@","];
-            SiginRuleSet *set = [[SiginRuleSet alloc] initWithJSONDictionary:dicDic];
+            SiginRuleSet *set = [SiginRuleSet new];
+            [set mj_setKeyValues:dicDic];
             //这里动态添加签到地址
             RLMArray<PunchCardAddressSetting> *settingArr = [[RLMArray<PunchCardAddressSetting> alloc] initWithObjectClassName:@"PunchCardAddressSetting"];
             for (NSDictionary *settingDic in dicDic[@"address_settings"]) {
-                PunchCardAddressSetting *setting = [[PunchCardAddressSetting alloc] initWithJSONDictionary:settingDic];
+                PunchCardAddressSetting *setting = [PunchCardAddressSetting new];
+                [setting mj_setKeyValues:settingDic];
                 [settingArr addObject:setting];
             }
             set.json_list_address_settings = settingArr;
@@ -144,7 +146,8 @@
         }
         NSMutableArray<TaskModel*> *array = [@[] mutableCopy];
         for (NSDictionary *dic in data[@"list"]) {
-            TaskModel *model = [[TaskModel alloc] initWithJSONDictionary:dic];
+            TaskModel *model = [TaskModel new];
+            [model mj_setKeyValues:dic];
             model.descriptionStr = dic[@"description"];
             [array addObject:model];
         }

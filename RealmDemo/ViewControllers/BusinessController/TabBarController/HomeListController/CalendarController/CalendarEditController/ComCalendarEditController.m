@@ -75,7 +75,7 @@
     }];
 }
 - (void)dataDidChange {
-    _currCalendar = [[Calendar alloc] initWithJSONDictionary:[self.data JSONDictionary]];
+    _currCalendar = [self.data deepCopy];
 }
 #pragma mark --
 #pragma mark -- ComCalendarViewDelegate

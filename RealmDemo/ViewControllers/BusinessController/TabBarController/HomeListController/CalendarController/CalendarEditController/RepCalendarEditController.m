@@ -51,7 +51,7 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 - (void)dataDidChange {
-    _calendar = [[Calendar alloc] initWithJSONDictionary:[self.data JSONDictionary]];
+    _calendar = [self.data deepCopy];
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
     //修改日程

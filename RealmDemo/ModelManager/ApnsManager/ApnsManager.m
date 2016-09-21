@@ -68,7 +68,8 @@
     AudioServicesPlayAlertSound(ID);
     NSMutableDictionary *dictionary = [notification.userInfo mutableCopy];
     [dictionary setObject:@([NSDate date].timeIntervalSince1970 * 1000).stringValue forKey:@"id"];
-    PushMessage *pushMessage = [[PushMessage alloc] initWithJSONDictionary:dictionary];
+    PushMessage *pushMessage = [PushMessage new];
+    [pushMessage mj_setKeyValues:dictionary];
     pushMessage.addTime = [NSDate date];
     [_userManager addPushMessage:pushMessage];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"DidRecivePushMessage" object:pushMessage];

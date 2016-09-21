@@ -13,6 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *selectBtn;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+
 @end
 
 @implementation MeetingDeviceSelectCell

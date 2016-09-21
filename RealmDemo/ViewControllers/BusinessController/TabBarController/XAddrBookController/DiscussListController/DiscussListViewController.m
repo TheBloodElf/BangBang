@@ -56,7 +56,8 @@
         }
         NSMutableArray<UserDiscuss*> *array = [@[] mutableCopy];
         for (NSDictionary * dic in data) {
-            UserDiscuss *discuss = [[UserDiscuss alloc] initWithJSONDictionary:dic];
+            UserDiscuss *discuss = [UserDiscuss new];
+            [discuss mj_setKeyValues:dic];
             [array addObject:discuss];
         }
         [_userManager updateUserDiscussArr:array];

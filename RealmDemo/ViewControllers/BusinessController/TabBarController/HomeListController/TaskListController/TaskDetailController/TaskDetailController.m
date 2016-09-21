@@ -83,7 +83,8 @@
             [self showFailureTips:error.statsMsg];
             return ;
         }
-        _taskModel = [[TaskModel alloc] initWithJSONDictionary:data];
+        _taskModel = [TaskModel new];
+        [_taskModel mj_setKeyValues:data];
         _taskModel.descriptionStr = data[@"description"];
         [_userManager upadteTask:_taskModel];
         _taskDetailView.data = _taskModel;
@@ -128,7 +129,8 @@
                 [self showFailureTips:error.statsMsg];
                 return ;
             }
-            _taskModel = [[TaskModel alloc] initWithJSONDictionary:data];
+            _taskModel = [TaskModel new];
+            [_taskModel mj_setKeyValues:data];
             _taskModel.descriptionStr = data[@"description"];
             [_userManager upadteTask:_taskModel];
             _taskDetailView.data = _taskModel;

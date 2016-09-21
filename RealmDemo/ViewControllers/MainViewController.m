@@ -217,7 +217,8 @@
         }
         [defaults removeObjectForKey:@"BangBangUserInfo"];
         NSDictionary *userDic = [[NSKeyedUnarchiver unarchiveObjectWithData:data] mj_keyValues];
-        User *user = [[User alloc] initWithJSONDictionary:userDic];
+        User *user = [User new];
+        [user mj_setKeyValues:userDic];
         //这里开始获取必要的信息
         @synchronized (self) {//这里必须原子操作
             [userManager loadUserWithGuid:manager.identity.user_guid];
@@ -232,7 +233,8 @@
             }
             NSMutableArray *companys = [@[] mutableCopy];
             for (NSDictionary *tempDic in data) {
-                Company *company = [[Company alloc] initWithJSONDictionary:tempDic];
+                Company *company = [Company new];
+                [company mj_setKeyValues:tempDic];
                 [companys addObject:company];
             }
             [userManager updateCompanyArr:companys];
@@ -249,7 +251,8 @@
                 }
                 NSMutableArray *array = [@[] mutableCopy];
                 for (NSDictionary *dic in data[@"list"]) {
-                    Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
+                    Employee *employee = [Employee new];
+                    [employee mj_setKeyValues:dic];
                     [array addObject:employee];
                 }
                 [UserHttp getEmployeeCompnyNo:0 status:0 userGuid:user.user_guid handler:^(id data, MError *error) {
@@ -259,7 +262,8 @@
                         return ;
                     }
                     for (NSDictionary *dic in data[@"list"]) {
-                        Employee *employee = [[Employee alloc] initWithJSONDictionary:dic];
+                        Employee *employee = [Employee new];
+                        [employee mj_setKeyValues:dic];
                         [array addObject:employee];
                     }
                     [userManager updateEmployee:array companyNo:0];

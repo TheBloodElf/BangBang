@@ -57,7 +57,8 @@
             }
             NSMutableArray<Company*> *companys = [@[] mutableCopy];
             for (NSDictionary *dic in data) {
-                Company *company = [[Company alloc] initWithJSONDictionary:dic];
+                Company *company = [Company new];
+                [company mj_setKeyValues:dic];
                 [companys addObject:company];
             }
             [_userManager updateCompanyArr:companys];

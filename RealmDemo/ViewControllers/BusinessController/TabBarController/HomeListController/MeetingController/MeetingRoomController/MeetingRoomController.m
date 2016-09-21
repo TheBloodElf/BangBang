@@ -22,7 +22,7 @@
     Employee *_employee;//会议准备人
     MeetingRoomCellModel *_userSelectDate;//用户选择的开始/结束时间
     NSMutableArray<MeetingRoomModel*> *_allMeetingRoomArr;//所有的会议室
-    NSMutableArray<MeetingEquipmentsModel*> *_meetingEquipmentsArr;//已经选择的会议室设备列表
+    NSMutableArray<MeetingEquipmentsModel*> *_meetingEquipmentsArr;//已经选择的公共设备
 }
 @property (nonatomic, strong) MeetingRoomModel *meetingRoomModel;//已经选择的会议室模型
 @end
@@ -132,6 +132,7 @@
         } else {//会议室设备
             MeetingDeviceTableCell *device = (id)cell;
             device.delegate = self;
+            device.meetingRoomModel = _meetingRoomModel;
             device.data = _meetingEquipmentsArr;
         }
     } else {//会议室时间选择
@@ -167,11 +168,14 @@
 //会议设备被点击
 - (void)MeetingTimeDevice {
     MeetingDeviceSelectController *select = [MeetingDeviceSelectController new];
+    select.userSelectDate = _userSelectDate;
+    select.meetingRoomModel = self.meetingRoomModel;
     select.delegate = self;
     [self.navigationController pushViewController:select animated:YES];
 }
 #pragma mark -- MeetingDeviceSelectDelegate
 - (void)MeetingDeviceSelect:(NSArray<MeetingEquipmentsModel*>*)array employee:(Employee*)employee {
+    //公共设备选择完毕 保存起来
     NSMutableArray *idArray = [@[] mutableCopy];
     for (MeetingEquipmentsModel *model in array) {
         [idArray addObject:@(model.id).stringValue];
@@ -186,6 +190,7 @@
 - (void)MeetingDeviceTableMore {
     MeetDeviceDetailController *meet = [MeetDeviceDetailController new];
     meet.employee = _employee;
+    meet.meetingRoomModel = _meetingRoomModel;
     meet.meetingEquipments = _meetingEquipmentsArr;
     [self.navigationController pushViewController:meet animated:YES];
 }

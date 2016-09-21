@@ -12,7 +12,6 @@
 
 @property (nonatomic, strong) NSDate *begin;//开始时间
 @property (nonatomic, strong) NSDate *end;//结束时间
-//@property (nonatomic, assign) BOOL haveMeet;//是否已经被占用
 @property (nonatomic, assign) BOOL isDidDate;//是否是过去的时间
 @property (nonatomic, assign) BOOL isTodayDate;//是不是今天
 @property (nonatomic, assign) BOOL isUserSelectDate;//是不是用户选择的时间
