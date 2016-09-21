@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 //会议主题
+
+@protocol MeetingNameDelegate <NSObject>
+
+- (void)meetingNameLenghtOver;
+
+@end
+
 @interface MeetingName : UITableViewCell
+
+@property (nonatomic, weak) id<MeetingNameDelegate> delegate;
 
 @end

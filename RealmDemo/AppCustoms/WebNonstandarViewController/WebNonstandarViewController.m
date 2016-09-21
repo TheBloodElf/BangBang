@@ -22,8 +22,9 @@
 #import "RCTransferSelectViewController.h"
 #import "CreateMeetingController.h"
 #import "MeetingSiginReaderController.h"
+#import "FileManager.h"
 
-@interface WebNonstandarViewController ()<UIWebViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,QLPreviewControllerDataSource,SingleSelectDelegate,MuliteSelectDelegate,MoreSelectViewDelegate,SelectImageDelegate,MeetingSiginReaderDelegate>{
+@interface WebNonstandarViewController ()<UIWebViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,QLPreviewControllerDataSource,SingleSelectDelegate,MuliteSelectDelegate,MoreSelectViewDelegate,SelectImageDelegate,MeetingSiginReaderDelegate,UIDocumentInteractionControllerDelegate>{
     NSURL *filePath1;
     NSString *title;
     NSString *detail;
@@ -218,36 +219,25 @@
         rose.photoArr = photos;
         [self.navigationController pushViewController:rose animated:YES];
     }];
-    //文件下载
+    //文件下载或预览
     [_bridge registerHandler:@"fileDownloadObj" handler:^(id data,WVJBResponseCallback responseCallback){
-        
         NSString *url = [data objectForKey:@"url"];
         NSString *name = [data objectForKey:@"name"];
-        NSURL *downloadUrl = [[NSFileManager defaultManager] URLForDirectory:NSCachesDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
-        downloadUrl = [downloadUrl URLByAppendingPathComponent:name isDirectory:NO];
-        NSError *err;
-        if ([downloadUrl checkResourceIsReachableAndReturnError:&err] == NO) {
-            NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-            AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:configuration];
-            NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
-            NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath,NSURLResponse *respone){
-                return downloadUrl;
-            } completionHandler:^(NSURLResponse *respone,NSURL *filePath, NSError *error){
-                QLPreviewController *preView = [[QLPreviewController alloc] init];
-                filePath1 = filePath;
-                preView.dataSource = self;
-                [preView setCurrentPreviewItemIndex:0];
-                [self presentViewController:preView animated:YES completion:nil];
+        if([[FileManager shareManager] fileIsExit:name]) {
+            UIDocumentInteractionController *documentController = [UIDocumentInteractionController interactionControllerWithURL:[NSURL fileURLWithPath:[[FileManager shareManager] fileStr:name]]];
+            documentController.delegate = self;
+            [documentController presentPreviewAnimated:YES];
+        } else {
+            [self.navigationController.view showLoadingTips:@""];
+            [[FileManager shareManager] downFile:url handler:^(id data, MError *error) {
+                [self.navigationController.view dismissTips];
+                if(error) {
+                    [self.navigationController.view showFailureTips:error.statsMsg];
+                    return ;
+                }
+                [self.navigationController.view showSuccessTips:@"文件下载成功"];
             }];
-            [downloadTask resume];
-        }else{
-            QLPreviewController *preView = [[QLPreviewController alloc] init];
-            filePath1 = downloadUrl;
-            preView.dataSource = self;
-            [preView setCurrentPreviewItemIndex:0];
-            [self presentViewController:preView animated:YES completion:nil];
         }
-        
     }];
     NSURL *nsurl =[NSURL URLWithString:_applicationUrl];
     NSURLRequest *request =[NSURLRequest requestWithURL:nsurl];
@@ -263,6 +253,10 @@
     if([self.navigationController.viewControllers[0] isMemberOfClass:[NSClassFromString(@"REFrostedViewController") class]]) {
         [self.navigationController setNavigationBarHidden:YES animated:YES];
     }
+}
+#pragma mark -- UIDocumentInteractionControllerDelegate
+- (UIViewController *) documentInteractionControllerViewControllerForPreview:(UIDocumentInteractionController *) controller {
+    return self;
 }
 #pragma mark -- MeetingSiginReaderDelegate
 - (void)reader:(MeetingSiginReaderController *)reader didScanResult:(NSString *)result {

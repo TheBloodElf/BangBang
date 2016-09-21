@@ -142,33 +142,56 @@
                 for (Calendar *calendar in calendarArr) {
                     if(calendar.status == 2) continue;//如果已经完成就不添加本地推送
                     if(calendar.repeat_type == 0) {//如果是不重复的日程
-                        NSDate *alertBeforeDate = [NSDate dateWithTimeIntervalSince1970:calendar.begindate_utc / 1000 - calendar.alert_minutes_before * 60];
-                        if(alertBeforeDate.timeIntervalSince1970 < date.timeIntervalSince1970) { } else {
-                            //添加到本地推送
-                            [self addCalendarAlertToLocNoti:calendar date:alertBeforeDate];
+                        if(calendar.alert_minutes_before != 0) {//有没有事前提醒
+                            NSDate *alertBeforeDate = [NSDate dateWithTimeIntervalSince1970:calendar.begindate_utc / 1000 - calendar.alert_minutes_before * 60];
+                            if(alertBeforeDate.timeIntervalSince1970 < date.timeIntervalSince1970) { } else {
+                                //添加到本地推送
+                                [self addCalendarAlertToLocNoti:calendar date:alertBeforeDate];
+                            }
                         }
-                        
-                        NSDate *alertAfterDate = [NSDate dateWithTimeIntervalSince1970:calendar.enddate_utc / 1000 + calendar.alert_minutes_after * 60];
-                        if(alertAfterDate.timeIntervalSince1970 < date.timeIntervalSince1970) { } else {
-                            //添加到本地推送
-                            [self addCalendarAlertToLocNoti:calendar date:alertAfterDate];
+                        if(calendar.alert_minutes_after != 0) {//有没有事后提醒
+                            NSDate *alertAfterDate = [NSDate dateWithTimeIntervalSince1970:calendar.enddate_utc / 1000 + calendar.alert_minutes_after * 60];
+                            if(alertAfterDate.timeIntervalSince1970 < date.timeIntervalSince1970) { } else {
+                                //添加到本地推送
+                                [self addCalendarAlertToLocNoti:calendar date:alertAfterDate];
+                            }
                         }
                     } else {//如果是重复的日程
                         if(calendar.rrule.length > 0 && calendar.r_begin_date_utc>0 && calendar.r_end_date_utc > 0) {
-                            Scheduler * scheduler = [[Scheduler alloc] initWithDate:[NSDate dateWithTimeIntervalSince1970:calendar.begindate_utc/1000] andRule:calendar.rrule];
-                            //得到所有的时间
-                            NSArray * occurences = [scheduler occurencesBetween:currDate.firstTime andDate:currDate.lastTime];
-                            //遍历所有的时间
-                            for (NSDate *dddd in occurences) {
-                                if([dddd timeIntervalSince1970] < calendar.r_begin_date_utc/1000) {
-                                    continue;
-                                } else if ([calendar haveDeleteDate:currDate]) {
-                                    continue;
-                                } else if ([calendar haveFinishDate:currDate]) {
-                                    continue;
-                                } else if(dddd.timeIntervalSince1970 < date.timeIntervalSince1970) {
-                                } else {
-                                    [self addCalendarAlertToLocNoti:calendar date:dddd];
+                            if(calendar.alert_minutes_before != 0) {//有没有事前提醒
+                                Scheduler * scheduler = [[Scheduler alloc] initWithDate:[NSDate dateWithTimeIntervalSince1970:calendar.begindate_utc/1000] andRule:calendar.rrule];
+                                //得到今天所有的时间
+                                NSArray * occurences = [scheduler occurencesBetween:currDate.firstTime andDate:currDate.lastTime];
+                                //遍历所有的时间
+                                for (NSDate *dddd in occurences) {
+                                    if([dddd timeIntervalSince1970] < calendar.r_begin_date_utc/1000) {
+                                        continue;
+                                    } else if ([calendar haveDeleteDate:currDate]) {
+                                        continue;
+                                    } else if ([calendar haveFinishDate:currDate]) {
+                                        continue;
+                                    } else if(dddd.timeIntervalSince1970 < date.timeIntervalSince1970) {
+                                    } else {
+                                        [self addCalendarAlertToLocNoti:calendar date:dddd];
+                                    }
+                                }
+                            }
+                            if(calendar.alert_minutes_after != 0) {//有没有事后提醒
+                                Scheduler * scheduler = [[Scheduler alloc] initWithDate:[NSDate dateWithTimeIntervalSince1970:calendar.enddate_utc/1000] andRule:calendar.rrule];
+                                //得到今天所有的时间
+                                NSArray * occurences = [scheduler occurencesBetween:currDate.firstTime andDate:currDate.lastTime];
+                                //遍历所有的时间
+                                for (NSDate *dddd in occurences) {
+                                    if([dddd timeIntervalSince1970] < calendar.r_begin_date_utc/1000) {
+                                        continue;
+                                    } else if ([calendar haveDeleteDate:currDate]) {
+                                        continue;
+                                    } else if ([calendar haveFinishDate:currDate]) {
+                                        continue;
+                                    } else if(dddd.timeIntervalSince1970 < date.timeIntervalSince1970) {
+                                    } else {
+                                        [self addCalendarAlertToLocNoti:calendar date:dddd];
+                                    }
                                 }
                             }
                         }

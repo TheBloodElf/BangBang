@@ -15,6 +15,6 @@
 
 @property (nonatomic, strong) MeetingRoomModel *meetingRoomModel;//会议室模型 用来展示固定设备
 @property (nonatomic, strong) NSArray<MeetingEquipmentsModel*> *meetingEquipments;//公共设备数组
-@property (nonatomic, strong) Employee *employee;
+@property (nonatomic, strong) Employee *employee;//会议室准备人
 
 @end

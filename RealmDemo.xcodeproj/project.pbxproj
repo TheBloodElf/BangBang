@@ -355,6 +355,7 @@
 		1B1B9BF91D3E198600F53EDC /* ComCalendarInstruction.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B1B9BF71D3E198600F53EDC /* ComCalendarInstruction.xib */; };
 		1B1B9BFD1D3E376200F53EDC /* CalendarSelectAlertTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1B9BFB1D3E376200F53EDC /* CalendarSelectAlertTime.m */; };
 		1B1B9BFE1D3E376200F53EDC /* CalendarSelectAlertTime.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B1B9BFC1D3E376200F53EDC /* CalendarSelectAlertTime.xib */; };
+		1B1F3E2A1D92880B00F9B099 /* notification_ring.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1B1F3E291D92880B00F9B099 /* notification_ring.mp3 */; };
 		1B205B791D8284D60037572B /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B205B6E1D8284D60037572B /* FMDatabase.m */; };
 		1B205B7A1D8284D60037572B /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B205B701D8284D60037572B /* FMDatabaseAdditions.m */; };
 		1B205B7B1D8284D60037572B /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B205B721D8284D60037572B /* FMDatabasePool.m */; };
@@ -1458,6 +1459,7 @@
 		1B1B9BFA1D3E376200F53EDC /* CalendarSelectAlertTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarSelectAlertTime.h; sourceTree = "<group>"; };
 		1B1B9BFB1D3E376200F53EDC /* CalendarSelectAlertTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarSelectAlertTime.m; sourceTree = "<group>"; };
 		1B1B9BFC1D3E376200F53EDC /* CalendarSelectAlertTime.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarSelectAlertTime.xib; sourceTree = "<group>"; };
+		1B1F3E291D92880B00F9B099 /* notification_ring.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = notification_ring.mp3; sourceTree = "<group>"; };
 		1B205B6D1D8284D60037572B /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
 		1B205B6E1D8284D60037572B /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
 		1B205B6F1D8284D60037572B /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
@@ -4584,6 +4586,7 @@
 			children = (
 				1B4686301D4EEBFE00F3C068 /* 帮帮管理助手.entitlements */,
 				0471C0971D3BBA6000377178 /* Readme.md */,
+				1B1F3E291D92880B00F9B099 /* notification_ring.mp3 */,
 				1B47D77C1D6C3F2000837BFD /* RealmJs.js */,
 				1B5585951D34E29700DCD3A0 /* AppDelegate */,
 				75E5FF571D27A7B300F77961 /* UtikIes */,
@@ -5671,6 +5674,7 @@
 				1B381DBF1D6E9B3000644147 /* changeCamer.png in Resources */,
 				1B877F221D178E7D000144B2 /* Assets.xcassets in Resources */,
 				1B6D164A1D48A8D00070D2E5 /* ic_check_off@3x.png in Resources */,
+				1B1F3E2A1D92880B00F9B099 /* notification_ring.mp3 in Resources */,
 				046DAF6D1D4C3EB500718F2A /* MeetingDevice.xib in Resources */,
 				1B158A6B1D45BB4D003237A7 /* RYGroupSetDelUserCell.xib in Resources */,
 				1B6D165E1D48A8D00070D2E5 /* login_botton@3x.png in Resources */,

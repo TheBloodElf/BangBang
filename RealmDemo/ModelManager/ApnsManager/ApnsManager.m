@@ -61,11 +61,16 @@
 }
 //收到本地推送
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"notification_ring" ofType:@"mp3"];
-    NSURL *url = [NSURL URLWithString:path];
-    SystemSoundID ID;
-    AudioServicesCreateSystemSoundID((__bridge CFURLRef)(url), &ID);
-    AudioServicesPlayAlertSound(ID);
+    if([IdentityManager manager].identity.canPlayVoice) {//声音
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"notification_ring" ofType:@"mp3"];
+        NSURL *url = [NSURL URLWithString:path];
+        SystemSoundID ID;
+        AudioServicesCreateSystemSoundID((__bridge CFURLRef)(url), &ID);
+        AudioServicesPlayAlertSound(ID);
+    }
+    if([IdentityManager manager].identity.canPlayShake)//震动
+        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
+    
     NSMutableDictionary *dictionary = [notification.userInfo mutableCopy];
     [dictionary setObject:@([NSDate date].timeIntervalSince1970 * 1000).stringValue forKey:@"id"];
     PushMessage *pushMessage = [PushMessage new];

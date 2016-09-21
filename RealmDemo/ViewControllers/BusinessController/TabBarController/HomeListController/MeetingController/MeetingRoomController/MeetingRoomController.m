@@ -68,7 +68,6 @@
         [self.view addSubview:_tableView];
     }];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightClicked:)];
-    self.navigationItem.rightBarButtonItem.enabled = NO;
     // Do any additional setup after loading the view.
 }
 -(void)viewDidAppear:(BOOL)animated {
@@ -76,6 +75,14 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
+    if(_userSelectDate.end.timeIntervalSince1970 == 0) {
+        [self.navigationController.view showMessageTips:@"请选择会议时间"];
+        return;
+    }
+    if(_employee.id == 0) {
+        [self.navigationController.view showMessageTips:@"请选择会议设备"];
+        return;
+    }
     if(self.delegate && [self.delegate respondsToSelector:@selector(MeetingRoomDeviceSelect: meetingRoom:employee:meetingRoomTime:)]) {
         [self.delegate MeetingRoomDeviceSelect:_meetingEquipmentsArr meetingRoom:_meetingRoomModel employee:_employee meetingRoomTime:_userSelectDate];
     }
@@ -149,8 +156,6 @@
 #pragma mark -- MeetingRoomTimeCellDelegate
 - (void)MeetingRoomSelectDate:(MeetingRoomCellModel*)model {
     _userSelectDate = model;
-    if(_employee.id != 0)
-        self.navigationItem.rightBarButtonItem.enabled = YES;
     [_tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
 }
 #pragma mark -- MeetingDeviceDelegate
@@ -182,7 +187,6 @@
     }
     _meetingEquipmentsArr = [array mutableCopy];
     _employee = employee;
-    self.navigationItem.rightBarButtonItem.enabled = YES;
     [_tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
 }
 #pragma mark -- MeetingDeviceTableCellDelegate

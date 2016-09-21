@@ -8,6 +8,8 @@
 
 #import "ChangeUserDetail.h"
 #import "UserManager.h"
+//名称最长多少字符
+#define MAX_STARWORDS_LENGTH 30
 
 @interface ChangeUserDetail ()<UITextFieldDelegate>
 {
@@ -31,9 +33,10 @@
     _textField = [[UITextField alloc] initWithFrame:CGRectMake(20, 20, MAIN_SCREEN_WIDTH - 40, 30)];
     _textField.delegate = self;
     _textField.returnKeyType = UIReturnKeyDone;
-    _textField.placeholder = @"在这里写你的个性签名";
+    _textField.placeholder = @"在这里写你的个性签名（0/30）";
     _textField.text = _currUser.mood;
     [_scrollView addSubview:_textField];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:) name:@"UITextFieldTextDidChangeNotification" object:_textField];
     
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(_textField.frame) + 10, MAIN_SCREEN_WIDTH - 40, 0.5)];
     line.backgroundColor = [UIColor grayColor];
@@ -68,5 +71,46 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
+}
+-(void)textFiledEditChanged:(NSNotification *)obj
+{
+    UITextField *textField = (UITextField *)obj.object;
+    NSString *toBeString = textField.text;
+    NSString *lang = [textField.textInputMode primaryLanguage];
+    if ([lang isEqualToString:@"zh-Hans"])// 简体中文输入
+    {
+        //获取高亮部分
+        UITextRange *selectedRange = [textField markedTextRange];
+        UITextPosition *position = [textField positionFromPosition:selectedRange.start offset:0];
+        
+        // 没有高亮选择的字，则对已输入的文字进行字数统计和限制
+        if (!position)
+        {
+            if (toBeString.length > MAX_STARWORDS_LENGTH)
+            {
+                [self.navigationController.view showMessageTips:@"签名不能大于30个字"];
+                textField.text = [toBeString substringToIndex:MAX_STARWORDS_LENGTH];
+            }
+        }
+        
+    }
+    // 中文输入法以外的直接对其统计限制即可，不考虑其他语种情况
+    else
+    {
+        if (toBeString.length > MAX_STARWORDS_LENGTH)
+        {
+            [self.navigationController.view showMessageTips:@"签名不能大于30个字"];
+            NSRange rangeIndex = [toBeString rangeOfComposedCharacterSequenceAtIndex:MAX_STARWORDS_LENGTH];
+            if (rangeIndex.length == 1)
+            {
+                textField.text = [toBeString substringToIndex:MAX_STARWORDS_LENGTH];
+            }
+            else
+            {
+                NSRange rangeRange = [toBeString rangeOfComposedCharacterSequencesForRange:NSMakeRange(0, MAX_STARWORDS_LENGTH)];
+                textField.text = [toBeString substringWithRange:rangeRange];
+            }
+        }
+    }
 }
 @end

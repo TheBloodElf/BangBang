@@ -52,6 +52,17 @@
     [UserHttp setupAPNSDevice:clientId userNo:_userManager.user.user_no handler:^(id data, MError *error) {}];
 }
 -(void)GeTuiSdkDidReceivePayload:(NSString *)payloadId andTaskId:(NSString *)taskId andMessageId:(NSString *)aMsgId andOffLine:(BOOL)offLine fromApplication:(NSString *)appId {
+    if([IdentityManager manager].identity.canPlayVoice) {//声音
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"notification_ring" ofType:@"mp3"];
+        NSURL *url = [NSURL URLWithString:path];
+        SystemSoundID ID;
+        AudioServicesCreateSystemSoundID((__bridge CFURLRef)(url), &ID);
+        AudioServicesPlayAlertSound(ID);
+    }
+    if([IdentityManager manager].identity.canPlayShake)//震动
+        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
+    
+    
     [UIApplication sharedApplication].applicationIconBadgeNumber -= 1;
     //在这里处理个推推送
     NSData* payload = [GeTuiSdk retrivePayloadById:payloadId];
@@ -69,8 +80,6 @@
     PushMessage *message = [PushMessage new];
     [message mj_setKeyValues:dict];
     message.addTime = [NSDate date];
-    AudioServicesPlaySystemSound(1007); //系统的通知声音
-    AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);//震动
     //公告
     if ([message.type isEqualToString:@"VOTE"] || [message.type isEqualToString:@"NOTICE"]) {
         message.to_user_no = _userManager.user.user_no;

@@ -40,13 +40,11 @@
     self.title = @"设置";
     _userManager = [UserManager manager];
     _identityManager = [IdentityManager manager];
-    //获取存储的需要屏蔽的开始时间和结束时间  服务器没有存储 只有自己本地来了
-    BOOL messageNoBool = _identityManager.identity.ryDisturb;
-    self.messageSwitch.on = ![[RCIM sharedRCIM] disableMessageNotificaiton];
-    self.messageNoSwitch.on = messageNoBool;
     //初始化开始显示的值
-    self.voiceSwitch.on = _identityManager.identity.canPlayVoice != 1;
-    self.vibrateSwitch.on = _identityManager.identity.canPlayShake != 1;
+    self.messageSwitch.on = _identityManager.identity.newMessage;
+    self.messageNoSwitch.on = _identityManager.identity.ryDisturb;
+    self.voiceSwitch.on = _identityManager.identity.canPlayVoice;
+    self.vibrateSwitch.on = _identityManager.identity.canPlayShake;
     self.beginTime.text = [NSString stringWithFormat:@"%02ld:%02ld",(long)_identityManager.identity.ryDisturbBeginTime.hour,(long)_identityManager.identity.ryDisturbBeginTime.minute];
     self.endTime.text = [NSString stringWithFormat:@"%02ld:%02ld",(long)_identityManager.identity.ryDisturbEndTime.hour,(long)_identityManager.identity.ryDisturbEndTime.minute];
     [self.tableView reloadData];
@@ -63,10 +61,11 @@
 //新消息开关被点击
 - (void)messageClicked:(UISwitch*)sw
 {
-    [[RCIM sharedRCIM] setDisableMessageNotificaiton:!sw.on];
+    _identityManager.identity.newMessage = !_identityManager.identity.newMessage;
+    [_identityManager saveAuthorizeData];
     [self.tableView reloadData];
 }
-//声音开关被点击
+//声音开关被点击 同时控制聊天和推送
 - (void)voiceClicked:(UISwitch*)sw
 {
     //存到本地 同时调用融云的接口
@@ -130,7 +129,9 @@
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否确定要清除通知?" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *alertCancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *alertSure = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [[UIApplication sharedApplication] cancelAllLocalNotifications];
+        for (PushMessage *message in [_userManager getPushMessageArr]) {
+            [_userManager deletePushMessage:message];
+        }
         [self.navigationController.view showSuccessTips:@"通知清理成功!"];
     }];
     [alertVC addAction:alertCancel];
@@ -191,7 +192,7 @@
     CGFloat rowHeight = 44.f;
     if(indexPath.section == 1) {
         if(indexPath.row == 2 || indexPath.row == 1) {
-            if([[RCIM sharedRCIM] disableMessageNotificaiton] == YES)
+            if(_identityManager.identity.newMessage == NO)
                 rowHeight = 0.01f;
         }
         if(indexPath.row == 5 || indexPath.row == 4) {

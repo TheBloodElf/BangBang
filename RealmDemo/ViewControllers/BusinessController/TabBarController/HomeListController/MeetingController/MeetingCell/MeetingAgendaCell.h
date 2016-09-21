@@ -13,6 +13,7 @@
 
 - (void)MeetingAgendaDelete:(MeetingAgenda*)meetingAgenda;
 - (void)MeetingAgendaFinishEdit;
+- (void)MeetingAgendaLenghtOver;
 
 @end
 

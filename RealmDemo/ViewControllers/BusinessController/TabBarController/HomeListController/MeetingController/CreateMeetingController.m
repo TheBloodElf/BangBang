@@ -27,7 +27,7 @@
 #import "SingleSelectController.h"
 #import "MuliteSelectController.h"
 
-@interface CreateMeetingController ()<UITableViewDelegate,UITableViewDataSource,MeetingDeviceDelegate,MeetingAgendaDelegate,MeetingRoomDelegate> {
+@interface CreateMeetingController ()<UITableViewDelegate,UITableViewDataSource,MeetingDeviceDelegate,MeetingAgendaDelegate,MeetingRoomDelegate,MeetingNameDelegate> {
     UserManager *_userManager;
     UITableView *_tableView;//表格视图
     Meeting *_meeting;//会议模型
@@ -71,28 +71,6 @@
      [_tableView registerNib:[UINib nibWithNibName:@"MeetingAgendaCell" bundle:nil] forCellReuseIdentifier:@"MeetingAgendaCell"];
     [self.view addSubview:_tableView];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightClicked:)];
-    //按钮是否能够被点击
-    RACSignal *titleSignal = RACObserve(_meeting, title);
-    RACSignal *inchargeSignal = RACObserve(_meeting, incharge);
-    RACSignal *roomIdSignal = RACObserve(_meeting, room_id);
-    RACSignal *readyManSignal = RACObserve(_meeting, ready_man);
-    RACSignal *membersSignal = RACObserve(_meeting, members);
-    RACSignal *topicSignal = RACObserve(_meeting, topic);
-    RAC(self.navigationItem.rightBarButtonItem,enabled) = [RACSignal combineLatest:@[titleSignal,inchargeSignal,roomIdSignal,readyManSignal,membersSignal,topicSignal] reduce:^(NSString *task_name,NSString *incharge_name,int room_id,NSString *ready_man,NSString *members,NSString *topic){
-        if([NSString isBlank:task_name])//会议主题
-            return @(NO);
-        if([NSString isBlank:incharge_name])//主持人
-            return @(NO);
-        if(room_id == 0)//会议室
-            return @(NO);
-        if([NSString isBlank:ready_man])//会议室准备人
-            return @(NO);
-        if([NSString isBlank:members])//参与人
-            return @(NO);
-        if([NSString isBlank:topic])//议程
-            return @(NO);
-        return @(YES);
-    }];
     // Do any additional setup after loading the view.
 }
 - (void)viewDidAppear:(BOOL)animated {
@@ -108,6 +86,57 @@
     }
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
+    if([NSString isBlank:_meeting.title]) {
+        [self.navigationController.view showMessageTips:@"会议主题不能为空"];
+        return;
+    }
+    if(_meetingRoomModel.room_id == 0) {
+        [self.navigationController.view showMessageTips:@"请选择会议室"];
+        return;
+    }
+    _meeting.room_id = _meetingRoomModel.room_id;
+    _meeting.ready_man = _meetingEmployee.employee_guid;
+    if([NSString isBlank:_incharge.employee_guid]) {
+        [self.navigationController.view showMessageTips:@"请选择主持人"];
+        return;
+    }
+    _meeting.incharge = _incharge.employee_guid;
+    if(_membersArr.count == 0) {
+        [self.navigationController.view showMessageTips:@"请选择参与人"];
+        return;
+    }
+    NSMutableArray *membersGuidArr = [@[] mutableCopy];
+    for (Employee *employee in _membersArr) {
+        [membersGuidArr addObject:employee.employee_guid];
+    }
+    _meeting.members = [membersGuidArr componentsJoinedByString:@"^"];
+    BOOL dontHaveAgenda = YES;
+    for (MeetingAgenda *agenda in _meetingAgendaArr) {
+        if(![NSString isBlank:agenda.title]) {
+            dontHaveAgenda = NO;
+            break;
+        }
+    }
+    if(dontHaveAgenda) {
+        [self.navigationController.view showMessageTips:@"请填写议程"];
+        return;
+    }
+    for (int i = 0; i < _meetingAgendaArr.count - 1; i ++) {
+        for (int j = i + 1; j < _meetingAgendaArr.count; j ++) {
+            if([[_meetingAgendaArr[i] title] isEqualToString:[_meetingAgendaArr[j] title]]) {
+                [self.navigationController.view showMessageTips:@"议程不能相同"];
+                return;
+            }
+        }
+    }
+    //议题列表
+    NSMutableArray<NSString*> *nameArr = [@[] mutableCopy];
+    for (MeetingAgenda *agenda in _meetingAgendaArr) {
+        if(![NSString isBlank:agenda.title]) {
+            [nameArr addObject:agenda.title];
+        }
+    }
+    _meeting.topic = [nameArr componentsJoinedByString:@"^"];
     //公用设备id数组
     NSMutableArray *equipmentIdArr = [@[] mutableCopy];
     for (MeetingEquipmentsModel *model in _meetingEquipmentsArr) {
@@ -204,7 +233,9 @@
     
     cell.accessoryType = UITableViewCellAccessoryNone;
     if(indexPath.section == 0) {//会议主题
-        cell.data = _meeting;
+        MeetingName *name = (id)cell;
+        name.data = _meeting;
+        name.delegate = self;
     } else if (indexPath.section == 1) {
         if(indexPath.row == 0) {//会议室
             cell.textLabel.text = @"会议室";
@@ -276,7 +307,6 @@
             single.outEmployees = array;
             single.singleSelect = ^(Employee *employee) {
                 _incharge = employee;
-                _meeting.incharge = _incharge.employee_guid;
                 [_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
             };
             [self.navigationController pushViewController:single animated:YES];
@@ -290,12 +320,6 @@
             mulite.selectedEmployees = _membersArr;
             mulite.muliteSelect = ^(NSMutableArray *array) {
                 _membersArr = array;
-                //参与人guid数组
-                NSMutableArray *membersGuidArr = [@[] mutableCopy];
-                for (Employee *employee in _membersArr) {
-                    [membersGuidArr addObject:employee.employee_guid];
-                }
-                _meeting.members = [membersGuidArr componentsJoinedByString:@"^"];
                 [_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
             };
             [self.navigationController pushViewController:mulite animated:YES];
@@ -378,13 +402,15 @@
         [self presentViewController:alertVC animated:YES completion:nil];
     }
 }
+#pragma mark -- MeetingNameDelegate
+- (void)meetingNameLenghtOver {
+    [self.navigationController.view showMessageTips:@"会议出题不能大于30字"];
+}
 #pragma mark -- MeetingRoomDelegate
 - (void)MeetingRoomDeviceSelect:(NSArray<MeetingEquipmentsModel*>*)array meetingRoom:( MeetingRoomModel*)meetingRoom employee:(Employee*)employee meetingRoomTime:(MeetingRoomCellModel*)meetingRoomTime {
     _meetingEquipmentsArr = [array mutableCopy];
     _meetingRoomModel = meetingRoom;
     _meetingEmployee = employee;
-    _meeting.room_id = _meetingRoomModel.room_id;
-    _meeting.ready_man = _meetingEmployee.employee_guid;
     _meeting.begin = [meetingRoomTime.begin timeIntervalSince1970] * 1000;
     _meeting.end = [meetingRoomTime.end timeIntervalSince1970] * 1000;
     [_tableView reloadData];
@@ -408,16 +434,13 @@
     }
     [_tableView reloadSections:[NSIndexSet indexSetWithIndex:3] withRowAnimation:UITableViewRowAnimationNone];
 }
+//超长了
+- (void)MeetingAgendaLenghtOver {
+    [self.navigationController.view showMessageTips:@"议程不能大于30字"];
+}
 //议程编辑完毕
 - (void)MeetingAgendaFinishEdit {
-    //议题列表
-    NSMutableArray<NSString*> *nameArr = [@[] mutableCopy];
-    for (MeetingAgenda *agenda in _meetingAgendaArr) {
-        if(![NSString isBlank:agenda.title]) {
-            [nameArr addObject:agenda.title];
-        }
-    }
-    _meeting.topic = [nameArr componentsJoinedByString:@"^"];
+   
 }
 //求员工数组的高度
 - (CGFloat)employeeArrHeight:(NSMutableArray<Employee*>*)membersArr {

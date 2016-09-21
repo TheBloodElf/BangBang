@@ -85,6 +85,7 @@
         {
             if (toBeString.length > MAX_STARWORDS_LENGTH)
             {
+                [self.navigationController.view showMessageTips:@"名称不能大于5个字"];
                 textField.text = [toBeString substringToIndex:MAX_STARWORDS_LENGTH];
             }
         }
@@ -95,6 +96,7 @@
     {
         if (toBeString.length > MAX_STARWORDS_LENGTH)
         {
+            [self.navigationController.view showMessageTips:@"名称不能大于5个字"];
             NSRange rangeIndex = [toBeString rangeOfComposedCharacterSequenceAtIndex:MAX_STARWORDS_LENGTH];
             if (rangeIndex.length == 1)
             {

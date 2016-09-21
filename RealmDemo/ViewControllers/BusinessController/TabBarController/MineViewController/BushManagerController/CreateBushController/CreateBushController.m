@@ -38,19 +38,20 @@
     //限制圈子名称的长度
     UITextField *text = [self.nameCell viewWithTag:1000];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:) name:@"UITextFieldTextDidChangeNotification" object:text];
-    //按钮是否能够被点击
-    RACSignal *imageSignal = RACObserve(_createBushModel, hasImage);
-    RAC(self.navigationItem.rightBarButtonItem,enabled) = [RACSignal combineLatest:@[text.rac_textSignal,imageSignal] reduce:^(NSString *name,UIImage *image){
-        if([NSString isBlank:name])
-            return @(NO);
-        if(!image)
-            return @(NO);
-        return @(YES);
-    }];
+    UITextView *textView = [self.detailCell viewWithTag:1000];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textViewEditChanged:) name:@"UITextViewTextDidChangeNotification" object:textView];
 }
 - (void)rightButtonClicked:(UIBarButtonItem*)item {
     [self.navigationController.view showLoadingTips:@""];
     UITextField *text = [self.nameCell viewWithTag:1000];
+    if([NSString isBlank:text.text]) {
+        [self.navigationController.view showMessageTips:@"圈子名称不能为空"];
+        return;
+    }
+    if(!_createBushModel.hasImage) {
+        [self.navigationController.view showMessageTips:@"请选择圈子图标"];
+        return;
+    }
     _createBushModel.name = text.text;
     [UserHttp createCompany:_createBushModel.name userGuid:_userManager.user.user_guid image:_createBushModel.hasImage companyType:_createBushModel.type handler:^(id data, MError *error) {
         [self.navigationController.view dismissTips];
@@ -65,6 +66,36 @@
         [self.navigationController popViewControllerAnimated:YES];
     }];
 }
+-(void)textViewEditChanged:(NSNotification *)obj
+{
+    UITextView *textField = (UITextView *)obj.object;
+    NSString *toBeString = textField.text;
+    NSString *lang = [textField.textInputMode primaryLanguage];
+    if ([lang isEqualToString:@"zh-Hans"]){// 简体中文输入
+        //获取高亮部分
+        UITextRange *selectedRange = [textField markedTextRange];
+        UITextPosition *position = [textField positionFromPosition:selectedRange.start offset:0];
+        // 没有高亮选择的字，则对已输入的文字进行字数统计和限制
+        if (!position) {
+            if (toBeString.length > 200) {
+                [self.navigationController.view showMessageTips:@"圈子详情不能大于200个字"];
+                textField.text = [toBeString substringToIndex:200];
+            }
+        }
+    } else {// 中文输入法以外的直接对其统计限制即可，不考虑其他语种情况
+        if (toBeString.length > 200) {
+            [self.navigationController.view showMessageTips:@"圈子详情不能大于200个字"];
+            NSRange rangeIndex = [toBeString rangeOfComposedCharacterSequenceAtIndex:200];
+            if (rangeIndex.length == 1) {
+                textField.text = [toBeString substringToIndex:200];
+            } else {
+                NSRange rangeRange = [toBeString rangeOfComposedCharacterSequencesForRange:NSMakeRange(0, 200)];
+                textField.text = [toBeString substringWithRange:rangeRange];
+            }
+        }
+    }
+}
+
 #pragma mark --
 #pragma mark -- TextFieldDelegate
 -(void)textFiledEditChanged:(NSNotification *)obj
@@ -79,11 +110,13 @@
         // 没有高亮选择的字，则对已输入的文字进行字数统计和限制
         if (!position) {
             if (toBeString.length > MAX_STARWORDS_LENGTH) {
+                [self.navigationController.view showMessageTips:@"圈子名称不能大于20个字"];
                 textField.text = [toBeString substringToIndex:MAX_STARWORDS_LENGTH];
             }
         }
     } else {// 中文输入法以外的直接对其统计限制即可，不考虑其他语种情况
         if (toBeString.length > MAX_STARWORDS_LENGTH) {
+            [self.navigationController.view showMessageTips:@"圈子名称不能大于20个字"];
             NSRange rangeIndex = [toBeString rangeOfComposedCharacterSequenceAtIndex:MAX_STARWORDS_LENGTH];
             if (rangeIndex.length == 1) {
                 textField.text = [toBeString substringToIndex:MAX_STARWORDS_LENGTH];

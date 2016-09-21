@@ -116,7 +116,6 @@ static HttpService * __singleton__;
         });
         
     }];
-    
     //发起请求任务
     [dataTask resume];
     return dataTask;
