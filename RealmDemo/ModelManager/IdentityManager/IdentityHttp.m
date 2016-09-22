@@ -48,9 +48,7 @@
 //获取在AppStore中的版本号
 + (NSURLSessionDataTask*)getSoftVersionHandler:(completionHandler)handler {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    [manager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"text/html"]];
-    [manager setRequestSerializer:[AFHTTPRequestSerializer serializer]];
-    [manager setResponseSerializer:[AFJSONResponseSerializer serializer]];
+    [manager.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@"text/html",nil]];
     NSURLSessionDataTask * dataTask = [manager POST:@"http://itunes.apple.com/lookup?id=979426412" parameters:nil progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

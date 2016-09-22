@@ -242,7 +242,7 @@
             [self.navigationController.view showFailureTips:error.statsMsg];
             return ;
         }
-        [[UserManager manager] updateUser:user];
+        [_userManager updateUser:user];
         //更新用户员工
         for (Company *company in [_userManager getCompanyArr]) {
             Employee *employee = [[_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:company.company_no] deepCopy];

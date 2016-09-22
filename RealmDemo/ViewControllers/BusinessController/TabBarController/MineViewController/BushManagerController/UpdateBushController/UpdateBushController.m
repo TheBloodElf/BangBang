@@ -51,14 +51,14 @@
 - (void)rightButtonClicked:(UIBarButtonItem*)item {
     //有图片就要上传图片 然后得到url再修改
     if(_currCompanyImage) {
-        [self.navigationController.view showLoadingTips:@"修改logo..."];
+        [self.navigationController.view showLoadingTips:@""];
         [UserHttp updateConpanyAvater:_currCompanyImage companyNo:_currCompany.company_no userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
             if(error) {
+                [self.navigationController.view dismissTips];
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
             _currCompany.logo = data[@"data"][@"logo"];
-            [self.navigationController.view showLoadingTips:@"修改信息..."];
             [UserHttp updateCompany:_currCompany.company_no companyName:_currCompany.company_name companyType:_currCompany.company_type logo:_currCompany.logo handler:^(id data, MError *error) {
                 [self.navigationController.view dismissTips];
                 if(error) {
@@ -76,7 +76,7 @@
             }];
         }];
     } else {
-        [self.navigationController.view showLoadingTips:@"修改信息..."];
+        [self.navigationController.view showLoadingTips:@""];
         [UserHttp updateCompany:_currCompany.company_no companyName:_currCompany.company_name companyType:_currCompany.company_type logo:_currCompany.logo handler:^(id data, MError *error) {
             [self.navigationController.view dismissTips];
             if(error) {

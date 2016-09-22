@@ -43,6 +43,7 @@
 }
 - (void)rightButtonClicked:(UIBarButtonItem*)item {
     [self.navigationController.view showLoadingTips:@""];
+    [self.view endEditing:YES];
     UITextField *text = [self.nameCell viewWithTag:1000];
     if([NSString isBlank:text.text]) {
         [self.navigationController.view showMessageTips:@"圈子名称不能为空"];
@@ -60,10 +61,26 @@
             return ;
         }
         Company *company = [Company new];
-        [company mj_setKeyValues:data];
-        [self.navigationController.view showSuccessTips:@"创建成功"];
+        [company mj_setKeyValues:data[@"data"]];
         [_userManager addCompany:company];
-        [self.navigationController popViewControllerAnimated:YES];
+        //获取创建圈子的所有员工
+        //从网络上获取最新的员工数据
+        [UserHttp getEmployeeCompnyNo:company.company_no status:5 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+            if(error) {
+                [self.navigationController.view showFailureTips:error.statsMsg];
+                return ;
+            }
+            NSMutableArray *array = [@[] mutableCopy];
+            for (NSDictionary *dic in data[@"list"]) {
+                Employee *employee = [Employee new];
+                [employee mj_setKeyValues:dic];
+                [array addObject:employee];
+            }
+            //存入本地数据库
+            [_userManager updateEmployee:array companyNo:company.company_no];
+            [self.navigationController.view showSuccessTips:@"创建成功"];
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
     }];
 }
 -(void)textViewEditChanged:(NSNotification *)obj

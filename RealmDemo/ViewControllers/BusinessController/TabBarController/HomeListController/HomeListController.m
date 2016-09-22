@@ -97,7 +97,7 @@
         UILabel *companyLabel = [self.leftNavigationBarButton viewWithTag:1003];
         [imageView sd_setImageWithURL:[NSURL URLWithString:user.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
         nameLabel.text = user.real_name;
-        if([NSString isBlank:user.currCompany.company_name])
+        if(user.currCompany.company_no == 0)
             companyLabel.text = @"未选择圈子";
         else {
             companyLabel.text = user.currCompany.company_name;

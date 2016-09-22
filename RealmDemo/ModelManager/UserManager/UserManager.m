@@ -65,17 +65,17 @@
         NSArray *weekArr = [model.work_day componentsSeparatedByString:@","];
         //循环着创建最近5天的本地通知
         for (NSUInteger index = 0; index < LocNotifotionDays; index ++) {
-            //今天上班时间
+            //当天上班时间
             NSDate *currUpTime = [NSDate dateWithTimeIntervalSince1970:today + index * 24 * 60 * 60 + begin];
-            //如果设置了今天提醒
+            //如果设置了当天提醒
             if([weekArr containsObject:[NSString stringWithFormat:@"%ld",currUpTime.weekday]]) {
                 //如果小于现在 去掉
                 if([currUpTime timeIntervalSinceDate:[NSDate date]] < 0) {}
                 else [self addUpDownWorkLocNoti:model date:currUpTime type:0];
             }
-            //今天下班时间
+            //当天下班时间
             NSDate *currEndTime = [NSDate dateWithTimeIntervalSince1970:today + index * 24 * 60 * 60 + end];
-            //如果设置了今天提醒
+            //如果设置了当天提醒
             if([weekArr containsObject:[NSString stringWithFormat:@"%ld",currEndTime.weekday]]) {
                 //如果小于现在 去掉
                 if([currEndTime timeIntervalSinceDate:[NSDate date]] < 0) {}

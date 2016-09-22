@@ -226,8 +226,7 @@
                 [_identityManager saveAuthorizeData];
                 if(_identityManager.identity.ryDisturb) {
                     int intt = [@([_identityManager.identity.ryDisturbEndTime timeIntervalSinceDate:_identityManager.identity.ryDisturbBeginTime] / 60.f) intValue];
-                    if(intt == 0)
-                        intt = 1;
+                    if(intt == 0) intt = 1;
                     [[RCIMClient sharedRCIMClient] setNotificationQuietHours:[NSString stringWithFormat:@"%02ld:%02ld:00",(long)_identityManager.identity.ryDisturbBeginTime.hour,(long)_identityManager.identity.ryDisturbBeginTime.minute] spanMins:intt success:nil error:nil];
                 }
                 _beginTime.text = [NSString stringWithFormat:@"%02ld:%02ld",(long)_identityManager.identity.ryDisturbBeginTime.hour,(long)_identityManager.identity.ryDisturbBeginTime.minute];
@@ -245,8 +244,7 @@
                 [_identityManager saveAuthorizeData];
                 if(_identityManager.identity.ryDisturb) {
                     int intt = [@([_identityManager.identity.ryDisturbEndTime timeIntervalSinceDate:_identityManager.identity.ryDisturbBeginTime] / 60.f) intValue];
-                    if(intt == 0)
-                        intt = 1;
+                    if(intt == 0) intt = 1;
                     [[RCIMClient sharedRCIMClient] setNotificationQuietHours:[NSString stringWithFormat:@"%02ld:%02ld:00",(long)_identityManager.identity.ryDisturbBeginTime.hour,(long)_identityManager.identity.ryDisturbBeginTime.minute] spanMins:intt success:nil error:nil];
                 }
                 _endTime.text = [NSString stringWithFormat:@"%02ld:%02ld",(long)_identityManager.identity.ryDisturbEndTime.hour,(long)_identityManager.identity.ryDisturbEndTime.minute];
