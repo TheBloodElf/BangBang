@@ -189,7 +189,7 @@
             //添加新建日程
             [calendar mj_setKeyValues:data];
             calendar.descriptionStr = data[@"description"];
-            [_userManager updateCalendar:calendar];
+            [_userManager addCalendar:calendar];
             [_needSyncCalender removeObjectAtIndex:0];
             [self syncCalender];
         }];

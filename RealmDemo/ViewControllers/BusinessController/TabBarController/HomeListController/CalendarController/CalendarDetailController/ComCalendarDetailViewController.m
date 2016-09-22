@@ -85,13 +85,13 @@
     UIAlertAction *alertSure = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         //status 状态0-已删除，1-正常，2-已完成
         _calendar.status = 2;
+        _calendar.finishedon_utc = [NSDate date].timeIntervalSince1970 * 1000;
         [self.navigationController.view showLoadingTips:@""];
-        [UserHttp updateUserCalendar:_calendar handler:^(id data, MError *error) {
+        [UserHttp finishUserCalendar:_calendar handler:^(id data, MError *error) {
             [self.navigationController.view dismissTips];
             if(error) {
                 if(error.statsCode == -1009) {
                     _calendar.needSync = YES;
-                    _calendar.finishedon_utc = [NSDate date].timeIntervalSince1970 * 1000;
                     [_userManager updateCalendar:_calendar];
                     [self.navigationController.view showSuccessTips:@"完成成功"];
                     [self.navigationController popViewControllerAnimated:YES];

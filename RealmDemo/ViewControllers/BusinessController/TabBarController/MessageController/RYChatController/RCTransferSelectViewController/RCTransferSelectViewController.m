@@ -41,6 +41,7 @@
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 64) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    _tableView.tableFooterView = [UIView new];
     [_tableView registerNib:[UINib nibWithNibName:@"RCTransferCompanyCell" bundle:nil] forCellReuseIdentifier:@"RCTransferCompanyCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"RCTransferDiscussCell" bundle:nil] forCellReuseIdentifier:@"RCTransferDiscussCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"RCTransferEmployeeCell" bundle:nil] forCellReuseIdentifier:@"RCTransferEmployeeCell"];

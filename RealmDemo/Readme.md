@@ -10,6 +10,7 @@
 讨论组设置中保存到通讯录/取消保存 连续操作会崩溃   直接用数据库读出来的对象进行添加和删除
 任务同步偶尔出现不是对象存进数据库的情况          FetchedResultsController查询条件设为nil，自己来处理
 莫名其妙的字段赋值为nil                       全部用mj_keyValues
+有时出现数据不是最新的情况                     全部用_userManager不要用UserManager manager
 
                                第三方库
 BMDeviceActivityManager             检测屏幕亮起和熄灭的库

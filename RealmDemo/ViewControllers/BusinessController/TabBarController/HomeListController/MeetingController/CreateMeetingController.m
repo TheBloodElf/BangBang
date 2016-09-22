@@ -49,7 +49,7 @@
     self.title = @"新建会议";
     _userManager = [UserManager manager];
     _meeting = [Meeting new];
-    //在这里把模型填充好
+    //在这里把模型固定部分填充好
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
     _meeting.create_by = employee.employee_guid;
     _meetingRoomModel = [MeetingRoomModel new];
@@ -86,6 +86,7 @@
     }
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
+    //会议标题、提醒提醒时间、开始时间、结束时间直接赋值到会议模型上 其他的界面显示用单独的模型存储 然后统一在满足要求后复制到会议模型上
     if([NSString isBlank:_meeting.title]) {
         [self.navigationController.view showMessageTips:@"会议主题不能为空"];
         return;
@@ -129,7 +130,6 @@
             }
         }
     }
-    //议题列表
     NSMutableArray<NSString*> *nameArr = [@[] mutableCopy];
     for (MeetingAgenda *agenda in _meetingAgendaArr) {
         if(![NSString isBlank:agenda.title]) {
@@ -137,12 +137,16 @@
         }
     }
     _meeting.topic = [nameArr componentsJoinedByString:@"^"];
-    //公用设备id数组
     NSMutableArray *equipmentIdArr = [@[] mutableCopy];
     for (MeetingEquipmentsModel *model in _meetingEquipmentsArr) {
         [equipmentIdArr addObject:@(model.id).stringValue];
     }
     _meeting.equipments = [equipmentIdArr componentsJoinedByString:@"^"];
+    NSMutableArray *attendanceGuidArr = [@[] mutableCopy];
+    for (Employee *employee in _attendanceArr) {
+        [attendanceGuidArr addObject:employee.employee_guid];
+    }
+    _meeting.attendance = [attendanceGuidArr componentsJoinedByString:@"^"];
     [self.navigationController.view showLoadingTips:@""];
     [UserHttp createMeet:[_meeting mj_keyValues] handler:^(id data, MError *error) {
         [self.navigationController.view dismissTips];
@@ -164,10 +168,10 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.section == 2) {
         if(indexPath.row == 1) {
-            if(_membersArr.count != 0)
+            if(_membersArr.count != 0)//参与人
                 return [self employeeArrHeight:_membersArr];
         } else if(indexPath.row == 2) {
-            if(_attendanceArr.count != 0)
+            if(_attendanceArr.count != 0)//列席人
                 return [self employeeArrHeight:_attendanceArr];
         }
     }
@@ -177,14 +181,14 @@
     if(section == 0)
         return 1;
     if(section == 1) {
-        if(_meetingRoomModel.room_id == 0)
+        if(_meetingRoomModel.room_id == 0)//会议室
             return 1;
         return 3;
     }
     if(section == 2)
         return 3;
     if(section == 3)
-        return _meetingAgendaArr.count + 1;
+        return _meetingAgendaArr.count + 1;//会议议程
     return 1;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -249,8 +253,8 @@
             cell.detailTextLabel.text = timeStr;
         } else {//设备
             MeetingDevice *device = (id)cell;
-            device.meetingRoomModel = _meetingRoomModel;
-            device.data = _meetingEquipmentsArr;
+            device.meetingRoomModel = _meetingRoomModel;//会议室模型（用来显示固定设备）
+            device.data = _meetingEquipmentsArr;//公共设备
             device.delegate = self;
         }
     } else if (indexPath.section == 2) {
@@ -333,12 +337,6 @@
             mulite.selectedEmployees = _attendanceArr;
             mulite.muliteSelect = ^(NSMutableArray *array) {
                 _attendanceArr = array;
-                //列席人guid数组
-                NSMutableArray *attendanceGuidArr = [@[] mutableCopy];
-                for (Employee *employee in _attendanceArr) {
-                    [attendanceGuidArr addObject:employee.employee_guid];
-                }
-                _meeting.attendance = [attendanceGuidArr componentsJoinedByString:@"^"];
                 [_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
             };
             [self.navigationController pushViewController:mulite animated:YES];
@@ -416,7 +414,7 @@
     [_tableView reloadData];
 }
 #pragma mark -- MeetingDeviceDelegate
-//更多按钮被点击
+//设备详情被点击
 - (void)MeetingDeviceMore {
     MeetDeviceDetailController *meet = [MeetDeviceDetailController new];
     meet.employee = _meetingEmployee;

@@ -409,6 +409,19 @@
     };
     return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
 }
+//完成日程
++ (NSURLSessionDataTask*)finishUserCalendar:(Calendar*)calendar handler:(completionHandler)handler {
+    NSString *urlPath = @"Calendars/update_state";
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:@(calendar.id) forKey:@"event_id"];
+    [params setObject:@(calendar.status) forKey:@"status"];
+    [params setObject:@(calendar.finishedon_utc) forKey:@"finish_date"];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
 //添加日程完成时间
 + (NSURLSessionDataTask*)addCalendarFinishDate:(int64_t)eventID finishDate:(int64_t)finishDate handler:(completionHandler)handler {
     NSString *urlPath = @"Calendars/add_finish_date_v3";

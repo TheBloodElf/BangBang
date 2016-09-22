@@ -132,18 +132,20 @@
             [[UIApplication sharedApplication] cancelLocalNotification:cation];
         }
     }
-    //获取本地5天的日程
+    //获取本地5天内的日程
     NSDate *date = [NSDate date];
     for (int index = 0; index < LocNotifotionDays; index ++) {
         NSDate *currDate = [date dateByAddingTimeInterval:index * 24 * 60 * 60];
-        NSMutableArray<Calendar*> *calendarArr =  [self getCalendarArrWithDate:currDate];
+        NSMutableArray<Calendar*> *calendarArr = [self getCalendarArrWithDate:currDate];
          dispatch_sync(dispatch_queue_create(0, 0), ^{
                 //一天一天的加本地推送
                 for (Calendar *calendar in calendarArr) {
-                    if(calendar.status == 2) continue;//如果已经完成就不添加本地推送
+                    if(calendar.status == 2 || calendar.status == 0) continue;//如果已经完成/已经删除就不添加
                     if(calendar.repeat_type == 0) {//如果是不重复的日程
                         if(calendar.alert_minutes_before != 0) {//有没有事前提醒
                             NSDate *alertBeforeDate = [NSDate dateWithTimeIntervalSince1970:calendar.begindate_utc / 1000 - calendar.alert_minutes_before * 60];
+                            //只添加当天的
+                            if(alertBeforeDate.day != currDate.day) continue;
                             if(alertBeforeDate.timeIntervalSince1970 < date.timeIntervalSince1970) { } else {
                                 //添加到本地推送
                                 [self addCalendarAlertToLocNoti:calendar date:alertBeforeDate];
@@ -151,6 +153,8 @@
                         }
                         if(calendar.alert_minutes_after != 0) {//有没有事后提醒
                             NSDate *alertAfterDate = [NSDate dateWithTimeIntervalSince1970:calendar.enddate_utc / 1000 + calendar.alert_minutes_after * 60];
+                            //只添加当天的
+                            if(alertAfterDate.day != currDate.day) continue;
                             if(alertAfterDate.timeIntervalSince1970 < date.timeIntervalSince1970) { } else {
                                 //添加到本地推送
                                 [self addCalendarAlertToLocNoti:calendar date:alertAfterDate];
@@ -164,6 +168,8 @@
                                 NSArray * occurences = [scheduler occurencesBetween:currDate.firstTime andDate:currDate.lastTime];
                                 //遍历所有的时间
                                 for (NSDate *dddd in occurences) {
+                                    //只添加当天的
+                                    if(dddd.day != currDate.day) continue;
                                     if([dddd timeIntervalSince1970] < calendar.r_begin_date_utc/1000) {
                                         continue;
                                     } else if ([calendar haveDeleteDate:currDate]) {
@@ -182,6 +188,8 @@
                                 NSArray * occurences = [scheduler occurencesBetween:currDate.firstTime andDate:currDate.lastTime];
                                 //遍历所有的时间
                                 for (NSDate *dddd in occurences) {
+                                    //只添加当天的
+                                    if(dddd.day != currDate.day) continue;
                                     if([dddd timeIntervalSince1970] < calendar.r_begin_date_utc/1000) {
                                         continue;
                                     } else if ([calendar haveDeleteDate:currDate]) {
@@ -242,7 +250,7 @@
     dispatch_sync(dispatch_queue_create(0, 0), ^{
         NSDate *currDate = [NSDate date];
         for (TaskModel *model in taskArr) {
-            if(model.status == 0 || model.status == 7 || model.status == 8) continue;//去掉不提醒的
+            if(model.status == 0 || model.status == 1 || model.status == 7 || model.status == 8) continue;//去掉不提醒的 删除 未接受 已终止 已完结
             if([NSString isBlank:model.alert_date_list]) continue;//去掉没有提醒时间的
             NSArray *alertStrArr = [model.alert_date_list componentsSeparatedByString:@","];
             for (NSString *str in alertStrArr) {

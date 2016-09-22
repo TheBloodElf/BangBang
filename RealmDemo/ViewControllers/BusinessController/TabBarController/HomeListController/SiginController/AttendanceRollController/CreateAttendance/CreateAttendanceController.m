@@ -205,7 +205,7 @@
             if (_currSiginRule.end_work_time_alert == 0) {
                 palneCell.detailTextLabel.text = @"准时";
             } else {
-                palneCell.detailTextLabel.text = [NSString stringWithFormat:@"%@分钟前",@(_currSiginRule.end_work_time_alert)];
+                palneCell.detailTextLabel.text = [NSString stringWithFormat:@"%@分钟后",@(_currSiginRule.end_work_time_alert)];
             }
         }
     } else if (indexPath.section == 3) {

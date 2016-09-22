@@ -95,7 +95,7 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if(section == 1)
-        if(_meetingEquipmentsArr.count)
+        if(_meetingEquipmentsArr.count)//会议设备
             return 2;
     return 1;
 }
@@ -180,7 +180,7 @@
 }
 #pragma mark -- MeetingDeviceSelectDelegate
 - (void)MeetingDeviceSelect:(NSArray<MeetingEquipmentsModel*>*)array employee:(Employee*)employee {
-    //公共设备选择完毕 保存起来
+    //公共设备、设备准备人选择完毕
     NSMutableArray *idArray = [@[] mutableCopy];
     for (MeetingEquipmentsModel *model in array) {
         [idArray addObject:@(model.id).stringValue];

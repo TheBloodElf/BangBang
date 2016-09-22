@@ -83,7 +83,6 @@
     //设置重用标识符
     static NSString *topIdentifier = @"topIdentifier";
     static NSString *bottomIdentifier = @"bottomIdentifier";
-    User *currUser = [UserManager manager].user;
     //创建cell
     UITableViewCell *cell = nil;
     if(indexPath.row == 0 && indexPath.section == 0) {
@@ -108,31 +107,31 @@
     if(indexPath.section == 0) {
         if(indexPath.row == 0) {
             cell.textLabel.text = @"头像";
-            [image sd_setImageWithURL:[NSURL URLWithString:currUser.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
+            [image sd_setImageWithURL:[NSURL URLWithString:_userManager.user.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
         } else if (indexPath.row == 1) {
             cell.textLabel.text = @"姓名";
-            cell.detailTextLabel.text = currUser.real_name;
+            cell.detailTextLabel.text = _userManager.user.real_name;
         } else if (indexPath.row == 2) {
             cell.textLabel.text = @"帮帮号";
-            if([currUser.user_name rangeOfString:@"@"].location != NSNotFound || [NSString isBlank:currUser.user_name])
+            if([_userManager.user.user_name rangeOfString:@"@"].location != NSNotFound || [NSString isBlank:_userManager.user.user_name])
                 cell.detailTextLabel.text = @"未填写";
             else
-                cell.detailTextLabel.text = currUser.user_name;
+                cell.detailTextLabel.text = _userManager.user.user_name;
         }
     }
     else {
         if (indexPath.row == 0) {
             cell.textLabel.text = @"性别";
             NSString *sex = @"女";
-            if(currUser.sex == 0) {
+            if(_userManager.user.sex == 0) {
                 sex = @"保密";
-            } else if (currUser.sex== 1) {
+            } else if (_userManager.user.sex== 1) {
                 sex = @"男";
             }
             cell.detailTextLabel.text = sex;
         } else {
             cell.textLabel.text = @"个性签名";
-            cell.detailTextLabel.text = [NSString isBlank:currUser.mood] ? @"未填写" : currUser.mood;
+            cell.detailTextLabel.text = [NSString isBlank:_userManager.user.mood] ? @"未填写" : _userManager.user.mood;
         }
     }
     return cell;
@@ -173,8 +172,7 @@
             vc.delegate = self;
             [self.navigationController pushViewController:vc animated:YES];
         } else if (indexPath.row == 2) {
-            User *currUser = [UserManager manager].user;
-            if([currUser.user_name rangeOfString:@"@"].location != NSNotFound || [NSString isBlank:currUser.user_name]) {
+            if([_userManager.user.user_name rangeOfString:@"@"].location != NSNotFound || [NSString isBlank:_userManager.user.user_name]) {
                 ChangeUserBBH *vc = [ChangeUserBBH new];
                 vc.delegate = self;
                 [self.navigationController pushViewController:vc animated:YES];
@@ -220,7 +218,7 @@
             [self.navigationController.view showFailureTips:error.statsMsg];
             return ;
         }
-        [[UserManager manager] updateUser:user];
+        [_userManager updateUser:user];
         //更新用户员工
         for (Company *company in [_userManager getCompanyArr]) {
             Employee *employee = [[_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:company.company_no] deepCopy];
