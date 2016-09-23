@@ -447,7 +447,7 @@
             [self.navigationController.view dismissTips];
             [_userManager addSigin:_currSignIn];
             [self.navigationController.view showSuccessTips:@"签到成功"];
-            [self.navigationController popToRootViewControllerAnimated:YES];
+            [self.navigationController popViewControllerAnimated:YES];
         } else {
             //进入上传图片逻辑
             _siginImageNameArr = [@[] mutableCopy];
@@ -462,7 +462,7 @@
         _currSignIn.attachments = [_siginImageNameArr componentsJoinedByString:@","];
         [_userManager addSigin:_currSignIn];
         [self.navigationController.view showSuccessTips:@"签到成功"];
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
     } else {
         //上传图片
         [UserHttp uploadSiginPic:_siginImageArr[_siginImageNameArr.count] siginId:_currSignIn.id userGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no handler:^(id data, MError *error) {

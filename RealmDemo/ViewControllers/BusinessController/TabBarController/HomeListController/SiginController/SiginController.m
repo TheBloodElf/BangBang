@@ -27,6 +27,7 @@
     NoResultView *_noDataView;//没有数据的视图
     UserManager *_userManager;//用户管理器
     RBQFetchedResultsController *_userFetchedResultsController;//用户数据库监听
+    RBQFetchedResultsController *_siginListFetchedResultsController;//今天的签到记录
     MoreSelectView *_moreSelectView;//多选视图
     NSMutableArray<SignIn*> *_todaySigInArr;//今天签到的数组
     
@@ -74,20 +75,30 @@
     [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(updateTime) userInfo:nil repeats:YES];
     //创建表格视图
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
-    _todaySigInArr = [_userManager getTodaySigInListGuid:employee.employee_guid];
     _userFetchedResultsController = [_userManager createUserFetchedResultsController];
     _userFetchedResultsController.delegate = self;
+    _siginListFetchedResultsController = [_userManager createSigInListFetchedResultsController:employee.employee_guid];
+    _siginListFetchedResultsController.delegate = self;
     self.todatSiginNumber.text = [NSString stringWithFormat:@"今日已签到%ld次",_todaySigInArr.count];
     _noDataView = [[NoResultView alloc] initWithFrame:self.tableView.bounds];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.showsVerticalScrollIndicator = NO;
-    if(_todaySigInArr.count) {
+    //展示今天的签到记录
+    _todaySigInArr = [_userManager getTodaySigInListGuid:employee.employee_guid];
+    if(_todaySigInArr.count)
         self.tableView.tableFooterView = [UIView new];
-        [_tableView reloadData];
-    }
     else
         self.tableView.tableFooterView = _noDataView;
+    [_tableView reloadData];
+    //使用原生定位
+    _locationManager = [[CLLocationManager alloc]init];
+    _locationManager.delegate = self;
+    _locationManager.distanceFilter = 100.0f;
+    [_locationManager startUpdatingLocation];
+    //初始化检索对象
+    _search = [[AMapSearchAPI alloc] init];
+    _search.delegate = self;
     //看是否有签到记录数据 没有就从服务器获取
     if(_todaySigInArr.count == 0) {
         [UserHttp getSiginList:_userManager.user.currCompany.company_no employeeGuid:employee.employee_guid handler:^(id data, MError *error) {
@@ -104,24 +115,8 @@
                 [array addObject:sigIn];
             }
             [_userManager updateTodaySinInList:array guid:employee.employee_guid];
-            _todaySigInArr = array;
-            if(_todaySigInArr.count) {
-                self.tableView.tableFooterView = [UIView new];
-                [_tableView reloadData];
-            }
-            else
-                self.tableView.tableFooterView = _noDataView;
-            [_tableView reloadData];
         }];
     }
-    //使用原生定位
-    _locationManager = [[CLLocationManager alloc]init];
-    _locationManager.delegate = self;
-    _locationManager.distanceFilter = 100.0f;
-    [_locationManager startUpdatingLocation];
-    //初始化检索对象
-    _search = [[AMapSearchAPI alloc] init];
-    _search.delegate = self;
 }
 //一直刷新时间
 - (void)updateTime {
@@ -132,6 +127,16 @@
 #pragma mark --
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
+    if(controller == _siginListFetchedResultsController) {//今天的签到数据变了
+         Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
+        _todaySigInArr = [_userManager getTodaySigInListGuid:employee.employee_guid];
+        if(_todaySigInArr.count)
+            self.tableView.tableFooterView = [UIView new];
+        else
+            self.tableView.tableFooterView = _noDataView;
+        [_tableView reloadData];
+        return;
+    }
     User *user = _userManager.user;
     UIImageView *imageView = [_leftNavigationBarButton viewWithTag:1001];
     UILabel *nameLabel = [_leftNavigationBarButton viewWithTag:1002];

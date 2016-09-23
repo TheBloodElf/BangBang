@@ -92,7 +92,6 @@
     UserDiscuss *model = [_userDiscussArr objectAtIndex:indexPath.row];
     RYChatController *temp = [[RYChatController alloc]init];
     temp.targetId = model.discuss_id;
-    temp.companyNo = model.companyNo;
     temp.conversationType = ConversationType_DISCUSSION;
     temp.title = model.discuss_title;
     [self.navigationController pushViewController:temp animated:YES];

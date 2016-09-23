@@ -62,8 +62,8 @@
     for (UIView *view in self.tagView.subviews) {
         [view removeFromSuperview];
     }
-    NSInteger count = (_meetingRoomModel.end_time - _meetingRoomModel.begin_time) / (30 * 60 * 1000);
-    if((_meetingRoomModel.end_time - _meetingRoomModel.begin_time) % (30 * 60 * 1000) != 0)
+    int count = (_meetingRoomModel.end_time - _meetingRoomModel.begin_time) / 1000 / 30 / 60 + 1;
+    if((_meetingRoomModel.end_time - _meetingRoomModel.begin_time) % (1000 * 30 * 60) != 0)
         count ++;
     NSDate *currDateDate = [NSDate dateWithTimeIntervalSince1970:_meetingRoomModel.begin_time / 1000];
     for (int index = 0;index < count;index ++) {
@@ -102,8 +102,6 @@
             if([view isMemberOfClass:[UILabel class]])
                 [view removeFromSuperview];
         }
-    
-        
         //当前会议室一共有多少列
         int64_t count = (_meetingRoomModel.end_time - _meetingRoomModel.begin_time) / (30 * 60 * 1000);
         if((_meetingRoomModel.end_time - _meetingRoomModel.begin_time) % (30 * 60 * 1000) != 0)
@@ -223,8 +221,8 @@
     return 7;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    NSInteger count = (_meetingRoomModel.end_time - _meetingRoomModel.begin_time) / (30 * 60 * 1000);
-    if((_meetingRoomModel.end_time - _meetingRoomModel.begin_time) % (30 * 60 * 1000) != 0)
+    int count = (_meetingRoomModel.end_time - _meetingRoomModel.begin_time) / 1000 / 30 / 60;
+    if((_meetingRoomModel.end_time - _meetingRoomModel.begin_time) % (1000 * 30 * 60))
         count ++;
     return count;
 }
@@ -237,7 +235,7 @@
     model.begin = [currDateDate dateByAddingTimeInterval:indexPath.row * 30 * 60];
     model.end = [currDateDate dateByAddingTimeInterval:(indexPath.row + 1) * 30 * 60];
     //是不是过去的时间
-    if(model.end.timeIntervalSince1970 < [NSDate date].timeIntervalSince1970)
+    if(model.begin.timeIntervalSince1970 < [NSDate date].timeIntervalSince1970)
         model.isDidDate = YES;
     //是不是今天的时间
     if((_userSelectDate.begin.timeIntervalSince1970 <= model.begin.timeIntervalSince1970) && (_userSelectDate.end.timeIntervalSince1970 >= model.end.timeIntervalSince1970))
@@ -265,10 +263,7 @@
             _userSelectDate = model;
         }
     }
-    NSInteger index = _currWeekDate.weekday;
-    if(index == 7)
-        index = 0;
-    [_timeCollectionView reloadSections:[NSIndexSet indexSetWithIndex:index]];
+    [_timeCollectionView reloadData];
     if(self.delegate && [self.delegate respondsToSelector:@selector(MeetingRoomSelectDate:)]) {
         [self.delegate MeetingRoomSelectDate:_userSelectDate];
     }

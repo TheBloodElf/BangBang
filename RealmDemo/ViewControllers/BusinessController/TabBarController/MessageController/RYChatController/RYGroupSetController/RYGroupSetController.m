@@ -154,7 +154,6 @@
         }
         [array addObject:emp];
     }
-    muliteSelect.companyNo = self.companyNo;
     muliteSelect.selectedEmployees = [array mutableCopy];
     muliteSelect.delegate = self;
     [self.navigationController pushViewController:muliteSelect animated:YES];
@@ -345,7 +344,6 @@
                 if(error) return ;
                 UserDiscuss *currDiscuss = [UserDiscuss new];
                 [currDiscuss mj_setKeyValues:data];
-                currDiscuss.companyNo = self.companyNo;
                 [_userManager addUserDiscuss:currDiscuss];
             }];
         } else {//删除

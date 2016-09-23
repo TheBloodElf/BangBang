@@ -47,6 +47,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"新建会议";
+    self.view.backgroundColor = [UIColor whiteColor];
     _userManager = [UserManager manager];
     _meeting = [Meeting new];
     //在这里把模型固定部分填充好

@@ -58,7 +58,7 @@
 		046DAF841D4C3EB500718F2A /* MeetingTimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF631D4C3EB500718F2A /* MeetingTimeCell.xib */; };
 		046DAF8D1D4C812C00718F2A /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DAF8C1D4C812C00718F2A /* ShareViewController.m */; };
 		046DAF901D4C812C00718F2A /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 046DAF8E1D4C812C00718F2A /* MainInterface.storyboard */; };
-		046DAF941D4C812C00718F2A /* 帮帮.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 046DAF891D4C812C00718F2A /* 帮帮.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		046DAF941D4C812C00718F2A /* RealmShare.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 046DAF891D4C812C00718F2A /* RealmShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		046DB0431D4C847C00718F2A /* UtikIesTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0421D4C847C00718F2A /* UtikIesTool.m */; };
 		046DB0461D4C84C700718F2A /* NSObject+Tips.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0451D4C84C700718F2A /* NSObject+Tips.m */; };
 		046DB06A1D4C85FD00718F2A /* ShareErrorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB0491D4C85FD00718F2A /* ShareErrorController.m */; };
@@ -819,7 +819,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				1BEAD3271D62F14700B8C3FD /* RealmToday.appex in Embed App Extensions */,
-				046DAF941D4C812C00718F2A /* 帮帮.appex in Embed App Extensions */,
+				046DAF941D4C812C00718F2A /* RealmShare.appex in Embed App Extensions */,
 				1B0CF7A71D64384E00096CF9 /* RealmPhoto.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -910,7 +910,7 @@
 		046DAF611D4C3EB500718F2A /* MeetingTimeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingTimeCell.h; sourceTree = "<group>"; };
 		046DAF621D4C3EB500718F2A /* MeetingTimeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetingTimeCell.m; sourceTree = "<group>"; };
 		046DAF631D4C3EB500718F2A /* MeetingTimeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeetingTimeCell.xib; sourceTree = "<group>"; };
-		046DAF891D4C812C00718F2A /* 帮帮.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "帮帮.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		046DAF891D4C812C00718F2A /* RealmShare.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RealmShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		046DAF8B1D4C812C00718F2A /* ShareViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
 		046DAF8C1D4C812C00718F2A /* ShareViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
 		046DAF8F1D4C812C00718F2A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -4574,7 +4574,7 @@
 			isa = PBXGroup;
 			children = (
 				1B877F121D178E7D000144B2 /* 帮帮管理助手.app */,
-				046DAF891D4C812C00718F2A /* 帮帮.appex */,
+				046DAF891D4C812C00718F2A /* RealmShare.appex */,
 				1BEAD31B1D62F14700B8C3FD /* RealmToday.appex */,
 				1B0CF79A1D64384E00096CF9 /* RealmPhoto.appex */,
 			);
@@ -5392,7 +5392,7 @@
 			);
 			name = RealmShare;
 			productName = RealmShare;
-			productReference = 046DAF891D4C812C00718F2A /* 帮帮.appex */;
+			productReference = 046DAF891D4C812C00718F2A /* RealmShare.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		1B0CF7991D64384E00096CF9 /* RealmPhoto */ = {
@@ -6488,7 +6488,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lottak.BangBang.share;
-				PRODUCT_NAME = "帮帮";
+				PRODUCT_MODULE_NAME = RealmShare;
+				PRODUCT_NAME = RealmShare;
 				PROVISIONING_PROFILE = "3f282e38-78a6-4d78-8102-811a16b136b5";
 				PROVISIONING_PROFILE_SPECIFIER = dev_bangbang_share;
 				SKIP_INSTALL = YES;
@@ -6508,7 +6509,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lottak.BangBang.share;
-				PRODUCT_NAME = "帮帮";
+				PRODUCT_MODULE_NAME = RealmShare;
+				PRODUCT_NAME = RealmShare;
 				PROVISIONING_PROFILE = "324bfeee-a302-42cc-baf0-ace046d6240f";
 				PROVISIONING_PROFILE_SPECIFIER = "XC: com.lottak.BangBang.share";
 				SKIP_INSTALL = YES;

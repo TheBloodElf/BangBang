@@ -71,7 +71,6 @@
         RYGroupSetController *set = [RYGroupSetController new];
         set.targetId = self.targetId;
         set.delegate = self;
-        set.companyNo = self.companyNo;
         [self.navigationController pushViewController:set animated:YES];
     }
 }

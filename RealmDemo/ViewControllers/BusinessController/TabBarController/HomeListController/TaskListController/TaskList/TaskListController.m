@@ -119,10 +119,10 @@
         _topSegmentedControl.selectedSegmentIndex = 1;
     [self segmentedClicked:_topSegmentedControl];
     NSArray *allTaskArr = [_userManager getTaskArr:_userManager.user.currCompany.company_no];
+    [self getCurrData];
     if(allTaskArr.count == 0)
-        [self tongBuTask];
-    else
-        [self getCurrData];
+        [self.navigationController.view showLoadingTips:@""];
+    [self tongBuTask];//因为任务状态不一定是最新的，所以每次使用时都要重新获取
 }
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
@@ -185,13 +185,13 @@
         TaskCreateController *create = [TaskCreateController new];
         [self.navigationController pushViewController:create animated:YES];
     } else {
+        [self.navigationController.view showLoadingTips:@""];
         [self tongBuTask];
     }
 }
 //同步任务
 - (void)tongBuTask {
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
-    [self.navigationController.view showLoadingTips:@"同步任务..."];
     [UserHttp getTaskList:employee.employee_guid handler:^(id data, MError *error) {
         [self.navigationController.view dismissTips];
         if(error) {
@@ -206,7 +206,6 @@
             [array addObject:model];
         }
         [_userManager updateTask:array companyNo:_userManager.user.currCompany.company_no];
-        [self.navigationController.view showSuccessTips:@"同步成功"];
     }];
 }
 #pragma mark -- TaskClickedDelegate

@@ -19,10 +19,6 @@
  */
 @property(nonatomic,assign)int user_no;
 /**
- *  圈子编号
- */
-@property(nonatomic,assign)int companyNo;
-/**
  *  用户唯一标识
  */
 @property(nonatomic,strong)NSString *user_guid;

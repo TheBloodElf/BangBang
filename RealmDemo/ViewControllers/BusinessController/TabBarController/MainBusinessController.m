@@ -71,7 +71,6 @@
         }
         if(!_userManager.user.currCompany.company_no) return;
         [self getCompanySiginRule];//获取签到规则
-//        [self getCurrcompanyTasks];//获取任务
         [self checkSyncCalender];//同步日程
     }];
 }
@@ -101,24 +100,6 @@
             [array addObject:set];
         }
         [_userManager updateSiginRule:array companyNo:_userManager.user.currCompany.company_no];
-    }];
-}
-//获取当前圈子的任务列表
-- (void)getCurrcompanyTasks {
-    Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
-    [UserHttp getTaskList:employee.employee_guid handler:^(id data, MError *error) {
-        if(error) {
-            [self.navigationController.view showFailureTips:error.statsMsg];
-            return ;
-        }
-        NSMutableArray<TaskModel*> *array = [@[] mutableCopy];
-        for (NSDictionary *dic in data[@"list"]) {
-            TaskModel *model = [TaskModel new];
-            [model mj_setKeyValues:dic];
-            model.descriptionStr = dic[@"description"];
-            [array addObject:model];
-        }
-        [_userManager updateTask:array companyNo:_userManager.user.currCompany.company_no];
     }];
 }
 //看有没有日程需要同步

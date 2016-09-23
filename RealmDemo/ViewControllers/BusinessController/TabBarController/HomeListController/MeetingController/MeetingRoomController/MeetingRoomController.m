@@ -41,12 +41,13 @@
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 64) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    _tableView.tableFooterView = [UIView new];
     [_tableView registerNib:[UINib nibWithNibName:@"MeetingRoomDeviceCell" bundle:nil] forCellReuseIdentifier:@"MeetingRoomDeviceCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"MeetingTimeCell" bundle:nil] forCellReuseIdentifier:@"MeetingTimeCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"MeetingDeviceTableCell" bundle:nil] forCellReuseIdentifier:@"MeetingDeviceTableCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"MeetingRoomTimeCell" bundle:nil] forCellReuseIdentifier:@"MeetingRoomTimeCell"];
     
-    [self.navigationController.view showLoadingTips:@"获取会议室列表..."];
+    [self.navigationController.view showLoadingTips:@""];
     [UserHttp getMeetRoomList:_userManager.user.currCompany.company_no handler:^(id data, MError *error) {
         [self.navigationController.view dismissTips];
         if(error) {
@@ -106,8 +107,8 @@
         return 60;
     //根据当前所选会议室的开始结束时间算出高度
     CGFloat height = 85;
-    NSInteger count = (_meetingRoomModel.end_time - _meetingRoomModel.begin_time) / (30 * 60 * 1000);
-    if((_meetingRoomModel.end_time - _meetingRoomModel.begin_time) % (30 * 60 * 1000) != 0)
+    int count = (_meetingRoomModel.end_time - _meetingRoomModel.begin_time) / 1000 / 30 / 60;
+    if((_meetingRoomModel.end_time - _meetingRoomModel.begin_time) % (1000 * 30 * 60))
         count ++;
     height += ((MAIN_SCREEN_WIDTH - 60) / 7.f) * count;
     return height;
