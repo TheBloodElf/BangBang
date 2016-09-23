@@ -13,7 +13,7 @@
 #import "SiginSelectCell.h"
 #import "OrientationViewController.H"
 
-@interface CreateSiginController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate,UITextViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,SiginImageDelegate,MAMapViewDelegate,AMapSearchDelegate> {
+@interface CreateSiginController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate,UITextViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,SiginImageDelegate,MAMapViewDelegate,AMapSearchDelegate,RBQFetchedResultsControllerDelegate> {
     UserManager *_userManager;//用户管理器
     NSMutableArray *_todaySiginArr;//今天所有的签到记录
     SignIn *_currSignIn;//创建签到的模型
@@ -22,6 +22,7 @@
     
     SiginRuleSet *_currSiginRuleSet;//当前圈子的签到规则
     PunchCardAddressSetting *_currPunchCardAddressSetting;//离用户最近的规则中的地址
+    RBQFetchedResultsController *_siginFetchedResultsController;//签到规则数据监听 用于在无网络切换到有网时改变签到规则
     
     MAUserLocation *currUserLocation;//当前位置，提高定位精准度
     MAMapView *_mapView;//使用地图来定位 更准确
@@ -82,8 +83,15 @@
     isFirstLoad = YES;
     
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
+    _siginFetchedResultsController = [_userManager createSiginRuleFetchedResultsController];
+    _siginFetchedResultsController.delegate = self;
     //获取签到规则
-    _currSiginRuleSet = [_userManager getSiginRule:_userManager.user.currCompany.company_no][0];
+    NSArray<SiginRuleSet*> *siginArr = [_userManager getSiginRule:_userManager.user.currCompany.company_no];
+    if(siginArr.count)
+        _currSiginRuleSet = siginArr[0];
+    else
+        _currSiginRuleSet = [SiginRuleSet new];
+    _currPunchCardAddressSetting = [PunchCardAddressSetting new];
     self.tableView.tableFooterView = [UIView new];
     //初始化集合视图
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
@@ -106,7 +114,6 @@
     self.siginTextView.delegate = self;
     [self initCategoryBtn];
     //开始定位 然后获取离用户最近的签到地址
-    //地图初始化
     _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
     _mapView.delegate = self;
     _mapView.hidden = YES;
@@ -118,6 +125,28 @@
     [self.view addSubview:_mapView];
     _search = [[AMapSearchAPI alloc] init];
     _search.delegate = self;
+}
+#pragma mark -- 
+#pragma mark -- RBQFetchedResultsControllerDelegate
+- (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
+    //获取签到规则
+    NSArray<SiginRuleSet*> *siginArr = [_userManager getSiginRule:_userManager.user.currCompany.company_no];
+    if(siginArr.count)
+        _currSiginRuleSet = siginArr[0];
+    else
+        _currSiginRuleSet = [SiginRuleSet new];
+    //重新定位 获取最近的签到地址
+    currUserLocation = [MAUserLocation new];
+    [_mapView removeFromSuperview];
+    _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
+    _mapView.delegate = self;
+    _mapView.hidden = YES;
+    _mapView.zoomLevel = 13;//地图缩放级别
+    _mapView.distanceFilter = 100;
+    _mapView.rotateEnabled = NO;
+    _mapView.showsUserLocation = YES;
+    _mapView.desiredAccuracy = kCLLocationAccuracyBest;
+    [self.view addSubview:_mapView];
 }
 #pragma mark -- 
 #pragma mark -- UITableViewDelegate
@@ -149,9 +178,7 @@
 #pragma mark --
 #pragma mark -- MAMapViewDelegate
 -(void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation{
-    if (!currUserLocation) {
-        //取出当前位置的坐标
-        NSLog(@"latitude : %f,longitude: %f",userLocation.coordinate.latitude,userLocation.coordinate.longitude);
+    if (currUserLocation.location.coordinate.latitude == 0) {
         currUserLocation = userLocation;
         //根据位置请求当前位置的POI
         AMapPOIAroundSearchRequest *request = [[AMapPOIAroundSearchRequest alloc] init];
@@ -216,9 +243,8 @@
 #pragma mark --
 #pragma mark -- UICollectionViewDelegate
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    if(_siginImageArr.count == 3) {
+    if(_siginImageArr.count == 3)
         return 3;
-    }
     return _siginImageArr.count + 1;
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -303,12 +329,17 @@
 #pragma mark -- 提交签到数据
 //提交按钮被点击
 - (IBAction)submitClicked:(id)sender {
-     Employee * employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
-    _currSignIn.employee_guid = employee.employee_guid;
     //是否定位
     if([NSString isBlank:_currSignIn.address]) {
         [self.navigationController.view showMessageTips:@"请选择位置"];
         return;
+    }
+    //判断是否有签到规则
+    if(_currSignIn.category < 2) {
+        if(_currSiginRuleSet.id == 0) {
+            [self.navigationController.view showMessageTips:@"请管理员在后台设置签到规则"];
+            return;
+        }
     }
     //判断距离
     if (_currSignIn.category < 2) {
@@ -321,18 +352,10 @@
         _currSignIn.distance = distance;
         _currSignIn.setting_guid = _currPunchCardAddressSetting.setting_guid;
     }
-    //判断上下班提醒
-    [self checkUpDownWorkAlert];
-    //提交签到数据
-    [self siginMethod];
-}
-//判断上下班提醒
-- (void)checkUpDownWorkAlert {
     //判断时间是否迟到或者早退
     NSDate *currDate = [NSDate new];
     NSUInteger currDateSecond = currDate.hour * 60 * 60 + currDate.minute * 60 + currDate.second;
-    if(_currSignIn.category == 0) {
-        //得到当前的时间 看是否是迟到超过5分钟 超过了那必须要写详情
+    if(_currSignIn.category == 0) {//上班 得到当前的时间 看是否是迟到超过5分钟 超过了那必须要写详情
         BOOL isArrive = NO;
         NSDate *leaveDate = [NSDate dateWithTimeIntervalSince1970:_currSiginRuleSet.start_work_time / 1000];
         NSUInteger leaveDateSecond = leaveDate.hour * 60 * 60 + leaveDate.minute * 60 + leaveDate.second;
@@ -367,8 +390,7 @@
             [alertVC addAction:alertSure];
             [self presentViewController:alertVC animated:YES completion:nil];
         }
-    } else if (_currSignIn.category == 1) {
-        //得到当前的时间 看是否是早退 早退要写详情
+    } else if (_currSignIn.category == 1) {//下班 得到当前的时间 看是否是早退 早退要写详情
         BOOL isLeave = NO;
         NSDate *leaveDate = [NSDate dateWithTimeIntervalSince1970:_currSiginRuleSet.end_work_time / 1000];
         NSUInteger leaveDateSecond = leaveDate.hour * 60 * 60 + leaveDate.minute * 60 + leaveDate.second;
@@ -403,6 +425,8 @@
             [alertVC addAction:alertSure];
             [self presentViewController:alertVC animated:YES completion:nil];
         }
+    } else {//外勤/其他不用判断距离直接提交数据
+        [self siginMethod];
     }
 }
 //统一一个签到方法 还要上传图片 很是蛋疼

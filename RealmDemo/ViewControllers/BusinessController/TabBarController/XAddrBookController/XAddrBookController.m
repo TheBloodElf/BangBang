@@ -302,7 +302,6 @@
         RYChatController *conversationVC = [[RYChatController alloc]init];
         conversationVC.conversationType =ConversationType_PRIVATE; //会话类型，这里设置为 PRIVATE 即发起单聊会话。
         conversationVC.targetId = @(employee.user_no).stringValue; // 接收者的 targetId，这里为举例。
-        conversationVC.friends = employee;
         conversationVC.title = employee.user_real_name; // 会话的 title。
         conversationVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:conversationVC animated:YES];

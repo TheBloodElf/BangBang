@@ -52,7 +52,7 @@
     [_allSelectBtn addTarget:self action:@selector(allSelectBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_allSelectBtn];
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_allSelectBtn.frame), MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - CGRectGetMaxY(_allSelectBtn.frame) + 64) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_allSelectBtn.frame), MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - CGRectGetMaxY(_allSelectBtn.frame) - 64) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.tableFooterView = [UIView new];

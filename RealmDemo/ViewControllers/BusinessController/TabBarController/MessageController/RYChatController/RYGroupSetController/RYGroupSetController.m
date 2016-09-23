@@ -141,8 +141,7 @@
 - (void)RYGroupSetAddClicked {
     //人员多选界面
     RCDSelectPersonController *muliteSelect = [RCDSelectPersonController new];
-    //得到当前讨论组的的编号
-    int companyNo = 0;
+    //得到当前讨论组已经添加的成员
     NSMutableArray *array = [@[] mutableCopy];
     for (RCUserInfo *rCUserInfo in _rCUserArr) {
         NSMutableArray *tempArray = [_userManager getEmployeeArr];
@@ -150,13 +149,12 @@
         for (Employee *employee in tempArray) {
             if(employee.user_no == [rCUserInfo.userId integerValue]) {
                 emp = employee;
-                companyNo = employee.company_no;
                 break;
             }
         }
         [array addObject:emp];
     }
-    muliteSelect.companyNo = companyNo;
+    muliteSelect.companyNo = self.companyNo;
     muliteSelect.selectedEmployees = [array mutableCopy];
     muliteSelect.delegate = self;
     [self.navigationController pushViewController:muliteSelect animated:YES];
@@ -347,6 +345,7 @@
                 if(error) return ;
                 UserDiscuss *currDiscuss = [UserDiscuss new];
                 [currDiscuss mj_setKeyValues:data];
+                currDiscuss.companyNo = self.companyNo;
                 [_userManager addUserDiscuss:currDiscuss];
             }];
         } else {//删除

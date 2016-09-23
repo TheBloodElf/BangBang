@@ -19,7 +19,7 @@
 @interface RYGroupSetController : UIViewController
 
 @property (nonatomic, copy) NSString *targetId;//会话ID，用来获取成员
-
+@property (nonatomic, assign) int companyNo;//圈子编号
 @property (nonatomic, weak) id<RYGroupSetDelegate> delegate;
 
 @end

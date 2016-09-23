@@ -11,6 +11,7 @@
 任务同步偶尔出现不是对象存进数据库的情况          FetchedResultsController查询条件设为nil，自己来处理
 莫名其妙的字段赋值为nil                       全部用mj_keyValues
 有时出现数据不是最新的情况                     全部用_userManager不要用UserManager manager
+时间差8个小时的解决方法                       我们用NSDate分类来取得时/分/秒来进行加减运算就避免了这个问题，不要用求余的方法来计算一天中的多少时间（切记），根本不需要进行时区转换
 
                                第三方库
 BMDeviceActivityManager             检测屏幕亮起和熄灭的库

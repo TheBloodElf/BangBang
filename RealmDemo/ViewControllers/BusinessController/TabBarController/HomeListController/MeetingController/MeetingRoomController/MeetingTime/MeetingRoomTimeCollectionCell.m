@@ -35,10 +35,8 @@
 - (IBAction)timeClicked:(UIButton *)sender {
     MeetingRoomCellModel *model = self.data;
     if(model.isDidDate == NO)
-        if(model.isTodayDate == YES) {
-            if(self.delegate && [self.delegate respondsToSelector:@selector(MeetingRoomTime:)]) {
-                [self.delegate MeetingRoomTime:self.data];
-            }
+        if(self.delegate && [self.delegate respondsToSelector:@selector(MeetingRoomTime:)]) {
+            [self.delegate MeetingRoomTime:self.data];
         }
 }
 

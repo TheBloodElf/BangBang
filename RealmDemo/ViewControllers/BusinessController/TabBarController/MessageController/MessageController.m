@@ -77,6 +77,7 @@
         RYChatController *chat =[[RYChatController alloc] init];
         chat.targetId                      = discussion.discussionId;
         chat.conversationType              = ConversationType_DISCUSSION;
+        chat.companyNo = _userManager.user.currCompany.company_no;
         chat.title                         = [nameArr componentsJoinedByString:@","];
         chat.hidesBottomBarWhenPushed = YES;
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -89,7 +90,7 @@
     [self.conversationListTableView deselectRowAtIndexPath:indexPath animated:YES];
     if(conversationModelType == RC_CONVERSATION_MODEL_TYPE_NORMAL)  {
         RYChatController *chat = [RYChatController new];
-        chat.conversationType =model.conversationType;; //会话类型，这里设置为 PRIVATE 即发起单聊会话。
+        chat.conversationType = model.conversationType; //会话类型，这里设置为 PRIVATE 即发起单聊会话。
         chat.targetId = model.targetId; // 接收者的 targetId，这里为举例。
         chat.title = model.conversationTitle; // 会话的 title
         chat.hidesBottomBarWhenPushed = YES;

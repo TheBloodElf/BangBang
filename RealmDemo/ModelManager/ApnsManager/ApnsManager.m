@@ -62,11 +62,14 @@
 //收到本地推送
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
     if([IdentityManager manager].identity.canPlayVoice) {//声音
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"notification_ring" ofType:@"mp3"];
-        NSURL *url = [NSURL URLWithString:path];
-        SystemSoundID ID;
-        AudioServicesCreateSystemSoundID((__bridge CFURLRef)(url), &ID);
-        AudioServicesPlayAlertSound(ID);
+        // 1.创建SystemSoundID,根据音效文件来生成
+        SystemSoundID soundID = 0;
+        // 2.根据音效文件,来生成SystemSoundID
+        NSURL *url = [[NSBundle mainBundle] URLForResource:@"notification_ring.mp3" withExtension:nil];
+        CFURLRef urlRef = (__bridge CFURLRef)(url);
+        AudioServicesCreateSystemSoundID(urlRef, &soundID);
+        // 播放音效
+        AudioServicesPlaySystemSound(soundID);
     }
     if([IdentityManager manager].identity.canPlayShake)//震动
         AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);

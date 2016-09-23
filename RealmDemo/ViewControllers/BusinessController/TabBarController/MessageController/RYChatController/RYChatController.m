@@ -42,7 +42,15 @@
         //查看对方详情（网页）
         WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
         webViewcontroller.showNavigationBar = NO;
-        webViewcontroller.applicationUrl  = [NSString stringWithFormat:@"%@/Personal/index?showGuid=%@&userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,self.friends.user_guid,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+        //用user_no得到user_guid
+        NSString *userGuid = @"";
+        for (Employee *employee in [_userManager getEmployeeArr]) {
+            if(employee.user_no == self.targetId.intValue) {
+                userGuid = employee.user_guid;
+                break;
+            }
+        }
+        webViewcontroller.applicationUrl  = [NSString stringWithFormat:@"%@/Personal/index?showGuid=%@&userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,userGuid,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
         [self.navigationController pushViewController:webViewcontroller animated:YES];
     } else if (self.conversationType == ConversationType_GROUP){
         //查看圈子详情
@@ -63,6 +71,7 @@
         RYGroupSetController *set = [RYGroupSetController new];
         set.targetId = self.targetId;
         set.delegate = self;
+        set.companyNo = self.companyNo;
         [self.navigationController pushViewController:set animated:YES];
     }
 }

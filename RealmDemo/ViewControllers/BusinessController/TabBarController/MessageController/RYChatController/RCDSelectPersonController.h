@@ -23,6 +23,7 @@
  */
 @property (nonatomic, strong) NSMutableArray<Employee*> *selectedEmployees;
 @property (nonatomic, assign) int companyNo;
+
 @property (nonatomic, weak) id<MuliteSelectDelegate> delegate;
 
 @end

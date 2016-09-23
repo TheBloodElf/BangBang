@@ -219,52 +219,6 @@
     return result;
 }
 
-
-//- (NSString *)timeAgo
-//{
-//	NSTimeInterval delta = [[NSDate date] timeIntervalSinceDate:self];
-//
-//	if (delta < 1 * MINUTE)
-//	{
-//		return @"刚刚";
-//	}
-//	else if (delta < 2 * MINUTE)
-//	{
-//		return @"1分钟前";
-//	}
-//	else if (delta < 45 * MINUTE)
-//	{
-//		int minutes = floor((double)delta/MINUTE);
-//		return [NSString stringWithFormat:@"%d分钟前", minutes];
-//	}
-//	else if (delta < 90 * MINUTE)
-//	{
-//		return @"1小时前";
-//	}
-//	else if (delta < 24 * HOUR)
-//	{
-//		int hours = floor((double)delta/HOUR);
-//		return [NSString stringWithFormat:@"%d小时前", hours];
-//	}
-//	else if (delta < 48 * HOUR)
-//	{
-//		return @"昨天";
-//	}
-//	else if (delta < 30 * DAY)
-//	{
-//		int days = floor((double)delta/DAY);
-//		return [NSString stringWithFormat:@"%d天前", days];
-//	}
-//	else if (delta < 12 * MONTH)
-//	{
-//		int months = floor((double)delta/MONTH);
-//		return months <= 1 ? @"1个月前" : [NSString stringWithFormat:@"%d个月前", months];
-//	}
-//
-//	int years = floor((double)delta/MONTH/12.0);
-//	return years <= 1 ? @"1年前" : [NSString stringWithFormat:@"%d年前", years];
-//}
-
 - (NSString *)resultWithFormat:(NSString *)format {
     NSDateFormatter * formatter1 = [[NSDateFormatter alloc] init];
     [formatter1 setTimeZone:[NSTimeZone localTimeZone]];
@@ -313,20 +267,19 @@
     
     return result;
 }
-- (NSDate*)firstTime {
+- (NSDate*)firstTime {//算出今天凌晨时间
     int64_t currSecond = self.timeIntervalSince1970;
-    currSecond = currSecond - self.hour * 60 * 60 - self.minute * 60 - self.second;//算出今天凌晨时间
+    currSecond = currSecond - self.hour * 60 * 60 - self.minute * 60 - self.second;
     NSDate * currDate = [NSDate dateWithTimeIntervalSince1970:currSecond];
     return currDate;
 }
-- (NSDate*)lastTime {
+- (NSDate*)lastTime {//算出明天凌晨时间
     int64_t currSecond = self.timeIntervalSince1970;
-    currSecond = currSecond - self.hour * 60 * 60 - self.minute * 60 - self.second;//算出今天凌晨时间
+    currSecond = currSecond - self.hour * 60 * 60 - self.minute * 60 - self.second;
     currSecond = currSecond + (24 * 60 * 60);
-    currSecond = currSecond - 1;//算出明天天凌晨时间 -1是为了不要和明天的时间冲突
+    currSecond = currSecond - 1;
     NSDate * currDate = [NSDate dateWithTimeIntervalSince1970:currSecond];
     return currDate;
-
 }
 + (NSDate*)dateWithFormat:(NSString *)format
 {
@@ -335,11 +288,9 @@
     NSDate * date =[df2 dateFromString:format];
     return date;
 }
-
 + (long long)timeStamp {
     return (long long)[[NSDate date] timeIntervalSince1970];
 }
-
 + (NSDate *)now {
     return [NSDate date];
 }

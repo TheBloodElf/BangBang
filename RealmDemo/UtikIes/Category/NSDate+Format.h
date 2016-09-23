@@ -29,11 +29,6 @@
 @property (nonatomic, readonly) NSInteger	second;
 @property (nonatomic, readonly) NSInteger	weekday;
 
-//- (NSString *)stringWithDateFormat:(NSString *)format;
-//- (NSString *)timeAgo;
-//- (NSString *)timeAgo4Dialog;
-//- (NSString *)timeAgo4Chat;
-//- (NSString *)timeLeft;
 - (NSDate*)firstTime;
 - (NSDate*)lastTime;
 

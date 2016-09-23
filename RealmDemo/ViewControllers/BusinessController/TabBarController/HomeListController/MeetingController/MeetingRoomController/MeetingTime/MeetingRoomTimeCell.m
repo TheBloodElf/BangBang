@@ -230,28 +230,18 @@
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     //当前行的时间
-    NSDate *currDate = _lineDate[[NSString stringWithFormat:@"%d",indexPath.section]];
-    //求出这一列的时间
-    int64_t currDateI = (int64_t)[currDate timeIntervalSince1970] / (24 * 60 * 60) * (24 * 60 * 60);
-    NSDate *currDateDate = [NSDate dateWithTimeIntervalSince1970:currDateI + (_meetingRoomModel.begin_time / 1000) % (24 * 60 * 60)];
+    NSDate *currDate = [_lineDate[[NSString stringWithFormat:@"%d",indexPath.section]] firstTime];
+    NSDate *roomDate = [NSDate dateWithTimeIntervalSince1970:_meetingRoomModel.begin_time / 1000];
+    NSDate *currDateDate = [currDate dateByAddingTimeInterval:roomDate.second + 60 * roomDate.minute + 60 * 60 * roomDate.hour];
     MeetingRoomCellModel *model = [MeetingRoomCellModel new];
     model.begin = [currDateDate dateByAddingTimeInterval:indexPath.row * 30 * 60];
     model.end = [currDateDate dateByAddingTimeInterval:(indexPath.row + 1) * 30 * 60];
     //是不是过去的时间
     if(model.end.timeIntervalSince1970 < [NSDate date].timeIntervalSince1970)
         model.isDidDate = YES;
-    //是不是用户选择的时间
-    if(model.end.year == [NSDate date].year)
-        if(model.end.month == [NSDate date].month)
-            if(model.end.day == [NSDate date].day)
-                model.isTodayDate = YES;
     //是不是今天的时间
     if((_userSelectDate.begin.timeIntervalSince1970 <= model.begin.timeIntervalSince1970) && (_userSelectDate.end.timeIntervalSince1970 >= model.end.timeIntervalSince1970))
         model.isUserSelectDate = YES;
-    //是不是今天有会议
-//    if([self thisTimeIsHaveMeet:model handlerArr:_handlerArr]) {
-//        model.haveMeet = YES;
-//    }
     MeetingRoomTimeCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MeetingRoomTimeCollectionCell" forIndexPath:indexPath];
     cell.delegate = self;
     cell.data = model;
@@ -302,12 +292,14 @@
     _currWeekDate = calendar.date;
     [self createLineDate];
     [_timeCollectionView reloadData];
+    [self addHavedMeeting];
     self.timeLabel.text = [NSString stringWithFormat:@"%ld年%ld月",_currWeekDate.year,_currWeekDate.month];
 }
 - (void)calendarDidLoadNextPage:(JTCalendarManager *)calendar {
     _currWeekDate = calendar.date;
     [self createLineDate];
     [_timeCollectionView reloadData];
+    [self addHavedMeeting];
     self.timeLabel.text = [NSString stringWithFormat:@"%ld年%ld月",_currWeekDate.year,_currWeekDate.month];
 }
 

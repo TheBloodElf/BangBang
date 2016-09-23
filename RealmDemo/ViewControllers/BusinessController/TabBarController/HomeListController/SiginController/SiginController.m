@@ -317,11 +317,6 @@
 }
 //签到按钮被点击
 - (IBAction)siginClicked:(id)sender {
-    //看是否有签到规则
-    if([_userManager getSiginRule:_userManager.user.currCompany.company_no].count == 0) {
-        [self.navigationController.view showMessageTips:@"管理员还未设置考勤点"];
-        return;
-    }
     UIStoryboard *story = [UIStoryboard storyboardWithName:@"MainStory" bundle:nil];
     CreateSiginController *sigin = [story instantiateViewControllerWithIdentifier:@"CreateSiginController"];
     [self.navigationController pushViewController:sigin animated:YES];
