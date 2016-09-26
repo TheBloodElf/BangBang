@@ -10,9 +10,9 @@
 #import "UserHttp.h"
 #import "TaskModel.h"
 #import "TaskCommentModel.h"
+#import "NoResultView.h"
 
 #import "TaskOtherCommentCell.h"
-#import "TaskOwnerCommentCell.h"
 
 @interface TaskDiscussView ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,TaskOtherCommentDelegate> {
     UITableView *_tableView;
@@ -23,6 +23,7 @@
     TaskCommentModel *_currCommentModel;//当前需要发送的评论
     
     NSRange _userSelectRange;//用户输入@时的位置
+    NoResultView *_noResultView;
 }
 
 @end
@@ -38,14 +39,6 @@
         _currCommentModel.reply_employeeguid = @"";
         _currCommentModel.reply_employeename = @"";
         _taskCommentModelArr = [@[] mutableCopy];
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, frame.size.height - 48) style:UITableViewStylePlain];
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
-        [_tableView registerNib:[UINib nibWithNibName:@"TaskOwnerCommentCell" bundle:nil] forCellReuseIdentifier:@"TaskOwnerCommentCell"];
-        [_tableView registerNib:[UINib nibWithNibName:@"TaskOtherCommentCell" bundle:nil] forCellReuseIdentifier:@"TaskOtherCommentCell"];
-        _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-        _tableView.tableFooterView = [UIView new];
-        [self addSubview:_tableView];
         
         _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, frame.size.height - 48, MAIN_SCREEN_WIDTH, 48)];
         _bottomView.userInteractionEnabled = YES;
@@ -87,12 +80,31 @@
 }
 - (void)dataDidChange {
     _taskModel = [self.data deepCopy];
+    [_tableView removeFromSuperview];
+    //任务没有接收不能讨论
+    if(_taskModel.status == 1) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, self.frame.size.height) style:UITableViewStylePlain];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        [_tableView registerNib:[UINib nibWithNibName:@"TaskOtherCommentCell" bundle:nil] forCellReuseIdentifier:@"TaskOtherCommentCell"];
+        _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+        _tableView.tableFooterView = [UIView new];
+        [self addSubview:_tableView];
+    } else {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, self.frame.size.height - 48) style:UITableViewStylePlain];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        [_tableView registerNib:[UINib nibWithNibName:@"TaskOtherCommentCell" bundle:nil] forCellReuseIdentifier:@"TaskOtherCommentCell"];
+        _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+        _tableView.tableFooterView = [UIView new];
+        [self addSubview:_tableView];
+    }
     _currCommentModel.task_id = _taskModel.id;
     _currCommentModel.task_status = _taskModel.status;
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_taskModel.company_no];
     _currCommentModel.created_by = employee.employee_guid;
     _currCommentModel.created_realname = employee.real_name;
-    
+    //获取最新的讨论信息
     [UserHttp getTaskComment:_taskModel.id handler:^(id data, MError *error) {
         if(error) {
             [self showFailureTips:error.statsMsg];
@@ -105,6 +117,12 @@
             [array insertObject:model atIndex:0];
         }
         _taskCommentModelArr = array;
+        _noResultView = nil;
+        _noResultView = [[NoResultView alloc] initWithFrame:_tableView.bounds];
+        if(_taskCommentModelArr.count == 0)
+            _tableView.tableFooterView = _noResultView;
+        else
+            _tableView.tableFooterView = [UIView new];
         [_tableView reloadData];
         if(_taskCommentModelArr.count != 0)
             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:_taskCommentModelArr.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
@@ -168,6 +186,11 @@
 }
 #pragma mark -- TaskOtherCommentDelegate
 - (void)TaskOtherAvaterClicked:(TaskCommentModel*)model {
+    Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_taskModel.company_no];
+    if([model.created_by isEqualToString:employee.employee_guid]) {
+        [self showMessageTips:@"不能回复自己"];
+        return;
+    }
     UIView *whiteView = [_bottomView viewWithTag:1001];
     UIButton *nameBtn = [whiteView viewWithTag:1002];
     UITextField *textField = [whiteView viewWithTag:1003];
@@ -192,17 +215,10 @@
     return [model.comment textSizeWithFont:[UIFont systemFontOfSize:15] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH - 53, 100000)].height + 74 + 20;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = nil;
-    TaskCommentModel *model = _taskCommentModelArr[indexPath.row];
-    Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_taskModel.company_no];
-    if([model.created_by isEqualToString:employee.employee_guid])
-        cell = [tableView dequeueReusableCellWithIdentifier:@"TaskOwnerCommentCell" forIndexPath:indexPath];
-    else {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"TaskOtherCommentCell" forIndexPath:indexPath];
-        TaskOtherCommentCell *commentCell = (id)cell;
-        commentCell.delegate = self;
-    }
-    cell.data = model;
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TaskOtherCommentCell" forIndexPath:indexPath];
+    TaskOtherCommentCell *commentCell = (id)cell;
+    commentCell.delegate = self;
+    cell.data = _taskCommentModelArr[indexPath.row];
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

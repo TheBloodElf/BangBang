@@ -33,7 +33,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         _userManager = [UserManager manager];
-        
+        self.backgroundColor = [UIColor groupTableViewBackgroundColor];
         _taskDetailBottomOpView = [[TaskDetailBottomOpView alloc] initWithFrame:CGRectMake(0, frame.size.height - 40, MAIN_SCREEN_WIDTH, 40)];
         _taskDetailBottomOpView.delegate = self;
         [self addSubview:_taskDetailBottomOpView];
@@ -54,6 +54,7 @@
 }
 
 - (void)dataDidChange {
+    //这里不用获取详情了，因为由父控制器获取完成了再传进来的
     _taskModel = self.data;
     //判断自己是否有操作按钮
     BOOL haveOpertion = NO;

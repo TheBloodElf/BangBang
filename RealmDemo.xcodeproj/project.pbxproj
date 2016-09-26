@@ -722,8 +722,6 @@
 		1BED8C111D5191DC00340809 /* TaskCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BED8C101D5191DC00340809 /* TaskCommentModel.m */; };
 		1BED8C151D51962A00340809 /* TaskOtherCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BED8C131D51962A00340809 /* TaskOtherCommentCell.m */; };
 		1BED8C161D51962A00340809 /* TaskOtherCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BED8C141D51962A00340809 /* TaskOtherCommentCell.xib */; };
-		1BED8C1A1D51963F00340809 /* TaskOwnerCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BED8C181D51963F00340809 /* TaskOwnerCommentCell.m */; };
-		1BED8C1B1D51963F00340809 /* TaskOwnerCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BED8C191D51963F00340809 /* TaskOwnerCommentCell.xib */; };
 		1BED8C231D51C6E900340809 /* InputTextController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BED8C221D51C6E900340809 /* InputTextController.m */; };
 		1BF065B91D90BEDB00BEDF03 /* TaskFinishStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF065B71D90BEDB00BEDF03 /* TaskFinishStatusCell.m */; };
 		1BF065BA1D90BEDB00BEDF03 /* TaskFinishStatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BF065B81D90BEDB00BEDF03 /* TaskFinishStatusCell.xib */; };
@@ -2085,9 +2083,6 @@
 		1BED8C121D51962A00340809 /* TaskOtherCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskOtherCommentCell.h; sourceTree = "<group>"; };
 		1BED8C131D51962A00340809 /* TaskOtherCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskOtherCommentCell.m; sourceTree = "<group>"; };
 		1BED8C141D51962A00340809 /* TaskOtherCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskOtherCommentCell.xib; sourceTree = "<group>"; };
-		1BED8C171D51963F00340809 /* TaskOwnerCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskOwnerCommentCell.h; sourceTree = "<group>"; };
-		1BED8C181D51963F00340809 /* TaskOwnerCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskOwnerCommentCell.m; sourceTree = "<group>"; };
-		1BED8C191D51963F00340809 /* TaskOwnerCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskOwnerCommentCell.xib; sourceTree = "<group>"; };
 		1BED8C211D51C6E900340809 /* InputTextController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputTextController.h; sourceTree = "<group>"; };
 		1BED8C221D51C6E900340809 /* InputTextController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputTextController.m; sourceTree = "<group>"; };
 		1BF065B61D90BEDB00BEDF03 /* TaskFinishStatusCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskFinishStatusCell.h; sourceTree = "<group>"; };
@@ -3077,9 +3072,6 @@
 				1BED8C121D51962A00340809 /* TaskOtherCommentCell.h */,
 				1BED8C131D51962A00340809 /* TaskOtherCommentCell.m */,
 				1BED8C141D51962A00340809 /* TaskOtherCommentCell.xib */,
-				1BED8C171D51963F00340809 /* TaskOwnerCommentCell.h */,
-				1BED8C181D51963F00340809 /* TaskOwnerCommentCell.m */,
-				1BED8C191D51963F00340809 /* TaskOwnerCommentCell.xib */,
 			);
 			path = TaskDiscussView;
 			sourceTree = "<group>";
@@ -5732,7 +5724,6 @@
 				1B6D167B1D48AA840070D2E5 /* WeiboSDK.bundle in Resources */,
 				1BC2AE471D4208CB00842153 /* SiginImageCell.xib in Resources */,
 				1B6D16481D48A8D00070D2E5 /* ic_check_off.png in Resources */,
-				1BED8C1B1D51963F00340809 /* TaskOwnerCommentCell.xib in Resources */,
 				046DAF6F1D4C3EB500718F2A /* MeetingMembersCell.xib in Resources */,
 				1B1B9BE51D3E126100F53EDC /* ComCalendarTime.xib in Resources */,
 				1BED8BF91D517C8900340809 /* TaskFileImageCell.xib in Resources */,
@@ -6133,7 +6124,6 @@
 				04B0D8501D698E8800BAD522 /* UIGestureRecognizer+RACSignalSupport.m in Sources */,
 				04B0D8211D698E8800BAD522 /* RACDynamicSignal.m in Sources */,
 				1B877F171D178E7D000144B2 /* main.m in Sources */,
-				1BED8C1A1D51963F00340809 /* TaskOwnerCommentCell.m in Sources */,
 				047DBCC31D4E39600049354F /* UINavigationController+Direction.m in Sources */,
 				1BF5DFD91D49A90A0039704E /* qrinput.c in Sources */,
 				1BBED3A71D6559660001868B /* MoreSelectController.m in Sources */,

@@ -223,6 +223,7 @@
         _taskModel = [task deepCopy];
         _taskModel.status = 2;
         _taskDetailView.data = _taskModel;
+        _taskDiscussView.data = _taskModel;
         [_userManager upadteTask:_taskModel];
     }];
 }
@@ -238,7 +239,10 @@
             }
             _taskModel = [task deepCopy];
             _taskModel.status = 8;
+            _taskModel.approve_comment = content;
+            _taskModel.updatedon_utc = [NSDate date].timeIntervalSince1970 * 1000;
             _taskDetailView.data = _taskModel;
+            _taskDiscussView.data = _taskModel;
             [_userManager upadteTask:_taskModel];
         }];
     };
@@ -259,7 +263,10 @@
             }
             _taskModel = [task deepCopy];
             _taskModel.status = 6;
+            _taskModel.approve_comment = content;
+            _taskModel.updatedon_utc = [NSDate date].timeIntervalSince1970 * 1000;
             _taskDetailView.data = _taskModel;
+            _taskDiscussView.data = _taskModel;
             [_userManager upadteTask:_taskModel];
         }];
     };
@@ -280,7 +287,10 @@
             }
             _taskModel = [task deepCopy];
             _taskModel.status = 7;
+            _taskModel.approve_comment = content;
+            _taskModel.updatedon_utc = [NSDate date].timeIntervalSince1970 * 1000;
             _taskDetailView.data = _taskModel;
+            _taskDiscussView.data = _taskModel;
             [_userManager upadteTask:_taskModel];
         }];
     };
@@ -301,7 +311,10 @@
             }
             _taskModel = [task deepCopy];
             _taskModel.status = 4;
+            _taskModel.finish_comment = content;
+            _taskModel.updatedon_utc = [NSDate date].timeIntervalSince1970 * 1000;
             _taskDetailView.data = _taskModel;
+            _taskDiscussView.data = _taskModel;
             [_userManager upadteTask:_taskModel];
         }];
     };

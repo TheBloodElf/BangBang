@@ -15,7 +15,7 @@
 #import "QRCodeGenerator.h"//二维码生成识别工具
 #import <Bugtags/Bugtags.h>//BUG提交工具
 #import "BaiduMobStat.h"//百度统计
-#import <Realm/Realm.h>//新型数据库
+#import <Realm/Realm.h>//Realm数据库
 #import <MJExtension/MJExtension.h>//JSON 对象转换工具 通用
 #import <AFNetworking/AFNetworking.h>//网络请求库
 #import <MJRefresh/MJRefresh.h>//上啦刷新，下拉加载
@@ -55,7 +55,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>//IOS8前的图片相册库
 #import <Photos/Photos.h>//IOS8后的图片相册库
 #import <PhotosUI/PhotosUI.h>//IOS8后的图片相册库
-#import <MLeaksFinder/MLeaksFinder.h>//ARC下正确检查内存泄露
+//#import <MLeaksFinder/MLeaksFinder.h>//ARC下正确检查内存泄露
 #import "ReactiveCocoa.h"//决战UI必备工具
 #import "UIImageView+CornerRadius.h"//离屏渲染解决方案
 #import "UIView+hotView.h"//给视图加红点

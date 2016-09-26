@@ -22,6 +22,7 @@
 - (void)submitClicked:(UIButton*)btn task:(id)task;
 //查看所有知悉人
 - (void)lookMember;
+
 @end
 
 @interface TaskDetailView : UIView

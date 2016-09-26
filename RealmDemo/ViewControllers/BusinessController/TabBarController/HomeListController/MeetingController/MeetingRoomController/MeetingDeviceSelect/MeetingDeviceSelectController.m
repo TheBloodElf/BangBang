@@ -33,12 +33,14 @@
     _employee = [Employee new];
     _sureEquipmentsArr = [@[] mutableCopy];
     _publicEquipmentsArr = [@[] mutableCopy];
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 64) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.tableFooterView = [UIView new];
     [_tableView registerNib:[UINib nibWithNibName:@"MeetingSelectPresonCell" bundle:nil] forCellReuseIdentifier:@"MeetingSelectPresonCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"MeetingDeviceSelectCell" bundle:nil] forCellReuseIdentifier:@"MeetingDeviceSelectCell"];
+    //会议准备人默认圈主
+    _employee = [_userManager getEmployeeWithGuid:_userManager.user.currCompany.admin_user_guid companyNo:_userManager.user.currCompany.company_no];
     //从会议室模型中获取固定设备
     int i = -1;
     for (NSString *str in [self.meetingRoomModel.room_equipments componentsSeparatedByString:@","]) {
@@ -70,10 +72,6 @@
     // Do any additional setup after loading the view.
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
-    if(_employee.id == 0) {
-        [self.navigationController.view showMessageTips:@"请选择设备准备人"];
-        return;
-    }
     //获取公共设备被选中的
     NSMutableArray<MeetingEquipmentsModel*> *array = [@[] mutableCopy];
     for (MeetingEquipmentsModel *model in _publicEquipmentsArr) {

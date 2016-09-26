@@ -15,8 +15,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="50" height="48"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ikc-DA-UkH">
-                        <frame key="frameInset" minX="2" width="46" height="46"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ikc-DA-UkH">
                         <connections>
                             <action selector="timeClicked:" destination="gTV-IL-0wX" eventType="touchUpInside" id="1He-J8-tKe"/>
                         </connections>

@@ -66,9 +66,9 @@
     if((_meetingRoomModel.end_time - _meetingRoomModel.begin_time) % (1000 * 30 * 60) != 0)
         count ++;
     NSDate *currDateDate = [NSDate dateWithTimeIntervalSince1970:_meetingRoomModel.begin_time / 1000];
+    CGFloat currCenterY = -2;
     for (int index = 0;index < count;index ++) {
-        CGFloat currCenterY = index * ((MAIN_SCREEN_WIDTH - 60) / 7.f);
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 60, 10)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, currCenterY, 60, 10)];
         label.center = CGPointMake(30, currCenterY);
         label.textColor = [UIColor darkGrayColor];
         label.font = [UIFont systemFontOfSize:10];
@@ -76,6 +76,7 @@
         label.text = [NSString stringWithFormat:@"%02ld:%02ld",currDateDate.hour,currDateDate.minute];
         [self.tagView addSubview:label];
         currDateDate = [currDateDate dateByAddingTimeInterval:30 * 60];
+        currCenterY += (MAIN_SCREEN_WIDTH - 60) / 7.f;
     }
     _currWeekDate = [NSDate date];
     //获取集合视图每行对应的时间
@@ -102,42 +103,38 @@
             if([view isMemberOfClass:[UILabel class]])
                 [view removeFromSuperview];
         }
-        //当前会议室一共有多少列
-        int64_t count = (_meetingRoomModel.end_time - _meetingRoomModel.begin_time) / (30 * 60 * 1000);
-        if((_meetingRoomModel.end_time - _meetingRoomModel.begin_time) % (30 * 60 * 1000) != 0)
-            count ++;
+        CGFloat cellWidth = (MAIN_SCREEN_WIDTH - 60) / 7.f;
         //在集合视图上加上有会议的标签
         for (MeetingRoomHandlerTimeModel *model in _handlerArr) {
-            CGPoint pointLeftTop = CGPointZero;
-            for (int i = 0 ;i < _lineDate.allKeys.count;i ++) {
-                //当前行的时间
-                NSDate *currDate = _lineDate[[NSString stringWithFormat:@"%d",i]];
-                int64_t currDateI = (int64_t)[currDate timeIntervalSince1970] / (24 * 60 * 60) * (24 * 60 * 60);
-                //求出这一行开始的时间
-                NSDate *currDateDate = [NSDate dateWithTimeIntervalSince1970:currDateI + (_meetingRoomModel.begin_time / 1000) % (24 * 60 * 60)];
-                for (int row = 0; row < count; row ++) {
-                    //当前这一列的开始时间
-                    NSDate *currRowDate = [currDateDate dateByAddingTimeInterval:row * 30 * 60];
-                    //找到开始的点 结束的点自己算
-                    if(currRowDate.timeIntervalSince1970 == model.begin / 1000) {
-                        pointLeftTop = CGPointMake(i * ((MAIN_SCREEN_WIDTH - 60) / 7.f),row * ((MAIN_SCREEN_WIDTH - 60) / 7.f));
-                        break;
+            CGPoint pointLeftTop = CGPointZero;//标签的左上角位置
+            CGPoint pointLeftBottom = CGPointZero;//标签的右下角位置
+            for (int section = 0; section < [_timeCollectionView numberOfSections]; section ++) {
+                for (int row = 0; row < [_timeCollectionView numberOfItemsInSection:section]; row ++) {
+                    MeetingRoomTimeCollectionCell *cell = (id)[_timeCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:row inSection:section]];
+                    MeetingRoomCellModel *cellModel = [cell data];
+                    if(CGPointEqualToPoint(pointLeftTop, CGPointZero)) {//如果还没有找到起始点
+                        if(cellModel.begin.timeIntervalSince1970 == (model.begin/1000)) {
+                            pointLeftTop = [cell convertRect:cell.bounds toView:_timeCollectionView].origin;
+                        }
+                    } else {//寻找终止点
+                        if(cellModel.end.timeIntervalSince1970 == (model.end/1000)) {
+                            pointLeftBottom = [cell convertRect:cell.bounds toView:_timeCollectionView].origin;
+                            //开始画标签
+                            CGRect currMeetRect = CGRectMake(pointLeftTop.x + 2, pointLeftTop.y + 2, cellWidth - 4, pointLeftBottom.y - pointLeftTop.y + cellWidth - 4);
+                            UILabel *meetLabel = [[UILabel alloc] initWithFrame:currMeetRect];
+                            meetLabel.backgroundColor = [UIColor siginColor];
+                            meetLabel.numberOfLines = 0;
+                            meetLabel.layer.cornerRadius = 2;
+                            meetLabel.clipsToBounds = YES;
+                            meetLabel.textAlignment = NSTextAlignmentCenter;
+                            meetLabel.font = [UIFont systemFontOfSize:14];
+                            meetLabel.textColor = [UIColor whiteColor];
+                            meetLabel.text = model.meeting_name;
+                            [_timeCollectionView addSubview:meetLabel];
+                        }
                     }
                 }
             }
-            if(CGPointEqualToPoint(pointLeftTop, CGPointZero)) continue;
-            //创建当前会议的标签
-            CGRect currMeetRect = CGRectMake(pointLeftTop.x + 2, pointLeftTop.y + 2, (MAIN_SCREEN_WIDTH - 60) / 7.f - 4, ((model.end - model.begin) / 1000 / 60 / 30) * ((MAIN_SCREEN_WIDTH - 60) / 7.f) - 4);
-            UILabel *meetLabel = [[UILabel alloc] initWithFrame:currMeetRect];
-            meetLabel.backgroundColor = [UIColor siginColor];
-            meetLabel.numberOfLines = 0;
-            meetLabel.layer.cornerRadius = 2;
-            meetLabel.clipsToBounds = YES;
-            meetLabel.textAlignment = NSTextAlignmentCenter;
-            meetLabel.font = [UIFont systemFontOfSize:14];
-            meetLabel.textColor = [UIColor whiteColor];
-            meetLabel.text = model.meeting_name;
-            [_timeCollectionView addSubview:meetLabel];
         }
     }];
 }

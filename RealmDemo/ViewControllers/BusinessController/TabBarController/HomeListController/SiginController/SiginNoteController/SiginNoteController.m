@@ -88,6 +88,7 @@
         NSRange contentRange = {0, [content length]};
         [content addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:contentRange];
         _rightBarLabel.attributedText = content;
+        _currDate = date;
         [self getSiginWithDate:date];
     };
     select.providesPresentationContextTransitionStyle = YES;
@@ -102,6 +103,9 @@
     [UserHttp getUsualSigin:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no year:date.year month:date.month handler:^(id data, MError *error) {
         _siginedArr = data;
         [self.calendarManager setDate:date];
+        NSString *timeDate = [NSString stringWithFormat:@"%@",@([_currDate timeIntervalSince1970])];
+        [_bridge callHandler:@"showSiginTimeUser" data:@{@"access_token":[IdentityManager manager].identity.accessToken,@"userGuid":_userManager.user.user_guid,@"companyNo":@(_userManager.user.currCompany.company_no),@"showDate":timeDate} responseCallback:^(id responseData) {
+        }];
         [self.calendarManager reload];
     }];
 }

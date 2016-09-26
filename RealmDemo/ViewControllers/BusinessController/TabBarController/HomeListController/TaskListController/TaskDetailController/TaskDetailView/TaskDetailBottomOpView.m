@@ -24,7 +24,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         _userManager = [UserManager manager];
-        self.backgroundColor = [UIColor whiteColor];
     }
     return self;
 }
@@ -81,16 +80,26 @@
             btn.clipsToBounds = YES;
             [btn addTarget:self action:@selector(stopClicked:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:btn];
-        } else if (_taskModel.status == 2) {//终止
+        } else if (_taskModel.status == 2) {//终止 通过
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
             [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            btn.frame = CGRectMake(10, 0, MAIN_SCREEN_WIDTH - 20, 30);
+            btn.frame = CGRectMake(10, 0, (MAIN_SCREEN_WIDTH - 30) / 2.f, 30);
             [btn setTitle:@"终止" forState:UIControlStateNormal];
             [btn setBackgroundColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]];
             btn.layer.cornerRadius = 5;
             btn.clipsToBounds = YES;
             [btn addTarget:self action:@selector(stopClicked:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:btn];
+            
+            UIButton *btn1 = [UIButton buttonWithType:UIButtonTypeSystem];
+            [btn1 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            btn1.frame = CGRectMake(CGRectGetMaxX(btn.frame) + 10, 0, (MAIN_SCREEN_WIDTH - 30) / 2.f, 30);
+            [btn1 setTitle:@"完结" forState:UIControlStateNormal];
+            [btn1 setBackgroundColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]];
+            btn1.layer.cornerRadius = 5;
+            btn1.clipsToBounds = YES;
+            [btn1 addTarget:self action:@selector(passClicked:) forControlEvents:UIControlEventTouchUpInside];
+            [self addSubview:btn1];
         } else if (_taskModel.status == 4) {//退回 通过 终止
             UIButton *returnBtn = [UIButton buttonWithType:UIButtonTypeSystem];
             returnBtn.frame = CGRectMake(10, 0, (MAIN_SCREEN_WIDTH - 40) / 3 , 30);
@@ -121,16 +130,26 @@
             passBtn.clipsToBounds = YES;
             [passBtn addTarget:self action:@selector(passClicked:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:passBtn];
-        } else if (_taskModel.status == 6) {//终止
+        } else if (_taskModel.status == 6) {//终止 完结
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
             [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            btn.frame = CGRectMake(10, 0, MAIN_SCREEN_WIDTH - 20, 30);
+            btn.frame = CGRectMake(10, 0, (MAIN_SCREEN_WIDTH - 30) / 2, 30);
             [btn setTitle:@"终止" forState:UIControlStateNormal];
             [btn setBackgroundColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]];
             btn.layer.cornerRadius = 5;
             btn.clipsToBounds = YES;
             [btn addTarget:self action:@selector(stopClicked:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:btn];
+            
+            UIButton *btn1 = [UIButton buttonWithType:UIButtonTypeSystem];
+            [btn1 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            btn1.frame = CGRectMake(CGRectGetMaxX(btn.frame) + 10, 0, (MAIN_SCREEN_WIDTH - 30) / 2.f, 30);
+            [btn1 setTitle:@"完结" forState:UIControlStateNormal];
+            [btn1 setBackgroundColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]];
+            btn1.layer.cornerRadius = 5;
+            btn1.clipsToBounds = YES;
+            [btn1 addTarget:self action:@selector(passClicked:) forControlEvents:UIControlEventTouchUpInside];
+            [self addSubview:btn1];
         }
     }
 }

@@ -48,6 +48,7 @@
 }
 - (void)dataDidChange {
     _taskModel = [self.data deepCopy];
+    //获取最新的附件信息
     [UserHttp getTaskAttachment:_taskModel.id handler:^(id data, MError *error) {
         if(error) {
             [self showFailureTips:error.statsMsg];

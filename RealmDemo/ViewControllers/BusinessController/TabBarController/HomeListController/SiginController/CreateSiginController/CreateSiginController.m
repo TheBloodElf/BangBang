@@ -364,12 +364,12 @@
         }
         if (isArrive) {//如果迟到 必须要写详情
             if([NSString isBlank:self.siginTextView.text]) {
-                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"你迟到超过5分钟，需要写明原因" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"已超过上班时间5分钟，请填写原因" preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *alertSure = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:nil];
                 [alertVC addAction:alertSure];
                 [self presentViewController:alertVC animated:YES completion:nil];
             } else {
-                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"你已经迟到超过5分钟，确认上班？" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"已超过上班时间5分钟，确认上班？" preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *alertCancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
                 UIAlertAction *alertSure = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     _currSignIn.validity = NO;
@@ -399,7 +399,7 @@
         }
         if (isLeave) {//如果早退 需要写明原因
             if([NSString isBlank:self.siginTextView.text]) {
-                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"你属于早退，需要写明原因" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"还未到下班时间，请填写原因" preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *alertSure = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:nil];
                 [alertVC addAction:alertSure];
                 [self presentViewController:alertVC animated:YES completion:nil];

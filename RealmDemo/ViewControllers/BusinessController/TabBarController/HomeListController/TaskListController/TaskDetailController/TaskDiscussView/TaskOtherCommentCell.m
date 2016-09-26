@@ -57,6 +57,7 @@
 }
 //某人头像被点击
 - (IBAction)avaterClicked:(id)sender {
+    
     if(self.delegate && [self.delegate respondsToSelector:@selector(TaskOtherAvaterClicked:)]) {
         [self.delegate TaskOtherAvaterClicked:self.data];
     }
