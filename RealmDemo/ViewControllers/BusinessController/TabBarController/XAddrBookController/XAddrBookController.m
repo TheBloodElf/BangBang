@@ -44,15 +44,17 @@
     _userFetchedResultsController.delegate = self;
     _employeeFetchedResultsController = [_userManager createEmployeesFetchedResultsControllerWithCompanyNo:_userManager.user.currCompany.company_no];
     _employeeFetchedResultsController.delegate = self;
+    //从本地读取一次信息
+    if(_userManager.user.currCompany.company_no) {
+        _employeeArr = [_userManager getEmployeeWithCompanyNo:_userManager.user.currCompany.company_no status:5];
+        [self sortEmployee];
+    }
     //创建表格视图
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT- 64) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.tableHeaderView = [self tableViewHeaderView];
     _tableView.tableFooterView = [UIView new];
-    //自动计算CELL高度
-//    _tableView.estimatedRowHeight = 68.0;
-//    _tableView.rowHeight = UITableViewAutomaticDimension;
     [_tableView registerNib:[UINib nibWithNibName:@"XAddrBookCell" bundle:nil] forCellReuseIdentifier:@"XAddrBookCell"];
     [self.view addSubview:_tableView];
     //创建选择视图
@@ -72,12 +74,6 @@
     //创建导航按钮
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(leftClicked:)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar_menu"] style:UIBarButtonItemStylePlain target:self action:@selector(rightClicked:)];
-    //从本地读取一次信息
-    if(_userManager.user.currCompany.company_no) {
-        _employeeArr = [_userManager getEmployeeWithCompanyNo:_userManager.user.currCompany.company_no status:5];
-        [self sortEmployee];
-    }
-    [_tableView reloadData];
     // Do any additional setup after loading the view.
 }
 - (void)viewWillAppear:(BOOL)animated {
@@ -89,35 +85,38 @@
         _employeeArr = [@[] mutableCopy];
         [_tableView reloadData];
     } else {
-        [self.navigationController.view showLoadingTips:@""];
-        //从网络上获取最新的员工数据
-        [UserHttp getEmployeeCompnyNo:_userManager.user.currCompany.company_no status:5 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+        [self getCurrEmployee];
+    }
+}
+- (void)getCurrEmployee {
+    [self.navigationController.view showLoadingTips:@""];
+    //从网络上获取最新的员工数据
+    [UserHttp getEmployeeCompnyNo:_userManager.user.currCompany.company_no status:5 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+        if(error) {
+            [self.navigationController.view showFailureTips:error.statsMsg];
+            return ;
+        }
+        NSMutableArray *array = [@[] mutableCopy];
+        for (NSDictionary *dic in data[@"list"]) {
+            Employee *employee = [Employee new];
+            [employee mj_setKeyValues:dic];
+            [array addObject:employee];
+        }
+        [UserHttp getEmployeeCompnyNo:_userManager.user.currCompany.company_no status:0 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+            [self.navigationController.view dismissTips];
             if(error) {
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
-            NSMutableArray *array = [@[] mutableCopy];
             for (NSDictionary *dic in data[@"list"]) {
                 Employee *employee = [Employee new];
                 [employee mj_setKeyValues:dic];
                 [array addObject:employee];
             }
-            [UserHttp getEmployeeCompnyNo:_userManager.user.currCompany.company_no status:0 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
-                [self.navigationController.view dismissTips];
-                if(error) {
-                    [self.navigationController.view showFailureTips:error.statsMsg];
-                    return ;
-                }
-                for (NSDictionary *dic in data[@"list"]) {
-                    Employee *employee = [Employee new];
-                    [employee mj_setKeyValues:dic];
-                    [array addObject:employee];
-                }
-                //存入本地数据库
-                [_userManager updateEmployee:array companyNo:_userManager.user.currCompany.company_no];
-            }];
+            //存入本地数据库
+            [_userManager updateEmployee:array companyNo:_userManager.user.currCompany.company_no];
         }];
-    }
+    }];
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
     if(_moreSelectView.isHide)

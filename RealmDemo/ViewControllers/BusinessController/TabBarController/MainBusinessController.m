@@ -388,7 +388,11 @@
             [self.navigationController pushViewController:[TaskCreateController new] animated:YES];
         }];
     } else if (index == 1) {//邮箱
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:"]];
+        if([[[UIDevice currentDevice] systemVersion] floatValue] >= 10.0f) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:"] options:nil completionHandler:nil];
+        } else {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:"]];
+        }
     } else {//会议
         [self executeNeedSelectCompany:^{
             [self.navigationController pushViewController:[CreateMeetingController new] animated:YES];

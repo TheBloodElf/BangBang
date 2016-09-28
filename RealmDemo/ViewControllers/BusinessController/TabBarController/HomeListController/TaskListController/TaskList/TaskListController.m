@@ -103,6 +103,7 @@
     _finish = [[FinishTaskView alloc] initWithFrame:CGRectMake(3 * _bottomScrollView.frame.size.width, 0, _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height)];
     _finish.delegate = self;
     [_bottomScrollView addSubview:_finish];
+    [self getCurrData];
     
     //创建多选视图
     _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100, 0, 100, 80)];
@@ -118,11 +119,8 @@
     else
         _topSegmentedControl.selectedSegmentIndex = 1;
     [self segmentedClicked:_topSegmentedControl];
-    NSArray *allTaskArr = [_userManager getTaskArr:_userManager.user.currCompany.company_no];
-    [self getCurrData];
-    if(allTaskArr.count == 0)
-        [self.navigationController.view showLoadingTips:@""];
-    [self tongBuTask];//因为任务状态不一定是最新的，所以每次使用时都要重新获取
+    [self.navigationController.view showLoadingTips:@""];
+    [self tongBuTask];
 }
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
@@ -134,6 +132,7 @@
         }
     } else {
         [self getCurrData];
+        [self.navigationController.view dismissTips];
     }
 }
 //获得各个页面对应的数据
@@ -193,8 +192,8 @@
 - (void)tongBuTask {
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
     [UserHttp getTaskList:employee.employee_guid handler:^(id data, MError *error) {
-        [self.navigationController.view dismissTips];
         if(error) {
+            [self.navigationController.view dismissTips];
             [self.navigationController.view showFailureTips:error.statsMsg];
             return ;
         }

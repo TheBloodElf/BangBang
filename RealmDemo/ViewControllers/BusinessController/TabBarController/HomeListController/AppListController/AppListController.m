@@ -160,7 +160,12 @@
             [[self navigationController] pushViewController:webViewcontroller animated:YES];
         }];
     } else if ([localUserApp.titleName isEqualToString:@"帮邮"]) {//邮件 调用手机上的邮件
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:"]];
+        //适配iOS10
+        if([[[UIDevice currentDevice] systemVersion] floatValue] >= 10.0f) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:"] options:nil completionHandler:nil];
+        } else {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:"]];
+        }
     } else if ([localUserApp.titleName isEqualToString:@"会议"]) {//会议
         [self executeNeedSelectCompany:^{
             WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];

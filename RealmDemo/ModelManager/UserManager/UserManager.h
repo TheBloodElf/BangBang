@@ -7,8 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Realm/Realm.h>
-#import <RBQFetchedResultsController/RBQFRC.h>
 #import "User.h"
 #import "Company.h"
 #import "Employee.h"
@@ -29,11 +27,11 @@
 + (instancetype)manager;
 
 #pragma makr -- 本地推送
-//添加上下班通知
+//添加上下班通知 在首页控制
 - (void)addSiginRuleNotfition;
-//添加日程通知
+//添加日程通知 在首页的上面日程视图控制
 - (void)addCalendarNotfition;
-//添加任务通知
+//添加任务通知 在首页的上面任务视图控制
 - (void)addTaskNotfition;
 #pragma mark -- User
 //更新用户数据

@@ -103,8 +103,6 @@
             companyLabel.text = user.currCompany.company_name;
             //圈子变了 就要获取一次对应圈子的签到规则
             [self getCompanySiginRule];
-            //获取任务
-            [self getCurrcompanyTasks];
         }
     } else {//重新加一次上下班提醒
         [_userManager addSiginRuleNotfition];
@@ -134,24 +132,6 @@
             [array addObject:set];
         }
         [_userManager updateSiginRule:array companyNo:_userManager.user.currCompany.company_no];
-    }];
-}
-//获取当前圈子的任务列表
-- (void)getCurrcompanyTasks {
-    Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
-    [UserHttp getTaskList:employee.employee_guid handler:^(id data, MError *error) {
-        if(error) {
-            [self.navigationController.view showFailureTips:error.statsMsg];
-            return ;
-        }
-        NSMutableArray<TaskModel*> *array = [@[] mutableCopy];
-        for (NSDictionary *dic in data[@"list"]) {
-            TaskModel *model = [TaskModel new];
-            [model mj_setKeyValues:dic];
-            model.descriptionStr = dic[@"description"];
-            [array addObject:model];
-        }
-        [_userManager updateTask:array companyNo:_userManager.user.currCompany.company_no];
     }];
 }
 #pragma mark --
@@ -229,7 +209,11 @@
             [[self navigationController] pushViewController:webViewcontroller animated:YES];
         }];
     } else if ([localUserApp.titleName isEqualToString:@"帮邮"]) {//邮件 调用手机上的邮件
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:"]];
+        if([[[UIDevice currentDevice] systemVersion] floatValue] >= 10.0f) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:"] options:nil completionHandler:nil];
+        } else {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:"]];
+        }
     } else if ([localUserApp.titleName isEqualToString:@"会议"]) {//会议
         [self executeNeedSelectCompany:^{
             WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];

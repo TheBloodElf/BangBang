@@ -64,6 +64,7 @@
     
     self.bottomScrollView.contentSize = CGSizeMake(3 * MAIN_SCREEN_WIDTH, self.bottomScrollView.frame.size.height);
     _taskDetailView = [[TaskDetailView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 150 - 64)];
+    _taskDetailView.data = _taskModel;
     _taskDetailView.delegate = self;
     [self.bottomScrollView addSubview:_taskDetailView];
     _taskDiscussView = [[TaskDiscussView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 150 - 64)];
@@ -74,33 +75,20 @@
     _taskFileView.delegate = self;
     _taskFileView.data = _taskModel;
     
+    //是否有消息 讨论显示小红点
+    Employee *employeeOfMe = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_taskModel.company_no];
+    if([employeeOfMe.employee_guid isEqualToString:_taskModel.createdby]) {//是不是创建者
+        if(_taskModel.creator_unread_commentcount) {
+            [[self.view viewWithTag:1001] addHotView:HOTVIEW_ALIGNMENT_TOP_RIGHT];
+        }
+    }
+    if([employeeOfMe.employee_guid isEqualToString:_taskModel.incharge]) {//是不是负责人
+        if(_taskModel.incharge_unread_commentcount) {
+            [[self.view viewWithTag:1001] addHotView:HOTVIEW_ALIGNMENT_TOP_RIGHT];
+        }
+    }
     [self.bottomScrollView addSubview:_taskFileView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTaskInfo:) name:@"ReloadTaskInfo" object:nil];
-    //获取任务详情  因为这里要控制红点的显示 不然都放到详情VIEW处理了
-    [UserHttp getTaskInfo:_taskModel.id handler:^(id data, MError *error) {
-        [self dismissTips];
-        if(error) {
-            [self showFailureTips:error.statsMsg];
-            return ;
-        }
-        _taskModel = [TaskModel new];
-        [_taskModel mj_setKeyValues:data];
-        _taskModel.descriptionStr = data[@"description"];
-        [_userManager upadteTask:_taskModel];
-        _taskDetailView.data = _taskModel;
-        //是否有消息 讨论显示小红点
-        Employee *employeeOfMe = [[UserManager manager] getEmployeeWithGuid:[UserManager manager].user.user_guid companyNo:_taskModel.company_no];
-        if([employeeOfMe.employee_guid isEqualToString:_taskModel.createdby]) {//是不是创建者
-            if(_taskModel.creator_unread_commentcount) {
-                [[self.view viewWithTag:1001] addHotView:HOTVIEW_ALIGNMENT_TOP_RIGHT];
-            }
-        }
-        if([employeeOfMe.employee_guid isEqualToString:_taskModel.incharge]) {//是不是负责人
-            if(_taskModel.incharge_unread_commentcount) {
-                [[self.view viewWithTag:1001] addHotView:HOTVIEW_ALIGNMENT_TOP_RIGHT];
-            }
-        }
-    }];
     // Do any additional setup after loading the view from its nib.
 }
 - (void)viewWillAppear:(BOOL)animated {

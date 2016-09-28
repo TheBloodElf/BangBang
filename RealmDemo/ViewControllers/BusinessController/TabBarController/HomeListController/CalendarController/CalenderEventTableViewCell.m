@@ -95,13 +95,13 @@
     else{
         _descriptionLab.text = @"暂无描述";
     }
-    //未同步灰色
-    if(calendar.needSync == YES) {
-        _status.text = @"未同步";
-        _status.textColor = [UIColor grayColor];
-        _status.layer.borderColor = [UIColor grayColor].CGColor;
-        _status.backgroundColor = [UIColor whiteColor];
-    } else {
+//    //未同步灰色
+//    if(calendar.needSync == YES) {
+//        _status.text = @"未同步";
+//        _status.textColor = [UIColor grayColor];
+//        _status.layer.borderColor = [UIColor grayColor].CGColor;
+//        _status.backgroundColor = [UIColor whiteColor];
+//    } else {
         //状态
         if (calendar.status == 1) {
             _status.text = @"进行中";
@@ -115,7 +115,7 @@
             _status.layer.borderColor = [UIColor calendarColor].CGColor;
             _status.backgroundColor = [UIColor calendarColor];
         }
-    }
+//    }
     
     //紧急度
     if (calendar.emergency_status == 0) {

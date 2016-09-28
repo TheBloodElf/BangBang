@@ -53,6 +53,7 @@
 #import "UISearchBar+BackgroundColor.h"//搜索视图背景修改
 #import <AVFoundation/AVAsset.h>//IOS8前的图片相册库
 #import <AssetsLibrary/AssetsLibrary.h>//IOS8前的图片相册库
+#import <RBQFetchedResultsController/RBQFRC.h>//realm数据监听
 #import <Photos/Photos.h>//IOS8后的图片相册库
 #import <PhotosUI/PhotosUI.h>//IOS8后的图片相册库
 //#import <MLeaksFinder/MLeaksFinder.h>//ARC下正确检查内存泄露
