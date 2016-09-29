@@ -162,11 +162,15 @@
         if(indexPath.row == 0) {//工作日
             palneCell.leftImageView.image = [UIImage imageNamed:@"work_icon_day"];
             palneCell.titleLabel.text = @"工作日";
-            NSMutableArray *workArr = [@[] mutableCopy];
-            NSArray *array = [_currSiginRule.work_day componentsSeparatedByString:@","];
-            for (NSString *workDay in array)
-                [workArr addObject:_workDic[workDay]];
-            palneCell.detailLabel.text = [workArr componentsJoinedByString:@","];
+            if([NSString isBlank:_currSiginRule.work_day]) {
+                palneCell.detailLabel.text = @"请选择工作日";
+            } else {
+                NSMutableArray *workArr = [@[] mutableCopy];
+                NSArray *array = [_currSiginRule.work_day componentsSeparatedByString:@","];
+                for (NSString *workDay in array)
+                    [workArr addObject:_workDic[workDay]];
+                palneCell.detailLabel.text = [workArr componentsJoinedByString:@","];
+            }
         } else if (indexPath.row == 1) {//上班时间
             palneCell.leftImageView.image = [UIImage imageNamed:@"work_up_time"];
             palneCell.titleLabel.text = @"上班时间";
@@ -426,6 +430,10 @@
     }
     if(self.currSiginRule.json_list_address_settings.count == 0) {
         [self.navigationController.view showMessageTips:@"请设置办公地点"];
+        return NO;
+    }
+    if([NSString isBlank:_currSiginRule.work_day]) {
+        [self.navigationController.view showMessageTips:@"请选择工作日"];
         return NO;
     }
     return YES;

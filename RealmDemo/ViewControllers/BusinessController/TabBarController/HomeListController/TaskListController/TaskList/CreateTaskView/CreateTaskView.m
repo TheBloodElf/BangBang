@@ -66,7 +66,7 @@
         if([NSString isBlank:_searchBar.text]) {
             [array addObject:model];
         } else {
-            if([model.descriptionStr rangeOfString:_searchBar.text].location != NSNotFound)
+            if([model.task_name rangeOfString:_searchBar.text].location != NSNotFound)
                 [array addObject:model];
         }
     }

@@ -36,6 +36,10 @@
     self.companyName.text = _currCompany.company_name;
     self.companyType.text = [_currCompany companyTypeStr];
     [self.companyImage sd_setImageWithURL:[NSURL URLWithString:_currCompany.logo] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
+    //获取圈主
+    Employee *employee = [_userManager getEmployeeWithGuid:_currCompany.admin_user_guid companyNo:_currCompany.company_no];
+    self.companyOwner.text = employee.real_name;
+    self.companyOwnerPhone.text = employee.email;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(rightButtonClicked:)];
     //确定按钮是否能够被点击
     RACSignal *nameSignal = RACObserve(_currCompany, company_name);

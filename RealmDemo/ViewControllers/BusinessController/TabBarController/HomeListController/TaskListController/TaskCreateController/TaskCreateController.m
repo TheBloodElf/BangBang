@@ -57,7 +57,11 @@
     if(taskDraftModelArr.count) {
         TaskDraftModel *model = taskDraftModelArr.firstObject;
         _taskModel = [TaskModel new];
-        [_taskModel mj_setKeyValues:[model JSONDictionary]];
+        _taskModel.task_name = model.task_name;
+        _taskModel.descriptionStr = model.descriptionStr;
+        _taskModel.company_no = model.company_no;
+        _taskModel.enddate_utc = model.enddate_utc;
+        //得到附件数组
         NSMutableArray *imageArr = [@[] mutableCopy];
         for (NSString *str in [model.attachmentArr componentsSeparatedByString:@","]) {
             if(![_fileManager fileIsExit:str]) continue;
@@ -65,6 +69,32 @@
             [imageArr addObject:image];
         }
         _attanmentArr = imageArr;
+        //得到负责人
+        if(![NSString isBlank:model.incharge]) {
+            for (Employee *employee in [_userManager getEmployeeWithCompanyNo:model.company_no status:5]) {
+                if([employee.employee_guid isEqualToString:model.incharge]) {
+                    _incharge = employee;
+                    break;
+                }
+            }
+        }
+        //得到参与人
+        if(![NSString isBlank:model.members]) {
+            for (NSString *string in [model.members componentsSeparatedByString:@","]) {
+               for (Employee *employee in [_userManager getEmployeeWithCompanyNo:model.company_no status:5]) {
+                   if([string isEqualToString:employee.employee_guid]) {
+                       [_memberArr addObject:employee];
+                       break;
+                   }
+               }
+            }
+        }
+        //得到提醒时间
+        if(![NSString isBlank:model.alert_date_list]) {
+            for (NSString *string in [model.alert_date_list componentsSeparatedByString:@","]) {
+                [_alertDateArr addObject:[NSDate dateWithTimeIntervalSince1970:string.doubleValue / 1000]];
+            }
+        }
     } else {
         _taskModel = [TaskModel new];
         _taskModel.status = 1;
@@ -113,7 +143,25 @@
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"保存为草稿?" message:nil preferredStyle:(UIAlertControllerStyleAlert)];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"保存" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         TaskDraftModel *model = [TaskDraftModel new];
-        [model mj_setKeyValues:_taskModel.JSONDictionary];
+        model.task_name = _taskModel.task_name;
+        model.company_no = _taskModel.company_no;
+        model.enddate_utc = _taskModel.enddate_utc;
+        model.descriptionStr = _taskModel.descriptionStr;
+        //得到负责人
+        model.incharge = _incharge.employee_guid;
+        //得到参与人
+        NSMutableArray<NSString*> *members = [@[] mutableCopy];
+        for (Employee * employee in _memberArr) {
+            [members addObject:employee.employee_guid];
+        }
+        model.members = [members componentsJoinedByString:@","];
+        //得到提醒时间
+        NSMutableArray<NSString*> *alerts = [@[] mutableCopy];
+        for (NSDate *date in _alertDateArr) {
+            [alerts addObject:@(date.timeIntervalSince1970 * 1000).stringValue];
+        }
+        model.alert_date_list = [alerts componentsJoinedByString:@","];
+        //得到附件
         NSMutableArray *imageFileArr = [@[] mutableCopy];
         for (UIImage *image in _attanmentArr) {
             NSString *imageName = @([NSDate date].timeIntervalSince1970 * 1000).stringValue;
@@ -136,11 +184,12 @@
     [self presentViewController:alertVC animated:YES completion:nil];
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
+    [self.view endEditing:YES];
     if([NSString isBlank:_taskModel.task_name]) {
         [self.navigationController showMessageTips:@"请输入任务名称"];
         return;
     }
-    if([NSString isBlank:_taskModel.incharge]) {
+    if([NSString isBlank:_incharge.employee_guid]) {
         [self.navigationController showMessageTips:@"请选择负责人"];
         return;
     }
@@ -157,6 +206,8 @@
     for (NSDate *date in _alertDateArr) {
         [alerts addObject:@(date.timeIntervalSince1970 * 1000).stringValue];
     }
+    _taskModel.incharge = _incharge.employee_guid;
+    _taskModel.incharge_name = _incharge.real_name;
     _taskModel.alert_date_list = [alerts componentsJoinedByString:@","];
     _taskModel.begindate_utc = [NSDate date].timeIntervalSince1970 * 1000;
     _taskModel.attachment_count = _attanmentArr.count;
@@ -172,7 +223,24 @@
                 UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"网络不可用，保存为草稿?" message:nil preferredStyle:(UIAlertControllerStyleAlert)];
                 UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"保存" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     TaskDraftModel *model = [TaskDraftModel new];
-                    [model mj_setKeyValues:_taskModel.JSONDictionary];
+                    model.company_no = _taskModel.company_no;
+                    model.task_name = _taskModel.task_name;
+                    model.enddate_utc = _taskModel.enddate_utc;
+                    model.descriptionStr = _taskModel.descriptionStr;
+                    //得到负责人
+                    model.incharge = _taskModel.incharge;
+                    //得到参与人
+                    model.members = _taskModel.members;
+                    //得到提醒时间
+                    model.alert_date_list = _taskModel.alert_date_list;
+                    //得到附件
+                    NSMutableArray *imageFileArr = [@[] mutableCopy];
+                    for (UIImage *image in _attanmentArr) {
+                        NSString *imageName = @([NSDate date].timeIntervalSince1970 * 1000).stringValue;
+                        [imageFileArr addObject:imageName];
+                        [_fileManager writeData:[image dataInNoSacleLimitBytes:MaXPicSize] name:imageName];
+                    }
+                    model.attachmentArr = [imageFileArr componentsJoinedByString:@","];
                     [_userManager updateTaskDraft:model companyNo:_userManager.user.currCompany.company_no];
                     [self.navigationController popViewControllerAnimated:YES];
                 }];
@@ -200,6 +268,10 @@
 //上传任务附件
 - (void)uploadAttanment {
     if(_attanmantIndex == _attanmentArr.count) {
+        NSMutableArray<TaskDraftModel*> *array = [_userManager getTaskDraftArr:_userManager.user.currCompany.company_no];
+        for (TaskDraftModel *model in array) {
+            [_userManager deleteTaskDraft:model];
+        }
         [self.navigationController.view dismissTips];
         [self.navigationController.view showSuccessTips:@"创建成功"];
         [self.navigationController popViewControllerAnimated:YES];
@@ -275,6 +347,7 @@
     } else if(indexPath.section == 1) {//任务详情
         TaskDetailCell *detail = (id)cell;
         detail.data = _taskModel;
+        detail.delegate = self;
     } else if (indexPath.section == 2) {//结束时间
         cell.data = _taskModel;
     } else if (indexPath.section == 3) {
@@ -394,8 +467,6 @@
 //单选回调
 - (void)singleSelect:(Employee*)employee {
     _incharge = employee;
-    _taskModel.incharge = _incharge.employee_guid;
-    _taskModel.incharge_name = _incharge.real_name;
     [_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:3]] withRowAnimation:UITableViewRowAnimationNone];
 }
 #pragma mark -- MuliteSelectDelegate

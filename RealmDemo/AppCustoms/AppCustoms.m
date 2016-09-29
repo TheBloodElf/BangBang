@@ -37,6 +37,14 @@ static AppCustoms * __singleton__;
         [[UISearchBar appearance] setBarTintColor:[UIColor colorWithRed:247/255.f green:247/255.f blue:247/255.f alpha:1]];
         [[UISearchBar appearance] layer].borderColor = [UIColor whiteColor].CGColor;
         [[UISearchBar appearance] layer].borderWidth = 1;
+        //让UIAlertView等视图显示的文字颜色变成自己的颜色
+//        if([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0f) {
+//            [[UIView appearanceWhenContainedInInstancesOfClasses:@[[UIAlertView class]]] setTintColor:[UIColor blackColor]];
+//            [[UIView appearanceWhenContainedInInstancesOfClasses:@[[UIAlertController class]]] setTintColor:[UIColor blackColor]];
+//        } else {
+//            [[UIView appearanceWhenContainedIn:[UIAlertView class], nil] setTintColor:[UIColor blackColor]];
+//            [[UIView appearanceWhenContainedIn:[UIAlertController class], nil] setTintColor:[UIColor blackColor]];
+//        }
     }
     return self;
 }

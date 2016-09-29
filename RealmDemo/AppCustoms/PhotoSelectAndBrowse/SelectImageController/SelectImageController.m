@@ -170,7 +170,6 @@
     self.allowSelectVC = [AllowSelectPhotoBrose new];
     self.allowSelectVC.photoArr = [self getAllSelectImage];
     self.allowSelectVC.delegate = self;
-    self.allowSelectVC.delegate = self;
     [self.navigationController pushViewController:self.allowSelectVC animated:YES];
 }
 #pragma mark -- 获取所有被选中的图片
@@ -179,11 +178,9 @@
 {
     NSMutableArray *tempArr = [NSMutableArray new];
     for (Photo * tempPhoto in _photoArr) {
-        if(tempPhoto.selected)
-        {
+        if(tempPhoto.selected) {
             //这里加载原图
-            if(!tempPhoto.oiginalImage)
-            {
+            if(!tempPhoto.oiginalImage) {
                 tempPhoto.oiginalImage = [UIImage imageWithData:[[UIImage imageWithCGImage:[tempPhoto.alAsset aspectRatioThumbnail]] dataInNoSacleLimitBytes:MaXPicSize]];
             }
             [tempArr addObject:tempPhoto];
@@ -192,34 +189,27 @@
     return tempArr;
 }
 
-
-
 #pragma mark -- 显示最初的数据
-
 - (void)loadDefulatData
 {
     [_libary enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
         //便利完成了
-        if(group == nil)
-        {
+        if(group == nil) {
             dispatch_main_async_safe(^(){
                 [_photoCollectView reloadData];
             });
              *stop = YES;
         }
-        else
-        {
+        else {
             NSString *currstr = [group valueForProperty:@"ALAssetsGroupPropertyName"];
-            if([currstr isEqualToString:@"相机胶卷"] || [currstr isEqualToString:@"Camera Roll"])
-            {
+            if([currstr isEqualToString:@"相机胶卷"] || [currstr isEqualToString:@"Camera Roll"]) {
                 [self getPhotoWithGroup:group];
                 group = nil;
                 *stop = YES;
             }
         }
         
-    } failureBlock:^(NSError *error) {
-    }];
+    } failureBlock:^(NSError *error) {}];
 }
 
 - (void)getPhotoWithGroup:(ALAssetsGroup*)group
@@ -248,9 +238,7 @@
     }];
 }
 
-
 #pragma mark -- 配置集合视图
-
 - (void)configPhotoCollectionView
 {
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
@@ -328,7 +316,7 @@
     }
     else{
         BigPhotoSelectController *big = [BigPhotoSelectController new];
-        big.index = (int)indexPath.item - 1;
+        big.index = (int)indexPath.row;
         big.photoArr = _photoArr;
         big.maxCount = self.maxSelect;
         big.delegate = self;

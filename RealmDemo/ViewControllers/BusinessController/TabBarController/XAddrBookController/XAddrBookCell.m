@@ -38,5 +38,4 @@
     if([employee.user_guid isEqualToString:user.currCompany.admin_user_guid])
         self.headView.hidden = NO;
 }
-
 @end

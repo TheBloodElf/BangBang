@@ -40,7 +40,7 @@
     self.rightBtn.selected = NO;
 }
 - (IBAction)rightClicked:(id)sender {
-    _calendar.emergency_status = 1;
+    _calendar.emergency_status = 2;
     self.laftBtn.selected = NO;
     self.rightBtn.selected = YES;
 }

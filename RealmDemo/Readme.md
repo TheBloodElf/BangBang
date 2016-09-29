@@ -12,6 +12,8 @@
 莫名其妙的字段赋值为nil                         全部用mj_keyValues
 有时出现数据不是最新的情况                       全部用_userManager不要用UserManager manager
 时间差8个小时的解决方法                         我们用NSDate分类来取得时/分/秒来进行加减运算就避免了这个问题，不要用求余的方法来计算一天中的多少时间（切记），根本不需要进行时区转换
+UITableViewCell里面的某个标签隐藏了            圆角方法用具体的数字
+融云聊天界面键盘消失后界面变空白                 升级融云到2.7.3
 
                                第三方库
 BMDeviceActivityManager             检测屏幕亮起和熄灭的库

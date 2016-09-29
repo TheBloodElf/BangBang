@@ -301,7 +301,7 @@
 - (IBAction)workCategoryClicked:(UIButton*)sender {
     if(sender.tag == 1001) {//如果是点击下班按钮，但是没有上班，需要提醒用户
         if(![self todayHaveUpWork]) {
-            [self.navigationController.view showMessageTips:@"你好没有上班！"];
+            [self.navigationController.view showMessageTips:@"你还没有上班！"];
             return;
         }
     }

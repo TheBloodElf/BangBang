@@ -27,10 +27,7 @@
     [super viewDidLoad];
     self.title = @"日程详情";
     _userManager = [UserManager manager];
-    if(_calendar.status == 1)//未完成就有下面的操作按钮 
-        _comCalendarView = [[ComCalendarView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 50 - 64)];
-    else
-        _comCalendarView = [[ComCalendarView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 64)];
+    _comCalendarView = [[ComCalendarView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 50 - 64)];
     _comCalendarView.data = _calendar;
     _comCalendarView.isDetail = YES;
     [self.view addSubview:_comCalendarView];
@@ -61,6 +58,19 @@
         [self.view addSubview:delBtn];
         UIImageView *delImage = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"ic_delete"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
         delImage.center = CGPointMake(MAIN_SCREEN_WIDTH / 4.f, 22);
+        [delBtn addSubview:delImage];
+    } else {//如果完成就可以修改
+        UIButton *delBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+        delBtn.frame = CGRectMake(0, MAIN_SCREEN_HEIGHT - 50 - 64, MAIN_SCREEN_WIDTH , 50);
+        delBtn.titleEdgeInsets = UIEdgeInsetsMake(35, 0, 0, 0);
+        delBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+        [delBtn setTitle:@"删除日程" forState:UIControlStateNormal];
+        [delBtn setTitleColor:[UIColor colorFromHexCode:@"#848484"] forState:UIControlStateNormal];
+        delBtn.backgroundColor = [UIColor colorFromHexCode:@"#eeeeee"];
+        [delBtn addTarget:self action:@selector(deleteCalendarClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:delBtn];
+        UIImageView *delImage = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"ic_delete"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+        delImage.center = CGPointMake(MAIN_SCREEN_WIDTH / 2.f, 22);
         [delBtn addSubview:delImage];
     }
     // Do any additional setup after loading the view.

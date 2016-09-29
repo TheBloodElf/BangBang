@@ -11,7 +11,7 @@ target 'RealmDemo' do
    pod 'RBQFetchedResultsController'
    pod 'JTCalendar', '~> 2.0.0'
    pod 'AMap3DMap' #3D地图SDK
-   pod 'RongCloudIMKit', '~> 2.6.4'   
+   pod 'RongCloudIMKit', '~> 2.7.2'   
    pod 'AMapSearch' #高德地图搜索服务SDK
    pod 'GTSDK'
    pod 'Bugtags','~> 1.3.1'

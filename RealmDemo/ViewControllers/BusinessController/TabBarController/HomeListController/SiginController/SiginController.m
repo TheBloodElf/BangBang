@@ -130,6 +130,7 @@
     if(controller == _siginListFetchedResultsController) {//今天的签到数据变了
          Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
         _todaySigInArr = [_userManager getTodaySigInListGuid:employee.employee_guid];
+        self.todatSiginNumber.text = [NSString stringWithFormat:@"今日已签到%ld次",_todaySigInArr.count];
         if(_todaySigInArr.count)
             self.tableView.tableFooterView = [UIView new];
         else

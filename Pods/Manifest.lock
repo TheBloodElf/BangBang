@@ -31,7 +31,7 @@ PODS:
   - Realm (1.0.1):
     - Realm/Headers (= 1.0.1)
   - Realm/Headers (1.0.1)
-  - RongCloudIMKit (2.6.5)
+  - RongCloudIMKit (2.7.3)
   - SDWebImage (3.7.6):
     - SDWebImage/Core (= 3.7.6)
   - SDWebImage/Core (3.7.6)
@@ -49,7 +49,7 @@ DEPENDENCIES:
   - MLeaksFinder (~> 0.1.1)
   - RBQFetchedResultsController
   - Realm (~> 1.0.1)
-  - RongCloudIMKit (~> 2.6.4)
+  - RongCloudIMKit (~> 2.7.2)
   - SDWebImage (~> 3.7.6)
 
 SPEC CHECKSUMS:
@@ -66,9 +66,9 @@ SPEC CHECKSUMS:
   MLeaksFinder: 25e38f8ca9438354aa4184f65148e671f5d18620
   RBQFetchedResultsController: 56494d69fef1e47f9f70c3adcf1317d7b2e3d71c
   Realm: 2e15e39d35b08abb529e212ed5d8af107b5236c8
-  RongCloudIMKit: f9a8dfea996b9eb301c2d3bbd0374b420bf6da21
+  RongCloudIMKit: 0b93700b17d224c7c213815b8a23a9c356fe20e2
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
 
-PODFILE CHECKSUM: fce4536a74c526a75d5568d876f5f98d26d04d25
+PODFILE CHECKSUM: 7083ebe4e0212da4324d3d82b693f69e92075cd2
 
 COCOAPODS: 1.0.1

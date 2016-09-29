@@ -54,6 +54,7 @@
     _calendar = [self.data deepCopy];
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
+    [self.view endEditing:YES];
     //修改日程
     [UserHttp updateUserCalendar:_calendar handler:^(id data, MError *error) {
         [self.navigationController.view dismissTips];

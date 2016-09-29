@@ -27,7 +27,8 @@
 
 - (void)awakeFromNib {
     // Initialization code
-    _status.layer.cornerRadius = _status.frame.size.height / 3.f;
+    [super awakeFromNib];
+    _status.layer.cornerRadius = 6;
     _status.layer.borderWidth = 1;
     _status.clipsToBounds = YES;
 }
@@ -37,6 +38,7 @@
     _startDate.hidden = NO;
     _endDate.hidden = NO;
     _allDayDate.hidden = YES;
+    _alertImage.hidden = NO;
     if (calendar.is_over_day && calendar.repeat_type == 0) {
         //开始时间
         static NSDateFormatter *startDateOverDayFormatter = nil;
@@ -83,6 +85,10 @@
         NSString *endStr = [endDateFormatter stringFromDate:end];
         _endDate.text = endStr;
     }
+    //闹钟图标
+    if(calendar.alert_minutes_after == 0)
+        if(calendar.alert_minutes_before == 0)
+            _alertImage.hidden = YES;
     //标题
     _title.text = calendar.event_name;
     CGSize titleSize = [self sizeWithText:calendar.event_name font:[UIFont systemFontOfSize:17] maxSize:CGSizeMake(169, MAXFLOAT)];
@@ -95,27 +101,18 @@
     else{
         _descriptionLab.text = @"暂无描述";
     }
-//    //未同步灰色
-//    if(calendar.needSync == YES) {
-//        _status.text = @"未同步";
-//        _status.textColor = [UIColor grayColor];
-//        _status.layer.borderColor = [UIColor grayColor].CGColor;
-//        _status.backgroundColor = [UIColor whiteColor];
-//    } else {
-        //状态
-        if (calendar.status == 1) {
-            _status.text = @"进行中";
-            _status.textColor = [UIColor calendarColor];
-            _status.layer.borderColor = [UIColor calendarColor].CGColor;
-            _status.backgroundColor = [UIColor whiteColor];
-
-        } else if (calendar.status == 2) {
-            _status.text = @"已完成";
-            _status.textColor = [UIColor whiteColor];
-            _status.layer.borderColor = [UIColor calendarColor].CGColor;
-            _status.backgroundColor = [UIColor calendarColor];
-        }
-//    }
+    //状态
+    if (calendar.status == 1) {
+        _status.text = @"进行中";
+        _status.textColor = [UIColor calendarColor];
+        _status.layer.borderColor = [UIColor calendarColor].CGColor;
+        _status.backgroundColor = [UIColor whiteColor];
+    } else if (calendar.status == 2) {
+        _status.text = @"已完成";
+        _status.textColor = [UIColor whiteColor];
+        _status.layer.borderColor = [UIColor calendarColor].CGColor;
+        _status.backgroundColor = [UIColor calendarColor];
+    }
     
     //紧急度
     if (calendar.emergency_status == 0) {

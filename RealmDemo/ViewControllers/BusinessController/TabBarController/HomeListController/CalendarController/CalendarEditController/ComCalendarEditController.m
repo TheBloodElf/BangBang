@@ -49,6 +49,7 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
+    [self.view endEditing:YES];
     //修改日程
     [UserHttp updateUserCalendar:_currCalendar handler:^(id data, MError *error) {
         [self.navigationController.view dismissTips];

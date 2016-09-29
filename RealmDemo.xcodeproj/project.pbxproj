@@ -624,6 +624,7 @@
 		1B89FF9E1D4F541D00466F6D /* AddRemindCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B89FF9C1D4F541D00466F6D /* AddRemindCell.xib */; };
 		1B89FFA21D4F542900466F6D /* TaskRemindCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B89FFA01D4F542900466F6D /* TaskRemindCell.m */; };
 		1B89FFA31D4F542900466F6D /* TaskRemindCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B89FFA11D4F542900466F6D /* TaskRemindCell.xib */; };
+		1B98F7B41D9D03360070CE54 /* SearchEmployeeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B98F7B31D9D03360070CE54 /* SearchEmployeeController.m */; };
 		1BBED3A31D6559450001868B /* XXXRoundMenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BBED3A21D6559450001868B /* XXXRoundMenuButton.m */; };
 		1BBED3A71D6559660001868B /* MoreSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BBED3A51D6559660001868B /* MoreSelectController.m */; };
 		1BBED3A81D6559660001868B /* MoreSelectController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BBED3A61D6559660001868B /* MoreSelectController.xib */; };
@@ -1907,6 +1908,8 @@
 		1B89FF9F1D4F542900466F6D /* TaskRemindCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskRemindCell.h; sourceTree = "<group>"; };
 		1B89FFA01D4F542900466F6D /* TaskRemindCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskRemindCell.m; sourceTree = "<group>"; };
 		1B89FFA11D4F542900466F6D /* TaskRemindCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskRemindCell.xib; sourceTree = "<group>"; };
+		1B98F7B21D9D03360070CE54 /* SearchEmployeeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchEmployeeController.h; sourceTree = "<group>"; };
+		1B98F7B31D9D03360070CE54 /* SearchEmployeeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchEmployeeController.m; sourceTree = "<group>"; };
 		1BBED3A11D6559450001868B /* XXXRoundMenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XXXRoundMenuButton.h; sourceTree = "<group>"; };
 		1BBED3A21D6559450001868B /* XXXRoundMenuButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XXXRoundMenuButton.m; sourceTree = "<group>"; };
 		1BBED3A41D6559660001868B /* MoreSelectController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreSelectController.h; sourceTree = "<group>"; };
@@ -4280,6 +4283,7 @@
 		1B5585C21D34FA7100DCD3A0 /* XAddrBookController */ = {
 			isa = PBXGroup;
 			children = (
+				1B98F7B11D9D03280070CE54 /* SearchEmployeeController */,
 				040A09A71D3D182F00156C16 /* DiscussListController */,
 				049586451D3A348200544259 /* InviteColleagueController */,
 				049585EE1D39C01700544259 /* RequestManagerController */,
@@ -4718,6 +4722,15 @@
 				1B89FFA11D4F542900466F6D /* TaskRemindCell.xib */,
 			);
 			path = TaskCreateCell;
+			sourceTree = "<group>";
+		};
+		1B98F7B11D9D03280070CE54 /* SearchEmployeeController */ = {
+			isa = PBXGroup;
+			children = (
+				1B98F7B21D9D03360070CE54 /* SearchEmployeeController.h */,
+				1B98F7B31D9D03360070CE54 /* SearchEmployeeController.m */,
+			);
+			path = SearchEmployeeController;
 			sourceTree = "<group>";
 		};
 		1BBED3A01D6559410001868B /* XXXRoundMenuButton */ = {
@@ -6070,6 +6083,7 @@
 				049CDF951D4F896D00F8890F /* TaskUpdateController.m in Sources */,
 				1B18B3311D59A6C100858C83 /* SelectAdressTableCell.m in Sources */,
 				04B0D82F1D698E8800BAD522 /* RACPassthroughSubscriber.m in Sources */,
+				1B98F7B41D9D03360070CE54 /* SearchEmployeeController.m in Sources */,
 				1BDFB8011D58329A00D13BC7 /* IQKeyboardManager.m in Sources */,
 				1B1B9BDF1D3E11FA00F53EDC /* ComCalendarName.m in Sources */,
 				1B18B30F1D59A67D00858C83 /* ImageCollectionViewCell.m in Sources */,
@@ -6501,8 +6515,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.lottak.BangBang.share;
 				PRODUCT_MODULE_NAME = RealmShare;
 				PRODUCT_NAME = RealmShare;
-				PROVISIONING_PROFILE = "324bfeee-a302-42cc-baf0-ace046d6240f";
-				PROVISIONING_PROFILE_SPECIFIER = "XC: com.lottak.BangBang.share";
+				PROVISIONING_PROFILE = "ea7ab7cf-b276-4bb0-ae3f-9a4b2bc2cd6b";
+				PROVISIONING_PROFILE_SPECIFIER = dis_bangbang_share;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -6846,8 +6860,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lottak.BangBang;
 				PRODUCT_NAME = "帮帮管理助手";
-				PROVISIONING_PROFILE = "ff5f779d-77b2-4582-8768-0cc8faeb5c34";
-				PROVISIONING_PROFILE_SPECIFIER = "XC: com.lottak.BangBang";
+				PROVISIONING_PROFILE = "293b68c9-57d0-44e0-9a88-94e1e4dfba01";
+				PROVISIONING_PROFILE_SPECIFIER = dis_bangbang;
 			};
 			name = Release;
 		};

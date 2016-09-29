@@ -114,13 +114,12 @@
     [self.view bringSubviewToFront:_moreSelectView];
     
     //显示第几个
-    if(self.type == 0)
+    if(self.type == 0)//我委派的
         _topSegmentedControl.selectedSegmentIndex = 0;
-    else
+    else//我负责的
         _topSegmentedControl.selectedSegmentIndex = 1;
     [self segmentedClicked:_topSegmentedControl];
-    [self.navigationController.view showLoadingTips:@""];
-    [self tongBuTask];
+    [self getCurrData];
 }
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
@@ -132,7 +131,6 @@
         }
     } else {
         [self getCurrData];
-        [self.navigationController.view dismissTips];
     }
 }
 //获得各个页面对应的数据
@@ -190,10 +188,11 @@
 }
 //同步任务
 - (void)tongBuTask {
+    [self.navigationController.view showLoadingTips:@""];
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
     [UserHttp getTaskList:employee.employee_guid handler:^(id data, MError *error) {
+        [self.navigationController.view dismissTips];
         if(error) {
-            [self.navigationController.view dismissTips];
             [self.navigationController.view showFailureTips:error.statsMsg];
             return ;
         }

@@ -16,6 +16,7 @@
 #import "RYChatController.h"
 #import "RequestManagerController.h"
 #import "DiscussListViewController.h"
+#import "SearchEmployeeController.h"
 
 @interface XAddrBookController ()<RBQFetchedResultsControllerDelegate,UITableViewDelegate,UITableViewDataSource,MoreSelectViewDelegate> {
     UITableView *_tableView;//展示数据的表格视图
@@ -73,7 +74,7 @@
     [self.view bringSubviewToFront:_moreSelectView];
     //创建导航按钮
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(leftClicked:)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar_menu"] style:UIBarButtonItemStylePlain target:self action:@selector(rightClicked:)];
+    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar_menu"] style:UIBarButtonItemStylePlain target:self action:@selector(rightClicked:)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(gotoSearch:)]];
     // Do any additional setup after loading the view.
 }
 - (void)viewWillAppear:(BOOL)animated {
@@ -123,6 +124,11 @@
         [_moreSelectView showSelectView];
     else
         [_moreSelectView hideSelectView];
+}
+- (void)gotoSearch:(UIBarButtonItem*)item {
+    SearchEmployeeController *search = [SearchEmployeeController new];
+    search.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:search animated:YES];
 }
 #pragma mark -- 
 #pragma mark -- MoreSelectViewDelegate

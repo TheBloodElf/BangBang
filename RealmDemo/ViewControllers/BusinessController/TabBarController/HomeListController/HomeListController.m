@@ -103,10 +103,30 @@
             companyLabel.text = user.currCompany.company_name;
             //圈子变了 就要获取一次对应圈子的签到规则
             [self getCompanySiginRule];
+            //尽量保证任务是最新的
+            [self tongBuTask];
         }
     } else {//重新加一次上下班提醒
         [_userManager addSiginRuleNotfition];
     }
+}
+//同步任务
+- (void)tongBuTask {
+    Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
+    [UserHttp getTaskList:employee.employee_guid handler:^(id data, MError *error) {
+        if(error) {
+            [self.navigationController.view showFailureTips:error.statsMsg];
+            return ;
+        }
+        NSMutableArray<TaskModel*> *array = [@[] mutableCopy];
+        for (NSDictionary *dic in data[@"list"]) {
+            TaskModel *model = [TaskModel new];
+            [model mj_setKeyValues:dic];
+            model.descriptionStr = dic[@"description"];
+            [array addObject:model];
+        }
+        [_userManager updateTask:array companyNo:_userManager.user.currCompany.company_no];
+    }];
 }
 //获取圈子信息
 - (void)getCompanySiginRule {
@@ -161,7 +181,7 @@
 - (void)createTaskClicked {
     [self executeNeedSelectCompany:^{
         TaskListController *list = [TaskListController new];
-        list.type = 1;
+        list.type = 0;
         list.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:list animated:YES];
     }];
@@ -170,7 +190,7 @@
 - (void)chargeTaskClicked {
     [self executeNeedSelectCompany:^{
         TaskListController *list = [TaskListController new];
-        list.type = 0;
+        list.type = 1;
         list.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:list animated:YES];
     }];
