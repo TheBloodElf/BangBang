@@ -20,6 +20,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    [super awakeFromNib];
     [self.companyImage zy_cornerRadiusAdvance:15.f rectCornerType:UIRectCornerAllCorners];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
