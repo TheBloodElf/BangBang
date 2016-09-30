@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+@class TaskModel;
+@protocol TaskUpdateDelegate <NSObject>
 
+- (void)taskUpdate:(TaskModel*)taskModel;
+
+@end
+//任务更新
 @interface TaskUpdateController : UIViewController
+
+@property (nonatomic, weak) id<TaskUpdateDelegate> delegate;
 
 @end

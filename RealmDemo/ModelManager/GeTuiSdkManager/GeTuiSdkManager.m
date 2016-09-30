@@ -53,19 +53,10 @@
 }
 -(void)GeTuiSdkDidReceivePayload:(NSString *)payloadId andTaskId:(NSString *)taskId andMessageId:(NSString *)aMsgId andOffLine:(BOOL)offLine fromApplication:(NSString *)appId {
     if([IdentityManager manager].identity.canPlayVoice) {//声音
-        // 1.创建SystemSoundID,根据音效文件来生成
-        SystemSoundID soundID = 0;
-        // 2.根据音效文件,来生成SystemSoundID
-        NSURL *url = [[NSBundle mainBundle] URLForResource:@"notification_ring.mp3" withExtension:nil];
-        CFURLRef urlRef = (__bridge CFURLRef)(url);
-        AudioServicesCreateSystemSoundID(urlRef, &soundID);
-        // 播放音效
-        AudioServicesPlaySystemSound(soundID);
+        AudioServicesPlaySystemSound(1007);
     }
     if([IdentityManager manager].identity.canPlayShake)//震动
         AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
-    
-    
     [UIApplication sharedApplication].applicationIconBadgeNumber -= 1;
     //在这里处理个推推送
     NSData* payload = [GeTuiSdk retrivePayloadById:payloadId];

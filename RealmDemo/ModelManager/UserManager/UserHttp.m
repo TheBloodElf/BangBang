@@ -630,6 +630,16 @@
     };
     return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
 }
+//修改任务
++ (NSURLSessionDataTask*)updateTask:(NSDictionary*)taskDic handler:(completionHandler)handler {
+    NSString *urlPath = @"Tasks/update_v3";
+    NSMutableDictionary *params = [taskDic mutableCopy];
+    [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
+    completionHandler compleionHandler = ^(id data,MError *error) {
+        handler(data,error);
+    };
+    return [[HttpService service] sendRequestWithHttpMethod:E_HTTP_REQUEST_METHOD_POST URLPath:urlPath parameters:params completionHandler:compleionHandler];
+}
 //上传任务附件
 + (NSURLSessionDataTask*)uploadAttachment:(NSString*)userGuid taskId:(int)taskId doc:(UIImage*)doc handler:(completionHandler)handler {
     NSString *urlPath = @"Tasks/upload_attachment";

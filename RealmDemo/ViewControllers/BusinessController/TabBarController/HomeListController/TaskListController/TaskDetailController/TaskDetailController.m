@@ -18,8 +18,9 @@
 #import "LookMemberController.h"
 #import "InputTextController.h"
 #import "TaskDiscussSelectPersonController.h"
+#import "TaskUpdateController.h"
 
-@interface TaskDetailController ()<TaskDetailDelegate,TaskFileDelegate,SelectImageDelegate,UIDocumentInteractionControllerDelegate,TaskDiscussDelegate,TaskDiscussSelectPersonDelegate> {
+@interface TaskDetailController ()<TaskDetailDelegate,TaskFileDelegate,SelectImageDelegate,UIDocumentInteractionControllerDelegate,TaskDiscussDelegate,TaskDiscussSelectPersonDelegate,TaskUpdateDelegate> {
     TaskModel *_taskModel;//要展示的任务模型
     UserManager *_userManager;
     
@@ -199,7 +200,19 @@
     taskSelect.delegate = self;
     [self.navigationController pushViewController:taskSelect animated:YES];
 }
+#pragma mark -- TaskUpdateDelegate
+- (void)taskUpdate:(TaskModel*)taskModel {
+    self.data = taskModel;
+    _taskDetailView.data = _taskModel;
+}
 #pragma mark -- TaskDetailDelegate
+//编辑
+- (void)updateClicked:(UIButton*)btn task:(id)task {
+    TaskUpdateController *update = [TaskUpdateController new];
+    update.data = _taskModel;
+    update.delegate = self;
+    [self.navigationController pushViewController:update animated:YES];
+}
 //接收
 - (void)acceptClicked:(UIButton*)btn task:(id)task{
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_taskModel.company_no];

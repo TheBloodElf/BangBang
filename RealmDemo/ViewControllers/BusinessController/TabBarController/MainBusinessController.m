@@ -248,7 +248,7 @@
             //其他的不用管
         }
     } else if ([message.type isEqualToString:@"TASK"]) {//任务推送
-        //因为任务发送给你和任务状态改变都是一样的action=GENERAL，所以这里我们这里要看本地是否有数据来判断是不是新添加的任务 以此来判断是否需要发送更新通知
+        //因为任务发送给你和任务状态改变和任务修改都是一样的action=GENERAL，所以这里我们这里要看本地是否有数据来判断是不是新添加的任务 以此来判断是否需要发送更新通知
         for (TaskModel *taskModel in [_userManager getTaskArr:message.company_no]) {
             if(message.target_id.intValue == taskModel.id) {
                  [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadTaskInfo" object:message];

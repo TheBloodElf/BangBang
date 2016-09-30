@@ -10,6 +10,8 @@
 //任务下面的操作按钮
 @protocol TaskDetailBottomOpDelegate <NSObject>
 
+//编辑
+- (void)updateClicked:(UIButton*)btn;
 //接收
 - (void)acceptClicked:(UIButton*)btn;
 //终止

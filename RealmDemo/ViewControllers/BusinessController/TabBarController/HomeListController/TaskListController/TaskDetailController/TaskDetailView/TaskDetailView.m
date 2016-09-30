@@ -79,6 +79,12 @@
     [_tableView reloadData];
 }
 #pragma mark -- TaskDetailBottomOpDelegate
+//编辑
+- (void)updateClicked:(UIButton*)btn {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(updateClicked:task:)]) {
+        [self.delegate updateClicked:btn task:_taskModel];
+    }
+}
 //接收
 - (void)acceptClicked:(UIButton*)btn {
     if(self.delegate && [self.delegate respondsToSelector:@selector(acceptClicked:task:)]) {

@@ -29,7 +29,7 @@
     UITableView *_tableView;//表格视图
     UserManager *_userManager;//用户管理器
     TaskModel *_taskModel;//任务模型
-    NSMutableArray<UIImage*> *_attanmentArr;//附件数组
+    UIImage *_taskAttanment;//附件数组
     FileManager *_fileManager;//文件管理去 用来存取本地文件
     int _attanmantIndex;//任务上传数量下标
     NSMutableArray<NSDate*> *_alertDateArr;//提醒时间数组
@@ -44,12 +44,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"任务创建";
-    _attanmentArr = [@[] mutableCopy];
     _incharge = [Employee new];
     _alertDateArr = [@[] mutableCopy];
     _memberArr = [@[] mutableCopy];
     _fileManager = [FileManager shareManager];
-    
     _userManager = [UserManager manager];
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
     //初始化模型 看看有没有草稿
@@ -61,14 +59,12 @@
         _taskModel.descriptionStr = model.descriptionStr;
         _taskModel.company_no = model.company_no;
         _taskModel.enddate_utc = model.enddate_utc;
-        //得到附件数组
-        NSMutableArray *imageArr = [@[] mutableCopy];
-        for (NSString *str in [model.attachmentArr componentsSeparatedByString:@","]) {
-            if(![_fileManager fileIsExit:str]) continue;
-            UIImage *image = [UIImage imageWithContentsOfFile:[_fileManager fileStr:str]];
-            [imageArr addObject:image];
+        //得到附件
+        if(![NSString isBlank:model.attachmentArr]) {
+            if([_fileManager fileIsExit:model.attachmentArr]) {
+                _taskAttanment = [UIImage imageWithContentsOfFile:[_fileManager fileStr:model.attachmentArr]];
+            }
         }
-        _attanmentArr = imageArr;
         //得到负责人
         if(![NSString isBlank:model.incharge]) {
             for (Employee *employee in [_userManager getEmployeeWithCompanyNo:model.company_no status:5]) {
@@ -162,13 +158,11 @@
         }
         model.alert_date_list = [alerts componentsJoinedByString:@","];
         //得到附件
-        NSMutableArray *imageFileArr = [@[] mutableCopy];
-        for (UIImage *image in _attanmentArr) {
+        if(_taskAttanment) {
             NSString *imageName = @([NSDate date].timeIntervalSince1970 * 1000).stringValue;
-            [imageFileArr addObject:imageName];
-            [_fileManager writeData:[image dataInNoSacleLimitBytes:MaXPicSize] name:imageName];
+            [_fileManager writeData:[_taskAttanment dataInNoSacleLimitBytes:MaXPicSize] name:imageName];
+            model.attachmentArr = imageName;
         }
-        model.attachmentArr = [imageFileArr componentsJoinedByString:@","];
         [_userManager updateTaskDraft:model companyNo:_userManager.user.currCompany.company_no];
         [self.navigationController popViewControllerAnimated:YES];
     }];
@@ -210,7 +204,7 @@
     _taskModel.incharge_name = _incharge.real_name;
     _taskModel.alert_date_list = [alerts componentsJoinedByString:@","];
     _taskModel.begindate_utc = [NSDate date].timeIntervalSince1970 * 1000;
-    _taskModel.attachment_count = _attanmentArr.count;
+    _taskModel.attachment_count = _taskAttanment?1:0;
     //提交任务数据后上传任务附件
     _attanmantIndex = 0;
     [self.navigationController.view showLoadingTips:@""];
@@ -234,13 +228,11 @@
                     //得到提醒时间
                     model.alert_date_list = _taskModel.alert_date_list;
                     //得到附件
-                    NSMutableArray *imageFileArr = [@[] mutableCopy];
-                    for (UIImage *image in _attanmentArr) {
+                    if(_taskAttanment) {
                         NSString *imageName = @([NSDate date].timeIntervalSince1970 * 1000).stringValue;
-                        [imageFileArr addObject:imageName];
-                        [_fileManager writeData:[image dataInNoSacleLimitBytes:MaXPicSize] name:imageName];
+                        [_fileManager writeData:[_taskAttanment dataInNoSacleLimitBytes:MaXPicSize] name:imageName];
+                        model.attachmentArr = imageName;
                     }
-                    model.attachmentArr = [imageFileArr componentsJoinedByString:@","];
                     [_userManager updateTaskDraft:model companyNo:_userManager.user.currCompany.company_no];
                     [self.navigationController popViewControllerAnimated:YES];
                 }];
@@ -262,30 +254,32 @@
         [_taskModel mj_setKeyValues:data];
         _taskModel.descriptionStr = data[@"description"];
         [_userManager addTask:_taskModel];
-        [self uploadAttanment];
-    }];
-}
-//上传任务附件
-- (void)uploadAttanment {
-    if(_attanmantIndex == _attanmentArr.count) {
-        NSMutableArray<TaskDraftModel*> *array = [_userManager getTaskDraftArr:_userManager.user.currCompany.company_no];
-        for (TaskDraftModel *model in array) {
-            [_userManager deleteTaskDraft:model];
-        }
-        [self.navigationController.view dismissTips];
-        [self.navigationController.view showSuccessTips:@"创建成功"];
-        [self.navigationController popViewControllerAnimated:YES];
-    } else {
-        [UserHttp uploadAttachment:_userManager.user.user_guid taskId:_taskModel.id doc:_attanmentArr[_attanmantIndex] handler:^(id data, MError *error) {
-            if(error) {
+        //有附件就上传附件
+        if(_taskAttanment) {
+            [UserHttp uploadAttachment:_userManager.user.user_guid taskId:_taskModel.id doc:_taskAttanment handler:^(id data, MError *error) {
+                if(error) {
+                    [self.navigationController.view dismissTips];
+                    [self.navigationController.view showFailureTips:@"有图片上传失败，请去任务详情继续上传"];
+                    return ;
+                }
+                NSMutableArray<TaskDraftModel*> *array = [_userManager getTaskDraftArr:_userManager.user.currCompany.company_no];
+                for (TaskDraftModel *model in array) {
+                    [_userManager deleteTaskDraft:model];
+                }
                 [self.navigationController.view dismissTips];
-                [self.navigationController.view showFailureTips:@"有图片上传失败，请去任务详情继续上传"];
-                return ;
+                [self.navigationController.view showSuccessTips:@"创建成功"];
+                [self.navigationController popViewControllerAnimated:YES];
+            }];
+        } else {
+            NSMutableArray<TaskDraftModel*> *array = [_userManager getTaskDraftArr:_userManager.user.currCompany.company_no];
+            for (TaskDraftModel *model in array) {
+                [_userManager deleteTaskDraft:model];
             }
-            _attanmantIndex ++;
-            [self uploadAttanment];
-        }];
-    }
+            [self.navigationController.view dismissTips];
+            [self.navigationController.view showSuccessTips:@"创建成功"];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }];
 }
 #pragma mark -- 
 #pragma mark -- UITableViewDelegate
@@ -304,7 +298,7 @@
     if(section == 3)
         return 2;
     if(section == 4)
-        return _attanmentArr.count + 1;
+        return _taskAttanment?2:1;
     if(section == 5)
         return _alertDateArr.count + 1;
     return 1;
@@ -361,7 +355,7 @@
             
         } else {//附件列表
             TaskAttenmentCell *task = (id)cell;
-            cell.data = _attanmentArr[indexPath.row - 1];
+            cell.data = _taskAttanment;
             task.delegate = self;
         }
     } else {
@@ -419,7 +413,7 @@
     } else if(indexPath.section == 4) {//附件
         if(indexPath.row == 0) {
             SelectImageController *select = [SelectImageController new];
-            select.maxSelect = 9 - _attanmentArr.count;
+            select.maxSelect = 1;
             select.delegate = self;
             [self presentViewController:[[UINavigationController alloc] initWithRootViewController:select] animated:YES completion:nil];
         }
@@ -453,14 +447,12 @@
 }
 #pragma mark -- TaskAttenmentDelegate
 - (void)TaskAttenmentDelete:(UIImage*)photo {
-    [_attanmentArr removeObject:photo];
+    _taskAttanment = nil;
     [_tableView reloadSections:[NSIndexSet indexSetWithIndex:4] withRowAnimation:UITableViewRowAnimationNone];
 }
 #pragma mark -- SelectImageDelegate
 - (void)selectImageFinish:(NSMutableArray<Photo*>*)photoArr {
-    for (Photo *photo in photoArr) {
-        [_attanmentArr addObject:photo.oiginalImage];
-    }
+    _taskAttanment = photoArr.firstObject.oiginalImage;
     [_tableView reloadSections:[NSIndexSet indexSetWithIndex:4] withRowAnimation:UITableViewRowAnimationNone];
 }
 #pragma mark -- SingleSelectDelegate

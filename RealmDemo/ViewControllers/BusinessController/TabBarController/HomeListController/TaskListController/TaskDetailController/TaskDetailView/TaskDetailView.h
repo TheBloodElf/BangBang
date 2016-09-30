@@ -10,6 +10,8 @@
 //任务详情
 @protocol TaskDetailDelegate <NSObject>
 
+//编辑
+- (void)updateClicked:(UIButton*)btn task:(id)task;
 //接收
 - (void)acceptClicked:(UIButton*)btn task:(id)task;
 //终止

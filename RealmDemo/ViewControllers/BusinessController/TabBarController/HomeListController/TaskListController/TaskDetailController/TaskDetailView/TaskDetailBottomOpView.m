@@ -70,16 +70,26 @@
     }
     //如果是创建者
     if([_taskModel.createdby isEqualToString:employee.employee_guid]) {
-        if(_taskModel.status == 1) {//终止
+        if(_taskModel.status == 1) {//终止 编辑
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
             [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            btn.frame = CGRectMake(10, 0, MAIN_SCREEN_WIDTH - 20, 30);
+            btn.frame = CGRectMake(10, 0, (MAIN_SCREEN_WIDTH - 30) / 2.f, 30);
             [btn setTitle:@"终止" forState:UIControlStateNormal];
             [btn setBackgroundColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]];
             btn.layer.cornerRadius = 5;
             btn.clipsToBounds = YES;
             [btn addTarget:self action:@selector(stopClicked:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:btn];
+            
+            UIButton *btn1 = [UIButton buttonWithType:UIButtonTypeSystem];
+            [btn1 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            btn1.frame = CGRectMake(CGRectGetMaxX(btn.frame) + 10, 0, (MAIN_SCREEN_WIDTH - 30) / 2.f, 30);
+            [btn1 setTitle:@"编辑" forState:UIControlStateNormal];
+            [btn1 setBackgroundColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]];
+            btn1.layer.cornerRadius = 5;
+            btn1.clipsToBounds = YES;
+            [btn1 addTarget:self action:@selector(updateClicked:) forControlEvents:UIControlEventTouchUpInside];
+            [self addSubview:btn1];
         } else if (_taskModel.status == 2) {//终止 通过
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
             [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -151,6 +161,12 @@
             [btn1 addTarget:self action:@selector(passClicked:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:btn1];
         }
+    }
+}
+//编辑
+- (void)updateClicked:(UIButton*)btn {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(updateClicked:)]) {
+        [self.delegate updateClicked:btn];
     }
 }
 //接收

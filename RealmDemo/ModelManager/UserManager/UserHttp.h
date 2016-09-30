@@ -118,6 +118,8 @@
 + (NSURLSessionDataTask*)getTaskList:(NSString*)employeeGuid handler:(completionHandler)handler;
 //创建任务
 + (NSURLSessionDataTask*)createTask:(NSDictionary*)taskDic handler:(completionHandler)handler;
+//修改任务
++ (NSURLSessionDataTask*)updateTask:(NSDictionary*)taskDic handler:(completionHandler)handler;
 //上传任务附件
 + (NSURLSessionDataTask*)uploadAttachment:(NSString*)userGuid taskId:(int)taskId doc:(UIImage*)doc handler:(completionHandler)handler;
 //获取任务详情
