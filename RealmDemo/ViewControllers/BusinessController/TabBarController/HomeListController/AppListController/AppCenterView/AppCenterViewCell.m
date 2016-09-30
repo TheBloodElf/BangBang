@@ -40,7 +40,7 @@
     appImage = [UIImageView new];
     appImage.frame = iamgeView.frame;
     appImage.center = CGPointMake(MAIN_SCREEN_WIDTH / 8, MAIN_SCREEN_WIDTH / 8 - 8);
-    [appImage sd_setImageWithURL:[NSURL URLWithString:appModel.logo] placeholderImage:[UIImage imageNamed:@"soft_logo_icon"]];
+    [appImage sd_setImageWithURL:[NSURL URLWithString:appModel.logo] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
     [self.contentView addSubview:appImage];
 }
 @end

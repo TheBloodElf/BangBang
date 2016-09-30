@@ -39,8 +39,13 @@
     _tableView.tableFooterView = [UIView new];
     [_tableView registerNib:[UINib nibWithNibName:@"MeetingSelectPresonCell" bundle:nil] forCellReuseIdentifier:@"MeetingSelectPresonCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"MeetingDeviceSelectCell" bundle:nil] forCellReuseIdentifier:@"MeetingDeviceSelectCell"];
-    //会议准备人默认圈主
-    _employee = [_userManager getEmployeeWithGuid:_userManager.user.currCompany.admin_user_guid companyNo:_userManager.user.currCompany.company_no];
+    //会议准备人为会议室带入的名字
+    for (Employee *employee in [_userManager getEmployeeWithCompanyNo:_userManager.user.currCompany.company_no status:5]) {
+        if([employee.employee_guid isEqualToString:_meetingRoomModel.in_charge]) {
+            _employee = employee;
+            break;
+        }
+    }
     //从会议室模型中获取固定设备
     int i = -1;
     for (NSString *str in [self.meetingRoomModel.room_equipments componentsSeparatedByString:@","]) {
