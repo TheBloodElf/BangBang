@@ -31,7 +31,8 @@
 
 @interface RepCalendarView : UIView
 
-@property (nonatomic, weak) id<RepCalendarViewDelegate> delegate;
+@property (nonatomic,  weak) id<RepCalendarViewDelegate> delegate;
 @property (nonatomic, assign) BOOL isDetail;//是否在详情页面，用户不能操作
+@property (nonatomic, assign) BOOL isEdit;//是否在编辑界面，不能修改分享人
 
 @end

@@ -85,10 +85,14 @@
     _comCalendarView = [[ComCalendarView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, _bottomScrollView.frame.size.height)];
     _comCalendarView.data = _currCalendar;
     _comCalendarView.delegate = self;
+    _comCalendarView.isEdit = NO;
+    _comCalendarView.isDetail = NO;
     [_bottomScrollView addSubview:_comCalendarView];
     _repCalendarView = [[RepCalendarView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH, 0, MAIN_SCREEN_WIDTH, _bottomScrollView.frame.size.height)];
     _repCalendarView.data = _currCalendar;
     _repCalendarView.delegate = self;
+    _repCalendarView.isDetail = NO;
+    _repCalendarView.isEdit = NO;
     [_bottomScrollView addSubview:_repCalendarView];
     [self.view addSubview:_bottomScrollView];
     

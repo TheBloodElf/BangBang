@@ -304,7 +304,7 @@
             [self.navigationController pushViewController:room animated:YES];
         }
     } else if (indexPath.section == 2) {
-        if(indexPath.row == 0) {//选择主持人
+        if(indexPath.row == 0) {//选择主持人 可以选择自己
             SingleSelectController *single = [SingleSelectController new];
             NSMutableArray *array = [@[] mutableCopy];
             [array addObjectsFromArray:_membersArr];
@@ -315,11 +315,11 @@
                 [_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
             };
             [self.navigationController pushViewController:single animated:YES];
-        } else if (indexPath.row == 1) {//选择参与人
+        } else if (indexPath.row == 1) {//选择参与人 不能选择自己
             MuliteSelectController *mulite = [MuliteSelectController new];
-            NSMutableArray *array = [@[] mutableCopy];
-            if(_incharge.id)
-                [array addObject:_incharge];
+            Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
+            NSMutableArray *array = [@[employee] mutableCopy];
+            if(_incharge.id) [array addObject:_incharge];
             [array addObjectsFromArray:_attendanceArr];
             mulite.outEmployees = array;
             mulite.selectedEmployees = _membersArr;
@@ -328,12 +328,12 @@
                 [_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
             };
             [self.navigationController pushViewController:mulite animated:YES];
-        } else {//选择列席人
+        } else {//选择列席人 不能选择自己
             MuliteSelectController *mulite = [MuliteSelectController new];
-            NSMutableArray *array = [@[] mutableCopy];
-            if(_incharge.id)
-                [array addObject:_incharge];
-            [array addObjectsFromArray:_membersArr];
+            Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
+            NSMutableArray *array = [@[employee] mutableCopy];
+            if(_incharge.id) [array addObject:_incharge];
+            [array addObjectsFromArray:_membersArr]; 
             mulite.outEmployees = array;
             mulite.selectedEmployees = _attendanceArr;
             mulite.muliteSelect = ^(NSMutableArray *array) {

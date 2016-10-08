@@ -30,6 +30,7 @@
     _comCalendarView = [[ComCalendarView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 50 - 64)];
     _comCalendarView.data = _calendar;
     _comCalendarView.isDetail = YES;
+    _comCalendarView.isEdit = NO;
     [self.view addSubview:_comCalendarView];
     if(_calendar.status == 1) {//如果是自己创建的
         if([_calendar.created_by isEqualToString:_userManager.user.user_guid])//如果是自己创建的 就可以修改

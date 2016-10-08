@@ -33,6 +33,7 @@
     _comCalendarView.data = _currCalendar;
     _comCalendarView.delegate = self;
     _comCalendarView.isDetail = NO;
+    _comCalendarView.isEdit = YES;
     [self.view addSubview:_comCalendarView];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightClicked:)];
     //确定按钮是否能够被点击

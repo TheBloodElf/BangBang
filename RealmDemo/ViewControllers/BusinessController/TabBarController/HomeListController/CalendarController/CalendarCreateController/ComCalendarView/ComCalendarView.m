@@ -60,7 +60,7 @@
         case 2: height = 50; break;
         case 3: height = 50; break;
         case 4: height = 50; break;
-        case 5: height = 50; break;
+        case 5: height = _isEdit ? 0.01 : 50; break;//分享
         case 6: height = 50; break;
         default: height = 100; break;
     }
@@ -108,6 +108,7 @@
             comCalendarDetail.detailLabel.text = [NSString stringWithFormat:@"%d分钟",_calendar.alert_minutes_after];
     } else if (indexPath.row == 5) {
         ComCalendarDetail *comCalendarDetail = (id)cell;
+        if(_isEdit) comCalendarDetail.hidden = YES;
         comCalendarDetail.titleLabel.text = @"分享给:";
         comCalendarDetail.detailLabel.text = _calendar.member_names ?: @"无";
     } else {

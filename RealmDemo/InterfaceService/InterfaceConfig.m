@@ -8,7 +8,6 @@
 
 #import "InterfaceConfig.h"
 
-
 //正式
 //NSString* const KBSSDKAPIURL = @"http://open.59bang.com/";
 //NSString* const KBSSDKAPIDomain = @"http://open.59bang.com/api/";
