@@ -163,6 +163,8 @@
                 [self syncCalender];
             }];
         } else {//同步日程
+            NSString *members = calendar.members;
+            calendar.members = @"";//要清除掉分享者，不然又会推送一条日程给分享者
             [UserHttp syncUserCalendar:calendar handler:^(id data, MError *error) {
                 if(error) {
                     [self.navigationController.view dismissTips];
@@ -170,6 +172,7 @@
                     return ;
                 }
                 calendar.needSync = NO;
+                calendar.members = members;
                 [_userManager updateCalendar:calendar];
                 [_needSyncCalender removeObjectAtIndex:0];
                 [self syncCalender];

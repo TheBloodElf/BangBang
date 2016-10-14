@@ -598,6 +598,7 @@
 		1B6D167B1D48AA840070D2E5 /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1B6D16771D48AA840070D2E5 /* WeiboSDK.bundle */; };
 		1B6D16811D48AA8A0070D2E5 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6D167D1D48AA8A0070D2E5 /* libWeChatSDK.a */; };
 		1B6D16821D48AA8A0070D2E5 /* read_me.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1B6D167E1D48AA8A0070D2E5 /* read_me.txt */; };
+		1B8478A41DA8D8D3007C3E5E /* BootController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8478A31DA8D8D3007C3E5E /* BootController.m */; };
 		1B877F171D178E7D000144B2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B877F161D178E7D000144B2 /* main.m */; };
 		1B877F221D178E7D000144B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B877F211D178E7D000144B2 /* Assets.xcassets */; };
 		1B89FF681D4F50BF00466F6D /* CreateTaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B89FF581D4F50BF00466F6D /* CreateTaskView.m */; };
@@ -1864,6 +1865,8 @@
 		1B6D167E1D48AA8A0070D2E5 /* read_me.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = read_me.txt; sourceTree = "<group>"; };
 		1B6D167F1D48AA8A0070D2E5 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		1B6D16801D48AA8A0070D2E5 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		1B8478A21DA8D8D3007C3E5E /* BootController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BootController.h; sourceTree = "<group>"; };
+		1B8478A31DA8D8D3007C3E5E /* BootController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BootController.m; sourceTree = "<group>"; };
 		1B877F121D178E7D000144B2 /* 帮帮管理助手.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "帮帮管理助手.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B877F161D178E7D000144B2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1B877F211D178E7D000144B2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -4077,6 +4080,7 @@
 			children = (
 				1B5585741D34D93800DCD3A0 /* BusinessController.h */,
 				1B5585751D34D93800DCD3A0 /* BusinessController.m */,
+				1B8478A11DA8D763007C3E5E /* BootController */,
 				1B5585B31D34F7D900DCD3A0 /* LeftMenuController */,
 				1B5585B41D34F7D900DCD3A0 /* TabBarController */,
 			);
@@ -4551,6 +4555,15 @@
 				1B6D16801D48AA8A0070D2E5 /* WXApiObject.h */,
 			);
 			path = WeiXinSDK;
+			sourceTree = "<group>";
+		};
+		1B8478A11DA8D763007C3E5E /* BootController */ = {
+			isa = PBXGroup;
+			children = (
+				1B8478A21DA8D8D3007C3E5E /* BootController.h */,
+				1B8478A31DA8D8D3007C3E5E /* BootController.m */,
+			);
+			path = BootController;
 			sourceTree = "<group>";
 		};
 		1B877F091D178E7C000144B2 = {
@@ -6095,6 +6108,7 @@
 				04B0D8281D698E8800BAD522 /* RACImmediateScheduler.m in Sources */,
 				1B36FCD31D35E750006694E4 /* HomeListBottomView.m in Sources */,
 				1B5585761D34D93800DCD3A0 /* BusinessController.m in Sources */,
+				1B8478A41DA8D8D3007C3E5E /* BootController.m in Sources */,
 				04AF45B41D54C17E0064FC45 /* FileManager.m in Sources */,
 				75E5FF7D1D27D68300F77961 /* User.m in Sources */,
 				0437F4331D4658FF0054077C /* MCJSONDateTransformer.m in Sources */,
@@ -6747,7 +6761,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lottak.BangBang;
 				PRODUCT_NAME = "帮帮管理助手";
-				PROVISIONING_PROFILE = "a972c0b5-29b7-4bf0-907c-1dfe5d9b6ce7";
+				PROVISIONING_PROFILE = "f83c0dac-abe4-44db-9f35-7c378df1f1f7";
 				PROVISIONING_PROFILE_SPECIFIER = dev_bangbang;
 			};
 			name = Debug;

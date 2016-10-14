@@ -40,7 +40,7 @@
 }
 //日程导航栏
 + (UIColor *) calendarColor {
-    return [UIColor colorFromHexCode:@"0x5995f5"];
+    return [UIColor colorWithRed:0/255.f green:140/255.f blue:238/255.f alpha:1];
 }
 //签到导航栏
 + (UIColor *) siginColor {

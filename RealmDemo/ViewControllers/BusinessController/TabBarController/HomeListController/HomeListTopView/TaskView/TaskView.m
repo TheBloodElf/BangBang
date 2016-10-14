@@ -24,15 +24,13 @@
     int _rightAllCount;//我负责的总数
     
     LineProgressLayer *leftLayer;//左边动画图层第一层
-    LineProgressLayer *greenLayer;//左边绿色的画图层第二层
+    LineProgressLayer *greenLayer;//左边画图层第二层
     LineProgressLayer *leftThridLayer;//左边第三层
-    
     LineProgressLayer *rightLayer; // 右面动画图层第一层
     LineProgressLayer *rightGreenLayer;//右边第二层
     LineProgressLayer *rightThirdLayer;//右边第三层
     
     NSTimer *_dateTimer;//定时器 用于每天早上更新内容
-    NSDate *_updateDate;
 }
 //左边视图
 @property (weak, nonatomic) IBOutlet UIView *leftView;
@@ -51,24 +49,24 @@
 @implementation TaskView
 
 - (void)setupUI {
-    _updateDate = [NSDate date];
     self.userInteractionEnabled = YES;
-    _dateTimer = [NSTimer scheduledTimerWithTimeInterval:60 * 60 target:self selector:@selector(updateCalendar:) userInfo:nil repeats:YES];
+    //算出距离明天早上还有多少秒
+    int64_t tomarrroInterval = 24 * 60 * 60 - [NSDate date].hour * 60 * 60 - [NSDate date].minute * 60 - [NSDate date].second;
+    _dateTimer = [NSTimer scheduledTimerWithTimeInterval:tomarrroInterval target:self selector:@selector(updateCalendar:) userInfo:nil repeats:YES];
     _userManager = [UserManager manager];
     _userFetchedResultsController = [_userManager createUserFetchedResultsController];
     _userFetchedResultsController.delegate = self;
     
     _taskFetchedResultsController = [_userManager createTaskFetchedResultsController:_userManager.user.currCompany.company_no];
     _taskFetchedResultsController.delegate = self;
-    self.leftWillEnd.textColor =  [UIColor colorWithRed:255 / 255.f green:105 / 255.f blue:64 / 255.f alpha:1];
-    self.rightWillEnd.textColor =  [UIColor colorWithRed:255 / 255.f green:105 / 255.f blue:64 / 255.f alpha:1];
+    self.leftWillEnd.textColor = self.rightWillEnd.textColor =  [UIColor colorWithRed:251 / 255.f green:214 / 255.f blue:66 / 255.f alpha:1];
     //给这几个数字填充值
     [self getCurrCount];
     [_userManager addTaskNotfition];
 }
 - (void)updateCalendar:(NSTimer*)timer {
-    if([NSDate date].day == _updateDate.day) return;
-    _updateDate = [NSDate date];
+    _dateTimer = [NSTimer scheduledTimerWithTimeInterval:24 * 60 * 60 target:self selector:@selector(updateCalendar:) userInfo:nil repeats:YES];
+    _leftWillEndCount = _leftDidEndCount = _leftAllCount = _rightAllCount = _rightDidEndCount = _rightWillEndCount = 0;
     //给这几个数字填充值
     [self getCurrCount];
     [_userManager addTaskNotfition];
@@ -90,10 +88,10 @@
         Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
         for (TaskModel *model in taskArr) {
             if(model.company_no != _userManager.user.currCompany.company_no) continue;
-            if(model.status == 0 || model.status == 7 || model.status == 8) continue;
+            if(model.status == 0 || model.status == 7 || model.status == 8) continue;//完成/终止/的不管
             if([model.createdby isEqualToString:employee.employee_guid]) {//我委派的
                 _leftAllCount ++;
-                if(model.status == 2) {
+                if(model.status != 1) {//未接受的不管
                     if(model.enddate_utc < [NSDate date].timeIntervalSince1970 * 1000) {//已经延期的
                         _leftDidEndCount ++;
                     } else if((model.enddate_utc / 1000) < (([NSDate date].timeIntervalSince1970 + (NumberOfDealy * 24 * 60 * 60)))){//将要到期的
@@ -102,7 +100,7 @@
                 }
             } else if ([model.incharge isEqualToString:employee.employee_guid]) {//我负责的
                 _rightAllCount ++;
-                if(model.status == 2) {
+                if(model.status != 1) {//未接受的不管
                     if(model.enddate_utc < [NSDate date].timeIntervalSince1970 * 1000) {//已经延期的
                         _rightDidEndCount ++;
                     } else if((model.enddate_utc / 1000) < ([NSDate date].timeIntervalSince1970  + (NumberOfDealy * 24 * 60 * 60))){//将要到期的
@@ -134,13 +132,8 @@
     float tempValueYellow = (_leftAllCount - _leftDidEndCount)/(float)_leftAllCount;
     float tempValueGreen = (_leftAllCount - _leftDidEndCount - _leftWillEndCount)/(float)_leftAllCount;
     
-    //都没有 灰色 [UIColor colorFromHexCode:@"#999999"]
-    //已延期 红色 [UIColor colorWithRed:1 green:105/255.f blue:64/255.f alpha:1]
-    //将到期 粽色 [UIColor colorWithRed:255 / 255.f green:105 / 255.f blue:64 / 255.f alpha:1]
-    //进行中 黄色 [UIColor colorWithRed:251 / 255.f green:214 / 255.f blue:66 / 255.f alpha:1]
-    
     //我委派的数字动画和动画时间
-    if (_leftAllCount == 0) {//将到期和已经延期都没有 就是灰色
+    if (_leftAllCount == 0) {//没有任务就是灰色
         leftLayer = [LineProgressLayer layer];
         leftLayer.bounds = self.leftView.bounds;
         leftLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
@@ -169,7 +162,7 @@
         greenLayer.color = [UIColor clearColor];
         greenLayer.animationDuration = tempValueYellow * 1.5;
         greenLayer.completed = tempValueYellow *leftLayer.total;
-        greenLayer.completedColor = [UIColor colorWithRed:255 / 255.f green:105 / 255.f blue:64 / 255.f alpha:1];//棕色
+        greenLayer.completedColor = [UIColor colorWithRed:251 / 255.f green:214 / 255.f blue:66 / 255.f alpha:1];//黄色
         [greenLayer setNeedsDisplay];
         [greenLayer showAnimate];
         [self.leftView.layer insertSublayer:greenLayer above:leftLayer];
@@ -181,12 +174,11 @@
         leftThridLayer.color = [UIColor clearColor];
         leftThridLayer.animationDuration = tempValueGreen * 1.5;
         leftThridLayer.completed = tempValueGreen *leftLayer.total;
-        leftThridLayer.completedColor = [UIColor colorWithRed:251 / 255.f green:214 / 255.f blue:66 / 255.f alpha:1];//黄色
+        leftThridLayer.completedColor = [UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1];//绿色
         [leftThridLayer setNeedsDisplay];
         [leftThridLayer showAnimate];
         [self.leftView.layer insertSublayer:leftThridLayer above:greenLayer];
     }
-    
     
     //我接受的任务正常数
     float rightValueRed = 1.0;//已经延期
@@ -222,7 +214,7 @@
         rightGreenLayer.color = [UIColor clearColor];
         rightGreenLayer.animationDuration = rightValueYellow * 1.5;
         rightGreenLayer.completed = rightValueYellow *rightLayer.total;
-        rightGreenLayer.completedColor = [UIColor colorWithRed:255 / 255.f green:105 / 255.f blue:64 / 255.f alpha:1];
+        rightGreenLayer.completedColor = [UIColor colorWithRed:251 / 255.f green:214 / 255.f blue:66 / 255.f alpha:1];//黄色
         [rightGreenLayer setNeedsDisplay];
         [rightGreenLayer showAnimate];
         [self.rightView.layer insertSublayer:rightGreenLayer above:rightLayer];
@@ -234,7 +226,7 @@
         rightThirdLayer.color = [UIColor clearColor];
         rightThirdLayer.animationDuration = rightValueGreen * 1.5;
         rightThirdLayer.completed = rightValueGreen *rightLayer.total;
-        rightThirdLayer.completedColor = [UIColor colorWithRed:251 / 255.f green:214 / 255.f blue:66 / 255.f alpha:1];//黄色
+        rightThirdLayer.completedColor = [UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1];//绿色
         [rightThirdLayer setNeedsDisplay];
         [rightThirdLayer showAnimate];
         [self.rightView.layer insertSublayer:rightThirdLayer above:rightGreenLayer];

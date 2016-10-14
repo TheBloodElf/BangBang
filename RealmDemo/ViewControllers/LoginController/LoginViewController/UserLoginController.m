@@ -301,10 +301,6 @@
             [companys addObject:company];
         }
         [_userManager updateCompanyArr:companys];
-        if(companys.count != 0) {
-            user.currCompany = [companys[0] deepCopy];
-        }
-        [_userManager updateUser:user];
         //获取所有圈子的员工信息
         [UserHttp getEmployeeCompnyNo:0 status:5 userGuid:user.user_guid handler:^(id data, MError *error) {
             if(error) {
@@ -334,6 +330,15 @@
                     [array addObject:employee];
                 }
                 [_userManager updateEmployee:array companyNo:0];
+                //把第一个正式员工作为自己当前圈子
+                for (Company *company in [_userManager getCompanyArr]) {
+                    Employee *employee = [_userManager getEmployeeWithGuid:user.user_guid companyNo:company.company_no];
+                    if(employee.status == 1 || employee.status == 4) {
+                        user.currCompany = company;
+                        break;
+                    }
+                }
+                [_userManager updateUser:user];
                 //获取融云token
                 [UserHttp getRYToken:user.user_no handler:^(id data, MError *error) {
                     [self.navigationController dismissTips];

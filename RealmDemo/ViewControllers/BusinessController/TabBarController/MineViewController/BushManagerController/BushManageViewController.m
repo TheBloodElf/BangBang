@@ -86,6 +86,7 @@
         _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100, 0, 100, 80)];
         _moreSelectView.selectArr = @[@"加入圈子",@"创建圈子"];
     }
+    _moreSelectView.tag = 10000;
     _moreSelectView.delegate = self;
     [_moreSelectView setupUI];
     [self.view addSubview:_moreSelectView];

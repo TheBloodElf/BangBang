@@ -21,7 +21,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [UserHttp getReferrerURL:[UserManager manager].user.user_no handler:^(id data, MError *error) {
+    //加入自己的圈子
+    [UserHttp getInviteURL:[UserManager manager].user.user_no companyNo:[UserManager manager].user.currCompany.company_no handler:^(id data, MError *error) {
         [self.navigationController.view dismissTips];
         if(error) {
             [self.navigationController.view showFailureTips:error.statsMsg];

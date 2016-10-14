@@ -21,6 +21,7 @@ MJExtensionCodingImplementation
         _ryDisturb = NO;
         _canPlayVoice = YES;
         _canPlayShake = YES;
+        _bootOfUse = NO;
         _ryDisturbBeginTime = [NSDate new];
         _ryDisturbEndTime = [NSDate new];
     }

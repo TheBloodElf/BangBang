@@ -26,7 +26,6 @@
     RBQFetchedResultsController *_calendarFetchedResultsController;
     
     NSTimer *_dateTimer;
-    NSDate *_updateDate;
 }
 @property (weak, nonatomic) IBOutlet UIButton *todayFinish;
 @property (weak, nonatomic) IBOutlet UILabel *todayNoFinish;
@@ -45,9 +44,9 @@
 
 - (void)setupUI {
     self.userInteractionEnabled = YES;
-    _updateDate = [NSDate date];
     //算出距离明天早上还有多少秒
-    _dateTimer = [NSTimer scheduledTimerWithTimeInterval:60 * 60 target:self selector:@selector(updateCalendar:) userInfo:nil repeats:YES];
+    int64_t tomarrroInterval = 24 * 60 * 60 - [NSDate date].hour * 60 * 60 - [NSDate date].minute * 60 - [NSDate date].second;
+    _dateTimer = [NSTimer scheduledTimerWithTimeInterval:tomarrroInterval target:self selector:@selector(updateCalendar:) userInfo:nil repeats:YES];
     _userManager = [UserManager manager];
     _calendarFetchedResultsController = [_userManager createCalendarFetchedResultsController];
     _calendarFetchedResultsController.delegate = self;
@@ -58,9 +57,8 @@
     [_userManager addCalendarNotfition];
 }
 - (void)updateCalendar:(NSTimer*)timer {
-    if([NSDate date].day == _updateDate.day) return;
     _todayFinishCount = _todayNoFinishCount = _weekFinishCount = _weekNoFinishCount = 0;
-    _updateDate = [NSDate date];
+    _dateTimer = [NSTimer scheduledTimerWithTimeInterval:24 * 60 * 60 target:self selector:@selector(updateCalendar:) userInfo:nil repeats:YES];
     //给这几个数字填充值
     [self getCurrCount];
     //添加动画

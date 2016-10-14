@@ -36,7 +36,7 @@
         face.definesPresentationContext = YES;
         face.modalPresentationStyle = UIModalPresentationOverCurrentContext;
         [self presentViewController:face animated:NO completion:nil];
-    } else {//分享
+    } else {//加入自己的圈子
         [self.navigationController.view showLoadingTips:@""];
         [UserHttp getInviteURL:_userManager.user.user_no companyNo:_userManager.user.currCompany.company_no handler:^(id data, MError *error) {
             [self.navigationController.view dismissTips];

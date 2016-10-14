@@ -79,13 +79,13 @@
     _userFetchedResultsController.delegate = self;
     _siginListFetchedResultsController = [_userManager createSigInListFetchedResultsController:employee.employee_guid];
     _siginListFetchedResultsController.delegate = self;
+    //展示今天的签到记录
+    _todaySigInArr = [_userManager getTodaySigInListGuid:employee.employee_guid];
     self.todatSiginNumber.text = [NSString stringWithFormat:@"今日已签到%ld次",_todaySigInArr.count];
     _noDataView = [[NoResultView alloc] initWithFrame:self.tableView.bounds];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.showsVerticalScrollIndicator = NO;
-    //展示今天的签到记录
-    _todaySigInArr = [_userManager getTodaySigInListGuid:employee.employee_guid];
     if(_todaySigInArr.count)
         self.tableView.tableFooterView = [UIView new];
     else
