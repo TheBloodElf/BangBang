@@ -57,6 +57,22 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    for (UIGestureRecognizer *gr in self.navigationController.view.gestureRecognizers) {
+        //找到全屏左滑返回手势
+        if([gr isKindOfClass:[UIScreenEdgePanGestureRecognizer class]]) {
+            //去掉自带的
+            [self.navigationController.view removeGestureRecognizer:gr];
+            //重新加一个
+            UIScreenEdgePanGestureRecognizer *edge = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(screenPanClicked:)];
+            edge.edges = UIRectEdgeLeft;
+            [self.navigationController.view addGestureRecognizer:edge];
+        }
+    }
+}
+- (void)screenPanClicked:(UIScreenEdgePanGestureRecognizer*)segr {
+    if(segr.state == UIGestureRecognizerStateBegan)
+       //自定义行为
+       [self.navigationController popToRootViewControllerAnimated:YES];
 }
 //新消息开关被点击
 - (void)messageClicked:(UISwitch*)sw

@@ -16,7 +16,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.buttonImage.layer.cornerRadius = 2;
+    self.buttonImage.layer.cornerRadius = 1;
     self.buttonImage.clipsToBounds = YES;
     // Initialization code
 }
@@ -25,7 +25,7 @@
     self.buttonImage.backgroundColor = [UIColor whiteColor];
     //如果是过去的时间，就是灰色
     if(model.isDidDate == YES){
-        self.buttonImage.backgroundColor = [UIColor darkGrayColor];
+        self.buttonImage.backgroundColor = [UIColor colorWithRed:195/255.f green:195/255.f blue:195/255.f alpha:1];
     }
     //用户选择的时间为绿色
     if(model.isUserSelectDate == YES) {

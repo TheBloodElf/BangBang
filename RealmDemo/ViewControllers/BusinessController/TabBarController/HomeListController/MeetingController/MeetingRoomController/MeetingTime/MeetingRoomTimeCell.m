@@ -45,7 +45,7 @@
     self.timeCollectionView.delegate = self;
     self.timeCollectionView.dataSource = self;
     [self.timeCollectionView registerNib:[UINib nibWithNibName:@"MeetingRoomTimeCollectionCell" bundle:nil] forCellWithReuseIdentifier:@"MeetingRoomTimeCollectionCell"];
-    self.collFlowLayout.itemSize = CGSizeMake((MAIN_SCREEN_WIDTH - 60) / 7.f, (MAIN_SCREEN_WIDTH - 60) / 7.f - 1);
+    self.collFlowLayout.itemSize = CGSizeMake((MAIN_SCREEN_WIDTH - 60) / 7.f, (MAIN_SCREEN_WIDTH - 60) / 7.f-0.1);
     self.collFlowLayout.minimumLineSpacing = 0;
     self.collFlowLayout.minimumInteritemSpacing = 0;
     // Initialization code
@@ -120,11 +120,11 @@
                         if(cellModel.end.timeIntervalSince1970 == (model.end/1000)) {
                             pointLeftBottom = [cell convertRect:cell.bounds toView:_timeCollectionView].origin;
                             //开始画标签
-                            CGRect currMeetRect = CGRectMake(pointLeftTop.x + 2, pointLeftTop.y + 2, cellWidth - 4, pointLeftBottom.y - pointLeftTop.y + cellWidth - 4);
+                            CGRect currMeetRect = CGRectMake(pointLeftTop.x + 0.5, pointLeftTop.y + 0.5, cellWidth - 1, pointLeftBottom.y - pointLeftTop.y + cellWidth - 1);
                             UILabel *meetLabel = [[UILabel alloc] initWithFrame:currMeetRect];
-                            meetLabel.backgroundColor = [UIColor siginColor];
+                            meetLabel.backgroundColor = [UIColor colorWithRed:255/255.f green:185/255.f blue:15/255.f alpha:1];
                             meetLabel.numberOfLines = 0;
-                            meetLabel.layer.cornerRadius = 2;
+                            meetLabel.layer.cornerRadius = 1;
                             meetLabel.clipsToBounds = YES;
                             meetLabel.textAlignment = NSTextAlignmentCenter;
                             meetLabel.font = [UIFont systemFontOfSize:14];
