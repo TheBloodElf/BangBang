@@ -103,6 +103,12 @@
     [IdentityManager manager].identity.deviceIDAPNS = currDeviceToken;
     [[IdentityManager manager] saveAuthorizeData];
 }
+//后台刷新数据
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    /// Background Fetch 恢复SDK 运行
+    [GeTuiSdk resume];
+    completionHandler(UIBackgroundFetchResultNewData);
+}
 //收到本地推送 上下班、任务提醒等
 -(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification  {
     //交给管理器去处理

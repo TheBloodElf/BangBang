@@ -37,7 +37,8 @@
     }
     [self.finishAvater sd_setImageWithURL:[NSURL URLWithString:lastEmployee.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
     self.finishName.text = lastEmployee.real_name;
-    NSDate *finishDate = [NSDate dateWithTimeIntervalSince1970:taskModel.updatedon_utc];
+    //算出时间
+    NSDate *finishDate = [NSDate dateWithTimeIntervalSince1970:taskModel.updatedon_utc / 1000];
     self.finishTime.text = [NSString stringWithFormat:@"%d-%d-%d",finishDate.year,finishDate.month,finishDate.day];
     NSMutableAttributedString *finishStr;
     if(taskModel.status == 1) {//新建
