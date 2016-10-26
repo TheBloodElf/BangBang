@@ -10,6 +10,7 @@
 #import "UserManager.h"
 #import "TodayCalendarModel.h"
 #import "LineProgressLayer.h"
+#import "UserHttp.h"
 
 @interface CalendarView ()<RBQFetchedResultsControllerDelegate> {
     int _todayFinishCount;//今天完成数
@@ -169,6 +170,13 @@
             [todayCalendarArr addObject:model];
             _todayNoFinishCount ++;
         } else {//重复的要加上经过自己一天的
+            if(tempCalendar.begindate_utc == 1475893303000) {
+                [UserHttp deleteUserCalendar:tempCalendar.id handler:^(id data, MError *error) {
+                    tempCalendar.status = 0;
+                    [_userManager updateCalendar:tempCalendar];
+                }];
+                continue;
+            }
             if (tempCalendar.rrule.length > 0&&tempCalendar.r_begin_date_utc >0&&tempCalendar.r_end_date_utc>0) {
                 Scheduler * s = [[Scheduler alloc] initWithDate:[NSDate dateWithTimeIntervalSince1970:tempCalendar.begindate_utc/1000] andRule:tempCalendar.rrule];
                 //得到所有的时间
@@ -214,6 +222,13 @@
                 else
                     _weekFinishCount ++;
             } else {//重复的要加上经过自己一天的
+                if(tempCalendar.begindate_utc == 1475893303000) {
+                    [UserHttp deleteUserCalendar:tempCalendar.id handler:^(id data, MError *error) {
+                        tempCalendar.status = 0;
+                        [_userManager updateCalendar:tempCalendar];
+                    }];
+                    continue;
+                }
                 if (tempCalendar.rrule.length > 0&&tempCalendar.r_begin_date_utc >0&&tempCalendar.r_end_date_utc>0) {
                     Scheduler * s = [[Scheduler alloc] initWithDate:[NSDate dateWithTimeIntervalSince1970:tempCalendar.begindate_utc/1000] andRule:tempCalendar.rrule];
                     //得到所有的时间

@@ -44,18 +44,18 @@
     [AppCustoms customs];
     //设置融云代理
     [[RYChatManager shareInstance] registerRYChat];
-    //要求定位权限
+    //要求在使用时获取定位权限
     _locationManager = [CLLocationManager new];
     _locationManager.delegate = self;
-    [_locationManager requestAlwaysAuthorization];
+    [_locationManager requestWhenInUseAuthorization];
     //清空应用红点
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-    //注册远程推送
-    [[ApnsManager manager] registerNotification];
     //创建根视图控制器
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.rootViewController = [MainViewController new];
     [self.window makeKeyAndVisible];
+    //注册远程推送
+    [[ApnsManager manager] registerNotification];
     //注册3d touch功能
     [self start3DTouch:launchOptions];
     return YES;
@@ -91,6 +91,15 @@
     }
     return [TencentOAuth HandleOpenURL:url] || [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]] || [WeiboSDK handleOpenURL:url delegate:[WBApiManager shareManager]];
 }
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error  {
+    //向个推服务器注册deviceToken
+    [[GeTuiSdkManager manager] registerDeviceToken:@""];
+    //注册融云推送
+    [[RCIMClient sharedRCIMClient] setDeviceToken:@""];
+    //保存deviceToken在本地
+    [IdentityManager manager].identity.deviceIDAPNS = @"";
+    [[IdentityManager manager] saveAuthorizeData];
+}
 //收到推送token
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
@@ -109,11 +118,23 @@
     [GeTuiSdk resume];
     completionHandler(UIBackgroundFetchResultNewData);
 }
-//收到本地推送 上下班、任务提醒等
+//收到本地推送 上下班、任务提醒等本地推送
 -(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification  {
     //交给管理器去处理
     [[ApnsManager manager] application:application didReceiveLocalNotification:notification];
 }
+//点击本地推送的action触发
+//- (void)application:(UIApplication *)application handleActionWithIdentifier:(nullable NSString *)identifier forLocalNotification:(UILocalNotification *)notification completionHandler:(void(^)())completionHandler {
+//}
+//收到远程推送
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    
+}
+//点击远程推送的action触发
+//- (void)application:(UIApplication *)application handleActionWithIdentifier:(nullable NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void(^)())completionHandler {
+//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"推送action：%@",userInfo] message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
+//    [alertView show];
+//}
 //注册3D TOUCH
 - (void)start3DTouch:(NSDictionary *)launchOptions {
     if([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0f) {

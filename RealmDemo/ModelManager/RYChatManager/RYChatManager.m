@@ -43,6 +43,7 @@
     // 快速集成第一步，初始化融云SDK
     [[RCIM sharedRCIM] initWithAppKey:RONGCLOUD_IM_APPKEY];
     //设置会话列表头像和会话界面头像
+    [[RCIM sharedRCIM] setGlobalMessageAvatarStyle:RC_USER_AVATAR_CYCLE];
     [RCIM sharedRCIM].globalConversationPortraitSize = CGSizeMake(43, 43);
     //设置用户信息源和群组信息源
     [RCIM sharedRCIM].userInfoDataSource = self;

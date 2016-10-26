@@ -24,7 +24,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _userManager = [UserManager manager];
-    [self setMessageAvatarStyle:RC_USER_AVATAR_CYCLE];
     self.chatSessionInputBarControl.delegate = self;
     NSString *nameStr = @"ic_group";
     if(self.conversationType == ConversationType_PRIVATE) {

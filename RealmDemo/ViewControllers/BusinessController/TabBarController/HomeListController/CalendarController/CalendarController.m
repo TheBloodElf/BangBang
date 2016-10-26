@@ -198,7 +198,6 @@
             }
         } else {//如果是重复的日程
         Scheduler * scheduler = [[Scheduler alloc] initWithDate:[NSDate dateWithTimeIntervalSince1970:tempCalendar.begindate_utc/1000] andRule:tempCalendar.rrule];
-        if([NSString isBlank:tempCalendar.rrule]) continue;
         NSArray * occurences = [scheduler occurencesBetween:[NSDate dateWithTimeIntervalSince1970:tempCalendar.r_begin_date_utc/1000] andDate:[NSDate dateWithTimeIntervalSince1970:tempCalendar.r_end_date_utc/1000]];
             //每个时间都遍历一次
             for (NSDate *tempDate in occurences) {
@@ -310,6 +309,8 @@
         for (NSDictionary *dic in data[@"list"]) {
             Calendar *calendar = [Calendar new];
             [calendar mj_setKeyValues:dic];
+            #warning 这里暂时处理一下，不知道怎么被修改的
+            calendar.rrule = [calendar.rrule stringByReplacingOccurrencesOfString:@":" withString:@""];
             calendar.descriptionStr = dic[@"description"];
             [array addObject:calendar];
         }

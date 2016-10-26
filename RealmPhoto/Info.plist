@@ -36,5 +36,9 @@
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.photo-editing</string>
 	</dict>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>gamekit</string>
+	</array>
 </dict>
 </plist>

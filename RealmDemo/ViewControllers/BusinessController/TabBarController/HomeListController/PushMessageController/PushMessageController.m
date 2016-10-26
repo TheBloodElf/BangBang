@@ -53,6 +53,8 @@
         }
     }
     [self.view addSubview:_searchBar];
+    //创建空太图
+    _noDataView = [[NoResultView alloc] initWithFrame:_tableView.bounds];
     //创建导航栏
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"标记" style:UIBarButtonItemStylePlain target:self action:@selector(biaojiClicked:)];
     // Do any additional setup after loading the view.
@@ -176,6 +178,10 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [self.searchBar endEditing:YES];
     [self searchDataFormLoc];
+    if(_pushMessageArr.count == 0)
+        self.tableView.tableFooterView = _noDataView;
+    else
+        self.tableView.tableFooterView = [UIView new];
     [self.tableView reloadData];
 }
 #pragma mark --

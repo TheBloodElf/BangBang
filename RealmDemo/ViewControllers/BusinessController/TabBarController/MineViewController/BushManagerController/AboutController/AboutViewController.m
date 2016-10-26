@@ -52,10 +52,13 @@
             [self.navigationController.view showFailureTips:error.statsMsg];
             return ;
         }
-        NSString *appStoreVersion = data;
-        NSString *currVersion = [IdentityManager manager].identity.lastSoftVersion;
+        NSArray *appStoreVersionArr = [data componentsSeparatedByString:@"."];
+        NSArray *currVersionArr = [[IdentityManager manager].identity.lastSoftVersion componentsSeparatedByString:@"."];
+        //转成为唯一整数
+        int appStoreNumber = [appStoreVersionArr[0] intValue] * 10000 + [appStoreVersionArr[1] intValue] * 100 + [appStoreVersionArr[2] intValue];
+        int currNumber = [currVersionArr[0] intValue] * 10000 + [currVersionArr[1] intValue] * 100 + [currVersionArr[2] intValue];
         //比较版本号是否一样
-        if([appStoreVersion isEqualToString:currVersion]) {
+        if(currNumber >= appStoreNumber) {
             UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"当前已是最新版本，无需更新" message:nil preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
             [alertVC addAction:okAction];
@@ -66,7 +69,7 @@
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=979426412&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"]];
             }];
             [alertVC addAction:okAction];
-            UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"稍后" style:UIAlertActionStyleCancel handler:nil];
             [alertVC addAction:cancleAction];
             [self presentViewController:alertVC animated:YES completion:nil];
         }

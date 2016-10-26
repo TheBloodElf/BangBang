@@ -51,6 +51,14 @@
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
     [self.view endEditing:YES];
+    if([NSString isBlank:_currCalendar.event_name]) {
+        [self.navigationController.view showMessageTips:@"请填写事务名称"];
+        return;
+    }
+    if(_currCalendar.enddate_utc < _currCalendar.begindate_utc) {
+        [self.navigationController.view showMessageTips:@"开始时间不能晚于结束时间"];
+        return;
+    }
     //修改日程
     [UserHttp updateUserCalendar:_currCalendar handler:^(id data, MError *error) {
         [self.navigationController.view dismissTips];
@@ -87,6 +95,8 @@
     select.datePickerMode = _currCalendar.is_allday ? UIDatePickerModeDate : UIDatePickerModeDateAndTime;
     select.selectDateBlock = ^(NSDate *date) {
         _currCalendar.begindate_utc = [date timeIntervalSince1970] * 1000;
+        //结束时间自动加30分钟
+        _currCalendar.enddate_utc = [date timeIntervalSince1970] * 1000 + 1000 * 30 * 60;
         _comCalendarView.data = _currCalendar;
     };
     select.providesPresentationContextTransitionStyle = YES;

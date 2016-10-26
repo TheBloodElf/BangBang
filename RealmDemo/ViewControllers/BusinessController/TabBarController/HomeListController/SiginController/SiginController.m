@@ -77,7 +77,7 @@
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
     _userFetchedResultsController = [_userManager createUserFetchedResultsController];
     _userFetchedResultsController.delegate = self;
-    _siginListFetchedResultsController = [_userManager createSigInListFetchedResultsController:employee.employee_guid];
+    _siginListFetchedResultsController = [_userManager createSigInListFetchedResultsController];
     _siginListFetchedResultsController.delegate = self;
     //展示今天的签到记录
     _todaySigInArr = [_userManager getTodaySigInListGuid:employee.employee_guid];

@@ -658,13 +658,9 @@
     return pushMessageArr;
 }
 //创建日程数据监听
-- (RBQFetchedResultsController*)createSigInListFetchedResultsController:(NSString*)employeeGuid {
+- (RBQFetchedResultsController*)createSigInListFetchedResultsController {
     RBQFetchedResultsController *fetchedResultsController = nil;
-    NSDate *date = [NSDate date];
-    int64_t dateFirstTime = date.firstTime.timeIntervalSince1970 * 1000;
-    int64_t dateLastTime = date.lastTime.timeIntervalSince1970 * 1000;
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(employee_guid = %@ and create_on_utc >= %lld and create_on_utc <= %lld)",employeeGuid,dateFirstTime,dateLastTime];
-    RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"SignIn" inRealm:_rlmRealm predicate:predicate];
+    RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"SignIn" inRealm:_rlmRealm predicate:nil];
     fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:nil];
     [fetchedResultsController performFetch];
     return fetchedResultsController;

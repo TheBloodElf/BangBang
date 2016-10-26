@@ -112,6 +112,13 @@
 }
 - (void)segmentClicked:(UISegmentedControl*)seControl {
     [_bottomScrollView setContentOffset:CGPointMake(seControl.selectedSegmentIndex * _bottomScrollView.frame.size.width, 0) animated:YES];
+    if(seControl.selectedSegmentIndex == 0) {
+        _currCalendar.repeat_type = 0;
+        _currCalendar.rrule = @"";
+    } else {
+        _currCalendar.repeat_type = 1;
+        _currCalendar.rrule = @"FREQ=DAILY;INTERVAL=1";
+    }
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
     [self.view endEditing:YES];
@@ -180,6 +187,8 @@
     select.datePickerMode = UIDatePickerModeTime;
     select.selectDateBlock = ^(NSDate *date) {
         _currCalendar.begindate_utc = [date timeIntervalSince1970] * 1000;
+        //结束时间自动加30分钟
+        _currCalendar.enddate_utc = [date timeIntervalSince1970] * 1000 + 1000 * 30 * 60;
         _repCalendarView.data = _currCalendar;
     };
     select.providesPresentationContextTransitionStyle = YES;

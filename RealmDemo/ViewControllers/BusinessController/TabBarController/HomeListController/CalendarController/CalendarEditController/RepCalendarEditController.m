@@ -56,6 +56,29 @@
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
     [self.view endEditing:YES];
+    if([NSString isBlank:_calendar.event_name]) {
+        [self.navigationController.view showMessageTips:@"请填写事务名称"];
+        return;
+    }
+    if(_calendar.r_end_date_utc < _calendar.r_begin_date_utc) {
+        [self.navigationController.view showMessageTips:@"重复开始时间不能晚于重复结束时间"];
+        return;
+    }
+    Scheduler * s = [[Scheduler alloc] initWithDate:[NSDate dateWithTimeIntervalSince1970:_calendar.begindate_utc/1000] andRule:_calendar.rrule];
+    //得到所有的时间 起始时间不会算在里面（*）
+    NSArray * occurences = [s occurencesBetween:[NSDate dateWithTimeIntervalSince1970:_calendar.r_begin_date_utc/1000] andDate:[NSDate dateWithTimeIntervalSince1970:_calendar.r_end_date_utc/1000]];
+    int count = occurences.count;
+    if(count == 0) {
+        [self.navigationController.view showMessageTips:@"重复间隔应小于重复时间段"];
+        return;
+    }
+    NSDate *firstDate = occurences[0];
+    if(firstDate.timeIntervalSince1970 < (_calendar.r_begin_date_utc / 1000))
+        count -- ;
+    if(count == 0) {
+        [self.navigationController.view showMessageTips:@"重复间隔应小于重复时间段"];
+        return;
+    }
     //修改日程
     [UserHttp updateUserCalendar:_calendar handler:^(id data, MError *error) {
         [self.navigationController.view dismissTips];
@@ -90,6 +113,8 @@
     select.datePickerMode = UIDatePickerModeTime;
     select.selectDateBlock = ^(NSDate *date) {
         _calendar.begindate_utc = [date timeIntervalSince1970] * 1000;
+        //结束时间自动加30分钟
+        _calendar.enddate_utc = [date timeIntervalSince1970] * 1000 + 1000 * 30 * 60;
         _repCalendarView.data = _calendar;
     };
     select.providesPresentationContextTransitionStyle = YES;

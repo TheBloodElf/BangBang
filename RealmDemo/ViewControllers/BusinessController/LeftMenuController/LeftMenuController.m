@@ -32,10 +32,8 @@
     _userManager  = [UserManager manager];
     //创建数据监听
     _commpanyFetchedResultsController = [_userManager createCompanyFetchedResultsController];
-    _commpanyFetchedResultsController.data = @"commpanyFetchedResultsController";
     _commpanyFetchedResultsController.delegate = self;
     _userFetchedResultsController = [_userManager createUserFetchedResultsController];
-    _userFetchedResultsController.data = @"userFetchedResultsController";
     _userFetchedResultsController.delegate = self;
     _companyArr = [@[] mutableCopy];
     //设置圈子信息 只显示自己状态为1或者4的
@@ -61,7 +59,7 @@
 #pragma mark --
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
-    if([controller.data isEqualToString:@"userFetchedResultsController"]) {
+    if(controller == _userFetchedResultsController) {
         [self.avaterImageView sd_setImageWithURL:[NSURL URLWithString:_userManager.user.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
         self.userName.text = _userManager.user.real_name;
         self.userMood.text = _userManager.user.mood;

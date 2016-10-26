@@ -41,6 +41,13 @@
     self.searchBar.placeholder = @"使用圈子名称搜索圈子";
     self.searchBar.text = @"琅拓科";
     self.searchBar.returnKeyType = UIReturnKeySearch;
+    [self.searchBar setSearchBarBackgroundColor:[UIColor colorWithRed:247 / 255.f green:247 / 255.f blue:247 / 255.f alpha:1]];
+    for(UIView * view in [_searchBar.subviews[0] subviews]) {
+        if([view isKindOfClass:[UITextField class]]) {
+            [(UITextField*)view setEnablesReturnKeyAutomatically:NO];
+            break;
+        }
+    }
     [self.view addSubview:self.searchBar];
     //创建表格视图
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,  55, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 55) style:UITableViewStylePlain];
@@ -83,7 +90,7 @@
     }
     WeakSelf(weakSelf)
     [UserHttp getCompanyList:self.searchBar.text pageSize:20 pageIndex:currentPage handler:^(id data, MError *error) {
-        if(_tableView.mj_footer != _noDataView)
+        if(_tableView.mj_footer != (id)_noDataView)
             [_tableView.mj_footer endRefreshing];
         [_tableView.mj_header endRefreshing];
         if(error) {
@@ -102,6 +109,7 @@
         if(_companyArr.count == 0) {
             _tableView.tableFooterView = _noDataView;
         } else {
+            _tableView.tableFooterView = [UIView new];
             _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
                 currentPage ++;
                 [weakSelf search];

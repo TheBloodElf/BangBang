@@ -51,7 +51,7 @@
     [GeTuiSdk bindAlias:@(_userManager.user.user_no).stringValue];
     [UserHttp setupAPNSDevice:clientId userNo:_userManager.user.user_no handler:^(id data, MError *error) {}];
 }
--(void)GeTuiSdkDidReceivePayload:(NSString *)payloadId andTaskId:(NSString *)taskId andMessageId:(NSString *)aMsgId andOffLine:(BOOL)offLine fromApplication:(NSString *)appId {
+- (void)GeTuiSdkDidReceivePayloadData:(NSData *)payloadData andTaskId:(NSString *)taskId andMsgId:(NSString *)msgId andOffLine:(BOOL)offLine fromGtAppId:(NSString *)appId {
     if([IdentityManager manager].identity.canPlayVoice) {//声音
         AudioServicesPlaySystemSound(1007);
     }
@@ -59,7 +59,7 @@
         AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
     [UIApplication sharedApplication].applicationIconBadgeNumber -= 1;
     //在这里处理个推推送
-    NSData* payload = [GeTuiSdk retrivePayloadById:payloadId];
+    NSData* payload = payloadData;
     NSString *payloadMsg = nil;
     if (payload) {
         payloadMsg = [[NSString alloc] initWithBytes:payload.bytes

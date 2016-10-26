@@ -160,6 +160,7 @@
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     selectedRow = indexPath.row;
     [_mapView removeAnnotation:currentPOIAnnotation];
     //选中的地址改变了 刷新标注

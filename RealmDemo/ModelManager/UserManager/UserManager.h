@@ -109,7 +109,7 @@
 //获取今天的签到记录
 - (NSMutableArray<SignIn*>*)getTodaySigInListGuid:(NSString*)employeeGuid;
 //创建日程数据监听
-- (RBQFetchedResultsController*)createSigInListFetchedResultsController:(NSString*)employeeGuid;
+- (RBQFetchedResultsController*)createSigInListFetchedResultsController;
 #pragma mark -- SiginRuleSet
 //更新签到规则
 - (void)updateSiginRule:(SiginRuleSet*)siginRule;

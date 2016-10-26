@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -257,6 +257,11 @@
 		1B0388951D509DF800D0B7D0 /* TaskRemindCellCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B0388931D509DF800D0B7D0 /* TaskRemindCellCell.xib */; };
 		1B03E8FF1D4075EF00FB6E1E /* RepCalendarDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B03E8FE1D4075EF00FB6E1E /* RepCalendarDetailController.m */; };
 		1B03E9081D4078E400FB6E1E /* ComCalendarDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B03E9071D4078E400FB6E1E /* ComCalendarDetailViewController.m */; };
+		1B0509F31DC0851200D2F99F /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B0509F21DC0851200D2F99F /* GameKit.framework */; };
+		1B0509F51DC0852700D2F99F /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B0509F41DC0852700D2F99F /* StoreKit.framework */; };
+		1B0509F61DC0855E00D2F99F /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B0509F21DC0851200D2F99F /* GameKit.framework */; };
+		1B0509F71DC0859E00D2F99F /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B0509F21DC0851200D2F99F /* GameKit.framework */; };
+		1B0509F81DC085AC00D2F99F /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B0509F21DC0851200D2F99F /* GameKit.framework */; };
 		1B0591D21D66B0ED0090B4D2 /* add_schedule.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B0591CF1D66B0ED0090B4D2 /* add_schedule.png */; };
 		1B0591D31D66B0ED0090B4D2 /* add_schedule@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B0591D01D66B0ED0090B4D2 /* add_schedule@2x.png */; };
 		1B0591D41D66B0ED0090B4D2 /* add_schedule@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B0591D11D66B0ED0090B4D2 /* add_schedule@3x.png */; };
@@ -1291,6 +1296,9 @@
 		1B03E8FE1D4075EF00FB6E1E /* RepCalendarDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepCalendarDetailController.m; sourceTree = "<group>"; };
 		1B03E9061D4078E400FB6E1E /* ComCalendarDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComCalendarDetailViewController.h; sourceTree = "<group>"; };
 		1B03E9071D4078E400FB6E1E /* ComCalendarDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComCalendarDetailViewController.m; sourceTree = "<group>"; };
+		1B0509F11DC084CB00D2F99F /* 帮帮管理助手.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "帮帮管理助手.entitlements"; sourceTree = "<group>"; };
+		1B0509F21DC0851200D2F99F /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		1B0509F41DC0852700D2F99F /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		1B0591CF1D66B0ED0090B4D2 /* add_schedule.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_schedule.png; sourceTree = "<group>"; };
 		1B0591D01D66B0ED0090B4D2 /* add_schedule@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_schedule@2x.png"; sourceTree = "<group>"; };
 		1B0591D11D66B0ED0090B4D2 /* add_schedule@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_schedule@3x.png"; sourceTree = "<group>"; };
@@ -1559,7 +1567,6 @@
 		1B381DF51D6ED7AB00644147 /* VoiceSearchFeedback020@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "VoiceSearchFeedback020@2x.png"; sourceTree = "<group>"; };
 		1B42B5151D61BA6400393A85 /* TaskFinishState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskFinishState.h; sourceTree = "<group>"; };
 		1B42B5161D61BA6400393A85 /* TaskFinishState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskFinishState.m; sourceTree = "<group>"; };
-		1B4686301D4EEBFE00F3C068 /* 帮帮管理助手.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "帮帮管理助手.entitlements"; sourceTree = "<group>"; };
 		1B4686311D4EEC0C00F3C068 /* RealmShare.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = RealmShare.entitlements; sourceTree = "<group>"; };
 		1B4686351D4EF31D00F3C068 /* Identity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Identity.h; sourceTree = "<group>"; };
 		1B4686361D4EF31D00F3C068 /* Identity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Identity.m; sourceTree = "<group>"; };
@@ -2201,6 +2208,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				472366F962A662ECAFC40E17 /* libPods-RealmShare.a in Frameworks */,
+				1B0509F71DC0859E00D2F99F /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2208,6 +2216,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B0509F61DC0855E00D2F99F /* GameKit.framework in Frameworks */,
 				1B0CF79B1D64384E00096CF9 /* PhotosUI.framework in Frameworks */,
 				1B0CF79C1D64384E00096CF9 /* Photos.framework in Frameworks */,
 			);
@@ -2218,9 +2227,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				1BC008371D646445004A6FA5 /* MobileCoreServices.framework in Frameworks */,
+				1B0509F51DC0852700D2F99F /* StoreKit.framework in Frameworks */,
 				1BF3FD251D5AD25200026351 /* Photos.framework in Frameworks */,
 				1BF5DFC31D49A89A0039704E /* Foundation.framework in Frameworks */,
 				1B0EDD6F1D88EB0A00B0B4D0 /* Reveal.framework in Frameworks */,
+				1B0509F31DC0851200D2F99F /* GameKit.framework in Frameworks */,
 				1BFBC1601D3F2BE300A5511A /* EventKit.framework in Frameworks */,
 				1B6D166C1D48AA730070D2E5 /* TencentOpenAPI.framework in Frameworks */,
 				1B6D16811D48AA8A0070D2E5 /* libWeChatSDK.a in Frameworks */,
@@ -2237,6 +2248,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1BEAD31C1D62F14700B8C3FD /* NotificationCenter.framework in Frameworks */,
+				1B0509F81DC085AC00D2F99F /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4593,7 +4605,7 @@
 		1B877F141D178E7D000144B2 /* RealmDemo */ = {
 			isa = PBXGroup;
 			children = (
-				1B4686301D4EEBFE00F3C068 /* 帮帮管理助手.entitlements */,
+				1B0509F11DC084CB00D2F99F /* 帮帮管理助手.entitlements */,
 				0471C0971D3BBA6000377178 /* Readme.md */,
 				1B1F3E291D92880B00F9B099 /* notification_ring.mp3 */,
 				1B47D77C1D6C3F2000837BFD /* RealmJs.js */,
@@ -5373,6 +5385,8 @@
 		AE1CB48D1985A705EE5EEAD9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1B0509F41DC0852700D2F99F /* StoreKit.framework */,
+				1B0509F21DC0851200D2F99F /* GameKit.framework */,
 				1B0EDD6E1D88EB0A00B0B4D0 /* Reveal.framework */,
 				1BC008361D646445004A6FA5 /* MobileCoreServices.framework */,
 				1BF3FD241D5AD25200026351 /* Photos.framework */,
@@ -5488,12 +5502,23 @@
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
 							};
+							com.apple.GameCenter = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 0;
+							};
 						};
 					};
 					1B0CF7991D64384E00096CF9 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = W488V5C95D;
 						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.GameCenter = {
+								enabled = 1;
+							};
+						};
 					};
 					1B877F111D178E7D000144B2 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -5503,8 +5528,17 @@
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
 							};
+							com.apple.GameCenter = {
+								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
 							com.apple.iCloud = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -5516,12 +5550,15 @@
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
 							};
+							com.apple.GameCenter = {
+								enabled = 1;
+							};
 						};
 					};
 				};
 			};
 			buildConfigurationList = 1B877F0D1D178E7C000144B2 /* Build configuration list for PBXProject "RealmDemo" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -6508,7 +6545,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.lottak.BangBang.share;
 				PRODUCT_MODULE_NAME = RealmShare;
 				PRODUCT_NAME = RealmShare;
-				PROVISIONING_PROFILE = "3f282e38-78a6-4d78-8102-811a16b136b5";
+				PROVISIONING_PROFILE = "e1f78f73-73e6-458d-9be7-18376dde4869";
 				PROVISIONING_PROFILE_SPECIFIER = dev_bangbang_share;
 				SKIP_INSTALL = YES;
 			};
@@ -6546,7 +6583,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lottak.BangBang.RealmPhoto;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1815f9ca-3a57-4b43-995f-ce91b39b985d";
+				PROVISIONING_PROFILE = "56c2f68e-b834-427f-abf6-7cbcef9ac5a2";
 				PROVISIONING_PROFILE_SPECIFIER = dev_bangbang_photo;
 				SKIP_INSTALL = YES;
 			};
@@ -6761,7 +6798,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lottak.BangBang;
 				PRODUCT_NAME = "帮帮管理助手";
-				PROVISIONING_PROFILE = "f83c0dac-abe4-44db-9f35-7c378df1f1f7";
+				PROVISIONING_PROFILE = "8710ab9a-1c8c-4b4d-8c2e-63f34331772c";
 				PROVISIONING_PROFILE_SPECIFIER = dev_bangbang;
 			};
 			name = Debug;
@@ -6874,7 +6911,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lottak.BangBang;
 				PRODUCT_NAME = "帮帮管理助手";
-				PROVISIONING_PROFILE = "293b68c9-57d0-44e0-9a88-94e1e4dfba01";
+				PROVISIONING_PROFILE = "c307585a-fe3b-44e4-93d7-8cf55a02e011";
 				PROVISIONING_PROFILE_SPECIFIER = dis_bangbang;
 			};
 			name = Release;
@@ -6892,7 +6929,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lottak.BangBang.RealmToday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "caaa0ae9-bf8d-46df-aa2a-a4df40b14c99";
+				PROVISIONING_PROFILE = "19a36116-cdce-48b9-aead-cb8f2498281c";
 				PROVISIONING_PROFILE_SPECIFIER = dev_bangbang_today;
 				SKIP_INSTALL = YES;
 			};
@@ -6911,7 +6948,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lottak.BangBang.RealmToday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a6d2663d-6ba2-4601-a41f-9b31fae65580";
+				PROVISIONING_PROFILE = "1133299c-ccff-42ba-8b64-bd514403f5ab";
 				PROVISIONING_PROFILE_SPECIFIER = dis_bangbang_today;
 				SKIP_INSTALL = YES;
 			};
@@ -6927,7 +6964,7 @@
 				046DAF971D4C812D00718F2A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		1B0CF7A81D64384E00096CF9 /* Build configuration list for PBXNativeTarget "RealmPhoto" */ = {
 			isa = XCConfigurationList;
@@ -6936,7 +6973,7 @@
 				1B0CF7AA1D64384E00096CF9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		1B877F0D1D178E7C000144B2 /* Build configuration list for PBXProject "RealmDemo" */ = {
 			isa = XCConfigurationList;
@@ -6945,7 +6982,7 @@
 				1B877F281D178E7D000144B2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		1B877F291D178E7D000144B2 /* Build configuration list for PBXNativeTarget "RealmDemo" */ = {
 			isa = XCConfigurationList;
@@ -6954,7 +6991,7 @@
 				1B877F2B1D178E7D000144B2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		1BEAD3281D62F14700B8C3FD /* Build configuration list for PBXNativeTarget "RealmToday" */ = {
 			isa = XCConfigurationList;
@@ -6963,7 +7000,7 @@
 				1BEAD32A1D62F14700B8C3FD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
