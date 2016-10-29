@@ -446,7 +446,6 @@
         if(_siginImageArr.count == 0) {
             [self.navigationController.view dismissTips];
             [_userManager addSigin:_currSignIn];
-            [self.navigationController.view showSuccessTips:@"签到成功"];
             [self.navigationController popViewControllerAnimated:YES];
         } else {
             //进入上传图片逻辑
@@ -461,7 +460,6 @@
         [self.navigationController.view dismissTips];
         _currSignIn.attachments = [_siginImageNameArr componentsJoinedByString:@","];
         [_userManager addSigin:_currSignIn];
-        [self.navigationController.view showSuccessTips:@"签到成功"];
         [self.navigationController popViewControllerAnimated:YES];
     } else {
         //上传图片

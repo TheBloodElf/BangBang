@@ -58,7 +58,7 @@
         [_sureEquipmentsArr addObject:model];
     }
     //获取公共设备
-    [self.navigationController.view showLoadingTips:@"获取公共设备..."];
+    [self.navigationController.view showLoadingTips:@""];
     [UserHttp getMeetEquipments:_userManager.user.currCompany.company_no begin:_userSelectDate.begin.timeIntervalSince1970 * 1000 end:_userSelectDate.end.timeIntervalSince1970 * 1000 handler:^(id data, MError *error) {
         [self.navigationController.view dismissTips];
         if(error) {

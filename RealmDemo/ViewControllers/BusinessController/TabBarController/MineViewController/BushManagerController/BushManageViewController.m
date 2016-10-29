@@ -156,6 +156,7 @@
     UIStoryboard *story = [UIStoryboard storyboardWithName:@"MainStory" bundle:nil];
     BushDetailController *bushDetail = [story instantiateViewControllerWithIdentifier:@"BushDetailController"];
     bushDetail.data = _companyArr[indexPath.row];
+    
     [self.navigationController pushViewController:bushDetail animated:YES];
 }
 @end

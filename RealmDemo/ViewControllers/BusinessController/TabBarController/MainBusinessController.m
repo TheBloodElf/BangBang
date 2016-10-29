@@ -73,29 +73,6 @@
         [self getCompanySiginRule];//获取签到规则
         [self checkSyncCalender];//同步日程
     }];
-    //进应用就刷新一次任务 尽量保证数据是最新的
-    if(_userManager.user.currCompany.company_no != 0) {
-        //尽量保证任务是最新的
-        [self tongBuTask];
-    }
-}
-//同步任务
-- (void)tongBuTask {
-    Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
-    [UserHttp getTaskList:employee.employee_guid handler:^(id data, MError *error) {
-        if(error) {
-            [self.navigationController.view showFailureTips:error.statsMsg];
-            return ;
-        }
-        NSMutableArray<TaskModel*> *array = [@[] mutableCopy];
-        for (NSDictionary *dic in data[@"list"]) {
-            TaskModel *model = [TaskModel new];
-            [model mj_setKeyValues:dic];
-            model.descriptionStr = dic[@"description"];
-            [array addObject:model];
-        }
-        [_userManager updateTask:array companyNo:_userManager.user.currCompany.company_no];
-    }];
 }
 #pragma mark --
 #pragma mark -- 这里是需要有网就操作的

@@ -14,7 +14,7 @@
 //是否需要展示介绍页
 @property (nonatomic, assign) BOOL firstUseSoft;
 //是否需要展示引导页
-@property (nonatomic, assign) BOOL bootOfUse;
+//@property (nonatomic, assign) BOOL bootOfUse;
 //上一次软件的版本号
 @property (nonatomic, strong) NSString *lastSoftVersion;
 //请求接口的token

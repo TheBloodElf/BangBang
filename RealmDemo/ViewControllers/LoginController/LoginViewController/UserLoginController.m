@@ -178,7 +178,7 @@
                         _identityManager.identity.accessToken = accessToken;
                         [_identityManager saveAuthorizeData];
                         //登录
-                        [self.navigationController.view showLoadingTips:@"登录..."];
+                        [self.navigationController.view showLoadingTips:@""];
                         [IdentityHttp socialLogin:unionId media_type:2 token:accessToken expires_in:expiresWeixin client_type:@"ios" name:userName avatar_url:userAvatar handler:^(id data, MError *error) {
                             if(error) {
                                 [self.navigationController dismissTips];

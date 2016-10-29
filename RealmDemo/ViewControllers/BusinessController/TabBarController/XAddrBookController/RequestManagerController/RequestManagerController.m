@@ -115,7 +115,6 @@
                         [self.navigationController.view showFailureTips:error.statsMsg];
                         return ;
                     }
-                    [self.navigationController.view showSuccessTips:@"操作成功"];
                 }];
             } else {
                 [UserHttp quitRYGroup:employee.user_no companyNo:_userManager.user.currCompany.company_no handler:^(id data, MError *error) {
@@ -124,7 +123,6 @@
                         [self.navigationController.view showFailureTips:error.statsMsg];
                         return ;
                     }
-                    [self.navigationController.view showSuccessTips:@"操作成功"];
                 }];
             }
         }];
@@ -149,8 +147,6 @@
             Employee *tempEmployee = [employee deepCopy];
             tempEmployee.status = status;
             [_userManager updateEmployee:tempEmployee];
-            [self.navigationController.view showSuccessTips:@"操作成功"];
-            
         }];
     }];
     [alertVC addAction:okAction];

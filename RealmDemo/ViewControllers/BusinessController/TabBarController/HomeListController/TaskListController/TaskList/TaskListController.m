@@ -103,8 +103,6 @@
     _finish = [[FinishTaskView alloc] initWithFrame:CGRectMake(3 * _bottomScrollView.frame.size.width, 0, _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height)];
     _finish.delegate = self;
     [_bottomScrollView addSubview:_finish];
-    [self getCurrData];
-    
     //创建多选视图
     _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100, 0, 100, 80)];
     _moreSelectView.selectArr = @[@"添加任务",@"同步任务"];
@@ -119,7 +117,10 @@
     else//我负责的
         _topSegmentedControl.selectedSegmentIndex = 1;
     [self segmentedClicked:_topSegmentedControl];
-    [self getCurrData];
+    if([_userManager getTaskArr:_userManager.user.currCompany.company_no].count == 0)
+        [self tongBuTask];
+    else
+        [self getCurrData];
 }
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {

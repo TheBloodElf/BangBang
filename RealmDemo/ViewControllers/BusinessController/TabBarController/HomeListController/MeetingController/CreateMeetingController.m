@@ -157,7 +157,6 @@
         }
         if(self.createFinish)
             self.createFinish();
-        [self.navigationController.view showSuccessTips:@"创建成功"];
         [self.navigationController popViewControllerAnimated:YES];
     }];
 }

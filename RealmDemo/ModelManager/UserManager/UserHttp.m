@@ -524,7 +524,7 @@
 }
 //更新公司签到规则
 + (NSURLSessionDataTask*)updateSiginRule:(NSDictionary*)siginRule handler:(completionHandler)handler {
-    NSString *urlPath = @"Attendance/update_setting_v2";
+    NSString *urlPath = @"Attendance/update_setting_v3";
     NSMutableDictionary *params = [siginRule mutableCopy];
     [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
     completionHandler compleionHandler = ^(id data,MError *error) {
@@ -534,7 +534,7 @@
 }
 //添加公司签到规则
 + (NSURLSessionDataTask*)addSiginRule:(NSDictionary*)siginRule handler:(completionHandler)handler {
-    NSString *urlPath = @"Attendance/setting_v2";
+    NSString *urlPath = @"Attendance/setting_v3";
     NSMutableDictionary *params = [siginRule mutableCopy];
     [params setObject:[IdentityManager manager].identity.accessToken forKey:@"access_token"];
     completionHandler compleionHandler = ^(id data,MError *error) {

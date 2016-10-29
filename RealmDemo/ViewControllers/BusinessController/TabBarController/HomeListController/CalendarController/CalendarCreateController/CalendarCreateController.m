@@ -164,7 +164,6 @@
                 _currCalendar.updatedon_utc = [NSDate date].timeIntervalSince1970 * 1000;
                 [_userManager addCalendar:_currCalendar];
                 _currCalendar.finishedon_utc = [NSDate date].timeIntervalSince1970 * 1000;
-                [self.navigationController showSuccessTips:@"添加成功"];
                 [self.navigationController popViewControllerAnimated:YES];
                 return;
             }
@@ -175,7 +174,6 @@
         [calendar mj_setKeyValues:data];
         calendar.descriptionStr = data[@"description"];
         [_userManager addCalendar:calendar];
-        [self.navigationController showSuccessTips:@"添加成功"];
         [self.navigationController popViewControllerAnimated:YES];
     }];
 }

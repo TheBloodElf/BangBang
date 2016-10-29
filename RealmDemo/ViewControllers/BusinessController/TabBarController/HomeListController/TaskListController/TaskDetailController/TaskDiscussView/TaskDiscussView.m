@@ -40,6 +40,14 @@
         _currCommentModel.reply_employeename = @"";
         _taskCommentModelArr = [@[] mutableCopy];
         
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, self.frame.size.height - 48) style:UITableViewStylePlain];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        [_tableView registerNib:[UINib nibWithNibName:@"TaskOtherCommentCell" bundle:nil] forCellReuseIdentifier:@"TaskOtherCommentCell"];
+        _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+        _tableView.tableFooterView = [UIView new];
+        [self addSubview:_tableView];
+        
         _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, frame.size.height - 48, MAIN_SCREEN_WIDTH, 48)];
         _bottomView.userInteractionEnabled = YES;
         _bottomView.backgroundColor = [UIColor groupTableViewBackgroundColor];
@@ -80,25 +88,6 @@
 }
 - (void)dataDidChange {
     _taskModel = [self.data deepCopy];
-    [_tableView removeFromSuperview];
-    //任务没有接收不能讨论
-    if(_taskModel.status == 1) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, self.frame.size.height) style:UITableViewStylePlain];
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
-        [_tableView registerNib:[UINib nibWithNibName:@"TaskOtherCommentCell" bundle:nil] forCellReuseIdentifier:@"TaskOtherCommentCell"];
-        _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-        _tableView.tableFooterView = [UIView new];
-        [self addSubview:_tableView];
-    } else {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, self.frame.size.height - 48) style:UITableViewStylePlain];
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
-        [_tableView registerNib:[UINib nibWithNibName:@"TaskOtherCommentCell" bundle:nil] forCellReuseIdentifier:@"TaskOtherCommentCell"];
-        _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-        _tableView.tableFooterView = [UIView new];
-        [self addSubview:_tableView];
-    }
     _currCommentModel.task_id = _taskModel.id;
     _currCommentModel.task_status = _taskModel.status;
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_taskModel.company_no];

@@ -267,7 +267,6 @@
                     [_userManager deleteTaskDraft:model];
                 }
                 [self.navigationController.view dismissTips];
-                [self.navigationController.view showSuccessTips:@"创建成功"];
                 [self.navigationController popViewControllerAnimated:YES];
             }];
         } else {
@@ -276,7 +275,6 @@
                 [_userManager deleteTaskDraft:model];
             }
             [self.navigationController.view dismissTips];
-            [self.navigationController.view showSuccessTips:@"创建成功"];
             [self.navigationController popViewControllerAnimated:YES];
         }
     }];

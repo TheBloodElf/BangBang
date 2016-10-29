@@ -69,7 +69,6 @@
                     [self.navigationController.view showFailureTips:error.statsMsg];
                     return ;
                 }
-                [self.navigationController.view showSuccessTips:@"修改成功"];
                 [_userManager updateCompany:_currCompany];
                 //改变圈子详情的内容
                 Company *company = self.data;
@@ -87,7 +86,6 @@
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
-            [self.navigationController.view showSuccessTips:@"修改成功"];
             [_userManager updateCompany:_currCompany];
             //改变圈子详情的内容
             Company *company = self.data;

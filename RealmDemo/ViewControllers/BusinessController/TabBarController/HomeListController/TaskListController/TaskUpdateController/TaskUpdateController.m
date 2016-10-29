@@ -143,7 +143,6 @@
             [self.delegate taskUpdate:_taskModel];
         }
         [self.navigationController.view dismissTips];
-        [self.navigationController.view showSuccessTips:@"修改成功"];
         [self.navigationController popViewControllerAnimated:YES];
     }];
 }

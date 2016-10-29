@@ -108,7 +108,6 @@
                 if(error.statsCode == -1009) {
                     _calendar.needSync = YES;
                     [_userManager updateCalendar:_calendar];
-                    [self.navigationController.view showSuccessTips:@"完成成功"];
                     [self.navigationController popViewControllerAnimated:YES];
                     return ;
                 }
@@ -116,7 +115,6 @@
                 return ;
             }
             [_userManager updateCalendar:_calendar];
-            [self.navigationController.view showSuccessTips:@"完成成功"];
             [self.navigationController popViewControllerAnimated:YES];
         }];
     }];
@@ -131,7 +129,6 @@
                 if(error.statsCode == -1009) {
                     _calendar.needSync = YES;
                     [_userManager updateCalendar:_calendar];
-                    [self.navigationController.view showSuccessTips:@"完成成功"];
                     [self.navigationController popViewControllerAnimated:YES];
                     return ;
                 }
@@ -139,7 +136,6 @@
                 return ;
             }
             [_userManager updateCalendar:_calendar];
-            [self.navigationController.view showSuccessTips:@"完成成功"];
             [self.navigationController popViewControllerAnimated:YES];
         }];
     }];
@@ -164,7 +160,6 @@
                 if(error.statsCode == -1009) {
                     _calendar.needSync = YES;
                     [_userManager updateCalendar:_calendar];
-                    [self.navigationController.view showSuccessTips:@"删除成功"];
                     [self.navigationController popViewControllerAnimated:YES];
                     return ;
                 }
@@ -172,7 +167,6 @@
                 return ;
             }
             [_userManager updateCalendar:_calendar];
-            [self.navigationController.view showSuccessTips:@"删除成功"];
             [self.navigationController popViewControllerAnimated:YES];
         }];
     }];
@@ -186,7 +180,6 @@
                 if(error.statsCode == -1009) {
                     _calendar.needSync = YES;
                     [_userManager updateCalendar:_calendar];
-                    [self.navigationController.view showSuccessTips:@"删除成功"];
                     [self.navigationController popViewControllerAnimated:YES];
                     return ;
                 }
@@ -194,7 +187,6 @@
                 return ;
             }
             [_userManager updateCalendar:_calendar];
-            [self.navigationController.view showSuccessTips:@"删除成功"];
             [self.navigationController popViewControllerAnimated:YES];
         }];
     }];

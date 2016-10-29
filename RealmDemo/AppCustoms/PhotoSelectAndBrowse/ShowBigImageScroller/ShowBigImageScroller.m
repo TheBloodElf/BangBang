@@ -247,7 +247,7 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if(buttonIndex == 0) {
         UIImageWriteToSavedPhotosAlbum(self.photo.oiginalImage, nil, nil, nil);
-        [self showMessageTips:@"保存成功"];
+        [self showMessageTips:@"成功"];
     }
 }
 @end

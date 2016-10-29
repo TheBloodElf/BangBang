@@ -12,45 +12,45 @@
 /** 事务编号 为负数表示本地创建的 */
 @property (nonatomic, assign) int64_t id;
 /** 当前工作圈编号，如果没有输入0 */
-@property (nonatomic, assign) int  company_no;
+@property (nonatomic, assign) int company_no;
 /** 事务名称 */
-@property (nonatomic, strong) NSString      * event_name;
+@property (nonatomic, strong) NSString *event_name;
 /** 事务描述 */
-@property (nonatomic, strong) NSString   *descriptionStr;
+@property (nonatomic, strong) NSString *descriptionStr;
 /** 地点，如：成都 */
-@property (nonatomic, strong) NSString      * address;
+@property (nonatomic, strong) NSString *address;
 /** 开始时间 毫秒 */
-@property (nonatomic, assign) int64_t    begindate_utc;
+@property (nonatomic, assign) int64_t begindate_utc;
 /** 结束时间 毫秒 */
-@property (nonatomic, assign) int64_t    enddate_utc;
+@property (nonatomic, assign) int64_t enddate_utc;
 /** 是否全天事件 */
-@property (nonatomic, assign) bool          is_allday;
+@property (nonatomic, assign) bool is_allday;
 /** 应用编号（如果是某个应该推送过来的，填写该项。如“任务”推送过来的） */
-@property (nonatomic, strong) NSString      * app_guid;
+@property (nonatomic, strong) NSString  *app_guid;
 /** 应用表的主键（如果是某个应该推送过来的，填写该项。如“任务”推送过来的，就填写任务的id） */
-@property (nonatomic, strong) NSString      *target_id;
+@property (nonatomic, strong) NSString  *target_id;
 /** 重复周期类型：不重复-0,按天-1，按周-2，按月-3，按年-4 */
-@property (nonatomic, assign) int   repeat_type;
+@property (nonatomic, assign) int repeat_type;
 /** 是否提醒 */
 @property (nonatomic, assign) bool is_alert;
 /** 提前多少分钟提醒（1,2,5,10,15,20,25,30,45,60,90,120分钟） */
-@property (nonatomic, assign) int  alert_minutes_before;
+@property (nonatomic, assign) int alert_minutes_before;
 /** 结束后多少分钟提醒（1,2,5,10,15,20,25,30,45,60,90,120分钟） */
-@property (nonatomic, assign) int  alert_minutes_after;
+@property (nonatomic, assign) int alert_minutes_after;
 /** 用户唯一标识 */
-@property (nonatomic, strong) NSString      * user_guid;
+@property (nonatomic, strong) NSString *user_guid;
 /** 创建者user_guid */
-@property (nonatomic, strong) NSString      * created_by;
+@property (nonatomic, strong) NSString *created_by;
 /** 创建时间 */
-@property (nonatomic, assign) int64_t     createdon_utc;
+@property (nonatomic, assign) int64_t createdon_utc;
 /** 更新user_guid */
-@property (nonatomic, strong) NSString      * updated_by;
+@property (nonatomic, strong) NSString *updated_by;
 /**  */
-@property (nonatomic, assign) int64_t      updatedon_utc;
+@property (nonatomic, assign) int64_t updatedon_utc;
 /** 0-已删除，1-正常，2-已完成*/
 @property (nonatomic, assign) int status;
 /** 完成时间 */
-@property (nonatomic, assign) int64_t     finishedon_utc;
+@property (nonatomic, assign) int64_t finishedon_utc;
 /**
  *  RRule字符串
  */

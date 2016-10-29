@@ -296,7 +296,7 @@
     }
 }
 - (void)tongBuCalendar {
-    [self.navigationController.view showLoadingTips:@"正在同步..."];
+    [self.navigationController.view showLoadingTips:@""];
     WeakSelf(weakSelf)
     //这里是用户向服务器提交数据 现在还没有改
     [UserHttp getUserCalendar:_userManager.user.user_guid handler:^(id data, MError *error) {
@@ -315,7 +315,6 @@
             [array addObject:calendar];
         }
         [_userManager updateCalendars:array];
-        [weakSelf.navigationController.view showSuccessTips:@"同步成功"];
     }];
 }
 #pragma mark --

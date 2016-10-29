@@ -356,14 +356,13 @@
     }
     _attanmentArr = arary;
     _attanmantIndex = 0;
-    [self.navigationController.view showLoadingTips:@"上传附件..."];
+    [self.navigationController.view showLoadingTips:@""];
     [self uploadAttanment];
 }
 //上传任务附件
 - (void)uploadAttanment {
     if(_attanmantIndex == _attanmentArr.count) {
         [self.navigationController.view dismissTips];
-        [self.navigationController.view showSuccessTips:@"上传成功"];
         _taskFileView.data = _taskModel;
     } else {
         [UserHttp uploadAttachment:_userManager.user.user_guid taskId:_taskModel.id doc:_attanmentArr[_attanmantIndex] handler:^(id data, MError *error) {

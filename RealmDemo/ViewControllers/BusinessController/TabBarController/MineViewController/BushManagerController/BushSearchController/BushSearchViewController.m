@@ -39,7 +39,6 @@
     self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 55)];
     self.searchBar.delegate = self;
     self.searchBar.placeholder = @"使用圈子名称搜索圈子";
-    self.searchBar.text = @"琅拓科";
     self.searchBar.returnKeyType = UIReturnKeySearch;
     [self.searchBar setSearchBarBackgroundColor:[UIColor colorWithRed:247 / 255.f green:247 / 255.f blue:247 / 255.f alpha:1]];
     for(UIView * view in [_searchBar.subviews[0] subviews]) {
@@ -51,9 +50,10 @@
     [self.view addSubview:self.searchBar];
     //创建表格视图
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,  55, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 55) style:UITableViewStylePlain];
+    _noDataView = [[NoResultView alloc] initWithFrame:_tableView.bounds];
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    _tableView.tableFooterView = [UIView new];
+    _tableView.tableFooterView = _noDataView;
     _tableView.showsVerticalScrollIndicator = NO;
     [_tableView registerNib:[UINib nibWithNibName:@"BushSearchCell" bundle:nil] forCellReuseIdentifier:@"BushSearchCell"];
     [self.view addSubview:_tableView];
@@ -62,9 +62,6 @@
         currentPage = 1;
         [weakSelf search];
     }];
-    //创建空太图
-    _noDataView = [[NoResultView alloc] initWithFrame:_tableView.bounds];
-    [_tableView.mj_header beginRefreshing];
     //创建导航按钮
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(rightBarButtonClicked:)];
 }

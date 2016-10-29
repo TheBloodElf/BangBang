@@ -235,7 +235,6 @@
 - (void)changeUserInfo:(User *)user
 {
     [UserHttp updateUserInfo:user handler:^(id data, MError *error) {
-        [self.navigationController.view dismissTips];
         if(error) {
             [self.navigationController.view showFailureTips:error.statsMsg];
             return ;
@@ -254,10 +253,10 @@
     }];
 }
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(nullable NSDictionary<NSString *,id> *)editingInfo {
-    
+    [self.navigationController.view showLoadingTips:@""];
     [UserHttp updateUserAvater:image userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
-        [self.navigationController.view dismissTips];
         if(error) {
+            [self.navigationController.view dismissTips];
             [self.navigationController.view showFailureTips:error.statsMsg];
             return ;
         }
@@ -271,7 +270,7 @@
             employee.avatar = user.avatar;
             [_userManager updateEmployee:employee];
         }
-        
+        [self.navigationController.view dismissTips];
     }];
     [picker dismissViewControllerAnimated:YES completion:nil];
 }

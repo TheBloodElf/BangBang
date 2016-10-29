@@ -40,18 +40,18 @@
     _businessNav.navigationBar.barTintColor = [UIColor colorWithRed:8/255.f green:21/255.f blue:63/255.f alpha:1];
     [self.view addSubview:_businessNav.view];
     //用户引导页
-    if([IdentityManager manager].identity.bootOfUse == YES) {
-        _bootController = [BootController new];
-        [self addChildViewController:_bootController];
-        [_bootController.view willMoveToSuperview:self.view];
-        [_bootController willMoveToParentViewController:self];
-        [self.view addSubview:_bootController.view];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bootOfUserFinish:) name:@"BootOfUserFinish" object:nil];
-    }
+//    if([IdentityManager manager].identity.bootOfUse == YES) {
+//        _bootController = [BootController new];
+//        [self addChildViewController:_bootController];
+//        [_bootController.view willMoveToSuperview:self.view];
+//        [_bootController willMoveToParentViewController:self];
+//        [self.view addSubview:_bootController.view];
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bootOfUserFinish:) name:@"BootOfUserFinish" object:nil];
+//    }
 }
 //用户引导展示完毕
 - (void)bootOfUserFinish:(NSNotification*)noti {
-    [IdentityManager manager].identity.bootOfUse = NO;
+//    [IdentityManager manager].identity.bootOfUse = NO;
     [[IdentityManager manager] saveAuthorizeData];
     [_bootController.view removeFromSuperview];
     [_bootController removeFromParentViewController];

@@ -14,7 +14,6 @@
 #import "MuliteSelectController.h"
 #import "SelectDateController.h"
 #import "SelectImageController.h"
-#import "MoreSelectView.h"
 #import "PlainPhotoBrose.h"
 #import "UserManager.h"
 #import "IdentityManager.h"
@@ -24,7 +23,7 @@
 #import "MeetingSiginReaderController.h"
 #import "FileManager.h"
 
-@interface WebNonstandarViewController ()<UIWebViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,QLPreviewControllerDataSource,SingleSelectDelegate,MuliteSelectDelegate,MoreSelectViewDelegate,SelectImageDelegate,MeetingSiginReaderDelegate,UIDocumentInteractionControllerDelegate>{
+@interface WebNonstandarViewController ()<UIWebViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,QLPreviewControllerDataSource,SingleSelectDelegate,SelectImageDelegate,MuliteSelectDelegate,MeetingSiginReaderDelegate,UIDocumentInteractionControllerDelegate>{
     NSURL *filePath1;
     NSString *title;
     NSString *detail;
@@ -235,7 +234,6 @@
                     [self.navigationController.view showFailureTips:error.statsMsg];
                     return ;
                 }
-                [self.navigationController.view showSuccessTips:@"文件下载成功"];
             }];
         }
     }];
@@ -274,7 +272,7 @@
     UIImage * img = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
     uploadPhotoNumber = 0;
     uploadPhotos = @[img];
-    [self.navigationController.view showLoadingTips:@"上传附件..."];
+    [self.navigationController.view showLoadingTips:@""];
     [self sendImageArr];
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
@@ -289,7 +287,7 @@
     }
     uploadPhotoNumber = (int)array.count - 1;
     uploadPhotos = array;
-    [self.navigationController.view showLoadingTips:@"上传附件..."];
+    [self.navigationController.view showLoadingTips:@""];
     [self sendImageArr];
 }
 #pragma mark - SingleSelectDelegate
@@ -370,7 +368,6 @@
 - (void)sendImageArr {
     if(uploadPhotoNumber < 0) {
         [self.navigationController.view dismissTips];
-        [self.navigationController.view showSuccessTips:@"图片上传成功"];
         return;
     }
     [UserHttp updateImageGuid:app_guid image:uploadPhotos[uploadPhotoNumber] handler:^(id data, MError *error) {

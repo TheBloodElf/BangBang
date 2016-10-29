@@ -414,9 +414,17 @@
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
-            [self.navigationController.view showSuccessTips:@"修改成功"];
-            _currSiginRule.json_list_address_settings = punchCardAddressSettingArray;
-            [_userManager updateSiginRule:_currSiginRule];
+            SiginRuleSet *set = [SiginRuleSet new];
+            [set mj_setKeyValues:data];
+            //这里动态添加签到地址
+            RLMArray<PunchCardAddressSetting> *settingArr = [[RLMArray<PunchCardAddressSetting> alloc] initWithObjectClassName:@"PunchCardAddressSetting"];
+            for (NSDictionary *settingDic in data[@"address_settings"]) {
+                PunchCardAddressSetting *setting = [PunchCardAddressSetting new];
+                [setting mj_setKeyValues:settingDic];
+                [settingArr addObject:setting];
+            }
+            set.json_list_address_settings = settingArr;
+            [_userManager updateSiginRule:set];
             [self.navigationController popViewControllerAnimated:YES];
         }];
     }

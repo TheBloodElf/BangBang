@@ -118,7 +118,7 @@
     UIAlertAction *alertCancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *alertSure = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [[RCIMClient sharedRCIMClient] clearConversations:@[@(1),@(2),@(3)]];
-        [self.navigationController.view showSuccessTips:@"聊天记录清理成功!"];
+        [self.navigationController.view showSuccessTips:@"清理成功"];
     }];
     [alertVC addAction:alertCancel];
     [alertVC addAction:alertSure];
@@ -133,7 +133,7 @@
         [[SDImageCache sharedImageCache] clearDisk];
         [[SDImageCache sharedImageCache] clearMemory];
         [[FileManager shareManager] remoeAllFile];
-        [self.navigationController.view showSuccessTips:@"缓存清理成功!"];
+        [self.navigationController.view showSuccessTips:@"清理成功"];
     }];
     [alertVC addAction:alertCancel];
     [alertVC addAction:alertSure];
@@ -148,7 +148,7 @@
         for (PushMessage *message in [_userManager getPushMessageArr]) {
             [_userManager deletePushMessage:message];
         }
-        [self.navigationController.view showSuccessTips:@"通知清理成功!"];
+        [self.navigationController.view showSuccessTips:@"清理成功"];
     }];
     [alertVC addAction:alertCancel];
     [alertVC addAction:alertSure];

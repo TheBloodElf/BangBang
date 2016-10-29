@@ -135,7 +135,7 @@
     if(_userSelectAttachmentArr.count == 0)
         self.title = @"附件选择";
     else
-        self.title = [NSString stringWithFormat:@"附件选择（%ld）",_userSelectAttachmentArr.count];
+        self.title = [NSString stringWithFormat:@"附件选择（%d）",_userSelectAttachmentArr.count];
     if(_userSelectAttachmentArr.count == self.maxSelect) {
         [self.navigationController showMessageTips:@"已达到最大选择数"];
     }

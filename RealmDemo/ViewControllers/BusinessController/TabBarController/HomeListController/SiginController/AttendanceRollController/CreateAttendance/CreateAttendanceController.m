@@ -401,11 +401,14 @@
         _currSiginRule.create_on_utc = [[NSDate new] timeIntervalSince1970] * 1000;
         _currSiginRule.update_on_utc = [[NSDate new] timeIntervalSince1970] * 1000;
         _currSiginRule.update_by = employee.employee_guid;
+        _currSiginRule.setting_guid = @"00000000-0000-0000-0000-000000000000";
         RLMArray<PunchCardAddressSetting> *punchCardAddressSettingArray = [[RLMArray<PunchCardAddressSetting> alloc] initWithObjectClassName:@"PunchCardAddressSetting"];
         int idCount = 0;
         for (PunchCardAddressSetting *setting in _currSiginRule.json_list_address_settings) {
             setting.update_by = employee.employee_guid;
             setting.id = idCount ++;
+            setting.setting_guid = @"00000000-0000-0000-0000-000000000000";
+            setting.address_guid = @"00000000-0000-0000-0000-000000000000";
             [punchCardAddressSettingArray addObject:[setting deepCopy]];
         }
         NSMutableDictionary *dic = [[_currSiginRule JSONDictionary] mutableCopy];
@@ -417,10 +420,17 @@
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
-            _currSiginRule.setting_guid = data;
-           [self.navigationController.view showSuccessTips:@"添加成功"];
-            _currSiginRule.json_list_address_settings = punchCardAddressSettingArray;
-           [_userManager addSiginRule:_currSiginRule];
+            SiginRuleSet *set = [SiginRuleSet new];
+            [set mj_setKeyValues:data];
+            //这里动态添加签到地址
+            RLMArray<PunchCardAddressSetting> *settingArr = [[RLMArray<PunchCardAddressSetting> alloc] initWithObjectClassName:@"PunchCardAddressSetting"];
+            for (NSDictionary *settingDic in data[@"address_settings"]) {
+                PunchCardAddressSetting *setting = [PunchCardAddressSetting new];
+                [setting mj_setKeyValues:settingDic];
+                [settingArr addObject:setting];
+            }
+           set.json_list_address_settings = settingArr;
+           [_userManager addSiginRule:set];
            [self.navigationController popViewControllerAnimated:YES];
         }];
     }

@@ -35,8 +35,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _identityManager = [IdentityManager manager];
-    _userManager = [UserManager manager];
     self.title = @"消息";
     self.view.backgroundColor = [UIColor whiteColor];
     //创建搜索框
@@ -68,7 +66,9 @@
     //是不是第一次加载这个页面
     if(isFirstLoad) return;
     isFirstLoad = YES;
-
+    
+    _identityManager = [IdentityManager manager];
+    _userManager = [UserManager manager];
     _pushMessageFetchedResultsController = [_userManager createPushMessagesFetchedResultsController];
     _pushMessageFetchedResultsController.delegate = self;
     //创建表格视图

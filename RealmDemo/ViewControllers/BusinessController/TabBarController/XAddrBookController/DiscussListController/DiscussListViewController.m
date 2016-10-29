@@ -47,7 +47,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(rightClicked:)];
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
-    [self.navigationController.view showLoadingTips:@"同步讨论组..."];
+    [self.navigationController.view showLoadingTips:@""];
     [UserHttp getUserDiscuss:_userManager.user.user_no handler:^(id data, MError *error) {
         [self.navigationController.view dismissTips];
         if(error) {
@@ -61,7 +61,6 @@
             [array addObject:discuss];
         }
         [_userManager updateUserDiscussArr:array];
-        [self.navigationController.view showSuccessTips:@"同步成功"];
     }];
 }
 #pragma mark --

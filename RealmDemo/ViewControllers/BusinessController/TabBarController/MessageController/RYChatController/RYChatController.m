@@ -49,7 +49,7 @@
                 break;
             }
         }
-        webViewcontroller.applicationUrl  = [NSString stringWithFormat:@"%@/Personal/index?showGuid=%@&userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,userGuid,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+        webViewcontroller.applicationUrl  = [NSString stringWithFormat:@"%@/Personal/index?showGuid=%@&userGuid=%@&companyNo=%d&access_token=%@",XYFMobileDomain,userGuid,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
         [self.navigationController pushViewController:webViewcontroller animated:YES];
     } else if (self.conversationType == ConversationType_GROUP){
         //查看圈子详情
@@ -102,7 +102,7 @@
             }
             WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
             webViewcontroller.showNavigationBar = NO;
-            webViewcontroller.applicationUrl  = [NSString stringWithFormat:@"%@/Personal/index?showGuid=%@&userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,emp.user_guid,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+            webViewcontroller.applicationUrl  = [NSString stringWithFormat:@"%@/Personal/index?showGuid=%@&userGuid=%@&companyNo=%d&access_token=%@",XYFMobileDomain,emp.user_guid,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
             [self.navigationController pushViewController:webViewcontroller animated:YES];
         }
     }

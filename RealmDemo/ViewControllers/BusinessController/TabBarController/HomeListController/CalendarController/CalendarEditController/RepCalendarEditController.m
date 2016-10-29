@@ -87,7 +87,6 @@
                 _calendar.needSync = YES;
                 _calendar.updated_by = _userManager.user.user_guid;
                 _calendar.updatedon_utc = [NSDate date].timeIntervalSince1970 * 1000;
-                [self.navigationController.view showSuccessTips:@"修改成功"];
                 if(self.delegate && [self.delegate respondsToSelector:@selector(RepCalendarEdit:)])
                     [self.delegate RepCalendarEdit:_calendar];
                 [_userManager updateCalendar:_calendar];
@@ -97,7 +96,6 @@
             [self.navigationController.view showFailureTips:error.statsMsg];
             return ;
         }
-        [self.navigationController.view showSuccessTips:@"修改成功"];
         if(self.delegate && [self.delegate respondsToSelector:@selector(RepCalendarEdit:)])
             [self.delegate RepCalendarEdit:_calendar];
         [_userManager updateCalendar:_calendar];

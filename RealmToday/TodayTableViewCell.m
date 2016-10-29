@@ -34,8 +34,8 @@
     TodayCalendarModel *model = self.data;
     NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:model.begindate_utc / 1000];
     NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:model.enddate_utc / 1000];
-    self.startDate.text = [NSString stringWithFormat:@"%02ld:%02ld",startDate.hour,startDate.minute];
-    self.endDate.text = [NSString stringWithFormat:@"~%02ld:%02ld",endDate.hour,endDate.minute];
+    self.startDate.text = [NSString stringWithFormat:@"%02d:%02ld",(int)startDate.hour,startDate.minute];
+    self.endDate.text = [NSString stringWithFormat:@"~%02d:%02ld",(int)endDate.hour,endDate.minute];
     self.title.text = model.event_name;
     if([NSString isBlank:model.descriptionStr])
         self.descriptionLab.text = @"无日程描述";
