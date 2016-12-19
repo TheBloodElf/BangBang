@@ -8,6 +8,10 @@
 
 #import "LineProgressView.h"
 
+@interface LineProgressView () <CAAnimationDelegate>
+
+@end
+
 @implementation LineProgressView
 
 - (id)initWithFrame:(CGRect)frame

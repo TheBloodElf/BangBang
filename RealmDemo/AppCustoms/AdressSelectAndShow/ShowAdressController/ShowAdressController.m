@@ -10,7 +10,7 @@
 #import "POIAnnotation.h"
 
 @interface ShowAdressController () {
-    MAMapView *_mapView;//百度地图
+    MAMapView *_mapView;//高德地图
 }
 
 @end
@@ -21,7 +21,7 @@
     [super viewDidLoad];
     self.title = @"地址";
     self.view.backgroundColor = [UIColor whiteColor];
-    //配置百度地图
+    //配置高德地图
     _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT)];
     _mapView.showsUserLocation = YES;
     _mapView.zoomLevel = 16.f;

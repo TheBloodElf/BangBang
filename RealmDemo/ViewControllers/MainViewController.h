@@ -10,4 +10,6 @@
 //程序的根视图控制器
 @interface MainViewController : UIViewController
 
+- (instancetype)initWithOptions:(NSDictionary *)launchOptions;
+
 @end

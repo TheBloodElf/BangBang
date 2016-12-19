@@ -22,7 +22,7 @@
 - (void)dataDidChange {
     TaskModel *model = self.data;
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:model.enddate_utc / 1000];
-    self.finishLabel.text = [NSString stringWithFormat:@"%d-%02ld-%02ld %02ld:%02ld",date.year,date.month,date.day,date.hour,date.minute];
+    self.finishLabel.text = [NSString stringWithFormat:@"%ld-%02ld-%02ld %02ld:%02ld",(long)date.year,date.month,date.day,date.hour,date.minute];
 }
 
 @end

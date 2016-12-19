@@ -56,7 +56,6 @@
         NSLog(@"ObjC received message from JS: %@", data);
         responseCallback(@"Response for message from ObjC");
     }];
-    
     //返回上一页
     [_bridge registerHandler:@"preViewControllerObjc" handler:^(id data, WVJBResponseCallback responseCallback) {
         [self.navigationController popViewControllerAnimated:YES];
@@ -128,23 +127,35 @@
         NSMutableArray<Employee*> *selectedDataArr= [@[] mutableCopy];
         for (NSString *str in [result valueForKey:@"selectedDataArr"]) {
             Employee *emp = [Employee new];
-            emp.employee_guid = str;
+            for (Employee *employee in [[UserManager manager] getEmployeeWithCompanyNo:[UserManager manager].user.currCompany.company_no status:5]) {
+                if([employee.employee_guid isEqualToString:str]) {
+                    emp.user_guid = employee.user_guid;
+                    continue;
+                }
+            }
             [selectedDataArr addObject:emp];
         }
         //排除显示的
         NSMutableArray<Employee*> *outEmployees= [@[] mutableCopy];
         for (NSString *str in [result valueForKey:@"outEmployees"]) {
             Employee *emp = [Employee new];
-            emp.employee_guid = str;
+            for (Employee *employee in [[UserManager manager] getEmployeeWithCompanyNo:[UserManager manager].user.currCompany.company_no status:5]) {
+                if([employee.employee_guid isEqualToString:str]) {
+                    emp.user_guid = employee.user_guid;
+                    continue;
+                }
+            }
             [outEmployees addObject:emp];
         }
         if([number isEqual:@0]){ //单选
             SingleSelectController *choseJoinController = [[SingleSelectController alloc]init];
             choseJoinController.outEmployees = outEmployees;
             choseJoinController.delegate = self;
+            choseJoinController.companyNo = [UserManager manager].user.currCompany.company_no;
             [self.navigationController pushViewController:choseJoinController animated:YES];
         }else{ //多选
             MuliteSelectController *choseJoinController = [[MuliteSelectController alloc]init];
+            choseJoinController.companyNo = [UserManager manager].user.currCompany.company_no;
             choseJoinController.selectedEmployees = selectedDataArr;
             choseJoinController.outEmployees = outEmployees;
             choseJoinController.delegate = self;
@@ -193,9 +204,9 @@
     [_bridge registerHandler:@"urlBrowserObj" handler:^(id data, WVJBResponseCallback responseCallback){
         NSString *urlOpen = [data objectForKey:@"urlOpen"];
         if([urlOpen rangeOfString:@"?"].location != NSNotFound) {
-            urlOpen = [NSString stringWithFormat:@"%@&access_token=%@&company_no=%ld&user_guid=%@",urlOpen,[IdentityManager manager].identity.accessToken,[UserManager manager].user.currCompany.company_no,[UserManager manager].user.user_guid];
+            urlOpen = [NSString stringWithFormat:@"%@&access_token=%@&company_no=%d&user_guid=%@",urlOpen,[IdentityManager manager].identity.accessToken,[UserManager manager].user.currCompany.company_no,[UserManager manager].user.user_guid];
         } else {
-            urlOpen = [NSString stringWithFormat:@"?%@access_token=%@&company_no=%ld&user_guid=%@",urlOpen,[IdentityManager manager].identity.accessToken,[UserManager manager].user.currCompany.company_no,[UserManager manager].user.user_guid];
+            urlOpen = [NSString stringWithFormat:@"?%@access_token=%@&company_no=%d&user_guid=%@",urlOpen,[IdentityManager manager].identity.accessToken,[UserManager manager].user.currCompany.company_no,[UserManager manager].user.user_guid];
         }
         WebNonstandarViewController *vc = [WebNonstandarViewController new];
         vc.applicationUrl = [urlOpen stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -204,7 +215,6 @@
     }];
     //图片预览
     [_bridge registerHandler:@"imageBrowserObj" handler:^(id data, WVJBResponseCallback responseCallback){
-        
         NSMutableArray *photos = [NSMutableArray array];
         NSArray *imageUrls = [[data objectForKey:@"urls"] componentsSeparatedByString:@";"];
         for (int index = 0; index < imageUrls.count; index ++) {
@@ -240,6 +250,10 @@
     NSURL *nsurl =[NSURL URLWithString:_applicationUrl];
     NSURLRequest *request =[NSURLRequest requestWithURL:nsurl];
     [wb loadRequest:request];
+    //加上左边边界侧滑手势
+    UIScreenEdgePanGestureRecognizer * screenEdgePanGesture = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(showLeftClicked:)];
+    screenEdgePanGesture.edges = UIRectEdgeLeft;
+    [self.view addGestureRecognizer:screenEdgePanGesture];
 }
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -251,6 +265,11 @@
     if([self.navigationController.viewControllers[0] isMemberOfClass:[NSClassFromString(@"REFrostedViewController") class]]) {
         [self.navigationController setNavigationBarHidden:YES animated:YES];
     }
+    //把转菊花去掉
+    [self.navigationController.view dismissTips];
+}
+- (void)showLeftClicked:(UIScreenEdgePanGestureRecognizer*)sepr {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark -- UIDocumentInteractionControllerDelegate
 - (UIViewController *) documentInteractionControllerViewControllerForPreview:(UIDocumentInteractionController *) controller {
@@ -336,11 +355,11 @@
 {
     [self.navigationController.view dismissTips];
     title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    self.navigationItem.title = title;
     detail = [webView stringByEvaluatingJavaScriptFromString:@"document.body.innerText"];
     detail = [detail stringByReplacingOccurrencesOfString:@" " withString:@""];
     detail = [detail stringByReplacingOccurrencesOfString:title withString:@""];
     detail = [detail stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    self.navigationItem.title = title;
 }
 -(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {

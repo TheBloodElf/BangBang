@@ -124,6 +124,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if(indexPath.section == 0) {//选人
         SingleSelectController *select = [SingleSelectController new];
+        select.companyNo = _userManager.user.currCompany.company_no;
         select.delegate = self;
         [self.navigationController pushViewController:select animated:YES];
     } else if (indexPath.section == 1) {//固定设备

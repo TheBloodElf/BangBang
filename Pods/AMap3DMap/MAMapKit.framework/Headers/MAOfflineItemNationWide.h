@@ -6,6 +6,8 @@
 //  Copyright (c) 2014年 songjian. All rights reserved.
 //
 
+#if MA_INCLUDE_OFFLINE
+
 #import "MAOfflineCity.h"
 
 /**
@@ -14,3 +16,5 @@
 @interface MAOfflineItemNationWide : MAOfflineCity
 
 @end
+
+#endif

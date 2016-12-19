@@ -16,14 +16,8 @@ MJExtensionCodingImplementation
 {
     self = [super init];
     if (self) {
-        _newMessage = YES;
         _firstUseSoft = YES;
-        _ryDisturb = NO;
-        _canPlayVoice = YES;
-        _canPlayShake = YES;
-//        _bootOfUse = NO;
-        _ryDisturbBeginTime = [NSDate new];
-        _ryDisturbEndTime = [NSDate new];
+        _accessToken = @"";
     }
     return self;
 }

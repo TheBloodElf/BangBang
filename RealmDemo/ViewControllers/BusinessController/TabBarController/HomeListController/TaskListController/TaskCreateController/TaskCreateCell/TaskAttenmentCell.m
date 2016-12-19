@@ -21,7 +21,7 @@
 }
 - (void)dataDidChange {
     UIImage *photo = self.data;
-    self.attenmentName.text = [NSString stringWithFormat:@"IMG%@.jpg %dM",@([NSDate date].timeIntervalSince1970),UIImageJPEGRepresentation(photo, 1).length / 1024];
+    self.attenmentName.text = [NSString stringWithFormat:@"IMG%@.jpg %luM",@([NSDate date].timeIntervalSince1970),UIImageJPEGRepresentation(photo, 1).length / 1024];
 }
 - (IBAction)deleteClicked:(id)sender {
     if(self.delegate && [self.delegate respondsToSelector:@selector(TaskAttenmentDelete:)]) {

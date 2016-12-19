@@ -11,8 +11,9 @@
 #ifndef MAMapVersion_h
 #define MAMapVersion_h
 
-#define MAMapVersionNumber                40000
-#define MAMapMinRequiredFoundationVersion 10000
+#define MAMapVersionNumber                40401
+
+#define MAMapMinRequiredFoundationVersion 10301
 
 // 依赖库版本检测
 #if AMapFoundationVersionNumber < MAMapMinRequiredFoundationVersion

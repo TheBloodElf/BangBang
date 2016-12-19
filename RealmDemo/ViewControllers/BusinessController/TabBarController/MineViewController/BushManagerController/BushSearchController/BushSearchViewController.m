@@ -49,8 +49,9 @@
     }
     [self.view addSubview:self.searchBar];
     //创建表格视图
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,  55, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 55) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,  55, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 55 - 64) style:UITableViewStylePlain];
     _noDataView = [[NoResultView alloc] initWithFrame:_tableView.bounds];
+    [_noDataView setNoResultStr:@"对不起，无相关数据"];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.tableFooterView = _noDataView;

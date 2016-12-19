@@ -33,12 +33,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         _userManager = [UserManager manager];
-        self.backgroundColor = [UIColor groupTableViewBackgroundColor];
-        _taskDetailBottomOpView = [[TaskDetailBottomOpView alloc] initWithFrame:CGRectMake(0, frame.size.height - 40, MAIN_SCREEN_WIDTH, 40)];
-        _taskDetailBottomOpView.delegate = self;
-        [self addSubview:_taskDetailBottomOpView];
-        
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.tableFooterView = [UIView new];
@@ -49,6 +45,9 @@
         [_tableView registerNib:[UINib nibWithNibName:@"TaskRemindCellCell" bundle:nil] forCellReuseIdentifier:@"TaskRemindCellCell"];
         [_tableView registerNib:[UINib nibWithNibName:@"TaskFinishStatusCell" bundle:nil] forCellReuseIdentifier:@"TaskFinishStatusCell"];
         [self addSubview:_tableView];
+        _taskDetailBottomOpView = [[TaskDetailBottomOpView alloc] initWithFrame:CGRectMake(0, frame.size.height - 49, MAIN_SCREEN_WIDTH, 49)];
+        _taskDetailBottomOpView.delegate = self;
+        [self addSubview:_taskDetailBottomOpView];
     }
     return self;
 }
@@ -71,10 +70,12 @@
     }
     //调整表格视图和操作视图的位置
     if(haveOpertion == YES) {
-        _tableView.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, self.frame.size.height - 40);
+        _tableView.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, self.frame.size.height - 49);
         _taskDetailBottomOpView.data = _taskModel;
+        [self bringSubviewToFront:_taskDetailBottomOpView];
     } else {
         _tableView.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, self.frame.size.height);
+        [self bringSubviewToFront:_tableView];
     }
     [_tableView reloadData];
 }
@@ -154,7 +155,7 @@
             height = 63;
         else {
             NSArray *array = [_taskModel.alert_date_list componentsSeparatedByString:@","];
-            int count = array.count / 2;
+            int count = (int)array.count / 2;
             if(array.count % 2 != 0)
                 count ++;
             height = count * 15 + (count - 1) * 15 + 48;

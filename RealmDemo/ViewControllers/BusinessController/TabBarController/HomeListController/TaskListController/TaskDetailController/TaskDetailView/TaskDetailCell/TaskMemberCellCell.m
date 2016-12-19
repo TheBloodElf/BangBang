@@ -31,7 +31,7 @@
         return;
     }
     NSArray *array = [model.members_avatar componentsSeparatedByString:@","];
-    self.memberNumber.text = [NSString stringWithFormat:@"%d人",array.count];
+    self.memberNumber.text = [NSString stringWithFormat:@"%lu人",(unsigned long)array.count];
     CGFloat currX = 0;
     for (NSString *str in array) {
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(currX, 0, 29, 29)];

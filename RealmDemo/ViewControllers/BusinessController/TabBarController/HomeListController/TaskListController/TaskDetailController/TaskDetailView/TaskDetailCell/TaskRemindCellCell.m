@@ -30,11 +30,13 @@
     for (int index = 0; index < array.count; index ++) {
         NSDate *createDate = [NSDate dateWithTimeIntervalSince1970:[array[index] doubleValue] / 1000];
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+        //#BANG-349 任务详情
+        [btn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [btn setTitleColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1] forState:UIControlStateNormal];
-        btn.frame = CGRectMake((self.remindTime.frame.size.width / 2.f) * (index % 2), (index / 2) * 30, (self.remindTime.frame.size.width / 2.f), 15);
+        btn.frame = CGRectMake(((MAIN_SCREEN_WIDTH - 20) / 2.f) * (index % 2), (index / 2) * 30, (MAIN_SCREEN_WIDTH - 20) / 2.f, 15);
         if(createDate.timeIntervalSince1970 < [NSDate date].timeIntervalSince1970)
             [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        [btn setTitle:[NSString stringWithFormat:@"%d-%ld-%ld %02ld:%02ld",createDate.year,createDate.month,createDate.day,createDate.hour,createDate.minute] forState:UIControlStateNormal];
+        [btn setTitle:[NSString stringWithFormat:@"%ld-%ld-%ld %02ld:%02ld",(long)createDate.year,createDate.month,createDate.day,createDate.hour,createDate.minute] forState:UIControlStateNormal];
         [self.remindTime addSubview:btn];
     }
 }

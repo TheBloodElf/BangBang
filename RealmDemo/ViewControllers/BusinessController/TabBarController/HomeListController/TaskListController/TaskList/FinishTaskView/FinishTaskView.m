@@ -10,6 +10,7 @@
 #import "TaskListCell.h"
 #import "TaskModel.h"
 #import "NoResultView.h"
+#import "DotActivityIndicatorView.h"
 
 @interface FinishTaskView  ()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource> {
     UISearchBar *_searchBar;
@@ -32,7 +33,7 @@
         //创建搜索框
         _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 55)];
         _searchBar.delegate = self;
-        _searchBar.placeholder = @"搜索";
+        _searchBar.placeholder = @"任务主题/姓名";
         _searchBar.tintColor = [UIColor colorWithRed:247 / 255.f green:247 / 255.f blue:247 / 255.f alpha:1];
         [_searchBar setSearchBarBackgroundColor:[UIColor colorWithRed:247 / 255.f green:247 / 255.f blue:247 / 255.f alpha:1]];
         _searchBar.returnKeyType = UIReturnKeySearch;
@@ -45,14 +46,14 @@
         [self addSubview:_searchBar];
         
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 60, MAIN_SCREEN_WIDTH, frame.size.height - 60) style:UITableViewStylePlain];
+        DotActivityIndicatorView *loadView = [[DotActivityIndicatorView alloc] initWithFrame:_tableView.bounds];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.tableFooterView = loadView;
         _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
         [_tableView registerNib:[UINib nibWithNibName:@"TaskListCell" bundle:nil] forCellReuseIdentifier:@"TaskListCell"];
         [self addSubview:_tableView];
         _noDataView = [[NoResultView alloc] initWithFrame:_tableView.bounds];
-        [self getCurrData];
-        [_tableView reloadData];
     }
     return self;
 }
@@ -67,6 +68,10 @@
                 [array addObject:model];
             } else {
                 if([model.task_name rangeOfString:_searchBar.text].location != NSNotFound)
+                    [array addObject:model];
+                else if([model.incharge_name rangeOfString:_searchBar.text].location != NSNotFound)
+                    [array addObject:model];
+                else if([model.create_realname rangeOfString:_searchBar.text].location != NSNotFound)
                     [array addObject:model];
             }
     }

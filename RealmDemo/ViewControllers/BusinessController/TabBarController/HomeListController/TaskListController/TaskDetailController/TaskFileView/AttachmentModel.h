@@ -16,7 +16,7 @@
 @property (nonatomic, strong) NSString *avatar;//用户头像
 @property (nonatomic, strong) NSString *app_guid;//应用编号
 @property (nonatomic, strong) NSString *title;//标题
-@property (nonatomic, strong) NSString *description;//描述
+//@property (nonatomic, strong) NSString *description;//描述
 @property (nonatomic, strong) NSString *module_name;//模块名称
 @property (nonatomic, strong) NSString *func_name;//方法名称
 @property (nonatomic, strong) NSString *article_id;//存在于一应用主表的主键

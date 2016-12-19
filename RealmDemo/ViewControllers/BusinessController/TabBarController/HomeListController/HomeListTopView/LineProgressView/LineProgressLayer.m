@@ -8,6 +8,10 @@
 
 #import "LineProgressLayer.h"
 
+@interface LineProgressLayer () <CAAnimationDelegate>
+
+@end
+
 @implementation LineProgressLayer
 
 -(instancetype)init{
@@ -154,5 +158,12 @@
     [self addAnimation:animate forKey:@"cycleComplete"];
 }
 
+
+- (void)animationDidStart:(CAAnimation *)anim {
+    
+}
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
+    
+}
 @end
 

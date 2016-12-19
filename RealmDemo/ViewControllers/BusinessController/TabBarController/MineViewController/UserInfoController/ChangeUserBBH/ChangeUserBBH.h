@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "User.h"
-@protocol ChangeUserInfoDelegate <NSObject>
+
+@protocol ChangeUserBBHDelegate <NSObject>
 
 - (void)changeUserBBH:(User*)user;
 
@@ -16,6 +17,6 @@
 
 @interface ChangeUserBBH : UIViewController
 
-@property (nonatomic, weak) id<ChangeUserInfoDelegate> delegate;
+@property (nonatomic, weak) id<ChangeUserBBHDelegate> delegate;
 
 @end

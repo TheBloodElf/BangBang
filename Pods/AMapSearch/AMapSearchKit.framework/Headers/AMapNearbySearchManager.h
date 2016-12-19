@@ -44,7 +44,7 @@
 /**
  * manager单例.
  *
- * 初始化之前请设置 `AMapSearchServices` 中的APIKey，否则将无法正常使用该服务.
+ * 初始化之前请设置key，否则将无法正常使用该服务.
  *
  *  @return nearbySearch实例。
  */

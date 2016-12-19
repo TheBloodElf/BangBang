@@ -107,6 +107,8 @@
     UIAlertAction *ok = [UIAlertAction actionWithTitle:@"删除照片" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
          [self delete];
     }];
+    [alertVC addAction:cancle];
+    [alertVC addAction:ok];
     [self presentViewController:alertVC animated:YES completion:nil];
 }
 

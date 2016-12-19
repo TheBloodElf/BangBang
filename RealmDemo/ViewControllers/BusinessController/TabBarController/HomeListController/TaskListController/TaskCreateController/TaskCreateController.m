@@ -52,13 +52,17 @@
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
     //初始化模型 看看有没有草稿
     NSMutableArray<TaskDraftModel*> *taskDraftModelArr = [_userManager getTaskDraftArr:_userManager.user.currCompany.company_no];
-    if(taskDraftModelArr.count) {
+    if(taskDraftModelArr.count) {//草稿模型赋给当前任务模型
         TaskDraftModel *model = taskDraftModelArr.firstObject;
         _taskModel = [TaskModel new];
         _taskModel.task_name = model.task_name;
         _taskModel.descriptionStr = model.descriptionStr;
         _taskModel.company_no = model.company_no;
         _taskModel.enddate_utc = model.enddate_utc;
+        _taskModel.user_guid = model.user_guid;
+        _taskModel.avatar = model.avatar;
+        _taskModel.createdby = model.createdby;
+        _taskModel.status = model.status;
         //得到附件
         if(![NSString isBlank:model.attachmentArr]) {
             if([_fileManager fileIsExit:model.attachmentArr]) {
@@ -107,6 +111,7 @@
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 64) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.tableFooterView = [UIView new];
     _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [_tableView registerNib:[UINib nibWithNibName:@"TaskTitleCell" bundle:nil] forCellReuseIdentifier:@"TaskTitleCell"];
@@ -143,6 +148,10 @@
         model.company_no = _taskModel.company_no;
         model.enddate_utc = _taskModel.enddate_utc;
         model.descriptionStr = _taskModel.descriptionStr;
+        model.user_guid = _taskModel.user_guid;
+        model.avatar = _taskModel.avatar;
+        model.createdby = _taskModel.createdby;
+        model.status = _taskModel.status;
         //得到负责人
         model.incharge = _incharge.employee_guid;
         //得到参与人
@@ -163,6 +172,8 @@
             [_fileManager writeData:[_taskAttanment dataInNoSacleLimitBytes:MaXPicSize] name:imageName];
             model.attachmentArr = imageName;
         }
+        //这样来触发数据表回调 因为id是0
+        [_userManager deleteTaskDraft:model];
         [_userManager updateTaskDraft:model companyNo:_userManager.user.currCompany.company_no];
         [self.navigationController popViewControllerAnimated:YES];
     }];
@@ -217,10 +228,14 @@
                 UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"网络不可用，保存为草稿?" message:nil preferredStyle:(UIAlertControllerStyleAlert)];
                 UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"保存" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     TaskDraftModel *model = [TaskDraftModel new];
-                    model.company_no = _taskModel.company_no;
                     model.task_name = _taskModel.task_name;
+                    model.company_no = _taskModel.company_no;
                     model.enddate_utc = _taskModel.enddate_utc;
                     model.descriptionStr = _taskModel.descriptionStr;
+                    model.user_guid = _taskModel.user_guid;
+                    model.avatar = _taskModel.avatar;
+                    model.createdby = _taskModel.createdby;
+                    model.status = _taskModel.status;
                     //得到负责人
                     model.incharge = _taskModel.incharge;
                     //得到参与人
@@ -233,6 +248,8 @@
                         [_fileManager writeData:[_taskAttanment dataInNoSacleLimitBytes:MaXPicSize] name:imageName];
                         model.attachmentArr = imageName;
                     }
+                    //这样来触发数据表回调 因为id是0
+                    [_userManager deleteTaskDraft:model];
                     [_userManager updateTaskDraft:model companyNo:_userManager.user.currCompany.company_no];
                     [self.navigationController popViewControllerAnimated:YES];
                 }];
@@ -248,6 +265,7 @@
                 [self presentViewController:alertVC animated:YES completion:nil];
                 return ;
             }
+            [self.navigationController.view showMessageTips:error.statsMsg];
             return ;
         }
         _taskModel = [TaskModel new];
@@ -376,6 +394,7 @@
         
     } else if (indexPath.section == 2) {//结束时间
         SelectDateController *select = [SelectDateController new];
+        select.needShowDate = [NSDate dateWithTimeIntervalSince1970:_taskModel.enddate_utc / 1000];
         select.selectDateBlock = ^(NSDate *date) {
             _taskModel.enddate_utc = date.timeIntervalSince1970 * 1000;
             [_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
@@ -388,6 +407,7 @@
     } else if (indexPath.section == 3) {
         if(indexPath.row == 0) {//负责人
             SingleSelectController *single = [SingleSelectController new];
+            single.companyNo = _userManager.user.currCompany.company_no;
             NSMutableArray *array = [@[] mutableCopy];
             //负责人还要去掉自己
             [array addObjectsFromArray:_memberArr];
@@ -398,6 +418,7 @@
             [self.navigationController pushViewController:single animated:YES];
         } else {//参与人
             MuliteSelectController *mulite = [MuliteSelectController new];
+            mulite.companyNo = _userManager.user.currCompany.company_no;
             NSMutableArray *array = [@[] mutableCopy];
             if(_incharge.id != 0)
                 array = [@[_incharge] mutableCopy];

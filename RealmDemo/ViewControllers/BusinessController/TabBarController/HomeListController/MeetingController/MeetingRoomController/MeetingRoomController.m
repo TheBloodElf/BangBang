@@ -107,7 +107,7 @@
         return 60;
     //根据当前所选会议室的开始结束时间算出高度
     CGFloat height = 85;
-    int count = (_meetingRoomModel.end_time - _meetingRoomModel.begin_time) / 1000 / 30 / 60;
+    int count = (int)((_meetingRoomModel.end_time - _meetingRoomModel.begin_time) / 1000 / 30 / 60);
     if((_meetingRoomModel.end_time - _meetingRoomModel.begin_time) % (1000 * 30 * 60))
         count ++;
     height += ((MAIN_SCREEN_WIDTH - 60) / 7.f) * count;

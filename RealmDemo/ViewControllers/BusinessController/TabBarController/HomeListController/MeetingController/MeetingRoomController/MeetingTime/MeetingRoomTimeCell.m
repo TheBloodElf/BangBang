@@ -62,7 +62,7 @@
     for (UIView *view in self.tagView.subviews) {
         [view removeFromSuperview];
     }
-    int count = (_meetingRoomModel.end_time - _meetingRoomModel.begin_time) / 1000 / 30 / 60 + 1;
+    int count = (int)((_meetingRoomModel.end_time - _meetingRoomModel.begin_time) / 1000 / 30 / 60 + 1);
     if((_meetingRoomModel.end_time - _meetingRoomModel.begin_time) % (1000 * 30 * 60) != 0)
         count ++;
     NSDate *currDateDate = [NSDate dateWithTimeIntervalSince1970:_meetingRoomModel.begin_time / 1000];
@@ -218,14 +218,14 @@
     return 7;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    int count = (_meetingRoomModel.end_time - _meetingRoomModel.begin_time) / 1000 / 30 / 60;
+    int count = (int)((_meetingRoomModel.end_time - _meetingRoomModel.begin_time) / 1000 / 30 / 60);
     if((_meetingRoomModel.end_time - _meetingRoomModel.begin_time) % (1000 * 30 * 60))
         count ++;
     return count;
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     //当前行的时间
-    NSDate *currDate = [_lineDate[[NSString stringWithFormat:@"%d",indexPath.section]] firstTime];
+    NSDate *currDate = [_lineDate[[NSString stringWithFormat:@"%ld",(long)indexPath.section]] firstTime];
     NSDate *roomDate = [NSDate dateWithTimeIntervalSince1970:_meetingRoomModel.begin_time / 1000];
     NSDate *currDateDate = [currDate dateByAddingTimeInterval:roomDate.second + 60 * roomDate.minute + 60 * 60 * roomDate.hour];
     MeetingRoomCellModel *model = [MeetingRoomCellModel new];

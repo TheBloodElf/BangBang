@@ -18,29 +18,30 @@
 #import "TaskModel.h"
 #import "TaskDraftModel.h"
 #import "UserApp.h"
-
+//用户管理器 单例子，关联了realm数据库
+//修改的所有数据同步到本地数据库
 @interface UserManager : NSObject
 
-//全局的用户信息
+//用户信息
 @property (nonatomic, strong) User *user;
 
 + (instancetype)manager;
 
 #pragma makr -- 本地推送
-//添加上下班通知 在首页控制
+//添加上下班本地推送 只在在首页调用
 - (void)addSiginRuleNotfition;
-//添加日程通知 在首页的上面日程视图控制
+//添加日程本地推送 只在首页的上面日程视图控制
 - (void)addCalendarNotfition;
-//添加任务通知 在首页的上面任务视图控制
+//添加任务本地推送 只在首页的上面任务视图控制
 - (void)addTaskNotfition;
 #pragma mark -- User
-//更新用户数据
+//更新用户信息
 - (void)updateUser:(User*)user;
 //通过用户guid加载用户
 - (void)loadUserWithGuid:(NSString*)userGuid;
-//创建用户的数据库观察者
+//创建用户的数据库观察者（类似于CoreData的NSFetchedResultsController，可以去谷歌一下）
 - (RBQFetchedResultsController*)createUserFetchedResultsController;
-//获取所有员工
+//获取所有员工 这个接口主要用于融云那边，因为融云只有user_no，但是几个圈子中可能有重复的
 - (NSMutableArray<Employee*>*)getEmployeeArr;
 //根据Guid和圈子ID获取员工
 - (Employee*)getEmployeeWithGuid:(NSString*)userGuid companyNo:(int)companyNo;
@@ -106,9 +107,9 @@
 - (void)addSigin:(SignIn*)signIn;
 //更新今天的签到记录
 - (void)updateTodaySinInList:(NSMutableArray<SignIn*>*)sigInArr guid:(NSString*)employeeGuid;
-//获取今天的签到记录
-- (NSMutableArray<SignIn*>*)getTodaySigInListGuid:(NSString*)employeeGuid;
-//创建日程数据监听
+//获取指定时间的签到记录 不同圈子用employeeGuid区别
+- (NSMutableArray<SignIn*>*)getTodaySigInListGuid:(NSString*)employeeGuid siginDate:(NSDate*)date;
+//创建今天日程数据监听
 - (RBQFetchedResultsController*)createSigInListFetchedResultsController;
 #pragma mark -- SiginRuleSet
 //更新签到规则
@@ -154,4 +155,5 @@
 - (NSMutableArray<UserApp*>*)getUserAppArr;
 //应用数据监听
 - (RBQFetchedResultsController*)createUserAppFetchedResultsController;
+
 @end

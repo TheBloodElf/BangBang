@@ -11,6 +11,7 @@
 @interface ComCalendarDetail : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *detailLabel;
+@property (weak, nonatomic) IBOutlet UITextView *detailTextView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *detailTextViewHeight;
 
 @end

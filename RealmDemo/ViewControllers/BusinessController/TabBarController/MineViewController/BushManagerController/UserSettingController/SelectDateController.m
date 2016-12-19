@@ -19,6 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.dataPicker.datePickerMode = self.datePickerMode;
+    self.dataPicker.date = self.needShowDate ?: [NSDate date];
     // Do any additional setup after loading the view from its nib.
 }
 - (IBAction)sureClicked:(id)sender {

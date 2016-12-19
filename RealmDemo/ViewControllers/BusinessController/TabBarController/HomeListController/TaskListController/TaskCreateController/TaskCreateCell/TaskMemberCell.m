@@ -36,7 +36,7 @@
         }
         
         //算出最多能显示多少人
-        int maxCount = (MAIN_SCREEN_WIDTH - 61 - 38 - 5) / 30;
+        int maxCount = (MAIN_SCREEN_WIDTH - 62 - 38 - 5) / 30;
         if(employeeArr.count <= 6) {//如果能在左边显示完
             self.detailLabel.hidden = YES;
             for (int index = 0;index < employeeArr.count; index ++) {
@@ -62,7 +62,7 @@
                     [self.memberImage addSubview:imageView];
                 }
                 self.detailLabel.hidden = NO;
-                self.detailLabel.text = [NSString stringWithFormat:@"等%d人",employeeArr.count];
+                self.detailLabel.text = [NSString stringWithFormat:@"等%lu人",(unsigned long)employeeArr.count];
             }
         }
     }

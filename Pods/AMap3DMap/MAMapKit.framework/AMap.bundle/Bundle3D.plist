@@ -14,6 +14,8 @@
 		<string>style_4_7_1445391691</string>
 		<key>style-navicar-night</key>
 		<string>style_5_7_1445391719</string>
+		<key>style-bus</key>
+		<string>style_6_7_1445325996</string>
 		<key>style-indoor</key>
 		<string>style_50_7_1445670996</string>
 	</dict>
@@ -23,6 +25,8 @@
 		<string>icons_1_7_1444880368</string>
 		<key>icon-night</key>
 		<string>icons_2_7_1445580283</string>
+		<key>icon-bus</key>
+		<string>icons_3_7_1444880372</string>
 		<key>icon-indoor</key>
 		<string>icons_50_7_1444880375</string>
 		<key>background-day</key>

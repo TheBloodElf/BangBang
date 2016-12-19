@@ -7,7 +7,6 @@
 //
 
 #import "IdentityManager.h"
-#import "GeTuiSdkManager.h"
 
 @implementation IdentityManager
 
@@ -35,7 +34,7 @@
 }
 - (void)saveAuthorizeData {
     [DataCache setCache:self.identity forKey:@"IdentityLocCache"];
-    //把登录信息放到应用组间共享数据
+    //把登录信息放到应用组间共享数据  用于扩展和主应用共享数据
     NSUserDefaults *sharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.lottak.bangbang"];
     [NSKeyedArchiver setClassName:@"Identity" forClass:[Identity class]];
     [sharedDefaults setValue:[NSKeyedArchiver archivedDataWithRootObject:self.identity] forKey:@"GroupIdentityInfo"];
@@ -44,13 +43,18 @@
 - (void)logOut {
     //登录模块重新初始化
     IdentityManager *manager = [IdentityManager manager];
-    manager.identity = [Identity new];
-    manager.identity.firstUseSoft = NO;
+    //#1012 这里不能重新初始化，只能把用户guid重制，因为可能还有请求发生
+    manager.identity.user_guid = @"";
     [manager saveAuthorizeData];
     //停止个推
-    [[GeTuiSdkManager manager] stopGeTuiSdk];
+    [GeTuiSdk destroy];
     //退出融云
     [[RCIM sharedRCIM] logout];
+    //取消所有的本地推送
+    NSArray<UILocalNotification *> *scheduledLocalNotifications = [[UIApplication sharedApplication] scheduledLocalNotifications];
+    for (UILocalNotification *cation in scheduledLocalNotifications) {
+        [[UIApplication sharedApplication] cancelLocalNotification:cation];
+    }
 }
 - (void)showLogin:(NSString *)alertStr {
      [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowLogin" object:alertStr];

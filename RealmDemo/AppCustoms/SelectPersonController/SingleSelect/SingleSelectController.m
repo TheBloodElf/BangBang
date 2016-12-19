@@ -49,21 +49,20 @@
 //获取正确员工数据
 - (void)getSureDataArr {
     //获取应该显示的员工数组
-    if(self.discussMember) {//显示讨论组的员工
-        _selectEmployees = self.discussMember;
-    } else if (self.companyNo) {//显示某个圈子的员工
+    if (self.companyNo) {//显示某个圈子的员工
         _selectEmployees = [_userManager getEmployeeWithCompanyNo:self.companyNo status:5];
-    } else {//显示当前圈子员工
-        _selectEmployees = [_userManager getEmployeeWithCompanyNo:_userManager.user.currCompany.company_no status:5];
+    } else {//不显示任何员工
+        //#BANG-514 避免列表中出现所有圈子成员情况
+        _selectEmployees = [@[] mutableCopy];
     }
     //排除掉不显示的员工
     NSMutableArray<NSString*> *outIdArr = [@[] mutableCopy];
     for (Employee *employee in self.outEmployees) {
-        [outIdArr addObject:employee.employee_guid];
+        [outIdArr addObject:employee.user_guid];
     }
     NSMutableArray *array = [@[] mutableCopy];
     for (Employee *employee in _selectEmployees) {
-        if(![outIdArr containsObject:employee.employee_guid]) {
+        if(![outIdArr containsObject:employee.user_guid]) {
             [array addObject:employee];
         }
     }

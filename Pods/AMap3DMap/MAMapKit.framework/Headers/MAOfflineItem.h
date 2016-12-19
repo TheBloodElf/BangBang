@@ -6,6 +6,8 @@
 //  Copyright (c) 2014年 songjian. All rights reserved.
 //
 
+#if MA_INCLUDE_OFFLINE
+
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSInteger, MAOfflineItemStatus)
@@ -54,3 +56,5 @@ typedef NS_ENUM(NSInteger, MAOfflineItemStatus)
 @property (nonatomic, assign, readonly) long long downloadedSize;
 
 @end
+
+#endif

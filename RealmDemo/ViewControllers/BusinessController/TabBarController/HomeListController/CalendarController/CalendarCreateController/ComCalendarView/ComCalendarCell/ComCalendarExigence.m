@@ -35,11 +35,25 @@
     }
 }
 - (IBAction)leftClicked:(id)sender {
+    //左边被点击了，判断当前是不是左边已经被选中，如果被选中就说明不需要紧急程度
+    if(_calendar.emergency_status == 1) {
+        _calendar.emergency_status = 0;
+        self.laftBtn.selected = NO;
+        self.rightBtn.selected = NO;
+        return;
+    }
     _calendar.emergency_status = 1;
     self.laftBtn.selected = YES;
     self.rightBtn.selected = NO;
 }
 - (IBAction)rightClicked:(id)sender {
+    //右边被点击了，判断当前是不是右边已经被选中，如果被选中就说明不需要紧急程度
+    if(_calendar.emergency_status == 2) {
+        _calendar.emergency_status = 0;
+        self.laftBtn.selected = NO;
+        self.rightBtn.selected = NO;
+        return;
+    }
     _calendar.emergency_status = 2;
     self.laftBtn.selected = NO;
     self.rightBtn.selected = YES;

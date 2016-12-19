@@ -49,7 +49,7 @@
     self.taskDestr.text = model.task_name;
     //任务创建时间
     NSDate *createDate = [NSDate dateWithTimeIntervalSince1970:model.begindate_utc / 1000];
-    self.taskCreateTime.text = [NSString stringWithFormat:@"%d-%02ld-%02ld %02ld:%02ld",createDate.year,createDate.month,createDate.day,createDate.hour,createDate.minute];
+    self.taskCreateTime.text = [NSString stringWithFormat:@"%ld-%02ld-%02ld %02ld:%02ld",(long)createDate.year,createDate.month,createDate.day,createDate.hour,createDate.minute];
     //是否有消息 是不是创建者
     Employee *employee = [[UserManager manager] getEmployeeWithGuid:[UserManager manager].user.user_guid companyNo:model.company_no];
     self.messageWidth.constant = 0;
@@ -80,10 +80,10 @@
         //是不是超时了
         if(timeDate < 0) {
             timeDate = -timeDate;
-            self.taskTimeStr.text = [NSString stringWithFormat:@"超：%d天%d时%d分",timeDate / (24 * 60 * 60),(timeDate % (24 * 60 * 60)) / (60 * 60),(timeDate % (60 * 60)) / 60];
+            self.taskTimeStr.text = [NSString stringWithFormat:@"超：%lld天%lld时%lld分",timeDate / (24 * 60 * 60),(timeDate % (24 * 60 * 60)) / (60 * 60),(timeDate % (60 * 60)) / 60];
             self.taskTimeStr.textColor = [UIColor redColor];
         } else {
-            self.taskTimeStr.text = [NSString stringWithFormat:@"余：%d天%d时%d分",timeDate / (24 * 60 * 60),(timeDate % (24 * 60 * 60)) / (60 * 60),(timeDate % (60 * 60)) / 60];
+            self.taskTimeStr.text = [NSString stringWithFormat:@"余：%lld天%lld时%lld分",timeDate / (24 * 60 * 60),(timeDate % (24 * 60 * 60)) / (60 * 60),(timeDate % (60 * 60)) / 60];
             self.taskTimeStr.textColor = [UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1];
         }
     } else if (model.status == 7) {//已完成

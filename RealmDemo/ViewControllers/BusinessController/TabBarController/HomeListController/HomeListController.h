@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-//首页
+//首页  登陆后看到的第一个页面
 @interface HomeListController : UIViewController
 
 @end

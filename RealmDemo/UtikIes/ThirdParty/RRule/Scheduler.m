@@ -7,7 +7,7 @@
  
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.*/
 
-#define ALL_DATE_FLAGS NSWeekdayCalendarUnit |NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit|NSWeekOfYearCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit|NSSecondCalendarUnit
+#define ALL_DATE_FLAGS NSCalendarUnitWeekday |NSCalendarUnitDay|NSCalendarUnitMonth|NSCalendarUnitYear|NSCalendarUnitWeekOfYear|NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond
 #import "Scheduler.h"
 #import "NSArray+Atipik.h"
 #import "NSCalendar+NSCalendar_Atipik.h"
@@ -243,7 +243,7 @@ static NSCalendar * calendar=nil;
         self.rrule_bysecond = [NSArray arrayWithObject: 
                                [NSString stringWithFormat:@"%ld",
                                 
-                                (long)[calendar components:NSSecondCalendarUnit fromDate:self.start_date].second
+                                (long)[calendar components:NSCalendarUnitSecond fromDate:self.start_date].second
                                 ,
                                 nil]
                                
@@ -255,7 +255,7 @@ static NSCalendar * calendar=nil;
         self.rrule_byminute = [NSArray arrayWithObject: 
                                [NSString stringWithFormat:@"%ld",
                                 
-                                (long)[calendar components:NSMinuteCalendarUnit fromDate:self.start_date].minute
+                                (long)[calendar components:NSCalendarUnitMinute fromDate:self.start_date].minute
                                 ,
                                 nil]
                                
@@ -267,7 +267,7 @@ static NSCalendar * calendar=nil;
         self.rrule_byhour = [NSArray arrayWithObject: 
                              [NSString stringWithFormat:@"%ld",
                               
-                              (long)[calendar components:NSHourCalendarUnit fromDate:self.start_date].hour
+                              (long)[calendar components:NSCalendarUnitHour fromDate:self.start_date].hour
                               ,
                               nil]
                              
@@ -279,7 +279,7 @@ static NSCalendar * calendar=nil;
     //     NSLog(@"%d",[calendar components:NSWeekdayCalendarUnit fromDate:self.start_date].weekday);
         self.rrule_byday = [NSArray arrayWithObject: 
                            
-                            [self dayFromNoDay:[calendar components:NSWeekdayCalendarUnit fromDate:self.start_date].weekday]
+                            [self dayFromNoDay:[calendar components:NSCalendarUnitWeekday fromDate:self.start_date].weekday]
                             ];
      //   NSLog(@"%@",[self.rrule_byday description]);
     }
@@ -292,7 +292,7 @@ static NSCalendar * calendar=nil;
         self.rrule_bymonthday = [NSArray arrayWithObject: 
                                  [NSString stringWithFormat:@"%ld",
                                   
-                                  (long)[calendar components:NSDayCalendarUnit fromDate:self.start_date].day
+                                  (long)[calendar components:NSCalendarUnitDay fromDate:self.start_date].day
                                   ,
                                   nil]
                                  
@@ -305,7 +305,7 @@ static NSCalendar * calendar=nil;
         self.rrule_bymonth =  [NSArray arrayWithObject: 
                                [NSString stringWithFormat:@"%ld",
                                 
-                                (long)[calendar components:NSMonthCalendarUnit fromDate:self.start_date].month
+                                (long)[calendar components:NSCalendarUnitMonth fromDate:self.start_date].month
                                 ,
                                 nil]
                                
@@ -333,10 +333,10 @@ static NSCalendar * calendar=nil;
 
 -(BOOL) checkRule:(NSDate*) date{
     NSString * day = [self dayFromNoDay:  
-                      [calendar components:NSWeekdayCalendarUnit fromDate:date].weekday];
+                      [calendar components:NSCalendarUnitWeekday fromDate:date].weekday];
     
-    NSUInteger d =   [calendar components:NSDayCalendarUnit fromDate:date].day;
-    NSUInteger m =   [calendar components:NSMonthCalendarUnit fromDate:date].month;
+    NSUInteger d =   [calendar components:NSCalendarUnitDay fromDate:date].day;
+    NSUInteger m =   [calendar components:NSCalendarUnitMonth fromDate:date].month;
    /* NSUInteger y =   [[NSCalendar currentCalendar] components:NSYearCalendarUnit fromDate:date].year;
     NSUInteger week_no = [[NSCalendar currentCalendar] components:NSWeekOfYearCalendarUnit fromDate:date].weekOfYear;
     NSUInteger h =   [[NSCalendar currentCalendar] components:NSHourCalendarUnit fromDate:date].hour;
@@ -400,7 +400,7 @@ static NSCalendar * calendar=nil;
             
             BOOL found = NO;
             for (int it_wd = 0; it_wd < [self.rrule_byday count]; it_wd++) {
-                id matchesInString = [regex firstMatchInString:[self.rrule_byday objectAtIndex:it_wd]
+                NSTextCheckingResult *matchesInString = [regex firstMatchInString:[self.rrule_byday objectAtIndex:it_wd]
                                                        options:0
                                                          range:NSMakeRange(0, [[self.rrule_byday objectAtIndex:it_wd] length])];
                 
@@ -416,7 +416,7 @@ static NSCalendar * calendar=nil;
                 }
                 
                 //  NSLog(@"%@ %@",str_number,str_day);
-                NSArray * matching_dates = [self findWeeksDay:[NSNumber numberWithInt:y] :[NSNumber numberWithInt:m] :str_number :str_day];
+                NSArray * matching_dates = [self findWeeksDay:[NSNumber numberWithInt:(int)y] :[NSNumber numberWithInt:(int)m] :str_number :str_day];
                 //     NSLog(@"%@",[matching_dates description]);
                 for (int it=0; it < [matching_dates count]; it++) {
                     if ([[matching_dates objectAtIndex:it]isEqualToDate:date]) {
@@ -440,8 +440,8 @@ static NSCalendar * calendar=nil;
             
             [dc setMonth:m];
             
-            NSRange range = [calendar rangeOfUnit:NSDayCalendarUnit
-                                                               inUnit:NSMonthCalendarUnit
+            NSRange range = [calendar rangeOfUnit:NSCalendarUnitDay
+                                                               inUnit:NSCalendarUnitMonth
                                                               forDate:[calendar dateFromComponents:dc]];
             //   NSLog(@"%d", range.length);
             
@@ -509,14 +509,14 @@ static NSCalendar * calendar=nil;
 }
 
 -(NSArray*) occurencesBetween:(NSDate*) start  andDate:(NSDate*) end{
-    
+    //这里前后要多加一天来计算，防止漏算
     return [self allOccurencesSince:
             [NSNumber numberWithFloat:
              ([start timeIntervalSince1970] - 24*3600)
              ] 
                               until:
             [NSNumber numberWithFloat:
-             [end timeIntervalSince1970]
+             [end timeIntervalSince1970] + 24*3600
              ]
             ];
 }
@@ -599,7 +599,7 @@ static NSCalendar * calendar=nil;
                 NSDate * until = nil;
                 
                 if([self.rrule_freq isEqualToString:@"WEEKLY"]){
-                    [calendar rangeOfUnit:NSWeekCalendarUnit startDate:&period_begin
+                    [calendar rangeOfUnit:NSCalendarUnitWeekOfMonth startDate:&period_begin
                                                      interval:NULL forDate: current_date];
                     dc.weekOfYear =1;
                     until =[calendar dateByAddingComponents:dc toDate:period_begin options:0];
@@ -780,8 +780,8 @@ static NSCalendar * calendar=nil;
             [dc setYear:[year intValue]];
             [dc setMonth:[month intValue]];
             dc.weekday = week_day_n; 
-            NSRange range = [calendar rangeOfUnit:NSDayCalendarUnit
-                                           inUnit:NSMonthCalendarUnit
+            NSRange range = [calendar rangeOfUnit:NSCalendarUnitDay
+                                           inUnit:NSCalendarUnitMonth
                                           forDate:[calendar dateFromComponents:dc]];
             //   NSLog(@"%d", range.length);
             

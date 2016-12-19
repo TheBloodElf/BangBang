@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+//单位分钟
 typedef void(^CalendarSelectTime)(int alertTime);
 
 @interface CalendarSelectAlertTime : UIViewController
 
-@property (nonatomic, copy )CalendarSelectTime calendarSelectTime;
+@property (nonatomic, assign) int userSelectTime;//用户已经选择的时间 单位分钟
+@property (nonatomic, copy  ) CalendarSelectTime calendarSelectTime;
 
 @end

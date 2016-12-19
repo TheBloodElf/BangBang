@@ -11,6 +11,7 @@
 @interface FindPasswordViewController ()<UIWebViewDelegate> {
     UIWebView *_webView;
 }
+@property (nonatomic,strong) WebViewJavascriptBridge *bridge;//交互中间件
 
 @end
 
@@ -20,17 +21,17 @@
     [super viewDidLoad];
     self.title = @"找回密码";
     _webView  = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 64)];
-    NSURL *nsurl =[NSURL URLWithString:[NSString stringWithFormat:@"%@user/find",BBHOMEURL]];
+    NSURL *nsurl =[NSURL URLWithString:[NSString stringWithFormat:@"%@user/find?needPushNoti=NO",BBHOMEURL]];
     NSURLRequest *request =[NSURLRequest requestWithURL:nsurl];
     [_webView loadRequest:request];
     [self.view addSubview:_webView];
-    
+    //开始绑定交互
     [WebViewJavascriptBridge enableLogging];
+    //初始化WebViewJavascriptBridge
     _bridge = [WebViewJavascriptBridge bridgeForWebView:_webView webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
         NSLog(@"ObjC received message from JS: %@", data);
         responseCallback(@"Response for message from ObjC");
     }];
-    
     //返回上一页
     [_bridge registerHandler:@"findPasswordFinish" handler:^(id data, WVJBResponseCallback responseCallback) {
         [self.navigationController popViewControllerAnimated:YES];

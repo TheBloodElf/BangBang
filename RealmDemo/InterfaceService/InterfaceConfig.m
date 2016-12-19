@@ -7,12 +7,14 @@
 //
 
 #import "InterfaceConfig.h"
+//这里要注意下了，因为正式环境已经换成了https而测试环境还是http
+//如果是测试 那么info.plist要把Allow Arbitrary Loads设置成YES
 
 //正式
-//NSString* const KBSSDKAPIURL = @"http://open.59bang.com/";
-//NSString* const KBSSDKAPIDomain = @"http://open.59bang.com/api/";
-//NSString* const BBHOMEURL = @"http://www.59bang.com/";
-//NSString* const XYFMobileDomain = @"http://mobile.59bang.com/";
+//NSString* const KBSSDKAPIURL = @"https://open.59bang.com/";
+//NSString* const KBSSDKAPIDomain = @"https://open.59bang.com/api/";
+//NSString* const BBHOMEURL = @"https://www.59bang.com/";
+//NSString* const XYFMobileDomain = @"https://mobile.59bang.com/";
 //NSString* const RYSERVICEID =  @"59bang";
 //NSString* const kAppId = @"lta03Mo2VI7howTcZItNs5";
 //NSString* const kAppKey = @"kvnz4M8UInAlzyM7jPdDOA";

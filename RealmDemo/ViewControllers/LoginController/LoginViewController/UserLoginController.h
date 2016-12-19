@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+//用户登陆界面
 @interface UserLoginController : UIViewController
 
 @end

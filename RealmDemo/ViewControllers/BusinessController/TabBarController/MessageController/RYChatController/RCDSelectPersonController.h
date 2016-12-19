@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Employee.h"
 #import <RongIMKit/RongIMKit.h>
-//人员多选
+//融云人员多选 是通过user_no来判断的，所以要单独写一个
 @class RCDSelectPersonController;
 @protocol MuliteSelectDelegate <NSObject>
 

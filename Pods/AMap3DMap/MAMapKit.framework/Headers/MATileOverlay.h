@@ -54,12 +54,13 @@
 
 @end
 
-typedef struct {
+struct MATileOverlayPath{
     NSInteger x;
     NSInteger y;
     NSInteger z;
     CGFloat contentScaleFactor;
-} MATileOverlayPath;
+};
+typedef struct MATileOverlayPath MATileOverlayPath;
 
 /**
  *  子类可覆盖CustomLoading中的方法来自定义加载MKTileOverlay

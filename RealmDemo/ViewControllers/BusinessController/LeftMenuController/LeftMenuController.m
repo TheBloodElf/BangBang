@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *userName;
 @property (weak, nonatomic) IBOutlet UILabel *userMood;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 @end
 
 @implementation LeftMenuController
@@ -48,6 +49,7 @@
     self.tableView.dataSource = self;
     [self.tableView registerNib:[UINib nibWithNibName:@"LeftMenuCell" bundle:nil] forCellReuseIdentifier:@"LeftMenuCell"];
     self.tableView.tableFooterView = [UIView new];
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
     [self.tableView reloadData];
     //设置用户信息
     [self.avaterImageView zy_cornerRadiusRoundingRect];
@@ -79,21 +81,25 @@
 }
 #pragma mark --
 #pragma mark -- UITableViewDelegate
+- (CGFloat) tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 70;
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _companyArr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     LeftMenuCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LeftMenuCell" forIndexPath:indexPath];
+    //传值用data
     cell.data = _companyArr[indexPath.row];
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     //改变用户当前圈子
-    Company *company = [_companyArr[indexPath.row] deepCopy];
-    User *user = [_userManager.user deepCopy];
-    user.currCompany = company;
-    [_userManager updateUser:user];
+    Company *company = _companyArr[indexPath.row];
+    _userManager.user.currCompany = company;
+    [_userManager updateUser:_userManager.user];
+    [self.navigationController.view showMessageTips:[NSString stringWithFormat:@"已经切换到%@",_userManager.user.currCompany.company_name]];
     //刷新表格视图
     [tableView reloadData];
     //隐藏菜单控制器

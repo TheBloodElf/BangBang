@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ComCalendarInstructionDelegate <NSObject>
+//详情超长了
+- (void)comCalendarInstructionOverLength;
+
+@end
+
 @interface ComCalendarInstruction : UITableViewCell
+
+@property (nonatomic, weak) id<ComCalendarInstructionDelegate> delegate;
 
 @end

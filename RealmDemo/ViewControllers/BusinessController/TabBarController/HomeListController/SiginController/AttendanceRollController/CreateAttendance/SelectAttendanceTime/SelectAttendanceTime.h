@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+//单位毫秒
 typedef void(^SelectTimeBlock)(int64_t selectDate);
 
 @protocol SelectAttendanceTimeDelegate <NSObject>
@@ -18,6 +19,7 @@ typedef void(^SelectTimeBlock)(int64_t selectDate);
 //选择时间
 @interface SelectAttendanceTime : UIViewController
 
+@property (nonatomic, assign) int64_t userSelectDate;
 @property (nonatomic, copy) SelectTimeBlock selectTimeBlock;
 @property (nonatomic, weak) id<SelectAttendanceTimeDelegate> delegate;
 

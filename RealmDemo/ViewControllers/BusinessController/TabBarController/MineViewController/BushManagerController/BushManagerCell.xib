@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -21,40 +25,39 @@
                             <constraint firstAttribute="width" constant="50" id="YW6-aa-GSb"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IVR-4N-19C">
-                        <rect key="frame" x="75" y="8" width="40" height="20"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="20" id="BDQ-W1-NZH"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cA8-ic-qds">
-                        <rect key="frame" x="75" y="36" width="36" height="15"/>
+                        <rect key="frame" x="75" y="36.5" width="35.5" height="15"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="G7R-Mw-Lld"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" text="1213放到发发发   发安抚安抚爱迪生发发发发送发送发送发发送发发顺丰爱的色放暗示发顺丰暗示发多少发发安抚啊发放到安抚啊" translatesAutoresizingMaskIntoConstraints="NO" id="dqX-OT-JJI">
+                        <rect key="frame" x="75" y="10" width="235" height="18.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    </textView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="cA8-ic-qds" firstAttribute="leading" secondItem="vV1-BA-idM" secondAttribute="trailing" constant="10" id="Ba6-6W-LhF"/>
-                    <constraint firstItem="IVR-4N-19C" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="F0Z-7K-5YL"/>
                     <constraint firstItem="vV1-BA-idM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="FGv-CC-sIX"/>
+                    <constraint firstItem="dqX-OT-JJI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="GL1-SX-7q9"/>
+                    <constraint firstItem="dqX-OT-JJI" firstAttribute="leading" secondItem="vV1-BA-idM" secondAttribute="trailing" constant="10" id="GYS-H1-vTP"/>
                     <constraint firstAttribute="bottom" secondItem="cA8-ic-qds" secondAttribute="bottom" constant="8" id="N7T-70-oYA"/>
+                    <constraint firstAttribute="trailing" secondItem="dqX-OT-JJI" secondAttribute="trailing" constant="10" id="XdY-oS-hsH"/>
                     <constraint firstItem="vV1-BA-idM" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Zg6-yO-bah"/>
-                    <constraint firstItem="IVR-4N-19C" firstAttribute="leading" secondItem="vV1-BA-idM" secondAttribute="trailing" constant="10" id="tae-rd-h5H"/>
+                    <constraint firstItem="cA8-ic-qds" firstAttribute="top" secondItem="dqX-OT-JJI" secondAttribute="bottom" constant="8" id="voa-Xg-8eu"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="bushImage" destination="vV1-BA-idM" id="m6z-wJ-3pE"/>
-                <outlet property="bushName" destination="IVR-4N-19C" id="3Sw-Vw-rCg"/>
+                <outlet property="bushName" destination="dqX-OT-JJI" id="Yy8-f8-1jp"/>
                 <outlet property="bushTitle" destination="cA8-ic-qds" id="UbK-BU-tdj"/>
             </connections>
-            <point key="canvasLocation" x="287" y="355"/>
+            <point key="canvasLocation" x="0.0" y="-20"/>
         </tableViewCell>
     </objects>
 </document>

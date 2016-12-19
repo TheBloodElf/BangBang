@@ -22,9 +22,10 @@
     [super awakeFromNib];
     // Initialization code
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     layout.itemSize = CGSizeMake((MAIN_SCREEN_WIDTH - 40) / 3.f, 80);
     _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 100) collectionViewLayout:layout];
-    _collectionView.contentInset = UIEdgeInsetsMake(10, 10, 0, 0);
+    _collectionView.contentInset = UIEdgeInsetsMake(10, 10, 0, 10);
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
     _collectionView.bounces = NO;

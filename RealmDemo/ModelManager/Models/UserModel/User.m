@@ -12,6 +12,20 @@
 
 MJExtensionCodingImplementation
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _newMessage = YES;
+        _ryDisturb = NO;
+        _canPlayVoice = YES;
+        _canPlayShake = YES;
+        _ryDisturbBeginTime = [NSDate new];
+        _ryDisturbEndTime = [NSDate new];
+    }
+    return self;
+}
+
 + (NSString*)primaryKey {
     return @"user_guid";
 }

@@ -92,7 +92,7 @@ static NSString *painlImageIdentifier = @"painlImageIdentifier";
     }];
     UIAlertAction *select = [UIAlertAction actionWithTitle:@"选择照片" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         SelectImageController *selectVC = [SelectImageController new];
-        selectVC.maxSelect = weakSelf.maxCount - weakSelf.photoArr.count;
+        selectVC.maxSelect = (int)weakSelf.maxCount - (int)weakSelf.photoArr.count;
         selectVC.delegate = weakSelf;
         selectVC.showCameraCell = YES;
         [weakSelf.presentController presentViewController:[[UINavigationController alloc] initWithRootViewController:selectVC] animated:YES completion:nil];
@@ -163,7 +163,7 @@ static NSString *painlImageIdentifier = @"painlImageIdentifier";
 {
     AllowDeletePhotoBrose *brow = [AllowDeletePhotoBrose new];
     brow.photoArr = self.photoArr;
-    brow.index = indexPath.row;
+    brow.index = (int)indexPath.row;
     brow.delegate = self;
     brow.hideDeleteBar = NO;
     [self.presentController.navigationController pushViewController:brow animated:YES];
@@ -188,7 +188,7 @@ static NSString *painlImageIdentifier = @"painlImageIdentifier";
     int count;
     if(imageCount != self.maxCount)
     {
-        count = imageCount + 1;
+        count = (int)imageCount + 1;
     }
     else
     {

@@ -110,17 +110,18 @@
         RCTextMessage *textMessage = (RCTextMessage *)_messageContent;
         [[RCIM sharedRCIM] sendMessage:transferType targetId:targetId content:_messageContent pushContent:@"" pushData:textMessage.content success:^(long messageId){
             dispatch_async(dispatch_get_main_queue(), ^{
+                [self.navigationController.view dismissTips];
                 [self.navigationController popViewControllerAnimated:YES];
             });
         }error:^(RCErrorCode nErrorCode, long messageId){
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.navigationController.view dismissTips];
                 [self.navigationController.view showFailureTips:@"发送失败"];
             });
         }];
     }else if ([_messageContent isMemberOfClass:[RCImageMessage class]] || [_messageContent isMemberOfClass:[RCRichContentMessage class]]){
         [[RCIM sharedRCIM] sendMessage:transferType targetId:targetId content:_messageContent pushContent:@"" pushData:[_messageContent isMemberOfClass:[RCImageMessage class]]?@"[图片]" : @"[图文]" success:^(long messageId){
             dispatch_async(dispatch_get_main_queue(), ^{
+                [self.navigationController.view dismissTips];
                 [self.navigationController popViewControllerAnimated:YES];
             });
         }error:^(RCErrorCode nErrorCode, long messageId){

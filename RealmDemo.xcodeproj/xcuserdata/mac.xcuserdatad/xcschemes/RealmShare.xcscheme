@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0810"
    wasCreatedForAppExtension = "YES"
    version = "2.0">
    <BuildAction
@@ -16,7 +16,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "046DAF881D4C812C00718F2A"
-               BuildableName = "&#x5e2e;&#x5e2e;.appex"
+               BuildableName = "RealmShare.appex"
                BlueprintName = "RealmShare"
                ReferencedContainer = "container:RealmDemo.xcodeproj">
             </BuildableReference>
@@ -48,7 +48,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "046DAF881D4C812C00718F2A"
-            BuildableName = "&#x5e2e;&#x5e2e;.appex"
+            BuildableName = "RealmShare.appex"
             BlueprintName = "RealmShare"
             ReferencedContainer = "container:RealmDemo.xcodeproj">
          </BuildableReference>

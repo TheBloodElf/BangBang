@@ -438,7 +438,7 @@ QRcode *QRcode_encodeString8bit(const char *string, int version, QRecLevel level
 	input = QRinput_new2(version, level);
 	if(input == NULL) return NULL;
 
-	ret = QRinput_append(input, QR_MODE_8, strlen(string), (unsigned char *)string);
+	ret = QRinput_append(input, QR_MODE_8, (int)strlen(string), (unsigned char *)string);
 	if(ret < 0) {
 		QRinput_free(input);
 		return NULL;
@@ -598,7 +598,7 @@ QRcode_List *QRcode_encodeString8bitStructured(const char *string, int version, 
 	input = QRinput_new2(version, level);
 	if(input == NULL) return NULL;
 
-	ret = QRinput_append(input, QR_MODE_8, strlen(string), (unsigned char *)string);
+	ret = QRinput_append(input, QR_MODE_8, (int)strlen(string), (unsigned char *)string);
 	if(ret < 0) {
 		QRinput_free(input);
 		return NULL;

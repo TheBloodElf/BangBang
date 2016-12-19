@@ -14,9 +14,9 @@
 #import "SearchAdressController.h"
 
 @interface SelectAdressController ()<MAMapViewDelegate,UITableViewDelegate,UITableViewDataSource,AMapSearchDelegate,SearchAdressDelegate> {
-    AMapSearchAPI *_searchAPI;//百度搜索API
+    AMapSearchAPI *_searchAPI;//高德搜索API
     AMapPOIAroundSearchRequest *_searchPOIRequest;//周边搜索句柄
-    MAMapView *_mapView;//百度地图
+    MAMapView *_mapView;//高德地图
     MAUserLocation *_currUserLocation;//当前用户位置
     NSMutableArray<AMapPOI*> *_searchDataArr;//搜索结果数组
     AMapPOI *_userSelectedPOI;//用户已经选择的位置
@@ -34,7 +34,7 @@
     [super viewDidLoad];
     self.title = @"选择位置";
     self.view.backgroundColor = [UIColor whiteColor];
-    //配置百度地图
+    //配置高德地图
     _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 250 + 64)];
     _mapView.delegate = self;
     _mapView.showsUserLocation = YES;
@@ -113,7 +113,7 @@
     CGFloat scale = _mapView.zoomLevel;
     [_mapView setZoomLevel:scale + 0.3 atPivot:_mapView.center animated:YES];
 }
-//百度搜索数据
+//高德搜索数据
 - (void)searchPOIData {
     [_searchAPI AMapPOIAroundSearch:_searchPOIRequest];
 }

@@ -17,6 +17,7 @@
 #import "CalendarCreateController.h"
 #import "ComCalendarDetailViewController.h"
 #import "RepCalendarDetailController.h"
+#import "DotActivityIndicatorView.h"
 
 @interface CalendarController ()<RBQFetchedResultsControllerDelegate,JTCalendarDelegate,UITableViewDelegate,UITableViewDataSource,MoreSelectViewDelegate> {
     UserManager *_userManager;//用户管理器
@@ -31,7 +32,6 @@
     NSMutableDictionary<NSString*,NSMutableArray<Calendar*>*> *_dateCalendarDic;//所有时间-日程数组字典  用来优化卡顿现象
     NSDate *_userSelectedDate;//用户选择的时间
     MoreSelectView *_moreSelectView;//多选视图
-    UILabel *_centerNavLabel;//导航中间视图
     NoResultView *_noDataView;//没有数据显示的视图
     
     BOOL isFirstLoad;
@@ -46,14 +46,13 @@
     self.view.backgroundColor = [UIColor whiteColor];
     _calendarFetchedResultsController = [_userManager createCalendarFetchedResultsController];
     _calendarFetchedResultsController.delegate = self;
-    _userSelectedDate = [NSDate date];
-    //创建中间导航视图
-    _centerNavLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 17)];
-    _centerNavLabel.font = [UIFont systemFontOfSize:17];
-    _centerNavLabel.textAlignment = NSTextAlignmentCenter;
-    _centerNavLabel.text = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@年%@月",@(_userSelectedDate.year),@(_userSelectedDate.month)]];
-    _centerNavLabel.textColor = [UIColor whiteColor];
-    self.navigationItem.titleView = _centerNavLabel;
+    //#BANG-452 日程时间不正确，这里的时间要换算成凌晨的时间
+    int64_t second = [NSDate date].timeIntervalSince1970;
+    second -= [NSDate date].hour * 60 * 60;
+    second -= [NSDate date].minute * 60;
+    second -= [NSDate date].second;
+    _userSelectedDate = [NSDate dateWithTimeIntervalSince1970:second];
+    self.title = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@年%@月",@(_userSelectedDate.year),@(_userSelectedDate.month)]];
     //创建周视图时上面显示的视图
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 200)];
     imageView.image = [UIImage imageNamed:@"calendar_list_background"];
@@ -64,8 +63,27 @@
     label.textAlignment = NSTextAlignmentCenter;
     label.text = @"Welcome!";
     [imageView addSubview:label];
+    //创建日历管理器
+    _calendarManager = [JTCalendarManager new];
+    _calendarManager.delegate = self;
+    _calendarManager.settings.weekModeEnabled = YES;
+    _calendarContentView = [[JTHorizontalCalendarView alloc] initWithFrame:CGRectMake(0, 200, MAIN_SCREEN_WIDTH, 85)];
+    _calendarContentView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:_calendarContentView];
+    _calendarManager.contentView = _calendarContentView;
+    [_calendarManager setDate:_userSelectedDate];
+    //创建当天事件的表格视图
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 349 - 64, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 349) style:UITableViewStylePlain];
+    DotActivityIndicatorView *loadView = [[DotActivityIndicatorView alloc] initWithFrame:_tableView.bounds];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.showsVerticalScrollIndicator = NO;
+    _tableView.tableFooterView = loadView;
+    [_tableView registerNib:[UINib nibWithNibName:@"CalenderEventTableViewCell" bundle:nil] forCellReuseIdentifier:@"CalenderEventTableViewCell"];
+    _noDataView = [[NoResultView alloc] initWithFrame:_tableView.bounds];
+    [self.view addSubview:_tableView];
     //创建右边导航
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar_menu"] style:UIBarButtonItemStylePlain target:self action:@selector(moreClicked:)];
+    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar_menu"] style:UIBarButtonItemStylePlain target:self action:@selector(moreClicked:)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addCalendarClicked:)]];
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -84,15 +102,6 @@
     if(isFirstLoad) return;
     isFirstLoad = YES;
     
-    //创建日历管理器
-    _calendarManager = [JTCalendarManager new];
-    _calendarManager.delegate = self;
-    _calendarManager.settings.weekModeEnabled = YES;
-    _calendarContentView = [[JTHorizontalCalendarView alloc] initWithFrame:CGRectMake(0, 200, MAIN_SCREEN_WIDTH, 85)];
-    _calendarContentView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:_calendarContentView];
-    _calendarManager.contentView = _calendarContentView;
-    [_calendarManager setDate:_userSelectedDate];
     //添加上下滑动的手势
     _calendarContentView.userInteractionEnabled = YES;
     UISwipeGestureRecognizer *swTop = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(topClicked:)];
@@ -101,32 +110,21 @@
     UISwipeGestureRecognizer *swDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(downClicked:)];
     swDown.direction = UISwipeGestureRecognizerDirectionDown;
     [_calendarContentView addGestureRecognizer:swDown];
-    //创建当天事件的表格视图
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 349 - 64, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 349) style:UITableViewStylePlain];
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    _tableView.showsVerticalScrollIndicator = NO;
-    _tableView.tableFooterView = [UIView new];
-    [_tableView registerNib:[UINib nibWithNibName:@"CalenderEventTableViewCell" bundle:nil] forCellReuseIdentifier:@"CalenderEventTableViewCell"];
-    _noDataView = [[NoResultView alloc] initWithFrame:_tableView.bounds];
-    [self.view addSubview:_tableView];
-   
     //创建多选视图
-    _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100, 0, 100, 160)];
-    _moreSelectView.selectArr = @[@"今天",@"日程列表",@"添加日程",@"同步日程"];
+    _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100 - 5, 5, 100, 45 * 3)];
+    _moreSelectView.selectArr = @[@"今天",@"日程列表",@"同步日程"];
     _moreSelectView.delegate = self;
     [_moreSelectView setupUI];
     [self.view addSubview:_moreSelectView];
     [self.view bringSubviewToFront:_moreSelectView];
     
     //加载有事件的日期，key-value格式
-     NSMutableArray *calendarArr = [_userManager getCalendarArr];
+    NSMutableArray *calendarArr = [_userManager getCalendarArr];
     if(calendarArr.count == 0)
         [self tongBuCalendar];
-    else {
+    else
         //先加载今天的数据
         [self loadHaveCalendarTimeArr];
-    }
 }
 - (void)topClicked:(UISwipeGestureRecognizer*)sw {
     [UIView animateWithDuration:0.2 animations:^{
@@ -154,10 +152,11 @@
         if(tempCalendar.repeat_type == 0) {//如果是不重复的日程
             NSDate *beginDate = [NSDate dateWithTimeIntervalSince1970:tempCalendar.begindate_utc / 1000];
             NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:tempCalendar.enddate_utc / 1000];
-            if(beginDate.day != endDate.day){//跨天循环填充,并且最后一天要再次计算
-                for (int64_t startTime = tempCalendar.begindate_utc; startTime <= tempCalendar.enddate_utc; startTime += (24 * 60 * 60 * 1000)) {
-                    NSDate *startTimeTemp = [NSDate dateWithTimeIntervalSince1970:startTime / 1000];
-                    NSString *dateStr = [NSString stringWithFormat:@"%ld-%02ld-%02ld",startTimeTemp.year,startTimeTemp.month,startTimeTemp.day];
+            NSDate *lastRepeatDate;
+            if(beginDate.day != endDate.day){//跨天循环填充,并且最后一天要再次计算，因为循环不会充分考虑到最后一天的日程
+                for (int64_t startTime = tempCalendar.begindate_utc; startTime < tempCalendar.enddate_utc; startTime += (24 * 60 * 60 * 1000)) {
+                    lastRepeatDate = [NSDate dateWithTimeIntervalSince1970:startTime / 1000];
+                    NSString *dateStr = [NSString stringWithFormat:@"%ld-%02ld-%02ld",lastRepeatDate.year,lastRepeatDate.month,lastRepeatDate.day];
                     if(tempCalendar.status == 1) {
                         //加入有事件数组
                         if(![_haveCalendarArr containsObject:dateStr])
@@ -170,6 +169,12 @@
                         [_dateCalendarDic setObject:[@[tempCalendar] mutableCopy] forKey:dateStr];
                     }
                 }
+                //循环的最后一天是不是已经计算过了 计算了就跳过
+                if(lastRepeatDate.year == endDate.year)
+                    if(lastRepeatDate.month == endDate.month)
+                        if(lastRepeatDate.day == endDate.day)
+                            continue;
+                //加上最后一天的计算
                 NSString *dateStr = [NSString stringWithFormat:@"%ld-%02ld-%02ld",endDate.year,endDate.month,endDate.day];
                 if(tempCalendar.status == 1) {
                     //加入有事件数组
@@ -197,13 +202,20 @@
                 }
             }
         } else {//如果是重复的日程
-        Scheduler * scheduler = [[Scheduler alloc] initWithDate:[NSDate dateWithTimeIntervalSince1970:tempCalendar.begindate_utc/1000] andRule:tempCalendar.rrule];
+        //这里计算出循环开始当天的时间
+        int64_t second = tempCalendar.r_begin_date_utc / 1000;
+        second = second / (24 * 60 * 60) * (24 * 60 * 60);
+        second += (tempCalendar.begindate_utc / 1000) % (24 * 60 * 60);
+        Scheduler * scheduler = [[Scheduler alloc] initWithDate:[NSDate dateWithTimeIntervalSince1970:second] andRule:tempCalendar.rrule];
         NSArray * occurences = [scheduler occurencesBetween:[NSDate dateWithTimeIntervalSince1970:tempCalendar.r_begin_date_utc/1000] andDate:[NSDate dateWithTimeIntervalSince1970:tempCalendar.r_end_date_utc/1000]];
             //每个时间都遍历一次
             for (NSDate *tempDate in occurences) {
                 NSString *dateStr = [NSString stringWithFormat:@"%ld-%02ld-%02ld",tempDate.year,tempDate.month,tempDate.day];
+                //这个库算出来的结果可能会有之前的时间，现在去掉
                 if([tempDate timeIntervalSince1970] < tempCalendar.r_begin_date_utc/1000) continue;
-                if(tempCalendar.status == 2) {//如果是完成的数组 就全部完成
+                //这个库算出来的结果可能会有之后的时间，现在去掉
+                if([tempDate timeIntervalSince1970] > tempCalendar.r_end_date_utc/1000) continue;
+                if(tempCalendar.status == 2) {//如果事件已经完成
                     //加入所有事件字典
                     if(_dateCalendarDic[dateStr]) {
                         [_dateCalendarDic[dateStr] addObject:tempCalendar];
@@ -212,8 +224,11 @@
                     }
                     continue;
                 }
+                //如果今天被删除了
                 if ([tempCalendar haveDeleteDate:tempDate]) continue;
+                //如果今天已经完成
                 if ([tempCalendar haveFinishDate:tempDate]) {
+                    //这里还是要deepCopy，因为还在一个日程的循环中
                     Calendar *calendar = [tempCalendar deepCopy];
                     calendar.status = 2;
                     //加入所有事件字典
@@ -224,7 +239,7 @@
                     }
                     continue;
                 }
-                //加入所有事件字典
+                //加入所有事件字典 这里还是要deepCopy，因为还在一个日程的循环中
                 Calendar *calendar = [tempCalendar deepCopy];
                 calendar.rdate = @(tempDate.timeIntervalSince1970).stringValue;
                 if(_dateCalendarDic[dateStr]) {
@@ -273,6 +288,12 @@
     else
         [_moreSelectView hideSelectView];
 }
+- (void)addCalendarClicked:(UIBarButtonItem*)item {
+    CalendarCreateController *create = [CalendarCreateController new];
+    //显示现在的时间和日期
+    create.createDate = [_userSelectedDate dateByAddingTimeInterval:[NSDate date].hour * 60 * 60 + [NSDate date].minute * 60 + [NSDate date].second];
+    [self.navigationController pushViewController:create animated:YES];
+}
 #pragma mark --
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
@@ -283,14 +304,17 @@
 #pragma mark -- MoreSelectViewDelegate
 - (void)moreSelectIndex:(int)index {
     if(index == 0) {
-        _userSelectedDate = [NSDate date];
+        //处理一下时间成今天凌晨的时间
+        int64_t second = [NSDate date].timeIntervalSince1970;
+        second -= [NSDate date].hour * 60 * 60;
+        second -= [NSDate date].minute * 60;
+        second -= [NSDate date].second;
+        _userSelectedDate = [NSDate dateWithTimeIntervalSince1970:second];
         [_calendarManager setDate:_userSelectedDate];
         [self getTodayCalendarArr];
         [_tableView reloadData];
-    } else if(index == 1) {
+    } else if (index == 1) {
         [self.navigationController pushViewController:[CalendarListController new] animated:YES];
-    } else if (index == 2) {
-        [self.navigationController pushViewController:[CalendarCreateController new] animated:YES];
     } else {
         [self tongBuCalendar];
     }
@@ -309,8 +333,6 @@
         for (NSDictionary *dic in data[@"list"]) {
             Calendar *calendar = [Calendar new];
             [calendar mj_setKeyValues:dic];
-            #warning 这里暂时处理一下，不知道怎么被修改的
-            calendar.rrule = [calendar.rrule stringByReplacingOccurrencesOfString:@":" withString:@""];
             calendar.descriptionStr = dic[@"description"];
             [array addObject:calendar];
         }
@@ -460,10 +482,10 @@
 }
 - (void)calendarDidLoadPreviousPage:(JTCalendarManager *)calendar;
 {
-   _centerNavLabel.text = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@年%@月",@(calendar.date.year),@(calendar.date.month)]];
+   self.title = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@年%@月",@(calendar.date.year),@(calendar.date.month)]];
 }
 - (void)calendarDidLoadNextPage:(JTCalendarManager *)calendar
 {
-   _centerNavLabel.text = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@年%@月",@(calendar.date.year),@(calendar.date.month)]];
+   self.title = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@年%@月",@(calendar.date.year),@(calendar.date.month)]];
 }
 @end

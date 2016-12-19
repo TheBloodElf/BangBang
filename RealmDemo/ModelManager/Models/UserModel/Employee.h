@@ -54,6 +54,6 @@
 /** 是不是管理员 */
 @property (nonatomic, assign) int is_admin;
 /** 所在部门 */
-@property (nonatomic, strong) NSString  *departments;
+@property (nonatomic, strong) NSString *departments;
 
 @end

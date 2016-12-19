@@ -11,6 +11,7 @@
 @interface RegisterViewController ()<UIWebViewDelegate> {
     UIWebView *_webView;
 }
+@property (nonatomic,strong) WebViewJavascriptBridge *bridge;//交互中间件
 
 @end
 
@@ -25,15 +26,16 @@
     [_webView loadRequest:request];
     _webView.delegate = self;
     [self.view addSubview:_webView];
-    
+    //开始绑定js与oc交互
     [WebViewJavascriptBridge enableLogging];
+    //初始化WebViewJavascriptBridge对象
     _bridge = [WebViewJavascriptBridge bridgeForWebView:_webView webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
         NSLog(@"ObjC received message from JS: %@", data);
         responseCallback(@"Response for message from ObjC");
     }];
-    
-    //返回上一页
+    //让js的regiserFinish执行下面语句
     [_bridge registerHandler:@"regiserFinish" handler:^(id data, WVJBResponseCallback responseCallback) {
+        //返回上一页
         [self.navigationController popViewControllerAnimated:YES];
         responseCallback(@"Response from testObjcCallback");
     }];
@@ -44,20 +46,18 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 #pragma mark --- UIWebViewDelegate
--(void)webViewDidStartLoad:(UIWebView *)webView
-{
+-(void)webViewDidStartLoad:(UIWebView *)webView{
     [self.navigationController.view showLoadingTips:@""];
 }
 
--(void)webViewDidFinishLoad:(UIWebView *)webView
-{
+-(void)webViewDidFinishLoad:(UIWebView *)webView{
     [self.navigationController.view dismissTips];
     NSString *title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
     self.title = title;
 }
--(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
-{
+-(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
     [self.navigationController.view dismissTips];
     [self.navigationController.view showFailureTips:@"网络出错了"];
 }
+
 @end

@@ -4,6 +4,8 @@
 //  Copyright (c) 2013年 AutoNavi. All rights reserved.
 //
 
+#if MA_INCLUDE_OFFLINE
+
 #import <Foundation/Foundation.h>
 #import "MAOfflineItem.h"
 
@@ -37,3 +39,5 @@ typedef enum{
 @property (nonatomic, assign, readonly) MAOfflineCityStatus status __attribute__ ((deprecated("use itemStatus instead")));
 
 @end
+
+#endif

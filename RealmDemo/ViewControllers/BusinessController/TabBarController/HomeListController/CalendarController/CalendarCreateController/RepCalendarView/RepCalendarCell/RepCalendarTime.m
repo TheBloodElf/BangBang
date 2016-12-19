@@ -58,13 +58,13 @@
         //全天事件，只显示年月日
         [self.beginTime setTitle:@"00:00" forState:UIControlStateNormal];
         [self.endTime setTitle:@"23:59" forState:UIControlStateNormal];
-        [self.allDayBtn setBackgroundColor:[UIColor blackColor]];
+        [self.allDayBtn setBackgroundColor:[UIColor calendarColor]];
         [self.allDayBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     } else {
         [self.beginTime setTitle:[NSString stringWithFormat:@"%02ld:%02ld",beginTime.hour,beginTime.minute] forState:UIControlStateNormal];
         [self.endTime setTitle:[NSString stringWithFormat:@"%02ld:%02ld",endTime.hour,endTime.minute] forState:UIControlStateNormal];
         [self.allDayBtn setBackgroundColor:[UIColor whiteColor]];
-        [self.allDayBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [self.allDayBtn setTitleColor:[UIColor calendarColor] forState:UIControlStateNormal];
     }
 }
 @end

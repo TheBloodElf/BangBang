@@ -15,14 +15,12 @@
 #import "FinishTaskView.h"
 #import "TaskCreateController.h"
 #import "TaskDetailController.h"
-#import "MoreSelectView.h"
 
-@interface TaskListController ()<UIScrollViewDelegate,TaskClickedDelegate,MoreSelectViewDelegate,RBQFetchedResultsControllerDelegate> {
+@interface TaskListController ()<UIScrollViewDelegate,TaskClickedDelegate,RBQFetchedResultsControllerDelegate> {
     UserManager *_userManager;
     UISegmentedControl *_topSegmentedControl;//上面的分段控件
     UIScrollView *_bottomScrollView;//下面的滚动视图
-    UIButton *_rightBarButton;//右边导航按钮
-    MoreSelectView *_moreSelectView;//多选视图
+    UIButton *_addTaskBtn;//添加任务按钮
     RBQFetchedResultsController *_taskFetchedResultsController;//当前用户任务数据监听
     RBQFetchedResultsController *_taskDraftFetchedResultsController;//当前用户任务数据监听
     
@@ -67,26 +65,6 @@
     _bottomScrollView.scrollEnabled = NO;
     _bottomScrollView.contentSize = CGSizeMake(4 * _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height);
     [self.view addSubview:_bottomScrollView];
-    
-    _rightBarButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    _rightBarButton.frame = CGRectMake(0, 0, 35, 35);
-    [_rightBarButton setImage:[UIImage imageNamed:@"navigationbar_menu"] forState:UIControlStateNormal];
-    [_rightBarButton addTarget:self action:@selector(moreClicked:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_rightBarButton];
-    if([_userManager getTaskDraftArr:_userManager.user.currCompany.company_no].count != 0)
-        [_rightBarButton addHotView:HOTVIEW_ALIGNMENT_TOP_RIGHT];
-    // Do any additional setup after loading the view.
-}
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.navigationController.navigationBar.barTintColor = [UIColor siginColor];
-}
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    //是不是第一次加载这个页面
-    if(isFirstLoad) return;
-    isFirstLoad = YES;
-    
     //委派的
     _create = [[CreateTaskView alloc] initWithFrame:CGRectMake(0, 0, _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height)];
     _create.delegate = self;
@@ -103,32 +81,53 @@
     _finish = [[FinishTaskView alloc] initWithFrame:CGRectMake(3 * _bottomScrollView.frame.size.width, 0, _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height)];
     _finish.delegate = self;
     [_bottomScrollView addSubview:_finish];
-    //创建多选视图
-    _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100, 0, 100, 80)];
-    _moreSelectView.selectArr = @[@"添加任务",@"同步任务"];
-    _moreSelectView.delegate = self;
-    [_moreSelectView setupUI];
-    [self.view addSubview:_moreSelectView];
-    [self.view bringSubviewToFront:_moreSelectView];
-    
     //显示第几个
     if(self.type == 0)//我委派的
-        _topSegmentedControl.selectedSegmentIndex = 0;
+    _topSegmentedControl.selectedSegmentIndex = 0;
     else//我负责的
-        _topSegmentedControl.selectedSegmentIndex = 1;
+    _topSegmentedControl.selectedSegmentIndex = 1;
     [self segmentedClicked:_topSegmentedControl];
+    _addTaskBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    [_addTaskBtn addTarget:self action:@selector(addTaskClicked:)
+          forControlEvents:UIControlEventTouchUpInside];
+    _addTaskBtn.frame = CGRectMake(0, 0, 40, 40);
+    [_addTaskBtn setImage:[UIImage imageNamed:@"right_barbtn_icon"] forState:UIControlStateNormal];
+    if([_userManager getTaskDraftArr:_userManager.user.currCompany.company_no].count != 0)
+        [_addTaskBtn addHotView:HOTVIEW_ALIGNMENT_TOP_RIGHT];
+    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(loadTaskClicked:)],[[UIBarButtonItem alloc] initWithCustomView:_addTaskBtn]];
+    // Do any additional setup after loading the view.
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.barTintColor = [UIColor siginColor];
+}
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    //是不是第一次加载这个页面
+    if(isFirstLoad) return;
+    isFirstLoad = YES;
+
     if([_userManager getTaskArr:_userManager.user.currCompany.company_no].count == 0)
         [self tongBuTask];
     else
         [self getCurrData];
 }
+- (void)addTaskClicked:(UIButton*)item {
+    //添加任务
+    TaskCreateController *create = [TaskCreateController new];
+    [self.navigationController pushViewController:create animated:YES];
+}
+- (void)loadTaskClicked:(UIBarButtonItem*)item {
+    [self.navigationController.view showLoadingTips:@""];
+    [self tongBuTask];
+}
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
     if(controller == _taskDraftFetchedResultsController) {
         if([_userManager getTaskDraftArr:_userManager.user.currCompany.company_no].count != 0) {
-            [_rightBarButton addHotView:HOTVIEW_ALIGNMENT_TOP_RIGHT];
+            [_addTaskBtn addHotView:HOTVIEW_ALIGNMENT_TOP_RIGHT];
         } else {
-            [_rightBarButton removeHotView];
+            [_addTaskBtn removeHotView];
         }
     } else {
         [self getCurrData];
@@ -169,24 +168,6 @@
     _incharge.data = inchargeArr;
     _member.data = memberArr;
 }
-- (void)moreClicked:(UIBarButtonItem*)item {
-    if(_moreSelectView.isHide)
-        [_moreSelectView showSelectView];
-    else
-        [_moreSelectView hideSelectView];
-}
-#pragma mark --
-#pragma mark -- MoreSelectViewDelegate
-- (void)moreSelectIndex:(int)index {
-    if(index == 0) {
-        //添加任务
-        TaskCreateController *create = [TaskCreateController new];
-        [self.navigationController pushViewController:create animated:YES];
-    } else {
-        [self.navigationController.view showLoadingTips:@""];
-        [self tongBuTask];
-    }
-}
 //同步任务
 - (void)tongBuTask {
     [self.navigationController.view showLoadingTips:@""];
@@ -215,8 +196,6 @@
     [self.navigationController pushViewController:detail animated:YES];
 }
 - (void)segmentedClicked:(UISegmentedControl*)control {
-    if(!_moreSelectView.isHide)
-        [_moreSelectView hideSelectView];
     [_bottomScrollView setContentOffset:CGPointMake(control.selectedSegmentIndex * _bottomScrollView.frame.size.width, 0) animated:NO];
     [self.view endEditing:YES];
 }

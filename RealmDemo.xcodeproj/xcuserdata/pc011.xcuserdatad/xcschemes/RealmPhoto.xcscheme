@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0730"
+   LastUpgradeVersion = "0810"
    wasCreatedForAppExtension = "YES"
    version = "2.0">
    <BuildAction
@@ -15,7 +15,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1B0CF7831D6430C100096CF9"
+               BlueprintIdentifier = "1B0CF7991D64384E00096CF9"
                BuildableName = "RealmPhoto.appex"
                BlueprintName = "RealmPhoto"
                ReferencedContainer = "container:RealmDemo.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1B0CF7831D6430C100096CF9"
+            BlueprintIdentifier = "1B0CF7991D64384E00096CF9"
             BuildableName = "RealmPhoto.appex"
             BlueprintName = "RealmPhoto"
             ReferencedContainer = "container:RealmDemo.xcodeproj">

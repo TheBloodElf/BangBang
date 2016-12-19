@@ -17,6 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.datePicker.date = [NSDate dateWithTimeIntervalSince1970:_userSelectDate / 1000];
 }
 
 - (IBAction)cancleBtnAction:(id)sender {

@@ -21,7 +21,7 @@ static BOOL base64Initialized = NO;
 {
     const char *cStr = [self UTF8String];
     unsigned char result[16];
-    CC_MD5( cStr, strlen(cStr), result ); // This is the md5 call
+    CC_MD5( cStr, (int)strlen(cStr), result ); // This is the md5 call
     return [NSString stringWithFormat:
 			@"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
 			result[0], result[1], result[2], result[3], 
@@ -997,7 +997,7 @@ static BOOL base64Initialized = NO;
 							 @"%23", @"%21", @"%27",
 							 @"%28", @"%29", @"%2A",@"%20", nil];
 	
-    int len = [escapeChars count];
+    int len = (int)[escapeChars count];
 	
     NSMutableString *temp = [url mutableCopy];
 	
@@ -1031,7 +1031,7 @@ static BOOL base64Initialized = NO;
 							 @"%23", @"%21", @"%27",
 							 @"%28", @"%29", @"%2A",@"%20", nil];
 	
-    int len = [escapeChars count];
+    int len = (int)[escapeChars count];
     NSMutableString *temp = [url mutableCopy];
 	
     int i;
@@ -1103,7 +1103,7 @@ static BOOL base64Initialized = NO;
 	
     NSArray *escapeChars = [NSArray arrayWithObjects:@"'" , nil];
 	
-    int len = [escapeChars count];
+    int len = (int)[escapeChars count];
 	 
     NSMutableString *temp = [self mutableCopy];
 	
@@ -1169,7 +1169,7 @@ static BOOL base64Initialized = NO;
 - (NSString*)md5
 {
     unsigned char result[16];
-    CC_MD5( self.bytes, self.length, result ); // This is the md5 call
+    CC_MD5( self.bytes, (int)self.length, result ); // This is the md5 call
     return [NSString stringWithFormat:
 			@"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
 			result[0], result[1], result[2], result[3], 

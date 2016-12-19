@@ -24,18 +24,27 @@
 #import "CalendarController.h"
 #import "ComCalendarDetailViewController.h"
 #import "RepCalendarDetailController.h"
+#import "BindPhoneController.h"
 
-@interface MainBusinessController ()<UITabBarControllerDelegate,MoreViewControllerDelegate> {
+@interface MainBusinessController ()<UITabBarControllerDelegate,MoreViewControllerDelegate,BindPhoneDelegate> {
     UITabBarController *_tabBarVC;
     UserManager *_userManager;
     IdentityManager *_identityManager;
     NSMutableArray *_needSyncCalender;//需要同步的日程
 }
+@property (nonatomic, strong) NSDictionary *launchOptions;
 
 @end
 
 @implementation MainBusinessController
 
+- (instancetype)initWithOptions:(NSDictionary *)launchOptions {
+    self = [super init];
+    if(self) {
+        _launchOptions = launchOptions;
+    }
+    return self;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     _userManager = [UserManager manager];
@@ -48,18 +57,22 @@
     [self.view addSubview:_tabBarVC.view];
     //加上3d touch进入应用的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReciveTouch:) name:@"OpenSoft_FormTouch_Notication" object:nil];
-    //加上新消息的通知
+    //加上个推消息的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecivePushMessage:) name:@"DidRecivePushMessage" object:nil];
     //加上从today进来的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReciveAddToday:) name:@"OpenSoft_FormToday_addCalendar_Notication" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReciveOpenToday:) name:@"OpenSoft_FormToday_openCalendar_Notication" object:nil];
-    //添加spotlight索引 我们要适配IOS8所以这个功能不能用
-    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0f) {
-        [[CSSearchableIndex defaultSearchableIndex] deleteAllSearchableItemsWithCompletionHandler:^(NSError * _Nullable error) {}];
-        [self insertSearchableItem:UIImagePNGRepresentation([UIImage imageNamed:@"default_image_icon"]) spotlightTitle:@"帮帮管理助手" description:@"身边不可获取的办公软件" keywords:@[@"日程",@"任务",@"会议",@"签到"] spotlightInfo:@"OpenSoft" domainId:@"com.lottak.BangBang"];
-    }
+    //添加spotlight索引
+//    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0f) {
+//        [[CSSearchableIndex defaultSearchableIndex] deleteAllSearchableItemsWithCompletionHandler:^(NSError * _Nullable error) {}];
+//        [self insertSearchableItem:UIImagePNGRepresentation([UIImage imageNamed:@"default_image_icon"]) spotlightTitle:@"帮帮管理助手" description:@"身边不可获取的办公软件" keywords:@[@"日程",@"任务",@"会议",@"签到"] spotlightInfo:@"OpenSoft" domainId:@"com.lottak.BangBang"];
+//    }
     //加上spotlight进来的通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReciveOpenSpotlight:) name:@"OpenSoft_FormSpotlight_Notication" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReciveOpenSpotlight:) name:@"OpenSoft_FormSpotlight_Notication" object:nil];
+    //查看当前用户是否绑定了手机号
+    [self checkUserPhone];
+    //检查启动参数 如果有就进行相应的跳转
+    [self checkOption];
     //检查网络是否连接
     AFNetworkReachabilityManager *reachabilityManager = [AFNetworkReachabilityManager sharedManager];
     [reachabilityManager startMonitoring];
@@ -70,14 +83,167 @@
             return;
         }
         if(!_userManager.user.currCompany.company_no) return;
-        [self getCompanySiginRule];//获取签到规则
+        [self getCompanySiginRule];//获取签到规则 这里第一次进入应用是获取不到签到规则的  因为第一次用户当前没有圈子 是在[self checkSyncCalender]中获取的    不过这里写上的作用在于网络可用时再获取一次
         [self checkSyncCalender];//同步日程
     }];
+    //每次进来重新获取一次圈子和员工信息，保证数据的有效性
+    [self requestCompanyEmployee];
+}
+- (void)requestCompanyEmployee {
+    //获取所有圈子 所有状态员工
+    [UserHttp getCompanysUserGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+        if(error) {
+            [self.navigationController dismissTips];
+            [self.navigationController.view showFailureTips:error.statsMsg];
+            return ;
+        }
+        NSMutableArray *companys = [@[] mutableCopy];
+        for (NSDictionary *tempDic in data) {
+            Company *company = [Company new];
+            [company mj_setKeyValues:tempDic];
+            [companys addObject:company];
+        }
+        [_userManager updateCompanyArr:companys];
+        //获取所有圈子的员工信息
+        [UserHttp getEmployeeCompnyNo:0 status:5 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+            if(error) {
+                [self.navigationController dismissTips];
+                [self.navigationController.view showFailureTips:error.statsMsg];
+                return ;
+            }
+            NSMutableArray *array = [@[] mutableCopy];
+            for (NSDictionary *dic in data[@"list"]) {
+                Employee *employee = [Employee new];
+                [employee mj_setKeyValues:dic];
+                [array addObject:employee];
+            }
+            [UserHttp getEmployeeCompnyNo:0 status:0 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+                if(error) {
+                    [self.navigationController dismissTips];
+                    [self.navigationController.view showFailureTips:error.statsMsg];
+                    return ;
+                }
+                for (NSDictionary *dic in data[@"list"]) {
+                    Employee *employee = [Employee new];
+                    [employee mj_setKeyValues:dic];
+                    [array addObject:employee];
+                }
+                [_userManager updateEmployee:array companyNo:0];
+                //如果当前用户没有圈子，就重新给一个 把第一个正式员工作为自己当前圈子
+                if(_userManager.user.currCompany.company_no != 0)
+                    return;
+                for (Company *company in [_userManager getCompanyArr]) {
+                    Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:company.company_no];
+                    if(employee.status == 1 || employee.status == 4) {
+                        _userManager.user.currCompany = company;
+                        break;
+                    }
+                }
+                [_userManager updateUser:_userManager.user];
+            }];
+        }];
+    }];
+}
+#pragma mark -- 检查启动参数 是否有本地推送 3dtouch 远程推送 today扩展
+- (void)checkOption {
+    //如果是通过openurl进来的（本工程只有today扩展响应是如此）
+    if([_launchOptions.allKeys[0] isEqualToString:UIApplicationLaunchOptionsURLKey]) {
+        NSString *value = [_launchOptions.allValues[0] absoluteString];
+        //是不是日程操作
+        if([value rangeOfString:@"Calendar"].location != NSNotFound) {
+            //是不是查看日程
+            if([[value componentsSeparatedByString:@"//"][1] isEqualToString:@"openCalendar"]) {
+                int calendarId = [[value componentsSeparatedByString:@"//"][2] intValue];
+                for (Calendar *calendar in [_userManager getCalendarArr]) {
+                    //去掉删除的
+                    if(calendar.status == 0) continue;
+                    if(calendar.id == calendarId) {
+                        //展示详情
+                        if(calendar.repeat_type == 0) {
+                            Calendar *tempTemp = calendar;
+                            tempTemp.rdate = @([NSDate date].timeIntervalSince1970).stringValue;
+                            ComCalendarDetailViewController *vc = [ComCalendarDetailViewController new];
+                            vc.data = tempTemp;
+                            [self.navigationController pushViewController:vc animated:YES];
+                            
+                        } else {
+                            Calendar *tempTemp = calendar;
+                            tempTemp.rdate = @([NSDate date].timeIntervalSince1970).stringValue;
+                            RepCalendarDetailController *vc = [RepCalendarDetailController new];
+                            vc.data = tempTemp;
+                            [self.navigationController pushViewController:vc animated:YES];
+                        }
+                        break;
+                    }
+                }
+            } else if ([[value componentsSeparatedByString:@"//"][1] isEqualToString:@"addCalendar"]) {
+                //添加日程
+                [self.navigationController pushViewController:[CalendarCreateController new] animated:YES];
+            }
+        }
+    }
+    //是不是本地推送 因为在appdelegate中的应用将要进入前台做了处理，所以这里就不需要做处理了
+//    if([_launchOptions.allKeys[0] isEqualToString:UIApplicationLaunchOptionsLocalNotificationKey]) {
+//        NSMutableDictionary *dictionary = [[_launchOptions.allValues[0] mj_keyValues] mutableCopy];
+//        [dictionary setObject:@([NSDate date].timeIntervalSince1970 * 1000).stringValue forKey:@"id"];
+//        PushMessage *pushMessage = [PushMessage new];
+//        [pushMessage mj_setKeyValues:dictionary];
+//        pushMessage.addTime = [NSDate date];
+//        [[UserManager manager] addPushMessage:pushMessage];
+//    }
+    //是不是远程推送 本工程不做处理，以个推的透穿消息为准
+    //    if([option.allKeys[0] isEqualToString:UIApplicationLaunchOptionsRemoteNotificationKey]) {
+    //
+    //    }
+    //是不是3dtouch进来的
+    if([_launchOptions.allKeys[0] isEqualToString:UIApplicationLaunchOptionsShortcutItemKey]) {
+        UIApplicationShortcutItem *shortcutItem = _launchOptions.allValues[0];
+        int currIndex = [shortcutItem.type isEqualToString:@"今日日程"] ? 0 : 1;
+        if(currIndex == 0) {//今日日程
+            [self.navigationController pushViewController:[CalendarController new] animated:YES];
+        } else if (currIndex == 1) {//签到
+            [self executeNeedSelectCompany:^{
+                UIStoryboard *story = [UIStoryboard storyboardWithName:@"MainStory" bundle:nil];
+                CreateSiginController *sigin = [story instantiateViewControllerWithIdentifier:@"CreateSiginController"];
+                [self.navigationController pushViewController:sigin animated:YES];
+            }];
+        }
+    }
+    //是不是spotlight进来的 这里暂时不用
+    //    if([option.allKeys[0] isEqualToString:UIApplicationLaunchOptionsSourceApplicationKey]) {
+    //
+    //    }
+}
+//查看当前用户是否绑定了手机号
+- (void)checkUserPhone {
+    UserManager *userManager = [UserManager manager];
+    //是否有手机号
+    if(![NSString isBlank:userManager.user.mobile]) return;
+    UIStoryboard *story = [UIStoryboard storyboardWithName:@"MainStory" bundle:nil];
+    BindPhoneController *bindPhone = [story instantiateViewControllerWithIdentifier:@"BindPhoneController"];
+    bindPhone.delegate = self;
+    bindPhone.providesPresentationContextTransitionStyle = YES;
+    bindPhone.definesPresentationContext = YES;
+    bindPhone.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    [self.navigationController presentViewController:bindPhone animated:NO completion:nil];
+}
+#pragma mark --
+#pragma mark -- BindPhoneDelegate
+- (void)bindPhoneClicked {
+    UserManager *userManager = [UserManager manager];
+    WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
+    webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@/security/index?userGuid=%@&access_token=%@&companyNo=%d",XYFMobileDomain,userManager.user.user_guid,[IdentityManager manager].identity.accessToken,userManager.user.currCompany.company_no];
+    [self.navigationController pushViewController:webViewcontroller animated:YES];
+}
+- (void)bindCancle {
+    
 }
 #pragma mark --
 #pragma mark -- 这里是需要有网就操作的
 //获取签到规则
 - (void)getCompanySiginRule {
+    //没有圈子就不获取规则
+    if(_userManager.user.currCompany.company_no == 0) return;
     [UserHttp getSiginRule:_userManager.user.currCompany.company_no handler:^(id data, MError *error) {
         if(error) {
             [self.navigationController.view showFailureTips:error.statsMsg];
@@ -116,14 +282,13 @@
     if(!_needSyncCalender.count) return;
     [self.navigationController.view showLoadingTips:@"上传离线日程..."];
     [self syncCalender];
-    
 }
 - (void)syncCalender {
     if(_needSyncCalender.count == 0) {
         [self.navigationController.view dismissTips];
         return;
     }
-    Calendar *calendar = [_needSyncCalender.firstObject deepCopy];
+    Calendar *calendar = _needSyncCalender.firstObject;
     //网络创建的
     if(calendar.id > 0) {
         if(calendar.status == 0) {//删除日程
@@ -182,9 +347,9 @@
 #pragma mark -- 
 #pragma mark -- Notification
 //Spotlight进来的
-- (void)didReciveOpenSpotlight:(NSNotification*)notification {
+//- (void)didReciveOpenSpotlight:(NSNotification*)notification {
     //    NSString *currStr = notification.object;
-}
+//}
 //Today进来 添加日程
 - (void)didReciveAddToday:(NSNotification*)notification {
     //添加日程
@@ -192,6 +357,7 @@
 }
 //Today进来 查看日程详情
 - (void)didReciveOpenToday:(NSNotification*)notification {
+
     //查看日程
     for (Calendar *calendar in [_userManager getCalendarArr]) {
         //去掉删除的
@@ -199,14 +365,14 @@
         if(calendar.id == [notification.object intValue]) {
             //展示详情
             if(calendar.repeat_type == 0) {
-                Calendar *tempTemp = [calendar deepCopy];
+                Calendar *tempTemp = calendar;
                 tempTemp.rdate = @([NSDate date].timeIntervalSince1970).stringValue;
                 ComCalendarDetailViewController *vc = [ComCalendarDetailViewController new];
                 vc.data = tempTemp;
                 [self.navigationController pushViewController:vc animated:YES];
                 
             } else {
-                Calendar *tempTemp = [calendar deepCopy];
+                Calendar *tempTemp = calendar;
                 tempTemp.rdate = @([NSDate date].timeIntervalSince1970).stringValue;
                 RepCalendarDetailController *vc = [RepCalendarDetailController new];
                 vc.data = tempTemp;
@@ -216,123 +382,230 @@
         }
     }
 }
-//推送消息
+#pragma mark -- 受到个推消息
 - (void)didRecivePushMessage:(NSNotification*)notification {
-    PushMessage *message = notification.object;
-    //如果是圈子操作
-    if([message.type isEqualToString:@"COMPANY"]) {
-        //是否有操作
-        if ([message.action isEqualToString:@"GENERAL"]) { //都不管 因为要不停的弹出来 很烦
-            //            [_businessNav pushViewController:[RequestManagerController new] animated:YES];
-        } else {
-            //其他的不用管
-        }
-    } else if ([message.type isEqualToString:@"TASK"]) {//任务推送
-        //因为任务发送给你和任务状态改变和任务修改都是一样的action=GENERAL，所以这里我们这里要看本地是否有数据来判断是不是新添加的任务 以此来判断是否需要发送更新通知
-        for (TaskModel *taskModel in [_userManager getTaskArr:message.company_no]) {
-            if(message.target_id.intValue == taskModel.id) {
-                 [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadTaskInfo" object:message];
-            }
-        }
-        //获取任务详情 弹窗
-        [UserHttp getTaskInfo:message.target_id.intValue handler:^(id data, MError *error) {
-            if(error) {
-                [self.navigationController.view showFailureTips:error.statsMsg];
-                return ;
-            }
-            TaskModel *taskModel = [TaskModel new];
-            [taskModel mj_setKeyValues:data];
-            taskModel.descriptionStr = data[@"description"];
-            [_userManager upadteTask:taskModel];
-            
-            TaskDetailController *task = [TaskDetailController new];
-            task.data = taskModel;
-            [self.navigationController pushViewController:task animated:YES];
-        }];
-    } else if([message.type isEqualToString:@"TASK_COMMENT_STATUS"]){//任务评论推送
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadTaskInfo" object:message];
-    } else if([message.type isEqualToString:@"WORKTIP"]){//上下班提醒
-        
-    } else if([message.type isEqualToString:@"TASKTIP"]) { //任务提醒推送 进入任务详情
-        for (TaskModel *taskModel in [_userManager getTaskArr:message.company_no]) {
-            if(message.target_id.intValue == taskModel.id) {
-                TaskDetailController *task = [TaskDetailController new];
-                task.data = taskModel;
-                [self.navigationController pushViewController:task animated:YES];
-                break;
-            }
-        }
-    } else if([message.type isEqualToString:@"CALENDARTIP"]) {//日程提醒 进入日程详情
-        for (Calendar *calendar in [_userManager getCalendarArr]) {
-            //去掉删除的
-            if(calendar.status == 0) continue;
-            if(calendar.id == message.target_id.intValue) {
-                //展示详情
-                if(calendar.repeat_type == 0) {
-                    Calendar *tempTemp = [calendar deepCopy];
-                    tempTemp.rdate = @(message.addTime.timeIntervalSince1970).stringValue;
-                    ComCalendarDetailViewController *vc = [ComCalendarDetailViewController new];
-                    vc.data = tempTemp;
-                    [self.navigationController pushViewController:vc animated:YES];
-                } else {
-                    Calendar *tempTemp = [calendar deepCopy];
-                    tempTemp.rdate = @(message.addTime.timeIntervalSince1970).stringValue;
-                    RepCalendarDetailController *vc = [RepCalendarDetailController new];
-                    vc.data = tempTemp;
-                    [self.navigationController pushViewController:vc animated:YES];
-                }
-                break;
-            }
-        }
-    } else if([message.type isEqualToString:@"CALENDAR"]){ //日程推送 分享日程
-        NSData *calendarData = [message.entity dataUsingEncoding:NSUTF8StringEncoding];
+    if(_userManager.user.canPlayVoice) {//声音
+        AudioServicesPlaySystemSound(1007);
+    }
+    if(_userManager.user.canPlayShake)//震动
+        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
+    [UIApplication sharedApplication].applicationIconBadgeNumber -= 1;
+    //在这里处理个推推送
+    NSData* payload = notification.object;
+    NSString *payloadMsg = nil;
+    if (payload) {
+        payloadMsg = [[NSString alloc] initWithBytes:payload.bytes
+                                              length:payload.length
+                                            encoding:NSUTF8StringEncoding];
+    }
+    NSData *jsonData = [payloadMsg dataUsingEncoding:NSUTF8StringEncoding];
+    NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
+    //远程推送没有addTime和id 甚至没有unread，我们这里加上
+    if(![dict.allKeys containsObject:@"unread"])
+        [dict setObject:@(1) forKey:@"unread"];
+    [dict setObject:@(-1 * [NSDate date].timeIntervalSince1970).stringValue forKey:@"id"];
+    PushMessage *message = [PushMessage new];
+    [message mj_setKeyValues:dict];
+    message.addTime = [NSDate date];
+    //公告
+    if ([message.type isEqualToString:@"VOTE"] || [message.type isEqualToString:@"NOTICE"]) {
+        message.to_user_no = _userManager.user.user_no;
+    }
+    //如果是分享过来的日程，存入数据库
+    if ([message.type isEqualToString:@"CALENDAR"] && ![NSString isBlank:message.entity]) {
+        NSData *calendarData = [[dict objectForKey:@"entity"] dataUsingEncoding:NSUTF8StringEncoding];
         NSMutableDictionary *calendarDic = [NSJSONSerialization JSONObjectWithData:calendarData options:NSJSONReadingMutableContainers error:nil];
         Calendar *sharedCalendar = [Calendar new];
         [sharedCalendar mj_setKeyValues:calendarDic];
         sharedCalendar.descriptionStr = calendarDic[@"description"];
-        //展示详情
-        if(sharedCalendar.repeat_type == 0) {
-            Calendar *tempTemp = [sharedCalendar deepCopy];
-            tempTemp.rdate = @(message.addTime.timeIntervalSince1970).stringValue;
-            ComCalendarDetailViewController *vc = [ComCalendarDetailViewController new];
-            vc.data = tempTemp;
-            [self.navigationController pushViewController:vc animated:YES];
-        } else {
-            Calendar *tempTemp = [sharedCalendar deepCopy];
-            tempTemp.rdate = @(message.addTime.timeIntervalSince1970).stringValue;
-            RepCalendarDetailController *vc = [RepCalendarDetailController new];
-            vc.data = tempTemp;
-            [self.navigationController pushViewController:vc animated:YES];
+        if (sharedCalendar) {
+            [_userManager addCalendar:sharedCalendar];
         }
-    }else if ([message.type isEqualToString:@"REQUEST"]) {//网页
-        WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
-        webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@request/details?id=%@&userGuid=%@&access_token=%@&from=message&companyNo=%ld",XYFMobileDomain,message.target_id,_userManager.user.user_guid,_identityManager.identity.accessToken,message.company_no];
-        [self.navigationController pushViewController:webViewcontroller animated:NO];
-    }else if ([message.type isEqualToString:@"APPROVAL"]){//通用审批
-        WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
-        webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@Approval/details?id=%@&userGuid=%@&access_token=%@&from=message&companyNo=%ld",XYFMobileDomain,message.target_id,_userManager.user.user_guid,_identityManager.identity.accessToken,message.company_no];
-        [self.navigationController pushViewController:webViewcontroller animated:NO];
-    } else if ([message.type isEqualToString:@"NEW_APPROVAL"]){//审批
-        WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
-        webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@ApprovalByFormBuilder/details?id=%@&userGuid=%@&access_token=%@&from=message&companyNo=%ld",XYFMobileDomain,message.target_id,_userManager.user.user_guid,_identityManager.identity.accessToken,message.company_no];
-        [self.navigationController pushViewController:webViewcontroller animated:NO];
-    } else if([message.type isEqualToString:@"MAIL"]){
-        WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
-        webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@Mail/Details?id=%@&isSend=false&userGuid=%@&companyNo=%ld&access_token=%@&from=message",XYFMobileDomain,message.target_id,_userManager.user.user_guid,message.company_no,_identityManager.identity.accessToken];
-        [self.navigationController pushViewController:webViewcontroller animated:NO];
-    } else if([message.type isEqualToString:@"MEETING"]){
-        WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
-        webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@Meeting/Details?id=%@&userGuid=%@&companyNo=%ld&access_token=%@&from=message",XYFMobileDomain,message.target_id,_userManager.user.user_guid,message.company_no,_identityManager.identity.accessToken];
-        [self.navigationController pushViewController:webViewcontroller animated:NO];
-    } else if([message.type isEqualToString:@"VOTE"]){
-        WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
-        webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@Vote/Details?id=%@&userGuid=%@&companyNo=%ld&access_token=%@&from=message",XYFMobileDomain,message.target_id,_userManager.user.user_guid,message.company_no,_identityManager.identity.accessToken];
-        [self.navigationController pushViewController:webViewcontroller animated:NO];
-    } else if([message.type isEqualToString:@"NOTICE"]){
-        WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
-        webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@NOTICE/Details?id=%@&userGuid=%@&companyNo=%ld&access_token=%@&from=message",XYFMobileDomain,message.target_id,_userManager.user.user_guid,message.company_no,_identityManager.identity.accessToken];
-        [self.navigationController pushViewController:webViewcontroller animated:NO];
     }
+    //任务操作
+    if ([message.type isEqualToString:@"TASK"]) {//任务推送
+        //因为任务发送给你和任务状态改变和任务修改都是一样的action=GENERAL，所以这里我们这里要看本地是否有数据来判断是不是新添加的任务 以此来判断是否需要发送更新通知
+        for (TaskModel *taskModel in [_userManager getTaskArr:message.company_no]) {
+            if(message.target_id.intValue == taskModel.id) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadTaskInfo" object:message];
+            }
+        }
+        //获取任务详情 弹窗
+        [UserHttp getTaskInfo:message.target_id.intValue handler:^(id data, MError *error) {
+            if(error) return ;
+            TaskModel *taskModel = [TaskModel new];
+            [taskModel mj_setKeyValues:data];
+            taskModel.descriptionStr = data[@"description"];
+            [_userManager upadteTask:taskModel];
+        }];
+    }
+    if([message.type isEqualToString:@"TASK_COMMENT_STATUS"]){//任务评论推送
+        [UserHttp getTaskInfo:message.target_id.intValue handler:^(id data, MError *error) {
+            if(error) return ;
+            TaskModel *taskModel = [TaskModel new];
+            [taskModel mj_setKeyValues:data];
+            taskModel.descriptionStr = data[@"description"];
+            [_userManager upadteTask:taskModel];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadTaskInfo" object:message];
+        }];
+    }
+    //圈子操作
+    if ([message.type isEqualToString:@"COMPANY"]) {
+        //同意加入圈子
+        if ([message.action rangeOfString:@"COMPANY_ALLOW_JOIN"].location != NSNotFound) {
+            //改变自己在里面的状态 更新圈子数组
+            Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:message.company_no];
+            employee.status = 1;
+            [_userManager updateEmployee:employee];
+            for (Company *company in [_userManager getCompanyArr]) {
+                if(company.company_no == message.company_no) {
+                    Company *tempCompany = company;
+                    [_userManager deleteCompany:company];
+                    [_userManager addCompany:tempCompany];
+                    //如果没有加入圈子 则现在加入这个圈子
+                    if(_userManager.user.currCompany.company_no == 0) {
+                        _userManager.user.currCompany = tempCompany;
+                        [_userManager updateUser:_userManager.user];
+                    }
+                    break;
+                }
+            }
+        }
+        //同意退出圈子
+        else if ([message.action rangeOfString:@"COMPANY_ALLOW_LEAVE"].location != NSNotFound){
+            //改变自己在里面的状态 更新圈子数组
+            Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:message.company_no];
+            employee.status = 2;
+            [_userManager updateEmployee:employee];
+            //改变自己在里面的状态 更新圈子数组
+            for (Company *company in [_userManager getCompanyArr]) {
+                if(company.company_no == message.company_no) {
+                    [_userManager deleteCompany:company];
+                    break;
+                }
+            }
+            //重新让自己加入最近一个没有退出的圈子
+            if(_userManager.user.currCompany.company_no == message.company_no) {
+                Company *tempCompany = [Company new];
+                for (Company *company in [_userManager getCompanyArr]) {
+                    Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:company.company_no];
+                    if(employee.status == 1 || employee.status == 4) {
+                        tempCompany = company;
+                        break;
+                    }
+                }
+                _userManager.user.currCompany = tempCompany;
+                [_userManager updateUser:_userManager.user];
+            }
+            //#BANG-490 退出圈子则需要默认选中第一行的圈子
+            //如果没有加入圈子 则现在加入这个圈子
+            if(_userManager.user.currCompany.company_no == 0) {
+                for (Company *company in [_userManager getCompanyArr]) {
+                    if(company.company_no == message.company_no) {
+                        _userManager.user.currCompany = company;
+                        [_userManager updateUser:_userManager.user];
+                        break;
+                    }
+                }
+            }
+        }
+        //拒绝加入圈子
+        else if ([message.action rangeOfString:@"COMPANY_REFUSE_JOIN"].location != NSNotFound) {
+            Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:message.company_no];
+            employee.status = 3;
+            [_userManager updateEmployee:employee];
+        }
+        //转让圈子 修改圈子的创建者为自己
+        else if ([message.action rangeOfString:@"COMPANY_TRANSFER"].location != NSNotFound) {
+            NSArray *array = [_userManager getCompanyArr];
+            Employee * employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:message.company_no];
+            for (Company *company in array) {
+                if(company.company_no == message.company_no) {
+                    Company *temp = company;
+                    temp.admin_user_guid = employee.user_guid;
+                    [_userManager updateCompany:temp];
+                    break;
+                }
+            }
+            
+        }
+        //拒绝离开圈子 改变员工状态
+        else if ([message.action rangeOfString:@"COMPANY_REFUSE_LEAVE"].location != NSNotFound) {
+            Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:message.company_no];
+            employee.status = 1;
+            [_userManager updateEmployee:employee];
+        } else {
+            //某某某请求加入/退出圈子  获取所有状态的员工 更新
+            //#BANG-354 不自动切换圈子
+            //        for (Company *company in [_userManager getCompanyArr]) {
+            //            if(company.company_no == message.company_no) {
+            //                Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:company.company_no];
+            //                if(employee.status == 1 || employee.status == 4) {
+            //                    User *user = [_userManager.user deepCopy];
+            //                    user.currCompany = company;
+            //                    [_userManager updateUser:user];
+            //                }
+            //                break;
+            //            }
+            //        }
+            [UserHttp getEmployeeCompnyNo:message.company_no status:0 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+                if(error) {
+                    return ;
+                }
+                NSMutableArray *array = [@[] mutableCopy];
+                for (NSDictionary *dic in data[@"list"]) {
+                    Employee *employee = [Employee new];
+                    [employee mj_setKeyValues:dic];
+                    [array addObject:employee];
+                }
+                [UserHttp getEmployeeCompnyNo:message.company_no status:4 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+                    if(error) {
+                        return ;
+                    }
+                    for (NSDictionary *dic in data[@"list"]) {
+                        Employee *employee = [Employee new];
+                        [employee mj_setKeyValues:dic];
+                        [array addObject:employee];
+                    }
+                    //存入本地数据库
+                    for (Employee *employee in array) {
+                        [_userManager updateEmployee:employee];
+                    }
+                }];
+            }];
+        }
+    }
+    if ([message.action rangeOfString:@"CHANGE_PASSWORD"].location != NSNotFound) { //修改密码
+        //这里判断一下是不是有用户登录
+        //#BANG-417 服务器已经修改，登陆界面修改密码不要推送消息
+        //        if(![NSString isBlank:[IdentityManager manager].identity.user_guid]) {
+        [[IdentityManager manager] logOut];
+        [[IdentityManager manager] showLogin:@"你已修改密码，请重新登录"];
+        //        }
+    }
+    if([message.type isEqualToString:@"MEETING"]) {
+        if([message.action isEqualToString:@"GENERAL"]) {//如果是有会议来
+            
+        } else {
+            NSData *calendarData = [[dict objectForKey:@"entity"] dataUsingEncoding:NSUTF8StringEncoding];
+            NSMutableDictionary *calendarDic = [NSJSONSerialization JSONObjectWithData:calendarData options:NSJSONReadingMutableContainers error:nil];
+            Calendar *meetingCalendar = [Calendar new];
+            [meetingCalendar mj_setKeyValues:calendarDic];
+            meetingCalendar.descriptionStr = calendarDic[@"description"];
+            if([message.action isEqualToString:@"MEETING_RECEIVE"]){//接收会议 加入本地日程
+                [_userManager addCalendar:meetingCalendar];
+            } else if ([message.action isEqualToString:@"MEETING_FINISHED"]) {//会议完结 本地的日程完结
+                meetingCalendar.status = 2;
+                [_userManager updateCalendar:meetingCalendar];
+            } else if ([message.action isEqualToString:@"MEETING_UPDATE"]) {//更新会议 更新本地日程
+                [_userManager updateCalendar:meetingCalendar];
+            } else if ([message.action isEqualToString:@"MEETING_CALLOFF"]) {//取消会议
+                meetingCalendar.status = 0;
+                [_userManager updateCalendar:meetingCalendar];
+            }
+        }
+    }
+    [_userManager addPushMessage:message];
 }
 //3d touch进入应用
 - (void)didReciveTouch:(NSNotification*)notification {
@@ -350,7 +623,7 @@
 //需要选择圈子后才能操作
 - (void)executeNeedSelectCompany:(void (^)(void))aBlock
 {
-    if([UserManager manager].user.currCompany.company_no == 0) {
+    if(_userManager.user.currCompany.company_no == 0) {
         [self.navigationController.view showMessageTips:@"请选择一个圈子后再进行此操作"];
         return;
     }
@@ -363,7 +636,7 @@
     if(index == 6) {//投票
         [self executeNeedSelectCompany:^{
             WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
-            NSString *str = [NSString stringWithFormat:@"%@Vote?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,[UserManager manager].user.user_guid,[UserManager manager].user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+            NSString *str = [NSString stringWithFormat:@"%@Vote?userGuid=%@&companyNo=%d&access_token=%@",XYFMobileDomain,[UserManager manager].user.user_guid,[UserManager manager].user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
             webViewcontroller.applicationUrl = str;
             webViewcontroller.hidesBottomBarWhenPushed = YES;
             [[self navigationController] pushViewController:webViewcontroller animated:YES];
@@ -371,7 +644,7 @@
     } else if (index == 5) {//审批
         [self executeNeedSelectCompany:^{
             WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
-            NSString *str = [NSString stringWithFormat:@"%@ApprovalByFormBuilder?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,[UserManager manager].user.user_guid,[UserManager manager].user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+            NSString *str = [NSString stringWithFormat:@"%@ApprovalByFormBuilder?userGuid=%@&companyNo=%d&access_token=%@",XYFMobileDomain,[UserManager manager].user.user_guid,[UserManager manager].user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
             webViewcontroller.applicationUrl = str;
             webViewcontroller.hidesBottomBarWhenPushed = YES;
             [[self navigationController] pushViewController:webViewcontroller animated:YES];
@@ -379,7 +652,7 @@
     } else if (index == 4) {//动态
         [self executeNeedSelectCompany:^{
             WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
-            NSString *str = [NSString stringWithFormat:@"%@Dynamic?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,[UserManager manager].user.user_guid,[UserManager manager].user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+            NSString *str = [NSString stringWithFormat:@"%@Dynamic?userGuid=%@&companyNo=%d&access_token=%@",XYFMobileDomain,[UserManager manager].user.user_guid,[UserManager manager].user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
             webViewcontroller.applicationUrl = str;
             webViewcontroller.hidesBottomBarWhenPushed = YES;
             [[self navigationController] pushViewController:webViewcontroller animated:YES];
@@ -412,17 +685,17 @@
     }
     return YES;
 }
-- (void)insertSearchableItem:(NSData *)photo spotlightTitle:(NSString *)spotlightTitle description:(NSString *)spotlightDesc keywords:(NSArray *)keywords spotlightInfo:(NSString *)spotlightInfo domainId:(NSString *)domainId {
-    CSSearchableItemAttributeSet *attributeSet = [[CSSearchableItemAttributeSet alloc] initWithItemContentType:(NSString *)kUTTypeImage];
-    attributeSet.title = spotlightTitle;                // 标题
-    attributeSet.keywords = keywords;                   // 关键字,NSArray格式
-    attributeSet.contentDescription = spotlightDesc;    // 描述
-    attributeSet.thumbnailData = photo;                 // 图标, NSData格式
-    // spotlightInfo 可以作为一些数据传递给接受的地方
-    // domainId      id,通过这个id来判断是哪个spotlight
-    CSSearchableItem *item = [[CSSearchableItem alloc] initWithUniqueIdentifier:spotlightInfo domainIdentifier:domainId attributeSet:attributeSet];
-    [[CSSearchableIndex defaultSearchableIndex] indexSearchableItems:@[item] completionHandler:^(NSError * error) {}];
-}
+//- (void)insertSearchableItem:(NSData *)photo spotlightTitle:(NSString *)spotlightTitle description:(NSString *)spotlightDesc keywords:(NSArray *)keywords spotlightInfo:(NSString *)spotlightInfo domainId:(NSString *)domainId {
+//    CSSearchableItemAttributeSet *attributeSet = [[CSSearchableItemAttributeSet alloc] initWithItemContentType:(NSString *)kUTTypeImage];
+//    attributeSet.title = spotlightTitle;                // 标题
+//    attributeSet.keywords = keywords;                   // 关键字,NSArray格式
+//    attributeSet.contentDescription = spotlightDesc;    // 描述
+//    attributeSet.thumbnailData = photo;                 // 图标, NSData格式
+//    // spotlightInfo 可以作为一些数据传递给接受的地方
+//    // domainId      id,通过这个id来判断是哪个spotlight
+//    CSSearchableItem *item = [[CSSearchableItem alloc] initWithUniqueIdentifier:spotlightInfo domainIdentifier:domainId attributeSet:attributeSet];
+//    [[CSSearchableIndex defaultSearchableIndex] indexSearchableItems:@[item] completionHandler:^(NSError * error) {}];
+//}
 #pragma mark --
 #pragma mark -- Custom
 - (UINavigationController*)homeListController {
@@ -476,4 +749,5 @@
     nav.tabBarItem.selectedImage = [[UIImage imageNamed:@"contact-green"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     return nav;
 }
+
 @end

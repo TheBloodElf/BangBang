@@ -52,16 +52,16 @@
     NSDate *endTime = [NSDate dateWithTimeIntervalSince1970:_calendar.enddate_utc / 1000];
     if(_calendar.is_allday == YES) {
         //全天事件，只显示年月日
-        [self.beginTime setTitle:[NSString stringWithFormat:@"%d-%02ld-%02ld",beginTime.year,beginTime.month,beginTime.day] forState:UIControlStateNormal];
-        [self.endTime setTitle:[NSString stringWithFormat:@"%d-%02ld-%02ld",endTime.year,endTime.month,endTime.day] forState:UIControlStateNormal];
-        [self.allDayBtn setBackgroundColor:[UIColor blackColor]];
+        [self.beginTime setTitle:[NSString stringWithFormat:@"%ld-%02ld-%02ld",(long)beginTime.year,beginTime.month,beginTime.day] forState:UIControlStateNormal];
+        [self.endTime setTitle:[NSString stringWithFormat:@"%ld-%02ld-%02ld",(long)endTime.year,endTime.month,endTime.day] forState:UIControlStateNormal];
+        [self.allDayBtn setBackgroundColor:[UIColor calendarColor]];
         [self.allDayBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     } else {
         //非全天事件，显示年月日 时分
-        [self.beginTime setTitle:[NSString stringWithFormat:@"%d-%02ld-%02ld\n%02ld:%02ld",beginTime.year,beginTime.month,beginTime.day,beginTime.hour,beginTime.minute] forState:UIControlStateNormal];
-        [self.endTime setTitle:[NSString stringWithFormat:@"%d-%02ld-%02ld\n%02ld:%02ld",endTime.year,endTime.month,endTime.day,endTime.hour,endTime.minute] forState:UIControlStateNormal];
+        [self.beginTime setTitle:[NSString stringWithFormat:@"%ld-%02ld-%02ld\n%02ld:%02ld",(long)beginTime.year,beginTime.month,beginTime.day,beginTime.hour,beginTime.minute] forState:UIControlStateNormal];
+        [self.endTime setTitle:[NSString stringWithFormat:@"%ld-%02ld-%02ld\n%02ld:%02ld",(long)endTime.year,endTime.month,endTime.day,endTime.hour,endTime.minute] forState:UIControlStateNormal];
         [self.allDayBtn setBackgroundColor:[UIColor whiteColor]];
-        [self.allDayBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [self.allDayBtn setTitleColor:[UIColor calendarColor] forState:UIControlStateNormal];
     }
 }
 @end

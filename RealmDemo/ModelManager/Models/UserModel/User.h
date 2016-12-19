@@ -19,12 +19,6 @@
 @property (nonatomic, strong) NSString  * email;
 /** 手机号 */
 @property (nonatomic, strong) NSString  * mobile;
-/** 省 */
-//@property (nonatomic, strong) NSString  * region;
-/** 市 */
-//@property (nonatomic, strong) NSString  * city;
-/** 区 */
-//@property (nonatomic, strong) NSString  * area;
 /** 心情动态 */
 @property (nonatomic, strong) NSString  * mood;
 /** 姓名 必填 */
@@ -41,6 +35,20 @@
 @property (nonatomic, strong) NSString  * weixin;
 /** 用户当前所在圈子编号 */
 @property (nonatomic, strong) Company *currCompany;
+//连接融云的token
+@property (nonatomic, copy) NSString *RYToken;
+//新消息是否展开（设置界面）
+@property (nonatomic, assign) BOOL newMessage;
+//推送/聊天信息来了是否播放声音
+@property (nonatomic, assign) BOOL canPlayVoice;
+//推送来了是否震动
+@property (nonatomic, assign) BOOL canPlayShake;
+//融云免打扰开始时间
+@property (nonatomic, strong) NSDate *ryDisturbBeginTime;
+//融云免打扰结束时间
+@property (nonatomic, strong) NSDate *ryDisturbEndTime;
+//融云免打扰功能
+@property (nonatomic, assign) BOOL ryDisturb;
 
 @end
 

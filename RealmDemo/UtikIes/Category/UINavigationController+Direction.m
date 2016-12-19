@@ -32,7 +32,6 @@
         transition.type = kCATransitionReveal;
         transition.subtype = kCATransitionFromLeft;
     }
-    transition.delegate = self;
     [self.view.layer addAnimation:transition forKey:nil];
 }
 

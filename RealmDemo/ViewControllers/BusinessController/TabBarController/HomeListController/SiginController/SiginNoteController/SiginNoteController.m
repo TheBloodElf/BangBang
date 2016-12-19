@@ -11,6 +11,7 @@
 #import "UserHttp.h"
 #import "IdentityManager.h"
 #import "UserManager.h"
+#import "WebNonstandarViewController.h"
 //日历的高度
 #define Calendar_Height 230
 
@@ -33,7 +34,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"签到记录";
+    self.title = @"我的签到";
     self.view.backgroundColor = [UIColor whiteColor];
     _userManager = [UserManager manager];
     _currDate = [NSDate date];
@@ -57,13 +58,25 @@
         NSLog(@"ObjC received message from JS: %@", data);
         responseCallback(@"Response for message from ObjC");
     }];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@punchcard/MySignIn?userGuid=%@&access_token=%@&companyNo=%ld",XYFMobileDomain,_userManager.user.user_guid,[IdentityManager manager].identity.accessToken,_userManager.user.currCompany.company_no]]];
+    [_bridge registerHandler:@"urlBrowserObj" handler:^(id data, WVJBResponseCallback responseCallback){
+        NSString *urlOpen = [data objectForKey:@"urlOpen"];
+        if([urlOpen rangeOfString:@"?"].location != NSNotFound) {
+            urlOpen = [NSString stringWithFormat:@"%@&access_token=%@&company_no=%d&user_guid=%@",urlOpen,[IdentityManager manager].identity.accessToken,[UserManager manager].user.currCompany.company_no,[UserManager manager].user.user_guid];
+        } else {
+            urlOpen = [NSString stringWithFormat:@"?%@access_token=%@&company_no=%d&user_guid=%@",urlOpen,[IdentityManager manager].identity.accessToken,[UserManager manager].user.currCompany.company_no,[UserManager manager].user.user_guid];
+        }
+        WebNonstandarViewController *vc = [WebNonstandarViewController new];
+        vc.applicationUrl = [urlOpen stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        vc.showNavigationBar = NO;
+        [self.navigationController pushViewController:vc animated:YES];
+    }];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@punchcard/MySignIn?userGuid=%@&access_token=%@&companyNo=%d",XYFMobileDomain,_userManager.user.user_guid,[IdentityManager manager].identity.accessToken,_userManager.user.currCompany.company_no]]];
     [_webView loadRequest:request];
     
     self.calendarManager = [JTCalendarManager new];
     self.calendarManager.delegate = self;
     [self.calendarManager setDate:_currDate];
-    self.calendarContentView = [[JTHorizontalCalendarView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, Calendar_Height )];
+    self.calendarContentView = [[JTHorizontalCalendarView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, Calendar_Height)];
     self.calendarManager.contentView = self.calendarContentView;
     [self.view addSubview:self.calendarContentView];
     _rightBarLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 20)];
@@ -82,6 +95,7 @@
 ///选择时间
 - (void)tgrAction:(id)action {
     SelectDateController * select = [SelectDateController new];
+    select.needShowDate = _currDate;
     select.datePickerMode = UIDatePickerModeDate;
     select.selectDateBlock = ^(NSDate *date) {
         NSMutableAttributedString *content = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@年%@月",@(date.year),@(date.month)]];
@@ -100,7 +114,7 @@
 - (void)getSiginWithDate:(NSDate*)date
 {
     //获取当前月的第一天和最后一天
-    [UserHttp getUsualSigin:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no year:date.year month:date.month handler:^(id data, MError *error) {
+    [UserHttp getUsualSigin:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no year:(int)date.year month:(int)date.month handler:^(id data, MError *error) {
         _siginedArr = data;
         [self.calendarManager setDate:date];
         NSString *timeDate = [NSString stringWithFormat:@"%@",@([_currDate timeIntervalSince1970])];
@@ -118,7 +132,11 @@
     //调用js的方法
     [_bridge callHandler:@"showSiginTimeUser" data:@{@"access_token":[IdentityManager manager].identity.accessToken,@"userGuid":_userManager.user.user_guid,@"companyNo":@(_userManager.user.currCompany.company_no),@"showDate":timeDate} responseCallback:^(id responseData) {
     }];
-    [self.calendarManager reload];
+    NSMutableAttributedString *content = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@年%@月",@([calendar date].year),@([calendar date].month)]];
+    NSRange contentRange = {0, [content length]};
+    [content addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:contentRange];
+    _rightBarLabel.attributedText = content;
+    [self getSiginWithDate:calendar.date];
 }
 - (void)calendar:(JTCalendarManager *)calendar prepareDayView:(JTCalendarDayView *)dayView
 {

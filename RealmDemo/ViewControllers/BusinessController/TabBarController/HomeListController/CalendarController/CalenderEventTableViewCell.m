@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *title;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLab;
 @property (weak, nonatomic) IBOutlet UIImageView *emergencyImg;
+@property (weak, nonatomic) IBOutlet UIImageView *statusBgView;
 @property (weak, nonatomic) IBOutlet UILabel *status;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleWithConstraint;
 @property (weak, nonatomic) IBOutlet UIImageView *alertImage;
@@ -28,9 +29,10 @@
 - (void)awakeFromNib {
     // Initialization code
     [super awakeFromNib];
-    _status.layer.cornerRadius = 6;
-    _status.layer.borderWidth = 1;
-    _status.clipsToBounds = YES;
+    _statusBgView.layer.cornerRadius = 6;
+    _statusBgView.layer.borderWidth = 1;
+    _statusBgView.clipsToBounds = YES;
+    _statusBgView.layer.borderColor = [UIColor calendarColor].CGColor;
 }
 
 - (void)dataDidChange {
@@ -105,13 +107,11 @@
     if (calendar.status == 1) {
         _status.text = @"进行中";
         _status.textColor = [UIColor calendarColor];
-        _status.layer.borderColor = [UIColor calendarColor].CGColor;
-        _status.backgroundColor = [UIColor whiteColor];
+        _statusBgView.image = [UIImage colorImg:[UIColor whiteColor]];
     } else if (calendar.status == 2) {
         _status.text = @"已完成";
         _status.textColor = [UIColor whiteColor];
-        _status.layer.borderColor = [UIColor calendarColor].CGColor;
-        _status.backgroundColor = [UIColor calendarColor];
+        _statusBgView.image = [UIImage colorImg:[UIColor calendarColor]];
     }
     
     //紧急度

@@ -4,10 +4,13 @@
 //  Copyright (c) 2013年 AutoNavi. All rights reserved.
 //
 
+#if MA_INCLUDE_OFFLINE
+
 #import <Foundation/Foundation.h>
 #import "MAOfflineProvince.h"
 #import "MAOfflineItemNationWide.h"
 #import "MAOfflineItemMunicipality.h"
+
 
 typedef NS_ENUM(NSInteger, MAOfflineMapDownloadStatus)
 {
@@ -84,6 +87,14 @@ typedef void(^MAOfflineMapNewestVersionBlock)(BOOL hasNewestVersion);
 @property (nonatomic, readonly) NSString *version;
 
 /**
+ *  初始化离线地图数据，如果第一次运行且offlinePackage.plist文件不存在，则需要首先执行此方法。
+    否则MAOfflineMap中的省、市、版本号等数据都为空。
+ *
+ *  @param block 初始化完成回调
+ */
+- (void)setupWithCompletionBlock:(void(^)(BOOL setupSuccess))block;
+
+/**
  *  启动下载
  *
  *  @param item                                  数据
@@ -125,11 +136,6 @@ typedef void(^MAOfflineMapNewestVersionBlock)(BOOL hasNewestVersion);
  */
 - (void)clearDisk;
 
-/*!
- @brief 监测新版本
- @param newestVersionBlock 回调block
- */
-
 /**
  *  监测新版本
  *
@@ -156,7 +162,7 @@ typedef void(^MAOfflineMapNewestVersionBlock)(BOOL hasNewestVersion);
  *  启动下载 (进入后台就停止下载)
  *
  *  @param city                                  城市数据
- *  @param downloadItem                          下载过程block
+ *  @param downloadBlock                          下载过程block
  */
 - (void)downloadCity:(MAOfflineCity *)city downloadBlock:(MAOfflineMapDownloadBlock)downloadBlock __attribute__ ((deprecated("use - (void)downloadItem:(MAOfflineItem *)item shouldContinueWhenAppEntersBackground:(BOOL)shouldContinueWhenAppEntersBackground downloadBlock:(MAOfflineMapDownloadBlock)downloadBlock instead")));
 
@@ -166,14 +172,14 @@ typedef void(^MAOfflineMapNewestVersionBlock)(BOOL hasNewestVersion);
  *
  *  @param city                                  城市数据
  *  @param shouldContinueWhenAppEntersBackground 进入后台是否允许继续下载
- *  @param downloadItem                          下载过程block
+ *  @param downloadBlock                          下载过程block
  */
 - (void)downloadCity:(MAOfflineCity *)city shouldContinueWhenAppEntersBackground:(BOOL)shouldContinueWhenAppEntersBackground downloadBlock:(MAOfflineMapDownloadBlock)downloadBlock __attribute__ ((deprecated("use - (void)downloadItem:(MAOfflineItem *)item shouldContinueWhenAppEntersBackground:(BOOL)shouldContinueWhenAppEntersBackground downloadBlock:(MAOfflineMapDownloadBlock)downloadBlock instead")));
 
 /**
  *  监测是否正在下载
  *
- *  @param isDownloadingForItem 城市数据
+ *  @param city 城市数据
  *
  *  @return 是否在下载
  */
@@ -182,8 +188,10 @@ typedef void(^MAOfflineMapNewestVersionBlock)(BOOL hasNewestVersion);
 /**
  *  暂停下载
  *
- *  @param pauseItem 城市数据
+ *  @param city 城市数据
  */
 - (void)pause:(MAOfflineCity *)city __attribute__ ((deprecated("use - (void)pauseItem:(MAOfflineItem *)item instead")));
 
 @end
+
+#endif

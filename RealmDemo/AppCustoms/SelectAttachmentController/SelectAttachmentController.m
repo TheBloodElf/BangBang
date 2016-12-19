@@ -25,10 +25,9 @@
     
     UISegmentedControl *_segmentedControl;//上面的分段控件
     UIScrollView *_bottomScrollView;//下面的滚动视图
-    
     NSMutableArray<Attachment*> *_userSelectAttachmentArr;//用户已经选择的附件数组
     
-    BOOL isFirstLoad;
+    BOOL isFirstLoad;//是不是第一次加载
 }
 
 @end
@@ -135,7 +134,7 @@
     if(_userSelectAttachmentArr.count == 0)
         self.title = @"附件选择";
     else
-        self.title = [NSString stringWithFormat:@"附件选择（%d）",_userSelectAttachmentArr.count];
+        self.title = [NSString stringWithFormat:@"附件选择（%@）",@(_userSelectAttachmentArr.count)];
     if(_userSelectAttachmentArr.count == self.maxSelect) {
         [self.navigationController showMessageTips:@"已达到最大选择数"];
     }

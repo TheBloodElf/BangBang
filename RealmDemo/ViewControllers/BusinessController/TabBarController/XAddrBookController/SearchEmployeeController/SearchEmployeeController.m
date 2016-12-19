@@ -13,10 +13,12 @@
 #import "RYChatController.h"
 #import "MineInfoEditController.h"
 
-@interface SearchEmployeeController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate> {
+@interface SearchEmployeeController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,RBQFetchedResultsControllerDelegate> {
     NoResultView *_noDataView;//没有数据的视图
     UserManager *_userManager;
     NSMutableArray<Employee*> *_employeeArr;//搜索视图的数据
+    RBQFetchedResultsController *_userFetchedResultsController;//用户数据监听
+    RBQFetchedResultsController *_employeeFetchedResultsController;//员工数据监听
 }
 @property (nonatomic, strong) UITableView *tableView;//表格视图
 @property (nonatomic, strong) UISearchBar *searchBar;//搜索视图
@@ -31,6 +33,10 @@
     self.title = @"搜索联系人";
     self.view.backgroundColor = [UIColor whiteColor];
     _userManager = [UserManager manager];
+    _userFetchedResultsController = [_userManager createUserFetchedResultsController];
+    _userFetchedResultsController.delegate = self;
+    _employeeFetchedResultsController = [_userManager createEmployeesFetchedResultsControllerWithCompanyNo:_userManager.user.currCompany.company_no];
+    _employeeFetchedResultsController.delegate = self;
     //创建搜索框
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 55)];
     _searchBar.delegate = self;
@@ -54,6 +60,11 @@
     [_tableView registerNib:[UINib nibWithNibName:@"XAddrBookCell" bundle:nil] forCellReuseIdentifier:@"XAddrBookCell"];
     [self.view addSubview:_tableView];
     _noDataView = [[NoResultView alloc] initWithFrame:_tableView.bounds];
+    [self searchFormLoc];
+}
+#pragma mark --
+#pragma mark -- RBQFetchedResultsControllerDelegate
+- (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
     [self searchFormLoc];
 }
 - (void)searchFormLoc {

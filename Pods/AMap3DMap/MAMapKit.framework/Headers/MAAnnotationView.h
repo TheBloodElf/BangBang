@@ -39,6 +39,12 @@ typedef NS_ENUM(NSInteger, MAAnnotationViewDragState)
  */
 @property (nonatomic, readonly, copy) NSString *reuseIdentifier;
 
+/*!
+ @brief z值，大值在上，默认为0。
+ */
+@property (nonatomic, assign) NSInteger zIndex;
+
+
 /**
  *  当从reuse队列里取出时被调用, 子类重新必须调用super
  */
@@ -55,12 +61,12 @@ typedef NS_ENUM(NSInteger, MAAnnotationViewDragState)
 @property (nonatomic, strong) UIImage *image;
 
 /**
- *  默认情况下, annotation view的中心位于annotation的坐标位置，可以设置centerOffset改变view的位置，正的偏移使view朝右下方移动，负的朝左上方，单位是像素
+ *  默认情况下, annotation view的中心位于annotation的坐标位置，可以设置centerOffset改变view的位置，正的偏移使view朝右下方移动，负的朝左上方，单位是屏幕坐标
  */
 @property (nonatomic) CGPoint centerOffset;
 
 /**
- *  默认情况下, 弹出的气泡位于view正中上方，可以设置calloutOffset改变view的位置，正的偏移使view朝右下方移动，负的朝左上方，单位是像素
+ *  默认情况下, 弹出的气泡位于view正中上方，可以设置calloutOffset改变view的位置，正的偏移使view朝右下方移动，负的朝左上方，单位是屏幕坐标
  */
 @property (nonatomic) CGPoint calloutOffset;
 
@@ -81,7 +87,7 @@ typedef NS_ENUM(NSInteger, MAAnnotationViewDragState)
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated;
 
 /**
- *  是否允许弹出callout
+ *  是否允许弹出默认callout
  */
 @property (nonatomic) BOOL canShowCallout;
 

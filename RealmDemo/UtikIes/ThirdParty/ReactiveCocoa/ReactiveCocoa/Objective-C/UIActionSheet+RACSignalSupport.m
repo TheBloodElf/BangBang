@@ -16,8 +16,7 @@
 @implementation UIActionSheet (RACSignalSupport)
 
 static void RACUseDelegateProxy(UIActionSheet *self) {
-    if (self.delegate == self.rac_delegateProxy) return;
-
+    if (self.delegate == (id)self.rac_delegateProxy) return;
     self.rac_delegateProxy.rac_proxiedDelegate = self.delegate;
     self.delegate = (id)self.rac_delegateProxy;
 }

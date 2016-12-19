@@ -34,12 +34,18 @@
     _createBushModel = [CreateBushModel new];
     _createBushModel.type = 6;
     _createBushModel.typeString = @"其他";
+    _createBushModel.hasImage = [UIImage imageNamed:@"default_image_icon"];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightButtonClicked:)];
     //限制圈子名称的长度
     UITextField *text = [self.nameCell viewWithTag:1000];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:) name:@"UITextFieldTextDidChangeNotification" object:text];
     UITextView *textView = [self.detailCell viewWithTag:1000];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textViewEditChanged:) name:@"UITextViewTextDidChangeNotification" object:textView];
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.barTintColor = [UIColor homeListColor];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 - (void)rightButtonClicked:(UIBarButtonItem*)item {
     [self.navigationController.view showLoadingTips:@""];
@@ -49,12 +55,17 @@
         [self.navigationController.view showMessageTips:@"圈子名称不能为空"];
         return;
     }
-    if(!_createBushModel.hasImage) {
-        [self.navigationController.view showMessageTips:@"请选择圈子图标"];
+    //空格不能输入   ^[a-zA-Z\u4E00-\u9FA5\\d]*$
+    //可以输入空格   ^[a-zA-Z\u4E00-\u9FA5\\d\\s]*$
+    NSString *pattern = @"^[a-zA-Z\u4E00-\u9FA5\\d]*$";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
+    if(![pred evaluateWithObject:text.text]) {
+        [self.navigationController.view showMessageTips:@"圈子名称不能包含特殊字符"];
         return;
     }
+    //判断名字是不是包含特殊字符
     _createBushModel.name = text.text;
-    [UserHttp createCompany:_createBushModel.name userGuid:_userManager.user.user_guid image:_createBushModel.hasImage companyType:_createBushModel.type handler:^(id data, MError *error) {
+    [UserHttp createCompany:_createBushModel.name userGuid:_userManager.user.user_guid image:_createBushModel.hasImage companyType:(int)_createBushModel.type handler:^(id data, MError *error) {
         [self.navigationController.view dismissTips];
         if(error) {
             [self.navigationController.view showFailureTips:error.statsMsg];
@@ -62,7 +73,6 @@
         }
         Company *company = [Company new];
         [company mj_setKeyValues:data[@"data"]];
-        [_userManager addCompany:company];
         //获取创建圈子的所有员工
         //从网络上获取最新的员工数据
         [UserHttp getEmployeeCompnyNo:company.company_no status:5 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
@@ -78,6 +88,13 @@
             }
             //存入本地数据库
             [_userManager updateEmployee:array companyNo:company.company_no];
+            [_userManager addCompany:company];
+            //#BANG-477 创建圈子成功，判断当前圈子为空则赋值为创建的圈子
+            //这里看一下用户当前圈子有没有值，没有就赋这个圈子
+            if(_userManager.user.currCompany.company_no == 0) {
+                _userManager.user.currCompany = company;
+                [_userManager updateUser:_userManager.user];
+            }
             [self.navigationController popViewControllerAnimated:YES];
         }];
     }];
@@ -168,7 +185,6 @@
     else
         [[self.detailCell viewWithTag:1001] setHidden:YES];
 }
-
 #pragma mark --
 #pragma mark -- TableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -290,5 +306,24 @@
 }
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [picker dismissViewControllerAnimated:YES completion:nil];
+}
+/// 特殊符号
+- (NSString *)specialSymbolsAction{
+    //数学符号
+    NSString *matSym = @" ﹢﹣×÷±/=≌∽≦≧≒﹤﹥≈≡≠=≤≥<>≮≯∷∶∫∮∝∞∧∨∑∏∪∩∈∵∴⊥∥∠⌒⊙√∟⊿㏒㏑%‰⅟½⅓⅕⅙⅛⅔⅖⅚⅜¾⅗⅝⅞⅘≂≃≄≅≆≇≈≉≊≋≌≍≎≏≐≑≒≓≔≕≖≗≘≙≚≛≜≝≞≟≠≡≢≣≤≥≦≧≨≩⊰⊱⋛⋚∫∬∭∮∯∰∱∲∳%℅‰‱øØπ";
+    
+    //标点符号
+    NSString *punSym = @"。，、＇：∶；?‘’“”〝〞ˆˇ﹕︰﹔﹖﹑·¨….¸;！´？！～—ˉ｜‖＂〃｀@﹫¡¿﹏﹋﹌︴々﹟#﹩$﹠&﹪%*﹡﹢﹦﹤‐￣¯―﹨ˆ˜﹍﹎+=<＿_-ˇ~﹉﹊（）〈〉‹›﹛﹜『』〖〗［］《》〔〕{}「」【】︵︷︿︹︽_﹁﹃︻︶︸﹀︺︾ˉ﹂﹄︼❝❞!():,'[]｛｝^・.·．•＃＾＊＋＝＼＜＞＆§⋯`－–／—|\"\\";
+    
+    //单位符号＊·
+    NSString *unitSym = @"°′″＄￥〒￠￡％＠℃℉﹩﹪‰﹫㎡㏕㎜㎝㎞㏎m³㎎㎏㏄º○¤%$º¹²³";
+    
+    //货币符号
+    NSString *curSym = @"₽€£Ұ₴$₰¢₤¥₳₲₪₵元₣₱฿¤₡₮₭₩ރ円₢₥₫₦zł﷼₠₧₯₨Kčर₹ƒ₸￠";
+    
+    //制表符
+    NSString *tabSym = @"─ ━│┃╌╍╎╏┄ ┅┆┇┈ ┉┊┋┌┍┎┏┐┑┒┓└ ┕┖┗ ┘┙┚┛├┝┞┟┠┡┢┣ ┤┥┦┧┨┩┪┫┬ ┭ ┮ ┯ ┰ ┱ ┲ ┳ ┴ ┵ ┶ ┷ ┸ ┹ ┺ ┻┼ ┽ ┾ ┿ ╀ ╁ ╂ ╃ ╄ ╅ ╆ ╇ ╈ ╉ ╊ ╋ ╪ ╫ ╬═║╒╓╔ ╕╖╗╘╙╚ ╛╜╝╞╟╠ ╡╢╣╤ ╥ ╦ ╧ ╨ ╩ ╳╔ ╗╝╚ ╬ ═ ╓ ╩ ┠ ┨┯ ┷┏ ┓┗ ┛┳ ⊥ ﹃ ﹄┌ ╮ ╭ ╯╰";
+    
+    return [NSString stringWithFormat:@"%@%@%@%@%@",matSym,punSym,unitSym,curSym,tabSym];
 }
 @end

@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ComCalendarAdressDelegate <NSObject>
+
+- (void)comCalendarAdressOverLength;
+
+@end
+
 @interface ComCalendarAdress : UITableViewCell
+
+@property (nonatomic, weak) id<ComCalendarAdressDelegate> delegate;
 
 @end

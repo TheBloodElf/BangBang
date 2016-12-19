@@ -16,10 +16,15 @@
 - (BOOL)haveDeleteDate:(NSDate*)date {
     NSArray *timeArr = [self.deleted_dates componentsSeparatedByString:@","];
     if(timeArr.count == 0) return NO;
+    //依次取出"秒"时间字符串 和参数判断
     for (NSString *timeStr in timeArr) {
-        //直接计算1970距离现在多少天 这样更快
-        if((int)(date.timeIntervalSince1970 / (24 * 60 * 60)) == (int)(timeStr.doubleValue / (24 * 60 * 60)))
-            return YES;
+        NSDate *currDate = [NSDate dateWithTimeIntervalSince1970:timeStr.doubleValue];
+//        NSLog(@"%d-%d-%d",currDate.year,currDate.month,currDate.day);
+//        NSLog(@"%d-%d-%d",date.year,date.month,date.day);
+        if(currDate.year == date.year)
+            if(currDate.month == date.month)
+                if(currDate.day == date.day)
+                    return YES;
     }
     return NO;
 }
@@ -27,9 +32,11 @@
     NSArray *timeArr = [self.finished_dates componentsSeparatedByString:@","];
     if(timeArr.count == 0) return NO;
     for (NSString *timeStr in timeArr) {
-        //直接计算1970距离现在多少天 这样更快
-        if((int)(date.timeIntervalSince1970 / (24 * 60 * 60)) == (int)(timeStr.doubleValue / (24 * 60 * 60)))
-            return YES;
+        NSDate *currDate = [NSDate dateWithTimeIntervalSince1970:timeStr.doubleValue];
+        if(currDate.year == date.year)
+            if(currDate.month == date.month)
+                if(currDate.day == date.day)
+                    return YES;
     }
     return NO;
 }

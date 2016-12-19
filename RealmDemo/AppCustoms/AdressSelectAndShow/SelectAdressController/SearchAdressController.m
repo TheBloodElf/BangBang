@@ -12,7 +12,7 @@
 #import "SelectAdressTableCell.h"
 
 @interface SearchAdressController ()<UISearchBarDelegate,AMapSearchDelegate,UITableViewDelegate,UITableViewDataSource> {
-    AMapSearchAPI *_searchAPI;//百度搜索API
+    AMapSearchAPI *_searchAPI;//高德搜索API
     AMapPOIKeywordsSearchRequest *_searchPOIRequest;//关键字搜索
     NSMutableArray<AMapPOI*> *_searchDataArr;//搜索结果数组
 
@@ -122,4 +122,5 @@
         [self.navigationController.view showFailureTips:@"网络不可用，请连接网络"];
     }
 }
+
 @end

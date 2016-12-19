@@ -44,7 +44,24 @@
     _repYearView.frame = CGRectMake(3 * width, 0, width, height);
     [_centerView addSubview:_repYearView];
     _centerView.contentSize = CGSizeMake(4 * width, height);
-    _currIndex = 0;
+    //判断当前用户的重复性类型 初始化对应视图默认显示的规则
+    _currIndex = _userSelectEKRecurrenceRule.frequency;
+    //让对应类型选择按钮被选中
+    for (int i = 0; i < 4; i ++) {
+        UIButton *btn = [self.view viewWithTag:1000 + i];
+        btn.selected = NO;
+    }
+    UIButton *btn = [self.view viewWithTag:1000 + _currIndex];
+    btn.selected = YES;
+    if(_currIndex == 0)
+        [_repDayView setEKRecurrenceRule:_userSelectEKRecurrenceRule];
+    if(_currIndex == 1)
+        [_repWeekView setEKRecurrenceRule:_userSelectEKRecurrenceRule];
+    if(_currIndex == 2)
+        [_repMonthView setEKRecurrenceRule:_userSelectEKRecurrenceRule];
+    if(_currIndex == 3)
+        [_repYearView setEKRecurrenceRule:_userSelectEKRecurrenceRule];
+    [_centerView setContentOffset:CGPointMake(_currIndex * _centerView.frame.size.width, 0) animated:NO];
 }
 
 - (IBAction)typeClicked:(UIButton*)sender {

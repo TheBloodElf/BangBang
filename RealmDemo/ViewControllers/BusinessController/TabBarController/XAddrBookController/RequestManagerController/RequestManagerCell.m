@@ -26,9 +26,13 @@
     
     self.agreeBtn.layer.cornerRadius = 5.f;
     self.agreeBtn.clipsToBounds = YES;
+    self.agreeBtn.layer.borderWidth = 1.f;
+    self.agreeBtn.layer.borderColor = [UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1].CGColor;
     
     self.refuseBtn.layer.cornerRadius = 5;
     self.refuseBtn.clipsToBounds = YES;
+    self.refuseBtn.layer.borderWidth = 1.f;
+    self.refuseBtn.layer.borderColor = [UIColor colorWithRed:236/255.f green:78/255.f blue:85/255.f alpha:1].CGColor;
     // Initialization code
 }
 - (void)dataDidChange {

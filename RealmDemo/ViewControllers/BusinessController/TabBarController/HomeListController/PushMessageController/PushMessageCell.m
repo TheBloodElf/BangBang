@@ -21,10 +21,6 @@
 
 @implementation PushMessageCell
 
-- (void)awakeFromNib {
-    // Initialization code
-}
-
 - (void)dataDidChange {
     PushMessage *pushMessage = self.data;
     self.yearMonth.text = [NSString stringWithFormat:@"%02ld/%02ld",pushMessage.addTime.month,pushMessage.addTime.day];

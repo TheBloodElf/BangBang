@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-//注册
+//注册界面
 @interface RegisterViewController : UIViewController
 
-@property (nonatomic,strong) WebViewJavascriptBridge *bridge;//交互中间件
 
 @end

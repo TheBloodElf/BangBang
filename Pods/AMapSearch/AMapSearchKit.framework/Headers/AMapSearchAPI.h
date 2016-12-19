@@ -76,6 +76,13 @@ typedef NS_ENUM(NSInteger, AMapSearchLanguage)
 - (void)AMapPOIPolygonSearch:(AMapPOIPolygonSearchRequest *)request;
 
 /**
+ *  沿途查询接口 (v4.3.0)
+ *
+ *  @param request 查询选项。具体属性字段请参考 AMapRoutePOISearchRequest 类。
+ */
+- (void)AMapRoutePOISearch:(AMapRoutePOISearchRequest *)request;
+
+/**
  *  地址编码查询接口
  *
  *  @param request 查询选项。具体属性字段请参考 AMapGeocodeSearchRequest 类。
@@ -144,6 +151,13 @@ typedef NS_ENUM(NSInteger, AMapSearchLanguage)
  *  @param request 查询选项。具体属性字段请参考 AMapTransitRouteSearchRequest 类。
  */
 - (void)AMapTransitRouteSearch:(AMapTransitRouteSearchRequest *)request;
+
+/**
+ *  骑行路径规划查询接口 (v4.3.0)
+ *
+ *  @param request 查询选项。具体属性字段请参考 AMapRidingRouteSearchRequest 类。
+ */
+- (void)AMapRidingRouteSearch:(AMapRidingRouteSearchRequest *)request;
 
 /**
  *  天气查询接口
@@ -249,6 +263,14 @@ typedef NS_ENUM(NSInteger, AMapSearchLanguage)
 - (void)onPOISearchDone:(AMapPOISearchBaseRequest *)request response:(AMapPOISearchResponse *)response;
 
 /**
+ *  沿途查询回调函数 (since v4.3.0)
+ *
+ *  @param request  发起的请求，具体字段参考 AMapRoutePOISearchRequest 及其子类。
+ *  @param response 响应结果，具体字段参考 AMapRoutePOISearchResponse 。
+ */
+- (void)onRoutePOISearchDone:(AMapRoutePOISearchRequest *)request response:(AMapRoutePOISearchResponse *)response;
+
+/**
  *  地理编码查询回调函数
  *
  *  @param request  发起的请求，具体字段参考 AMapGeocodeSearchRequest 。
@@ -327,7 +349,7 @@ typedef NS_ENUM(NSInteger, AMapSearchLanguage)
 /**
  *   云图查询回调函数
  *
- *   @param request 发起的请求，具体字段参考AMapCloudSearchBaseRequest 。
+ *   @param request 发起的请求，具体字段参考 AMapCloudSearchBaseRequest 。
  *   @param response 响应结果，具体字段参考 AMapCloudPOISearchResponse 。
  */
 - (void)onCloudSearchDone:(AMapCloudSearchBaseRequest *)request response:(AMapCloudPOISearchResponse *)response;

@@ -47,7 +47,7 @@
     self.userInteractionEnabled = YES;
     //算出距离明天早上还有多少秒
     int64_t tomarrroInterval = 24 * 60 * 60 - [NSDate date].hour * 60 * 60 - [NSDate date].minute * 60 - [NSDate date].second;
-    _dateTimer = [NSTimer scheduledTimerWithTimeInterval:tomarrroInterval target:self selector:@selector(updateCalendar:) userInfo:nil repeats:YES];
+    _dateTimer = [NSTimer scheduledTimerWithTimeInterval:tomarrroInterval target:self selector:@selector(updateCalendar:) userInfo:nil repeats:NO];
     _userManager = [UserManager manager];
     _calendarFetchedResultsController = [_userManager createCalendarFetchedResultsController];
     _calendarFetchedResultsController.delegate = self;
@@ -59,7 +59,7 @@
 }
 - (void)updateCalendar:(NSTimer*)timer {
     _todayFinishCount = _todayNoFinishCount = _weekFinishCount = _weekNoFinishCount = 0;
-    _dateTimer = [NSTimer scheduledTimerWithTimeInterval:24 * 60 * 60 target:self selector:@selector(updateCalendar:) userInfo:nil repeats:YES];
+    _dateTimer = [NSTimer scheduledTimerWithTimeInterval:24 * 60 * 60 target:self selector:@selector(updateCalendar:) userInfo:nil repeats:NO];
     //给这几个数字填充值
     [self getCurrCount];
     //添加动画
@@ -94,9 +94,9 @@
         [leftLayer showAnimate];
         [self.leftView.layer insertSublayer:leftLayer atIndex:0];
     } else {//如果有日程 那么先画一层进行中 然后在上面画一层已完成
-        leftLayer.animationDuration = 1.0 * 1.5;
-        leftLayer.completed = leftLayer.total;
-        leftLayer.completedColor = [UIColor colorWithRed:251 / 255.f green:214 / 255.f blue:66 / 255.f alpha:1];//黄色
+        leftLayer.animationDuration = 1.0 * 1.5;//画一圈要多久 有动画
+        leftLayer.completed = leftLayer.total;//画一圈的多少（最大为1）
+        leftLayer.completedColor = [UIColor colorWithRed:251 / 255.f green:214 / 255.f blue:66 / 255.f alpha:1];//圈的颜色 黄色
         [leftLayer setNeedsDisplay];
         [leftLayer showAnimate];
         [self.leftView.layer insertSublayer:leftLayer atIndex:0];
@@ -170,15 +170,12 @@
             [todayCalendarArr addObject:model];
             _todayNoFinishCount ++;
         } else {//重复的要加上经过自己一天的
-            if(tempCalendar.begindate_utc == 1475893303000) {
-                [UserHttp deleteUserCalendar:tempCalendar.id handler:^(id data, MError *error) {
-                    tempCalendar.status = 0;
-                    [_userManager updateCalendar:tempCalendar];
-                }];
-                continue;
-            }
             if (tempCalendar.rrule.length > 0&&tempCalendar.r_begin_date_utc >0&&tempCalendar.r_end_date_utc>0) {
-                Scheduler * s = [[Scheduler alloc] initWithDate:[NSDate dateWithTimeIntervalSince1970:tempCalendar.begindate_utc/1000] andRule:tempCalendar.rrule];
+                //这里计算出循环开始当天的时间
+                int64_t second = tempCalendar.r_begin_date_utc / 1000;
+                second = second / (24 * 60 * 60) * (24 * 60 * 60);
+                second += (tempCalendar.begindate_utc / 1000) % (24 * 60 * 60);
+                Scheduler * s = [[Scheduler alloc] initWithDate:[NSDate dateWithTimeIntervalSince1970:second] andRule:tempCalendar.rrule];
                 //得到所有的时间
                 NSArray * occurences = [s occurencesBetween:[NSDate dateWithTimeIntervalSince1970:tempCalendar.r_begin_date_utc/1000] andDate:[NSDate dateWithTimeIntervalSince1970:tempCalendar.r_end_date_utc/1000]];
                 for (NSDate *tempDate in occurences) {
@@ -208,10 +205,10 @@
     [sharedDefaults setObject:[NSMutableDictionary mj_keyValuesArrayWithObjectArray:todayCalendarArr] forKey:@"GroupTodayInfo"];
     [sharedDefaults synchronize];
     
-    //再获取本周的 今天是本周的第几天
-    int todayOfWeek = (int)todayDate.weekday;
-    for (int i = 1 ;i <= 7; i ++) {
-        NSDate *tempDate = [todayDate dateByAddingTimeInterval:(i - todayOfWeek) * 24 * 60 * 60];
+    //获取本周的所有时间 周日到周六
+    NSMutableArray *dateArr = [self getSureDate];
+    for (int i = 0 ;i < dateArr.count; i ++) {
+        NSDate *tempDate = dateArr[i];
         NSArray *tempArr = [_userManager getCalendarArrWithDate:tempDate];
         for (Calendar *tempCalendar in tempArr) {
             //去掉删除的
@@ -222,15 +219,12 @@
                 else
                     _weekFinishCount ++;
             } else {//重复的要加上经过自己一天的
-                if(tempCalendar.begindate_utc == 1475893303000) {
-                    [UserHttp deleteUserCalendar:tempCalendar.id handler:^(id data, MError *error) {
-                        tempCalendar.status = 0;
-                        [_userManager updateCalendar:tempCalendar];
-                    }];
-                    continue;
-                }
                 if (tempCalendar.rrule.length > 0&&tempCalendar.r_begin_date_utc >0&&tempCalendar.r_end_date_utc>0) {
-                    Scheduler * s = [[Scheduler alloc] initWithDate:[NSDate dateWithTimeIntervalSince1970:tempCalendar.begindate_utc/1000] andRule:tempCalendar.rrule];
+                    //这里计算出循环开始当天的时间
+                    int64_t second = tempCalendar.r_begin_date_utc / 1000;
+                    second = second / (24 * 60 * 60) * (24 * 60 * 60);
+                    second += (tempCalendar.begindate_utc / 1000) % (24 * 60 * 60);
+                    Scheduler * s = [[Scheduler alloc] initWithDate:[NSDate dateWithTimeIntervalSince1970:second] andRule:tempCalendar.rrule];
                     //得到所有的时间
                     NSArray * occurences = [s occurencesBetween:[NSDate dateWithTimeIntervalSince1970:tempCalendar.r_begin_date_utc/1000] andDate:[NSDate dateWithTimeIntervalSince1970:tempCalendar.r_end_date_utc/1000]];
                     for (NSDate *tempDateDate in occurences) {
@@ -264,6 +258,75 @@
     if(self.delegate && [self.delegate respondsToSelector:@selector(weekFinishCalendar)]) {
         [self.delegate weekFinishCalendar];
     }
+}
+- (NSMutableArray*)getSureDate {
+    NSDate *currDate = [NSDate date];
+    NSInteger currWeek = currDate.weekday;
+    NSMutableArray *array = [@[] mutableCopy];
+    if(currWeek == 7) {
+        [array addObject:[currDate dateByAddingTimeInterval:0 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:24 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:2 * 24 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:3 * 24 * 60 * 60] ];
+        [array addObject:[currDate dateByAddingTimeInterval:4 * 24 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:5 * 24 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:6 * 24 * 60 * 60]];
+    }
+    if(currWeek == 1) {
+        [array addObject:[currDate dateByAddingTimeInterval:-24 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:0 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:1 * 24 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:2 * 24 * 60 * 60] ];
+        [array addObject:[currDate dateByAddingTimeInterval:3 * 24 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:4 * 24 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:5 * 24 * 60 * 60]];
+    }
+    if(currWeek == 2) {
+        [array addObject:[currDate dateByAddingTimeInterval:- 2 * 24 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:-1 * 24 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:0 * 24 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:1 * 24 * 60 * 60] ];
+        [array addObject:[currDate dateByAddingTimeInterval:2 * 24 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:3 * 24 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:4 * 24 * 60 * 60]];
+    }
+    if(currWeek == 3) {
+        [array addObject:[currDate dateByAddingTimeInterval:-3 * 24 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:-2 * 24 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:-1 * 24 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:0 * 24 * 60 * 60] ];
+        [array addObject:[currDate dateByAddingTimeInterval:1 * 24 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:2 * 24 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:3 * 24 * 60 * 60]];
+    }
+    if(currWeek == 4) {
+        [array addObject:[currDate dateByAddingTimeInterval:-4 *24 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:-3 * 24 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:-2 * 24 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:-1 * 24 * 60 * 60] ];
+        [array addObject:[currDate dateByAddingTimeInterval:0 * 24 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:1 * 24 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:2 * 24 * 60 * 60]];
+    }
+    if(currWeek == 5) {
+        [array addObject:[currDate dateByAddingTimeInterval:-5 * 24 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:-4 * 24 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:-3 * 24 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:-2 * 24 * 60 * 60] ];
+        [array addObject:[currDate dateByAddingTimeInterval:-1 * 24 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:0 * 24 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:1 * 24 * 60 * 60]];
+    }
+    if(currWeek == 6) {
+        [array addObject:[currDate dateByAddingTimeInterval:-6 *24 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:-5 * 24 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:-4 * 24 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:-3 * 24 * 60 * 60] ];
+        [array addObject:[currDate dateByAddingTimeInterval:-2 * 24 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:-1 * 24 * 60 * 60]];
+        [array addObject:[currDate dateByAddingTimeInterval:0 * 24 * 60 * 60]];
+    }
+    return array;
 }
 
 @end

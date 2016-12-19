@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Identity.h"
-
+//登陆信息管理器
 @interface IdentityManager : NSObject
 
 @property (nonatomic, strong) Identity *identity;
@@ -19,8 +19,9 @@
 - (void)readAuthorizeData;
 //把登录信息存入本地
 - (void)saveAuthorizeData;
-//登出的时候是否需要提示一个窗口
+//登出登陆
 - (void)logOut;
 //弹出登录窗口
 - (void)showLogin:(NSString*)alertStr;
+
 @end

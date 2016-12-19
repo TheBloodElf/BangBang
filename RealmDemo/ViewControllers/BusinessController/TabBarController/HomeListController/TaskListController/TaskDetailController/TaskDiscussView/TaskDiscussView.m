@@ -11,7 +11,6 @@
 #import "TaskModel.h"
 #import "TaskCommentModel.h"
 #import "NoResultView.h"
-
 #import "TaskOtherCommentCell.h"
 
 @interface TaskDiscussView ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,TaskOtherCommentDelegate> {
@@ -39,7 +38,6 @@
         _currCommentModel.reply_employeeguid = @"";
         _currCommentModel.reply_employeename = @"";
         _taskCommentModelArr = [@[] mutableCopy];
-        
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, self.frame.size.height - 48) style:UITableViewStylePlain];
         _tableView.delegate = self;
         _tableView.dataSource = self;
@@ -87,7 +85,7 @@
     return self;
 }
 - (void)dataDidChange {
-    _taskModel = [self.data deepCopy];
+    _taskModel = self.data;
     _currCommentModel.task_id = _taskModel.id;
     _currCommentModel.task_status = _taskModel.status;
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_taskModel.company_no];
@@ -163,6 +161,9 @@
         self.data = _taskModel;
     }];
     return YES;
+}
+- (void)TaskOtherRepClicked:(TaskCommentModel*)model {
+    
 }
 - (void)clearRepClicked:(UIButton*)btn {
     UIView *whiteView = [_bottomView viewWithTag:1001];

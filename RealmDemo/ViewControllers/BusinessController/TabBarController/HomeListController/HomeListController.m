@@ -11,7 +11,6 @@
 #import "HomeListBottomView.h"
 #import "UserManager.h"
 #import "PushMessageController.h"
-#import "UserHttp.h"
 #import "AppListController.h"
 #import "IdentityManager.h"
 #import "CalendarController.h"
@@ -82,6 +81,10 @@
         UILabel *label = [self.rightNavigationBarButton viewWithTag:1001];
         int count = 0;
         for (PushMessage *push in [_userManager getPushMessageArr]) {
+            //本地推送只读取现在之前的
+            if(push.id.doubleValue > 0)
+                if(push.addTime.timeIntervalSince1970 > [NSDate date].timeIntervalSince1970)
+                    continue;
             if(push.unread == YES)
                 count ++;
         }
@@ -100,39 +103,15 @@
         if(user.currCompany.company_no == 0)
             companyLabel.text = @"未选择圈子";
         else {
-            companyLabel.text = user.currCompany.company_name;
-            //圈子变了 就要获取一次对应圈子的签到规则
-            [self getCompanySiginRule];
+            NSString *companyName = user.currCompany.company_name;
+            if(companyName.length > 8) {
+                companyName = [companyName stringByReplacingCharactersInRange:NSMakeRange(8, companyName.length - 8) withString:@"..."];
+            }
+            companyLabel.text = companyName;
         }
     } else {//重新加一次上下班提醒
         [_userManager addSiginRuleNotfition];
     }
-}
-//获取圈子信息
-- (void)getCompanySiginRule {
-    [UserHttp getSiginRule:_userManager.user.currCompany.company_no handler:^(id data, MError *error) {
-        if(error) {
-            [self.navigationController.view showFailureTips:error.statsMsg];
-            return ;
-        }
-        NSMutableArray *array = [@[] mutableCopy];
-        for (NSDictionary *dic in data) {
-            NSMutableDictionary *dicDic = [dic mutableCopy];
-            dicDic[@"work_day"] = [dicDic[@"work_day"] componentsJoinedByString:@","];
-            SiginRuleSet *set = [SiginRuleSet new];
-            [set mj_setKeyValues:dicDic];
-            //这里动态添加签到地址
-            RLMArray<PunchCardAddressSetting> *settingArr = [[RLMArray<PunchCardAddressSetting> alloc] initWithObjectClassName:@"PunchCardAddressSetting"];
-            for (NSDictionary *settingDic in dicDic[@"address_settings"]) {
-                PunchCardAddressSetting *setting = [PunchCardAddressSetting new];
-                [setting mj_setKeyValues:settingDic];
-                [settingArr addObject:setting];
-            }
-            set.json_list_address_settings = settingArr;
-            [array addObject:set];
-        }
-        [_userManager updateSiginRule:array companyNo:_userManager.user.currCompany.company_no];
-    }];
 }
 #pragma mark --
 #pragma mark -- HomeListTopDelegate
@@ -181,7 +160,7 @@
     if([localUserApp.titleName isEqualToString:@"公告"]) {//公告
         [self executeNeedSelectCompany:^{
             WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
-            NSString *str = [NSString stringWithFormat:@"%@Notice?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+            NSString *str = [NSString stringWithFormat:@"%@Notice?userGuid=%@&companyNo=%d&access_token=%@",XYFMobileDomain,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
             webViewcontroller.applicationUrl = str;
             webViewcontroller.hidesBottomBarWhenPushed = YES;
             [[self navigationController] pushViewController:webViewcontroller animated:YES];
@@ -189,7 +168,7 @@
     } else if ([localUserApp.titleName isEqualToString:@"动态"]) {//动态
         [self executeNeedSelectCompany:^{
             WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
-            NSString *str = [NSString stringWithFormat:@"%@Dynamic?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+            NSString *str = [NSString stringWithFormat:@"%@Dynamic?userGuid=%@&companyNo=%d&access_token=%@",XYFMobileDomain,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
             webViewcontroller.applicationUrl = str;
             webViewcontroller.hidesBottomBarWhenPushed = YES;
             [[self navigationController] pushViewController:webViewcontroller animated:YES];
@@ -203,21 +182,22 @@
     } else if([localUserApp.titleName isEqualToString:@"审批"]) {//审批
         [self executeNeedSelectCompany:^{
             WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
-            NSString *str = [NSString stringWithFormat:@"%@ApprovalByFormBuilder?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+            NSString *str = [NSString stringWithFormat:@"%@ApprovalByFormBuilder?userGuid=%@&companyNo=%d&access_token=%@",XYFMobileDomain,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
             webViewcontroller.applicationUrl = str;
             webViewcontroller.hidesBottomBarWhenPushed = YES;
             [[self navigationController] pushViewController:webViewcontroller animated:YES];
         }];
     } else if ([localUserApp.titleName isEqualToString:@"帮邮"]) {//邮件 调用手机上的邮件
         if([[[UIDevice currentDevice] systemVersion] floatValue] >= 10.0f) {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:"] options:nil completionHandler:nil];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:"] options:@{} completionHandler:^(BOOL success) {
+            }];
         } else {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:"]];
         }
     } else if ([localUserApp.titleName isEqualToString:@"会议"]) {//会议
         [self executeNeedSelectCompany:^{
             WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
-            NSString *str = [NSString stringWithFormat:@"%@meeting?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+            NSString *str = [NSString stringWithFormat:@"%@meeting?userGuid=%@&companyNo=%d&access_token=%@",XYFMobileDomain,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
             webViewcontroller.applicationUrl = str;
             webViewcontroller.hidesBottomBarWhenPushed = YES;
             [[self navigationController] pushViewController:webViewcontroller animated:YES];
@@ -225,7 +205,7 @@
     } else if([localUserApp.titleName isEqualToString:@"投票"]){//投票
         [self executeNeedSelectCompany:^{
             WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
-            NSString *str = [NSString stringWithFormat:@"%@Vote?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+            NSString *str = [NSString stringWithFormat:@"%@Vote?userGuid=%@&companyNo=%d&access_token=%@",XYFMobileDomain,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
             webViewcontroller.applicationUrl = str;
             webViewcontroller.hidesBottomBarWhenPushed = YES;
             [[self navigationController] pushViewController:webViewcontroller animated:YES];
@@ -261,8 +241,13 @@
     companyLabel.textColor = [UIColor whiteColor];
     if([NSString isBlank:user.currCompany.company_name])
         companyLabel.text = @"未选择圈子";
-    else
-        companyLabel.text = user.currCompany.company_name;
+    else {
+        NSString *companyName = user.currCompany.company_name;
+        if(companyName.length > 8) {
+            companyName = [companyName stringByReplacingCharactersInRange:NSMakeRange(8, companyName.length - 8) withString:@"..."];
+        }
+        companyLabel.text = companyName;
+    }
     companyLabel.tag = 1003;
     [_leftNavigationBarButton addSubview:companyLabel];
     [_leftNavigationBarButton addTarget:self action:@selector(leftNavigationBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -288,6 +273,10 @@
     label.userInteractionEnabled = NO;
     int count = 0;
     for (PushMessage *push in [_userManager getPushMessageArr]) {
+        //本地推送只读取现在之前的
+        if(push.id.doubleValue > 0)
+            if(push.addTime.timeIntervalSince1970 > [NSDate date].timeIntervalSince1970)
+                continue;
         if(push.unread == YES)
             count ++;
     }

@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 songjian. All rights reserved.
 //
 
+#if MA_INCLUDE_OVERLAY_GROUND
+
 #import <UIKit/UIKit.h>
 
 #import "MAShape.h"
@@ -60,3 +62,5 @@
                                   zoomLevel:(CGFloat)zoomLevel
                                        icon:(UIImage *)icon;
 @end
+
+#endif

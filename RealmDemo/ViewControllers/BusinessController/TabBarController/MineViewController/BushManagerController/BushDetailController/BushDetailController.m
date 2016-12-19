@@ -18,7 +18,7 @@
     UserManager *_userManager;//用户管理器
 }
 @property (strong, nonatomic) UIImageView *companyAvater;
-@property (weak, nonatomic) IBOutlet UILabel *companyName;
+@property (weak, nonatomic) IBOutlet UITextView *companyName;
 @property (weak, nonatomic) IBOutlet UILabel *companyType;
 @property (weak, nonatomic) IBOutlet UILabel *companyOwer;
 @property (weak, nonatomic) IBOutlet UILabel *companyOwerPhone;
@@ -31,6 +31,8 @@
     [super viewDidLoad];
     self.title = @"圈子详情";
     self.tableView.tableFooterView = [UIView new];
+    self.companyName.textContainerInset = UIEdgeInsetsZero;
+    self.companyName.contentInset = UIEdgeInsetsZero;
     self.companyAvater = [[UIImageView alloc] initWithFrame:CGRectMake(10, 170, 60, 60)];
     [self.companyAvater zy_cornerRadiusRoundingRect];
     [self.tableView addSubview:self.companyAvater];
@@ -49,7 +51,7 @@
             self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(updateCompanyInfo:)];
         } else {
             //如果正在申请离职或者正在申请加入 就不添加按钮
-            if(ownerInThisCompany.status == 0 || ownerInThisCompany.status == 4 ||ownerInThisCompany.status == 2)  {
+            if(ownerInThisCompany.status != 1)  {
                 self.opertionBtn.hidden = YES;
             } else {//只能退出圈子
                 [self.opertionBtn setTitle:@"退出圈子" forState:UIControlStateNormal];
@@ -63,8 +65,10 @@
             [self.navigationController.view showFailureTips:error.statsMsg];
             return ;
         }
-        self.companyOwer.text = data[@"real_name"];
-        self.companyOwerPhone.text = data[@"email"];
+        Employee *employee = [Employee new];
+        [employee mj_setKeyValues:data];
+        self.companyOwer.text = employee.real_name;
+        self.companyOwerPhone.text = employee.email;
     }];
 }
 - (void)viewWillAppear:(BOOL)animated {
@@ -75,7 +79,7 @@
     self.companyType.text = [_currCompany companyTypeStr];
 }
 - (void)dataDidChange {
-    _currCompany = [self.data deepCopy];
+    _currCompany = self.data;
 }
 //修改圈子信息
 - (void)updateCompanyInfo:(UIBarButtonItem*)item {
@@ -96,7 +100,7 @@
 #pragma mark --
 #pragma mark -- SingleSelectDelegate
 - (void)singleSelect:(Employee *)employee {
-    Employee *ownerInThisCompany = [[_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_currCompany.company_no] deepCopy];
+    Employee *ownerInThisCompany = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_currCompany.company_no];
     [UserHttp transCompany:_currCompany.company_no ownerGuid:ownerInThisCompany.user_guid toGuid:employee.user_guid handler:^(id data, MError *error) {
         if(error) {
             [self.navigationController.view showFailureTips:error.statsMsg];
@@ -122,7 +126,7 @@
         if([NSString isBlank:field.text]) {
             field.text = [NSString stringWithFormat:@"我是%@，请求退出圈子",_userManager.user.real_name];
         }
-        Employee *currEmployee = [[_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_currCompany.company_no] deepCopy];
+        Employee *currEmployee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_currCompany.company_no];
         [UserHttp updateEmployeeStatus:currEmployee.employee_guid status:4 reason:field.text handler:^(id data, MError *error) {
             [self.navigationController.view dismissTips];
             if(error) {

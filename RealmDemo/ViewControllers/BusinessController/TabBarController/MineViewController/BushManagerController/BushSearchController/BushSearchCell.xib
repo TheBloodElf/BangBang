@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -22,12 +26,12 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tov-Os-Jfm">
-                        <rect key="frame" x="75" y="8" width="40" height="20"/>
+                        <rect key="frame" x="75" y="8" width="170" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="Wtb-SJ-IGm"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jyj-WJ-8wz">
@@ -36,7 +40,7 @@
                             <constraint firstAttribute="height" constant="15" id="x4Q-xv-rrz"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZqU-Jb-ewO">
@@ -45,15 +49,16 @@
                             <constraint firstAttribute="height" constant="30" id="LDW-fM-o1A"/>
                             <constraint firstAttribute="width" constant="50" id="cHc-5O-e4N"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <state key="normal" title="Button">
-                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                     </button>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="ZqU-Jb-ewO" secondAttribute="trailing" constant="15" id="Ajz-Uz-OoC"/>
                     <constraint firstAttribute="bottom" secondItem="jyj-WJ-8wz" secondAttribute="bottom" constant="8" id="Idd-oj-TOb"/>
+                    <constraint firstItem="ZqU-Jb-ewO" firstAttribute="leading" secondItem="Tov-Os-Jfm" secondAttribute="trailing" constant="10" id="JYE-PQ-wFA"/>
                     <constraint firstItem="Tov-Os-Jfm" firstAttribute="top" secondItem="QKf-2F-fmh" secondAttribute="top" constant="8" id="Yps-tX-da4"/>
                     <constraint firstItem="jyj-WJ-8wz" firstAttribute="leading" secondItem="erx-wm-1ZR" secondAttribute="trailing" constant="10" id="aVN-bQ-jez"/>
                     <constraint firstItem="erx-wm-1ZR" firstAttribute="centerY" secondItem="QKf-2F-fmh" secondAttribute="centerY" id="bWR-Xp-v4L"/>

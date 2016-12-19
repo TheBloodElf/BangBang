@@ -58,16 +58,16 @@
     _tableView.tableFooterView = [UIView new];
     [_tableView registerNib:[UINib nibWithNibName:@"XAddrBookCell" bundle:nil] forCellReuseIdentifier:@"XAddrBookCell"];
     [self.view addSubview:_tableView];
-    //创建选择视图
+    //这里改了 没有申请管理这一项
     //是不是当前圈子的管理员
-    if([_userManager.user.currCompany.admin_user_guid isEqualToString:_userManager.user.user_guid]) {
-        _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100 - 15, 0, 100, 120)];
-        _moreSelectView.selectArr = @[@"发起群聊",@"邀请同事",@"申请管理"];
-    }
-    else {
-        _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100 - 15, 0, 100, 80)];
+//    if([_userManager.user.currCompany.admin_user_guid isEqualToString:_userManager.user.user_guid]) {
+//        _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100 - 5, 5, 100, 45 * 3)];
+//        _moreSelectView.selectArr = @[@"发起群聊",@"邀请同事",@"申请管理"];
+//    }
+//    else {
+        _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100 - 5, 5, 100, 45 * 2)];
         _moreSelectView.selectArr = @[@"发起群聊",@"邀请同事"];
-    }
+//    }
     _moreSelectView.delegate = self;
     [_moreSelectView setupUI];
     [self.view addSubview:_moreSelectView];
@@ -93,6 +93,7 @@
     [self.navigationController.view showLoadingTips:@""];
     //从网络上获取最新的员工数据
     [UserHttp getEmployeeCompnyNo:_userManager.user.currCompany.company_no status:5 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+        [self.navigationController.view dismissTips];
         if(error) {
             [self.navigationController.view showFailureTips:error.statsMsg];
             return ;
@@ -104,7 +105,6 @@
             [array addObject:employee];
         }
         [UserHttp getEmployeeCompnyNo:_userManager.user.currCompany.company_no status:0 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
-            [self.navigationController.view dismissTips];
             if(error) {
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
@@ -177,30 +177,19 @@
     if(controller == _employeeFetchedResultsController) {
         if(_userManager.user.currCompany.company_no) {
             _employeeArr = [_userManager getEmployeeWithCompanyNo:_userManager.user.currCompany.company_no status:5];
-            [self sortEmployee];
+        } else {
+            _employeeArr = [@[] mutableCopy];
         }
+        [self sortEmployee];
         [_tableView reloadData];
     } else {
         if(_userManager.user.currCompany.company_no) {
             _employeeArr = [_userManager getEmployeeWithCompanyNo:_userManager.user.currCompany.company_no status:5];
-            [self sortEmployee];
+        } else {
+            _employeeArr = [@[] mutableCopy];
         }
+        [self sortEmployee];
         [_tableView reloadData];
-        //创建选择视图
-        [_moreSelectView removeFromSuperview];
-        //是不是当前圈子的管理员
-        if([_userManager.user.currCompany.admin_user_guid isEqualToString:_userManager.user.user_guid]) {
-            _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100 - 15, 0, 100, 120)];
-            _moreSelectView.selectArr = @[@"发起群聊",@"邀请同事",@"申请管理"];
-        }
-        else {
-            _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100 - 15, 0, 100, 80)];
-            _moreSelectView.selectArr = @[@"发起群聊",@"邀请同事"];
-        }
-        _moreSelectView.delegate = self;
-        [_moreSelectView setupUI];
-        [self.view addSubview:_moreSelectView];
-        [self.view bringSubviewToFront:_moreSelectView];
         _employeeFetchedResultsController = [_userManager createEmployeesFetchedResultsControllerWithCompanyNo:_userManager.user.currCompany.company_no];
         _employeeFetchedResultsController.delegate = self;
     }

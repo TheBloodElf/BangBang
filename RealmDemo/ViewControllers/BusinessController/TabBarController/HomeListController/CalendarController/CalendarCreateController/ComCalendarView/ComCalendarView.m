@@ -15,7 +15,7 @@
 #import "ComCalendarAdress.h"
 #import "ComCalendarInstruction.h"
 
-@interface ComCalendarView ()<UITableViewDelegate,UITableViewDataSource,ComCalendarTimeDelegate,ComCalendarNameDelegate> {
+@interface ComCalendarView ()<UITableViewDelegate,UITableViewDataSource,ComCalendarTimeDelegate,ComCalendarNameDelegate,ComCalendarInstructionDelegate,ComCalendarAdressDelegate> {
     Calendar *_calendar;
     UITableView *_tableView;
 }
@@ -40,9 +40,6 @@
         [_tableView registerNib:[UINib nibWithNibName:@"ComCalendarInstruction" bundle:nil] forCellReuseIdentifier:@"ComCalendarInstruction"];
         _tableView.tableFooterView = [UIView new];
         [self addSubview:_tableView];
-        
-        [IQKeyboardManager sharedManager].enable = YES;
-        [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
     }
     return self;
 }
@@ -60,7 +57,11 @@
         case 2: height = 50; break;
         case 3: height = 50; break;
         case 4: height = 50; break;
-        case 5: height = _isEdit ? 0.01 : 50; break;//分享
+        case 5:
+            height = [_calendar.member_names textSizeWithFont:[UIFont systemFontOfSize:15] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH - 100 - 25, 1000)].height + 10;
+            if(height < 50)
+                height = 50;
+            break;//分享
         case 6: height = 50; break;
         default: height = 100; break;
     }
@@ -92,39 +93,57 @@
         ComCalendarTime *time = (id)cell;
         time.data = _calendar;
         time.delegate = self;
+    } else if (indexPath.row == 2) {
+        cell.data = _calendar;
     } else if (indexPath.row == 3) {
         ComCalendarDetail *comCalendarDetail = (id)cell;
         comCalendarDetail.titleLabel.text = @"事前提醒:";
         if(_calendar.alert_minutes_before == 0)
-            comCalendarDetail.detailLabel.text = @"无";
+            comCalendarDetail.detailTextView.text = @"无";
         else
-            comCalendarDetail.detailLabel.text = [NSString stringWithFormat:@"%d分钟",_calendar.alert_minutes_before];
+            comCalendarDetail.detailTextView.text = [NSString stringWithFormat:@"%d分钟",_calendar.alert_minutes_before];
     } else if (indexPath.row == 4) {
         ComCalendarDetail *comCalendarDetail = (id)cell;
         comCalendarDetail.titleLabel.text = @"事后提醒:";
         if(_calendar.alert_minutes_after == 0)
-            comCalendarDetail.detailLabel.text = @"无";
+            comCalendarDetail.detailTextView.text = @"无";
         else
-            comCalendarDetail.detailLabel.text = [NSString stringWithFormat:@"%d分钟",_calendar.alert_minutes_after];
+            comCalendarDetail.detailTextView.text = [NSString stringWithFormat:@"%d分钟",_calendar.alert_minutes_after];
     } else if (indexPath.row == 5) {
         ComCalendarDetail *comCalendarDetail = (id)cell;
-        if(_isEdit) comCalendarDetail.hidden = YES;
         comCalendarDetail.titleLabel.text = @"分享给:";
-        comCalendarDetail.detailLabel.text = _calendar.member_names ?: @"无";
-    } else {
-        cell.data = _calendar;
+        comCalendarDetail.detailTextView.text = [NSString isBlank:_calendar.member_names] ? @"无": _calendar.member_names;
+        if(![NSString isBlank:_calendar.member_names]) {
+            comCalendarDetail.detailTextViewHeight.constant = [_calendar.member_names textSizeWithFont:[UIFont systemFontOfSize:15] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH - 100 - 25, 1000)].height;
+        }
+    } else if (indexPath.row == 6) {//地址
+        ComCalendarAdress *comCalendarInstructionCell = (id)cell;
+        comCalendarInstructionCell.delegate = self;
+        comCalendarInstructionCell.data = _calendar;
+    } else if (indexPath.row == 7) {//详情
+        ComCalendarInstruction *comCalendarInstructionCell = (id)cell;
+        comCalendarInstructionCell.delegate = self;
+        comCalendarInstructionCell.data = _calendar;
     }
-    
-    if(self.isDetail)
-        cell.userInteractionEnabled = NO;
-    
+    //取消点击效果 #BANG392
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
+}
+#pragma mark --
+#pragma mark -- ComCalendarAdressDelegate
+- (void)comCalendarAdressOverLength {
+    [self showMessageTips:@"地址不能超过30字符"];
+}
+#pragma mark -- 
+#pragma mark -- ComCalendarInstructionDelegate
+- (void)comCalendarInstructionOverLength {
+    [self showMessageTips:@"详情不能超过500字符"];
 }
 #pragma mark -- 
 #pragma mark -- ComCalendarNameDelegate
 //名称超长
 - (void)comCalendarNameLengthOver {
-    [self showMessageTips:@"名称不能超过30"];
+    [self showMessageTips:@"名称不能超过30字符"];
 }
 #pragma mark -- 
 #pragma mark -- ComCalendarTimeDelegate

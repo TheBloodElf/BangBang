@@ -1,8 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -12,20 +15,30 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="35t-Qo-t3E" id="1Xc-VB-doY">
-                <frame key="frameInset" width="287" height="59"/>
+                <rect key="frame" x="0.0" y="0.0" width="287" height="59"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o5b-sJ-Gxt">
+                        <rect key="frame" x="15" y="0.0" width="272" height="1"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="hlB-EA-0P7"/>
+                        </constraints>
+                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="列席人" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kvY-o4-Pa1">
+                        <rect key="frame" x="15" y="19.5" width="52" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请选择" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vnH-Qn-8gZ">
+                        <rect key="frame" x="230" y="19.5" width="52" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SOk-DG-7cA">
+                        <rect key="frame" x="70" y="15" width="212" height="29.5"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                 </subviews>
@@ -34,7 +47,10 @@
                     <constraint firstAttribute="leading" secondItem="kvY-o4-Pa1" secondAttribute="leading" constant="-15" id="Brm-J1-mMU"/>
                     <constraint firstItem="vnH-Qn-8gZ" firstAttribute="centerY" secondItem="1Xc-VB-doY" secondAttribute="centerY" id="JSP-5b-ryI"/>
                     <constraint firstItem="SOk-DG-7cA" firstAttribute="top" secondItem="1Xc-VB-doY" secondAttribute="top" constant="15" id="OZO-3O-1dk"/>
+                    <constraint firstAttribute="trailing" secondItem="o5b-sJ-Gxt" secondAttribute="trailing" id="QAO-YQ-bpP"/>
+                    <constraint firstItem="o5b-sJ-Gxt" firstAttribute="leading" secondItem="1Xc-VB-doY" secondAttribute="leading" constant="15" id="UE3-wa-ih9"/>
                     <constraint firstAttribute="trailing" secondItem="vnH-Qn-8gZ" secondAttribute="trailing" constant="5" id="ah6-hK-16d"/>
+                    <constraint firstItem="o5b-sJ-Gxt" firstAttribute="top" secondItem="1Xc-VB-doY" secondAttribute="top" id="gI5-P9-Yz9"/>
                     <constraint firstItem="SOk-DG-7cA" firstAttribute="leading" secondItem="1Xc-VB-doY" secondAttribute="leading" constant="70" id="oZj-gm-gz9"/>
                     <constraint firstAttribute="trailing" secondItem="SOk-DG-7cA" secondAttribute="trailing" constant="5" id="rQ8-Op-cro"/>
                     <constraint firstItem="kvY-o4-Pa1" firstAttribute="centerY" secondItem="1Xc-VB-doY" secondAttribute="centerY" id="uvo-gM-RBS"/>

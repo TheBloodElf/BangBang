@@ -9,7 +9,7 @@ Bugtags for iOS, reports bugs and their diagnosis information in one step, detec
 4. Automatically collect network reqeust data.
 5. Powerful bug lifecycle management.
 
-__[Video introduce](http://blog.bugtags.com/2015/12/23/bugtags-intro-video/)__
+__[Video tour](http://blog.bugtags.com/2015/12/23/bugtags-intro-video/)__
 
 [Create a free account](http://bugtags.com/) and invite your team to improve your apps.
 
@@ -22,6 +22,6 @@ Bugtags requires iOS 6.0 and above.
 Bugtags is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
-```ruby
-pod 'Bugtags', '~> 1.3.1'
+``` ruby
+pod 'Bugtags'
 ```

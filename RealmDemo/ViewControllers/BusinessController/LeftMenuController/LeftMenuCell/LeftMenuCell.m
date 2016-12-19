@@ -24,6 +24,7 @@
     [self.companyImage zy_cornerRadiusAdvance:15.f rectCornerType:UIRectCornerAllCorners];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
+//重写dataDidChange 获取data进行赋值
 - (void)dataDidChange {
     UserManager *_userManager = [UserManager manager];
     Company *company = self.data;

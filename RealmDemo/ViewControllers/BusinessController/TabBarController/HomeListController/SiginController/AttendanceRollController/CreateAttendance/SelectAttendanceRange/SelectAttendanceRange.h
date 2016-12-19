@@ -17,6 +17,7 @@
 
 @interface SelectAttendanceRange : UIViewController
 
+@property (nonatomic, assign) NSInteger userSelectRange;
 @property (nonatomic, weak) id<SelectAttendanceRangeDelegate> delegate;
 
 @end

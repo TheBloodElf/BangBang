@@ -18,9 +18,11 @@
         if(![view isMemberOfClass:[UILabel class]]) continue;
         if([view.text isEqualToString:@"没错，我就是这么机智的想到这个办法来保证只存在一个红点。"]) {
             hotView = (id)view;
-            break;
+            //如果存在直接返回函数
+            return;
         }
     }
+    //不存在就创建
     if(!hotView) {
         hotView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, Hot_View_WidthHeight, Hot_View_WidthHeight)];
         hotView.backgroundColor = [UIColor redColor];
@@ -33,13 +35,13 @@
     hotView.center = [self pointWith:hotViewAlignment];
 }
 - (void)removeHotView {
-        for (UILabel *view in self.subviews) {
-            if(![view isMemberOfClass:[UILabel class]]) continue;
-            if([view.text isEqualToString:@"没错，我就是这么机智的想到这个办法来保证只存在一个红点。"]) {
-                [view removeFromSuperview];
-                break;
-            }
+    for (UILabel *view in self.subviews) {
+        if(![view isMemberOfClass:[UILabel class]]) continue;
+        if([view.text isEqualToString:@"没错，我就是这么机智的想到这个办法来保证只存在一个红点。"]) {
+            [view removeFromSuperview];
+            break;
         }
+    }
 }
 - (CGPoint)pointWith:(HOTVIEW_ALIGNMENT)hotViewAlignment {
     CGFloat centerX = self.frame.size.width / 2.f;

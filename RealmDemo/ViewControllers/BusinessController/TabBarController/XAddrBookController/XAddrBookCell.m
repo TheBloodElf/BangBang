@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *userName;
 @property (weak, nonatomic) IBOutlet UILabel *userDert;
 @property (weak, nonatomic) IBOutlet UIImageView *headView;
+
 @end
 
 @implementation XAddrBookCell
@@ -33,7 +34,7 @@
     self.userDert.text = employee.departments;
     [self.userImage sd_setImageWithURL:[NSURL URLWithString:employee.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
     //是不是当前圈子的管理员
-    self.headView.hidden = YES;;
+    self.headView.hidden = YES;
     User *user = _userManager.user;
     if([employee.user_guid isEqualToString:user.currCompany.admin_user_guid])
         self.headView.hidden = NO;

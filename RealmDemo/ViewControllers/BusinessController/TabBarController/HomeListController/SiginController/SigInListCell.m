@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;//时间
 @property (weak, nonatomic) IBOutlet UIImageView *avaterImage;//头像
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;//员工名字
+@property (weak, nonatomic) IBOutlet UIImageView *categoryBgView;//解决点击cell标签背景消失的问题
 @property (weak, nonatomic) IBOutlet UILabel *categoryLabel;//分类
 @property (weak, nonatomic) IBOutlet UIButton *adressLabel;//地址
 @property (weak, nonatomic) IBOutlet UILabel *detailLabel;//说明
@@ -30,13 +31,14 @@
     [super awakeFromNib];
     // Initialization code
     [self.avaterImage zy_cornerRadiusRoundingRect];
+    _categoryBgView.image = [UIImage colorImg:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]];
 }
 
 - (void)dataDidChange {
     for (UIView *view in self.attemthLabel.subviews) {
         [view removeFromSuperview];
     }
-    SignIn *signIn = [self.data deepCopy];
+    SignIn *signIn = self.data;
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:signIn.create_on_utc / 1000];
     self.timeLabel.text = [NSString stringWithFormat:@"%ld/%02ld/%02ld %02ld:%02ld",date.year,date.month,date.day,date.hour,date.minute];
     [self.avaterImage sd_setImageWithURL:[NSURL URLWithString:signIn.create_avatar] placeholderImage:[[UIImage imageNamed:@"default_image_icon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];

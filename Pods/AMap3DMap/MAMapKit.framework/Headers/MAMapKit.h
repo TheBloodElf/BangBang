@@ -6,6 +6,7 @@
 //  Copyright © 2015 le.weng. All rights reserved.
 //
 
+#import <MAMapKit/MAConfig.h>
 #import <MAMapKit/MAMapVersion.h>
 #import <MAMapKit/MAMapView.h>
 #import <MAMapKit/MAMapStatus.h>

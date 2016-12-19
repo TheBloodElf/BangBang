@@ -21,6 +21,18 @@
     [self endEditing:YES];
     return YES;
 }
+//设置默认显示的规则
+- (void)setEKRecurrenceRule:(EKRecurrenceRule*)eKRecurrenceRule {
+    //判断是每一天还是每一个工作日
+    if(eKRecurrenceRule.daysOfTheWeek.count) {
+        self.topBtn.selected = NO;
+        self.bottomBtn.selected = YES;
+    } else {
+        self.topBtn.selected = YES;
+        self.dayField.text = @(eKRecurrenceRule.interval).stringValue;
+        self.bottomBtn.selected = NO;
+    }
+}
 - (EKRecurrenceRule*)eKRecurrenceRule {
     NSInteger interval = 1;
     NSArray *days = @[];

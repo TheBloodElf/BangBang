@@ -60,6 +60,7 @@
     _membersArr = [@[] mutableCopy];
     _attendanceArr = [@[] mutableCopy];
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 64) style:UITableViewStyleGrouped];
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
@@ -305,6 +306,7 @@
     } else if (indexPath.section == 2) {
         if(indexPath.row == 0) {//选择主持人 可以选择自己
             SingleSelectController *single = [SingleSelectController new];
+            single.companyNo = _userManager.user.currCompany.company_no;
             NSMutableArray *array = [@[] mutableCopy];
             [array addObjectsFromArray:_membersArr];
             [array addObjectsFromArray:_attendanceArr];
@@ -321,6 +323,7 @@
             if(_incharge.id) [array addObject:_incharge];
             [array addObjectsFromArray:_attendanceArr];
             mulite.outEmployees = array;
+            mulite.companyNo = _userManager.user.currCompany.company_no;
             mulite.selectedEmployees = _membersArr;
             mulite.muliteSelect = ^(NSMutableArray *array) {
                 _membersArr = array;
@@ -329,6 +332,7 @@
             [self.navigationController pushViewController:mulite animated:YES];
         } else {//选择列席人 不能选择自己
             MuliteSelectController *mulite = [MuliteSelectController new];
+            mulite.companyNo = _userManager.user.currCompany.company_no;
             Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
             NSMutableArray *array = [@[employee] mutableCopy];
             if(_incharge.id) [array addObject:_incharge];

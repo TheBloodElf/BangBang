@@ -104,7 +104,7 @@
                 return ;
             }
             //更新用户信息
-            Employee *tempEmployee = [employee deepCopy];
+            Employee *tempEmployee = employee;
             tempEmployee.status = status;
             [_userManager updateEmployee:tempEmployee];
             //这里要调用加入/退出群租聊天
@@ -144,7 +144,7 @@
                 return ;
             }
             //更新用户信息
-            Employee *tempEmployee = [employee deepCopy];
+            Employee *tempEmployee = employee;
             tempEmployee.status = status;
             [_userManager updateEmployee:tempEmployee];
         }];

@@ -162,7 +162,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if(section == 3)
         return 2;
-    if(section == 5)
+    if(section == 4)
         return _alertDateArr.count + 1;
     return 1;
 }
@@ -227,6 +227,7 @@
         
     } else if (indexPath.section == 2) {//结束时间
         SelectDateController *select = [SelectDateController new];
+        select.needShowDate = [NSDate dateWithTimeIntervalSince1970:_taskModel.enddate_utc / 1000];
         select.selectDateBlock = ^(NSDate *date) {
             _taskModel.enddate_utc = date.timeIntervalSince1970 * 1000;
             [_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
@@ -239,6 +240,7 @@
     } else if (indexPath.section == 3) {
         if(indexPath.row == 0) {//负责人
             SingleSelectController *single = [SingleSelectController new];
+            single.companyNo = _userManager.user.currCompany.company_no;
             NSMutableArray *array = [@[] mutableCopy];
             //负责人还要去掉自己
             [array addObjectsFromArray:_memberArr];
@@ -249,6 +251,7 @@
             [self.navigationController pushViewController:single animated:YES];
         } else {//参与人
             MuliteSelectController *mulite = [MuliteSelectController new];
+            mulite.companyNo = _userManager.user.currCompany.company_no;
             NSMutableArray *array = [@[] mutableCopy];
             if(_incharge.id != 0)
                 array = [@[_incharge] mutableCopy];
@@ -285,7 +288,7 @@
 #pragma mark -- TaskRemindCellDelegate
 - (void)TaskRemindDeleteDate:(NSDate*)date {
     [_alertDateArr removeObject:date];
-    [_tableView reloadSections:[NSIndexSet indexSetWithIndex:5] withRowAnimation:UITableViewRowAnimationNone];
+    [_tableView reloadSections:[NSIndexSet indexSetWithIndex:4] withRowAnimation:UITableViewRowAnimationNone];
 }
 #pragma mark -- SingleSelectDelegate
 //单选回调

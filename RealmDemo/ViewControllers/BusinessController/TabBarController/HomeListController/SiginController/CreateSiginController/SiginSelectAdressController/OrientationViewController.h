@@ -9,8 +9,9 @@
 #import "POIAnnotation.h"
 #import "SiginRuleSet.h"
 #import "PunchCardAddressSetting.h"
-
+//回调传值
 typedef void(^finishOrientation)(AMapPOI *pio);
+
 @interface OrientationViewController : UIViewController
 /**
  *  完成回调函数

@@ -28,6 +28,7 @@
     UserManager *_userManager;//用户管理器
     RBQFetchedResultsController *_userFetchedResultsController;//用户数据库监听
     RBQFetchedResultsController *_siginListFetchedResultsController;//今天的签到记录
+    RBQFetchedResultsController *_employeeFetchedResultsController;//员工数据监听
     MoreSelectView *_moreSelectView;//多选视图
     NSMutableArray<SignIn*> *_todaySigInArr;//今天签到的数组
     
@@ -61,7 +62,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    //导航透明
+    self.navigationController.navigationBar.barTintColor = [UIColor siginColor];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 - (void)viewDidAppear:(BOOL)animated {
@@ -69,8 +70,6 @@
     //是不是第一次加载这个页面
     if(isFirstLoad) return;
     isFirstLoad = YES;
-    
-    self.navigationController.navigationBar.barTintColor = [UIColor siginColor];
     [self updateTime];
     [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(updateTime) userInfo:nil repeats:YES];
     //创建表格视图
@@ -79,8 +78,10 @@
     _userFetchedResultsController.delegate = self;
     _siginListFetchedResultsController = [_userManager createSigInListFetchedResultsController];
     _siginListFetchedResultsController.delegate = self;
+    _employeeFetchedResultsController = [_userManager createEmployeesFetchedResultsControllerWithCompanyNo:_userManager.user.currCompany.company_no];
+    _employeeFetchedResultsController.delegate = self;
     //展示今天的签到记录
-    _todaySigInArr = [_userManager getTodaySigInListGuid:employee.employee_guid];
+    _todaySigInArr = [_userManager getTodaySigInListGuid:employee.employee_guid siginDate:[NSDate date]];
     self.todatSiginNumber.text = [NSString stringWithFormat:@"今日已签到%ld次",_todaySigInArr.count];
     _noDataView = [[NoResultView alloc] initWithFrame:self.tableView.bounds];
     self.tableView.delegate = self;
@@ -99,24 +100,52 @@
     //初始化检索对象
     _search = [[AMapSearchAPI alloc] init];
     _search.delegate = self;
-    //看是否有签到记录数据 没有就从服务器获取
-    if(_todaySigInArr.count == 0) {
-        [UserHttp getSiginList:_userManager.user.currCompany.company_no employeeGuid:employee.employee_guid handler:^(id data, MError *error) {
-            [self.navigationController.view dismissTips];
+    //从服务器获取签到记录
+    [UserHttp getSiginList:_userManager.user.currCompany.company_no employeeGuid:employee.employee_guid handler:^(id data, MError *error) {
+        [self.navigationController.view dismissTips];
+        if(error) {
+            [self.navigationController.view showFailureTips:error.statsMsg];
+            return ;
+        }
+        NSMutableArray *array = [@[] mutableCopy];
+        for (NSDictionary *dic in data) {
+            SignIn *sigIn = [SignIn new];
+            [sigIn mj_setKeyValues:dic];
+            sigIn.descriptionStr = dic[@"description"];
+            [array addObject:sigIn];
+        }
+        [_userManager updateTodaySinInList:array guid:employee.employee_guid];
+    }];
+    //BANG-187 管理员权限不能实时获取
+    [self getCurrEmployee];
+}
+- (void)getCurrEmployee {
+    //从网络上获取最新的员工数据
+    [UserHttp getEmployeeCompnyNo:_userManager.user.currCompany.company_no status:5 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+        if(error) {
+            [self.navigationController.view showFailureTips:error.statsMsg];
+            return ;
+        }
+        NSMutableArray *array = [@[] mutableCopy];
+        for (NSDictionary *dic in data[@"list"]) {
+            Employee *employee = [Employee new];
+            [employee mj_setKeyValues:dic];
+            [array addObject:employee];
+        }
+        [UserHttp getEmployeeCompnyNo:_userManager.user.currCompany.company_no status:0 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
             if(error) {
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
-            NSMutableArray *array = [@[] mutableCopy];
-            for (NSDictionary *dic in data) {
-                SignIn *sigIn = [SignIn new];
-                [sigIn mj_setKeyValues:dic];
-                sigIn.descriptionStr = dic[@"description"];
-                [array addObject:sigIn];
+            for (NSDictionary *dic in data[@"list"]) {
+                Employee *employee = [Employee new];
+                [employee mj_setKeyValues:dic];
+                [array addObject:employee];
             }
-            [_userManager updateTodaySinInList:array guid:employee.employee_guid];
+            //存入本地数据库
+            [_userManager updateEmployee:array companyNo:_userManager.user.currCompany.company_no];
         }];
-    }
+    }];
 }
 //一直刷新时间
 - (void)updateTime {
@@ -129,7 +158,7 @@
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
     if(controller == _siginListFetchedResultsController) {//今天的签到数据变了
          Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
-        _todaySigInArr = [_userManager getTodaySigInListGuid:employee.employee_guid];
+        _todaySigInArr = [_userManager getTodaySigInListGuid:employee.employee_guid siginDate:[NSDate date]];
         self.todatSiginNumber.text = [NSString stringWithFormat:@"今日已签到%ld次",_todaySigInArr.count];
         if(_todaySigInArr.count)
             self.tableView.tableFooterView = [UIView new];
@@ -138,16 +167,30 @@
         [_tableView reloadData];
         return;
     }
-    User *user = _userManager.user;
-    UIImageView *imageView = [_leftNavigationBarButton viewWithTag:1001];
-    UILabel *nameLabel = [_leftNavigationBarButton viewWithTag:1002];
-    UILabel *companyLabel = [_leftNavigationBarButton viewWithTag:1003];
-    [imageView sd_setImageWithURL:[NSURL URLWithString:user.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
-    nameLabel.text = user.real_name;
-    if([NSString isBlank:user.currCompany.company_name])
-        companyLabel.text = @"未选择圈子";
-    else
-        companyLabel.text = user.currCompany.company_name;
+    if(controller == _userFetchedResultsController) {
+        User *user = _userManager.user;
+        UIImageView *imageView = [_leftNavigationBarButton viewWithTag:1001];
+        UILabel *nameLabel = [_leftNavigationBarButton viewWithTag:1002];
+        UILabel *companyLabel = [_leftNavigationBarButton viewWithTag:1003];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:user.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
+        nameLabel.text = user.real_name;
+        if([NSString isBlank:user.currCompany.company_name])
+            companyLabel.text = @"未选择圈子";
+        else {
+            NSString *companyName = user.currCompany.company_name;
+            if(companyName.length > 8) {
+                companyName = [companyName stringByReplacingCharactersInRange:NSMakeRange(8, companyName.length - 8) withString:@"..."];
+            }
+            companyLabel.text = companyName;
+        }
+        return;
+    }
+    if(controller == _employeeFetchedResultsController) {
+        //#BANG-187 没有实时获取到权限
+        //获取到圈子员工后重新创建右边按钮
+        [self setRightNavigationBarItem];
+        return;
+    }
 }
 #pragma mark --
 #pragma mark -- CLLocationManagerDelegate
@@ -215,6 +258,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SigInListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SigInListCell" forIndexPath:indexPath];
     cell.data = _todaySigInArr[indexPath.row];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.delegate = self;
     return cell;
 }
@@ -263,8 +307,13 @@
     companyLabel.textColor = [UIColor whiteColor];
     if([NSString isBlank:user.currCompany.company_name])
         companyLabel.text = @"未选择圈子";
-    else
-        companyLabel.text = user.currCompany.company_name;
+    else {
+        NSString *companyName = user.currCompany.company_name;
+        if(companyName.length > 8) {
+            companyName = [companyName stringByReplacingCharactersInRange:NSMakeRange(8, companyName.length - 8) withString:@"..."];
+        }
+        companyLabel.text = companyName;
+    }
     companyLabel.tag = 1003;
     [_leftNavigationBarButton addSubview:companyLabel];
     [_leftNavigationBarButton addTarget:self action:@selector(leftNavigationBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -274,24 +323,29 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)setRightNavigationBarItem {
+    //先删除掉重新创建
+    if(_rightBtn) [_rightBtn removeFromSuperview];
+    if(_moreSelectView) [_moreSelectView removeFromSuperview];
+    
     _rightBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     _rightBtn.frame = CGRectMake(MAIN_SCREEN_WIDTH - 15 - 60, 25, 70, 30);
     _rightBtn.titleLabel.textAlignment = NSTextAlignmentRight;
     _rightBtn.titleLabel.font = [UIFont systemFontOfSize:17];
     [_rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.view addSubview:_rightBtn];
-    //是不是当前圈子的管理员或者创建者
-    if([_userManager.user.currCompany.admin_user_guid isEqualToString:_userManager.user.user_guid]) {
+    //是不是当前圈子的管理员或者圈主
+    Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
+    if([_userManager.user.currCompany.admin_user_guid isEqualToString:_userManager.user.user_guid] || employee.is_admin) {
         [_rightBtn addTarget:self action:@selector(rightClicked:) forControlEvents:UIControlEventTouchUpInside];
         [_rightBtn setTitle:@"更多" forState:UIControlStateNormal];
-        _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100, 64, 100, 120)];
+        _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100 - 5, 64 + 5, 100, 45 * 3)];
         _moreSelectView.selectArr = @[@"我的签到",@"签到统计",@"考勤设置"];
         _moreSelectView.delegate = self;
         [_moreSelectView setupUI];
         [self.view addSubview:_moreSelectView];
         [self.view bringSubviewToFront:_moreSelectView];
     } else {
-        [_rightBtn setTitle:@"签到记录" forState:UIControlStateNormal];
+        [_rightBtn setTitle:@"我的签到" forState:UIControlStateNormal];
         [_rightBtn addTarget:self action:@selector(siginNote:) forControlEvents:UIControlEventTouchUpInside];
     }
 }
@@ -309,7 +363,7 @@
         [self.navigationController pushViewController:sigin animated:YES];
     } else if (index == 1) {//签到统计
         WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
-        webViewcontroller.applicationUrl  = [NSString stringWithFormat:@"%@PunchCard/SignInStatistics?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+        webViewcontroller.applicationUrl  = [NSString stringWithFormat:@"%@PunchCard/SignInStatistics?userGuid=%@&companyNo=%d&access_token=%@",XYFMobileDomain,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
         [self.navigationController pushViewController:webViewcontroller animated:YES];
     } else {//签到设置
         AttendanceRollController *roll = [AttendanceRollController new];

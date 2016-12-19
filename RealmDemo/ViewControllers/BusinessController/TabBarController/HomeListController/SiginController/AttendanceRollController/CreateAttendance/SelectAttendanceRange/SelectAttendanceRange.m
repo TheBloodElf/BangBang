@@ -21,6 +21,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    //应该被选中按钮的下标
+    int index = 0;
+    switch (self.userSelectRange) {
+        case 100: index = 0; break;
+        case 200: index = 1; break;
+        case 300: index = 2; break;
+        case 400: index = 3; break;
+        case 500: index = 4; break;
+        case 600: index = 5; break;
+        case 700: index = 6; break;
+        case 800: index = 7; break;
+        default: break;
+    }
+    UIButton *button = [self.centerView viewWithTag:index + ButtonBeginTag];
+    button.selected = YES;
 }
 
 - (void)setSelectedAtIndex:(NSInteger)index {

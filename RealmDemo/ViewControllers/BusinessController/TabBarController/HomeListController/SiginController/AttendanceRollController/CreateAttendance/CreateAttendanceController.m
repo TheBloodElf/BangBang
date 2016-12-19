@@ -47,8 +47,8 @@
     _currSiginRule.work_day = @"1,2,3,4,5";
     _currSiginRule.start_work_time_alert = 5;
     _currSiginRule.end_work_time_alert = 5;
-    _currSiginRule.start_work_time = [NSDate dateWithFormat:@"2001-01-01 08:30:00"].timeIntervalSince1970 * 1000;
-    _currSiginRule.end_work_time = [NSDate dateWithFormat:@"2001-01-01 17:30:00"].timeIntervalSince1970 * 1000;
+    _currSiginRule.start_work_time = [NSDate dateWithFormat:[NSString stringWithFormat:@"%ld-%ld-%ld 08:30:00",(long)[NSDate date].year,(long)[NSDate date].month,(long)[NSDate date].day]].timeIntervalSince1970 * 1000;
+    _currSiginRule.end_work_time = [NSDate dateWithFormat:[NSString stringWithFormat:@"%ld-%ld-%ld 17:30:00",(long)[NSDate date].year,(long)[NSDate date].month,(long)[NSDate date].day]].timeIntervalSince1970 * 1000;
     _currSiginRule.scope = 500;
     _currSiginRule.is_alert = TRUE;
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
@@ -63,6 +63,8 @@
     _tableView.tableFooterView = [UIView new];
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    //#BANG-489 签到规则地址显示为多行
+    _tableView.estimatedRowHeight = 60;
     [self.view addSubview:_tableView];
     [_tableView registerNib:[UINib nibWithNibName:@"SiginName" bundle:nil] forCellReuseIdentifier:@"SiginName"];
     [_tableView registerNib:[UINib nibWithNibName:@"PunchCardRemind" bundle:nil] forCellReuseIdentifier:@"PunchCardRemind"];
@@ -93,24 +95,6 @@
         default: count = 1; break;
     }
     return count;
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if(indexPath.section == 0)
-        return 44.f;
-    if(indexPath.section == 1)
-        return 44.f;
-    if(indexPath.section == 2) {
-        if(indexPath.row == 0)
-            return 70.f;
-        return 44.f;
-    }
-    if(indexPath.section == 3) {
-        if(indexPath.row == 0)
-            return 44.0f;
-        return 70.f;
-    }
-    return 44.f;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
@@ -246,6 +230,12 @@
     } else if(indexPath.section == 1) {
         if(indexPath.row == 0) {//选取工作日
             SelectAttendanceWorkDay *workDay = [SelectAttendanceWorkDay new];
+            NSMutableArray<NSNumber*> *works = [@[] mutableCopy];
+            for (NSString *str in [_currSiginRule.work_day componentsSeparatedByString:@","]) {
+                if([NSString isBlank:str]) continue;
+                [works addObject:@(str.intValue)];
+            }
+            workDay.userSelectDays = [works copy];
             workDay.delegate = self;
             workDay.providesPresentationContextTransitionStyle = YES;
             workDay.definesPresentationContext = YES;
@@ -253,21 +243,46 @@
             [self presentViewController:workDay animated:NO completion:nil];
         } else if (indexPath.row == 1) {//选择上班时间
             SelectAttendanceTime *workDay = [SelectAttendanceTime new];
+            workDay.userSelectDate = _currSiginRule.start_work_time;
             workDay.providesPresentationContextTransitionStyle = YES;
             workDay.definesPresentationContext = YES;
             workDay.modalPresentationStyle = UIModalPresentationOverCurrentContext;
             [self presentViewController:workDay animated:NO completion:nil];
             workDay.selectTimeBlock = ^(int64_t date) {
+                //上班时间
+                NSDate *beginDate = [NSDate dateWithTimeIntervalSince1970:date / 1000];
+                int64_t beginSecond = beginDate.second + beginDate.minute * 60 + beginDate.hour * 60 * 60;
+                //下班时间
+                NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:_currSiginRule.end_work_time / 1000];
+                int64_t endSecond = endDate.second + endDate.minute * 60 + endDate.hour * 60 * 60;
+                if(endSecond  < beginSecond) {
+                    //下班时间必须大于上班时间
+                    [self.navigationController.view showMessageTips:@"上班时间必须小于下班时间"];
+                    return;
+                }
                 _currSiginRule.start_work_time = date;
                 [_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
             };
         } else {//选择下班时间
             SelectAttendanceTime *workDay = [SelectAttendanceTime new];
+            workDay.userSelectDate = _currSiginRule.end_work_time;
             workDay.providesPresentationContextTransitionStyle = YES;
             workDay.definesPresentationContext = YES;
             workDay.modalPresentationStyle = UIModalPresentationOverCurrentContext;
             [self presentViewController:workDay animated:NO completion:nil];
             workDay.selectTimeBlock = ^(int64_t date) {
+                //上班时间
+                NSDate *beginDate = [NSDate dateWithTimeIntervalSince1970:_currSiginRule.start_work_time / 1000];
+                int64_t beginSecond = beginDate.second + beginDate.minute * 60 + beginDate.hour * 60 * 60;
+                //下班时间
+                NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:date / 1000];
+                int64_t endSecond = endDate.second + endDate.minute * 60 + endDate.hour * 60 * 60;
+                //下班时间必须大于上班时间
+                if(endSecond  < beginSecond) {
+                    //下班时间必须大于上班时间
+                    [self.navigationController.view showMessageTips:@"下班时间必须大于上班时间"];
+                    return;
+                }
                 _currSiginRule.end_work_time = date;
                 [_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
             };
@@ -276,6 +291,7 @@
         if(indexPath.row == 0) {//打卡提醒 不做任何操作
         } else if (indexPath.row == 1) {//上班时间提醒
             SelectAttendanceSpaceTime *workDay = [SelectAttendanceSpaceTime new];
+            workDay.userSelectDate = _currSiginRule.start_work_time_alert;
             workDay.titleNameContent = @"上班时间提醒";
             workDay.providesPresentationContextTransitionStyle = YES;
             workDay.definesPresentationContext = YES;
@@ -288,6 +304,7 @@
         } else {//下班时间提醒
             SelectAttendanceSpaceTime *workDay = [SelectAttendanceSpaceTime new];
             workDay.titleNameContent = @"下班时间提醒";
+            workDay.userSelectDate = _currSiginRule.end_work_time_alert;
             workDay.providesPresentationContextTransitionStyle = YES;
             workDay.definesPresentationContext = YES;
             workDay.modalPresentationStyle = UIModalPresentationOverCurrentContext;
@@ -306,6 +323,7 @@
         }
     } else {//选择误差范围
         SelectAttendanceRange *workDay = [SelectAttendanceRange new];
+        workDay.userSelectRange = _currSiginRule.scope;
         workDay.delegate = self;
         workDay.providesPresentationContextTransitionStyle = YES;
         workDay.definesPresentationContext = YES;
@@ -318,7 +336,7 @@
 - (void)selectAdress:(AMapPOI *)adress
 {
     if(!adress) return;
-    //百度地图地址选择成功
+    //高德地图地址选择成功
     PunchCardAddressSetting * ruleSet = [[PunchCardAddressSetting alloc] initWithAMapPOI:adress];
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"完善地址信息" message:nil preferredStyle:UIAlertControllerStyleAlert];
     [alertVC addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {

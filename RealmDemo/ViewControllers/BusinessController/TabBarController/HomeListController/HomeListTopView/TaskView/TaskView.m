@@ -52,7 +52,7 @@
     self.userInteractionEnabled = YES;
     //算出距离明天早上还有多少秒
     int64_t tomarrroInterval = 24 * 60 * 60 - [NSDate date].hour * 60 * 60 - [NSDate date].minute * 60 - [NSDate date].second;
-    _dateTimer = [NSTimer scheduledTimerWithTimeInterval:tomarrroInterval target:self selector:@selector(updateCalendar:) userInfo:nil repeats:YES];
+    _dateTimer = [NSTimer scheduledTimerWithTimeInterval:tomarrroInterval target:self selector:@selector(updateCalendar:) userInfo:nil repeats:NO];
     _userManager = [UserManager manager];
     _userFetchedResultsController = [_userManager createUserFetchedResultsController];
     _userFetchedResultsController.delegate = self;
@@ -65,7 +65,7 @@
     [_userManager addTaskNotfition];
 }
 - (void)updateCalendar:(NSTimer*)timer {
-    _dateTimer = [NSTimer scheduledTimerWithTimeInterval:24 * 60 * 60 target:self selector:@selector(updateCalendar:) userInfo:nil repeats:YES];
+    _dateTimer = [NSTimer scheduledTimerWithTimeInterval:24 * 60 * 60 target:self selector:@selector(updateCalendar:) userInfo:nil repeats:NO];
     _leftWillEndCount = _leftDidEndCount = _leftAllCount = _rightAllCount = _rightDidEndCount = _rightWillEndCount = 0;
     //给这几个数字填充值
     [self getCurrCount];

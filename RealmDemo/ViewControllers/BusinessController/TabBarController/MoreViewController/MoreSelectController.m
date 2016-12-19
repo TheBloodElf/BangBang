@@ -28,7 +28,7 @@
                                            ] startDegree:M_PI/2 layoutDegree:M_PI];
     [self.menuButton setButtonClickBlock:^(NSInteger idx) { 
         if(self.delegate && [self.delegate respondsToSelector:@selector(MoreViewDidClicked:)]) {
-            [self.delegate MoreViewDidClicked:idx];
+            [self.delegate MoreViewDidClicked:(int)idx];
         }
         [self removeFromParentViewController];
         [self.view removeFromSuperview];

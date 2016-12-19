@@ -77,11 +77,11 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     int lines = 0;
     if(indexPath.section == 0) {
-        lines = _albumPic.count / 4;
+        lines = (int)_albumPic.count / 4;
         if(_albumPic.count % 4 != 0)
             lines ++;
     } else {
-        lines = _downPic.count / 4;
+        lines = (int)_downPic.count / 4;
         if(_downPic.count % 4 != 0)
             lines ++;
     }

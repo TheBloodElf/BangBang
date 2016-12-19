@@ -42,7 +42,7 @@
     self.bushName.text = model.company_name;
     self.bushType.text = [model companyTypeStr];
     [self.joinBtn setTitle:@"申请加入" forState:UIControlStateNormal];
-    [self.joinBtn setBackgroundColor:[UIColor grayColor]];
+    [self.joinBtn setBackgroundImage:[UIImage colorImg:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]] forState:UIControlStateNormal];
     self.joinBtn.enabled = YES;
     //获取在当前圈子中的自己（员工）
     _employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:model.company_no];
@@ -52,15 +52,15 @@
     if (_employee.status == 1) {
         [self.joinBtn setTitle:@"已经加入" forState:UIControlStateNormal];
         self.joinBtn.enabled = NO;
-        [self.joinBtn setBackgroundColor:[UIColor lightGrayColor]];
+       [self.joinBtn setBackgroundImage:[UIImage colorImg:[UIColor lightGrayColor]] forState:UIControlStateNormal];
     }else if (_employee.status == 0){
         [self.joinBtn setTitle:@"等待加入" forState:UIControlStateNormal];
         self.joinBtn.enabled = NO;
-        [self.joinBtn setBackgroundColor:[UIColor lightGrayColor]];
+        [self.joinBtn setBackgroundImage:[UIImage colorImg:[UIColor lightGrayColor]] forState:UIControlStateNormal];
     }else if (_employee.status == 4){
         [self.joinBtn setTitle:@"离职中" forState:UIControlStateNormal];
         self.joinBtn.enabled = NO;
-        [self.joinBtn setBackgroundColor:[UIColor lightGrayColor]];
+        [self.joinBtn setBackgroundImage:[UIImage colorImg:[UIColor lightGrayColor]] forState:UIControlStateNormal];
     }
 }
 

@@ -1,4 +1,3 @@
-
 //
 //  AppCustoms.m
 //  fadein
@@ -28,11 +27,13 @@ static AppCustoms * __singleton__;
 - (instancetype)init {
     self = [super init];
     if (self) {
+        //设置导航栏
         [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
         [[UINavigationBar appearance] setBarTintColor:[UIColor homeListColor]];
         [[UINavigationBar appearance] setTitleTextAttributes:
          @{NSFontAttributeName:[UIFont systemFontOfSize:17],
            NSForegroundColorAttributeName:[UIColor whiteColor]}];
+        //设置搜索控件
         [[UISearchBar appearance] setTintColor:[UIColor colorWithRed:247/255.f green:247/255.f blue:247/255.f alpha:1]];
         [[UISearchBar appearance] setBarTintColor:[UIColor colorWithRed:247/255.f green:247/255.f blue:247/255.f alpha:1]];
         [[UISearchBar appearance] layer].borderColor = [UIColor whiteColor].CGColor;

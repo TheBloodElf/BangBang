@@ -10,6 +10,7 @@
 #import "UserManager.h"
 #import "TaskModel.h"
 #import "XAddrBookCell.h"
+#import "NoResultView.h"
 
 @interface LookMemberController ()<UITableViewDelegate,UITableViewDataSource> {
     UserManager *_userManager;
@@ -39,10 +40,14 @@
         }
     }
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 64) style:UITableViewStylePlain];
+    NoResultView *noResultView = [[NoResultView alloc] initWithFrame:_tableView.bounds];
+    if(_employeeArr.count == 0)
+        _tableView.tableFooterView = noResultView;
+    else
+        _tableView.tableFooterView = [UIView new];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [_tableView registerNib:[UINib nibWithNibName:@"XAddrBookCell" bundle:nil] forCellReuseIdentifier:@"XAddrBookCell"];
-    _tableView.tableFooterView = [UIView new];
     [self.view addSubview:_tableView];
     // Do any additional setup after loading the view.
 }

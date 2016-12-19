@@ -9,6 +9,10 @@
 #import "TaskDetailBottomOpView.h"
 #import "TaskModel.h"
 #import "UserManager.h"
+//按钮标签内容向上偏移量 设置按钮字体后字没有剧中
+#define Button_Title_Top_Edge 0.f
+//按钮中间分隔线向上偏移量 没有剧中
+#define Line_Top_Edge         0.f
 
 @interface TaskDetailBottomOpView () {
     TaskModel *_taskModel;
@@ -24,6 +28,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         _userManager = [UserManager manager];
+        self.backgroundColor = [UIColor whiteColor];
     }
     return self;
 }
@@ -37,33 +42,30 @@
     //如果是负责人
     if([_taskModel.incharge isEqualToString:employee.employee_guid]) {
         if(_taskModel.status == 1) {//接收
-            UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-            [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            btn.frame = CGRectMake(10, 0, MAIN_SCREEN_WIDTH - 20, 30);
+            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+            [btn setTitleColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1] forState:UIControlStateNormal];
+            btn.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, self.frame.size.height);
+            btn.titleEdgeInsets = UIEdgeInsetsMake(Button_Title_Top_Edge, 0, 0, 0);
+            btn.titleLabel.font = [UIFont systemFontOfSize:17];
             [btn setTitle:@"接收" forState:UIControlStateNormal];
-            [btn setBackgroundColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]];
-            btn.layer.cornerRadius = 5;
-            btn.clipsToBounds = YES;
             [btn addTarget:self action:@selector(acceptClicked:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:btn];
         } else if (_taskModel.status == 2) {//提交
-            UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-            [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            btn.frame = CGRectMake(10, 0, MAIN_SCREEN_WIDTH - 20, 30);
+            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+            [btn setTitleColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1] forState:UIControlStateNormal];
+            btn.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, self.frame.size.height);
+            btn.titleLabel.font = [UIFont systemFontOfSize:17];
+            btn.titleEdgeInsets = UIEdgeInsetsMake(Button_Title_Top_Edge, 0, 0, 0);
             [btn setTitle:@"提交" forState:UIControlStateNormal];
-            [btn setBackgroundColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]];
-            btn.layer.cornerRadius = 5;
-            btn.clipsToBounds = YES;
             [btn addTarget:self action:@selector(submitClicked:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:btn];
         } else if (_taskModel.status == 6) {//提交
-            UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-            [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            btn.frame = CGRectMake(10, 0, MAIN_SCREEN_WIDTH - 20, 30);
+            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+            [btn setTitleColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1] forState:UIControlStateNormal];
+            btn.titleEdgeInsets = UIEdgeInsetsMake(Button_Title_Top_Edge, 0, 0, 0);
+            btn.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, self.frame.size.height);
+            btn.titleLabel.font = [UIFont systemFontOfSize:17];
             [btn setTitle:@"提交" forState:UIControlStateNormal];
-            [btn setBackgroundColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]];
-            btn.layer.cornerRadius = 5;
-            btn.clipsToBounds = YES;
             [btn addTarget:self action:@selector(submitClicked:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:btn];
         }
@@ -71,97 +73,107 @@
     //如果是创建者
     if([_taskModel.createdby isEqualToString:employee.employee_guid]) {
         if(_taskModel.status == 1) {//终止 编辑
-            UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-            [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            btn.frame = CGRectMake(10, 0, (MAIN_SCREEN_WIDTH - 30) / 2.f, 30);
+            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+            [btn setTitleColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1] forState:UIControlStateNormal];
+            btn.frame = CGRectMake(0, 0, (MAIN_SCREEN_WIDTH - 1) / 2.f, self.frame.size.height);
+            btn.titleLabel.font = [UIFont systemFontOfSize:17];
+            btn.titleEdgeInsets = UIEdgeInsetsMake(Button_Title_Top_Edge, 0, 0, 0);
             [btn setTitle:@"终止" forState:UIControlStateNormal];
-            [btn setBackgroundColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]];
-            btn.layer.cornerRadius = 5;
-            btn.clipsToBounds = YES;
             [btn addTarget:self action:@selector(stopClicked:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:btn];
-            
-            UIButton *btn1 = [UIButton buttonWithType:UIButtonTypeSystem];
-            [btn1 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            btn1.frame = CGRectMake(CGRectGetMaxX(btn.frame) + 10, 0, (MAIN_SCREEN_WIDTH - 30) / 2.f, 30);
+            //创建一条竖着的线条
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(btn.frame), Line_Top_Edge + (self.frame.size.height - 15) / 2, 1, 15)];
+            view.backgroundColor = [UIColor groupTableViewBackgroundColor];
+            [self addSubview:view];
+            UIButton *btn1 = [UIButton buttonWithType:UIButtonTypeCustom];
+            [btn1 setTitleColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1] forState:UIControlStateNormal];
+            btn1.frame = CGRectMake(CGRectGetMaxX(btn.frame) + 1, 0, (MAIN_SCREEN_WIDTH - 1) / 2.f, self.frame.size.height);
             [btn1 setTitle:@"编辑" forState:UIControlStateNormal];
-            [btn1 setBackgroundColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]];
-            btn1.layer.cornerRadius = 5;
-            btn1.clipsToBounds = YES;
+            btn1.titleEdgeInsets = UIEdgeInsetsMake(Button_Title_Top_Edge, 0, 0, 0);
+            btn1.titleLabel.font = [UIFont systemFontOfSize:17];
             [btn1 addTarget:self action:@selector(updateClicked:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:btn1];
         } else if (_taskModel.status == 2) {//终止 通过
-            UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-            [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            btn.frame = CGRectMake(10, 0, (MAIN_SCREEN_WIDTH - 30) / 2.f, 30);
+            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+            [btn setTitleColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1] forState:UIControlStateNormal];
+            btn.frame = CGRectMake(0, 0, (MAIN_SCREEN_WIDTH - 1) / 2.f, self.frame.size.height);
+            btn.titleLabel.font = [UIFont systemFontOfSize:17];
+            btn.titleEdgeInsets = UIEdgeInsetsMake(Button_Title_Top_Edge, 0, 0, 0);
             [btn setTitle:@"终止" forState:UIControlStateNormal];
-            [btn setBackgroundColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]];
-            btn.layer.cornerRadius = 5;
-            btn.clipsToBounds = YES;
             [btn addTarget:self action:@selector(stopClicked:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:btn];
-            
-            UIButton *btn1 = [UIButton buttonWithType:UIButtonTypeSystem];
-            [btn1 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            btn1.frame = CGRectMake(CGRectGetMaxX(btn.frame) + 10, 0, (MAIN_SCREEN_WIDTH - 30) / 2.f, 30);
+            //创建一条竖着的线条
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(btn.frame), Line_Top_Edge + (self.frame.size.height - 15) / 2, 1, 15)];
+            view.backgroundColor = [UIColor groupTableViewBackgroundColor];
+            [self addSubview:view];
+            UIButton *btn1 = [UIButton buttonWithType:UIButtonTypeCustom];
+            [btn1 setTitleColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1] forState:UIControlStateNormal];
+            btn1.frame = CGRectMake(CGRectGetMaxX(btn.frame) + 1, 0, (MAIN_SCREEN_WIDTH - 1) / 2.f, self.frame.size.height);
             [btn1 setTitle:@"完结" forState:UIControlStateNormal];
-            [btn1 setBackgroundColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]];
-            btn1.layer.cornerRadius = 5;
-            btn1.clipsToBounds = YES;
+            btn1.titleEdgeInsets = UIEdgeInsetsMake(Button_Title_Top_Edge, 0, 0, 0);
+            btn1.titleLabel.font = [UIFont systemFontOfSize:17];
             [btn1 addTarget:self action:@selector(passClicked:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:btn1];
-        } else if (_taskModel.status == 4) {//退回 通过 终止
-            UIButton *returnBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-            returnBtn.frame = CGRectMake(10, 0, (MAIN_SCREEN_WIDTH - 40) / 3 , 30);
-            [returnBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            [returnBtn setTitle:@"退回" forState:UIControlStateNormal];
-            [returnBtn setBackgroundColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]];
-            returnBtn.layer.cornerRadius = 3;
-            returnBtn.clipsToBounds = YES;
-            [returnBtn addTarget:self action:@selector(returnClicked:) forControlEvents:UIControlEventTouchUpInside];
+        } else if (_taskModel.status == 4) {//终止 通过 退回
+            UIButton *returnBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+            returnBtn.frame = CGRectMake(0, 0, (MAIN_SCREEN_WIDTH - 2) / 3 , self.frame.size.height);
+            [returnBtn setTitleColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1] forState:UIControlStateNormal];
+            [returnBtn setTitle:@"终止" forState:UIControlStateNormal];
+            returnBtn.titleEdgeInsets = UIEdgeInsetsMake(Button_Title_Top_Edge, 0, 0, 0);
+            [returnBtn addTarget:self action:@selector(stopClicked:) forControlEvents:UIControlEventTouchUpInside];
+            returnBtn.titleLabel.font = [UIFont systemFontOfSize:17];
             [self addSubview:returnBtn];
-            
-            UIButton *stopBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-            [stopBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            stopBtn.frame = CGRectMake(CGRectGetMaxX(returnBtn.frame) + 10 , 0, (MAIN_SCREEN_WIDTH - 40) / 3 , 30);
-            [stopBtn setTitle:@"终止" forState:UIControlStateNormal];
-            [stopBtn setBackgroundColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]];
-            stopBtn.layer.cornerRadius = 3;
-            stopBtn.clipsToBounds = YES;
-            [stopBtn addTarget:self action:@selector(stopClicked:) forControlEvents:UIControlEventTouchUpInside];
+            //创建一条竖着的线条
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(returnBtn.frame), Line_Top_Edge + (self.frame.size.height - 15) / 2, 1, 15)];
+            view.backgroundColor = [UIColor groupTableViewBackgroundColor];
+            [self addSubview:view];
+            UIButton *stopBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+            stopBtn.frame = CGRectMake(CGRectGetMaxX(returnBtn.frame) + 1 , 0, (MAIN_SCREEN_WIDTH - 2) / 3 , self.frame.size.height);
+            stopBtn.titleLabel.font = [UIFont systemFontOfSize:17];
+            stopBtn.titleEdgeInsets = UIEdgeInsetsMake(Button_Title_Top_Edge, 0, 0, 0);
+            [stopBtn setTitle:@"通过" forState:UIControlStateNormal];
+            [stopBtn setTitleColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1] forState:UIControlStateNormal];
+            [stopBtn addTarget:self action:@selector(passClicked:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:stopBtn];
-            
-            UIButton *passBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-            [passBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            passBtn.frame = CGRectMake(CGRectGetMaxX(stopBtn.frame) + 10, 0, (MAIN_SCREEN_WIDTH - 40) / 3, 30);
-            [passBtn setTitle:@"通过" forState:UIControlStateNormal];
-            [passBtn setBackgroundColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]];
-            passBtn.layer.cornerRadius = 3;
-            passBtn.clipsToBounds = YES;
-            [passBtn addTarget:self action:@selector(passClicked:) forControlEvents:UIControlEventTouchUpInside];
+            //创建一条竖着的线条
+            UIView *view1 = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(stopBtn.frame), Line_Top_Edge + (self.frame.size.height - 15) / 2, 1, 15)];
+            view1.backgroundColor = [UIColor groupTableViewBackgroundColor];
+            [self addSubview:view1];
+            UIButton *passBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+            [passBtn setTitleColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1] forState:UIControlStateNormal];
+            passBtn.frame = CGRectMake(CGRectGetMaxX(stopBtn.frame) + 1, 0, (MAIN_SCREEN_WIDTH - 2) / 3, self.frame.size.height);
+            [passBtn setTitle:@"退回" forState:UIControlStateNormal];
+            passBtn.titleLabel.font = [UIFont systemFontOfSize:17];
+            passBtn.titleEdgeInsets = UIEdgeInsetsMake(Button_Title_Top_Edge, 0, 0, 0);
+            [passBtn addTarget:self action:@selector(returnClicked:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:passBtn];
         } else if (_taskModel.status == 6) {//终止 完结
-            UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-            [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            btn.frame = CGRectMake(10, 0, (MAIN_SCREEN_WIDTH - 30) / 2, 30);
+            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+            [btn setTitleColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1] forState:UIControlStateNormal];
+            btn.frame = CGRectMake(0, 0, (MAIN_SCREEN_WIDTH - 1) / 2, self.frame.size.height);
+            btn.titleEdgeInsets = UIEdgeInsetsMake(Button_Title_Top_Edge, 0, 0, 0);
+            btn.titleLabel.font = [UIFont systemFontOfSize:17];
             [btn setTitle:@"终止" forState:UIControlStateNormal];
-            [btn setBackgroundColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]];
-            btn.layer.cornerRadius = 5;
-            btn.clipsToBounds = YES;
             [btn addTarget:self action:@selector(stopClicked:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:btn];
-            
-            UIButton *btn1 = [UIButton buttonWithType:UIButtonTypeSystem];
-            [btn1 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            btn1.frame = CGRectMake(CGRectGetMaxX(btn.frame) + 10, 0, (MAIN_SCREEN_WIDTH - 30) / 2.f, 30);
+            //创建一条竖着的线条
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(btn.frame), Line_Top_Edge + (self.frame.size.height - 15) / 2, 1, 15)];
+            view.backgroundColor = [UIColor groupTableViewBackgroundColor];
+            [self addSubview:view];
+            UIButton *btn1 = [UIButton buttonWithType:UIButtonTypeCustom];
+            [btn1 setTitleColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1] forState:UIControlStateNormal];
+            btn1.frame = CGRectMake(CGRectGetMaxX(btn.frame) + 1, 0, (MAIN_SCREEN_WIDTH - 1) / 2.f, self.frame.size.height);
             [btn1 setTitle:@"完结" forState:UIControlStateNormal];
-            [btn1 setBackgroundColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1]];
-            btn1.layer.cornerRadius = 5;
-            btn1.clipsToBounds = YES;
+            btn1.titleEdgeInsets = UIEdgeInsetsMake(Button_Title_Top_Edge, 0, 0, 0);
+            btn1.titleLabel.font = [UIFont systemFontOfSize:17];
             [btn1 addTarget:self action:@selector(passClicked:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:btn1];
         }
     }
+    //添加一条上面的线条
+    UIView *topLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 0.5)];
+    topLine.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    [self addSubview:topLine];
 }
 //编辑
 - (void)updateClicked:(UIButton*)btn {

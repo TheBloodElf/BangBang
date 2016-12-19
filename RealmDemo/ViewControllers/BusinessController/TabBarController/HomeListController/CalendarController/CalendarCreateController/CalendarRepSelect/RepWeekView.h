@@ -10,6 +10,8 @@
 
 @interface RepWeekView : UIView
 
+//设置默认显示的规则
+- (void)setEKRecurrenceRule:(EKRecurrenceRule*)eKRecurrenceRule;
 - (EKRecurrenceRule*)eKRecurrenceRule;
 
 @end

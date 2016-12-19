@@ -8,7 +8,8 @@
 
 #import "LoginController.h"
 #import "UserLoginController.h"
-
+//内部一个导航控制器，根视图控制器是UserLoginController，在UserLoginController中点击注册或者找回密码push相应界面
+//登陆完成后发通知到MainViewController
 @interface LoginController () {
     UINavigationController *_loginNavigationVC;//登录相关导航控制器
 }

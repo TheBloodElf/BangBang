@@ -7,9 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-//找回密码
+//找回密码界面
 @interface FindPasswordViewController : UIViewController
-
-@property (nonatomic,strong) WebViewJavascriptBridge *bridge;//交互中间件
 
 @end

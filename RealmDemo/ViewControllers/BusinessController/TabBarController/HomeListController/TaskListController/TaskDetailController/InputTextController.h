@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 typedef void(^InputTextBlock) (NSString*);
+typedef void(^CancelBlock) ();
 //填写理由的控制器
 @interface InputTextController : UIViewController
 
 @property (nonatomic, copy) InputTextBlock inputTextBlock;
+@property (nonatomic, copy) CancelBlock cancelBlock;
 
 @end

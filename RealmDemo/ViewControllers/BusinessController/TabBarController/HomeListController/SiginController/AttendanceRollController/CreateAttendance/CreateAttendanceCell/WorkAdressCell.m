@@ -10,7 +10,7 @@
 #import "PunchCardAddressSetting.h"
 
 @interface WorkAdressCell ()
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UITextView *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *detailLabel;
 @property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
 @end
@@ -20,6 +20,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self.deleteBtn addTarget:self action:@selector(workAdressCellBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.titleLabel.textContainerInset = UIEdgeInsetsZero;
+    self.titleLabel.contentInset = UIEdgeInsetsZero;
     // Initialization code
 }
 - (void)workAdressCellBtnAction:(UIButton*)btn

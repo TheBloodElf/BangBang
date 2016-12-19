@@ -13,7 +13,7 @@
 #define kMAOverlayRendererDefaultFillColor [UIColor colorWithRed:0.77 green:0.88 blue:0.94 alpha:0.8]
 
 /**
- 该类是地图覆盖物Renderer的基类, 提供绘制overlay的接口但并无实际的实现
+ 该类是地图覆盖物Renderer的基类, 提供绘制overlay的接口但并无实际的实现（render相关方法只能在重写后的glRender方法中使用）
  */
 @interface MAOverlayRenderer : NSObject
 

@@ -10,8 +10,4 @@
 
 @implementation SelectImageCollectionCell
 
-- (void)awakeFromNib {
-    // Initialization code
-}
-
 @end

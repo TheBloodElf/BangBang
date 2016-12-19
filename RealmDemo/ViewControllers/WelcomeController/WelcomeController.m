@@ -8,7 +8,7 @@
 
 #import "WelcomeController.h"
 #import "EAIntroViewController.h"
-
+//内部addChildViewController一个EAIntroViewController，欢迎界面展示完毕发通知到MainViewController
 @interface WelcomeController ()<EAIntroViewDelegate>
 
 @end

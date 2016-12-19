@@ -12,6 +12,7 @@
 #import "NoResultView.h"
 #import "ComCalendarDetailViewController.h"
 #import "RepCalendarDetailController.h"
+#import "DotActivityIndicatorView.h"
 
 @interface CalendarListController ()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource,RBQFetchedResultsControllerDelegate> {
     UITableView *_tableView;//表格视图
@@ -54,7 +55,8 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _noDataView = [[NoResultView alloc] initWithFrame:_tableView.bounds];
-    _tableView.tableFooterView = [UIView new];
+    DotActivityIndicatorView *loadView = [[DotActivityIndicatorView alloc] initWithFrame:_tableView.bounds];
+    _tableView.tableFooterView = loadView;
     _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [_tableView registerNib:[UINib nibWithNibName:@"CalenderEventTableViewCell" bundle:nil] forCellReuseIdentifier:@"CalenderEventTableViewCell"];
     [self.view addSubview:_tableView];
@@ -90,14 +92,20 @@
                  }
             } else {//如果是重复的日程
                 if(tempCalendar.rrule.length > 0 && tempCalendar.r_begin_date_utc>0 && tempCalendar.r_end_date_utc > 0) {
-                    Scheduler * s = [[Scheduler alloc] initWithDate:[NSDate dateWithTimeIntervalSince1970:tempCalendar.begindate_utc/1000] andRule:tempCalendar.rrule];
+                    //这里计算出循环开始当天的时间
+                    int64_t second = tempCalendar.r_begin_date_utc / 1000;
+                    second = second / (24 * 60 * 60) * (24 * 60 * 60);
+                    second += (tempCalendar.begindate_utc / 1000) % (24 * 60 * 60);
+                    Scheduler * s = [[Scheduler alloc] initWithDate:[NSDate dateWithTimeIntervalSince1970:second] andRule:tempCalendar.rrule];
                     //得到所有的时间
                     NSArray * occurences = [s occurencesBetween:[NSDate dateWithTimeIntervalSince1970:tempCalendar.r_begin_date_utc/1000] andDate:[NSDate dateWithTimeIntervalSince1970:tempCalendar.r_end_date_utc/1000]];
                     //每个时间都遍历一次
                     for (NSDate *tempDate in occurences) {
-                        if([tempDate timeIntervalSince1970] < tempCalendar.r_begin_date_utc/1000) {
+                        //这个库算出来的结果可能会有之前的时间，现在去掉
+                        if([tempDate timeIntervalSince1970] < tempCalendar.r_begin_date_utc/1000)
                             continue;
-                        }
+                        //这个库算出来的结果可能会有之后的时间，现在去掉
+                        if([tempDate timeIntervalSince1970] > tempCalendar.r_end_date_utc/1000) continue;
                         NSDate *tempDateTemp = tempDate.lastTime;
                         if(tempCalendar.status == 2) {//如果是完成的 就全部完成
                             //加入所有事件字典
@@ -168,7 +176,7 @@
 }
 - (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     NSDate *date = _calendarDateArr[section];
-    return [NSString stringWithFormat:@"%d-%d-%d %@",date.year,date.month,date.day,[date weekdayStr]];
+    return [NSString stringWithFormat:@"%ld-%ld-%ld %@",(long)date.year,(long)date.month,(long)date.day,[date weekdayStr]];
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return _calendarDateArr.count;

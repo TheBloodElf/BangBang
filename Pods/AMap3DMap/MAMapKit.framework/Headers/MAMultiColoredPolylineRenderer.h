@@ -28,11 +28,6 @@
  */
 @property (nonatomic, readonly) MAMultiPolyline *multiPolyline;
 
-/*!
- @brief  分段绘制的颜色。
- 需要分段颜色绘制时，必须设置（内容必须为UIColor）
- */
-
 /**
  *  分段绘制的颜色
  *  需要分段颜色绘制时，必须设置（内容必须为UIColor）

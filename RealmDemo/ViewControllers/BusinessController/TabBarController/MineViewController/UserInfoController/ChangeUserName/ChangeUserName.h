@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "User.h"
-@protocol ChangeUserInfoDelegate <NSObject>
+@protocol ChangeUserNameDelegate <NSObject>
 
 - (void)changeUserInfo:(User*)user;
 
@@ -16,6 +16,6 @@
 
 @interface ChangeUserName : UIViewController
 
-@property (nonatomic, weak) id<ChangeUserInfoDelegate> delegate;
+@property (nonatomic, weak) id<ChangeUserNameDelegate> delegate;
 
 @end

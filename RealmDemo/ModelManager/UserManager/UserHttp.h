@@ -11,7 +11,7 @@
 #import "User.h"
 #import "Calendar.h"
 #import "SignIn.h"
-
+//用户相关网络请求
 @interface UserHttp : NSObject
 #pragma mark -- 上传图片
 //上传图片 得到地址 网页上传用的

@@ -810,7 +810,7 @@ Commerce lists of Denied Persons, Unverified Parties or Restricted Entities, or
 otherwise in violation of any such restrictions or regulations.
 
 
-## RongCloudIMKit
+## RongCloudIM
 
 Copyright 2014 Rong Cloud
 

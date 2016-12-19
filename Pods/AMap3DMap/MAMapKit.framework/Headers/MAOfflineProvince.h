@@ -6,6 +6,8 @@
 //  Copyright (c) 2014年 songjian. All rights reserved.
 //
 
+#if MA_INCLUDE_OFFLINE
+
 #import "MAOfflineItem.h"
 #import "MAOfflineItemCommonCity.h"
 
@@ -17,3 +19,5 @@
 @property (nonatomic, strong, readonly) NSArray *cities;
 
 @end
+
+#endif

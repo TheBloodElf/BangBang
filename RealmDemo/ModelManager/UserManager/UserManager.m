@@ -12,6 +12,7 @@
 //本地推送需要最近几天的内容
 #define LocNotifotionDays 4
 
+//由于realm删除操作只能删除读出来的数据，而修改需要重新copy一份，所以我们这里做一个操作，读出来的数据全部copy，然后删除操作重新读起再删除
 @interface UserManager () {
     RLMRealm *_rlmRealm;
 }
@@ -39,10 +40,17 @@
 }
 #pragma makr -- 本地推送
 - (void)addSiginRuleNotfition {
-    //清除本地签到规则推送
+    //清除本地没有触发的签到规则推送
     NSArray<UILocalNotification *> *scheduledLocalNotifications = [[UIApplication sharedApplication] scheduledLocalNotifications];
     for (UILocalNotification *cation in scheduledLocalNotifications) {
         if([cation.alertBody containsString:@"上下班提醒"]) {
+            //如果是本地推送，看看触发时间，如果大于现在就删除
+            NSDictionary *userInfo = cation.userInfo;
+            PushMessage *message = [PushMessage new];
+            [message mj_setKeyValues:userInfo];
+            if(message.id.doubleValue > 0)
+                if(message.addTime.timeIntervalSince1970 > [NSDate date].timeIntervalSince1970)
+                    [[UserManager manager] deletePushMessage:message];
             [[UIApplication sharedApplication] cancelLocalNotification:cation];
         }
     }
@@ -118,17 +126,30 @@
     [aUserInfo setObject:@([NSDate date].timeIntervalSince1970 * 1000).stringValue forKey:@"target_id"];
     [aUserInfo setObject:@(_user.user_no) forKey:@"from_user_no"];
     [aUserInfo setObject:@(_user.user_no) forKey:@"to_user_no"];
+    [aUserInfo setObject:@(date.timeIntervalSince1970) forKey:@"id"];
+    [aUserInfo setObject:date forKey:@"addTime"];
     [aUserInfo setObject:@(YES) forKey:@"unread"];
     [aUserInfo setObject:@(_user.currCompany.company_no) forKey:@"company_no"];
     notification.userInfo = aUserInfo;
     // 将通知添加到系统中
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+    //添加一个本地推送数据
+    PushMessage *message = [PushMessage new];
+    [message mj_setKeyValues:aUserInfo];
+    [[UserManager manager] addPushMessage:message];
 }
 - (void)addCalendarNotfition {
     //清除本地日程推送
     NSArray<UILocalNotification *> *scheduledLocalNotifications = [[UIApplication sharedApplication] scheduledLocalNotifications];
     for (UILocalNotification *cation in scheduledLocalNotifications) {
         if([cation.alertBody containsString:@"事务提醒"]) {
+            //如果是本地推送，看看触发时间，如果大于现在就删除
+            NSDictionary *userInfo = cation.userInfo;
+            PushMessage *message = [PushMessage new];
+            [message mj_setKeyValues:userInfo];
+            if(message.id.doubleValue > 0)
+                if(message.addTime.timeIntervalSince1970 > [NSDate date].timeIntervalSince1970)
+                    [[UserManager manager] deletePushMessage:message];
             [[UIApplication sharedApplication] cancelLocalNotification:cation];
         }
     }
@@ -163,14 +184,22 @@
                     } else {//如果是重复的日程
                         if(calendar.rrule.length > 0 && calendar.r_begin_date_utc>0 && calendar.r_end_date_utc > 0) {
                             if(calendar.alert_minutes_before != 0) {//有没有事前提醒
-                                Scheduler * scheduler = [[Scheduler alloc] initWithDate:[NSDate dateWithTimeIntervalSince1970:calendar.begindate_utc/1000] andRule:calendar.rrule];
+                                //这里计算出循环开始当天的时间
+                                int64_t second = calendar.r_begin_date_utc / 1000;
+                                second = second / (24 * 60 * 60) * (24 * 60 * 60);
+                                second += (calendar.begindate_utc / 1000) % (24 * 60 * 60);
+                                Scheduler * scheduler = [[Scheduler alloc] initWithDate:[NSDate dateWithTimeIntervalSince1970:second] andRule:calendar.rrule];
                                 //得到今天所有的时间
                                 NSArray * occurences = [scheduler occurencesBetween:currDate.firstTime andDate:currDate.lastTime];
                                 //遍历所有的时间
                                 for (NSDate *dddd in occurences) {
                                     //只添加当天的
                                     if(dddd.day != currDate.day) continue;
+                                    //这个库算出来的结果可能会有之前的时间，现在去掉
                                     if([dddd timeIntervalSince1970] < calendar.r_begin_date_utc/1000) {
+                                        continue;
+                                    } else if([dddd timeIntervalSince1970] > calendar.r_end_date_utc/1000){
+                                        //这个库算出来的结果可能会有之后的时间，现在去掉
                                         continue;
                                     } else if ([calendar haveDeleteDate:currDate]) {
                                         continue;
@@ -183,16 +212,23 @@
                                 }
                             }
                             if(calendar.alert_minutes_after != 0) {//有没有事后提醒
-                                Scheduler * scheduler = [[Scheduler alloc] initWithDate:[NSDate dateWithTimeIntervalSince1970:calendar.enddate_utc/1000] andRule:calendar.rrule];
+                                //这里计算出循环开始当天的时间
+                                int64_t second = calendar.r_begin_date_utc / 1000;
+                                second = second / (24 * 60 * 60) * (24 * 60 * 60);
+                                second += (calendar.begindate_utc / 1000) % (24 * 60 * 60);
+                                Scheduler * scheduler = [[Scheduler alloc] initWithDate:[NSDate dateWithTimeIntervalSince1970:second] andRule:calendar.rrule];
                                 //得到今天所有的时间
                                 NSArray * occurences = [scheduler occurencesBetween:currDate.firstTime andDate:currDate.lastTime];
                                 //遍历所有的时间
                                 for (NSDate *dddd in occurences) {
                                     //只添加当天的
                                     if(dddd.day != currDate.day) continue;
+                                    //这个库算出来的结果可能会有之前的时间，现在去掉
                                     if([dddd timeIntervalSince1970] < calendar.r_begin_date_utc/1000) {
                                         continue;
-                                    } else if ([calendar haveDeleteDate:currDate]) {
+                                    } else if([dddd timeIntervalSince1970] > calendar.r_end_date_utc/1000){ //这个库算出来的结果可能会有之后的时间，现在去掉
+                                        continue;
+                                }else if ([calendar haveDeleteDate:currDate]) {
                                         continue;
                                     } else if ([calendar haveFinishDate:currDate]) {
                                         continue;
@@ -230,18 +266,31 @@
     [aUserInfo setObject:@"0" forKey:@"company_no"];
     [aUserInfo setObject:@(_user.user_no) forKey:@"from_user_no"];
     [aUserInfo setObject:@(_user.user_no) forKey:@"to_user_no"];
+    [aUserInfo setObject:date forKey:@"addTime"];
     [aUserInfo setObject:@(YES) forKey:@"unread"];
+    [aUserInfo setObject:@(date.timeIntervalSince1970) forKey:@"id"];
     [aUserInfo setObject:@"GENERAL" forKey:@"action"];
     [aUserInfo setObject:@(_user.currCompany.company_no) forKey:@"company_no"];
     notification.userInfo = aUserInfo;
     // 将通知添加到系统中
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+    //添加一个本地推送数据
+    PushMessage *message = [PushMessage new];
+    [message mj_setKeyValues:aUserInfo];
+    [[UserManager manager] addPushMessage:message];
 }
 - (void)addTaskNotfition {
     //清除本地任务推送
     NSArray<UILocalNotification *> *scheduledLocalNotifications = [[UIApplication sharedApplication] scheduledLocalNotifications];
     for (UILocalNotification *cation in scheduledLocalNotifications) {
         if([cation.alertBody containsString:@"任务提醒"]) {
+            //如果是本地推送，看看触发时间，如果大于现在就删除
+            NSDictionary *userInfo = cation.userInfo;
+            PushMessage *message = [PushMessage new];
+            [message mj_setKeyValues:userInfo];
+            if(message.id.doubleValue > 0)
+                if(message.addTime.timeIntervalSince1970 > [NSDate date].timeIntervalSince1970)
+                    [[UserManager manager] deletePushMessage:message];
             [[UIApplication sharedApplication] cancelLocalNotification:cation];
         }
     }
@@ -287,11 +336,17 @@
     [aUserInfo setObject:@(task.company_no) forKey:@"company_no"];
     [aUserInfo setObject:@(_user.user_no) forKey:@"from_user_no"];
     [aUserInfo setObject:@(_user.user_no) forKey:@"to_user_no"];
+    [aUserInfo setObject:@(date.timeIntervalSince1970).stringValue forKey:@"id"];
+    [aUserInfo setObject:date forKey:@"addTime"];
     [aUserInfo setObject:@(YES) forKey:@"unread"];
     [aUserInfo setObject:@"GENERAL" forKey:@"action"];
     notification.userInfo = aUserInfo;
     // 将通知添加到系统中
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+    //添加一个本地推送数据
+    PushMessage *message = [PushMessage new];
+    [message mj_setKeyValues:aUserInfo];
+    [[UserManager manager] addPushMessage:message];
 }
 #pragma mark -- User
 //更新用户数据
@@ -319,7 +374,7 @@
     //得到/创建用户数据
     RLMResults *users = [User allObjectsInRealm:_rlmRealm];
     if(users.count) {
-        self.user = [users objectAtIndex:0];
+        self.user = [[users objectAtIndex:0] deepCopy];
     } else {
         self.user = [User new];
     }
@@ -327,11 +382,10 @@
 //创建用户的数据库观察者
 - (RBQFetchedResultsController*)createUserFetchedResultsController {
     RBQFetchedResultsController *fetchedResultsController = nil;
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user_guid = %@",_user.user_guid];
-    RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"User" inRealm:_rlmRealm predicate:predicate];
+    RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"User" inRealm:_rlmRealm predicate:nil];
     fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:nil];
     [fetchedResultsController performFetch];
-    return fetchedResultsController;
+    return fetchedResultsController ? : [RBQFetchedResultsController new];;
 }
 //获取所有员工
 - (NSMutableArray<Employee*>*)getEmployeeArr {
@@ -340,7 +394,7 @@
     [_rlmRealm commitWriteTransaction];
     NSMutableArray *array = [@[] mutableCopy];
     for (int index = 0; index < results.count; index ++) {
-        [array addObject:[results objectAtIndex:index]];
+        [array addObject:[[results objectAtIndex:index] deepCopy]];
     }
     return array;
 }
@@ -352,7 +406,7 @@
     [_rlmRealm commitWriteTransaction];
     //如果有值就返回 没有就算了
     if(results.count)
-        return [results objectAtIndex:0];
+        return [[results objectAtIndex:0] deepCopy];
     return [Employee new];
 }
 #pragma mark -- Company
@@ -365,7 +419,11 @@
 //删除某个圈子
 - (void)deleteCompany:(Company*)company {
     [_rlmRealm beginWriteTransaction];
-    [_rlmRealm deleteObject:company];
+    //重新读取一次 再删除
+    NSPredicate *pred  = [NSPredicate predicateWithFormat:@"company_no = %d",company.company_no];
+    RLMResults *results = [Company objectsInRealm:_rlmRealm withPredicate:pred];
+    if(results.count > 0)
+        [_rlmRealm deleteObject:results.firstObject];
     [_rlmRealm commitWriteTransaction];
 }
 //更新某个圈子信息
@@ -377,9 +435,6 @@
 //更新所有圈子数据
 - (void)updateCompanyArr:(NSArray<Company*>*)companyArr {
     [_rlmRealm beginWriteTransaction];
-    RLMResults *companys = [Company allObjectsInRealm:_rlmRealm];
-    while (companys.count)
-        [_rlmRealm deleteObject:companys.firstObject];
     for (Company *company in companyArr) {
         [Company createOrUpdateInRealm:_rlmRealm withValue:company];
     }
@@ -392,7 +447,7 @@
     RLMResults *companys = [Company allObjectsInRealm:_rlmRealm];
     for (int index = 0;index < companys.count;index ++) {
         Company *company = [companys objectAtIndex:index];
-        [companyArr addObject:company];
+        [companyArr addObject:[company deepCopy]];
     }
     [_rlmRealm commitWriteTransaction];
     return companyArr;
@@ -403,7 +458,7 @@
     RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"Company" inRealm:_rlmRealm predicate:nil];
     fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:nil];
     [fetchedResultsController performFetch];
-    return fetchedResultsController;
+    return fetchedResultsController ? : [RBQFetchedResultsController new];;
 }
 #pragma mark -- Employee
 //更新某个员工
@@ -433,27 +488,17 @@
     [_rlmRealm beginWriteTransaction];
     NSPredicate *pred = nil;
     //如果有圈子id就查询指定圈子员工 如果有状态就查询状态 5查询在职 -1 查询所有
-    if(companyNo) {
-        if(status == -1) {
-            pred = [NSPredicate predicateWithFormat:@"company_no = %d",companyNo];
-        } else if(status == 5) {
-            pred = [NSPredicate predicateWithFormat:@"company_no = %d and (status = 1 or status = 4)",companyNo];
-        } else {
-            pred = [NSPredicate predicateWithFormat:@"company_no = %d and status = %d",companyNo,status];
-        }
+    if(status == -1) {
+        pred = [NSPredicate predicateWithFormat:@"company_no = %d",companyNo];
+    } else if(status == 5) {
+        pred = [NSPredicate predicateWithFormat:@"company_no = %d and (status = 1 or status = 4)",companyNo];
     } else {
-        if(status == -1) {
-            
-        } else if(status == 5) {
-            pred = [NSPredicate predicateWithFormat:@"status = 1 or status = 4"];
-        } else {
-            pred = [NSPredicate predicateWithFormat:@"status = %d",status];
-        }
+        pred = [NSPredicate predicateWithFormat:@"company_no = %d and status = %d",companyNo,status];
     }
     RLMResults *results = [Employee objectsInRealm:_rlmRealm withPredicate:pred];
     for (int index = 0;index < results.count;index ++) {
         Employee *employee = [results objectAtIndex:index];
-        [array addObject:employee];
+        [array addObject:[employee deepCopy]];
     }
     [_rlmRealm commitWriteTransaction];
     return array;
@@ -466,7 +511,7 @@
     RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"Employee" inRealm:_rlmRealm predicate:pred];
     fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:nil];
     [fetchedResultsController performFetch];
-    return fetchedResultsController;
+    return fetchedResultsController ? : [RBQFetchedResultsController new];;
 }
 #pragma mark -- PushMessage
 //添加某个推送消息
@@ -484,7 +529,11 @@
 //删除某个推送消息
 - (void)deletePushMessage:(PushMessage*)pushMessage {
     [_rlmRealm beginWriteTransaction];
-    [_rlmRealm deleteObject:pushMessage];
+    //重新读取一次 再删除
+    NSPredicate *pred  = [NSPredicate predicateWithFormat:@"id = %@",pushMessage.id];
+    RLMResults *results = [PushMessage objectsInRealm:_rlmRealm withPredicate:pred];
+    if(results.count > 0)
+        [_rlmRealm deleteObject:results.firstObject];
     [_rlmRealm commitWriteTransaction];
 }
 //获取所有的推送消息
@@ -494,7 +543,7 @@
     RLMResults *pushMessages = [PushMessage allObjectsInRealm:_rlmRealm];
     for (int index = 0;index < pushMessages.count;index ++) {
         PushMessage *company = [pushMessages objectAtIndex:index];
-        [pushMessageArr addObject:company];
+        [pushMessageArr addObject:[company deepCopy]];
     }
     [_rlmRealm commitWriteTransaction];
     return pushMessageArr;
@@ -505,7 +554,7 @@
     RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"PushMessage" inRealm:_rlmRealm predicate:nil];
     fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:nil];
     [fetchedResultsController performFetch];
-    return fetchedResultsController;
+    return fetchedResultsController ? : [RBQFetchedResultsController new];;
 }
 #pragma mark -- UserDiscuss
 //添加通讯录中的讨论组
@@ -517,7 +566,11 @@
 //删除通讯录中的讨论组
 - (void)deleteUserDiscuss:(UserDiscuss*)userDiscuss {
     [_rlmRealm beginWriteTransaction];
-    [_rlmRealm deleteObject:userDiscuss];
+    //重新读取一次 再删除
+    NSPredicate *pred  = [NSPredicate predicateWithFormat:@"id = %d",userDiscuss.id];
+    RLMResults *results = [UserDiscuss objectsInRealm:_rlmRealm withPredicate:pred];
+    if(results.count > 0)
+        [_rlmRealm deleteObject:results.firstObject];
     [_rlmRealm commitWriteTransaction];
 }
 //更新所有讨论组
@@ -538,7 +591,7 @@
     RLMResults *pushMessages = [UserDiscuss allObjectsInRealm:_rlmRealm];
     for (int index = 0;index < pushMessages.count;index ++) {
         UserDiscuss *company = [pushMessages objectAtIndex:index];
-        [pushMessageArr addObject:company];
+        [pushMessageArr addObject:[company deepCopy]];
     }
     [_rlmRealm commitWriteTransaction];
     return pushMessageArr;
@@ -549,7 +602,7 @@
     RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"UserDiscuss" inRealm:_rlmRealm predicate:nil];
     fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:nil];
     [fetchedResultsController performFetch];
-    return fetchedResultsController;
+    return fetchedResultsController ? : [RBQFetchedResultsController new];;
 }
 #pragma mark -- Calendar
 //添加日程
@@ -560,6 +613,8 @@
 }
 //更新日程
 - (void)updateCalendar:(Calendar*)calendar {
+    //#BANG-427 这里有一个BUG，一个循环日程 现在完成其中的某一天 再进入这一天的详情是可以删除的
+    //这时候删除本天 更新数据库  结果把其他的所有天都完成了 因为那天的日程状态是已经完成的，更新状态也一起写入数据库了
     [_rlmRealm beginWriteTransaction];
     [Calendar createOrUpdateInRealm:_rlmRealm withValue:calendar];
     [_rlmRealm commitWriteTransaction];
@@ -574,13 +629,21 @@
     for (Calendar *calendar in calendarArr) {
         [Calendar createOrUpdateInRealm:_rlmRealm withValue:calendar];
     }
+    //如果任务数组为空就加一个空的进入 以便可以触发数据库改变的回调
+    if(calendarArr.count == 0) {
+        Calendar *calendar = [Calendar new];
+        calendar.needSync = NO;
+        calendar.status = 0;
+        calendar.id = -[NSDate date].timeIntervalSince1970;
+        [Calendar createOrUpdateInRealm:_rlmRealm withValue:calendar];
+    }
     [_rlmRealm commitWriteTransaction];
 }
 //获取指定时间的日程 未删除的
 - (NSMutableArray<Calendar*>*)getCalendarArrWithDate:(NSDate*)date {
     NSMutableArray<Calendar*> *pushMessageArr = [@[] mutableCopy];
     [_rlmRealm beginWriteTransaction];
-    RLMResults *calendarResult = [Calendar objectsInRealm:_rlmRealm where:nil];
+    RLMResults *calendarResult = [Calendar allObjectsInRealm:_rlmRealm];
     for (int index = 0;index < calendarResult.count;index ++) {
         Calendar *company = [calendarResult objectAtIndex:index];
         int64_t todayBegin = date.firstTime.timeIntervalSince1970 * 1000;
@@ -588,11 +651,15 @@
         if(company.repeat_type == 0) {//如果是不重复的 就判断时间是不是在其中
             if(company.enddate_utc < todayBegin) continue;
             if(company.begindate_utc > todayEnd) continue;
-            [pushMessageArr addObject:company];
+            [pushMessageArr addObject:[company deepCopy]];
         } else {//重复的就要看重复时间是不是在其中
-            if(company.r_end_date_utc < todayBegin) continue;
-            if(company.r_begin_date_utc > todayEnd) continue;
-            [pushMessageArr addObject:company];
+            //#warning 这里暂时处理一下，不知道怎么被修改的
+            Calendar *tempCompany = [company deepCopy];
+            tempCompany.rrule = [tempCompany.rrule stringByReplacingOccurrencesOfString:@":" withString:@"="];
+            if([NSString isBlank:company.rrule]) continue;
+            if(tempCompany.r_end_date_utc < todayBegin) continue;
+            if(tempCompany.r_begin_date_utc > todayEnd) continue;
+            [pushMessageArr addObject:tempCompany];
         }
     }
     [_rlmRealm commitWriteTransaction];
@@ -605,7 +672,15 @@
     RLMResults *pushMessages = [Calendar allObjectsInRealm:_rlmRealm];
     for (int index = 0;index < pushMessages.count;index ++) {
         Calendar *company = [pushMessages objectAtIndex:index];
-        [pushMessageArr addObject:company];
+        if(company.repeat_type == 0) {
+            [pushMessageArr addObject:[company deepCopy]];
+            continue;
+        }
+        //#warning 这里暂时处理一下，不知道怎么被修改的
+        Calendar *tempCompany = [company deepCopy];
+        tempCompany.rrule = [tempCompany.rrule stringByReplacingOccurrencesOfString:@":" withString:@"="];
+        if([NSString isBlank:company.rrule]) continue;
+        [pushMessageArr addObject:tempCompany];
     }
     [_rlmRealm commitWriteTransaction];
     return pushMessageArr;
@@ -616,7 +691,7 @@
     RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"Calendar" inRealm:_rlmRealm predicate:nil];
     fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:nil];
     [fetchedResultsController performFetch];
-    return fetchedResultsController;
+    return fetchedResultsController ? : [RBQFetchedResultsController new];;
 }
 #pragma mark -- SignIn
 //添加签到记录
@@ -642,17 +717,16 @@
     [_rlmRealm commitWriteTransaction];
 }
 //获取今天的签到记录
-- (NSMutableArray<SignIn*>*)getTodaySigInListGuid:(NSString*)employeeGuid {
+- (NSMutableArray<SignIn*>*)getTodaySigInListGuid:(NSString*)employeeGuid siginDate:(NSDate*)date{
     NSMutableArray<SignIn*> *pushMessageArr = [@[] mutableCopy];
     [_rlmRealm beginWriteTransaction];
-    NSDate *date = [NSDate date];
     int64_t dateFirstTime = date.firstTime.timeIntervalSince1970 * 1000;
     int64_t dateLastTime = date.lastTime.timeIntervalSince1970 * 1000;
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(employee_guid = %@ and create_on_utc >= %lld and create_on_utc <= %lld)",employeeGuid,dateFirstTime,dateLastTime];
     RLMResults *calendarResult = [SignIn objectsInRealm:_rlmRealm withPredicate:predicate];
     for (int index = 0;index < calendarResult.count;index ++) {
         SignIn *company = [calendarResult objectAtIndex:index];
-        [pushMessageArr addObject:company];
+        [pushMessageArr addObject:[company deepCopy]];
     }
     [_rlmRealm commitWriteTransaction];
     return pushMessageArr;
@@ -663,7 +737,7 @@
     RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"SignIn" inRealm:_rlmRealm predicate:nil];
     fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:nil];
     [fetchedResultsController performFetch];
-    return fetchedResultsController;
+    return fetchedResultsController ? : [RBQFetchedResultsController new];;
 }
 #pragma mark -- SiginRuleSet
 //更新签到规则
@@ -681,7 +755,11 @@
 //删除签到规则
 - (void)deleteSiginRule:(SiginRuleSet*)siginRule {
     [_rlmRealm beginWriteTransaction];
-    [_rlmRealm deleteObject:siginRule];
+    //重新读取一次 再删除
+    NSPredicate *pred  = [NSPredicate predicateWithFormat:@"id = %d",siginRule.id];
+    RLMResults *results = [SiginRuleSet objectsInRealm:_rlmRealm withPredicate:pred];
+    if(results.count > 0)
+        [_rlmRealm deleteObject:results.firstObject];
     [_rlmRealm commitWriteTransaction];
 }
 //获取圈子的所有签到规则
@@ -691,7 +769,7 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(company_no = %d)",companyNo];
     RLMResults *calendarResult = [SiginRuleSet objectsInRealm:_rlmRealm withPredicate:predicate];
     for (int i = 0; i < calendarResult.count; i ++) {
-        [array addObject:[calendarResult objectAtIndex:i]];
+        [array addObject:[[calendarResult objectAtIndex:i] deepCopy]];
     }
     [_rlmRealm commitWriteTransaction];
     return array;
@@ -715,7 +793,7 @@
     RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"SiginRuleSet" inRealm:_rlmRealm predicate:nil];
     fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:nil];
     [fetchedResultsController performFetch];
-    return fetchedResultsController;
+    return fetchedResultsController ? : [RBQFetchedResultsController new];;
 }
 #pragma mark -- TaskModel
 //添加任务
@@ -741,6 +819,14 @@
     for (TaskModel *model in taskArr) {
         [TaskModel createOrUpdateInRealm:_rlmRealm withValue:model];
     }
+    //如果任务数组为空就加一个空的进入 以便可以触发数据库改变的回调
+    if(taskArr.count == 0) {
+        TaskModel *model = [TaskModel new];
+        model.id = [NSDate date].timeIntervalSince1970;
+        model.status = 0;
+        model.company_no = companyNo;
+        [TaskModel createOrUpdateInRealm:_rlmRealm withValue:model];
+    }
     [_rlmRealm commitWriteTransaction];
 }
 //获取所有的任务列表
@@ -751,7 +837,7 @@
     RLMResults *results = [[TaskModel objectsInRealm:_rlmRealm withPredicate:pred] sortedResultsUsingProperty:@"createdon_utc" ascending:NO];
     for (int index = 0;index < results.count;index ++) {
         TaskModel *company = [results objectAtIndex:index];
-        [pushMessageArr addObject:company];
+        [pushMessageArr addObject:[company deepCopy]];
     }
     [_rlmRealm commitWriteTransaction];
     return pushMessageArr;
@@ -762,7 +848,7 @@
     RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"TaskModel" inRealm:_rlmRealm predicate:nil];
     fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:nil];
     [fetchedResultsController performFetch];
-    return fetchedResultsController;
+    return fetchedResultsController ? : [RBQFetchedResultsController new];;
 }
 #pragma mark -- TaskDraftModel
 //存储任务草稿
@@ -778,7 +864,11 @@
 //删除任务草稿
 - (void)deleteTaskDraft:(TaskDraftModel*)taskDraftModel {
     [_rlmRealm beginWriteTransaction];
-    [_rlmRealm deleteObject:taskDraftModel];
+    //重新读取一次 再删除
+    NSPredicate *pred  = [NSPredicate predicateWithFormat:@"id = %d",taskDraftModel.id];
+    RLMResults *results = [TaskDraftModel objectsInRealm:_rlmRealm withPredicate:pred];
+    if(results.count)
+        [_rlmRealm deleteObject:results.firstObject];
     [_rlmRealm commitWriteTransaction];
 }
 //读取任务草稿
@@ -789,7 +879,7 @@
     RLMResults *results = [TaskDraftModel objectsInRealm:_rlmRealm withPredicate:pred];
     for (int index = 0;index < results.count;index ++) {
         TaskDraftModel *company = [results objectAtIndex:index];
-        [pushMessageArr addObject:company];
+        [pushMessageArr addObject:[company deepCopy]];
     }
     [_rlmRealm commitWriteTransaction];
     return pushMessageArr;
@@ -800,7 +890,7 @@
     RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"TaskDraftModel" inRealm:_rlmRealm predicate:nil];
     fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:nil];
     [fetchedResultsController performFetch];
-    return fetchedResultsController;
+    return fetchedResultsController ? : [RBQFetchedResultsController new];;
 }
 #pragma mark -- UserApp
 //添加一个应用
@@ -812,7 +902,11 @@
 //删除一个应用
 - (void)delUserApp:(UserApp*)userApp {
     [_rlmRealm beginWriteTransaction];
-    [_rlmRealm deleteObject:userApp];
+    //重新读取一次 再删除
+    NSPredicate *pred  = [NSPredicate predicateWithFormat:@"app_guid = %@",userApp.app_guid];
+    RLMResults *results = [UserApp objectsInRealm:_rlmRealm withPredicate:pred];
+    if(results.count > 0)
+        [_rlmRealm deleteObject:results.firstObject];
     [_rlmRealm commitWriteTransaction];
 }
 //更新所有应用
@@ -834,7 +928,7 @@
     RLMResults *results = [UserApp objectsInRealm:_rlmRealm withPredicate:nil];
     for (int index = 0;index < results.count;index ++) {
         UserApp *company = [results objectAtIndex:index];
-        [pushMessageArr addObject:company];
+        [pushMessageArr addObject:[company deepCopy]];
     }
     [_rlmRealm commitWriteTransaction];
     return pushMessageArr;
@@ -845,7 +939,7 @@
     RBQFetchRequest *fetchRequest = [RBQFetchRequest fetchRequestWithEntityName:@"UserApp" inRealm:_rlmRealm predicate:nil];
     fetchedResultsController = [[RBQFetchedResultsController alloc] initWithFetchRequest:fetchRequest sectionNameKeyPath:nil cacheName:nil];
     [fetchedResultsController performFetch];
-    return fetchedResultsController;
+    return fetchedResultsController ? : [RBQFetchedResultsController new];;
 }
 
 @end

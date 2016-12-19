@@ -17,7 +17,7 @@
 #import "ComCalendarInstruction.h"
 #import "RepCalendarRepTime.h"
 
-@interface RepCalendarView ()<UITableViewDelegate,UITableViewDataSource,RepCalendarTimeDelegate,RepCalendarRepDelegate,RepCalendarRepTimeDelegate,ComCalendarNameDelegate> {
+@interface RepCalendarView ()<UITableViewDelegate,UITableViewDataSource,RepCalendarTimeDelegate,RepCalendarRepDelegate,RepCalendarRepTimeDelegate,ComCalendarNameDelegate,ComCalendarInstructionDelegate,ComCalendarAdressDelegate> {
     Calendar *_calendar;
     UITableView *_tableView;
 }
@@ -92,11 +92,21 @@
         [self.delegate RepCalendarViewRepEnd];
     }
 }
+#pragma mark --
+#pragma mark -- ComCalendarAdressDelegate
+- (void)comCalendarAdressOverLength {
+    [self showMessageTips:@"地址不能超过30字符"];
+}
 #pragma mark -- 
 #pragma mark -- ComCalendarNameDelegate
 //名称超长
 - (void)comCalendarNameLengthOver {
     [self showMessageTips:@"名称不能超过30"];
+}
+#pragma mark --
+#pragma mark -- ComCalendarInstructionDelegate
+- (void)comCalendarInstructionOverLength {
+    [self showMessageTips:@"详情不能超过500字符"];
 }
 #pragma mark --
 #pragma mark -- UITableViewDelegate
@@ -110,7 +120,11 @@
         case 4: height = 50; break;
         case 5: height = 50; break;
         case 6: height = 50; break;
-        case 7: height = _isEdit ? 0.01 : 50; break;//分享
+        case 7:
+            height = [_calendar.member_names textSizeWithFont:[UIFont systemFontOfSize:15] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH - 100 - 25, 1000)].height + 10;
+            if(height < 50)
+                height = 50;
+            break;//分享
         case 8: height = 50; break;
         default: height = 100; break;
     }
@@ -146,6 +160,8 @@
         RepCalendarTime *time = (id)cell;
         time.data = _calendar;
         time.delegate = self;
+    } else if (indexPath.row == 2) {
+        cell.data = _calendar;
     } else if (indexPath.row == 3) {
         RepCalendarRep *rep = (id)cell;
         rep.data = _calendar;
@@ -158,28 +174,34 @@
         ComCalendarDetail *comCalendarDetail = (id)cell;
         comCalendarDetail.titleLabel.text = @"事前提醒:";
         if(_calendar.alert_minutes_before == 0)
-            comCalendarDetail.detailLabel.text = @"无";
+            comCalendarDetail.detailTextView.text = @"无";
         else
-            comCalendarDetail.detailLabel.text = [NSString stringWithFormat:@"%d分钟",_calendar.alert_minutes_before];
+            comCalendarDetail.detailTextView.text = [NSString stringWithFormat:@"%d分钟",_calendar.alert_minutes_before];
     } else if (indexPath.row == 6) {
         ComCalendarDetail *comCalendarDetail = (id)cell;
         comCalendarDetail.titleLabel.text = @"事后提醒:";
         if(_calendar.alert_minutes_after == 0)
-            comCalendarDetail.detailLabel.text = @"无";
+            comCalendarDetail.detailTextView.text = @"无";
         else
-            comCalendarDetail.detailLabel.text = [NSString stringWithFormat:@"%d分钟",_calendar.alert_minutes_after];
+            comCalendarDetail.detailTextView.text = [NSString stringWithFormat:@"%d分钟",_calendar.alert_minutes_after];
     } else if (indexPath.row == 7) {
         ComCalendarDetail *comCalendarDetail = (id)cell;
-        if(_isEdit) comCalendarDetail.hidden = YES;
         comCalendarDetail.titleLabel.text = @"分享给:";
-        comCalendarDetail.detailLabel.text = _calendar.member_names ?: @"无";
-    } else {
-        cell.data = _calendar;
+        comCalendarDetail.detailTextView.text = [NSString isBlank:_calendar.member_names] ? @"无": _calendar.member_names;
+        if(![NSString isBlank:_calendar.member_names]) {
+            comCalendarDetail.detailTextViewHeight.constant = [_calendar.member_names textSizeWithFont:[UIFont systemFontOfSize:15] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH - 100 - 25, 1000)].height;
+        }
+    } else if(indexPath.row == 8){//地点
+        ComCalendarAdress *comCalendarInstructionCell = (id)cell;
+        comCalendarInstructionCell.delegate = self;
+        comCalendarInstructionCell.data = _calendar;
+    } else if(indexPath.row == 9){//详情
+        ComCalendarInstruction *comCalendarInstructionCell = (id)cell;
+        comCalendarInstructionCell.delegate = self;
+        comCalendarInstructionCell.data = _calendar;
     }
-    
-    if(self.isDetail)
-        cell.userInteractionEnabled = NO;
-    
+    //取消点击效果 #BANG392
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

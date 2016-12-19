@@ -1,8 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -15,27 +20,27 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="push_card_icon" translatesAutoresizingMaskIntoConstraints="NO" id="QUS-9Y-7FW">
-                        <rect key="frame" x="15" y="13" width="13" height="14"/>
+                        <rect key="frame" x="15" y="13" width="11" height="14"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="开启后，可在上下班时间点提醒打卡" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Rg-rn-QTZ">
-                        <rect key="frame" x="15" y="44" width="208" height="20"/>
+                        <rect key="frame" x="15" y="44" width="212.5" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="voh-Bx-z15"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KHf-2m-Ley">
                         <rect key="frame" x="256" y="19" width="51" height="31"/>
                     </switch>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="打卡提醒" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Dc-Gy-9qE">
-                        <rect key="frame" x="40" y="10" width="68" height="20"/>
+                        <rect key="frame" x="40" y="10" width="69.5" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="Owv-An-Si7"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
@@ -44,10 +49,12 @@
                     <constraint firstItem="QUS-9Y-7FW" firstAttribute="centerY" secondItem="9Dc-Gy-9qE" secondAttribute="centerY" id="5hc-FN-gbp"/>
                     <constraint firstItem="QUS-9Y-7FW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="GP8-4h-gvQ"/>
                     <constraint firstItem="KHf-2m-Ley" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailing" constant="-15" id="Lgs-7f-XPg"/>
+                    <constraint firstItem="KHf-2m-Ley" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="11" id="Lly-wW-xFb"/>
                     <constraint firstItem="9Dc-Gy-9qE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="WqM-Hi-yHQ"/>
                     <constraint firstItem="KHf-2m-Ley" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="dYy-44-gIc"/>
                     <constraint firstItem="1Rg-rn-QTZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="k6u-Av-B7d"/>
                     <constraint firstItem="1Rg-rn-QTZ" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottom" constant="-5" id="uW3-TQ-icI"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="KHf-2m-Ley" secondAttribute="bottom" constant="11" id="vOD-aR-E0O"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -57,6 +64,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="push_card_icon" width="13" height="14"/>
+        <image name="push_card_icon" width="11" height="14"/>
     </resources>
 </document>

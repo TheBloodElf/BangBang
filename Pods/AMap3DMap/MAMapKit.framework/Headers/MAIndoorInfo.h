@@ -6,6 +6,8 @@
 //  Copyright © 2016 le.weng. All rights reserved.
 //
 
+#if MA_INCLUDE_INDOOR
+
 #import <Foundation/Foundation.h>
 
 @interface MAIndoorFloorInfo : NSObject
@@ -81,3 +83,4 @@
 
 @end
 
+#endif

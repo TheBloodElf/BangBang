@@ -94,27 +94,29 @@
         } else {
             //我的工单
             WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
-            webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@workorder?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+            webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@workorder?userGuid=%@&companyNo=%d&access_token=%@",XYFMobileDomain,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
             webViewcontroller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:webViewcontroller animated:YES];
         }
-    } else if (indexPath.section == 2) {
-        //推荐给好友
-        //获取邀请链接
-        [self.navigationController.view showLoadingTips:@""];
-        [UserHttp getReferrerURL:_userManager.user.user_no handler:^(id data, MError *error) {
-            [self.navigationController.view dismissTips];
-            if(error) {
-                [self.navigationController.view showFailureTips:error.statsMsg];
-                return ;
-            }
-            NSString *shortUrl = data[@"url_short"];
-            NSString *title = [NSString stringWithFormat:@"我是\"%@\"，为了提高工作效率，最近在使用帮帮管理助手（%@），你也来吧！",_userManager.user.real_name,shortUrl];
-            NSURL *url = [NSURL URLWithString:@""];
-            UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:@[title,url] applicationActivities:nil];
-            [self presentViewController:vc animated:YES completion:nil];
-        }];
-    } else if (indexPath.section == 3) {
+    }
+//    else if (indexPath.section == 2) {
+//        //推荐给好友
+//        //获取邀请链接
+//        [self.navigationController.view showLoadingTips:@""];
+//        [UserHttp getReferrerURL:_userManager.user.user_no handler:^(id data, MError *error) {
+//            [self.navigationController.view dismissTips];
+//            if(error) {
+//                [self.navigationController.view showFailureTips:error.statsMsg];
+//                return ;
+//            }
+//            NSString *shortUrl = data[@"url_short"];
+//            NSString *title = [NSString stringWithFormat:@"我是\"%@\"，为了提高工作效率，最近在使用帮帮管理助手（%@），你也来吧！",_userManager.user.real_name,shortUrl];
+//            NSURL *url = [NSURL URLWithString:@""];
+//            UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:@[title,url] applicationActivities:nil];
+//            [self presentViewController:vc animated:YES completion:nil];
+//        }];
+//    }
+    else if (indexPath.section == 2) {
         if(indexPath.row == 0) {
             //用户设置
             UIStoryboard *story = [UIStoryboard storyboardWithName:@"MainStory" bundle:nil];
@@ -124,7 +126,7 @@
         } else {
             //常见问题
             WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
-            webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@feedback?userGuid=%@&access_token=%@&companyNo=%ld",XYFMobileDomain,_userManager.user.user_guid,[IdentityManager manager].identity.accessToken,_userManager.user.currCompany.company_no];
+            webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@feedback?userGuid=%@&access_token=%@&companyNo=%d",XYFMobileDomain,_userManager.user.user_guid,[IdentityManager manager].identity.accessToken,_userManager.user.currCompany.company_no];
             webViewcontroller.showNavigationBar = YES;
             webViewcontroller.title = @"常见问题";
             webViewcontroller.hidesBottomBarWhenPushed = YES;

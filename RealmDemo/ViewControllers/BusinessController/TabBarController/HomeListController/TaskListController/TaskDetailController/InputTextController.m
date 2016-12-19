@@ -33,9 +33,11 @@
     bottom.backgroundColor = [UIColor whiteColor];
     bottom.userInteractionEnabled = YES;
     [self.view addSubview:bottom];
-    _textView = [[UITextView alloc] initWithFrame:CGRectMake(12, 12, MAIN_SCREEN_WIDTH - 24, 180)];
-    _textView.contentInset = UIEdgeInsetsMake(0, 0, 30, 0);//让iqkeyboard自己上升到按钮以上的高度
+    _textView = [[UITextView alloc] initWithFrame:CGRectMake(12, 12, MAIN_SCREEN_WIDTH - 24, 200)];
+    _textView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);//让iqkeyboard自己上升到按钮以上的高度
     _textView.delegate = self;
+    _textView.showsHorizontalScrollIndicator = NO;
+    _textView.showsVerticalScrollIndicator = NO;
     [bottom addSubview:_textView];
     _detileLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 150, 15)];
     _detileLabel.font = [UIFont systemFontOfSize:15];
@@ -66,19 +68,23 @@
 }
 - (void)textViewDidChange:(UITextView *)textView {
     if([NSString isBlank:textView.text]) {
-        okBtn.enabled = NO;
         _detileLabel.hidden = NO;
     } else {
-        okBtn.enabled = YES;
         _detileLabel.hidden = YES;
     }
 }
 - (void)sureClicked:(UIButton*)btn {
+    if([NSString isBlank:_textView.text]) {
+        [self.view showMessageTips:@"请输入内容"];
+        return;
+    }
     if(self.inputTextBlock)
         self.inputTextBlock(_textView.text);
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 - (void)exitClicked:(UIButton*)btn {
+    if(self.cancelBlock)
+        self.cancelBlock();
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 - (void)exitInput:(UIButton*)btn {

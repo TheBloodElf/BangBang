@@ -230,7 +230,7 @@
             if([type isEqualToString:ALAssetTypePhoto]) {
                 Photo *photo = [Photo new];
                 photo.selected = NO;
-                photo.index = index;
+                photo.index = (int)index;
                 photo.alAsset = result;
                 [tempArr addObject:photo];
             }

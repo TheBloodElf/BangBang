@@ -17,6 +17,7 @@
 
 @interface SelectAttendanceWorkDay : UIViewController
 
+@property (nonatomic, strong) NSArray<NSNumber*> *userSelectDays;
 @property (nonatomic, weak) id<SelectAttendanceWorkDayDelegate> delegate;
 
 @end

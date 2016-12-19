@@ -17,11 +17,17 @@
 @implementation MoreSelectView
 
 - (void)setupUI {
+    self.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
+    self.layer.shadowOffset = CGSizeMake(4,4);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
+    self.layer.shadowOpacity = 0.8;//阴影透明度，默认0
+    self.layer.shadowRadius = 8;//阴影半径，默认3
     self.backgroundColor = [UIColor whiteColor];
     self.layer.borderWidth = 0.5;
     self.layer.borderColor = [UIColor groupTableViewBackgroundColor].CGColor;
+    self.layer.cornerRadius = 5.f;
+    self.clipsToBounds = YES;
     self.hidden = YES;
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, _selectArr.count * 40) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, _selectArr.count * 45) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.scrollEnabled = NO;
     _tableView.dataSource = self;
@@ -31,12 +37,12 @@
 }
 - (void)showSelectView {
     WeakSelf(weakSelf)
-   [UIView animateWithDuration:0.2 animations:^{
+    [UIView animateWithDuration:0.2 animations:^{
        weakSelf.alpha = 1;
-   } completion:^(BOOL finished) {
+    } completion:^(BOOL finished) {
        weakSelf.hidden = NO;
        weakSelf.isHide = NO;
-   }];
+    }];
 }
 - (void)hideSelectView {
     WeakSelf(weakSelf)
@@ -50,7 +56,7 @@
 #pragma mark --
 #pragma mark -- UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 40.f;
+    return 45.f;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _selectArr.count;
@@ -59,8 +65,15 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if(!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 45)];
+        label.adjustsFontSizeToFitWidth = YES;
+        label.textAlignment = NSTextAlignmentCenter;
+        label.font = [UIFont systemFontOfSize:16];
+        label.tag = 10001;
+        [cell.contentView addSubview:label];
     }
-    cell.textLabel.text = _selectArr[indexPath.row];
+    UILabel *label = (id)[cell.contentView viewWithTag:10001];
+    label.text = _selectArr[indexPath.row];
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

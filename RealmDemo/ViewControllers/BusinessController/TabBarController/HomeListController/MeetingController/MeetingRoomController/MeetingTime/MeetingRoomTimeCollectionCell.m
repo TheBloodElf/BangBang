@@ -22,7 +22,7 @@
 }
 - (void)dataDidChange {
     MeetingRoomCellModel *model = self.data;
-    self.buttonImage.backgroundColor = [UIColor whiteColor];
+    self.buttonImage.backgroundColor = [UIColor colorWithRed:195/255.f green:195/255.f blue:195/255.f alpha:0.2];
     //如果是过去的时间，就是灰色
     if(model.isDidDate == YES){
         self.buttonImage.backgroundColor = [UIColor colorWithRed:195/255.f green:195/255.f blue:195/255.f alpha:1];

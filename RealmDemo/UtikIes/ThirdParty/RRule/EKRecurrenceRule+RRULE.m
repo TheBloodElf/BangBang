@@ -178,10 +178,10 @@ static NSDateFormatter *dateFormatter = nil;
     NSString *repeatString;
     if (self.frequency == EKRecurrenceFrequencyDaily) {
         if(self.daysOfTheWeek.count == 5){
-            repeatString = @"工作日";
+            repeatString = @"每个工作日";
         }
         else{
-            int intervalTemp = self.interval;
+            int intervalTemp = (int)self.interval;
             repeatString = [NSString stringWithFormat:@"每%d天",intervalTemp];
         }
     }

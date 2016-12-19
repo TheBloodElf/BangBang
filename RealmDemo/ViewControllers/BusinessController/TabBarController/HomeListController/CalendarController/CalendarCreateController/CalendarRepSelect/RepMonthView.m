@@ -22,6 +22,11 @@
     [self endEditing:YES];
     return YES;
 }
+//设置默认显示的规则
+- (void)setEKRecurrenceRule:(EKRecurrenceRule*)eKRecurrenceRule {
+    self.monthTextField.text = @(eKRecurrenceRule.interval).stringValue;
+    self.dayTextField.text = eKRecurrenceRule.daysOfTheMonth[0].stringValue;
+}
 - (EKRecurrenceRule*)eKRecurrenceRule {
     NSInteger interval = self.monthTextField.text.integerValue ?: 1;
     NSArray *days = @[@(self.dayTextField.text.integerValue ?: 1)];

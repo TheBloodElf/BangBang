@@ -36,17 +36,16 @@
 #pragma mark -- ControllerLifeCycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"设置";
     _userManager = [UserManager manager];
     _identityManager = [IdentityManager manager];
     //初始化开始显示的值
-    self.messageSwitch.on = _identityManager.identity.newMessage;
-    self.messageNoSwitch.on = _identityManager.identity.ryDisturb;
-    self.voiceSwitch.on = _identityManager.identity.canPlayVoice;
-    self.vibrateSwitch.on = _identityManager.identity.canPlayShake;
-    self.beginTime.text = [NSString stringWithFormat:@"%02ld:%02ld",(long)_identityManager.identity.ryDisturbBeginTime.hour,(long)_identityManager.identity.ryDisturbBeginTime.minute];
-    self.endTime.text = [NSString stringWithFormat:@"%02ld:%02ld",(long)_identityManager.identity.ryDisturbEndTime.hour,(long)_identityManager.identity.ryDisturbEndTime.minute];
+    self.messageSwitch.on = _userManager.user.newMessage;
+    self.messageNoSwitch.on = _userManager.user.ryDisturb;
+    self.voiceSwitch.on = _userManager.user.canPlayVoice;
+    self.vibrateSwitch.on = _userManager.user.canPlayShake;
+    self.beginTime.text = [NSString stringWithFormat:@"%02ld:%02ld",(long)_userManager.user.ryDisturbBeginTime.hour,(long)_userManager.user.ryDisturbBeginTime.minute];
+    self.endTime.text = [NSString stringWithFormat:@"%02ld:%02ld",(long)_userManager.user.ryDisturbEndTime.hour,(long)_userManager.user.ryDisturbEndTime.minute];
     [self.tableView reloadData];
     //添加开关事件
     [_messageSwitch addTarget:self action:@selector(messageClicked:) forControlEvents:UIControlEventValueChanged];
@@ -77,35 +76,35 @@
 //新消息开关被点击
 - (void)messageClicked:(UISwitch*)sw
 {
-    _identityManager.identity.newMessage = !_identityManager.identity.newMessage;
-    [_identityManager saveAuthorizeData];
+    _userManager.user.newMessage = !_userManager.user.newMessage;
+    [_userManager updateUser:_userManager.user];
     [self.tableView reloadData];
 }
 //声音开关被点击 同时控制聊天和推送
 - (void)voiceClicked:(UISwitch*)sw
 {
     //存到本地 同时调用融云的接口
-    _identityManager.identity.canPlayVoice = sw.on;
-    [_identityManager saveAuthorizeData];
+    _userManager.user.canPlayVoice = sw.on;
+    [_userManager updateUser:_userManager.user];
     [[RCIM sharedRCIM] setDisableMessageAlertSound:!sw.on];
 }
 //震动开关被点击
 - (void)vibrateClicked:(UISwitch*)sw
 {
-    _identityManager.identity.canPlayShake = sw.on;
-    [_identityManager saveAuthorizeData];
+    _userManager.user.canPlayShake = sw.on;
+    [_userManager updateUser:_userManager.user];
 }
 //消息免打扰开关被点击
 - (void)messageNoClicked:(UISwitch*)sw
 {
     //存到本地 同时调用融云的接口  免打扰融云有接口，开始还说怎么做呢。。。
-    _identityManager.identity.ryDisturb = sw.on;
-    [_identityManager saveAuthorizeData];
-    if(_identityManager.identity.ryDisturb) {//设置免打扰
-        int intt = [@([_identityManager.identity.ryDisturbEndTime timeIntervalSinceDate:_identityManager.identity.ryDisturbBeginTime] / 60.f) intValue];
+    _userManager.user.ryDisturb = sw.on;
+    [_userManager updateUser:_userManager.user];
+    if(_userManager.user.ryDisturb) {//设置免打扰
+        int intt = [@([_userManager.user.ryDisturbEndTime timeIntervalSinceDate:_userManager.user.ryDisturbBeginTime] / 60.f) intValue];
         if(intt == 0)
             intt = 1;
-        [[RCIMClient sharedRCIMClient] setNotificationQuietHours:[NSString stringWithFormat:@"%02ld:%02ld:00",(long)_identityManager.identity.ryDisturbBeginTime.hour,(long)_identityManager.identity.ryDisturbBeginTime.minute] spanMins:intt success:nil error:nil];
+        [[RCIMClient sharedRCIMClient] setNotificationQuietHours:[NSString stringWithFormat:@"%02ld:%02ld:00",(long)_userManager.user.ryDisturbBeginTime.hour,(long)_userManager.user.ryDisturbBeginTime.minute] spanMins:intt success:nil error:nil];
     } else {//取消免打扰
         [[RCIMClient sharedRCIMClient] removeNotificationQuietHours:nil error:nil];
     }
@@ -146,6 +145,10 @@
     UIAlertAction *alertCancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *alertSure = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         for (PushMessage *message in [_userManager getPushMessageArr]) {
+            //本地推送 现在之后的不清空  因为还没有触发本地推送
+            if(message.id.doubleValue > 0)
+                if(message.addTime.timeIntervalSince1970 > [NSDate date].timeIntervalSince1970)
+                        continue;
             [_userManager deletePushMessage:message];
         }
         [self.navigationController.view showSuccessTips:@"清理成功"];
@@ -176,7 +179,7 @@
 - (void)accountSafe
 {
     WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
-    webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@/security/index?userGuid=%@&access_token=%@&companyNo=%ld",XYFMobileDomain,_userManager.user.user_guid,_identityManager.identity.accessToken,_userManager.user.currCompany.company_no];
+    webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@/security/index?userGuid=%@&access_token=%@&companyNo=%d",XYFMobileDomain,_userManager.user.user_guid,_identityManager.identity.accessToken,_userManager.user.currCompany.company_no];
     [self.navigationController pushViewController:webViewcontroller animated:YES];
 }
 //退出帮帮
@@ -208,11 +211,11 @@
     CGFloat rowHeight = 44.f;
     if(indexPath.section == 1) {
         if(indexPath.row == 2 || indexPath.row == 1) {
-            if(_identityManager.identity.newMessage == NO)
+            if(_userManager.user.newMessage == NO)
                 rowHeight = 0.01f;
         }
         if(indexPath.row == 5 || indexPath.row == 4) {
-            if(_identityManager.identity.ryDisturb == NO)
+            if(_userManager.user.ryDisturb == NO)
                 rowHeight = 0.01f;
         }
         if(indexPath.row == 3)
@@ -236,16 +239,17 @@
         if(indexPath.row == 4) {
             //选择开始时间
             SelectDateController *select = [SelectDateController new];
+            select.needShowDate = _userManager.user.ryDisturbBeginTime;
             select.datePickerMode = UIDatePickerModeTime;
             select.selectDateBlock = ^(NSDate *date) {
-                _identityManager.identity.ryDisturbBeginTime = date;
-                [_identityManager saveAuthorizeData];
-                if(_identityManager.identity.ryDisturb) {
-                    int intt = [@([_identityManager.identity.ryDisturbEndTime timeIntervalSinceDate:_identityManager.identity.ryDisturbBeginTime] / 60.f) intValue];
+                _userManager.user.ryDisturbBeginTime = date;
+                [_userManager updateUser:_userManager.user];
+                if(_userManager.user.ryDisturb) {
+                    int intt = [@([_userManager.user.ryDisturbEndTime timeIntervalSinceDate:_userManager.user.ryDisturbBeginTime] / 60.f) intValue];
                     if(intt == 0) intt = 1;
-                    [[RCIMClient sharedRCIMClient] setNotificationQuietHours:[NSString stringWithFormat:@"%02ld:%02ld:00",(long)_identityManager.identity.ryDisturbBeginTime.hour,(long)_identityManager.identity.ryDisturbBeginTime.minute] spanMins:intt success:nil error:nil];
+                    [[RCIMClient sharedRCIMClient] setNotificationQuietHours:[NSString stringWithFormat:@"%02ld:%02ld:00",(long)_userManager.user.ryDisturbBeginTime.hour,(long)_userManager.user.ryDisturbBeginTime.minute] spanMins:intt success:nil error:nil];
                 }
-                _beginTime.text = [NSString stringWithFormat:@"%02ld:%02ld",(long)_identityManager.identity.ryDisturbBeginTime.hour,(long)_identityManager.identity.ryDisturbBeginTime.minute];
+                _beginTime.text = [NSString stringWithFormat:@"%02ld:%02ld",(long)_userManager.user.ryDisturbBeginTime.hour,(long)_userManager.user.ryDisturbBeginTime.minute];
             };
             select.providesPresentationContextTransitionStyle = YES;
             select.definesPresentationContext = YES;
@@ -254,16 +258,17 @@
         } else if (indexPath.row == 5) {
             //选择结束时间
             SelectDateController *select = [SelectDateController new];
+            select.needShowDate = _userManager.user.ryDisturbEndTime;
             select.datePickerMode = UIDatePickerModeTime;
             select.selectDateBlock = ^(NSDate *date) {
-                _identityManager.identity.ryDisturbEndTime = date;
-                [_identityManager saveAuthorizeData];
-                if(_identityManager.identity.ryDisturb) {
-                    int intt = [@([_identityManager.identity.ryDisturbEndTime timeIntervalSinceDate:_identityManager.identity.ryDisturbBeginTime] / 60.f) intValue];
+                _userManager.user.ryDisturbEndTime = date;
+                [_userManager updateUser:_userManager.user];
+                if(_userManager.user.ryDisturb) {
+                    int intt = [@([_userManager.user.ryDisturbEndTime timeIntervalSinceDate:_userManager.user.ryDisturbBeginTime] / 60.f) intValue];
                     if(intt == 0) intt = 1;
-                    [[RCIMClient sharedRCIMClient] setNotificationQuietHours:[NSString stringWithFormat:@"%02ld:%02ld:00",(long)_identityManager.identity.ryDisturbBeginTime.hour,(long)_identityManager.identity.ryDisturbBeginTime.minute] spanMins:intt success:nil error:nil];
+                    [[RCIMClient sharedRCIMClient] setNotificationQuietHours:[NSString stringWithFormat:@"%02ld:%02ld:00",(long)_userManager.user.ryDisturbBeginTime.hour,(long)_userManager.user.ryDisturbBeginTime.minute] spanMins:intt success:nil error:nil];
                 }
-                _endTime.text = [NSString stringWithFormat:@"%02ld:%02ld",(long)_identityManager.identity.ryDisturbEndTime.hour,(long)_identityManager.identity.ryDisturbEndTime.minute];
+                _endTime.text = [NSString stringWithFormat:@"%02ld:%02ld",(long)_userManager.user.ryDisturbEndTime.hour,(long)_userManager.user.ryDisturbEndTime.minute];
             };
             select.providesPresentationContextTransitionStyle = YES;
             select.definesPresentationContext = YES;

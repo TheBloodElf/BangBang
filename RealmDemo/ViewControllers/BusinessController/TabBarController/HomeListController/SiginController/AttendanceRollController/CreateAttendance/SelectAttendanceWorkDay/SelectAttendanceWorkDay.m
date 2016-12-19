@@ -23,6 +23,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    //被选中的按钮 day是12345678 按钮下标是01234567 所以要-1
+    for (NSNumber *day in _userSelectDays) {
+        UIButton *button = [self.centerView viewWithTag:day.intValue - 1 + ButtonBeginTag];
+        button.selected = YES;
+    }
 }
 
 - (void)setSelectedAtIndex:(NSInteger)index {

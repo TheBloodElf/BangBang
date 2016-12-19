@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 songjian. All rights reserved.
 //
 
+#if MA_INCLUDE_OVERLAY_GROUND
+
 #import "MAOverlayRenderer.h"
 #import "MAGroundOverlay.h"
 
@@ -29,3 +31,5 @@
 - (instancetype)initWithGroundOverlay:(MAGroundOverlay *)groundOverlay;
 
 @end
+
+#endif

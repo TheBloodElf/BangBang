@@ -8,7 +8,12 @@
 
 //推送消息
 @interface PushMessage : RLMObject
-//主键
+//#BANG-493 本地推送消息也要显示在消息栏
+//解决思路：
+//1：之前是收到本地推送才把消息加入到Message数据库中，现在是添加本地推送的时间直接把消息加入到Message数据库中，然后读取的时候读取触发时间在当前之前的数据显示出来；远程推送是收到才添加
+//2：清空通知则只需要把本地已经触发的和远程推送删除即可
+//3：重新添加本地推送只需要把没有触发的本地推送删除即可
+//主键（时间戳 单位秒）  本地推送为正数  远程推送为负数
 @property (nonatomic, strong) NSString* id;
 
 @property (nonatomic, strong) NSString* target_id;
@@ -23,7 +28,7 @@
 
 @property (nonatomic,strong) NSString *icon;
 
-@property (nonatomic,strong) NSDate *addTime;//添加时间
+@property (nonatomic,strong) NSDate *addTime;//远程推送到达时间  本地推送触发时间
 
 @property (nonatomic,assign) int company_no;
 

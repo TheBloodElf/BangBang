@@ -132,7 +132,7 @@
     if([localUserApp.titleName isEqualToString:@"公告"]) {//公告
         [self executeNeedSelectCompany:^{
             WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
-            NSString *str = [NSString stringWithFormat:@"%@Notice?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+            NSString *str = [NSString stringWithFormat:@"%@Notice?userGuid=%@&companyNo=%d&access_token=%@",XYFMobileDomain,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
             webViewcontroller.applicationUrl = str;
             webViewcontroller.hidesBottomBarWhenPushed = YES;
             [[self navigationController] pushViewController:webViewcontroller animated:YES];
@@ -140,7 +140,7 @@
     } else if ([localUserApp.titleName isEqualToString:@"动态"]) {//动态
         [self executeNeedSelectCompany:^{
             WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
-            NSString *str = [NSString stringWithFormat:@"%@Dynamic?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+            NSString *str = [NSString stringWithFormat:@"%@Dynamic?userGuid=%@&companyNo=%d&access_token=%@",XYFMobileDomain,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
             webViewcontroller.applicationUrl = str;
             webViewcontroller.hidesBottomBarWhenPushed = YES;
             [[self navigationController] pushViewController:webViewcontroller animated:YES];
@@ -154,7 +154,7 @@
     } else if([localUserApp.titleName isEqualToString:@"审批"]) {//审批
         [self executeNeedSelectCompany:^{
             WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
-            NSString *str = [NSString stringWithFormat:@"%@ApprovalByFormBuilder?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+            NSString *str = [NSString stringWithFormat:@"%@ApprovalByFormBuilder?userGuid=%@&companyNo=%d&access_token=%@",XYFMobileDomain,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
             webViewcontroller.applicationUrl = str;
             webViewcontroller.hidesBottomBarWhenPushed = YES;
             [[self navigationController] pushViewController:webViewcontroller animated:YES];
@@ -162,14 +162,15 @@
     } else if ([localUserApp.titleName isEqualToString:@"帮邮"]) {//邮件 调用手机上的邮件
         //适配iOS10
         if([[[UIDevice currentDevice] systemVersion] floatValue] >= 10.0f) {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:"] options:nil completionHandler:nil];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:"] options:@{} completionHandler:^(BOOL success) {
+            }];
         } else {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:"]];
         }
     } else if ([localUserApp.titleName isEqualToString:@"会议"]) {//会议
         [self executeNeedSelectCompany:^{
             WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
-            NSString *str = [NSString stringWithFormat:@"%@meeting?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+            NSString *str = [NSString stringWithFormat:@"%@meeting?userGuid=%@&companyNo=%d&access_token=%@",XYFMobileDomain,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
             webViewcontroller.applicationUrl = str;
             webViewcontroller.hidesBottomBarWhenPushed = YES;
             [[self navigationController] pushViewController:webViewcontroller animated:YES];
@@ -177,7 +178,7 @@
     } else if([localUserApp.titleName isEqualToString:@"投票"]){//投票
         [self executeNeedSelectCompany:^{
             WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc] init];
-            NSString *str = [NSString stringWithFormat:@"%@Vote?userGuid=%@&companyNo=%ld&access_token=%@",XYFMobileDomain,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
+            NSString *str = [NSString stringWithFormat:@"%@Vote?userGuid=%@&companyNo=%d&access_token=%@",XYFMobileDomain,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
             webViewcontroller.applicationUrl = str;
             webViewcontroller.hidesBottomBarWhenPushed = YES;
             [[self navigationController] pushViewController:webViewcontroller animated:YES];

@@ -37,7 +37,7 @@
 }
 - (void)dataDidChange {
     SiginRuleSet *_siginRuleSet = self.data;
-    NSArray<PunchCardAddressSetting*> *_setting = _siginRuleSet.json_list_address_settings;
+    RLMArray<PunchCardAddressSetting*><PunchCardAddressSetting> *_setting = _siginRuleSet.json_list_address_settings;
     self.attendName.text = _siginRuleSet.setting_name;
     //设置时间字符串
     NSMutableArray *workArr = [@[] mutableCopy];

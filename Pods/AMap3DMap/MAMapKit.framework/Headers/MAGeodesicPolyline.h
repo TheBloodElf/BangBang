@@ -6,6 +6,8 @@
 //  Copyright (c) 2013年 songjian. All rights reserved.
 //
 
+#if MA_INCLUDE_OVERLAY_GEODESIC
+
 #import "MAPolyline.h"
 
 /**
@@ -34,3 +36,5 @@
 + (instancetype)polylineWithCoordinates:(CLLocationCoordinate2D *)coords count:(NSUInteger)count;
 
 @end
+
+#endif

@@ -11,10 +11,12 @@
 #import "TaskAttachModel.h"
 #import "TaskModel.h"
 #import "UserHttp.h"
+#import "NoResultView.h"
 
 @interface TaskFileView ()<UITableViewDelegate,UITableViewDataSource,TaskFileImageDelegate> {
     TaskModel *_taskModel;
     UITableView *_tableView;
+    NoResultView *_noResultView;
     NSMutableArray<TaskAttachModel*> *_taskAttachModelArr;
 }
 
@@ -27,17 +29,20 @@
     self = [super initWithFrame:frame];
     if (self) {
         _taskAttachModelArr = [@[] mutableCopy];
-        UIButton *uploadBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-        [uploadBtn setBackgroundColor:[UIColor lightGrayColor]];
-        [uploadBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        uploadBtn.frame = CGRectMake(10, frame.size.height - 40, MAIN_SCREEN_WIDTH - 20, 30);
-        uploadBtn.layer.cornerRadius = 5;
-        uploadBtn.clipsToBounds = YES;
-        [uploadBtn setTitle:@"上传附件" forState:UIControlStateNormal];
-        [self addSubview:uploadBtn];
-        [uploadBtn addTarget:self action:@selector(uploadClicked:) forControlEvents:UIControlEventTouchUpInside];
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [btn setTitleColor:[UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1] forState:UIControlStateNormal];
+        btn.frame = CGRectMake(0, frame.size.height - 49, MAIN_SCREEN_WIDTH, 49);
+        btn.titleLabel.font = [UIFont systemFontOfSize:17];
+        [btn setTitle:@"附件上传" forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(uploadClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:btn];
+        //添加一条上面的线条
+        UIView *topLine = [[UIView alloc] initWithFrame:CGRectMake(0, frame.size.height - 49, MAIN_SCREEN_WIDTH, 0.5)];
+        topLine.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        [self addSubview:topLine];
         
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, frame.size.height - 40) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, frame.size.height - 49) style:UITableViewStylePlain];
+        _noResultView = [[NoResultView alloc] initWithFrame:_tableView.bounds];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         [_tableView registerNib:[UINib nibWithNibName:@"TaskFileImageCell" bundle:nil] forCellReuseIdentifier:@"TaskFileImageCell"];
@@ -47,7 +52,7 @@
     return self;
 }
 - (void)dataDidChange {
-    _taskModel = [self.data deepCopy];
+    _taskModel = self.data;
     //获取最新的附件信息
     [UserHttp getTaskAttachment:_taskModel.id handler:^(id data, MError *error) {
         if(error) {
@@ -61,6 +66,10 @@
             [array addObject:model];
         }
         _taskAttachModelArr = array;
+        if(_taskAttachModelArr.count == 0)
+            _tableView.tableFooterView = _noResultView;
+        else
+            _tableView.tableFooterView = [UIView new];
         [_tableView reloadData];
     }];
 }
@@ -70,6 +79,10 @@
     }
 }
 #pragma mark -- UITableViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    //#BANG-445 任务附件cell高度调整
+    return 54.f;
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _taskAttachModelArr.count;
 }

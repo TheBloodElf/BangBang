@@ -17,16 +17,24 @@
     UINavigationController *_businessNav;
     BootController *_bootController;
 }
+@property (nonatomic, strong) NSDictionary *launchOptions;
 
 @end
 
 @implementation BusinessController
 
+- (instancetype)initWithOptions:(NSDictionary *)launchOptions {
+    self = [super init];
+    if(self) {
+        _launchOptions = launchOptions;
+    }
+    return self;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    //创建侧滑界面
-    REFrostedViewController *_rEFrostedView = [[REFrostedViewController alloc] initWithContentViewController:[MainBusinessController new] menuViewController:[LeftMenuController new]];
+    //创建侧滑菜单控制器
+    REFrostedViewController *_rEFrostedView = [[REFrostedViewController alloc] initWithContentViewController:[[MainBusinessController alloc] initWithOptions:_launchOptions] menuViewController:[LeftMenuController new]];
     _rEFrostedView.direction = REFrostedViewControllerDirectionLeft;
     _rEFrostedView.menuViewSize = CGSizeMake(MAIN_SCREEN_WIDTH * 3 / 4, MAIN_SCREEN_HEIGHT);
     _rEFrostedView.liveBlur = YES;
@@ -39,7 +47,7 @@
     _businessNav.navigationBar.translucent = NO;
     _businessNav.navigationBar.barTintColor = [UIColor colorWithRed:8/255.f green:21/255.f blue:63/255.f alpha:1];
     [self.view addSubview:_businessNav.view];
-    //用户引导页
+    //用户引导 后面的版本可能会做，现在先把逻辑写到召唤类
 //    if([IdentityManager manager].identity.bootOfUse == YES) {
 //        _bootController = [BootController new];
 //        [self addChildViewController:_bootController];

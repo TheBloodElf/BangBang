@@ -1,8 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -15,44 +20,49 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JmQ-D2-08u">
-                        <rect key="frame" x="275" y="20" width="30" height="30"/>
+                        <rect key="frame" x="265" y="20" width="40" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="5PR-kd-12u"/>
+                        </constraints>
                         <state key="normal" title="删除">
-                            <color key="titleColor" red="0.96078431369999995" green="0.058823529409999999" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="titleColor" red="0.96078431369999995" green="0.058823529409999999" blue="0.15686274510000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="成都浪拓客" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A9A-5v-26s">
-                        <rect key="frame" x="21" y="10" width="85" height="20"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="20" id="cx5-j2-dYz"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="成都" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nc1-hF-mDj">
                         <rect key="frame" x="21" y="44" width="284" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="ynS-rz-1ae"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="1231321314121515112312232131312312313123123123123123131" translatesAutoresizingMaskIntoConstraints="NO" id="eA1-jM-NCK">
+                        <rect key="frame" x="17" y="10" width="243" height="29"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        <dataDetectorType key="dataDetectorTypes" flightNumber="YES"/>
+                    </textView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="JmQ-D2-08u" secondAttribute="trailing" constant="15" id="0d6-Ny-Cct"/>
+                    <constraint firstItem="JmQ-D2-08u" firstAttribute="top" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="12" id="4GB-c4-JwM"/>
                     <constraint firstItem="JmQ-D2-08u" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="C7Y-2d-Kmf"/>
-                    <constraint firstItem="A9A-5v-26s" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="TrU-lU-niA"/>
+                    <constraint firstItem="nc1-hF-mDj" firstAttribute="top" secondItem="eA1-jM-NCK" secondAttribute="bottom" constant="5" id="O2T-SV-BPX"/>
+                    <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="JmQ-D2-08u" secondAttribute="bottom" constant="11" id="UH1-1d-LKA"/>
                     <constraint firstAttribute="bottom" secondItem="nc1-hF-mDj" secondAttribute="bottom" constant="5" id="UKd-id-PKS"/>
                     <constraint firstAttribute="trailing" secondItem="nc1-hF-mDj" secondAttribute="trailing" constant="15" id="b5Z-Dz-A3D"/>
-                    <constraint firstItem="A9A-5v-26s" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="21" id="gku-Lh-tev"/>
+                    <constraint firstItem="JmQ-D2-08u" firstAttribute="leading" secondItem="eA1-jM-NCK" secondAttribute="trailing" constant="5" id="qLg-iV-5VX"/>
+                    <constraint firstAttribute="top" secondItem="eA1-jM-NCK" secondAttribute="top" constant="-10" id="ywi-lb-Rdf"/>
+                    <constraint firstAttribute="leading" secondItem="eA1-jM-NCK" secondAttribute="leading" constant="-17" id="zk1-Uj-6NG"/>
                     <constraint firstItem="nc1-hF-mDj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="21" id="ztC-MP-olF"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="deleteBtn" destination="JmQ-D2-08u" id="czc-DJ-Lac"/>
                 <outlet property="detailLabel" destination="nc1-hF-mDj" id="nB3-oL-eeB"/>
-                <outlet property="titleLabel" destination="A9A-5v-26s" id="8HI-l6-z2W"/>
+                <outlet property="titleLabel" destination="eA1-jM-NCK" id="1tf-i4-J3C"/>
             </connections>
             <point key="canvasLocation" x="-36" y="306"/>
         </tableViewCell>

@@ -70,21 +70,22 @@
 - (void)getSureDataArr {
     NSMutableArray<Employee*> *employeeArr = [@[] mutableCopy];
     //获取应该显示的员工数组
-    if(self.discussMember) {//显示讨论组的员工
+    if(self.discussMember) {//显示特定的员工列表
         employeeArr = self.discussMember;
     } else if (self.companyNo) {//显示某个圈子的员工
          employeeArr = [_userManager getEmployeeWithCompanyNo:self.companyNo status:5];
-    } else {//显示当前圈子员工
-        employeeArr = [_userManager getEmployeeWithCompanyNo:_userManager.user.currCompany.company_no status:5];
+    } else if (self.companyNo) {//不在任何圈子不显示员工
+        //#BANG-514 避免列表中出现所有圈子成员情况
+        employeeArr = [@[] mutableCopy];
     }
     //排除掉不显示的员工
     NSMutableArray<NSString*> *outIdArr = [@[] mutableCopy];
     for (Employee *employee in self.outEmployees) {
-        [outIdArr addObject:employee.employee_guid];
+        [outIdArr addObject:employee.user_guid];
     }
     NSMutableArray *array = [@[] mutableCopy];
     for (Employee *employee in employeeArr) {
-        if(![outIdArr containsObject:employee.employee_guid]) {
+        if(![outIdArr containsObject:employee.user_guid]) {
             [array addObject:employee];
         }
     }
@@ -93,11 +94,11 @@
     //获取已经被选中的员工ID
     NSMutableArray<NSString*> *selectedIDArr = [@[] mutableCopy];
     for (Employee *employee in self.selectedEmployees) {
-        [selectedIDArr addObject:employee.employee_guid];
+        [selectedIDArr addObject:employee.user_guid];
     }
     for (Employee *tempEmployee in employeeArr) {
         SelectEmployeeModel *model = [[SelectEmployeeModel alloc] initWithEmployee:tempEmployee];
-        if([selectedIDArr containsObject:model.employee_guid])
+        if([selectedIDArr containsObject:model.user_guid])
             model.isSelected = YES;
         [_selectEmployees addObject:model];
     }

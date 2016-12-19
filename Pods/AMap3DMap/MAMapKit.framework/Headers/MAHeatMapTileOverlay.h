@@ -6,6 +6,8 @@
 //  Copyright (c) 2015年 AutoNavi. All rights reserved.
 //
 
+#if MA_INCLUDE_OVERLAY_HEATMAP
+
 #import "MATileOverlay.h"
 
 /**
@@ -85,5 +87,6 @@
 
 @end
 
+#endif
 
 

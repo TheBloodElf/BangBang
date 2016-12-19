@@ -35,6 +35,16 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    //融云聊天界面以及自己做好了，不用我们去管  有冲突
+    [[IQKeyboardManager sharedManager] setEnable:NO];
+}
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[IQKeyboardManager sharedManager] setEnable:YES];
+}
+- (void)presentViewController:(UIViewController *)viewController
+                  functionTag:(NSInteger)functionTag{
+    
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
     if (self.conversationType == ConversationType_PRIVATE) {

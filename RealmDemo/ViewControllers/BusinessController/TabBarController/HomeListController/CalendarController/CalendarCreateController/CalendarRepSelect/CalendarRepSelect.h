@@ -17,6 +17,7 @@
 
 @interface CalendarRepSelect : UIViewController
 
-@property (nonatomic, weak) id<CalendarRepSelectDelegate> delegate;
+@property (nonatomic, strong) EKRecurrenceRule *userSelectEKRecurrenceRule;//用户已经选择的规则
+@property (nonatomic, weak  ) id<CalendarRepSelectDelegate> delegate;
 
 @end

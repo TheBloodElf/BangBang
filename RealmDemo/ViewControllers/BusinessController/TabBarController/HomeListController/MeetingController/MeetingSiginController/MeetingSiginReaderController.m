@@ -28,8 +28,6 @@
 #import "MeetingSiginSwitchButton.h"
 
 @interface MeetingSiginReaderController () <AVCaptureMetadataOutputObjectsDelegate,MeetingSiginReaderDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
-@property (strong, nonatomic) MeetingSiginSwitchButton *switchCameraButton;
-//@property (strong, nonatomic) UIButton             *cancelButton;
 
 @property (strong, nonatomic) AVCaptureDevice            *defaultDevice;
 @property (strong, nonatomic) AVCaptureDeviceInput       *defaultDeviceInput;
@@ -39,137 +37,62 @@
 @property (strong, nonatomic) AVCaptureSession           *session;
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer *previewLayer;
 
-@property (copy, nonatomic) void (^completionBlock) (NSString *);
-
 @end
 
 @implementation MeetingSiginReaderController
 
-- (id)init
-{
-    return [self initWithCancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel")];
-}
-
-- (id)initWithCancelButtonTitle:(NSString *)cancelTitle
-{
-    if ((self = [super init])) {
-        self.view.backgroundColor = [UIColor blackColor];
-        self.title = @"扫描二维码";
-        [self setupAVComponents];
-        [self configureDefaultComponents];
-        [self setupUIComponentsWithCancelButtonTitle:cancelTitle];
-        [self setupAutoLayoutConstraints];
-        [_cameraView.layer insertSublayer:self.previewLayer atIndex:0];
-    }
-    return self;
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.title = @"扫描二维码";
+    self.view.backgroundColor = [UIColor whiteColor];
+    [self setupAVComponents];
+    [self configureDefaultComponents];
+    [self setupUIComponentsWithCancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel")];
+    [_cameraView.layer insertSublayer:self.previewLayer atIndex:0];
+    [self setupNavigationBar];
 }
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self setupNavigationBar];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    [self startScanning];
-}
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    NSLog(@"%@ delloc",NSStringFromClass([self class]));
-}
-
-- (void)viewWillLayoutSubviews
-{
-    [super viewWillLayoutSubviews];
-    //这里设置获取到的图像的大小
-    _previewLayer.frame = self.view.bounds;
-}
-
-+ (instancetype)readerWithCancelButtonTitle:(NSString *)cancelTitle
-{
-    return [[self alloc] initWithCancelButtonTitle:cancelTitle];
-}
-
-- (BOOL)shouldAutorotate
-{
-    return YES;
-}
-#pragma mark - Managing the Orientation
-
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
-    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-    
-    [_cameraView setNeedsDisplay];
-    
-    if (self.previewLayer.connection.isVideoOrientationSupported) {
-        self.previewLayer.connection.videoOrientation = [[self class] videoOrientationFromInterfaceOrientation:toInterfaceOrientation];
+    if (![self.session isRunning]) {
+        [self.session startRunning];
     }
 }
-
-+ (AVCaptureVideoOrientation)videoOrientationFromInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    switch (interfaceOrientation) {
-        case UIInterfaceOrientationLandscapeLeft:
-            return AVCaptureVideoOrientationLandscapeLeft;
-        case UIInterfaceOrientationLandscapeRight:
-            return AVCaptureVideoOrientationLandscapeRight;
-        case UIInterfaceOrientationPortrait:
-            return AVCaptureVideoOrientationPortrait;
-        default:
-            return AVCaptureVideoOrientationPortraitUpsideDown;
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    AVAuthorizationStatus ava = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    if(ava != AVAuthorizationStatusAuthorized) {
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"请去隐私->相机中授权该应用访问相机" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+        [alertVC addAction:okAction];
+        [self.navigationController presentViewController:alertVC animated:YES completion:nil];
     }
 }
-
-#pragma mark - Managing the Block
-
-- (void)setCompletionWithBlock:(void (^) (NSString *resultAsString))completionBlock
-{
-    self.completionBlock = completionBlock;
-}
-
 #pragma mark - Initializing the AV Components
 
 - (void)setupUIComponentsWithCancelButtonTitle:(NSString *)cancelButtonTitle
 {
-    self.cameraView                                       = [[MeetingSiginReaderView alloc] initWithFrame:self.view.frame];
+    self.cameraView                                       = [[MeetingSiginReaderView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT)];
     _cameraView.translatesAutoresizingMaskIntoConstraints = NO;
     _cameraView.clipsToBounds                             = YES;
     [self.view addSubview:_cameraView];
-    
-    //前后摄像头
-    if (_frontDevice) {
-        _switchCameraButton = [[MeetingSiginSwitchButton alloc] init];
-        [_switchCameraButton setTranslatesAutoresizingMaskIntoConstraints:false];
-        [_switchCameraButton addTarget:self action:@selector(switchCameraAction:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:_switchCameraButton];
-    }
-    
 }
-- (void)setupAutoLayoutConstraints
-{
-    
-    if (_switchCameraButton) {
-        NSDictionary *switchViews = NSDictionaryOfVariableBindings(_switchCameraButton);
-        
-        [self.view addConstraints:
-         [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_switchCameraButton(50)]" options:0 metrics:nil views:switchViews]];
-        [self.view addConstraints:
-         [NSLayoutConstraint constraintsWithVisualFormat:@"H:[_switchCameraButton(70)]|" options:0 metrics:nil views:switchViews]];
-    }
-}
-
 - (void)setupAVComponents
 {
     self.defaultDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     
     if (_defaultDevice) {
-        self.defaultDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:_defaultDevice error:nil];
+        NSError *nSError = nil;
+        self.defaultDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:_defaultDevice error:&nSError];
         self.metadataOutput     = [[AVCaptureMetadataOutput alloc] init];
         self.session            = [[AVCaptureSession alloc] init];
         self.previewLayer       = [AVCaptureVideoPreviewLayer layerWithSession:self.session];
         
         for (AVCaptureDevice *device in [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo]) {
-            if (device.position == AVCaptureDevicePositionFront) {
+            if (device.position == AVCaptureDevicePositionBack) {
                 self.frontDevice = device;
             }
         }
@@ -193,55 +116,7 @@
         [_metadataOutput setMetadataObjectTypes:@[ AVMetadataObjectTypeQRCode ]];
     }
     [_previewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
-    [_previewLayer setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    
-    if ([_previewLayer.connection isVideoOrientationSupported]) {
-        _previewLayer.connection.videoOrientation = [[self class] videoOrientationFromInterfaceOrientation:self.interfaceOrientation];
-    }
-}
-
-- (void)switchDeviceInput
-{
-    if (_frontDeviceInput) {
-        [_session beginConfiguration];
-        
-        AVCaptureDeviceInput *currentInput = [_session.inputs firstObject];
-        [_session removeInput:currentInput];
-        
-        AVCaptureDeviceInput *newDeviceInput = (currentInput.device.position == AVCaptureDevicePositionFront) ? _defaultDeviceInput : _frontDeviceInput;
-        [_session addInput:newDeviceInput];
-        
-        [_session commitConfiguration];
-    }
-}
-
-#pragma mark - Catching Button Events
-
-- (void)cancelAction:(UIButton *)button
-{
-    [self stopScanning];
-    
-    if (_completionBlock) {
-        _completionBlock(nil);
-    }
-    
-    if (_delegate && [_delegate respondsToSelector:@selector(readerDidCancel:)]) {
-        [_delegate readerDidCancel:self];
-    }
-}
-
-- (void)switchCameraAction:(UIButton *)button
-{
-    [self switchDeviceInput];
-}
-
-#pragma mark - Controlling Reader
-
-- (void)startScanning;
-{
-    if (![self.session isRunning]) {
-        [self.session startRunning];
-    }
+    [_previewLayer setFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT)];
 }
 
 - (void)stopScanning;
@@ -259,15 +134,10 @@
         if ([current isKindOfClass:[AVMetadataMachineReadableCodeObject class]]
             && [current.type isEqualToString:AVMetadataObjectTypeQRCode]) {
             NSString *scannedResult = [(AVMetadataMachineReadableCodeObject *) current stringValue];
-            
-            if (_completionBlock) {
-                _completionBlock(scannedResult);
-            }
-            
             if (_delegate && [_delegate respondsToSelector:@selector(reader:didScanResult:)]) {
                 [_delegate reader:self didScanResult:scannedResult];
             }
-            
+            [self stopScanning];
             break;
         }
     }

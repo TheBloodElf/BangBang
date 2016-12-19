@@ -39,8 +39,8 @@
     _calendar = self.data;
     NSDate *beginTime = [NSDate dateWithTimeIntervalSince1970:_calendar.r_begin_date_utc / 1000];
     NSDate *endTime = [NSDate dateWithTimeIntervalSince1970:_calendar.r_end_date_utc / 1000];
-    [self.beginTime setTitle:[NSString stringWithFormat:@"%d-%d-%d",beginTime.year,beginTime.month,beginTime.day] forState:UIControlStateNormal];
-    [self.endTime setTitle:[NSString stringWithFormat:@"%d-%d-%d",endTime.year,endTime.month,endTime.day] forState:UIControlStateNormal];
+    [self.beginTime setTitle:[NSString stringWithFormat:@"%ld-%ld-%ld",(long)beginTime.year,(long)beginTime.month,(long)beginTime.day] forState:UIControlStateNormal];
+    [self.endTime setTitle:[NSString stringWithFormat:@"%ld-%ld-%ld",(long)endTime.year,(long)endTime.month,(long)endTime.day] forState:UIControlStateNormal];
 }
 
 @end

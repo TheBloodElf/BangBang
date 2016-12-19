@@ -1,18 +1,18 @@
 #import "OrientationViewController.h"
+#import "UserManager.h"
 #import <MapKit/MapKit.h>
 #import <MAMapKit/MAOverlay.h>
 
 @interface OrientationViewController ()<MAMapViewDelegate,AMapSearchDelegate,UITableViewDataSource,UITableViewDelegate>
 {
-    MAUserLocation *currUserLocation;//当前位置，提高定位精准度
-    MAMapView *_mapView;
-    AMapSearchAPI *_search;
-    NSMutableArray *poiArray;
-    NSMutableArray *poiAnnotations;
-    UITableView *poiTableView;
-    NSInteger selectedRow;
-    //当前图上标注
-    POIAnnotation *currentPOIAnnotation;
+    UserManager *_userManager;//用户管理器
+    MAUserLocation *currUserLocation;//用户当前位置，提高定位精准度
+    MAMapView *_mapView;//地图
+    AMapSearchAPI *_search;//搜索
+    NSMutableArray *_poiArray;// 搜索高德poi数组结果
+    UITableView *poiTableView;//地址表格视图
+    //#137
+    NSInteger selectedRow;//当前选择的地址行下标
 }
 
 @end
@@ -23,9 +23,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"定位";
-    poiArray = [NSMutableArray new];
-    poiAnnotations = [NSMutableArray new];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(finishOrientationClick)];
+    _poiArray = [@[] mutableCopy];
+    _userManager = [UserManager manager];
     //地图初始化
     _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 364)];
     _mapView.delegate = self;
@@ -33,9 +32,7 @@
     _mapView.rotateEnabled = NO;
     _mapView.distanceFilter = 100;
     _mapView.desiredAccuracy = kCLLocationAccuracyBest;
-    //是否定位
-    _mapView.showsUserLocation = YES;
-    //设置定位模式
+    _mapView.showsUserLocation = YES;//是否显示用户位置
     [_mapView setUserTrackingMode: MAUserTrackingModeFollow animated:YES];
     [self.view addSubview:_mapView];
     //搜索初始化
@@ -55,6 +52,7 @@
         MACircle *cicle = [MACircle circleWithCenterCoordinate:CLLocationCoordinate2DMake(_setting.latitude, _setting.longitude) radius:_currSiginRule.scope];
         [_mapView addOverlay:cicle level:MAOverlayLevelAboveRoads];
     }
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(finishOrientationClick)];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -66,11 +64,12 @@
  *  定位完成
  */
 -(void)finishOrientationClick{
-    if(poiArray.count == 0) {
-         [self.navigationController popViewControllerAnimated:YES];
+    if(_poiArray.count == 0) {
+        [self.navigationController popViewControllerAnimated:YES];
         return;
     }
-    AMapPOI *selectedPoi = poiArray[selectedRow];
+    //获取已经选择的位置
+    AMapPOI *selectedPoi = _poiArray[selectedRow];
     if (_setting && _category < 2) {
         //判断当前选择位置是否在圈内
         if(!MACircleContainsCoordinate(CLLocationCoordinate2DMake(_setting.latitude, _setting.longitude),CLLocationCoordinate2DMake(selectedPoi.location.latitude, selectedPoi.location.longitude),_currSiginRule.scope)){
@@ -78,9 +77,9 @@
             return;
         }
     }
-    if (_finishOrientation) {
-        _finishOrientation(poiArray[selectedRow]);
-    }
+    //回调传值
+    if (_finishOrientation)
+        _finishOrientation(_poiArray[selectedRow]);
     [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark - 定位代理方法
@@ -114,20 +113,85 @@
 {
     if (response.pois.count == 0)
         return;
-    NSMutableArray *annotionArr = [@[] mutableCopy];
     NSMutableArray *poiArr = [@[] mutableCopy];
     [response.pois enumerateObjectsUsingBlock:^(AMapPOI *obj, NSUInteger idx, BOOL *stop) {
-        [annotionArr addObject:[[POIAnnotation alloc] initWithPOI:obj]];
         [poiArr addObject:obj];
     }];
-    poiArray = poiArr;
-    poiAnnotations = annotionArr;
-    selectedRow = 0;
-    [poiTableView reloadData];
+    _poiArray = poiArr;
+    //如果有标注 就去掉
+    if(_mapView.annotations.count > 0) {
+        [_mapView removeAnnotations:_mapView.annotations];
+    }
     //选中的地址改变了 刷新标注
-    currentPOIAnnotation = [[POIAnnotation alloc] initWithPOI:[poiArray objectAtIndex:selectedRow]];
-    [_mapView addAnnotation:currentPOIAnnotation];
-
+    //#144-1
+    if(_poiArray.count > 0) {
+        //搜索结果把第一个默认选中
+        selectedRow = 0;
+        POIAnnotation *currentPOIAnnotation = [[POIAnnotation alloc] initWithPOI:[_poiArray objectAtIndex:selectedRow]];
+        [_mapView addAnnotation:currentPOIAnnotation];
+    }
+    [poiTableView reloadData];
+    
+    
+    //默认选中用户常用位置
+    //外勤和其他直接可以不判断用户常用地址
+    if(self.category >= 2) return;
+    //没有搜索结果就退出
+    if(_poiArray.count == 0) return;
+    Employee *owner = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
+    //取出用户最近10天的签到地址
+    NSMutableArray<SignIn*> *signInArr = [@[] mutableCopy];
+    NSDate *currDate = [NSDate date];
+    for (int i = 0; i < 9; i ++) {
+        NSDate *temp = [currDate dateByAddingTimeInterval: - i * 24 * 60 * 60];
+        [signInArr addObjectsFromArray:[_userManager getTodaySigInListGuid:owner.employee_guid siginDate:temp]];
+    }
+    //没有信息就退出
+    if(signInArr.count == 0) return;
+    //计算出签到点最多的地址 用两个数组来装，一个数组装签到地址（相同经纬度只装一个），对于下标另一个数组装次数
+    NSMutableArray<SignIn*> *computeSigInArr = [@[] mutableCopy];
+    NSMutableArray<NSNumber*> *computeSigInnumberArr = [@[] mutableCopy];
+    for (SignIn *currSignIn in signInArr) {
+        //查看当前地址是不是在计算数组中
+        for (int i = 0;i < computeSigInArr.count;i ++) {
+            SignIn *temp = computeSigInArr[i];
+            if(currSignIn.longitude == temp.longitude)
+                if(currSignIn.latitude == temp.latitude) {
+                    //如果有相同的经纬度，就把次数数组加1
+                    computeSigInnumberArr[i] = @([computeSigInnumberArr[i] intValue] + 1);
+                    break;
+                }
+        }
+        //如果没有相同的经纬度，两个数组分别加一个
+        [computeSigInArr addObject:currSignIn];
+        [computeSigInnumberArr addObject:@(1)];
+    }
+    //计算出最多次数的签到地址
+    int maxCount = 0;
+    int index = 0;
+    for (int i = 0;i < computeSigInnumberArr.count;i ++) {
+        NSNumber *number = computeSigInnumberArr[i];
+        if(number.intValue > maxCount) {
+            maxCount = number.intValue;
+            index = i;
+        }
+    }
+    SignIn *maxNumberSignIn = computeSigInArr[index];
+    //看一下搜索出来的地址中有没有同经纬度一样的，有就默认选中
+    for (int i = 0;i < _poiArray.count;i ++) {
+        AMapPOI *aMapPOI = _poiArray[i];
+        if(aMapPOI.location.longitude == maxNumberSignIn.longitude)
+            if(aMapPOI.location.latitude == maxNumberSignIn.latitude) {
+                selectedRow = i;
+                //如果有标注 就去掉
+                if(_mapView.annotations.count > 0) {
+                    [_mapView removeAnnotations:_mapView.annotations];
+                }
+                POIAnnotation *currentPOIAnnotation = [[POIAnnotation alloc] initWithPOI:[_poiArray objectAtIndex:selectedRow]];
+                [_mapView addAnnotation:currentPOIAnnotation];
+                break;
+            }
+    }
 }
 - (void)AMapSearchRequest:(id)request didFailWithError:(NSError *)error {
     if(error.code == 1806) {
@@ -135,37 +199,39 @@
     }
 }
 #pragma mark - TableViewDelegate
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
-}
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return poiArray.count;
+    return _poiArray.count;
 }
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *poiCellIdentifier = @"poiCellIdentifeir";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:poiCellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:poiCellIdentifier];
-        UIImageView *image = [[UIImageView alloc]initWithImage:nil highlightedImage:[UIImage imageNamed:@"repeat_radio_selected"]];
+        UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"repeat_radio_selected"]];
         image.frame = CGRectMake(MAIN_SCREEN_WIDTH - 30, 20, 14, 14);
+        image.tag = 10001;
         [cell.contentView addSubview:image];
     }
-    AMapPOI *poi = [poiArray objectAtIndex:indexPath.row];
+    UIImageView *image = [cell.contentView viewWithTag:10001];
+    image.hidden = YES;
+    AMapPOI *poi = [_poiArray objectAtIndex:indexPath.row];
     cell.textLabel.text = poi.name;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@%@%@%@", poi.province,poi.city,poi.district,poi.address];
-    if (indexPath.row == selectedRow) {
-        [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
-    }
-    
+    if (indexPath.row == selectedRow)
+        image.hidden = NO;
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     selectedRow = indexPath.row;
-    [_mapView removeAnnotation:currentPOIAnnotation];
-    //选中的地址改变了 刷新标注
-    currentPOIAnnotation = [[POIAnnotation alloc] initWithPOI:[poiArray objectAtIndex:indexPath.row]];
+    //如果有标注 就去掉
+    if(_mapView.annotations.count > 0) {
+        [_mapView removeAnnotations:_mapView.annotations];
+    }
+    //添加标注
+    POIAnnotation *currentPOIAnnotation = [[POIAnnotation alloc] initWithPOI:[_poiArray objectAtIndex:indexPath.row]];
     [_mapView addAnnotation:currentPOIAnnotation];
+    [poiTableView reloadData];
 }
 
 @end

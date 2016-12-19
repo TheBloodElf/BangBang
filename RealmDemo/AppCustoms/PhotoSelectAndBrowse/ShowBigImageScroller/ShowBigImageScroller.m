@@ -36,6 +36,7 @@
         self.userInteractionEnabled = YES;
         if(!imageView) {
             imageView = [UIImageView new];
+            imageView.frame = CGRectMake(0, 0, 1, 1);
             [self addSubview:imageView];
         }
     }

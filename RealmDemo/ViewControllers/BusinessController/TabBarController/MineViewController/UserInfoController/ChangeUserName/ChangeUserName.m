@@ -23,7 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _currUser = [[UserManager manager].user deepCopy];
+    _currUser = [UserManager manager].user;
     self.title = @"修改名字";
     self.view.backgroundColor = [UIColor whiteColor];
     _scrollView.delegate = self;

@@ -33,11 +33,10 @@
 #import "UIView+parentViewController.h"//找到自己所在的视图控制器
 #import "InterfaceConfig.h"//网络地址配置
 #import "NSString+StringSize.h"//求字符串长/高
-#import <RongIMKit/RongIMKit.h>//融云
+#import <RongIMKit/RongIMKit.h> //融云
 #import <AMapSearchKit/AMapSearchKit.h>//高度地图
 #import <MAMapKit/MAMapKit.h>//高德地图
 #import <AMapFoundationKit/AMapFoundationKit.h>//高德地图
-#import "RYChatManager.h"//融云
 #import "UINavigationController+Direction.h"//导航自定义方向push/pop
 #import "CMMacros.h"//一些简单的block
 #import "UIColor+FlatUI.h"//软件自定义颜色
@@ -47,8 +46,8 @@
 #import "RLMObject+JSON.h"//JSON和对象转换 Realm专用
 #import "RLMObject+Copying.h"//JSON和对象转换 Realm专用
 #import <TencentOpenAPI/TencentOAuth.h>//腾讯
-#import "WBApiManager.h"//微博
-#import "WXApiManager.h"//微信
+#import "WXApi.h"//微信
+#import "WeiboSDK.h"//微博
 #import "IQKeyboardManager.h"//一句话解决键盘遮挡
 #import "UISearchBar+BackgroundColor.h"//搜索视图背景修改
 #import <AVFoundation/AVAsset.h>//IOS8前的图片相册库
@@ -56,7 +55,6 @@
 #import <RBQFetchedResultsController/RBQFRC.h>//realm数据监听
 #import <Photos/Photos.h>//IOS8后的图片相册库
 #import <PhotosUI/PhotosUI.h>//IOS8后的图片相册库
-//#import <MLeaksFinder/MLeaksFinder.h>//ARC下正确检查内存泄露
 #import "ReactiveCocoa.h"//决战UI必备工具
 #import "UIImageView+CornerRadius.h"//离屏渲染解决方案
 #import "UIView+hotView.h"//给视图加红点

@@ -30,12 +30,12 @@
 @property (nonatomic, assign) int64_t finishdate_utc;//完成时间
 @property (nonatomic, assign) int64_t approvedate_utc;//审批通过时间
 @property (nonatomic, assign) int64_t rejectdate_utc;//审批拒绝时间
-@property (nonatomic, strong) NSString *finish_comment;//完成意见
-@property (nonatomic, strong) NSString *approve_comment;//审批意见
-@property (nonatomic, assign) int64_t updatedon_utc;//最后更新时间 单位秒
+@property (nonatomic, strong) NSString *finish_comment;//完成意见  任务状态为48用
+@property (nonatomic, strong) NSString *approve_comment;//审批意见 任务状态为67用
+@property (nonatomic, assign) int64_t updatedon_utc;//最后更新时间 单位毫秒
 @property (nonatomic, strong) NSString *updatedby;//最后更新者employee_guid
 
-//@property (nonatomic, strong) RLMArray<TaskFinishState> *taskFinishStateArr;//任务完成状态
+//@property (nonatomic, strong) RLMArray<TaskFinishState> *taskFinishStateArr;//任务完成状态 后面扩展功能使用
 
 @property (nonatomic, assign) int creator_unread_commentcount;//创建者看到的该任务未读评论数量
 @property (nonatomic, assign) int incharge_unread_commentcount;//负责人看到的该任务未读评论数量
@@ -46,5 +46,8 @@
 @property (nonatomic, strong) NSString *members;//知悉人GUID，已","隔开
 @property (nonatomic, strong) NSString *member_realnames;//知悉人姓名，已","隔开
 @property (nonatomic, strong) NSString *alert_date_list;//提醒时间列表,已","隔开
+//得到当前应该显示哪张图片
+- (NSString*)getCurrImageName;
 
 @end
+

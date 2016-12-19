@@ -19,7 +19,7 @@
 
 typedef void(^SingleSelect)(Employee*);
 
-//人员单选
+//人员单选  通过user_guid来判断
 @interface SingleSelectController : UIViewController
 /**
  *  不显示的员工列表
@@ -29,10 +29,6 @@ typedef void(^SingleSelect)(Employee*);
  *  选取@公司时 显示圈子的所有员工
  */
 @property (nonatomic, assign) int companyNo;
-/**
- *  如果有值，就显示这些值 否则显示
- */
-@property (nonatomic, strong) NSMutableArray<Employee*> *discussMember;
 
 @property (nonatomic, weak) id<SingleSelectDelegate> delegate;
 

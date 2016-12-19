@@ -11,7 +11,7 @@
 #import "UserHttp.h"
 #import "UserManager.h"
 #import "TaskFileView.h"
-#import "TaskDiscussView.h"
+#import "TaskDiscussNewView.h"
 #import "TaskDetailView.h"
 
 #import "SelectImageController.h"
@@ -20,24 +20,28 @@
 #import "TaskDiscussSelectPersonController.h"
 #import "TaskUpdateController.h"
 
-@interface TaskDetailController ()<TaskDetailDelegate,TaskFileDelegate,SelectImageDelegate,UIDocumentInteractionControllerDelegate,TaskDiscussDelegate,TaskDiscussSelectPersonDelegate,TaskUpdateDelegate> {
+@interface TaskDetailController ()<TaskDetailDelegate,TaskFileDelegate,SelectImageDelegate,TaskDiscussDelegate,UIDocumentInteractionControllerDelegate,TaskDiscussSelectPersonDelegate,TaskUpdateDelegate> {
     TaskModel *_taskModel;//要展示的任务模型
     UserManager *_userManager;
     
     TaskDetailView *_taskDetailView;//任务详情
-    TaskDiscussView *_taskDiscussView;//任务讨论
+    TaskDiscussNewView *_taskDiscussView;//任务讨论
     TaskFileView *_taskFileView;//任务附件
-    UIView *_lineView;//下面绿色的条
+    UIDocumentInteractionController *_documentController;//查看附件
     
     NSMutableArray<UIImage*> *_attanmentArr;//附件数组
     int _attanmantIndex;//任务上传数量下标
+    int _ifFirstLoad;
 }
 @property (weak, nonatomic) IBOutlet UIImageView *createAvater;//创建人的头像
+@property (weak, nonatomic) IBOutlet UIImageView *taskStatusimageView;//任务状态图片
 @property (weak, nonatomic) IBOutlet UILabel *createName;//创建人的名字
 @property (weak, nonatomic) IBOutlet UILabel *createDepar;//创建人的部门
 @property (weak, nonatomic) IBOutlet UILabel *createTime;//创建时间
 @property (weak, nonatomic) IBOutlet UILabel *taskTitle;//任务标题
 @property (weak, nonatomic) IBOutlet UIScrollView *bottomScrollView;//下面的滚动视图
+@property (weak, nonatomic) IBOutlet UIView *line;//三个按钮下面的线
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *lineWidth;//三个按钮下面的线的宽度
 
 @end
 
@@ -50,32 +54,39 @@
     self.view.backgroundColor = [UIColor whiteColor];
     _userManager = [UserManager manager];
     //初始化界面
-    _lineView = [[UIView alloc] initWithFrame:CGRectMake(2, 148, MAIN_SCREEN_WIDTH / 3 - 4, 2)];
-    _lineView.backgroundColor = [UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1];
-    [self.view addSubview:_lineView];
-    
+    _lineWidth.constant = (MAIN_SCREEN_WIDTH / 3) - 4;
+    _line.backgroundColor = [UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1];
     [self.createAvater zy_cornerRadiusRoundingRect];
     [self.createAvater sd_setImageWithURL:[NSURL URLWithString:_taskModel.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
     self.createName.text = _taskModel.create_realname;
     Employee *employee = [_userManager getEmployeeWithGuid:_taskModel.user_guid companyNo:_taskModel.company_no];
     self.createDepar.text = employee.departments;
     NSDate *createDate = [NSDate dateWithTimeIntervalSince1970:_taskModel.createdon_utc / 1000];
-    self.createTime.text = [NSString stringWithFormat:@"%d-%02ld-%02ld %02ld:%02ld",createDate.year,createDate.month,createDate.day,createDate.hour,createDate.minute];
+    self.createTime.text = [NSString stringWithFormat:@"%ld-%02ld-%02ld %02ld:%02ld",(long)createDate.year,createDate.month,createDate.day,createDate.hour,createDate.minute];
     self.taskTitle.text = _taskModel.task_name;
+    self.taskStatusimageView.image = [UIImage imageNamed:_taskModel.getCurrImageName];
     
     self.bottomScrollView.contentSize = CGSizeMake(3 * MAIN_SCREEN_WIDTH, self.bottomScrollView.frame.size.height);
     _taskDetailView = [[TaskDetailView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 150 - 64)];
     _taskDetailView.data = _taskModel;
     _taskDetailView.delegate = self;
     [self.bottomScrollView addSubview:_taskDetailView];
-    _taskDiscussView = [[TaskDiscussView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 150 - 64)];
-    _taskDiscussView.data = _taskModel;
-    _taskDiscussView.delegate = self;
-    [self.bottomScrollView addSubview:_taskDiscussView];
+    //当你在任务详情页面，然后有个推推送该任务有更新，就会收到该通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTaskInfo:) name:@"ReloadTaskInfo" object:nil];
+    // Do any additional setup after loading the view from its nib.
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if(_ifFirstLoad == YES) return;
+    _ifFirstLoad = YES;
+    
     _taskFileView = [[TaskFileView alloc] initWithFrame:CGRectMake(2 *MAIN_SCREEN_WIDTH, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 150 - 64)];
     _taskFileView.delegate = self;
     _taskFileView.data = _taskModel;
-    
     //是否有消息 讨论显示小红点
     Employee *employeeOfMe = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_taskModel.company_no];
     if([employeeOfMe.employee_guid isEqualToString:_taskModel.createdby]) {//是不是创建者
@@ -89,12 +100,12 @@
         }
     }
     [self.bottomScrollView addSubview:_taskFileView];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTaskInfo:) name:@"ReloadTaskInfo" object:nil];
-    // Do any additional setup after loading the view from its nib.
-}
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    _taskDiscussView = [[NSBundle mainBundle] loadNibNamed:@"TaskDiscussNewView" owner:nil options:nil].firstObject;
+    _taskDiscussView.frame = CGRectMake(MAIN_SCREEN_WIDTH, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 150 - 64);
+    [_taskDiscussView setupUI];
+    _taskDiscussView.data = _taskModel;
+    _taskDiscussView.delegate = self;
+    [self.bottomScrollView addSubview:_taskDiscussView];
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -103,7 +114,7 @@
     }
 }
 - (void)dataDidChange {
-    _taskModel = [self.data deepCopy];
+    _taskModel = self.data;
 }
 //任务有更新
 - (void)reloadTaskInfo:(NSNotification*)noti {
@@ -121,6 +132,7 @@
             _taskModel = [TaskModel new];
             [_taskModel mj_setKeyValues:data];
             _taskModel.descriptionStr = data[@"description"];
+            self.taskStatusimageView.image = [UIImage imageNamed:_taskModel.getCurrImageName];
             [_userManager upadteTask:_taskModel];
             _taskDetailView.data = _taskModel;
             //是否有消息 讨论显示小红点 如果当前在讨论界面 直接返回 因为自己发的消息肯定没有未读数量
@@ -148,8 +160,8 @@
     UIButton *btn2 = [self.view viewWithTag:1002];
     btn2.selected = NO;
     sender.selected = YES;
-    _lineView.center = CGPointMake((MAIN_SCREEN_WIDTH / 3.f) * (sender.tag - 1000) + MAIN_SCREEN_WIDTH / 6.f, _lineView.center.y);
-    int index = sender.tag - 1000;
+    _line.center = CGPointMake((MAIN_SCREEN_WIDTH / 3.f) * (sender.tag - 1000) + MAIN_SCREEN_WIDTH / 6.f, _line.center.y);
+    int index = (int)sender.tag - 1000;
     [self.view endEditing:YES];
     [self.bottomScrollView setContentOffset:CGPointMake(index * MAIN_SCREEN_WIDTH, 0) animated:NO];
     if(sender.tag == 1001) {//点击的是评论 就消除小红点
@@ -216,35 +228,44 @@
 //接收
 - (void)acceptClicked:(UIButton*)btn task:(id)task{
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_taskModel.company_no];
+    //#BANG-323 任务多次点击出现多条推送消息
+    btn.userInteractionEnabled = NO;
     [UserHttp updateTask:_taskModel.id status:2 comment:@"" updatedby:employee.employee_guid handler:^(id data, MError *error) {
+        btn.userInteractionEnabled = YES;
         if(error) {
             [self.navigationController.view showFailureTips:error.statsMsg];
-            return ;
+            return;
         }
-        _taskModel = [task deepCopy];
         _taskModel.status = 2;
         _taskDetailView.data = _taskModel;
         _taskDiscussView.data = _taskModel;
         [_userManager upadteTask:_taskModel];
+        self.taskStatusimageView.image = [UIImage imageNamed:_taskModel.getCurrImageName];
     }];
 }
 //终止
 - (void)stopClicked:(UIButton*)btn task:(id)task{
     InputTextController *input = [InputTextController new];
+    btn.userInteractionEnabled = NO;
+    input.cancelBlock = ^() {
+        btn.userInteractionEnabled = YES;
+    };
     input.inputTextBlock = ^(NSString *content) {
         Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_taskModel.company_no];
         [UserHttp updateTask:_taskModel.id status:8 comment:content updatedby:employee.employee_guid handler:^(id data, MError *error) {
+            btn.userInteractionEnabled = YES;
             if(error) {
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
-            _taskModel = [task deepCopy];
             _taskModel.status = 8;
-            _taskModel.approve_comment = content;
+            _taskModel.finish_comment = content;
+            _taskModel.updatedby = employee.employee_guid;
             _taskModel.updatedon_utc = [NSDate date].timeIntervalSince1970 * 1000;
             _taskDetailView.data = _taskModel;
             _taskDiscussView.data = _taskModel;
             [_userManager upadteTask:_taskModel];
+            self.taskStatusimageView.image = [UIImage imageNamed:_taskModel.getCurrImageName];
         }];
     };
     input.providesPresentationContextTransitionStyle = YES;
@@ -255,20 +276,26 @@
 //退回
 - (void)returnClicked:(UIButton*)btn task:(id)task{
     InputTextController *input = [InputTextController new];
+    btn.userInteractionEnabled = NO;
+    input.cancelBlock = ^() {
+        btn.userInteractionEnabled = YES;
+    };
     input.inputTextBlock = ^(NSString *content) {
         Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_taskModel.company_no];
         [UserHttp updateTask:_taskModel.id status:6 comment:content updatedby:employee.employee_guid handler:^(id data, MError *error) {
+            btn.userInteractionEnabled = YES;
             if(error) {
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
-            _taskModel = [task deepCopy];
             _taskModel.status = 6;
             _taskModel.approve_comment = content;
+            _taskModel.updatedby = employee.employee_guid;
             _taskModel.updatedon_utc = [NSDate date].timeIntervalSince1970 * 1000;
             _taskDetailView.data = _taskModel;
             _taskDiscussView.data = _taskModel;
             [_userManager upadteTask:_taskModel];
+            self.taskStatusimageView.image = [UIImage imageNamed:_taskModel.getCurrImageName];
         }];
     };
     input.providesPresentationContextTransitionStyle = YES;
@@ -279,20 +306,26 @@
 //通过
 - (void)passClicked:(UIButton*)btn task:(id)task{
     InputTextController *input = [InputTextController new];
+    btn.userInteractionEnabled = NO;
+    input.cancelBlock = ^() {
+        btn.userInteractionEnabled = YES;
+    };
     input.inputTextBlock = ^(NSString *content) {
         Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_taskModel.company_no];
         [UserHttp updateTask:_taskModel.id status:7 comment:content updatedby:employee.employee_guid handler:^(id data, MError *error) {
+            btn.userInteractionEnabled = YES;
             if(error) {
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
-            _taskModel = [task deepCopy];
             _taskModel.status = 7;
             _taskModel.approve_comment = content;
+            _taskModel.updatedby = employee.employee_guid;
             _taskModel.updatedon_utc = [NSDate date].timeIntervalSince1970 * 1000;
             _taskDetailView.data = _taskModel;
             _taskDiscussView.data = _taskModel;
             [_userManager upadteTask:_taskModel];
+            self.taskStatusimageView.image = [UIImage imageNamed:_taskModel.getCurrImageName];
         }];
     };
     input.providesPresentationContextTransitionStyle = YES;
@@ -303,20 +336,26 @@
 //提交
 - (void)submitClicked:(UIButton*)btn task:(id)task{
     InputTextController *input = [InputTextController new];
+    btn.userInteractionEnabled = NO;
+    input.cancelBlock = ^() {
+        btn.userInteractionEnabled = YES;
+    };
     input.inputTextBlock = ^(NSString *content) {
         Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_taskModel.company_no];
         [UserHttp updateTask:_taskModel.id status:4 comment:content updatedby:employee.employee_guid handler:^(id data, MError *error) {
+            btn.userInteractionEnabled = YES;
             if(error) {
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
-            _taskModel = [task deepCopy];
             _taskModel.status = 4;
             _taskModel.finish_comment = content;
+            _taskModel.updatedby = employee.employee_guid;
             _taskModel.updatedon_utc = [NSDate date].timeIntervalSince1970 * 1000;
             _taskDetailView.data = _taskModel;
             _taskDiscussView.data = _taskModel;
             [_userManager upadteTask:_taskModel];
+            self.taskStatusimageView.image = [UIImage imageNamed:_taskModel.getCurrImageName];
         }];
     };
     input.providesPresentationContextTransitionStyle = YES;
@@ -337,12 +376,14 @@
     select.delegate = self;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:select] animated:YES completion:nil];
 }
-//预览文件
+//预览文件 可以通过手机上其他应用打开
 - (void)lookTaskFile:(NSURL*)fileUrl {
-    UIDocumentInteractionController *documentController = [UIDocumentInteractionController
+    //把_documentController变成属性据说有用
+    //#964-1
+    _documentController = [UIDocumentInteractionController
      interactionControllerWithURL:fileUrl];
-    documentController.delegate = self;
-    [documentController presentPreviewAnimated:YES];
+    _documentController.delegate = self;
+    [_documentController presentPreviewAnimated:YES];
 }
 - (UIViewController *) documentInteractionControllerViewControllerForPreview:
 (UIDocumentInteractionController *) controller {

@@ -12,7 +12,6 @@
 #import "MAOverlayRenderer.h"
 #import "MAAnnotationView.h"
 #import "MACircle.h"
-#import "MAMapKit.h"
 #import "MAUserLocation.h"
 #import "MAMapStatus.h"
 #import "MAIndoorInfo.h"
@@ -22,8 +21,10 @@
 typedef NS_ENUM(NSInteger, MAMapType)
 {
     MAMapTypeStandard = 0,  // 普通地图
-    MAMapTypeSatellite,  // 卫星地图
-    MAMapTypeStandardNight // 夜间视图
+    MAMapTypeSatellite,     // 卫星地图
+    MAMapTypeStandardNight, // 夜间视图
+    MAMapTypeNavi,          // 导航视图
+    MAMapTypeBus            // 公交视图
 };
 
 typedef NS_ENUM(NSInteger, MAUserTrackingMode)
@@ -31,6 +32,14 @@ typedef NS_ENUM(NSInteger, MAUserTrackingMode)
     MAUserTrackingModeNone              = 0,    // 不追踪用户的location更新
     MAUserTrackingModeFollow            = 1,    // 追踪用户的location更新
     MAUserTrackingModeFollowWithHeading = 2     // 追踪用户的location与heading更新
+};
+
+typedef NS_ENUM(NSInteger, MATrafficStatus)
+{
+    MATrafficStatusSmooth = 1,                  //!< 1 通畅
+    MATrafficStatusSlow,                        //!< 2 缓行
+    MATrafficStatusJam,                         //!< 3 阻塞
+    MATrafficStatusSeriousJam,                  //!< 4 严重阻塞
 };
 
 /**
@@ -105,6 +114,18 @@ extern NSString * const kMAMapLayerCameraDegreeKey;
 @property (nonatomic, readonly) BOOL isAbroad;
 
 /**
+ *  设置实时交通颜色
+ *  key为 MATrafficStatus
+ */
+@property (nonatomic, copy) NSDictionary <NSNumber *, UIColor *> *trafficStatus;
+
+/**
+ *  是否允许对annotationView根据zIndex进行排序，默认为YES。
+ *  当annotationView数量比较大时可能会引起性能问题，可以设置此属性为NO。
+ */
+@property (nonatomic, assign) BOOL allowsAnnotationViewSorting;
+
+/**
  * @brief 当前地图的经纬度范围，设定的该范围可能会被调整为适合地图窗口显示的范围
  */
 @property (nonatomic) MACoordinateRegion region;
@@ -141,7 +162,6 @@ extern NSString * const kMAMapLayerCameraDegreeKey;
 /**
  * @brief 根据当前地图视图frame的大小调整投影范围
  * @param mapRect 要调整的投影范围
- * @return 调整后的投影范围
  */
 - (void)setVisibleMapRect:(MAMapRect)mapRect edgePadding:(UIEdgeInsets)insets animated:(BOOL)animate;
 
@@ -177,8 +197,18 @@ extern NSString * const kMAMapLayerCameraDegreeKey;
  */
 - (MACoordinateRegion)convertRect:(CGRect)rect toRegionFromView:(UIView *)view;
 
-#pragma mark - mapView control
+#pragma mark - Limitation
+/*!
+ @brief 设置可见地图区域的矩形边界，如限制地图只显示北京市范围. 
+ */
+@property (nonatomic, assign) MACoordinateRegion limitRegion;
 
+/*!
+ @brief 设置可见地图区域的矩形边界，如限制地图只显示北京市范围.
+ */
+@property (nonatomic, assign) MAMapRect limitMapRect;
+
+#pragma mark - mapView control
 /**
  * @brief 当前地图的中心点，改变该值时，地图的比例尺级别不会发生变化
  */
@@ -186,7 +216,7 @@ extern NSString * const kMAMapLayerCameraDegreeKey;
 - (void)setCenterCoordinate:(CLLocationCoordinate2D)coordinate animated:(BOOL)animated;
 
 /**
- * @brief 缩放级别
+ * @brief 缩放级别（默认3-19，有室内地图时为3-20）
  */
 @property (nonatomic) CGFloat zoomLevel;
 - (void)setZoomLevel:(CGFloat)zoomLevel animated:(BOOL)animated;
@@ -194,12 +224,12 @@ extern NSString * const kMAMapLayerCameraDegreeKey;
 /**
  * @brief 最小缩放级别
  */
-@property (nonatomic, readonly) CGFloat minZoomLevel;
+@property (nonatomic) CGFloat minZoomLevel;
 
 /**
- * @brief 最大缩放级别
+ * @brief 最大缩放级别（有室内地图时最大为20，否则为19）
  */
-@property (nonatomic, readonly) CGFloat maxZoomLevel;
+@property (nonatomic) CGFloat maxZoomLevel;
 
 /**
  * @brief 根据指定的枢纽点来缩放地图
@@ -223,21 +253,20 @@ extern NSString * const kMAMapLayerCameraDegreeKey;
 
 /**
  * @brief 设置地图相机角度(范围为[0.f, 60.f]，但高于40度的角度需要在16级以上才能生效)
- * @param cameraDegree 角度
  */
 @property (nonatomic) CGFloat cameraDegree;
 
 - (void)setCameraDegree:(CGFloat)cameraDegree animated:(BOOL)animated duration:(CFTimeInterval)duration;
 
 
+- (void)setMapStatus:(MAMapStatus *)status
+            animated:(BOOL)animated;
+
 /**
  * @brief 设置地图状态
  * @param animated 是否动画
  * @param duration 动画时间 默认动画时间为0.35s
  */
-- (void)setMapStatus:(MAMapStatus *)status
-            animated:(BOOL)animated;
-
 - (void)setMapStatus:(MAMapStatus *)status
             animated:(BOOL)animated
             duration:(CFTimeInterval)duration;
@@ -276,6 +305,11 @@ extern NSString * const kMAMapLayerCameraDegreeKey;
  对应的回调是 - (void)mapView:(MAMapView *)mapView didTouchPois:(NSArray *)pois
  */
 @property (nonatomic) BOOL touchPOIEnabled;
+
+/**
+ *  是否以screenAnchor点作为锚点进行缩放，默认为YES。如果为NO，则以手势中心点作为锚点
+ */
+@property (nonatomic, assign) BOOL zoomingInPivotsAroundAnchorPoint;
 
 #pragma mark - userLocation
 /**
@@ -359,7 +393,7 @@ extern NSString * const kMAMapLayerCameraDegreeKey;
 
 /**
  * @brief 移除一组标注
- * @param annotation 要移除的标注数组
+ * @param annotations 要移除的标注数组
  */
 - (void)removeAnnotations:(NSArray *)annotations;
 
@@ -523,8 +557,8 @@ extern NSString * const kMAMapLayerCameraDegreeKey;
 
 /**
  * @brief 交换两个overlay
- * @param overlay1
- * @param overlay2
+ * @param overlay1 overlay1
+ * @param overlay2 overlay2
  */
 - (void)exchangeOverlay:(id <MAOverlay>)overlay1 withOverlay:(id <MAOverlay>)overlay2;
 
@@ -534,6 +568,30 @@ extern NSString * const kMAMapLayerCameraDegreeKey;
  * @return 指定overlay对应的Renderer
  */
 - (MAOverlayRenderer *)rendererForOverlay:(id <MAOverlay>)overlay;
+
+/**
+ 设置地图使其可以显示数组中所有的overlay, 如果数组中只有一个则直接设置地图中心为overlay的位置。
+ * @param overlays    需要显示的overlays
+ * @param animated    是否执行动画
+ */
+- (void)showOverlays:(NSArray *)overlays animated:(BOOL)animated;
+
+/**
+ *  设置地图使其可以显示数组中所有的overlay, 如果数组中只有一个则直接设置地图中心为overlay的位置。
+ *
+ *  @param overlays    需要显示的overlays
+ *  @param insets      insets 嵌入边界
+ *  @param animated    是否执行动画
+ */
+- (void)showOverlays:(NSArray *)overlays edgePadding:(UIEdgeInsets)insets animated:(BOOL)animated;
+
+
+#pragma mark - Cache
+
+/**
+ @brief 清除所有磁盘上缓存的地图数据(不包括离线地图)。
+ */
+- (void)clearDisk;
 
 #pragma mark - compassView
 
@@ -589,7 +647,7 @@ extern NSString * const kMAMapLayerCameraDegreeKey;
  */
 @property (nonatomic, readonly) CGSize logoSize;
 
-
+#if MA_INCLUDE_INDOOR
 #pragma mark - indoorView
 
 /**
@@ -621,6 +679,7 @@ extern NSString * const kMAMapLayerCameraDegreeKey;
  * @brief 清空室内地图缓存
  */
 - (void)clearIndoorMapCache;
+#endif
 
 #pragma mark - snapshot
 
@@ -673,14 +732,14 @@ extern NSString * const kMAMapLayerCameraDegreeKey;
 
 /**
  * @brief 地图区域即将改变时会调用此接口
- * @param mapview 地图View
+ * @param mapView 地图View
  * @param animated 是否动画
  */
 - (void)mapView:(MAMapView *)mapView regionWillChangeAnimated:(BOOL)animated;
 
 /**
  * @brief 地图区域改变完成后会调用此接口
- * @param mapview 地图View
+ * @param mapView 地图View
  * @param animated 是否动画
  */
 - (void)mapView:(MAMapView *)mapView regionDidChangeAnimated:(BOOL)animated;
@@ -719,7 +778,7 @@ extern NSString * const kMAMapLayerCameraDegreeKey;
 
 /**
  * @brief 地图开始加载
- * @param mapview 地图View
+ * @param mapView 地图View
  */
 - (void)mapViewWillStartLoadingMap:(MAMapView *)mapView;
 
@@ -754,14 +813,14 @@ extern NSString * const kMAMapLayerCameraDegreeKey;
 /**
  * @brief 当选中一个annotation views时，调用此接口
  * @param mapView 地图View
- * @param views 选中的annotation views
+ * @param view 选中的annotation views
  */
 - (void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view;
 
 /**
  * @brief 当取消选中一个annotation views时，调用此接口
  * @param mapView 地图View
- * @param views 取消选中的annotation views
+ * @param view 取消选中的annotation views
  */
 - (void)mapView:(MAMapView *)mapView didDeselectAnnotationView:(MAAnnotationView *)view;
 
@@ -820,7 +879,7 @@ extern NSString * const kMAMapLayerCameraDegreeKey;
 /**
  * @brief 标注view的accessory view(必须继承自UIControl)被点击时，触发该回调
  * @param mapView 地图View
- * @param annotationView callout所属的标注view
+ * @param view callout所属的标注view
  * @param control 对应的control
  */
 - (void)mapView:(MAMapView *)mapView annotationView:(MAAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control;
@@ -844,7 +903,7 @@ extern NSString * const kMAMapLayerCameraDegreeKey;
 /**
  * @brief 当openGLESDisabled变量改变时，调用此接口
  * @param mapView 地图View
- * @param mode 改变后的openGLESDisabled
+ * @param openGLESDisabled 改变后的openGLESDisabled
  */
 - (void)mapView:(MAMapView *)mapView didChangeOpenGLESDisabled:(BOOL)openGLESDisabled;
 
@@ -875,6 +934,7 @@ extern NSString * const kMAMapLayerCameraDegreeKey;
  */
 - (void)mapInitComplete:(MAMapView *)mapView;
 
+#if MA_INCLUDE_INDOOR
 /**
  *  室内地图出现,返回室内地图信息
  *
@@ -887,7 +947,7 @@ extern NSString * const kMAMapLayerCameraDegreeKey;
  *  室内地图楼层发生变化,返回变化的楼层
  *
  *  @param mapView        地图View
- *  @param floorIndex     变化的楼层
+ *  @param indoorInfo     变化的楼层
  */
 - (void)mapView:(MAMapView *)mapView didIndoorMapFloorIndexChanged:(MAIndoorInfo *)indoorInfo;
 
@@ -898,17 +958,18 @@ extern NSString * const kMAMapLayerCameraDegreeKey;
  *  @param indoorInfo     室内地图信息
  */
 - (void)mapView:(MAMapView *)mapView didIndoorMapHidden:(MAIndoorInfo *)indoorInfo;
+#endif //end of MA_INCLUDE_INDOOR
 
 #pragma mark - offline delegate
 /**
  * @brief 离线地图数据将要被加载, 调用reloadMap会触发该回调，离线数据生效前的回调.
- * @param mapview 地图View
+ * @param mapView 地图View
  */
 - (void)offlineDataWillReload:(MAMapView *)mapView;
 
 /**
  * @brief 离线地图数据加载完成, 调用reloadMap会触发该回调，离线数据生效后的回调.
- * @param mapview 地图View
+ * @param mapView 地图View
  */
 - (void)offlineDataDidReload:(MAMapView *)mapView;
 
