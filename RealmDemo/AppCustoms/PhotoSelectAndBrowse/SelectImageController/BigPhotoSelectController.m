@@ -86,7 +86,7 @@
     //创建标签后面的红色图像
     UIView *iamgeView = [[UIView alloc] initWithFrame:CGRectMake(_bottomView.frame.size.width - btnWidth - labelWidth - 2 * btnRight, 0.5 * (_bottomView.frame.size.height - labelHeight), labelWidth, labelHeight)];
     iamgeView.tag = 1101;
-    iamgeView.backgroundColor = [UIColor blackColor];
+    iamgeView.backgroundColor = [UIColor colorWithRed:10/255.f green:185/255.f blue:153/255.f alpha:1];
     iamgeView.layer.cornerRadius = labelHeight / 2;
     iamgeView.clipsToBounds = YES;
     [_bottomView addSubview:iamgeView];
@@ -243,8 +243,8 @@
 - (void)setupRightNavigationButton {
     rightBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [rightBarButton setFrame:CGRectMake(0.0f, 0.0f, 50.0f, 40.0f)];
-    [rightBarButton setImage:[UIImage imageNamed:@"singleSelect"] forState:UIControlStateSelected];
-    [rightBarButton setImage:[UIImage imageNamed:@"singleNoSelect"] forState:UIControlStateNormal];
+    [rightBarButton setImage:[[UIImage imageNamed:@"btn_select_icon"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateSelected];
+    [rightBarButton setImage:[[UIImage imageNamed:@"singleNoSelect"]imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
     rightBarButton.tag  = 1001;
     [rightBarButton addTarget:self action:@selector(rightNavigationButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBarButton];

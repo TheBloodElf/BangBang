@@ -56,23 +56,23 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    for (UIGestureRecognizer *gr in self.navigationController.view.gestureRecognizers) {
-        //找到全屏左滑返回手势
-        if([gr isKindOfClass:[UIScreenEdgePanGestureRecognizer class]]) {
-            //去掉自带的
-            [self.navigationController.view removeGestureRecognizer:gr];
-            //重新加一个
-            UIScreenEdgePanGestureRecognizer *edge = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(screenPanClicked:)];
-            edge.edges = UIRectEdgeLeft;
-            [self.navigationController.view addGestureRecognizer:edge];
-        }
-    }
+//    for (UIGestureRecognizer *gr in self.navigationController.view.gestureRecognizers) {
+//        //找到全屏左滑返回手势
+//        if([gr isKindOfClass:[UIScreenEdgePanGestureRecognizer class]]) {
+//            //去掉自带的
+//            [self.navigationController.view removeGestureRecognizer:gr];
+//            //重新加一个
+//            UIScreenEdgePanGestureRecognizer *edge = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(screenPanClicked:)];
+//            edge.edges = UIRectEdgeLeft;
+//            [self.navigationController.view addGestureRecognizer:edge];
+//        }
+//    }
 }
-- (void)screenPanClicked:(UIScreenEdgePanGestureRecognizer*)segr {
-    if(segr.state == UIGestureRecognizerStateBegan)
-       //自定义行为
-       [self.navigationController popToRootViewControllerAnimated:YES];
-}
+//- (void)screenPanClicked:(UIScreenEdgePanGestureRecognizer*)segr {
+//    if(segr.state == UIGestureRecognizerStateBegan)
+//       //自定义行为
+//       [self.navigationController popToRootViewControllerAnimated:YES];
+//}
 //新消息开关被点击
 - (void)messageClicked:(UISwitch*)sw
 {
@@ -99,16 +99,35 @@
 {
     //存到本地 同时调用融云的接口  免打扰融云有接口，开始还说怎么做呢。。。
     _userManager.user.ryDisturb = sw.on;
-    [_userManager updateUser:_userManager.user];
+    [self.navigationController.view showLoadingTips:@""];
     if(_userManager.user.ryDisturb) {//设置免打扰
         int intt = [@([_userManager.user.ryDisturbEndTime timeIntervalSinceDate:_userManager.user.ryDisturbBeginTime] / 60.f) intValue];
         if(intt == 0)
             intt = 1;
-        [[RCIMClient sharedRCIMClient] setNotificationQuietHours:[NSString stringWithFormat:@"%02ld:%02ld:00",(long)_userManager.user.ryDisturbBeginTime.hour,(long)_userManager.user.ryDisturbBeginTime.minute] spanMins:intt success:nil error:nil];
+        [[RCIMClient sharedRCIMClient] setNotificationQuietHours:[NSString stringWithFormat:@"%02ld:%02ld:00",(long)_userManager.user.ryDisturbBeginTime.hour,(long)_userManager.user.ryDisturbBeginTime.minute] spanMins:intt success:^{
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [_userManager updateUser:_userManager.user];
+                [self.navigationController.view dismissTips];
+                [self.tableView reloadData];
+            });
+        } error:^(RCErrorCode status) {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [self.navigationController.view dismissTips];
+            });
+        }];
     } else {//取消免打扰
-        [[RCIMClient sharedRCIMClient] removeNotificationQuietHours:nil error:nil];
+        [[RCIMClient sharedRCIMClient] removeNotificationQuietHours:^{
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [_userManager updateUser:_userManager.user];
+                [self.navigationController.view dismissTips];
+                [self.tableView reloadData];
+            });
+        } error:^(RCErrorCode status) {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+               [self.navigationController.view dismissTips];
+            });
+        }];
     }
-    [self.tableView reloadData];
 }
 //清除聊天记录
 - (void)clearChatNote
@@ -243,11 +262,20 @@
             select.datePickerMode = UIDatePickerModeTime;
             select.selectDateBlock = ^(NSDate *date) {
                 _userManager.user.ryDisturbBeginTime = date;
-                [_userManager updateUser:_userManager.user];
+                [self.navigationController.view showLoadingTips:@""];
                 if(_userManager.user.ryDisturb) {
                     int intt = [@([_userManager.user.ryDisturbEndTime timeIntervalSinceDate:_userManager.user.ryDisturbBeginTime] / 60.f) intValue];
                     if(intt == 0) intt = 1;
-                    [[RCIMClient sharedRCIMClient] setNotificationQuietHours:[NSString stringWithFormat:@"%02ld:%02ld:00",(long)_userManager.user.ryDisturbBeginTime.hour,(long)_userManager.user.ryDisturbBeginTime.minute] spanMins:intt success:nil error:nil];
+                    [[RCIMClient sharedRCIMClient] setNotificationQuietHours:[NSString stringWithFormat:@"%02ld:%02ld:00",(long)_userManager.user.ryDisturbBeginTime.hour,(long)_userManager.user.ryDisturbBeginTime.minute] spanMins:intt success:^{
+                        dispatch_sync(dispatch_get_main_queue(), ^{
+                            [_userManager updateUser:_userManager.user];
+                            [self.navigationController.view dismissTips];
+                        });
+                    } error:^(RCErrorCode status) {
+                        dispatch_sync(dispatch_get_main_queue(), ^{
+                            [self.navigationController.view dismissTips];
+                        });
+                    }];
                 }
                 _beginTime.text = [NSString stringWithFormat:@"%02ld:%02ld",(long)_userManager.user.ryDisturbBeginTime.hour,(long)_userManager.user.ryDisturbBeginTime.minute];
             };
@@ -262,11 +290,20 @@
             select.datePickerMode = UIDatePickerModeTime;
             select.selectDateBlock = ^(NSDate *date) {
                 _userManager.user.ryDisturbEndTime = date;
-                [_userManager updateUser:_userManager.user];
+                [self.navigationController.view showLoadingTips:@""];
                 if(_userManager.user.ryDisturb) {
                     int intt = [@([_userManager.user.ryDisturbEndTime timeIntervalSinceDate:_userManager.user.ryDisturbBeginTime] / 60.f) intValue];
                     if(intt == 0) intt = 1;
-                    [[RCIMClient sharedRCIMClient] setNotificationQuietHours:[NSString stringWithFormat:@"%02ld:%02ld:00",(long)_userManager.user.ryDisturbBeginTime.hour,(long)_userManager.user.ryDisturbBeginTime.minute] spanMins:intt success:nil error:nil];
+                    [[RCIMClient sharedRCIMClient] setNotificationQuietHours:[NSString stringWithFormat:@"%02ld:%02ld:00",(long)_userManager.user.ryDisturbBeginTime.hour,(long)_userManager.user.ryDisturbBeginTime.minute] spanMins:intt success:^{
+                        dispatch_sync(dispatch_get_main_queue(), ^{
+                            [_userManager updateUser:_userManager.user];
+                            [self.navigationController.view dismissTips];
+                        });
+                    } error:^(RCErrorCode status) {
+                        dispatch_sync(dispatch_get_main_queue(), ^{
+                            [self.navigationController.view dismissTips];
+                        });
+                    }];
                 }
                 _endTime.text = [NSString stringWithFormat:@"%02ld:%02ld",(long)_userManager.user.ryDisturbEndTime.hour,(long)_userManager.user.ryDisturbEndTime.minute];
             };

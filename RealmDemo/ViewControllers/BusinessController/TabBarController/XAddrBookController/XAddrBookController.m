@@ -36,7 +36,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"联系人";
+    self.navigationItem.title = @"会话";
     _employeeArr = [@[] mutableCopy];
     _employeekeyArr = [@[] mutableCopy];
     _employeeDataArr = [@[] mutableCopy];
@@ -58,20 +58,7 @@
     _tableView.tableFooterView = [UIView new];
     [_tableView registerNib:[UINib nibWithNibName:@"XAddrBookCell" bundle:nil] forCellReuseIdentifier:@"XAddrBookCell"];
     [self.view addSubview:_tableView];
-    //这里改了 没有申请管理这一项
-    //是不是当前圈子的管理员
-//    if([_userManager.user.currCompany.admin_user_guid isEqualToString:_userManager.user.user_guid]) {
-//        _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100 - 5, 5, 100, 45 * 3)];
-//        _moreSelectView.selectArr = @[@"发起群聊",@"邀请同事",@"申请管理"];
-//    }
-//    else {
-        _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100 - 5, 5, 100, 45 * 2)];
-        _moreSelectView.selectArr = @[@"发起群聊",@"邀请同事"];
-//    }
-    _moreSelectView.delegate = self;
-    [_moreSelectView setupUI];
-    [self.view addSubview:_moreSelectView];
-    [self.view bringSubviewToFront:_moreSelectView];
+    [self setRightBtnView];
     //创建导航按钮
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(leftClicked:)];
     self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar_menu"] style:UIBarButtonItemStylePlain target:self action:@selector(rightClicked:)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(gotoSearch:)]];
@@ -89,6 +76,26 @@
         [self getCurrEmployee];
     }
 }
+//设置导航右边按钮显示内容
+- (void)setRightBtnView {
+    if(_moreSelectView) {
+        [_moreSelectView removeFromSuperview];
+        _moreSelectView = nil;
+    }
+    //是不是当前圈子圈主
+    if([_userManager.user.currCompany.admin_user_guid isEqualToString:_userManager.user.user_guid]) {
+        _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100 - 5, 5, 100, 45 * 3)];
+        _moreSelectView.selectArr = @[@"发起群聊",@"邀请同事",@"申请管理"];
+    }
+    else {
+        _moreSelectView = [[MoreSelectView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 100 - 5, 5, 100, 45 * 2)];
+        _moreSelectView.selectArr = @[@"发起群聊",@"邀请同事"];
+    }
+    _moreSelectView.delegate = self;
+    [_moreSelectView setupUI];
+    [self.view addSubview:_moreSelectView];
+    [self.view bringSubviewToFront:_moreSelectView];
+}
 - (void)getCurrEmployee {
     [self.navigationController.view showLoadingTips:@""];
     //从网络上获取最新的员工数据
@@ -96,7 +103,7 @@
         [self.navigationController.view dismissTips];
         if(error) {
             [self.navigationController.view showFailureTips:error.statsMsg];
-            return ;
+            return;
         }
         NSMutableArray *array = [@[] mutableCopy];
         for (NSDictionary *dic in data[@"list"]) {
@@ -120,6 +127,12 @@
     }];
 }
 - (void)rightClicked:(UIBarButtonItem*)item {
+    //没有创建不显示
+    if(!_moreSelectView)
+        return;
+    //不在任何圈子不显示
+    if(_userManager.user.currCompany.company_no == 0)
+        return;
     if(_moreSelectView.isHide)
         [_moreSelectView showSelectView];
     else
@@ -174,6 +187,7 @@
 #pragma mark --
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
+    //当前圈子员工有变化
     if(controller == _employeeFetchedResultsController) {
         if(_userManager.user.currCompany.company_no) {
             _employeeArr = [_userManager getEmployeeWithCompanyNo:_userManager.user.currCompany.company_no status:5];
@@ -182,7 +196,8 @@
         }
         [self sortEmployee];
         [_tableView reloadData];
-    } else {
+    } else if(controller == _userFetchedResultsController){
+         //用户信息有变化
         if(_userManager.user.currCompany.company_no) {
             _employeeArr = [_userManager getEmployeeWithCompanyNo:_userManager.user.currCompany.company_no status:5];
         } else {
@@ -192,7 +207,9 @@
         [_tableView reloadData];
         _employeeFetchedResultsController = [_userManager createEmployeesFetchedResultsControllerWithCompanyNo:_userManager.user.currCompany.company_no];
         _employeeFetchedResultsController.delegate = self;
-    }
+        //有可能用户当前圈子变化后，你是当前圈子的圈主
+        [self setRightBtnView];
+    } 
 }
 //对员工数组进行排序
 - (void)sortEmployee {

@@ -55,21 +55,21 @@
                 user.userId = targetId;
                 [_rCUserArr addObject:user];
             }
-            [_tableView reloadData];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [_tableView reloadData];
+            });
         }
     } error:^(RCErrorCode status) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            for (UserDiscuss *userDiscuss in [_userManager getUserDiscussArr]) {
-                if([userDiscuss.discuss_id isEqualToString:self.targetId]) {
-                    [_userManager deleteUserDiscuss:userDiscuss];
-                    [UserHttp delUserDiscuss:_userManager.user.user_no discussId:self.targetId handler:^(id data, MError *error) {
-                        [self.navigationController.view showFailureTips:@"讨论组不存在，已删除!"];
-                        [self.navigationController popToViewController:self.navigationController.viewControllers[self.navigationController.viewControllers.count - 3] animated:YES];
-                    }];
-                    break;
-                }
+        for (UserDiscuss *userDiscuss in [_userManager getUserDiscussArr]) {
+            if([userDiscuss.discuss_id isEqualToString:self.targetId]) {
+                [_userManager deleteUserDiscuss:userDiscuss];
+                [UserHttp delUserDiscuss:_userManager.user.user_no discussId:self.targetId handler:^(id data, MError *error) {
+                    [self.navigationController.view showFailureTips:@"讨论组不存在，已删除!"];
+                    [self.navigationController popToViewController:self.navigationController.viewControllers[self.navigationController.viewControllers.count - 3] animated:YES];
+                }];
+                break;
             }
-        });
+        }
     }];
     
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - 64) style:UITableViewStyleGrouped];
@@ -97,13 +97,13 @@
     UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *ok = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [[RCIMClient sharedRCIMClient] quitDiscussion:self.targetId success:^(RCDiscussion *discussion) {
-            dispatch_async(dispatch_get_main_queue(), ^{
                 for (UserDiscuss *userDiscuss in [_userManager getUserDiscussArr]) {
                     if([userDiscuss.discuss_id isEqualToString:discussion.discussionId]) {
                         [_userManager deleteUserDiscuss:userDiscuss];
                         break;
                     }
                 }
+            dispatch_async(dispatch_get_main_queue(), ^{
                 [self.navigationController popToRootViewControllerAnimated:YES];
             });
         } error:nil];
@@ -117,8 +117,8 @@
 //某个人员删除按钮被点击
 - (void)RYGroupSetUserDelete:(RCUserInfo*)user {
     [[RCIMClient sharedRCIMClient] removeMemberFromDiscussion:_currRCDiscussion.discussionId userId:user.userId success:^(RCDiscussion *discussion) {
-        [_rCUserArr removeObject:user];
         dispatch_async(dispatch_get_main_queue(), ^{
+            [_rCUserArr removeObject:user];
             [_tableView reloadData];
         });
     } error:nil];
@@ -170,7 +170,7 @@
     }
     [[RCIMClient sharedRCIMClient] addMemberToDiscussion:self.targetId userIdList:array success:^(RCDiscussion *discussion) {
         dispatch_async(dispatch_get_main_queue(), ^{
-             [_tableView reloadData];
+            [_tableView reloadData];
         });
     } error:nil];
 }

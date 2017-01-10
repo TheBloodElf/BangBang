@@ -173,101 +173,104 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 @synthesize layoutIfNeededOnUpdate              =   _layoutIfNeededOnUpdate;
 
 #pragma mark - Initializing functions
-
-/** Override +load method to enable KeyboardManager when class loader load IQKeyboardManager. Enabling when app starts (No need to write any code) */
-+(void)load
-{
-    //Enabling IQKeyboardManager.
+//当类被装载时被调用
+//http://www.jianshu.com/p/d25f691f0b07
++(void)load{
     [[IQKeyboardManager sharedManager] setEnable:YES];
 }
-
-/*  Singleton Object Initialization. */
--(instancetype)init
-{
-	if (self = [super init])
-    {
+-(instancetype)init{
+	if (self = [super init]){
         __weak typeof(self) weakSelf = self;
-        
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
-            
+            //2:为什么要强引用weakSelf呢
+            //http://www.jianshu.com/p/a87ed8a4363a
+            //是为了避免weakSelf被释放了，导致下面的代码执行出错
             __strong typeof(self) strongSelf = weakSelf;
-
-            //  Registering for keyboard notification.
+            // 注册键盘将要消失/出现的通知
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
-
+            //初始化注册的类 NSMutableSet是NSSet的可变版本 NSSet表示内容不重复
             strongSelf.registeredClasses = [[NSMutableSet alloc] init];
-
-			//  Registering for UITextField notification.
+            
+			//  注册UITextField开始/结束编辑的通知
             [self registerTextFieldViewClass:[UITextField class]
              didBeginEditingNotificationName:UITextFieldTextDidBeginEditingNotification
                didEndEditingNotificationName:UITextFieldTextDidEndEditingNotification];
-
-            //  Registering for UITextView notification.
+            //  注册UITextView开始/结束编辑的通知
+            // 和UITextField用同样的回调函数
             [self registerTextFieldViewClass:[UITextView class]
              didBeginEditingNotificationName:UITextViewTextDidBeginEditingNotification
                didEndEditingNotificationName:UITextViewTextDidEndEditingNotification];
-
-            //  Registering for orientation changes notification
+            //  注册应用状态栏方向改变的回调
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willChangeStatusBarOrientation:) name:UIApplicationWillChangeStatusBarOrientationNotification object:[UIApplication sharedApplication]];
-
-            //  Registering for status bar frame change notification
+            //  注册状态栏frame改变通知
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didChangeStatusBarFrame:) name:UIApplicationDidChangeStatusBarFrameNotification object:[UIApplication sharedApplication]];
             
             //Creating gesture for @shouldResignOnTouchOutside. (Enhancement ID: #14)
+            //添加一个单击手势 点击键盘外面的部分收起键盘
             strongSelf.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRecognized:)];
+            //http://blog.csdn.net/kylinbl/article/details/9139473
+            //设置成no，可以让手势先执行
+            //比如你现在有一个tableView加了一个单击手势，然后你点击到了tableViewCell中的一个按钮
+            //yes：按钮clicked被执行，单击不执行
+            //no：按钮clicked被执行，单击也执行
             strongSelf.tapGesture.cancelsTouchesInView = NO;
             [strongSelf.tapGesture setDelegate:self];
             strongSelf.tapGesture.enabled = strongSelf.shouldResignOnTouchOutside;
-
-            //Setting it's initial values
+            //屏幕需要移动才能让输入源可见，动画执行时间
             strongSelf.animationDuration = 0.25;
+            //动画的方式：开始和结束时动画效果比较慢
             strongSelf.animationCurve = UIViewAnimationCurveEaseInOut;
+            //输入框的下面距离键盘上面多高，默认为10 如果需要对单个输入源单独配置，使用[_textFieldView setKeyboardDistanceFromTextField:10];
 			[self setKeyboardDistanceFromTextField:10.0];
             [self setShouldPlayInputClicks:YES];
+            //取消点击键盘外面部分收起键盘
             [self setShouldResignOnTouchOutside:NO];
+            //是否能够让IQKeyboardManager覆盖键盘样式
             [self setOverrideKeyboardAppearance:NO];
+            //设置默认键盘样式
             [self setKeyboardAppearance:UIKeyboardAppearanceDefault];
+            //默认弹出带toolbar的键盘
             [self setEnableAutoToolbar:YES];
             [self setPreventShowingBottomBlankSpace:YES];
             [self setShouldShowTextFieldPlaceholder:YES];
             [self setToolbarManageBehaviour:IQAutoToolbarBySubviews];
+            //更新视图
             [self setLayoutIfNeededOnUpdate:NO];
+            //解决全屏左滑返回手势
             [self setShouldFixInteractivePopGestureRecognizer:YES];
             
-            //Initializing disabled classes Set.
+            //强制禁用IQKeyboardManager
             strongSelf.disabledDistanceHandlingClasses = [[NSMutableSet alloc] initWithObjects:[UITableViewController class], nil];
+            //强制启动IQKeyboardManager
             strongSelf.enabledDistanceHandlingClasses = [[NSMutableSet alloc] init];
-            
+            //强制禁用toolbar
             strongSelf.disabledToolbarClasses = [[NSMutableSet alloc] init];
+            //强制启用toolbar
             strongSelf.enabledToolbarClasses = [[NSMutableSet alloc] init];
-            
+            //上一个/下一个会跳到哪些控件
             strongSelf.toolbarPreviousNextAllowedClasses = [[NSMutableSet alloc] initWithObjects:[UITableView class],[UICollectionView class],[IQPreviousNextView class], nil];
-            
+            //强制禁用点击键盘外面收起键盘
             strongSelf.disabledTouchResignedClasses = [[NSMutableSet alloc] init];
+            //强制启用点击键盘外面收起键盘
             strongSelf.enabledTouchResignedClasses = [[NSMutableSet alloc] init];
-
-            [self setShouldToolbarUsesTextFieldTintColor:NO];
+            //toolbar的颜色适用输入框的tint颜色
+            [self setShouldToolbarUsesTextFieldTintColor:YES];
         });
     }
     return self;
 }
 
-/*  Automatically called from the `+(void)load` method. */
-+ (IQKeyboardManager*)sharedManager
-{
-	//Singleton instance
+/*重写了+(void)load方法，并在load方法中自动创建单例子 */
++ (IQKeyboardManager*)sharedManager{
 	static IQKeyboardManager *kbManager;
-	
 	static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        
         kbManager = [[self alloc] init];
     });
-	
 	return kbManager;
 }
 
@@ -325,14 +328,15 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 -(BOOL)privateIsEnabled
 {
     BOOL enable = _enable;
-    
+    //找到view所在的控制器
     UIViewController *textFieldViewController = [_textFieldView viewController];
-    
+    //如果有控制器
     if (textFieldViewController)
     {
+        //如果设置IQKeyboardManager不可用
         if (enable == NO)
         {
-            //If viewController is kind of enable viewController class, then assuming it's enabled.
+            //如果这个控制器是在强制启动IQKeyboardManager控制器列表中，依然是可用的
             for (Class enabledClass in _enabledDistanceHandlingClasses)
             {
                 if ([textFieldViewController isKindOfClass:enabledClass])
@@ -345,7 +349,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         
         if (enable)
         {
-            //If viewController is kind of disable viewController class, then assuming it's disable.
+            //如果这个控制器是在强制禁用IQKeyboardManager控制器列表中，依然是不可用的
             for (Class disabledClass in _disabledDistanceHandlingClasses)
             {
                 if ([textFieldViewController isKindOfClass:disabledClass])
@@ -363,7 +367,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 //	Setting keyboard distance from text field.
 -(void)setKeyboardDistanceFromTextField:(CGFloat)keyboardDistanceFromTextField
 {
-    //Can't be less than zero. Minimum is zero.
+    //不能为负数
 	_keyboardDistanceFromTextField = MAX(keyboardDistanceFromTextField, 0);
 
     [self showLog:[NSString stringWithFormat:@"keyboardDistanceFromTextField: %.2f",_keyboardDistanceFromTextField]];
@@ -447,7 +451,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     {
         if (enableAutoToolbar == NO)
         {
-            //If found any toolbar enabled classes then return.
+            //是否在强制使用toolbar数组中
             for (Class enabledToolbarClass in _enabledToolbarClasses)
             {
                 if ([textFieldViewController isKindOfClass:enabledToolbarClass])
@@ -542,89 +546,84 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 -(void)adjustFrame
 {
     //  We are unable to get textField object while keyboard showing on UIWebView's textField.  (Bug ID: #11)
+    //UIWebView中的textField没有办法得到
     if (_textFieldView == nil)   return;
     
     [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
 
-    //  Getting KeyWindow object.
+    //得到window对象
     UIWindow *keyWindow = [self keyWindow];
     
-    //  Getting RootViewController.  (Bug ID: #1, #4)
+    // 得到项目顶层的控制器  (Bug ID: #1, #4)
     UIViewController *rootController = [_textFieldView topMostController];
     if (rootController == nil)  rootController = [keyWindow topMostController];
     
-    //  Converting Rectangle according to window bounds.
+    // 转换输入框视图frame到屏幕
     CGRect textFieldViewRect = [[_textFieldView superview] convertRect:_textFieldView.frame toView:keyWindow];
-    //  Getting RootViewRect.
+    //得到根视图控制器的frame
     CGRect rootViewRect = [[rootController view] frame];
     //Getting statusBarFrame
 
     //Maintain keyboardDistanceFromTextField
+    //得到输入框底部距离键盘顶部的距离 默认为10可以在init中设置
     CGFloat specialKeyboardDistanceFromTextField = _textFieldView.keyboardDistanceFromTextField;
-    
+    //输入框是不是搜索视图里面的
     if (_textFieldView.isSearchBarTextField)
     {
         UISearchBar *searchBar = (UISearchBar*)[_textFieldView superviewOfClassType:[UISearchBar class]];
         specialKeyboardDistanceFromTextField = searchBar.keyboardDistanceFromTextField;
     }
-    
+    //输入框底部应该在键盘顶部多高的位置
     CGFloat keyboardDistanceFromTextField = (specialKeyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance)?_keyboardDistanceFromTextField:specialKeyboardDistanceFromTextField;
+    //得到键盘高度
     CGSize kbSize = _kbSize;
     kbSize.height += keyboardDistanceFromTextField;
-
+    //状态栏frame
     CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
     
     //  (Bug ID: #250)
+    //得到输入框所在控制器的view是否有添加到顶部/底部约束 默认设置没有约束
     IQLayoutGuidePosition layoutGuidePosition = IQLayoutGuidePositionNone;
-    
+    //得到控件所在控制器约束 没有加就为nil
     NSLayoutConstraint *constraint = [[_textFieldView viewController] IQLayoutGuideConstraint];
-    
-    //If topLayoutGuide constraint
+    //http://blog.kyleduo.com/2014/10/22/ios_learning_autolayout_toplayoutguide/
+    //控制器的view添加了顶部约束
     if (constraint.firstItem == [[_textFieldView viewController] topLayoutGuide] ||
-        constraint.secondItem == [[_textFieldView viewController] topLayoutGuide])
-    {
+        constraint.secondItem == [[_textFieldView viewController] topLayoutGuide]){
         layoutGuidePosition = IQLayoutGuidePositionTop;
     }
-    //If bottomLayoutGuice constraint
+    //控制器的view添加了底部约束
     else if (constraint.firstItem == [[_textFieldView viewController] bottomLayoutGuide] ||
-             constraint.secondItem == [[_textFieldView viewController] bottomLayoutGuide])
-    {
+             constraint.secondItem == [[_textFieldView viewController] bottomLayoutGuide]){
         layoutGuidePosition = IQLayoutGuidePositionBottom;
     }
-    
+    //得到状态栏frame的高度
     CGFloat topLayoutGuide = CGRectGetHeight(statusBarFrame);
 
+    //计算出要移动多少才能把输入框显示出来
+    //正数表示向上移动 负数表示向下移动
     CGFloat move = 0;
-    //  +Move positive = textField is hidden.
-    //  -Move negative = textField is showing.
-	
     //  Checking if there is bottomLayoutGuide attached (Bug ID: #250)
-    if (layoutGuidePosition == IQLayoutGuidePositionBottom)
-    {
+    if (layoutGuidePosition == IQLayoutGuidePositionBottom){
         //  Calculating move position.
         move = CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(keyWindow.frame)-kbSize.height);
-    }
-    else
-    {
+    } else{
         //  Calculating move position. Common for both normal and special cases.
         move = MIN(CGRectGetMinY(textFieldViewRect)-(topLayoutGuide+5), CGRectGetMaxY(textFieldViewRect)-(CGRectGetHeight(keyWindow.frame)-kbSize.height));
     }
 	
     [self showLog:[NSString stringWithFormat:@"Need to move: %.2f",move]];
 
+    //找到能够滚动的当前输入框的父亲视图（递归查找）
     UIScrollView *superScrollView = nil;
     UIScrollView *superView = (UIScrollView*)[_textFieldView superviewOfClassType:[UIScrollView class]];
 
-    //Getting UIScrollView whose scrolling is enabled.    //  (Bug ID: #285)
-    while (superView)
-    {
-        if (superView.isScrollEnabled)
-        {
+    //得到能够滚动的滚动视图 上面找到的可能不能滚动
+    while (superView) {
+        if (superView.isScrollEnabled) {
             superScrollView = superView;
             break;
-        }
-        else
-        {
+        }  else {
             //  Getting it's superScrollView.   //  (Enhancement ID: #21, #24)
             superView = (UIScrollView*)[superView superviewOfClassType:[UIScrollView class]];
         }
@@ -687,10 +686,11 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         }
         //Else the case where superScrollView == lastScrollView means we are on same scrollView after switching to different textField. So doing nothing
     }
-    //If there was no lastScrollView and we found a current scrollView. then setting it as lastScrollView.
+    //设置lastScrollView为现在找到的superScrollView
     else if(superScrollView)
     {
         _lastScrollView = superScrollView;
+        //得到需要设置偏移量的滚动视图的各种内容属性
         _startingContentInsets = superScrollView.contentInset;
         _startingContentOffset = superScrollView.contentOffset;
         _startingScrollIndicatorInsets = superScrollView.scrollIndicatorInsets;
@@ -700,14 +700,13 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     
     //  Special case for ScrollView.
     {
-        //  If we found lastScrollView then setting it's contentOffset to show textField.
+        //设置_lastScrollView的偏移量，让输入框显示出来
         if (_lastScrollView)
         {
             //Saving
             UIView *lastView = _textFieldView;
             UIScrollView *superScrollView = _lastScrollView;
-
-            //Looping in upper hierarchy until we don't found any scrollView in it's upper hirarchy till UIWindow object.
+            //循环遍历上层滚动视图 直到我们不能在window上找到任何滚动视图
             while (superScrollView &&
                    (move>0?(move > (-superScrollView.contentOffset.y-superScrollView.contentInset.top)):superScrollView.contentOffset.y>0) )
             {
@@ -769,7 +768,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
                 //  Getting next lastView & superScrollView.
                 lastView = superScrollView;
                 superScrollView = (UIScrollView*)[lastView superviewOfClassType:[UIScrollView class]];
-            }
+            }//end while
             
             //Updating contentInset
             {
@@ -976,24 +975,25 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 }
 
 #pragma mark - UIKeyboad Notification methods
-/*  UIKeyboardWillShowNotification. */
+/*  键盘将要弹起来的通知. */
+//UITextView先走此通知
+//UITextFiled后走此通知
 -(void)keyboardWillShow:(NSNotification*)aNotification
 {
     _kbShowNotification = aNotification;
 	
-    //  Boolean to know keyboard is showing/hiding
+    //键盘是否弹起的标示
     _isKeyboardShowing = YES;
-    
+    //如果当前控制器不启用IQKeyboardManager 直接返回
 	if ([self privateIsEnabled] == NO)	return;
-	
+	//打印调用函数消息
     [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
-
+    //如果是点击输入框弹起的键盘
+    //并且_topViewBeginRect没有值（主要是解决UITextView的bug，UITextView是先执行本方法再执行内容将要编辑方法）
+    //_textFieldView != nil说明是键盘已经弹起来了，用户切换到其他的输入框了
     if (_textFieldView != nil && CGRectEqualToRect(_topViewBeginRect, CGRectZero))    //  (Bug ID: #5)
     {
-        //  keyboard is not showing(At the beginning only). We should save rootViewRect and _layoutGuideConstraintInitialConstant.
         _layoutGuideConstraintInitialConstant = [[[_textFieldView viewController] IQLayoutGuideConstraint] constant];
-
-        //  keyboard is not showing(At the beginning only). We should save rootViewRect.
         _rootViewController = [_textFieldView topMostController];
         if (_rootViewController == nil)  _rootViewController = [[self keyWindow] topMostController];
 
@@ -1015,17 +1015,18 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     //  Getting keyboard animation duration
     CGFloat duration = [[aNotification userInfo][UIKeyboardAnimationDurationUserInfoKey] floatValue];
     
-    //Saving animation duration
+    //保存键盘弹起来花费的时间
     if (duration != 0.0)    _animationDuration = duration;
     
     CGSize oldKBSize = _kbSize;
-    
+    //得到键盘的frame
     //  Getting UIKeyboardSize.
     CGRect kbFrame = [[aNotification userInfo][UIKeyboardFrameEndUserInfoKey] CGRectValue];
-
+    //得到屏幕的frame
     CGRect screenSize = [[UIScreen mainScreen] bounds];
 
     //Calculating actual keyboard displayed size, keyboard frame may be different when hardware keyboard is attached (Bug ID: #469) (Bug ID: #381)
+    //得到屏幕和键盘交叉的区域
     CGRect intersectRect = CGRectIntersection(kbFrame, screenSize);
 
     if (CGRectIsNull(intersectRect))
@@ -1038,6 +1039,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     }
  
     //If last restored keyboard size is different(any orientation accure), then refresh. otherwise not.
+    //如果旧键盘frame和新键盘frame不一样，就更新位置
     if (!CGSizeEqualToSize(_kbSize, oldKBSize))
     {
         //If _textFieldView is inside UIAlertView then do nothing. (Bug ID: #37, #74, #76)
@@ -1046,6 +1048,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
             _textFieldView != nil  &&
             [_textFieldView isAlertViewTextField] == NO)
         {
+            //更新位置
             [self adjustFrame];
         }
     }
@@ -1101,7 +1104,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         _animationDuration = aDuration;
     }
     
-    //Restoring the contentOffset of the lastScrollView
+    //如果是通过滚动视图设置偏移量完成的移动
     if (_lastScrollView)
     {
         __weak typeof(self) weakSelf = self;
@@ -1207,44 +1210,43 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 }
 
 #pragma mark - UITextFieldView Delegate methods
-/**  UITextFieldTextDidBeginEditingNotification, UITextViewTextDidBeginEditingNotification. Fetching UITextFieldView object. */
+/** 输入框将要开始编辑的通知 */
+//UITextView后走此通知
+//UITextFiled先走此通知
 -(void)textFieldViewDidBeginEditing:(NSNotification*)notification
 {
     [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)]];
 
-    //  Getting object
+    //把_textFieldView赋值为当前的输入框
     _textFieldView = notification.object;
-    
-    if (_overrideKeyboardAppearance == YES)
-    {
+    //如果应许IQKeyboardManager覆盖样式 默认是NO
+    if (_overrideKeyboardAppearance == YES){
         UITextField *textField = (UITextField*)_textFieldView;
-        
-        //If keyboard appearance is not like the provided appearance
-        if (textField.keyboardAppearance != _keyboardAppearance)
-        {
-            //Setting textField keyboard appearance and reloading inputViews.
+        //设置默认样式
+        if (textField.keyboardAppearance != _keyboardAppearance){
             textField.keyboardAppearance = _keyboardAppearance;
             [textField reloadInputViews];
         }
     }
     
-	//If autoToolbar enable, then add toolbar on all the UITextField/UITextView's if required.
+	//当前控制器是否应许弹出带toolbar的键盘
 	if ([self privateIsEnableAutoToolbar])
     {
         [self showLog:@"adding UIToolbars if required"];
 
-        //UITextView special case. Keyboard Notification is firing before textView notification so we need to reload it's inputViews.
+        //UITextView要单独处理，因为UITextView键盘通知触发在UITextView内容编辑之前，我们需要在键盘弹出之后重新加载inputViews
+        //UITextField键盘通知是在UITextField内容编辑之后
+        
+        
+        //如果UITextView有自定义的inputAccessoryView就不做处理
         if ([_textFieldView isKindOfClass:[UITextView class]] &&
-            _textFieldView.inputAccessoryView == nil)
-        {
+            _textFieldView.inputAccessoryView == nil){
             __weak typeof(self) weakSelf = self;
-
             [UIView animateWithDuration:0.00001 delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+                //添加toolbar
                 [self addToolbarIfRequired];
             } completion:^(BOOL finished) {
-
                 __strong typeof(self) strongSelf = weakSelf;
-
                 //On textView toolbar didn't appear on first time, so forcing textView to reload it's inputViews.
                 [strongSelf.textFieldView reloadInputViews];
             }];
@@ -1252,33 +1254,36 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         //Else adding toolbar
         else
         {
+            //添加toolbar
             [self addToolbarIfRequired];
         }
     }
     else
     {
+        //删除toolbar
         [self removeToolbarIfRequired];
     }
-    
+    //当前控制器是否启用了IQKeyboardManager
 	if ([self privateIsEnabled] == NO)
     {
         [self showLog:[NSString stringWithFormat:@"****** %@ ended ******",NSStringFromSelector(_cmd)]];
         return;
     }
     
-    //Adding Geture recognizer to window    (Enhancement ID: #14)
+    //在window上添加单击手势 这样来处理点击键盘外面的地方收起来键盘
     [_textFieldView.window addGestureRecognizer:_tapGesture];
-    
+    //_topViewBeginRect最开始是没有值的
     if (CGRectEqualToRect(_topViewBeginRect, CGRectZero))    //  (Bug ID: #5)
     {
-        //  keyboard is not showing(At the beginning only). We should save rootViewRect and _layoutGuideConstraintInitialConstant.
+//        [_textFieldView viewController]是当前输入框所在的控制器
+        //_layoutGuideConstraintInitialConstant是runtime给UIViewController加的属性
         _layoutGuideConstraintInitialConstant = [[[_textFieldView viewController] IQLayoutGuideConstraint] constant];
-        
+        //[_textFieldView topMostController]是最顶层的控制器，这里得到的是self.window.rootViewController
         _rootViewController = [_textFieldView topMostController];
         if (_rootViewController == nil)  _rootViewController = [[self keyWindow] topMostController];
-        
+        //把_topViewBeginRect设置为最顶层控制器的view的frame
         _topViewBeginRect = _rootViewController.view.frame;
-
+        //是否需要解决全屏左滑返回手势 并且程序的根视图控制器是导航视图控制器
         if (_shouldFixInteractivePopGestureRecognizer &&
             [_rootViewController isKindOfClass:[UINavigationController class]])
         {
@@ -1290,6 +1295,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     
     //If _textFieldView is inside UIAlertView then do nothing. (Bug ID: #37, #74, #76)
     //See notes:- https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html If it is UIAlertView textField then do not affect anything (Bug ID: #70).
+    //解决UIAlertView中的textField没有执行bug
     if (_isKeyboardShowing == YES &&
         _textFieldView != nil  &&
         [_textFieldView isAlertViewTextField] == NO)
@@ -1910,10 +1916,13 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
     
     for (UITextField *textField in siblings)
     {
+        //得到输入控件的inputAccessoryView
         UIView *toolbar = [textField inputAccessoryView];
         
         //  (Bug ID: #78)
         //setInputAccessoryView: check   (Bug ID: #307)
+        //如果这个输入框能响应setInputAccessoryView方法
+        //并且toolbar是IQKeyboardManager添加的，就移除掉toolbar
         if ([textField respondsToSelector:@selector(setInputAccessoryView:)] &&
             ([toolbar isKindOfClass:[IQToolbar class]] && (toolbar.tag == kIQDoneButtonToolbarTag || toolbar.tag == kIQPreviousNextButtonToolbarTag)))
         {
@@ -2030,6 +2039,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
   didBeginEditingNotificationName:(nonnull NSString *)didBeginEditingNotificationName
     didEndEditingNotificationName:(nonnull NSString *)didEndEditingNotificationName
 {
+    //向注册类set中添加aClass
     [_registeredClasses addObject:aClass];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldViewDidBeginEditing:) name:didBeginEditingNotificationName object:nil];

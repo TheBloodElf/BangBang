@@ -1,7 +1,4 @@
-最新线上代码提交  
-
-已适配https 
-
-正式/测试环境请在InterfaceConfig.m中切换，记得设置info.plist的Allow Arbitrary Loads
-
-iOS交流群322671927 
+日程
+融云
+地图
+多图选择

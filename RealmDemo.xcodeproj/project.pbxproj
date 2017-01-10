@@ -11,7 +11,6 @@
 		040A09AF1D3D182F00156C16 /* DiscussListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 040A09A91D3D182F00156C16 /* DiscussListCell.m */; };
 		040A09B01D3D182F00156C16 /* DiscussListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040A09AA1D3D182F00156C16 /* DiscussListCell.xib */; };
 		040A09B11D3D182F00156C16 /* DiscussListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 040A09AC1D3D182F00156C16 /* DiscussListViewController.m */; };
-		040BB6051D4A44FD00511FFC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 040BB6041D4A44FC00511FFC /* LaunchScreen.xib */; };
 		04292F791E0225CC00BBC56F /* bangbangssl.cer in Resources */ = {isa = PBXBuildFile; fileRef = 04292F781E0225CC00BBC56F /* bangbangssl.cer */; };
 		04292F7B1E02261900BBC56F /* bangbangssl.cer in Resources */ = {isa = PBXBuildFile; fileRef = 04292F7A1E02261900BBC56F /* bangbangssl.cer */; };
 		04292F821E0239D300BBC56F /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04292F7D1E0239D300BBC56F /* libWeChatSDK.a */; };
@@ -28,7 +27,7 @@
 		04498C271DDAD58600B6387E /* DelayDateSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04498C251DDAD58600B6387E /* DelayDateSelectController.m */; };
 		04498C281DDAD58600B6387E /* DelayDateSelectController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04498C261DDAD58600B6387E /* DelayDateSelectController.xib */; };
 		04498C2C1DDAD9DA00B6387E /* SelectDelayDateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04498C2B1DDAD9DA00B6387E /* SelectDelayDateView.m */; };
-		04498C2F1DDAD9E800B6387E /* CustomDelayDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04498C2E1DDAD9E800B6387E /* CustomDelayDate.m */; };
+		04498C2F1DDAD9E800B6387E /* CustomDelayDateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04498C2E1DDAD9E800B6387E /* CustomDelayDateView.m */; };
 		04498C331DDEBB4100B6387E /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04498C321DDEBB4100B6387E /* UserManager.m */; };
 		045871721DD5AFCE00045AE9 /* BindPhoneController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045871711DD5AFCE00045AE9 /* BindPhoneController.m */; };
 		046495B31DD44C0A002DEE17 /* TaskCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 046495AC1DD44C0A002DEE17 /* TaskCommentModel.m */; };
@@ -292,6 +291,7 @@
 		1B0FECC21D40B68400DB4369 /* SigInListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0FECC01D40B68400DB4369 /* SigInListCell.m */; };
 		1B0FECC31D40B68400DB4369 /* SigInListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B0FECC11D40B68400DB4369 /* SigInListCell.xib */; };
 		1B119E591D3C8794007CC050 /* RYChatController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B119E581D3C8794007CC050 /* RYChatController.m */; };
+		1B1377831E1FBC1D0016477F /* Default-568.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B1377821E1FBC1D0016477F /* Default-568.png */; };
 		1B157FFD1D24FFF50081A1A3 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B157FFC1D24FFF50081A1A3 /* libc++.tbd */; };
 		1B158A451D45AE21003237A7 /* RYGroupSetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B158A441D45AE21003237A7 /* RYGroupSetController.m */; };
 		1B158A681D45BB4D003237A7 /* RYGroupSetAddUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B158A5D1D45BB4D003237A7 /* RYGroupSetAddUserCell.m */; };
@@ -844,7 +844,6 @@
 		040A09AA1D3D182F00156C16 /* DiscussListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscussListCell.xib; sourceTree = "<group>"; };
 		040A09AB1D3D182F00156C16 /* DiscussListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscussListViewController.h; sourceTree = "<group>"; };
 		040A09AC1D3D182F00156C16 /* DiscussListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscussListViewController.m; sourceTree = "<group>"; };
-		040BB6041D4A44FC00511FFC /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		04292F781E0225CC00BBC56F /* bangbangssl.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = bangbangssl.cer; sourceTree = "<group>"; };
 		04292F7A1E02261900BBC56F /* bangbangssl.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = bangbangssl.cer; sourceTree = "<group>"; };
 		04292F7D1E0239D300BBC56F /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
@@ -885,8 +884,8 @@
 		04498C261DDAD58600B6387E /* DelayDateSelectController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DelayDateSelectController.xib; sourceTree = "<group>"; };
 		04498C2A1DDAD9DA00B6387E /* SelectDelayDateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectDelayDateView.h; sourceTree = "<group>"; };
 		04498C2B1DDAD9DA00B6387E /* SelectDelayDateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectDelayDateView.m; sourceTree = "<group>"; };
-		04498C2D1DDAD9E800B6387E /* CustomDelayDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomDelayDate.h; sourceTree = "<group>"; };
-		04498C2E1DDAD9E800B6387E /* CustomDelayDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomDelayDate.m; sourceTree = "<group>"; };
+		04498C2D1DDAD9E800B6387E /* CustomDelayDateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomDelayDateView.h; sourceTree = "<group>"; };
+		04498C2E1DDAD9E800B6387E /* CustomDelayDateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomDelayDateView.m; sourceTree = "<group>"; };
 		04498C311DDEBB4100B6387E /* UserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserManager.h; sourceTree = "<group>"; };
 		04498C321DDEBB4100B6387E /* UserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserManager.m; sourceTree = "<group>"; };
 		045871701DD5AFCE00045AE9 /* BindPhoneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BindPhoneController.h; sourceTree = "<group>"; };
@@ -1370,6 +1369,7 @@
 		1B119E581D3C8794007CC050 /* RYChatController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RYChatController.m; sourceTree = "<group>"; };
 		1B119E931D3CB9B6007CC050 /* CMMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMMacros.h; sourceTree = "<group>"; };
 		1B119E941D3CB9B6007CC050 /* CMMacros+Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CMMacros+Block.h"; sourceTree = "<group>"; };
+		1B1377821E1FBC1D0016477F /* Default-568.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568.png"; sourceTree = "<group>"; };
 		1B157FFC1D24FFF50081A1A3 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		1B158A431D45AE21003237A7 /* RYGroupSetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RYGroupSetController.h; sourceTree = "<group>"; };
 		1B158A441D45AE21003237A7 /* RYGroupSetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RYGroupSetController.m; sourceTree = "<group>"; };
@@ -2353,8 +2353,8 @@
 			children = (
 				04498C2A1DDAD9DA00B6387E /* SelectDelayDateView.h */,
 				04498C2B1DDAD9DA00B6387E /* SelectDelayDateView.m */,
-				04498C2D1DDAD9E800B6387E /* CustomDelayDate.h */,
-				04498C2E1DDAD9E800B6387E /* CustomDelayDate.m */,
+				04498C2D1DDAD9E800B6387E /* CustomDelayDateView.h */,
+				04498C2E1DDAD9E800B6387E /* CustomDelayDateView.m */,
 			);
 			path = DelaySelectDateView;
 			sourceTree = "<group>";
@@ -4678,7 +4678,7 @@
 				75E5FF551D27A76F00F77961 /* ViewControllers */,
 				1B5585941D34E27D00DCD3A0 /* ImagesIcon */,
 				1B877F211D178E7D000144B2 /* Assets.xcassets */,
-				040BB6041D4A44FC00511FFC /* LaunchScreen.xib */,
+				1B1377821E1FBC1D0016477F /* Default-568.png */,
 				1B877F261D178E7D000144B2 /* Info.plist */,
 				1B877F151D178E7D000144B2 /* Supporting Files */,
 			);
@@ -5653,7 +5653,6 @@
 				1B381DFE1D6ED7AB00644147 /* VoiceSearchFeedback005.png in Resources */,
 				04FE7CCF1D36725A00362702 /* menu_background.png in Resources */,
 				1BF3FD1E1D5AB59600026351 /* AttachDocumentCell.xib in Resources */,
-				040BB6051D4A44FD00511FFC /* LaunchScreen.xib in Resources */,
 				1BF3FD231D5ABBA700026351 /* AttachVideoCell.xib in Resources */,
 				1B381E1C1D6ED7AB00644147 /* VoiceSearchFeedback020.png in Resources */,
 				1B3312381D7418F900E77741 /* HomeListBottomViewCell.xib in Resources */,
@@ -5766,6 +5765,7 @@
 				046DAF771D4C3EB500718F2A /* MeetingDeviceSelectCell.xib in Resources */,
 				1BD871E51D3882510074CDC7 /* ic_setting_bg_default.jpg in Resources */,
 				1B6D16571D48A8D00070D2E5 /* login_background@2x.png in Resources */,
+				1B1377831E1FBC1D0016477F /* Default-568.png in Resources */,
 				1BDFB8091D58329A00D13BC7 /* IQKeyboardManager.bundle in Resources */,
 				1B18B3531D59D6F300858C83 /* AttachPicCell.xib in Resources */,
 				1B381DBF1D6E9B3000644147 /* changeCamer.png in Resources */,
@@ -6069,7 +6069,7 @@
 				04B0D8111D698E8800BAD522 /* NSString+RACKeyPathUtilities.m in Sources */,
 				1BFBC1481D3F0F0100A5511A /* RepCalendarRep.m in Sources */,
 				1BF5DFD61D49A90A0039704E /* bitstream.c in Sources */,
-				04498C2F1DDAD9E800B6387E /* CustomDelayDate.m in Sources */,
+				04498C2F1DDAD9E800B6387E /* CustomDelayDateView.m in Sources */,
 				04B0D8371D698E8800BAD522 /* RACSignal+Operations.m in Sources */,
 				1B119E591D3C8794007CC050 /* RYChatController.m in Sources */,
 				046DAF741D4C3EB500718F2A /* MeetingRoomDeviceCell.m in Sources */,
@@ -6720,7 +6720,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -6762,7 +6762,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -6775,6 +6775,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "RealmDemo/帮帮管理助手.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -6790,7 +6791,7 @@
 				);
 				GCC_PREFIX_HEADER = "$(TARGET_NAME)/PrefixHeader.pch";
 				INFOPLIST_FILE = RealmDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6885,6 +6886,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "RealmDemo/帮帮管理助手.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
@@ -6900,7 +6902,7 @@
 				);
 				GCC_PREFIX_HEADER = "$(TARGET_NAME)/PrefixHeader.pch";
 				INFOPLIST_FILE = RealmDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

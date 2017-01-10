@@ -13,7 +13,9 @@
 #import "SiginSelectCell.h"
 #import "PlainPhotoBrose.h"
 #import "OrientationViewController.H"
+//之前逻辑：进入后先获取最新的签到规则，然后进行定位，然后根据当前位置获取签到规则中最近的签到点，当签到规则改变时重复上面步骤
 
+//最新逻辑：定位和获取签到规则分开
 @interface CreateSiginController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate,UITextViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,SiginImageDelegate,MAMapViewDelegate,AMapSearchDelegate,RBQFetchedResultsControllerDelegate> {
     UserManager *_userManager;//用户管理器
     NSMutableArray *_todaySiginArr;//今天所有的签到记录
@@ -21,7 +23,7 @@
     NSMutableArray<UIImage*> *_siginImageArr;//签到附件数组
     NSMutableArray<NSString*> *_siginImageNameArr;//签到附件名字数组
     
-    SiginRuleSet *_currSiginRuleSet;//当前圈子的签到规则
+    SiginRuleSet *_currSiginRuleSet;//当前圈子的签到规则 id为-1表示还没有获取到签到规则 id为0表示当前圈子没有签到规则
     PunchCardAddressSetting *_currPunchCardAddressSetting;//离用户最近的规则中的地址
     RBQFetchedResultsController *_siginFetchedResultsController;//签到规则数据监听 用于在无网络切换到有网时改变签到规则
     
@@ -62,9 +64,56 @@
     self.otherWorkBtn.clipsToBounds = YES;
     self.submitBtn.clipsToBounds = YES;
     self.submitBtn.layer.cornerRadius = 25.f;
+    _currSiginRuleSet = [SiginRuleSet new];
+    _currSiginRuleSet.id = -1;
+    _currPunchCardAddressSetting = [PunchCardAddressSetting new];
     _userManager = [UserManager manager];
     _siginImageArr = [@[] mutableCopy];
     _siginImageNameArr = [@[] mutableCopy];
+    //得到自己在当前圈子中的信息
+    Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
+    _siginFetchedResultsController = [_userManager createSiginRuleFetchedResultsController];
+    _siginFetchedResultsController.delegate = self;
+    //显示当前圈子名字
+    self.currCompanyName.text = _userManager.user.currCompany.company_name;
+    self.tableView.tableFooterView = [UIView new];
+    //初始化集合视图
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.itemSize = CGSizeMake(73, 73);
+    layout.minimumLineSpacing = 5;
+    layout.minimumInteritemSpacing = 5;
+    self.siginImageCollection.collectionViewLayout = layout;
+    self.siginImageCollection.delegate = self;
+    self.siginImageCollection.dataSource = self;
+    [self.siginImageCollection registerNib:[UINib nibWithNibName:@"SiginImageCell" bundle:nil] forCellWithReuseIdentifier:@"SiginImageCell"];
+    [self.siginImageCollection registerNib:[UINib nibWithNibName:@"SiginSelectCell" bundle:nil] forCellWithReuseIdentifier:@"SiginSelectCell"];
+    //获取用户今天的所有签到记录
+    _todaySiginArr = [_userManager getSigInListGuid:employee.employee_guid siginDate:[NSDate date]];
+    _currSignIn = [SignIn new];
+    //给模型加上一些确认的值
+    _currSignIn.employee_guid = employee.employee_guid;
+    _currSignIn.create_name = employee.real_name;
+    _currSignIn.company_no = _userManager.user.currCompany.company_no;
+    self.siginTextView.delegate = self;
+    //初始化上班 下班 外勤 其他按钮选中状态
+    [self initCategoryBtn];
+    //初始化搜索
+    _search = [[AMapSearchAPI alloc] init];
+    _search.delegate = self;
+    //先把用户位置给获取到
+    currUserLocation = [MAUserLocation new];
+    _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
+    _mapView.delegate = self;
+    _mapView.hidden = YES;
+    _mapView.zoomLevel = 13;//地图缩放级别
+    _mapView.distanceFilter = 100;
+    _mapView.rotateEnabled = NO;
+    _mapView.showsUserLocation = YES;
+    _mapView.desiredAccuracy = kCLLocationAccuracyBest;
+    //用地图进行定位 比较准确
+    [self.view addSubview:_mapView];
+    //进入页面就获取一次签到规则
+    [self getCompanySiginRule];
     //#BANG-465 签到详情限制30字符
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textViewEditChanged:) name:@"UITextViewTextDidChangeNotification" object:_siginTextView];
 }
@@ -78,59 +127,6 @@
     if([self.navigationController.viewControllers[0] isMemberOfClass:[NSClassFromString(@"REFrostedViewController") class]]) {
         [self.navigationController setNavigationBarHidden:YES animated:YES];
     }
-}
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    //是不是第一次加载这个页面
-    if(isFirstLoad) return;
-    isFirstLoad = YES;
-    
-    Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
-    _siginFetchedResultsController = [_userManager createSiginRuleFetchedResultsController];
-    _siginFetchedResultsController.delegate = self;
-    //获取签到规则
-    NSArray<SiginRuleSet*> *siginArr = [_userManager getSiginRule:_userManager.user.currCompany.company_no];
-    //#141 签到规则为空
-    if(siginArr.count)
-        _currSiginRuleSet = siginArr[0];
-    else
-        _currSiginRuleSet = [SiginRuleSet new];
-    _currPunchCardAddressSetting = [PunchCardAddressSetting new];
-    self.tableView.tableFooterView = [UIView new];
-    //初始化集合视图
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.itemSize = CGSizeMake(73, 73);
-    layout.minimumLineSpacing = 5;
-    layout.minimumInteritemSpacing = 5;
-    self.siginImageCollection.collectionViewLayout = layout;
-    self.siginImageCollection.delegate = self;
-    self.siginImageCollection.dataSource = self;
-    [self.siginImageCollection registerNib:[UINib nibWithNibName:@"SiginImageCell" bundle:nil] forCellWithReuseIdentifier:@"SiginImageCell"];
-    [self.siginImageCollection registerNib:[UINib nibWithNibName:@"SiginSelectCell" bundle:nil] forCellWithReuseIdentifier:@"SiginSelectCell"];
-    self.currCompanyName.text = _userManager.user.currCompany.company_name;
-    //获取用户今天的所有签到记录
-    _todaySiginArr = [_userManager getTodaySigInListGuid:employee.employee_guid siginDate:[NSDate date]];
-    _currSignIn = [SignIn new];
-    //给模型加上一些确认的值
-    _currSignIn.employee_guid = employee.employee_guid;
-    _currSignIn.create_name = employee.real_name;
-    _currSignIn.company_no = _userManager.user.currCompany.company_no;
-    self.siginTextView.delegate = self;
-    [self initCategoryBtn];
-    _search = [[AMapSearchAPI alloc] init];
-    _search.delegate = self;
-    currUserLocation = [MAUserLocation new];
-    _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
-    _mapView.delegate = self;
-    _mapView.hidden = YES;
-    _mapView.zoomLevel = 13;//地图缩放级别
-    _mapView.distanceFilter = 100;
-    _mapView.rotateEnabled = NO;
-    _mapView.showsUserLocation = YES;
-    _mapView.desiredAccuracy = kCLLocationAccuracyBest;
-    [self.view addSubview:_mapView];
-    //进入页面就获取一次签到规则
-    [self getCompanySiginRule];
 }
 -(void)textViewEditChanged:(NSNotification *)obj
 {
@@ -192,26 +188,40 @@
 #pragma mark -- 
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
-    //获取签到规则 #141
+    //获取签到规则
+    [self getCurrCompanySiginRule];
+    [self getCurrSiginAdress];
+}
+//得到当前圈子的签到规则
+- (void)getCurrCompanySiginRule {
     NSArray<SiginRuleSet*> *siginArr = [_userManager getSiginRule:_userManager.user.currCompany.company_no];
+    //#141
     if(siginArr.count)
         _currSiginRuleSet = siginArr[0];
     else
         _currSiginRuleSet = [SiginRuleSet new];
-    //重新获取最近的签到点信息
-    _currPunchCardAddressSetting = [PunchCardAddressSetting new];
-    //定位 获取最近的签到地址
-    [_mapView removeFromSuperview];
-    currUserLocation = [MAUserLocation new];
-    _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
-    _mapView.delegate = self;
-    _mapView.hidden = YES;
-    _mapView.zoomLevel = 13;//地图缩放级别
-    _mapView.distanceFilter = 100;
-    _mapView.rotateEnabled = NO;
-    _mapView.showsUserLocation = YES;
-    _mapView.desiredAccuracy = kCLLocationAccuracyBest;
-    [self.view addSubview:_mapView];
+}
+//根据用户当前位置得到最近的签到点信息
+- (void)getCurrSiginAdress {
+    //还没有定位成功
+    if(currUserLocation.location.coordinate.longitude == 0)
+        return;
+    //还没有得到圈子规则 圈子规则不存在
+    if(_currSiginRuleSet.id == 0 || _currSiginRuleSet.id == -1)
+        return;
+    //如果已经获取到了位置就返回
+    if(_currPunchCardAddressSetting.id != 0)
+        return;
+    double distance = MAXFLOAT;
+    CLLocation *currentLoaction = [[CLLocation alloc] initWithLatitude:currUserLocation.location.coordinate.latitude longitude:currUserLocation.location.coordinate.longitude];
+    //算出最近的签到规则地址
+    for (PunchCardAddressSetting *model in _currSiginRuleSet.json_list_address_settings) {
+        CLLocationDistance distanceFromSettingPoint = [currentLoaction distanceFromLocation:[[CLLocation alloc] initWithLatitude:model.latitude longitude:model.longitude]];
+        if (distanceFromSettingPoint < distance) {
+            distance = distanceFromSettingPoint;
+            _currPunchCardAddressSetting = model;
+        }
+    }
 }
 #pragma mark -- 
 #pragma mark -- UITableViewDelegate
@@ -219,18 +229,13 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     //重新选取位置
     if(indexPath.row == 3) {
-//        _currPunchCardAddressSetting相当于起到一个标示的作用，用来决定是否可以进入到选择位置界面
-//        如果有签到规则  有签到规则就一定会去定位获取用户位置，这样判断没有问题
-        if(_currSiginRuleSet.id != 0) {
-//            还没有获取到公司签到规则中最近的签到点
-//            因为签到规则肯定有地址，所以这样判断没有问题
-            if(_currPunchCardAddressSetting.id == 0)
-//                就不进行跳转
+        //上下班签到，还没有获取到签到规则，不进入选择位置界面 #BANG-520
+        if(_currSignIn.category < 2)
+            if(_currSiginRuleSet.id == -1)
                 return;
-        }
+        //重新选择位置 可能当前定位不是用户想要的位置
         OrientationViewController *orientation = [OrientationViewController new];
         orientation.currSiginRule = _currSiginRuleSet;
-        orientation.setting = _currPunchCardAddressSetting;
         orientation.category = _currSignIn.category;
         orientation.finishOrientation = ^(AMapPOI *poi){
             if(!poi) return;
@@ -244,6 +249,7 @@
             _currSignIn.address_name = poi.name;
             _currSignIn.latitude = poi.location.latitude;
             _currSignIn.longitude = poi.location.longitude;
+            //重新获取当前位置地图的缩略图
             [self setMapImageViewWithLatitude:_currSignIn.latitude longitude:_currSignIn.longitude];
         };
         [self.navigationController pushViewController:orientation animated:YES];
@@ -254,6 +260,7 @@
 -(void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation{
     if (currUserLocation.location.coordinate.latitude == 0) {
         currUserLocation = userLocation;
+        [self getCurrSiginAdress];
         //根据位置请求当前位置的POI
         AMapPOIAroundSearchRequest *request = [[AMapPOIAroundSearchRequest alloc] init];
         request.location = [AMapGeoPoint locationWithLatitude:userLocation.coordinate.latitude longitude:userLocation.coordinate.longitude];
@@ -270,8 +277,7 @@
 /* POI 搜索回调. */
 - (void)onPOISearchDone:(AMapPOISearchBaseRequest *)request response:(AMapPOISearchResponse *)response
 {
-    if (response.pois.count == 0)
-        return;
+    if (response.pois.count == 0) return;
     AMapPOI *searchPOI = response.pois[0];
     NSString *adress = [NSString stringWithFormat:@"%@%@%@%@", searchPOI.province,searchPOI.city,searchPOI.district,searchPOI.address];
     self.currAdressDetail.text = adress;
@@ -284,23 +290,15 @@
     _currSignIn.address_name = searchPOI.name;
     _currSignIn.latitude = searchPOI.location.latitude;
     _currSignIn.longitude = searchPOI.location.longitude;
+    //获取当前位置 地图的缩略图
     [self setMapImageViewWithLatitude:_currSignIn.latitude longitude:_currSignIn.longitude];
-    double distance = MAXFLOAT;
-    CLLocation *currentLoaction = [[CLLocation alloc] initWithLatitude:searchPOI.location.latitude longitude:searchPOI.location.longitude];
-    //算出最近的签到规则地址
-    for (PunchCardAddressSetting *model in _currSiginRuleSet.json_list_address_settings) {
-        CLLocationDistance distanceFromSettingPoint = [currentLoaction distanceFromLocation:[[CLLocation alloc] initWithLatitude:model.latitude longitude:model.longitude]];
-        if (distanceFromSettingPoint < distance) {
-            distance = distanceFromSettingPoint;
-            _currPunchCardAddressSetting = model;
-        }
-    }
 }
 - (void)AMapSearchRequest:(id)request didFailWithError:(NSError *)error {
     if(error.code == 1806) {
         [self.navigationController.view showFailureTips:@"网络不可用，请连接网络"];
     }
 }
+//获取当前位置 地图的缩略图
 - (void)setMapImageViewWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude {
     NSString *imageUrl = [NSString stringWithFormat:@"http://restapi.amap.com/v3/staticmap?location=%f,%f&zoom=15&size=300*300&markers=mid,,A:%f,%f&key=ee95e52bf08006f63fd29bcfbcf21df0",longitude,latitude,longitude,latitude];
     [self.currAdressImage sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"signin_position"]];
@@ -414,12 +412,16 @@
 //提交按钮被点击
 - (IBAction)submitClicked:(id)sender {
     //是否定位
-    if([NSString isBlank:_currSignIn.address]) {
+    if(currUserLocation.location.coordinate.longitude == 0) {
         [self.navigationController.view showMessageTips:@"请选择位置"];
         return;
     }
     //判断是否有签到规则
     if(_currSignIn.category < 2) {
+        if(_currSiginRuleSet.id == -1) {
+            [self.navigationController.view showMessageTips:@"正在获取签到规则"];
+            return;
+        }
         if(_currSiginRuleSet.id == 0) {
             [self.navigationController.view showMessageTips:@"请管理员在后台设置签到规则"];
             return;

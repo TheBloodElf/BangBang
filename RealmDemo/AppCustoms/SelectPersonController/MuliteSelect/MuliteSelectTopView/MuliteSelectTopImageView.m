@@ -41,7 +41,7 @@
 
 - (void)dataDidChange {
     SelectEmployeeModel *model = self.data;
-    [_bottomImageView sd_setImageWithURL:[NSURL URLWithString:model.avatar] placeholderImage:[UIImage imageNamed:@"soft_logo_icon"]];
+    [_bottomImageView sd_setImageWithURL:[NSURL URLWithString:model.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
 }
 
 @end

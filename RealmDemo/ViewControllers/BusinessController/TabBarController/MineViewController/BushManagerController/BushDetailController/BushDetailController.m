@@ -111,6 +111,9 @@
         [_userManager updateCompany:_currCompany];
         ownerInThisCompany.status = 1;
         [_userManager updateEmployee:ownerInThisCompany];
+        //同样要更新用户信息
+        _userManager.user.currCompany = _currCompany;
+        [_userManager updateUser:_userManager.user];
         [self.navigationController popViewControllerAnimated:YES];
     }];
 }

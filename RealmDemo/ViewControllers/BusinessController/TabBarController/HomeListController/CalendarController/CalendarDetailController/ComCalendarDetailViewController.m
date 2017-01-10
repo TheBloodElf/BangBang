@@ -35,19 +35,6 @@
         //现在改成所有的日程都可以编辑
 //        if([_calendar.created_by isEqualToString:_userManager.user.user_guid])//如果是自己创建的 就可以修改
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(rightClicked:)];
-        //完成日程
-        UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-        okBtn.frame = CGRectMake(MAIN_SCREEN_WIDTH / 3, MAIN_SCREEN_HEIGHT - 50 - 64, MAIN_SCREEN_WIDTH / 3, 50);
-        okBtn.titleEdgeInsets = UIEdgeInsetsMake(35, 0, 0, 0);
-        okBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-        [okBtn setTitle:@"完成日程" forState:UIControlStateNormal];
-        [okBtn setTitleColor:[UIColor colorFromHexCode:@"#848484"] forState:UIControlStateNormal];
-        okBtn.backgroundColor = [UIColor colorFromHexCode:@"#eeeeee"];
-        [okBtn addTarget:self action:@selector(finishCalendarClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:okBtn];
-        UIImageView *okImage = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"ic_complete"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-        okImage.center = CGPointMake(MAIN_SCREEN_WIDTH / 6, 22);
-        [okBtn addSubview:okImage];
         //删除日程
         UIButton *delBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         delBtn.frame = CGRectMake(0, MAIN_SCREEN_HEIGHT - 50 - 64, MAIN_SCREEN_WIDTH / 3, 50);
@@ -63,18 +50,30 @@
         [delBtn addSubview:delImage];
         //推迟日程
         UIButton *deyBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-        deyBtn.frame = CGRectMake(MAIN_SCREEN_WIDTH / 3 * 2, MAIN_SCREEN_HEIGHT - 50 - 64, MAIN_SCREEN_WIDTH / 3, 50);
+        deyBtn.frame = CGRectMake(MAIN_SCREEN_WIDTH / 3, MAIN_SCREEN_HEIGHT - 50 - 64, MAIN_SCREEN_WIDTH / 3, 50);
         deyBtn.titleEdgeInsets = UIEdgeInsetsMake(35, 0, 0, 0);
         deyBtn.titleLabel.font = [UIFont systemFontOfSize:12];
         [deyBtn setTitle:@"推迟日程" forState:UIControlStateNormal];
         [deyBtn setTitleColor:[UIColor colorFromHexCode:@"#848484"] forState:UIControlStateNormal];
         deyBtn.backgroundColor = [UIColor colorFromHexCode:@"#eeeeee"];
         [deyBtn addTarget:self action:@selector(delayCalendarClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:delBtn];
         UIImageView *deyImage = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"ic_task_delay"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
         deyImage.center = CGPointMake(MAIN_SCREEN_WIDTH / 6, 22);
         [deyBtn addSubview:deyImage];
         [self.view addSubview:deyBtn];
+        //完成日程
+        UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+        okBtn.frame = CGRectMake(MAIN_SCREEN_WIDTH / 3 * 2, MAIN_SCREEN_HEIGHT - 50 - 64, MAIN_SCREEN_WIDTH / 3, 50);
+        okBtn.titleEdgeInsets = UIEdgeInsetsMake(35, 0, 0, 0);
+        okBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+        [okBtn setTitle:@"完成日程" forState:UIControlStateNormal];
+        [okBtn setTitleColor:[UIColor colorFromHexCode:@"#848484"] forState:UIControlStateNormal];
+        okBtn.backgroundColor = [UIColor colorFromHexCode:@"#eeeeee"];
+        [okBtn addTarget:self action:@selector(finishCalendarClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:okBtn];
+        UIImageView *okImage = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"ic_complete"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+        okImage.center = CGPointMake(MAIN_SCREEN_WIDTH / 6, 22);
+        [okBtn addSubview:okImage];
     } else {//如果完成就可以删除
         UIButton *delBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         delBtn.frame = CGRectMake(0, MAIN_SCREEN_HEIGHT - 50 - 64, MAIN_SCREEN_WIDTH , 50);

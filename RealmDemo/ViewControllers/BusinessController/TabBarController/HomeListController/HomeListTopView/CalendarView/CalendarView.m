@@ -53,8 +53,6 @@
     _calendarFetchedResultsController.delegate = self;
     //给这几个数字填充值
     [self getCurrCount];
-    //添加动画
-    [self createPie];
     [_userManager addCalendarNotfition];
 }
 - (void)updateCalendar:(NSTimer*)timer {
@@ -62,8 +60,6 @@
     _dateTimer = [NSTimer scheduledTimerWithTimeInterval:24 * 60 * 60 target:self selector:@selector(updateCalendar:) userInfo:nil repeats:NO];
     //给这几个数字填充值
     [self getCurrCount];
-    //添加动画
-    [self createPie];
     [_userManager addCalendarNotfition];
 }
 #pragma mark --
@@ -72,8 +68,6 @@
     _todayFinishCount = _todayNoFinishCount = _weekFinishCount = _weekNoFinishCount = 0;
     //给这几个数字填充值
     [self getCurrCount];
-    //添加动画
-    [self createPie];
     [_userManager addCalendarNotfition];
 }
 - (void)createPie {
@@ -81,6 +75,14 @@
     [leftScondLayer removeFromSuperlayer];
     [rightLayer removeFromSuperlayer];
     [rightScondLayer removeFromSuperlayer];
+    
+    [self.todayFinish setTitle:[NSString stringWithFormat:@"%d",_todayFinishCount] forState:UIControlStateNormal];
+    self.todayNoFinish.text = [NSString stringWithFormat:@"%d",_todayNoFinishCount];
+    self.todayAll.text = [NSString stringWithFormat:@"%d",_todayFinishCount + _todayNoFinishCount];
+    [self.weekFinish setTitle:[NSString stringWithFormat:@"%d",_weekFinishCount] forState:UIControlStateNormal];
+    self.weekNoFinish.text = [NSString stringWithFormat:@"%d",_weekNoFinishCount];
+    self.weekAll.text = [NSString stringWithFormat:@"%d",_weekFinishCount + _weekNoFinishCount];
+    
     //今天
     float tempValue = _todayFinishCount / (float)(_todayNoFinishCount + _todayFinishCount);
     leftLayer = [LineProgressLayer layer];
@@ -148,6 +150,8 @@
 }
 //获取这四个数字
 - (void)getCurrCount {
+    @synchronized (self) {
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
     //today扩展数组
     NSMutableArray<TodayCalendarModel*> *todayCalendarArr = [@[] mutableCopy];
     //先获取今天的
@@ -242,12 +246,12 @@
             }
         }
     }
-    [self.todayFinish setTitle:[NSString stringWithFormat:@"%d",_todayFinishCount] forState:UIControlStateNormal];
-    self.todayNoFinish.text = [NSString stringWithFormat:@"%d",_todayNoFinishCount];
-    self.todayAll.text = [NSString stringWithFormat:@"%d",_todayFinishCount + _todayNoFinishCount];
-    [self.weekFinish setTitle:[NSString stringWithFormat:@"%d",_weekFinishCount] forState:UIControlStateNormal];
-    self.weekNoFinish.text = [NSString stringWithFormat:@"%d",_weekNoFinishCount];
-    self.weekAll.text = [NSString stringWithFormat:@"%d",_weekFinishCount + _weekNoFinishCount];
+        //创建动画
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self createPie];
+        });
+    });
+    }
 }
 - (IBAction)todayClicked:(id)sender {
     if(self.delegate && [self.delegate respondsToSelector:@selector(todayFinishCalendar)]) {

@@ -59,9 +59,9 @@
     _scrollView.contentSize = CGSizeMake(MAIN_SCREEN_WIDTH, CGRectGetMaxY(_homeListBottomView.frame));
     [self.view addSubview:_scrollView];
     //加上左边边界侧滑手势
-    UIScreenEdgePanGestureRecognizer * screenEdgePanGesture = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(showLeftClicked:)];
-    screenEdgePanGesture.edges = UIRectEdgeLeft;
-    [self.view addGestureRecognizer:screenEdgePanGesture];
+//    UIScreenEdgePanGestureRecognizer * screenEdgePanGesture = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(showLeftClicked:)];
+//    screenEdgePanGesture.edges = UIRectEdgeLeft;
+//    [self.view addGestureRecognizer:screenEdgePanGesture];
     [self setLeftNavigationBarItem];
     [self setRightNavigationBarItem];
     // Do any additional setup after loading the view.
@@ -71,9 +71,9 @@
     self.navigationController.navigationBar.barTintColor = [UIColor homeListColor];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
-- (void)showLeftClicked:(UIScreenEdgePanGestureRecognizer*)sepr {
-    [self.navigationController.frostedViewController presentMenuViewController];
-}
+//- (void)showLeftClicked:(UIScreenEdgePanGestureRecognizer*)sepr {
+//    [self.navigationController.frostedViewController presentMenuViewController];
+//}
 #pragma mark --
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {

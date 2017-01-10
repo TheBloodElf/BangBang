@@ -60,7 +60,11 @@
     [self.createAvater sd_setImageWithURL:[NSURL URLWithString:_taskModel.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
     self.createName.text = _taskModel.create_realname;
     Employee *employee = [_userManager getEmployeeWithGuid:_taskModel.user_guid companyNo:_taskModel.company_no];
-    self.createDepar.text = employee.departments;
+    //有的人没有部门 这里要判断一下 #BANG-345
+    if([NSString isBlank:employee.departments])
+        self.createDepar.text = @"无部门信息";
+    else
+        self.createDepar.text = employee.departments;
     NSDate *createDate = [NSDate dateWithTimeIntervalSince1970:_taskModel.createdon_utc / 1000];
     self.createTime.text = [NSString stringWithFormat:@"%ld-%02ld-%02ld %02ld:%02ld",(long)createDate.year,createDate.month,createDate.day,createDate.hour,createDate.minute];
     self.taskTitle.text = _taskModel.task_name;

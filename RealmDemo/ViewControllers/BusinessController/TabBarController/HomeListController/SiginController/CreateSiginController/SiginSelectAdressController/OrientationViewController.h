@@ -16,16 +16,16 @@ typedef void(^finishOrientation)(AMapPOI *pio);
 /**
  *  完成回调函数
  */
-@property (strong,nonatomic ) finishOrientation finishOrientation;
+@property (strong, nonatomic) finishOrientation finishOrientation;
 //当前签到规则
 @property (nonatomic, strong) SiginRuleSet *currSiginRule;
 /**
- *  签到规则的最近的一个地址
+ *  签到规则的最近的一个地址  现在改成显示所有的签到位置
  */
-@property (strong,nonatomic ) PunchCardAddressSetting *setting;
+//@property (strong, nonatomic) PunchCardAddressSetting *setting;
 /**
  *  当前选择的签到类型
  */
-@property (assign,nonatomic)  int category;
+@property (assign, nonatomic)  int category;
 
 @end

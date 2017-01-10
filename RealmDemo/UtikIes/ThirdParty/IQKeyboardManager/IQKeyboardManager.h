@@ -33,33 +33,24 @@
 
 @class UIFont;
 
-///---------------------
-/// @name IQToolbar tags
-///---------------------
-
 /**
- Default tag for toolbar with Done button   -1002.
+ [IQKeyboardManager sharedManager].enableAutoToolbar = YES;
+ 可以弹出带toolbar的键盘
+ toolbar右边的完成按钮tag值为-1002
  */
 extern NSInteger const kIQDoneButtonToolbarTag;
 
 /**
- Default tag for toolbar with Previous/Next buttons -1005.
+ [IQKeyboardManager sharedManager].enableAutoToolbar = YES;
+ 可以弹出带toolbar的键盘
+ toolbar上面的 上一个/下一个按钮tag值为-1005
+ 1:为什么这两个按钮要同同一个tag值呢？
  */
 extern NSInteger const kIQPreviousNextButtonToolbarTag;
 
-
-
-/**
- Codeless drop-in universal library allows to prevent issues of keyboard sliding up and cover UITextField/UITextView. Neither need to write any code nor any setup required and much more. A generic version of KeyboardManagement. https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html
- */
 @interface IQKeyboardManager : NSObject
-
-///--------------------------
-/// @name UIKeyboard handling
-///--------------------------
-
 /**
- Returns the default singleton instance.
+ 获取IQKeyboardManager默认的单利对象,不能为空
  */
 + (nonnull instancetype)sharedManager;
 

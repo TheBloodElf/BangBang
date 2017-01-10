@@ -21,9 +21,12 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+//    NSDictionary *dic = @{@"1":@"one",@"2":@"two"};
     //Realm数据库版本 数据模型改变 上线前记得数字增加
     RLMRealmConfiguration *config = [RLMRealmConfiguration defaultConfiguration];
-    config.schemaVersion = 5;
+    config.schemaVersion = 7;
+    //#150 too many open files
+    config.deleteRealmIfMigrationNeeded = YES;
     [RLMRealmConfiguration setDefaultConfiguration:config];
     //键盘遮挡问题解决方案
     [IQKeyboardManager sharedManager].enable = YES;
@@ -72,6 +75,41 @@
 //       if([obj isEqualToString:@"2"])
 //           [array removeObject:obj];
 //    }];
+    
+//    NSDictionary *dic = @{@"id":@32664,
+//                          @"company_no":@10008,
+//                          @"event_name":@"CRM 系统功能反馈",
+//                          @"description":@"",
+//                          @"address":@"",
+//                          @"begindate_utc":@1481794478040,
+//                          @"enddate_utc":@1482053698000,
+//                          @"is_allday":@false,
+//@"app_guid":@"00000000-0000-0000-0000-000000000000",
+//                          @"target_id":@"",
+//                          @"repeat_type":@0,
+//                          @"is_alert":@false,
+//                          @"alert_minutes_before":@0,
+//                          @"alert_minutes_after":@0,
+//                          @"user_guid":@"b62cc1a7-24d3-4958-87a5-68089b07517a",
+//                          @"created_by":@"3b85e198-e2df-4670-9ab9-298f9d816d89",
+//                          @"createdon_utc":@1481794620887,
+//                          @"updated_by":@"3b85e198-e2df-4670-9ab9-298f9d816d89",
+//                          @"updatedon_utc":@1481794620887,
+//                          @"status":@1,
+//                          @"finishedon_utc":@0,
+//                          @"rrule":@"",
+//                          @"rdate":@"",
+//                          @"emergency_status":@1,
+//                          @"deleted_dates":@"",
+//                          @"finished_dates":@"",
+//                          @"r_begin_date_utc":@1481794478040,
+//                          @"r_end_date_utc":@1481794478040,
+//                          @"is_over_day":@true,
+//                          @"members":@"83da16e3-5ed3-4dbd-9c3a-6fd45cb7afa8,ae2bac9b-57aa-4477-bd71-4eb43f37bae2,ac052010-5e12-4192-8238-89f68fb42835,456e59ac-98fe-4fbc-ae1a-91ee081ed4bb,b668b9e4-3c38-495d-aa78-5285bfee60c0,8f820310-c6d2-4d02-8420-0d0e08959c15,b62cc1a7-24d3-4958-87a5-68089b07517a,d119866f-f7e7-4ed5-aa1d-2b27b0c207de,3b85e198-e2df-4670-9ab9-298f9d816d89",
+//                          @"member_names":@"程龙,罗元,潘贺春,温贺,徐朝帅,杨波,余敏,周曙煜,宋文枫",
+//                          @"event_guid":@"e8755fcf-6f9b-4de7-a38d-9cc00f41bc3d",
+//                          @"creator_name":@"宋文枫"};
+    
     return YES;
 }
 //- (void)redirectNSlogToDocumentFolder {

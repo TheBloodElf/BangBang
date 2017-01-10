@@ -12,6 +12,8 @@
 #import "TaskCommentModel.h"
 #import "NoResultView.h"
 #import "TaskOtherCommentCell.h"
+//名称最长多少字符
+#define MAX_STARWORDS_LENGTH 500
 //输入框最大最小行数
 #define TextView_Content_Min_Lines 1
 #define TextView_Content_Max_Lines 3
@@ -126,6 +128,36 @@
     return YES;
 }
 - (void)textDidChange {
+    //#BANG-523 解决任务讨论消息字数限制
+    UITextView *textField = _textView;
+    //字符数限制
+    NSString *toBeString = textField.text;
+    NSString *lang = [textField.textInputMode primaryLanguage];
+    if ([lang isEqualToString:@"zh-Hans"]){// 简体中文输入
+        //获取高亮部分
+        UITextRange *selectedRange = [textField markedTextRange];
+        UITextPosition *position = [textField positionFromPosition:selectedRange.start offset:0];
+        // 没有高亮选择的字，则对已输入的文字进行字数统计和限制
+        if (!position) {
+            if (toBeString.length > MAX_STARWORDS_LENGTH) {
+                [self showMessageTips:@"讨论不能大于500字符"];
+                textField.text = [toBeString substringToIndex:MAX_STARWORDS_LENGTH];
+            }
+        }
+    } else {// 中文输入法以外的直接对其统计限制即可，不考虑其他语种情况
+        if (toBeString.length > MAX_STARWORDS_LENGTH) {
+            [self showMessageTips:@"讨论不能大于500字符"];
+            NSRange rangeIndex = [toBeString rangeOfComposedCharacterSequenceAtIndex:MAX_STARWORDS_LENGTH];
+            if (rangeIndex.length == 1) {
+                textField.text = [toBeString substringToIndex:MAX_STARWORDS_LENGTH];
+            } else {
+                NSRange rangeRange = [toBeString rangeOfComposedCharacterSequencesForRange:NSMakeRange(0, MAX_STARWORDS_LENGTH)];
+                textField.text = [toBeString substringWithRange:rangeRange];
+            }
+        }
+    }
+    
+    //高度调整
     NSInteger height = ceilf([_textView sizeThatFits:CGSizeMake(_textView.bounds.size.width, MAXFLOAT)].height);
     if(height >= ceil(_textView.font.lineHeight * TextView_Content_Max_Lines + _textView.textContainerInset.top + _textView.textContainerInset.bottom)) {
         _textView.scrollEnabled = YES;

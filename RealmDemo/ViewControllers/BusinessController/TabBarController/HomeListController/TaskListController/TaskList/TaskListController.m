@@ -135,38 +135,41 @@
 }
 //获得各个页面对应的数据
 - (void)getCurrData {
-    NSMutableArray *inchargeArr = [@[] mutableCopy];
-    NSMutableArray *createArr = [@[] mutableCopy];
-    NSMutableArray *memberArr = [@[] mutableCopy];
-    NSMutableArray *finishArr = [@[] mutableCopy];
-    
-    NSArray *allTaskArr = [_userManager getTaskArr:_userManager.user.currCompany.company_no];
-    Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
-    for (TaskModel *model in allTaskArr) {
-        if(model.company_no != _userManager.user.currCompany.company_no) continue;
-        if(model.status == 0) continue;
-        //得到已终止的任务
-        if(model.status == 7 || model.status == 8) {
-            [finishArr addObject:model];
-            continue;
+    @synchronized (self) {
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            NSMutableArray *inchargeArr = [@[] mutableCopy];
+            NSMutableArray *createArr = [@[] mutableCopy];
+            NSMutableArray *memberArr = [@[] mutableCopy];
+            NSMutableArray *finishArr = [@[] mutableCopy];
+        NSArray *allTaskArr = [_userManager getTaskArr:_userManager.user.currCompany.company_no];
+        Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
+        for (TaskModel *model in allTaskArr) {
+            if(model.company_no != _userManager.user.currCompany.company_no) continue;
+            if(model.status == 0) continue;
+            //得到已终止的任务
+            if(model.status == 7 || model.status == 8) {
+                [finishArr addObject:model];
+                continue;
+            }
+            //得到委派的任务
+            if([model.createdby isEqualToString:employee.employee_guid]) {
+                [createArr addObject:model];
+            }
+            //得到负责的任务
+            if([model.incharge isEqualToString:employee.employee_guid]) {
+                [inchargeArr addObject:model];
+            }
+            //得到我知悉的任务
+            if([model.members rangeOfString:employee.employee_guid].location != NSNotFound) {
+                [memberArr addObject:model];
+            }
         }
-        //得到委派的任务
-        if([model.createdby isEqualToString:employee.employee_guid]) {
-            [createArr addObject:model];
-        }
-        //得到负责的任务
-        if([model.incharge isEqualToString:employee.employee_guid]) {
-            [inchargeArr addObject:model];
-        }
-        //得到我知悉的任务
-        if([model.members rangeOfString:employee.employee_guid].location != NSNotFound) {
-            [memberArr addObject:model];
-        }
+        _finish.data = finishArr;
+        _create.data = createArr;
+        _incharge.data = inchargeArr;
+        _member.data = memberArr; 
+    });
     }
-    _finish.data = finishArr;
-    _create.data = createArr;
-    _incharge.data = inchargeArr;
-    _member.data = memberArr;
 }
 //同步任务
 - (void)tongBuTask {

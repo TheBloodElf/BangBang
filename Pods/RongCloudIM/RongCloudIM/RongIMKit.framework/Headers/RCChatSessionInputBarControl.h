@@ -425,6 +425,7 @@ __deprecated_msg("已废弃，请勿使用。");
  */
 @protocol RCChatSessionInputBarControlDelegate <NSObject>
 
+@optional
 /*!
  显示ViewController
  
@@ -433,9 +434,6 @@ __deprecated_msg("已废弃，请勿使用。");
  */
 - (void)presentViewController:(UIViewController *)viewController
                   functionTag:(NSInteger)functionTag;
-
-@optional
-
 /*!
  输入工具栏尺寸（高度）发生变化的回调
  

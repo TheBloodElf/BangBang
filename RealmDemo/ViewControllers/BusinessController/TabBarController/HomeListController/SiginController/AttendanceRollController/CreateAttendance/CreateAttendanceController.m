@@ -63,7 +63,7 @@
     _tableView.tableFooterView = [UIView new];
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-    //#BANG-489 签到规则地址显示为多行
+    //#BANG-489 签到规则地址显示为多行，cell采用自动计算高度
     _tableView.estimatedRowHeight = 60;
     [self.view addSubview:_tableView];
     [_tableView registerNib:[UINib nibWithNibName:@"SiginName" bundle:nil] forCellReuseIdentifier:@"SiginName"];

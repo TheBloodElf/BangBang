@@ -9,10 +9,10 @@
 #import "ShareSelectController.h"
 #import "UtikIesTool.h"
 #import "SelectCompanyController.h"
-@interface ShareSelectController ()<UITableViewDelegate,UITableViewDataSource>
-{
+@interface ShareSelectController ()<UITableViewDelegate,UITableViewDataSource>{
     UITableView *_tableView;
 }
+
 @end
 
 @implementation ShareSelectController

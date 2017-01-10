@@ -329,7 +329,7 @@
 - (void)getGroupInfoWithGroupId:(NSString*)groupId completion:(void (^)(RCGroup*))completion
 {
     //根据组id获取圈子信息
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
         NSMutableArray<Company*> *companyArr = [[UserManager manager] getCompanyArr];
         RCGroup * group = [[RCGroup alloc]init];
         for (Company *company in companyArr) {
@@ -346,7 +346,7 @@
 - (void)getUserInfoWithUserId:(NSString*)userId completion:(void (^)(RCUserInfo*))completion
 {
     //根据user_no获取员工信息
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
         UserManager *manager = [UserManager manager];
         NSMutableArray *array = [manager getEmployeeArr];
         Employee * emp = [Employee new];

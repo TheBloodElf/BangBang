@@ -194,7 +194,7 @@
     model.isSelected = NO;
     [_tableView reloadData];
     _muliteSelectTopView.data = [self getSelected];
-    [self judgeAllBtnSelect];
+    _allSelectBtn.selected = [self judgeAllBtnSelect];
 }
 #pragma mark -- 
 #pragma mark -- UITableViewDelegate
@@ -227,9 +227,18 @@
 {
     MuliteSelectCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MuliteSelectCell" forIndexPath:indexPath];
     SelectEmployeeModel *employee = _employeeDataArr[indexPath.section][indexPath.row];
+//    cell.delegate = self;
     cell.data = employee;
     return cell;
 }
+//#pragma mark --
+//#pragma mark -- MuliteSelectCellDelegate
+//- (void)muliteSelect:(SelectEmployeeModel*)model {
+//    model.isSelected = !model.isSelected;
+//    [_tableView reloadData];
+//    _allSelectBtn.selected = [self judgeAllBtnSelect];
+//    _muliteSelectTopView.data = [self getSelected];
+//}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     SelectEmployeeModel *employee = _employeeDataArr[indexPath.section][indexPath.row];

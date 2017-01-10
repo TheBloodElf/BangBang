@@ -127,7 +127,6 @@
 }
 
 #pragma mark - AVCaptureMetadataOutputObjects Delegate Methods
-
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
 {
     for(AVMetadataObject *current in metadataObjects) {

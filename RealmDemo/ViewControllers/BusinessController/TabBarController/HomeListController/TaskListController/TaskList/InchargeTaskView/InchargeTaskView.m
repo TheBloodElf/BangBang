@@ -57,7 +57,6 @@
 }
 - (void)dataDidChange {
     [self getCurrData];
-    [_tableView reloadData];
 }
 - (void)getCurrData {
     NSMutableArray *array = [@[] mutableCopy];
@@ -74,16 +73,18 @@
             }
     }
     _currArr = array;
-    if(_currArr.count == 0)
-        _tableView.tableFooterView = _noDataView;
-    else
-        _tableView.tableFooterView = [UIView new];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if(_currArr.count == 0)
+            _tableView.tableFooterView = _noDataView;
+        else
+            _tableView.tableFooterView = [UIView new];
+        [_tableView reloadData];
+    });
 }
 #pragma mark -- UISearchBarDelegate
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [self endEditing:YES];
     [self getCurrData];
-    [_tableView reloadData];
 }
 #pragma mark -- UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

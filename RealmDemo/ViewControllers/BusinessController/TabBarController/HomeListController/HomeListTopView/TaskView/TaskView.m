@@ -83,7 +83,8 @@
     [_userManager addTaskNotfition];
 }
 - (void)getCurrCount {
-    dispatch_async(dispatch_get_main_queue(), ^{
+    @synchronized (self) {
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
         NSMutableArray<TaskModel*> *taskArr = [_userManager getTaskArr:_userManager.user.currCompany.company_no];
         Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
         for (TaskModel *model in taskArr) {
@@ -110,8 +111,11 @@
             }
         }
         //创建动画
-        [self createPie];
+        dispatch_async(dispatch_get_main_queue(), ^{
+           [self createPie];
+        });
     });
+    }
 }
 - (void)createPie {
     [leftLayer removeFromSuperlayer];

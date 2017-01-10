@@ -6,18 +6,18 @@
 //  Copyright © 2016年 com.luohaifang. All rights reserved.
 //
 
-#import "CustomDelayDate.h"
+#import "CustomDelayDateView.h"
 //按钮的高度
 #define Bottom_Button_Height 40.f
 //按钮的绿色
 #define Bottom_Button_Color [UIColor colorWithRed:25/255.f green:136/255.f blue:202/255.f alpha:1]
-@interface CustomDelayDate () {
+@interface CustomDelayDateView () {
     UIDatePicker *_datePicker;
 }
 
 @end
 
-@implementation CustomDelayDate
+@implementation CustomDelayDateView
 
 - (instancetype)initWithFrame:(CGRect)frame
 {

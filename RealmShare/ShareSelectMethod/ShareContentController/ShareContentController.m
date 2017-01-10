@@ -58,7 +58,7 @@
 - (void)uploadImage {
     AFHTTPSessionManager *_uploadSessionManager;
     _uploadSessionManager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:KBSSDKAPIDomain]];
-    [_uploadSessionManager setSecurityPolicy:[self customSecurityPolicy]];
+//    [_uploadSessionManager setSecurityPolicy:[self customSecurityPolicy]];
     [_uploadSessionManager setRequestSerializer:[AFHTTPRequestSerializer serializer]];
     [_uploadSessionManager setResponseSerializer:[AFJSONResponseSerializer serializer]];
     NSString *urlPath = @"Attachments/upload_attachment";

@@ -115,7 +115,7 @@
             });
         }error:^(RCErrorCode nErrorCode, long messageId){
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.navigationController.view showFailureTips:@"发送失败"];
+            [self.navigationController.view showFailureTips:@"发送失败"];
             });
         }];
     }else if ([_messageContent isMemberOfClass:[RCImageMessage class]] || [_messageContent isMemberOfClass:[RCRichContentMessage class]]){

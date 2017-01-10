@@ -11,10 +11,7 @@
 
 typedef NS_ENUM(NSInteger, HTTP_ERROR_CODE) {
     E_HTTP_ERROR_NON_ERROR                      = 0,        //无错误
-    
-    E_HTTP_ERROR_UNKNOW_ERROR                   = -1000,    //未知错误
-    E_HTTP_ERROR_DISCONNECTION                  = -1001,    //无链接
-    E_HTTP_ERROR_REQUEST_SERIALIZER_FAIL        = -1002,    //请求创建失败
+    E_HTTP_ERROR_QQ_UUID_ERROR                  = 10001,    //用accessToken获取qq的uuid，返回数据不正确 
 };
 
 

@@ -23,8 +23,14 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self.avaterImage zy_cornerRadiusRoundingRect];
+//    [self.selectedBtn addTarget:self action:@selector(selectClicked:) forControlEvents:UIControlEventTouchUpInside];
     // Initialization code
 }
+//- (void)selectClicked:(UIButton*)btn {
+//    if(self.delegate && [self.delegate respondsToSelector:@selector(muliteSelect:)]) {
+//        [self.delegate muliteSelect:self.data];
+//    }
+//}
 - (void)dataDidChange {
     SelectEmployeeModel *employee = self.data;
     [self.avaterImage sd_setImageWithURL:[NSURL URLWithString:employee.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];

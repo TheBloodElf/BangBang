@@ -15,7 +15,7 @@
 
 @end
 
-@interface CustomDelayDate : UIView
+@interface CustomDelayDateView : UIView
 
 @property (nonatomic, weak) id<CustomDelayDelegate> delegate;
 

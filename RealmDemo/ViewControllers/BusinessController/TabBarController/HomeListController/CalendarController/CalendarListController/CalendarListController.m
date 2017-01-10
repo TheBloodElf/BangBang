@@ -22,6 +22,8 @@
     RBQFetchedResultsController *_calendarFetchedResultsController;
     NSArray<NSDate*> *_calendarDateArr;//时间数组
     NSMutableArray<NSMutableArray<Calendar*>*>* _calendarArr;//每个时间对应的日程数组
+    
+    BOOL _isFirstLoad;
 }
 @end
 
@@ -60,11 +62,17 @@
     _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [_tableView registerNib:[UINib nibWithNibName:@"CalenderEventTableViewCell" bundle:nil] forCellReuseIdentifier:@"CalenderEventTableViewCell"];
     [self.view addSubview:_tableView];
-    [self searchTextFromLoc];
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if(_isFirstLoad == YES) return;
+    _isFirstLoad = YES;
+    
+    [self searchTextFromLoc];
 }
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
@@ -72,7 +80,8 @@
 }
 //本地加载所有事件
 - (void)searchTextFromLoc {
-    dispatch_async(dispatch_get_main_queue(), ^{
+    @synchronized (self) {
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
         //时间 时间对应的日程
         NSMutableDictionary<NSDate*,NSMutableArray<Calendar*>*> *dateCalendarDic = [@{} mutableCopy];
         for (Calendar *tempCalendar in [_userManager getCalendarArr]) {
@@ -150,12 +159,15 @@
             [array addObject:dateCalendarDic[date]];
         }
         _calendarArr = array;
-        if(_calendarDateArr.count == 0)
-            _tableView.tableFooterView = _noDataView;
-        else
-            _tableView.tableFooterView = [UIView new];
-        [_tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(_calendarDateArr.count == 0)
+                _tableView.tableFooterView = _noDataView;
+            else
+                _tableView.tableFooterView = [UIView new];
+            [_tableView reloadData];
+        });
     });
+    }
 }
 #pragma mark --
 #pragma mark -- UISearchBarDelegate

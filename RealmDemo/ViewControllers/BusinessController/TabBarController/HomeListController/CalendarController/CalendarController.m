@@ -25,9 +25,9 @@
     JTHorizontalCalendarView *_calendarContentView;//日历内容
     RBQFetchedResultsController *_calendarFetchedResultsController;//日程数据监听
     UITableView *_tableView;//表格视图
-    NSMutableArray<Calendar*> *_todayAlldayCalendarArr;//当天全天的日程
-    NSMutableArray<Calendar*> *_todayOverdayCalendarArr;//当天跨天的日程
-    NSMutableArray<Calendar*> *_todayOtherCalendarArr;//当天一般的日程
+    NSMutableArray<Calendar*> *_todayAlldayCalendarArr;//全天日程
+    NSMutableArray<Calendar*> *_todayOverdayCalendarArr;//跨天日程
+    NSMutableArray<Calendar*> *_todayOtherCalendarArr;//当天日程
     NSMutableArray<NSString*> *_haveCalendarArr;//有日程的字典 时间-事件数量
     NSMutableDictionary<NSString*,NSMutableArray<Calendar*>*> *_dateCalendarDic;//所有时间-日程数组字典  用来优化卡顿现象
     NSDate *_userSelectedDate;//用户选择的时间
@@ -142,11 +142,11 @@
 }
 //加载有日程的时间数组 填充所有日程数组 优化日程卡顿
 - (void)loadHaveCalendarTimeArr {
-    NSMutableArray *calendarArr = [_userManager getCalendarArr];
-    _haveCalendarArr = [@[] mutableCopy];
-    _dateCalendarDic = [@{} mutableCopy];
-    dispatch_async(dispatch_get_main_queue(), ^{
-    for (Calendar *tempCalendar in calendarArr) {
+    @synchronized (self) {
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+    NSMutableArray *haveArr = [@[] mutableCopy];
+    NSMutableDictionary<NSString*,NSMutableArray<Calendar*>*> *dataDic = [@{} mutableCopy];
+    for (Calendar *tempCalendar in [_userManager getCalendarArr]) {
         //去掉删除的
         if(tempCalendar.status == 0) continue;
         if(tempCalendar.repeat_type == 0) {//如果是不重复的日程
@@ -159,14 +159,14 @@
                     NSString *dateStr = [NSString stringWithFormat:@"%ld-%02ld-%02ld",lastRepeatDate.year,lastRepeatDate.month,lastRepeatDate.day];
                     if(tempCalendar.status == 1) {
                         //加入有事件数组
-                        if(![_haveCalendarArr containsObject:dateStr])
-                            [_haveCalendarArr addObject:dateStr];
+                        if(![haveArr containsObject:dateStr])
+                            [haveArr addObject:dateStr];
                     }
                     //加入所有日程
-                    if(_dateCalendarDic[dateStr]) {
-                        [_dateCalendarDic[dateStr] addObject:tempCalendar];
+                    if(dataDic[dateStr]) {
+                        [dataDic[dateStr] addObject:tempCalendar];
                     } else {
-                        [_dateCalendarDic setObject:[@[tempCalendar] mutableCopy] forKey:dateStr];
+                        [dataDic setObject:[@[tempCalendar] mutableCopy] forKey:dateStr];
                     }
                 }
                 //循环的最后一天是不是已经计算过了 计算了就跳过
@@ -178,27 +178,27 @@
                 NSString *dateStr = [NSString stringWithFormat:@"%ld-%02ld-%02ld",endDate.year,endDate.month,endDate.day];
                 if(tempCalendar.status == 1) {
                     //加入有事件数组
-                    if(![_haveCalendarArr containsObject:dateStr])
-                        [_haveCalendarArr addObject:dateStr];
+                    if(![haveArr containsObject:dateStr])
+                        [haveArr addObject:dateStr];
                 }
                 //加入所有日程
-                if(_dateCalendarDic[dateStr]) {
-                    [_dateCalendarDic[dateStr] addObject:tempCalendar];
+                if(dataDic[dateStr]) {
+                    [dataDic[dateStr] addObject:tempCalendar];
                 } else {
-                    [_dateCalendarDic setObject:[@[tempCalendar] mutableCopy] forKey:dateStr];
+                    [dataDic setObject:[@[tempCalendar] mutableCopy] forKey:dateStr];
                 }
             } else {//不垮天直接加上就可以了
                 NSString *dateStr = [NSString stringWithFormat:@"%ld-%02ld-%02ld",beginDate.year,beginDate.month,beginDate.day];
                 if(tempCalendar.status == 1) {
                     //加入有事件数组
-                    if(![_haveCalendarArr containsObject:dateStr])
-                        [_haveCalendarArr addObject:dateStr];
+                    if(![haveArr containsObject:dateStr])
+                        [haveArr addObject:dateStr];
                 }
                 //加入所有日程
-                if(_dateCalendarDic[dateStr]) {
-                    [_dateCalendarDic[dateStr] addObject:tempCalendar];
+                if(dataDic[dateStr]) {
+                    [dataDic[dateStr] addObject:tempCalendar];
                 } else {
-                    [_dateCalendarDic setObject:[@[tempCalendar] mutableCopy] forKey:dateStr];
+                    [dataDic setObject:[@[tempCalendar] mutableCopy] forKey:dateStr];
                 }
             }
         } else {//如果是重复的日程
@@ -217,10 +217,10 @@
                 if([tempDate timeIntervalSince1970] > tempCalendar.r_end_date_utc/1000) continue;
                 if(tempCalendar.status == 2) {//如果事件已经完成
                     //加入所有事件字典
-                    if(_dateCalendarDic[dateStr]) {
-                        [_dateCalendarDic[dateStr] addObject:tempCalendar];
+                    if(dataDic[dateStr]) {
+                        [dataDic[dateStr] addObject:tempCalendar];
                     } else {
-                        [_dateCalendarDic setObject:[@[tempCalendar] mutableCopy] forKey:dateStr];
+                        [dataDic setObject:[@[tempCalendar] mutableCopy] forKey:dateStr];
                     }
                     continue;
                 }
@@ -232,31 +232,36 @@
                     Calendar *calendar = [tempCalendar deepCopy];
                     calendar.status = 2;
                     //加入所有事件字典
-                    if(_dateCalendarDic[dateStr]) {
-                        [_dateCalendarDic[dateStr] addObject:calendar];
+                    if(dataDic[dateStr]) {
+                        [dataDic[dateStr] addObject:calendar];
                     } else {
-                        [_dateCalendarDic setObject:[@[calendar] mutableCopy] forKey:dateStr];
+                        [dataDic setObject:[@[calendar] mutableCopy] forKey:dateStr];
                     }
                     continue;
                 }
                 //加入所有事件字典 这里还是要deepCopy，因为还在一个日程的循环中
                 Calendar *calendar = [tempCalendar deepCopy];
                 calendar.rdate = @(tempDate.timeIntervalSince1970).stringValue;
-                if(_dateCalendarDic[dateStr]) {
-                    [_dateCalendarDic[dateStr] addObject:calendar];
+                if(dataDic[dateStr]) {
+                    [dataDic[dateStr] addObject:calendar];
                 } else {
-                    [_dateCalendarDic setObject:[@[calendar] mutableCopy] forKey:dateStr];
+                    [dataDic setObject:[@[calendar] mutableCopy] forKey:dateStr];
                 }
                 //加入有事件的数组
-                if(![_haveCalendarArr containsObject:dateStr])
-                    [_haveCalendarArr addObject:dateStr];
+                if(![haveArr containsObject:dateStr])
+                    [haveArr addObject:dateStr];
             }
         }
     }
-        [_calendarManager reload];
+        _haveCalendarArr = haveArr;
+        _dateCalendarDic = dataDic;
         [self getTodayCalendarArr];
-        [_tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_calendarManager reload];
+            [_tableView reloadData];
+        });
     });
+    }
 }
 //获取用户所选日期的的日程
 - (void)getTodayCalendarArr {
@@ -266,21 +271,32 @@
     _todayOverdayCalendarArr = [@[] mutableCopy];
     _todayOtherCalendarArr = [@[] mutableCopy];
     for (Calendar *tempCalendar in calendarArr) {
+        //全天
         if(tempCalendar.is_allday == YES) {
             [_todayAlldayCalendarArr addObject:tempCalendar];
             continue;
         }
+        //是不是循环日程 默认当天#BANG-572
+        if(tempCalendar.repeat_type != 0) {
+            [_todayOtherCalendarArr addObject:tempCalendar];
+            continue;
+        }
+        //一般日常才计算是否跨天
         NSDate *beginDate = [NSDate dateWithTimeIntervalSince1970:tempCalendar.begindate_utc / 1000];
         NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:tempCalendar.enddate_utc / 1000];
-        if (beginDate.day != endDate.day)//跨天
+        //跨天
+        if (beginDate.day != endDate.day)
             [_todayOverdayCalendarArr addObject:tempCalendar];
+        //当天
         else
             [_todayOtherCalendarArr addObject:tempCalendar];
     }
-    if(_todayOtherCalendarArr.count == 0 && _todayAlldayCalendarArr.count == 0 && _todayOverdayCalendarArr.count == 0)
-        _tableView.tableFooterView = _noDataView;
-    else
-        _tableView.tableFooterView = [UIView new];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if(_todayOtherCalendarArr.count == 0 && _todayAlldayCalendarArr.count == 0 && _todayOverdayCalendarArr.count == 0)
+            _tableView.tableFooterView = _noDataView;
+        else
+            _tableView.tableFooterView = [UIView new];
+    });
 }
 - (void)moreClicked:(UIBarButtonItem*)item {
     if(_moreSelectView.isHide)

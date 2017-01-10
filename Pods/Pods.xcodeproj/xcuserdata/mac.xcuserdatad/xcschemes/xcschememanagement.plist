@@ -29,11 +29,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>MLeaksFinder.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-RealmDemo.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -77,17 +72,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>35BF20E2BBCB1FE4B9F28D186003E9FB</key>
+		<key>2109CD16A95728A8A834E8E854F10673</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4D8B547B635593CDA50AD462DD1B76ED</key>
+		<key>260B8ECF93DDDF30E3C698C99F62B0FD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>80AA44B79BE148BA57B18416112BD0FA</key>
+		<key>42D6DC02394522F593217D59B32D6DCD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -107,12 +102,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C46EBF2894F6B3FAB7B28EFF15ED115F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F53A6C6684192407DD4BF9E9B9587722</key>
+		<key>D503040CC213E76653A2A0B742C134CC</key>
 		<dict>
 			<key>primary</key>
 			<true/>

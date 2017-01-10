@@ -59,4 +59,5 @@
 - (void)showLogin:(NSString *)alertStr {
      [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowLogin" object:alertStr];
 }
+
 @end

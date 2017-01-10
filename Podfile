@@ -1,7 +1,7 @@
 platform :ios, '8.0'
 
 target 'RealmDemo' do
-   pod 'MLeaksFinder'
+#   pod 'MLeaksFinder'
    pod 'MJExtension'   
    pod 'MBProgressHUD'
    pod 'MJRefresh'

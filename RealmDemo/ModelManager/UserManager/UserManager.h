@@ -20,13 +20,13 @@
 #import "UserApp.h"
 //用户管理器 单例子，关联了realm数据库
 //修改的所有数据同步到本地数据库
+//每个方法都初始化一次数据库 来避免跨线程访问
 @interface UserManager : NSObject
 
 //用户信息
 @property (nonatomic, strong) User *user;
-
+//获取单例对象
 + (instancetype)manager;
-
 #pragma makr -- 本地推送
 //添加上下班本地推送 只在在首页调用
 - (void)addSiginRuleNotfition;
@@ -108,7 +108,7 @@
 //更新今天的签到记录
 - (void)updateTodaySinInList:(NSMutableArray<SignIn*>*)sigInArr guid:(NSString*)employeeGuid;
 //获取指定时间的签到记录 不同圈子用employeeGuid区别
-- (NSMutableArray<SignIn*>*)getTodaySigInListGuid:(NSString*)employeeGuid siginDate:(NSDate*)date;
+- (NSMutableArray<SignIn*>*)getSigInListGuid:(NSString*)employeeGuid siginDate:(NSDate*)date;
 //创建今天日程数据监听
 - (RBQFetchedResultsController*)createSigInListFetchedResultsController;
 #pragma mark -- SiginRuleSet

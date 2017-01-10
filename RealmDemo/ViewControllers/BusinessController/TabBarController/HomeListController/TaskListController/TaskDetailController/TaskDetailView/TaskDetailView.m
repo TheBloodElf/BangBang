@@ -144,9 +144,9 @@
         }
     } else if (indexPath.section == 1) {
         if(indexPath.row == 0)//负责人
-            height = 63;
+            height = 80;
         else {//知悉人
-            height = 63;
+            height = 80;
         }
     } else if (indexPath.section == 2) {
         height = 63;

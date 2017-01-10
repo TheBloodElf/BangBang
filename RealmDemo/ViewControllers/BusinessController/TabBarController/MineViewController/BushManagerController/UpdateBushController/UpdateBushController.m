@@ -10,6 +10,8 @@
 #import "Company.h"
 #import "UserHttp.h"
 #import "UserManager.h"
+//名称最长多少字符
+#define MAX_STARWORDS_LENGTH 20
 
 @interface UpdateBushController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate> {
     UserManager *_userManager;//用户管理器
@@ -70,6 +72,10 @@
                     return ;
                 }
                 [_userManager updateCompany:_currCompany];
+                if(_currCompany.company_no == _userManager.user.currCompany.company_no) {
+                    _userManager.user.currCompany = _currCompany;
+                    [_userManager updateUser:_userManager.user];
+                }
                 //改变圈子详情的内容
                 Company *company = self.data;
                 company.company_name = _currCompany.company_name;
@@ -101,6 +107,8 @@
     if(indexPath.row == 0) {
         UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"圈子名称" message:nil preferredStyle:UIAlertControllerStyleAlert];
         [alertVC addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            //#BANG-577 圈子名字要限制长度
+            [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:) name:@"UITextFieldTextDidChangeNotification" object:textField];
             textField.placeholder = @"请输入名称...";
             textField.text = _currCompany.company_name;
         }];
@@ -184,5 +192,36 @@
 }
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [picker dismissViewControllerAnimated:YES completion:nil];
+}
+#pragma mark --
+#pragma mark -- TextFieldDelegate
+-(void)textFiledEditChanged:(NSNotification *)obj
+{
+    UITextField *textField = (UITextField *)obj.object;
+    NSString *toBeString = textField.text;
+    NSString *lang = [textField.textInputMode primaryLanguage];
+    if ([lang isEqualToString:@"zh-Hans"]){// 简体中文输入
+        //获取高亮部分
+        UITextRange *selectedRange = [textField markedTextRange];
+        UITextPosition *position = [textField positionFromPosition:selectedRange.start offset:0];
+        // 没有高亮选择的字，则对已输入的文字进行字数统计和限制
+        if (!position) {
+            if (toBeString.length > MAX_STARWORDS_LENGTH) {
+                [self.navigationController.view showMessageTips:@"圈子名称不能大于20个字"];
+                textField.text = [toBeString substringToIndex:MAX_STARWORDS_LENGTH];
+            }
+        }
+    } else {// 中文输入法以外的直接对其统计限制即可，不考虑其他语种情况
+        if (toBeString.length > MAX_STARWORDS_LENGTH) {
+            [self.navigationController.view showMessageTips:@"圈子名称不能大于20个字"];
+            NSRange rangeIndex = [toBeString rangeOfComposedCharacterSequenceAtIndex:MAX_STARWORDS_LENGTH];
+            if (rangeIndex.length == 1) {
+                textField.text = [toBeString substringToIndex:MAX_STARWORDS_LENGTH];
+            } else {
+                NSRange rangeRange = [toBeString rangeOfComposedCharacterSequencesForRange:NSMakeRange(0, MAX_STARWORDS_LENGTH)];
+                textField.text = [toBeString substringWithRange:rangeRange];
+            }
+        }
+    }
 }
 @end

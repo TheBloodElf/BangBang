@@ -92,31 +92,27 @@ Class UISearchBarTextFieldClass;        //UISearchBar
 -(UIViewController *)topMostController
 {
     NSMutableArray *controllersHierarchy = [[NSMutableArray alloc] init];
-    
     UIViewController *topController = self.window.rootViewController;
-    
-    if (topController)
-    {
+    if (topController){
         [controllersHierarchy addObject:topController];
     }
-    
+    //---假数据---
+//    UIViewController *vc = [UIViewController new];
+//    [self.window.rootViewController presentViewController:vc animated:NO completion:nil];
+    //---假数据---
+    //self.window.rootViewController present过控制器，依次添加
     while ([topController presentedViewController]) {
-        
         topController = [topController presentedViewController];
         [controllersHierarchy addObject:topController];
     }
-    
+    //找到当前视图所在控制器
     UIResponder *matchController = [self viewController];
-    
-    while (matchController != nil && [controllersHierarchy containsObject:matchController] == NO)
-    {
-        do
-        {
+    //找到
+    while (matchController != nil && [controllersHierarchy containsObject:matchController] == NO){
+        do{
             matchController = [matchController nextResponder];
-            
         } while (matchController != nil && [matchController isKindOfClass:[UIViewController class]] == NO);
     }
-    
     return (UIViewController*)matchController;
 }
 

@@ -42,10 +42,6 @@
     [super viewWillDisappear:animated];
     [[IQKeyboardManager sharedManager] setEnable:YES];
 }
-- (void)presentViewController:(UIViewController *)viewController
-                  functionTag:(NSInteger)functionTag{
-    
-}
 - (void)rightClicked:(UIBarButtonItem*)item {
     if (self.conversationType == ConversationType_PRIVATE) {
         //查看对方详情（网页）
@@ -122,4 +118,5 @@
     [self.chatSessionInputBarControl setFrame:CGRectMake(self.chatSessionInputBarControl.frame.origin.x, MAIN_SCREEN_HEIGHT - self.chatSessionInputBarControl.frame.size.height + 20, self.chatSessionInputBarControl.frame.size.width, self.chatSessionInputBarControl.frame.size.height)];
     self.conversationMessageCollectionView.frame = CGRectMake(self.chatSessionInputBarControl.frame.origin.x, self.chatSessionInputBarControl.frame.origin.y, self.chatSessionInputBarControl.frame.size.width, self.chatSessionInputBarControl.frame.origin.y - 44 - 20);
 }
+
 @end

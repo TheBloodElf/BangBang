@@ -30,8 +30,13 @@
 
 - (void)dataDidChange {
     Employee * employee = self.data;
-    self.userName.text = [NSString stringWithFormat:@"%@(%@)", employee.user_real_name,employee.user_name];
-    self.userDert.text = employee.departments;
+    //#BANG-550 隐藏帮帮号
+//    self.userName.text = [NSString stringWithFormat:@"%@(%@)", employee.user_real_name,employee.user_name];
+    self.userName.text = [NSString stringWithFormat:@"%@", employee.user_real_name];
+    if([NSString isBlank:employee.departments])
+        self.userDert.text = @"无部门信息";
+    else
+        self.userDert.text = employee.departments;
     [self.userImage sd_setImageWithURL:[NSURL URLWithString:employee.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
     //是不是当前圈子的管理员
     self.headView.hidden = YES;

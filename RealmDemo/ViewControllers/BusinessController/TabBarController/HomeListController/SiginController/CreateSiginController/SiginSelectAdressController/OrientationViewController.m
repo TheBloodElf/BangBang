@@ -47,10 +47,12 @@
     poiTableView.tableFooterView = [UIView new];
     [self.view addSubview:poiTableView];
     
-    //根据打卡点设置范围
-    if (_setting && _category < 2) {
-        MACircle *cicle = [MACircle circleWithCenterCoordinate:CLLocationCoordinate2DMake(_setting.latitude, _setting.longitude) radius:_currSiginRule.scope];
-        [_mapView addOverlay:cicle level:MAOverlayLevelAboveRoads];
+    //根据打卡点设置范围 把所有的签到规则地址都显示出来
+    if (_category < 2) {
+        for (PunchCardAddressSetting *punchCardAddressSetting in _currSiginRule.json_list_address_settings) {
+            MACircle *cicle = [MACircle circleWithCenterCoordinate:CLLocationCoordinate2DMake(punchCardAddressSetting.latitude, punchCardAddressSetting.longitude) radius:_currSiginRule.scope];
+            [_mapView addOverlay:cicle level:MAOverlayLevelAboveRoads];
+        }
     }
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(finishOrientationClick)];
 }
@@ -69,14 +71,14 @@
         return;
     }
     //获取已经选择的位置
-    AMapPOI *selectedPoi = _poiArray[selectedRow];
-    if (_setting && _category < 2) {
-        //判断当前选择位置是否在圈内
-        if(!MACircleContainsCoordinate(CLLocationCoordinate2DMake(_setting.latitude, _setting.longitude),CLLocationCoordinate2DMake(selectedPoi.location.latitude, selectedPoi.location.longitude),_currSiginRule.scope)){
-            [self.navigationController.view showMessageTips:@"当前离签到点太远"];
-            return;
-        }
-    }
+//    AMapPOI *selectedPoi = _poiArray[selectedRow];
+//    if (_category < 2) {
+//        //判断当前选择位置是否在圈内
+//        if(!MACircleContainsCoordinate(CLLocationCoordinate2DMake(_setting.latitude, _setting.longitude),CLLocationCoordinate2DMake(selectedPoi.location.latitude, selectedPoi.location.longitude),_currSiginRule.scope)){
+//            [self.navigationController.view showMessageTips:@"当前离签到点太远"];
+//            return;
+//        }
+//    }
     //回调传值
     if (_finishOrientation)
         _finishOrientation(_poiArray[selectedRow]);
@@ -144,7 +146,7 @@
     NSDate *currDate = [NSDate date];
     for (int i = 0; i < 9; i ++) {
         NSDate *temp = [currDate dateByAddingTimeInterval: - i * 24 * 60 * 60];
-        [signInArr addObjectsFromArray:[_userManager getTodaySigInListGuid:owner.employee_guid siginDate:temp]];
+        [signInArr addObjectsFromArray:[_userManager getSigInListGuid:owner.employee_guid siginDate:temp]];
     }
     //没有信息就退出
     if(signInArr.count == 0) return;

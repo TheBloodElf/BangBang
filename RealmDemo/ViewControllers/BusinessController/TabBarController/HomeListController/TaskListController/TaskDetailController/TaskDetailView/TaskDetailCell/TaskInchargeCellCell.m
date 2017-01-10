@@ -11,6 +11,7 @@
 
 @interface TaskInchargeCellCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *inchargeImage;
+@property (weak, nonatomic) IBOutlet UILabel *inchargeName;
 
 @end
 
@@ -19,10 +20,12 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self.inchargeImage zy_cornerRadiusRoundingRect];
+    self.inchargeName.adjustsFontSizeToFitWidth = YES;
     // Initialization code
 }
 - (void)dataDidChange {
     TaskModel *model = self.data;
+    self.inchargeName.text = model.incharge_name;
     [self.inchargeImage sd_setImageWithURL:[NSURL URLWithString:model.incharge_avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

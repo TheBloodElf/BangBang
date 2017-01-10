@@ -8,14 +8,15 @@
 
 #import "DelayDateSelectController.h"
 #import "SelectDelayDateView.h"
-#import "CustomDelayDate.h"
+#import "CustomDelayDateView.h"
 
 @interface DelayDateSelectController ()<SelectDelayDateDelegate,CustomDelayDelegate> {
     SelectDelayDateView *_selectDelayDateView;
-    CustomDelayDate *_customDelayDate;
+    CustomDelayDateView *_customDelayDateView;
 }
 //下方的滚动视图
 @property (weak, nonatomic) IBOutlet UIScrollView *bottomScrollView;
+
 @end
 
 @implementation DelayDateSelectController
@@ -24,12 +25,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     _bottomScrollView.contentSize = CGSizeMake(MAIN_SCREEN_WIDTH * 2, _bottomScrollView.frame.size.height);
-    _selectDelayDateView = [[SelectDelayDateView alloc] initWithFrame:CGRectMake(0, 0, _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height)];
+    //#BANG-583 尽量用MAIN_SCREEN_WIDTH
+    _selectDelayDateView = [[SelectDelayDateView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, _bottomScrollView.frame.size.height)];
     _selectDelayDateView.delegate = self;
     [_bottomScrollView addSubview:_selectDelayDateView];
-    _customDelayDate = [[CustomDelayDate alloc] initWithFrame:CGRectMake(_bottomScrollView.frame.size.width, 0, _bottomScrollView.frame.size.width, _bottomScrollView.frame.size.height)];
-    _customDelayDate.delegate = self;
-    [_bottomScrollView addSubview:_customDelayDate];
+    _customDelayDateView = [[CustomDelayDateView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH, 0, MAIN_SCREEN_WIDTH, _bottomScrollView.frame.size.height)];
+    _customDelayDateView.delegate = self;
+    [_bottomScrollView addSubview:_customDelayDateView];
 }
 //点击了背景，退出选择
 - (IBAction)cancleClicked:(id)sender {

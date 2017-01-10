@@ -174,7 +174,7 @@
             _identityManager.identity.accessToken = accessToken;
             [_identityManager saveAuthorizeData];
             //登录
-            [IdentityHttp socialLogin:user.userID media_type:3 token:accessTokenWeiBo expires_in:expiresWeiBo client_type:@"ios" name:user.name avatar_url:user.avatarLargeUrl handler:^(id data, MError *error) {
+            [IdentityHttp socialLogin:user.userID unionId:@"" media_type:3 token:accessTokenWeiBo expires_in:expiresWeiBo client_type:@"ios" name:user.name avatar_url:user.avatarLargeUrl handler:^(id data, MError *error) {
                 if(error) {
                     [self.navigationController.view dismissTips];
                     [self.navigationController.view showFailureTips:error.statsMsg];
@@ -184,6 +184,9 @@
                 [user mj_setKeyValues:data];
                 [_userManager loadUserWithGuid:user.user_guid];
                 //获取融云token
+                //把账号密码写入到输入框中 #BANG-527
+//                _accountField.text = @(user.user_no).stringValue;
+//                _passwordField.text = @"59bang.COM";
                 [UserHttp getRYToken:user.user_no handler:^(id data, MError *error) {
                     [self.navigationController dismissTips];
                     if(error) {
@@ -274,7 +277,7 @@
             _identityManager.identity.accessToken = accessToken;
             [_identityManager saveAuthorizeData];
             //登陆
-            [IdentityHttp socialLogin:unionId media_type:2 token:accessToken expires_in:expiresWeixin client_type:@"ios" name:userName avatar_url:userAvatar handler:^(id data, MError *error) {
+            [IdentityHttp socialLogin:unionId unionId:@"" media_type:2 token:accessToken expires_in:expiresWeixin client_type:@"ios" name:userName avatar_url:userAvatar handler:^(id data, MError *error) {
                 if(error) {
                     [self.navigationController dismissTips];
                     [self.navigationController.view showFailureTips:error.statsMsg];
@@ -284,6 +287,9 @@
                 [user mj_setKeyValues:data];
                 [_userManager loadUserWithGuid:user.user_guid];
                 //获取融云token
+                //把账号密码写入到输入框中 #BANG-527
+//                _accountField.text = @(user.user_no).stringValue;
+//                _passwordField.text = @"59bang.COM";
                 [UserHttp getRYToken:user.user_no handler:^(id data, MError *error) {
                     [self.navigationController dismissTips];
                     if(error) {
@@ -342,28 +348,40 @@
         NSString *accessToken = data[@"access_token"] ? : @"";
         _identityManager.identity.accessToken = accessToken;
         [_identityManager saveAuthorizeData];
-        [IdentityHttp socialLogin:[_tencentOAuth openId] media_type:1 token:[_tencentOAuth accessToken] expires_in:[NSString stringWithFormat:@"%ld",exptime] client_type:@"ios" name:name avatar_url:avatar handler:^(id data, MError *error) {
+        //用accessToken去获取qq的uuid
+        [IdentityHttp getQqUuidWithToken:[_tencentOAuth accessToken] handler:^(id data, MError *error) {
             if(error) {
                 [self.navigationController.view dismissTips];
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
             }
-            User *user = [User new];
-            [user mj_setKeyValues:data];
-            [_userManager loadUserWithGuid:user.user_guid];
-            //获取融云token
-            [UserHttp getRYToken:user.user_no handler:^(id data, MError *error) {
-                [self.navigationController dismissTips];
+            NSString *uuid = data;
+            [IdentityHttp socialLogin:[_tencentOAuth openId] unionId:uuid media_type:1 token:[_tencentOAuth accessToken] expires_in:[NSString stringWithFormat:@"%ld",exptime] client_type:@"ios" name:name avatar_url:avatar handler:^(id data, MError *error) {
                 if(error) {
+                    [self.navigationController.view dismissTips];
                     [self.navigationController.view showFailureTips:error.statsMsg];
                     return ;
                 }
-                user.RYToken = data;
-                [_userManager updateUser:user];
-                _identityManager.identity.user_guid = user.user_guid;
-                [_identityManager saveAuthorizeData];
-                //发通知 登录成功
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginDidFinish" object:nil];
+                User *user = [User new];
+                [user mj_setKeyValues:data];
+                [_userManager loadUserWithGuid:user.user_guid];
+                //获取融云token
+                //把账号密码写入到输入框中 #BANG-527
+                //            _accountField.text = @(user.user_no).stringValue;
+                //            _passwordField.text = @"59bang.COM";
+                [UserHttp getRYToken:user.user_no handler:^(id data, MError *error) {
+                    [self.navigationController dismissTips];
+                    if(error) {
+                        [self.navigationController.view showFailureTips:error.statsMsg];
+                        return ;
+                    }
+                    user.RYToken = data;
+                    [_userManager updateUser:user];
+                    _identityManager.identity.user_guid = user.user_guid;
+                    [_identityManager saveAuthorizeData];
+                    //发通知 登录成功
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginDidFinish" object:nil];
+                }];
             }];
         }];
     }];

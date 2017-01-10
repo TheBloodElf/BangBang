@@ -110,14 +110,26 @@
             CGPoint pointLeftBottom = CGPointZero;//标签的右下角位置
             for (int section = 0; section < [_timeCollectionView numberOfSections]; section ++) {
                 for (int row = 0; row < [_timeCollectionView numberOfItemsInSection:section]; row ++) {
+                    //如果找到了开始和结束点 就返回
+                    if(!CGPointEqualToPoint(pointLeftTop, CGPointZero))
+                        if(!CGPointEqualToPoint(pointLeftBottom, CGPointZero))
+                            break;
                     MeetingRoomTimeCollectionCell *cell = (id)[_timeCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:row inSection:section]];
                     MeetingRoomCellModel *cellModel = [cell data];
+                    //如果还没有找到开始点
                     if(CGPointEqualToPoint(pointLeftTop, CGPointZero)) {//如果还没有找到起始点
                         if(cellModel.begin.timeIntervalSince1970 == (model.begin/1000)) {
+                            //给开始点赋值
                             pointLeftTop = [cell convertRect:cell.bounds toView:_timeCollectionView].origin;
                         }
-                    } else {//寻找终止点
+                    }
+                    //如果找到了开始点 就找结束点
+                    if(!CGPointEqualToPoint(pointLeftTop, CGPointZero)){
+                        //如果找到了结束点就返回
+                        if(!CGPointEqualToPoint(pointLeftBottom, CGPointZero))
+                            break;
                         if(cellModel.end.timeIntervalSince1970 == (model.end/1000)) {
+                            //给结束点赋值，标志着已经找到本会议的位置了，后面的循环将不会执行
                             pointLeftBottom = [cell convertRect:cell.bounds toView:_timeCollectionView].origin;
                             //开始画标签
                             CGRect currMeetRect = CGRectMake(pointLeftTop.x + 0.5, pointLeftTop.y + 0.5, cellWidth - 1, pointLeftBottom.y - pointLeftTop.y + cellWidth - 1);
