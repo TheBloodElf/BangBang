@@ -177,19 +177,79 @@ static HttpService * __singleton__;
     _dataSessionManager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:KBSSDKAPIDomain]];
     [_dataSessionManager setRequestSerializer:[AFHTTPRequestSerializer serializer]];
     [_dataSessionManager setResponseSerializer:[AFJSONResponseSerializer serializer]];
-//    [_dataSessionManager setSecurityPolicy:[self customSecurityPolicy]];
+    [_dataSessionManager setSecurityPolicy:[self ownerSecurityPolicy]];
     //上传文件
     _uploadSessionManager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:KBSSDKAPIDomain]];
     [_uploadSessionManager setRequestSerializer:[AFHTTPRequestSerializer serializer]];
     [_uploadSessionManager setResponseSerializer:[AFJSONResponseSerializer serializer]];
-//    [_uploadSessionManager setSecurityPolicy:[self customSecurityPolicy]];
-    //下载文件
+    [_uploadSessionManager setSecurityPolicy:[self ownerSecurityPolicy]];
+    //下载文件 现在下载文件只有七牛 七牛又不能下载证书，就不能配置https了
     _downSessionManager = [AFHTTPSessionManager manager];
     [_downSessionManager setRequestSerializer:[AFHTTPRequestSerializer serializer]];
     [_downSessionManager setResponseSerializer:[AFJSONResponseSerializer serializer]];
-//    [_downSessionManager setSecurityPolicy:[self customSecurityPolicy]];
+    [_downSessionManager setSecurityPolicy:[self qiniuSecurityPolicy]];
+    //如果你的证书不在苹果信任列表中，那么需要自己信任 代码如下
+//    __weak typeof(_downSessionManager) weakDownSessionManager = _downSessionManager;
+//    [_downSessionManager setSessionDidReceiveAuthenticationChallengeBlock:^NSURLSessionAuthChallengeDisposition(NSURLSession *session, NSURLAuthenticationChallenge *challenge, NSURLCredential *__autoreleasing *_credential) {
+//        SecTrustRef serverTrust = [[challenge protectionSpace] serverTrust];
+//        /**
+//         *  导入多张CA证书
+//         */
+//        NSString *cerPath = [[NSBundle mainBundle] pathForResource:@"qiniussl" ofType:@"cer"];//自签名证书
+//        NSData* caCert = [NSData dataWithContentsOfFile:cerPath];
+//        NSArray *cerArray = @[caCert];
+//        weakDownSessionManager.securityPolicy.pinnedCertificates = [NSSet setWithArray:cerArray];
+//        SecCertificateRef caRef = SecCertificateCreateWithData(NULL, (__bridge CFDataRef)caCert);
+//        NSCAssert(caRef != nil, @"caRef is nil");
+//        
+//        NSArray *caArray = @[(__bridge id)(caRef)];
+//        NSCAssert(caArray != nil, @"caArray is nil");
+//        
+//        OSStatus status = SecTrustSetAnchorCertificates(serverTrust, (__bridge CFArrayRef)caArray);
+//        SecTrustSetAnchorCertificatesOnly(serverTrust,NO);
+//        NSCAssert(errSecSuccess == status, @"SecTrustSetAnchorCertificates failed");
+//        
+//        NSURLSessionAuthChallengeDisposition disposition = NSURLSessionAuthChallengePerformDefaultHandling;
+//        __autoreleasing NSURLCredential *credential = nil;
+//        if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]) {
+//            if ([weakDownSessionManager.securityPolicy evaluateServerTrust:challenge.protectionSpace.serverTrust forDomain:challenge.protectionSpace.host]) {
+//                credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
+//                if (credential) {
+//                    disposition = NSURLSessionAuthChallengeUseCredential;
+//                } else {
+//                    disposition = NSURLSessionAuthChallengePerformDefaultHandling;
+//                }
+//            } else {
+//                disposition = NSURLSessionAuthChallengeCancelAuthenticationChallenge;
+//            }
+//        } else {
+//            disposition = NSURLSessionAuthChallengePerformDefaultHandling;
+//        }
+//        return disposition;
+//    }];
 }
-- (AFSecurityPolicy *)customSecurityPolicy
+//下载files.59bang.com开头文件时需要用七牛的证书
+- (AFSecurityPolicy *)qiniuSecurityPolicy
+{
+    //先导入证书，找到证书的路径
+    NSString *cerPath = [[NSBundle mainBundle] pathForResource:@"qiniussl" ofType:@"cer"];
+    NSData *certData = [NSData dataWithContentsOfFile:cerPath];
+    //AFSSLPinningModeCertificate 使用证书验证模式
+    AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate];
+    //allowInvalidCertificates 是否允许无效证书（也就是自建的证书），默认为NO
+    //如果是需要验证自建证书，需要设置为YES
+    securityPolicy.allowInvalidCertificates = YES;
+    //validatesDomainName 是否需要验证域名，默认为YES；
+    //假如证书的域名与你请求的域名不一致，需把该项设置为NO；如设成NO的话，即服务器使用其他可信任机构颁发的证书，也可以建立连接，这个非常危险，建议打开。
+    //置为NO，主要用于这种情况：客户端请求的是子域名，而证书上的是另外一个域名。因为SSL证书上的域名是独立的，假如证书上注册的域名是www.google.com，那么mail.google.com是无法验证通过的；当然，有钱可以注册通配符的域名*.google.com，但这个还是比较贵的。
+    //如置为NO，建议自己添加对应域名的校验逻辑。
+    securityPolicy.validatesDomainName = NO;
+    NSSet *set = [[NSSet alloc] initWithObjects:certData, nil];
+    securityPolicy.pinnedCertificates = set;
+    return securityPolicy;
+}
+//自己的证书
+- (AFSecurityPolicy *)ownerSecurityPolicy
 {
     //先导入证书，找到证书的路径
     NSString *cerPath = [[NSBundle mainBundle] pathForResource:@"bangbangssl" ofType:@"cer"];
@@ -198,7 +258,7 @@ static HttpService * __singleton__;
     AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate];
     //allowInvalidCertificates 是否允许无效证书（也就是自建的证书），默认为NO
     //如果是需要验证自建证书，需要设置为YES
-    securityPolicy.allowInvalidCertificates = YES;
+    securityPolicy.allowInvalidCertificates = NO;
     //validatesDomainName 是否需要验证域名，默认为YES；
     //假如证书的域名与你请求的域名不一致，需把该项设置为NO；如设成NO的话，即服务器使用其他可信任机构颁发的证书，也可以建立连接，这个非常危险，建议打开。
     //置为NO，主要用于这种情况：客户端请求的是子域名，而证书上的是另外一个域名。因为SSL证书上的域名是独立的，假如证书上注册的域名是www.google.com，那么mail.google.com是无法验证通过的；当然，有钱可以注册通配符的域名*.google.com，但这个还是比较贵的。

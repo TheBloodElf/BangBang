@@ -12,8 +12,9 @@
 #import "MineInfoEditController.h"
 #import "IdentityManager.h"
 #import "RYGroupSetController.h"
+#import "UserHttp.h"
 
-@interface RYChatController ()<RCChatSessionInputBarControlDelegate,RYGroupSetDelegate> {
+@interface RYChatController ()<RCIMGroupMemberDataSource,RCChatSessionInputBarControlDelegate,RYGroupSetDelegate> {
     UserManager *_userManager;
 }
 
@@ -24,6 +25,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _userManager = [UserManager manager];
+    [[RCIM sharedRCIM] setGroupMemberDataSource:self];
+    //#BANG-626 聊天要有@功能
+    self.chatSessionInputBarControl.isMentionedEnabled = YES;
     self.chatSessionInputBarControl.delegate = self;
     NSString *nameStr = @"ic_group";
     if(self.conversationType == ConversationType_PRIVATE) {
@@ -77,6 +81,45 @@
         set.targetId = self.targetId;
         set.delegate = self;
         [self.navigationController pushViewController:set animated:YES];
+    }
+}
+#pragma mark -- RCIMGroupMemberDataSource
+- (void)getAllMembersOfGroup:(NSString *)groupId result:(void (^)(NSArray<NSString *> *))resultBlock {
+    //单聊 不处理
+    if(self.conversationType == ConversationType_PRIVATE) {
+        
+    }
+    //讨论组
+    if(self.conversationType == ConversationType_DISCUSSION) {
+        [[RCIMClient sharedRCIMClient] getDiscussion:groupId success:^(RCDiscussion *discussion) {
+            resultBlock(discussion.memberIdList);
+        } error:^(RCErrorCode status) {
+            for (UserDiscuss *userDiscuss in [_userManager getUserDiscussArr]) {
+                if([userDiscuss.discuss_id isEqualToString:self.targetId]) {
+                    [_userManager deleteUserDiscuss:userDiscuss];
+                    [UserHttp delUserDiscuss:_userManager.user.user_no discussId:self.targetId handler:^(id data, MError *error) {
+                        [self.navigationController.view showFailureTips:@"讨论组不存在，已删除!"];
+                    }];
+                    break;
+                }
+            }
+        }];
+    }
+    //群聊
+    if(self.conversationType == ConversationType_GROUP) {
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            NSMutableArray<Company*> *companyArr = [[UserManager manager] getCompanyArr];
+            NSMutableArray *idArr = [@[] mutableCopy];
+            for (Company *company in companyArr) {
+                if(company.company_no == [groupId intValue]) {
+                    for (Employee *employee in [[UserManager manager] getEmployeeWithCompanyNo:company.company_no status:5]) {
+                        [idArr addObject:@(employee.user_no).stringValue];
+                    }
+                    break;
+                }
+            }
+            resultBlock(idArr);
+        });
     }
 }
 #pragma mark --

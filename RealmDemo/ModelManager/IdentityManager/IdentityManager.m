@@ -7,6 +7,7 @@
 //
 
 #import "IdentityManager.h"
+#import "UserManager.h"
 
 @implementation IdentityManager
 
@@ -46,7 +47,6 @@
     //#1012 这里不能重新初始化，只能把用户guid重制，因为可能还有请求发生
     manager.identity.user_guid = @"";
     [manager saveAuthorizeData];
-    //停止个推
     [GeTuiSdk destroy];
     //退出融云
     [[RCIM sharedRCIM] logout];

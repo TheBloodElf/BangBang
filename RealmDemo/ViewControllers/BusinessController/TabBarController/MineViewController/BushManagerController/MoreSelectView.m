@@ -31,6 +31,9 @@
     _tableView.delegate = self;
     _tableView.scrollEnabled = NO;
     _tableView.dataSource = self;
+#ifdef DEBUG
+    [_tableView setAccessibilityLabel:@"moreSelectTableView"];
+#endif
     [self addSubview:_tableView];
     [self hideSelectView];
     [_tableView reloadData];

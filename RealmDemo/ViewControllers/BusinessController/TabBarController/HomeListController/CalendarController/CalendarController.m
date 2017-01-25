@@ -25,14 +25,16 @@
     JTHorizontalCalendarView *_calendarContentView;//日历内容
     RBQFetchedResultsController *_calendarFetchedResultsController;//日程数据监听
     UITableView *_tableView;//表格视图
-    NSMutableArray<Calendar*> *_todayAlldayCalendarArr;//全天日程
-    NSMutableArray<Calendar*> *_todayOverdayCalendarArr;//跨天日程
-    NSMutableArray<Calendar*> *_todayOtherCalendarArr;//当天日程
-    NSMutableArray<NSString*> *_haveCalendarArr;//有日程的字典 时间-事件数量
-    NSMutableDictionary<NSString*,NSMutableArray<Calendar*>*> *_dateCalendarDic;//所有时间-日程数组字典  用来优化卡顿现象
-    NSDate *_userSelectedDate;//用户选择的时间
+    NSMutableArray<Calendar*> *_todayAlldayCalendarArr;//当天 全天日程
+    NSMutableArray<Calendar*> *_todayOverdayCalendarArr;//当天 跨天日程
+    NSMutableArray<Calendar*> *_todayOtherCalendarArr;//当天 当天日程
+    
+    NSMutableArray<NSString*> *_haveCalendarArr;//当月 有日程的时间
+    NSMutableDictionary<NSString*,NSMutableArray<Calendar*>*> *_dateCalendarDic;//当月的时间-日程数组字典  用来优化卡顿现象
+    
+    NSDate *_userSelectedDate;//用户选择的时间 用来计算当月，当天日程
     MoreSelectView *_moreSelectView;//多选视图
-    NoResultView *_noDataView;//没有数据显示的视图
+    NoResultView *_noDataView;//没有数据显示的视图，用于最开始进界面展示加载动画
     
     BOOL isFirstLoad;
 }
@@ -117,14 +119,7 @@
     [_moreSelectView setupUI];
     [self.view addSubview:_moreSelectView];
     [self.view bringSubviewToFront:_moreSelectView];
-    
-    //加载有事件的日期，key-value格式
-    NSMutableArray *calendarArr = [_userManager getCalendarArr];
-    if(calendarArr.count == 0)
-        [self tongBuCalendar];
-    else
-        //先加载今天的数据
-        [self loadHaveCalendarTimeArr];
+    [self loadHaveCalendarTimeArr];
 }
 - (void)topClicked:(UISwipeGestureRecognizer*)sw {
     [UIView animateWithDuration:0.2 animations:^{
@@ -143,6 +138,7 @@
 //加载有日程的时间数组 填充所有日程数组 优化日程卡顿
 - (void)loadHaveCalendarTimeArr {
     @synchronized (self) {
+    //非主线程
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
     NSMutableArray *haveArr = [@[] mutableCopy];
     NSMutableDictionary<NSString*,NSMutableArray<Calendar*>*> *dataDic = [@{} mutableCopy];
@@ -253,50 +249,98 @@
             }
         }
     }
+        [_haveCalendarArr removeAllObjects];
+        _haveCalendarArr = nil;
+        [_dateCalendarDic removeAllObjects];
+        _dateCalendarDic = nil;
         _haveCalendarArr = haveArr;
         _dateCalendarDic = dataDic;
-        [self getTodayCalendarArr];
+        //主线程刷新表格
         dispatch_async(dispatch_get_main_queue(), ^{
             [_calendarManager reload];
-            [_tableView reloadData];
         });
+        [self getTodayCalendarArr];
     });
     }
 }
 //获取用户所选日期的的日程
 - (void)getTodayCalendarArr {
-    NSString *dateStr = [NSString stringWithFormat:@"%ld-%02ld-%02ld",_userSelectedDate.year,_userSelectedDate.month,_userSelectedDate.day];
-    NSMutableArray *calendarArr = _dateCalendarDic[dateStr];
-    _todayAlldayCalendarArr = [@[] mutableCopy];
-    _todayOverdayCalendarArr = [@[] mutableCopy];
-    _todayOtherCalendarArr = [@[] mutableCopy];
-    for (Calendar *tempCalendar in calendarArr) {
-        //全天
-        if(tempCalendar.is_allday == YES) {
-            [_todayAlldayCalendarArr addObject:tempCalendar];
-            continue;
+    @synchronized (self) {
+    //非主线程
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSString *dateStr = [NSString stringWithFormat:@"%ld-%02ld-%02ld",_userSelectedDate.year,_userSelectedDate.month,_userSelectedDate.day];
+        NSMutableArray *calendarArr = _dateCalendarDic[dateStr];
+        NSMutableArray *array1 = [@[] mutableCopy];
+        NSMutableArray *array2 = [@[] mutableCopy];
+        NSMutableArray *array3 = [@[] mutableCopy];
+        for (Calendar *tempCalendar in calendarArr) {
+            //全天
+            if(tempCalendar.is_allday == YES) {
+                [array1 addObject:tempCalendar];
+                continue;
+            }
+            //是不是循环日程 默认当天#BANG-572
+            if(tempCalendar.repeat_type != 0) {
+                [array3 addObject:tempCalendar];
+                continue;
+            }
+            //一般日常才计算是否跨天
+            NSDate *beginDate = [NSDate dateWithTimeIntervalSince1970:tempCalendar.begindate_utc / 1000];
+            NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:tempCalendar.enddate_utc / 1000];
+            //跨天
+            if (beginDate.day != endDate.day)
+                [array2 addObject:tempCalendar];
+            //当天
+            else
+                [array3 addObject:tempCalendar];
         }
-        //是不是循环日程 默认当天#BANG-572
-        if(tempCalendar.repeat_type != 0) {
-            [_todayOtherCalendarArr addObject:tempCalendar];
-            continue;
-        }
-        //一般日常才计算是否跨天
-        NSDate *beginDate = [NSDate dateWithTimeIntervalSince1970:tempCalendar.begindate_utc / 1000];
-        NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:tempCalendar.enddate_utc / 1000];
-        //跨天
-        if (beginDate.day != endDate.day)
-            [_todayOverdayCalendarArr addObject:tempCalendar];
-        //当天
-        else
-            [_todayOtherCalendarArr addObject:tempCalendar];
-    }
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if(_todayOtherCalendarArr.count == 0 && _todayAlldayCalendarArr.count == 0 && _todayOverdayCalendarArr.count == 0)
-            _tableView.tableFooterView = _noDataView;
-        else
-            _tableView.tableFooterView = [UIView new];
+        //#BANG-616 分类下面按照事件开始时间先后排序
+        [_todayAlldayCalendarArr removeAllObjects];
+        _todayAlldayCalendarArr = nil;
+        _todayAlldayCalendarArr = [[array1 sortedArrayUsingComparator:^NSComparisonResult(Calendar*  _Nonnull obj1, Calendar*  _Nonnull obj2) {
+            //时间没有排序
+            NSDate *left = [NSDate dateWithTimeIntervalSince1970:obj1.begindate_utc / 1000];
+            NSDate *right = [NSDate dateWithTimeIntervalSince1970:obj2.begindate_utc / 1000];
+            int64_t leftDate = left.hour * 60 + left.minute;
+            int64_t rightDate = right.hour * 60 + right.minute;
+            return leftDate > rightDate;
+        }] mutableCopy];
+        [array1 removeAllObjects];
+        array1 = nil;
+        [_todayOverdayCalendarArr removeAllObjects];
+        _todayOverdayCalendarArr = nil;
+        _todayOverdayCalendarArr = [[array2 sortedArrayUsingComparator:^NSComparisonResult(Calendar*  _Nonnull obj1, Calendar*  _Nonnull obj2) {
+            //时间没有排序
+            NSDate *left = [NSDate dateWithTimeIntervalSince1970:obj1.begindate_utc / 1000];
+            NSDate *right = [NSDate dateWithTimeIntervalSince1970:obj2.begindate_utc / 1000];
+            int64_t leftDate = left.hour * 60 + left.minute;
+            int64_t rightDate = right.hour * 60 + right.minute;
+            return leftDate > rightDate;
+        }] mutableCopy];
+        [array2 removeAllObjects];
+        array2 = nil;
+        [_todayOtherCalendarArr removeAllObjects];
+        _todayOtherCalendarArr = nil;
+        _todayOtherCalendarArr = [[array3 sortedArrayUsingComparator:^NSComparisonResult(Calendar*  _Nonnull obj1, Calendar*  _Nonnull obj2) {
+            //时间没有排序
+            NSDate *left = [NSDate dateWithTimeIntervalSince1970:obj1.begindate_utc / 1000];
+            NSDate *right = [NSDate dateWithTimeIntervalSince1970:obj2.begindate_utc / 1000];
+            int64_t leftDate = left.hour * 60 + left.minute;
+            int64_t rightDate = right.hour * 60 + right.minute;
+            return leftDate > rightDate;
+        }] mutableCopy];
+        [array3 removeAllObjects];
+        array3 = nil;
+        //主线程刷新界面
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(_todayOtherCalendarArr.count == 0 && _todayAlldayCalendarArr.count == 0 && _todayOverdayCalendarArr.count == 0)
+                _tableView.tableFooterView = _noDataView;
+            else
+                _tableView.tableFooterView = [UIView new];
+            [_tableView reloadData];
+        });
     });
+    }
 }
 - (void)moreClicked:(UIBarButtonItem*)item {
     if(_moreSelectView.isHide)
@@ -328,7 +372,6 @@
         _userSelectedDate = [NSDate dateWithTimeIntervalSince1970:second];
         [_calendarManager setDate:_userSelectedDate];
         [self getTodayCalendarArr];
-        [_tableView reloadData];
     } else if (index == 1) {
         [self.navigationController pushViewController:[CalendarListController new] animated:YES];
     } else {
@@ -337,12 +380,11 @@
 }
 - (void)tongBuCalendar {
     [self.navigationController.view showLoadingTips:@""];
-    WeakSelf(weakSelf)
     //这里是用户向服务器提交数据 现在还没有改
     [UserHttp getUserCalendar:_userManager.user.user_guid handler:^(id data, MError *error) {
         [self.navigationController.view dismissTips];
         if(error) {
-            [weakSelf.navigationController.view showFailureTips:error.statsMsg];
+            [self.navigationController.view showFailureTips:error.statsMsg];
             return ;
         }
         NSMutableArray *array = [@[] mutableCopy];
@@ -494,7 +536,6 @@
     _userSelectedDate = dayView.date;
     [_calendarManager setDate:_userSelectedDate];
     [self getTodayCalendarArr];
-    [_tableView reloadData];
 }
 - (void)calendarDidLoadPreviousPage:(JTCalendarManager *)calendar;
 {

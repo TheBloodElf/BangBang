@@ -68,6 +68,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
     if(self.delegate && [self.delegate respondsToSelector:@selector(allowDeleteSelect:)])
     {
         [self.delegate allowDeleteSelect:self.photoArr];

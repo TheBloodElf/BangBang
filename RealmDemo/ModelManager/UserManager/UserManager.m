@@ -271,6 +271,8 @@
                     }
                 }
             }
+            [calendarArr removeAllObjects];
+            calendarArr = nil;
         }
     });
     }
@@ -349,6 +351,8 @@
                 }
             }
         }
+        [taskArr removeAllObjects];
+        taskArr = nil;
     });
     }
 }
@@ -719,14 +723,6 @@
     for (Calendar *calendar in calendarArr) {
         [Calendar createOrUpdateInRealm:rlmRealm withValue:calendar];
     }
-    //如果任务数组为空就加一个空的进入 以便可以触发数据库改变的回调
-    if(calendarArr.count == 0) {
-        Calendar *calendar = [Calendar new];
-        calendar.needSync = NO;
-        calendar.status = 0;
-        calendar.id = -[NSDate date].timeIntervalSince1970;
-        [Calendar createOrUpdateInRealm:rlmRealm withValue:calendar];
-    }
     [rlmRealm commitWriteTransaction];
     }
 }
@@ -891,17 +887,7 @@
     for (SiginRuleSet *siginRuleSet in sigRules) {
         [SiginRuleSet createOrUpdateInRealm:rlmRealm withValue:siginRuleSet];
     }
-    //如果没有数据，就手动触发一次数据库回调
-    SiginRuleSet *siginRuleSet = [SiginRuleSet new];
-    if(sigRules.count == 0) {
-        siginRuleSet.id = 0;
-        siginRuleSet.company_no = companyNo;
-        [SiginRuleSet createOrUpdateInRealm:rlmRealm withValue:siginRuleSet];
-    }
     [rlmRealm commitWriteTransaction];
-    if(sigRules.count == 0) {
-        [[UserManager manager] deleteSiginRule:siginRuleSet];
-    }
     }
 }
 //创建圈子的数据监听
@@ -943,14 +929,6 @@
         [rlmRealm deleteObject:calendarResult.firstObject];
     }
     for (TaskModel *model in taskArr) {
-        [TaskModel createOrUpdateInRealm:rlmRealm withValue:model];
-    }
-    //如果任务数组为空就加一个空的进入 以便可以触发数据库改变的回调
-    TaskModel *model = [TaskModel new];
-    if(taskArr.count == 0) {
-        model.id = [NSDate date].timeIntervalSince1970;
-        model.status = 0;
-        model.company_no = companyNo;
         [TaskModel createOrUpdateInRealm:rlmRealm withValue:model];
     }
     [rlmRealm commitWriteTransaction];

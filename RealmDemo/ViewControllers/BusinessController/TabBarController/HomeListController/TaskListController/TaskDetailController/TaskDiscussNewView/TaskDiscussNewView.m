@@ -199,11 +199,11 @@
     if(_repEmployeeRange.length != 0) {
         currStr = [currStr stringByReplacingCharactersInRange:_repEmployeeRange withString:@""];
     }
-    _repEmployeeRange = NSMakeRange(0, employee.user_real_name.length + 1);
-    _currCommentModel.reply_employeename = employee.user_real_name;
+    _repEmployeeRange = NSMakeRange(0, employee.real_name.length + 1);
+    _currCommentModel.reply_employeename = employee.real_name;
     _currCommentModel.reply_employeeguid = employee.employee_guid;
     //设置当前正确的字符串
-    currStr = [currStr stringByReplacingCharactersInRange:NSMakeRange(0, 0) withString:[NSString stringWithFormat:@"@%@ ",employee.user_real_name]];
+    currStr = [currStr stringByReplacingCharactersInRange:NSMakeRange(0, 0) withString:[NSString stringWithFormat:@"@%@ ",employee.real_name]];
     _textView.text = currStr;
     [self textDidChange];//直接赋值不会触发UITextViewTextDidChangeNotification方法
 }

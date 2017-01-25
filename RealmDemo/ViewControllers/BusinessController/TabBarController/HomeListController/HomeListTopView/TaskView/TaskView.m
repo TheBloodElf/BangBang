@@ -60,13 +60,30 @@
     _taskFetchedResultsController = [_userManager createTaskFetchedResultsController:_userManager.user.currCompany.company_no];
     _taskFetchedResultsController.delegate = self;
     self.leftWillEnd.textColor = self.rightWillEnd.textColor =  [UIColor colorWithRed:251 / 255.f green:214 / 255.f blue:66 / 255.f alpha:1];
+    //先显示出来灰色 因为逻辑处理太费时间了
+    leftLayer = [LineProgressLayer layer];
+    leftLayer.bounds = self.leftView.bounds;
+    leftLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
+    leftLayer.contentsScale = [UIScreen mainScreen].scale;
+    leftLayer.color = [UIColor colorFromHexCode:@"#999999"];//灰色
+    [leftLayer setNeedsDisplay];
+    [leftLayer showAnimate];
+    [self.leftView.layer insertSublayer:leftLayer atIndex:0];
+    
+    rightLayer = [LineProgressLayer layer];
+    rightLayer.bounds = self.rightView.bounds;
+    rightLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
+    rightLayer.contentsScale = [UIScreen mainScreen].scale;
+    rightLayer.color = [UIColor colorFromHexCode:@"#999999"];//灰色
+    [rightLayer setNeedsDisplay];
+    [rightLayer showAnimate];
+    [self.rightView.layer insertSublayer:rightLayer atIndex:0];
     //给这几个数字填充值
     [self getCurrCount];
     [_userManager addTaskNotfition];
 }
 - (void)updateCalendar:(NSTimer*)timer {
     _dateTimer = [NSTimer scheduledTimerWithTimeInterval:24 * 60 * 60 target:self selector:@selector(updateCalendar:) userInfo:nil repeats:NO];
-    _leftWillEndCount = _leftDidEndCount = _leftAllCount = _rightAllCount = _rightDidEndCount = _rightWillEndCount = 0;
     //给这几个数字填充值
     [self getCurrCount];
     [_userManager addTaskNotfition];
@@ -78,13 +95,13 @@
         _taskFetchedResultsController = [_userManager createTaskFetchedResultsController:_userManager.user.currCompany.company_no];
         _taskFetchedResultsController.delegate = self;
     }
-    _leftWillEndCount = _leftDidEndCount = _leftAllCount = _rightAllCount = _rightDidEndCount = _rightWillEndCount = 0;
     [self getCurrCount];
     [_userManager addTaskNotfition];
 }
 - (void)getCurrCount {
     @synchronized (self) {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        _leftWillEndCount = _leftDidEndCount = _leftAllCount = _rightAllCount = _rightDidEndCount = _rightWillEndCount = 0;
         NSMutableArray<TaskModel*> *taskArr = [_userManager getTaskArr:_userManager.user.currCompany.company_no];
         Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
         for (TaskModel *model in taskArr) {
@@ -118,12 +135,6 @@
     }
 }
 - (void)createPie {
-    [leftLayer removeFromSuperlayer];
-    [leftThridLayer removeFromSuperlayer];
-    [greenLayer removeFromSuperlayer];
-    [rightLayer removeFromSuperlayer];
-    [rightGreenLayer removeFromSuperlayer];
-    [rightThirdLayer removeFromSuperlayer];
     
     self.leftAll.text = [NSString stringWithFormat:@"%d",_leftAllCount];
     self.leftDidEnd.text = [NSString stringWithFormat:@"%d",_leftDidEndCount];
@@ -136,22 +147,20 @@
     float tempValueYellow = (_leftAllCount - _leftDidEndCount)/(float)_leftAllCount;
     float tempValueGreen = (_leftAllCount - _leftDidEndCount - _leftWillEndCount)/(float)_leftAllCount;
     
+    [leftLayer removeFromSuperlayer];
+    if(!leftLayer)
+        leftLayer = [LineProgressLayer layer];
+    leftLayer.bounds = self.leftView.bounds;
+    leftLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
+    leftLayer.contentsScale = [UIScreen mainScreen].scale;
     //我委派的数字动画和动画时间
     if (_leftAllCount == 0) {//没有任务就是灰色
-        leftLayer = [LineProgressLayer layer];
-        leftLayer.bounds = self.leftView.bounds;
-        leftLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
-        leftLayer.contentsScale = [UIScreen mainScreen].scale;
         leftLayer.color = [UIColor colorFromHexCode:@"#999999"];//灰色
         [leftLayer setNeedsDisplay];
         [leftLayer showAnimate];
         [self.leftView.layer insertSublayer:leftLayer atIndex:0];
     } else {
         //第一层  已延期
-        leftLayer = [LineProgressLayer layer];
-        leftLayer.bounds = self.leftView.bounds;
-        leftLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
-        leftLayer.contentsScale = [UIScreen mainScreen].scale;
         leftLayer.animationDuration = tempValueRed * 1.5;
         leftLayer.completed =  leftLayer.total;
         leftLayer.completedColor = [UIColor colorWithRed:1 green:105/255.f blue:64/255.f alpha:1];//红色
@@ -159,7 +168,9 @@
         [leftLayer showAnimate];
         [self.leftView.layer insertSublayer:leftLayer atIndex:0];
         //第二层  将到期
-        greenLayer = [LineProgressLayer layer];
+        [greenLayer removeFromSuperlayer];
+        if(!greenLayer)
+            greenLayer = [LineProgressLayer layer];
         greenLayer.bounds = self.leftView.bounds;
         greenLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
         greenLayer.contentsScale = [UIScreen mainScreen].scale;
@@ -171,7 +182,9 @@
         [greenLayer showAnimate];
         [self.leftView.layer insertSublayer:greenLayer above:leftLayer];
         //第三层 进行中
-        leftThridLayer = [LineProgressLayer layer];
+        [leftThridLayer removeFromSuperlayer];
+        if(!leftThridLayer)
+            leftThridLayer = [LineProgressLayer layer];
         leftThridLayer.bounds = self.leftView.bounds;
         leftThridLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
         leftThridLayer.contentsScale = [UIScreen mainScreen].scale;
@@ -188,22 +201,20 @@
     float rightValueRed = 1.0;//已经延期
     float rightValueYellow = (_rightAllCount - _rightDidEndCount)/(float)_rightAllCount;//将到期
     float rightValueGreen = (_rightAllCount - _rightDidEndCount - _rightWillEndCount)/(float)_rightAllCount;
+    [rightLayer removeFromSuperlayer];
+    if(!rightLayer)
+        rightLayer = [LineProgressLayer layer];
+    rightLayer.bounds = self.rightView.bounds;
+    rightLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
+    rightLayer.contentsScale = [UIScreen mainScreen].scale;
     if (_rightAllCount == 0) {//没有任务
         //第一层
-        rightLayer = [LineProgressLayer layer];
-        rightLayer.bounds = self.rightView.bounds;
-        rightLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
-        rightLayer.contentsScale = [UIScreen mainScreen].scale;
         rightLayer.color = [UIColor colorFromHexCode:@"#999999"];//灰色
         [rightLayer setNeedsDisplay];
         [rightLayer showAnimate];
         [self.rightView.layer insertSublayer:rightLayer atIndex:0];
     } else {
         //第一层 已延期
-        rightLayer = [LineProgressLayer layer];
-        rightLayer.bounds = self.rightView.bounds;
-        rightLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
-        rightLayer.contentsScale = [UIScreen mainScreen].scale;
         rightLayer.animationDuration = rightValueRed * 1.5;
         rightLayer.completed = rightLayer.total;
         rightLayer.completedColor = [UIColor colorWithRed:1 green:105/255.f blue:64/255.f alpha:1];
@@ -211,7 +222,9 @@
         [rightLayer showAnimate];
         [self.rightView.layer insertSublayer:rightLayer atIndex:0];
         //第二层 将到期
-        rightGreenLayer = [LineProgressLayer layer];
+        [rightGreenLayer removeFromSuperlayer];
+        if(!rightGreenLayer)
+            rightGreenLayer = [LineProgressLayer layer];
         rightGreenLayer.bounds = self.rightView.bounds;
         rightGreenLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
         rightGreenLayer.contentsScale = [UIScreen mainScreen].scale;
@@ -223,7 +236,9 @@
         [rightGreenLayer showAnimate];
         [self.rightView.layer insertSublayer:rightGreenLayer above:rightLayer];
         //第三层 进行中
-        rightThirdLayer = [LineProgressLayer layer];
+        [rightThirdLayer removeFromSuperlayer];
+        if(!rightThirdLayer)
+            rightThirdLayer = [LineProgressLayer layer];
         rightThirdLayer.bounds = self.rightView.bounds;
         rightThirdLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
         rightThirdLayer.contentsScale = [UIScreen mainScreen].scale;

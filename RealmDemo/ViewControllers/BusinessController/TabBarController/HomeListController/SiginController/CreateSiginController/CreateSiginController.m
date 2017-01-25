@@ -14,8 +14,10 @@
 #import "PlainPhotoBrose.h"
 #import "OrientationViewController.H"
 //之前逻辑：进入后先获取最新的签到规则，然后进行定位，然后根据当前位置获取签到规则中最近的签到点，当签到规则改变时重复上面步骤
-
 //最新逻辑：定位和获取签到规则分开
+
+
+//获取签到规则+定位 -> 得到最近的签到点 -> 计算当前位置和签到点的距离 -> 设置常用位置/搜索POI
 @interface CreateSiginController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate,UITextViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,SiginImageDelegate,MAMapViewDelegate,AMapSearchDelegate,RBQFetchedResultsControllerDelegate> {
     UserManager *_userManager;//用户管理器
     NSMutableArray *_todaySiginArr;//今天所有的签到记录
@@ -90,6 +92,16 @@
     //获取用户今天的所有签到记录
     _todaySiginArr = [_userManager getSigInListGuid:employee.employee_guid siginDate:[NSDate date]];
     _currSignIn = [SignIn new];
+    _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
+    _mapView.delegate = self;
+    _mapView.hidden = YES;
+    _mapView.zoomLevel = 13;//地图缩放级别
+    _mapView.distanceFilter = 100;
+    _mapView.rotateEnabled = NO;
+    _mapView.showsUserLocation = YES;
+    _mapView.desiredAccuracy = kCLLocationAccuracyBest;
+    //用地图进行定位 比较准确
+    [self.view addSubview:_mapView];
     //给模型加上一些确认的值
     _currSignIn.employee_guid = employee.employee_guid;
     _currSignIn.create_name = employee.real_name;
@@ -102,16 +114,6 @@
     _search.delegate = self;
     //先把用户位置给获取到
     currUserLocation = [MAUserLocation new];
-    _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
-    _mapView.delegate = self;
-    _mapView.hidden = YES;
-    _mapView.zoomLevel = 13;//地图缩放级别
-    _mapView.distanceFilter = 100;
-    _mapView.rotateEnabled = NO;
-    _mapView.showsUserLocation = YES;
-    _mapView.desiredAccuracy = kCLLocationAccuracyBest;
-    //用地图进行定位 比较准确
-    [self.view addSubview:_mapView];
     //进入页面就获取一次签到规则
     [self getCompanySiginRule];
     //#BANG-465 签到详情限制30字符
@@ -158,8 +160,7 @@
     }
 }
 #pragma mark --
-#pragma mark -- 这里是需要有网就操作的
-//获取签到规则
+#pragma mark -- 获取签到规则
 - (void)getCompanySiginRule {
     [UserHttp getSiginRule:_userManager.user.currCompany.company_no handler:^(id data, MError *error) {
         if(error) {
@@ -192,7 +193,8 @@
     [self getCurrCompanySiginRule];
     [self getCurrSiginAdress];
 }
-//得到当前圈子的签到规则
+#pragma mark --
+#pragma mark -- 得到当前圈子的签到规则
 - (void)getCurrCompanySiginRule {
     NSArray<SiginRuleSet*> *siginArr = [_userManager getSiginRule:_userManager.user.currCompany.company_no];
     //#141
@@ -201,7 +203,9 @@
     else
         _currSiginRuleSet = [SiginRuleSet new];
 }
-//根据用户当前位置得到最近的签到点信息
+#pragma mark --
+#pragma mark -- 根据用户当前位置得到最近的签到点信息
+//这是一个闭合的地方 因为获取签到规则和定位是异步的，但是他们都会执行到这里
 - (void)getCurrSiginAdress {
     //还没有定位成功
     if(currUserLocation.location.coordinate.longitude == 0)
@@ -222,8 +226,96 @@
             _currPunchCardAddressSetting = model;
         }
     }
+    //如果当前签到点在范围内 就默认把地图显示在常用签到点位置
+    if((_currSignIn.category < 2) && (distance <= _currSiginRuleSet.scope)) {
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+           [self setCommenSigninAdress];
+        });
+    } else {
+        //根据位置请求当前位置的POI
+        [self getCurrAdressPoi];
+    }
 }
-#pragma mark -- 
+#pragma mark --
+#pragma mark -- 根据当前位置获取周围POI
+- (void)getCurrAdressPoi {
+    AMapPOIAroundSearchRequest *request = [[AMapPOIAroundSearchRequest alloc] init];
+    request.location = [AMapGeoPoint locationWithLatitude:currUserLocation.coordinate.latitude longitude:currUserLocation.coordinate.longitude];
+    /* 按照距离排序. */
+    request.types = @"汽车服务|汽车销售|汽车维修|摩托车服务|餐饮服务|购物服务|生活服务|体育休闲服务|医疗保健服务|住宿服务|风景名胜|商务住宅|政府机构及社会团体|科教文化服务|交通设施服务|金融保险服务|公司企业|道路附属设施|地名地址信息|公共设施";
+    request.sortrule = 0;
+    request.requireExtension = YES;
+    request.radius = 300;
+    [_search AMapPOIAroundSearch:request];
+}
+#pragma mark --
+#pragma mark -- 如果当前签到点在范围内 就默认把地图显示在常用签到点位置
+- (void)setCommenSigninAdress {
+    Employee *owner = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
+    //取出用户最近10天在当前签到点的签到地址
+    NSMutableArray<SignIn*> *signInArr = [@[] mutableCopy];
+    NSDate *currDate = [NSDate date];
+    for (int i = 0; i < 9; i ++) {
+        NSDate *temp = [currDate dateByAddingTimeInterval: - i * 24 * 60 * 60];
+        NSArray *array = [_userManager getSigInListGuid:owner.employee_guid siginDate:temp];
+        for (SignIn *signIn in array) {
+            if([signIn.setting_guid isEqualToString: _currPunchCardAddressSetting.setting_guid]) {
+                [signInArr addObject:signIn];
+            }
+        }
+    }
+    //没有信息就还是获取当前位置POI
+    if(signInArr.count == 0) {
+        [self getCurrAdressPoi];
+        return;
+    }
+    //计算出签到点最多的地址 用两个数组来装，一个数组装签到地址（相同经纬度只装一个），对应下标另一个数组装次数
+    NSMutableArray<SignIn*> *computeSigInArr = [@[] mutableCopy];
+    NSMutableArray<NSNumber*> *computeSigInnumberArr = [@[] mutableCopy];
+    for (SignIn *currSignIn in signInArr) {
+        //查看当前地址是不是在计算数组中
+        for (int i = 0;i < computeSigInArr.count;i ++) {
+            SignIn *temp = computeSigInArr[i];
+            if(currSignIn.longitude == temp.longitude)
+                if(currSignIn.latitude == temp.latitude) {
+                    //如果有相同的经纬度，就把次数数组加1
+                    computeSigInnumberArr[i] = @([computeSigInnumberArr[i] intValue] + 1);
+                    break;
+                }
+        }
+        //如果没有相同的经纬度，两个数组分别加一个
+        [computeSigInArr addObject:currSignIn];
+        [computeSigInnumberArr addObject:@(1)];
+    }
+    //计算出最多次数的签到地址
+    int maxCount = 0;
+    int index = 0;
+    for (int i = 0;i < computeSigInnumberArr.count;i ++) {
+        NSNumber *number = computeSigInnumberArr[i];
+        if(number.intValue > maxCount) {
+            maxCount = number.intValue;
+            index = i;
+        }
+    }
+    //得到最多的签到点
+    SignIn *maxCountSigin = computeSigInArr[index];
+    _currSignIn.address = [NSString stringWithFormat:@"%@%@%@%@%@", maxCountSigin.province,maxCountSigin.city,maxCountSigin.subdistrict,maxCountSigin.address,maxCountSigin.address_name];
+    _currSignIn.province = maxCountSigin.province;
+    _currSignIn.city = maxCountSigin.city;
+    _currSignIn.city_code = maxCountSigin.city_code;
+    _currSignIn.subdistrict = maxCountSigin.subdistrict;
+    _currSignIn.address_name = maxCountSigin.address_name;
+    _currSignIn.latitude = maxCountSigin.latitude;
+    _currSignIn.longitude = maxCountSigin.longitude;
+    //重新获取当前位置地图的缩略图
+    dispatch_async(dispatch_get_main_queue(), ^{
+       [self setMapImageViewWithLatitude:_currSignIn.latitude longitude:_currSignIn.longitude];
+        self.currAdressDetail.text = [NSString stringWithFormat:@"%@%@%@%@", maxCountSigin.province,maxCountSigin.city,maxCountSigin.subdistrict,maxCountSigin.address];
+        self.currAdressName.text = _currSignIn.address_name;
+    });
+}
+
+#pragma mark --
 #pragma mark -- UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -239,16 +331,17 @@
         orientation.category = _currSignIn.category;
         orientation.finishOrientation = ^(AMapPOI *poi){
             if(!poi) return;
-            self.currAdressDetail.text = [NSString stringWithFormat:@"%@%@%@%@", poi.province,poi.city,poi.district,poi.address];
-            self.currAdressName.text = poi.name;
             _currSignIn.province = poi.province;
             _currSignIn.city = poi.city;
             _currSignIn.city_code = (int)poi.citycode;
             _currSignIn.subdistrict = poi.district;
-            _currSignIn.address = [NSString stringWithFormat:@"%@%@%@%@%@", poi.province,poi.city,poi.district,poi.address,poi.name];
             _currSignIn.address_name = poi.name;
             _currSignIn.latitude = poi.location.latitude;
             _currSignIn.longitude = poi.location.longitude;
+            _currSignIn.address = [NSString stringWithFormat:@"%@%@%@%@%@", _currSignIn.province,_currSignIn.city,_currSignIn.subdistrict,poi.address,_currSignIn.address_name];
+            
+            self.currAdressDetail.text = [NSString stringWithFormat:@"%@%@%@%@", _currSignIn.province,_currSignIn.city,_currSignIn.subdistrict,poi.address];
+            self.currAdressName.text = _currSignIn.address_name;
             //重新获取当前位置地图的缩略图
             [self setMapImageViewWithLatitude:_currSignIn.latitude longitude:_currSignIn.longitude];
         };
@@ -261,15 +354,6 @@
     if (currUserLocation.location.coordinate.latitude == 0) {
         currUserLocation = userLocation;
         [self getCurrSiginAdress];
-        //根据位置请求当前位置的POI
-        AMapPOIAroundSearchRequest *request = [[AMapPOIAroundSearchRequest alloc] init];
-        request.location = [AMapGeoPoint locationWithLatitude:userLocation.coordinate.latitude longitude:userLocation.coordinate.longitude];
-        /* 按照距离排序. */
-        request.types = @"汽车服务|汽车销售|汽车维修|摩托车服务|餐饮服务|购物服务|生活服务|体育休闲服务|医疗保健服务|住宿服务|风景名胜|商务住宅|政府机构及社会团体|科教文化服务|交通设施服务|金融保险服务|公司企业|道路附属设施|地名地址信息|公共设施";
-        request.sortrule = 0;
-        request.requireExtension = YES;
-        request.radius = 300;
-        [_search AMapPOIAroundSearch:request];
     }
 }
 #pragma mark --

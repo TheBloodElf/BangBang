@@ -61,27 +61,31 @@
     [self getCurrData];
 }
 - (void)getCurrData {
-    NSMutableArray *array = [@[] mutableCopy];
-    for (TaskModel *model in self.data) {
-        if([NSString isBlank:_searchBar.text]) {
-            [array addObject:model];
-        } else {
-            if([model.task_name rangeOfString:_searchBar.text].location != NSNotFound)
+    @synchronized (self) {
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSMutableArray *array = [@[] mutableCopy];
+        for (TaskModel *model in self.data) {
+            if([NSString isBlank:_searchBar.text]) {
                 [array addObject:model];
-            else if([model.incharge_name rangeOfString:_searchBar.text].location != NSNotFound)
-                [array addObject:model];
-            else if([model.create_realname rangeOfString:_searchBar.text].location != NSNotFound)
-                [array addObject:model];
+            } else {
+                if([model.task_name rangeOfString:_searchBar.text].location != NSNotFound)
+                    [array addObject:model];
+                else if([model.incharge_name rangeOfString:_searchBar.text].location != NSNotFound)
+                    [array addObject:model];
+                else if([model.create_realname rangeOfString:_searchBar.text].location != NSNotFound)
+                    [array addObject:model];
+            }
         }
-    }
-    _currArr = array;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if(_currArr.count == 0)
-            _tableView.tableFooterView = _noDataView;
-        else
-            _tableView.tableFooterView = [UIView new];
-        [_tableView reloadData];
+        _currArr = array;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(_currArr.count == 0)
+                _tableView.tableFooterView = _noDataView;
+            else
+                _tableView.tableFooterView = [UIView new];
+            [_tableView reloadData];
+        });
     });
+    }
 }
 #pragma mark -- UISearchBarDelegate
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {

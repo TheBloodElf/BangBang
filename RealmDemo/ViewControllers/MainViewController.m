@@ -290,7 +290,17 @@
     //初始化个推
     [GeTuiSdk startSdkWithAppId:kAppId appKey:kAppKey appSecret:kAppSecret delegate:self];
     //连接融云
+    RCUserInfo *userInfo = [RCUserInfo new];
+    userInfo.userId = @([UserManager manager].user.user_no).stringValue;
+    userInfo.name = [UserManager manager].user.real_name;
+    userInfo.portraitUri = [UserManager manager].user.avatar;
+    //#BANG-532 用户钱包信息显示不出来
+    [RCIM sharedRCIM].currentUserInfo = userInfo;
+    //设置成YES后 用户修改自己信息后将不能实时获取，因为本地持久化了
+//    [RCIM sharedRCIM].enableMessageAttachUserInfo = YES;
+//    [RCIM sharedRCIM].enablePersistentUserInfoCache = YES;
     [[RCIM sharedRCIM] connectWithToken:[UserManager manager].user.RYToken success:^(NSString *userId){}error:^(RCConnectErrorCode status){}tokenIncorrect:^(){}];
+    [JrmfWalletSDK instanceJrmfWalletSDKWithThirdToken:[UserManager manager].user.RYToken];
     //加载主页
     _business = [[BusinessController alloc] initWithOptions:_launchOptions];
     _business.view.alpha = 0;
@@ -326,6 +336,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"DidRecivePushMessage" object:payloadData];
 }
 #pragma mark -- 融云代理
+#pragma mark --
 - (void)getGroupInfoWithGroupId:(NSString*)groupId completion:(void (^)(RCGroup*))completion
 {
     //根据组id获取圈子信息
@@ -358,7 +369,7 @@
         }
         RCUserInfo * user = [[RCUserInfo alloc] init];
         user.userId = userId;
-        user.name = emp.user_real_name;
+        user.name = emp.real_name;
         user.portraitUri = emp.avatar;
         completion(user);
     });
@@ -366,21 +377,21 @@
 //融云连接状态发生改变走此回调，只需要处理该用户在
 //其他设备登陆状态即可
 -(void)onRCIMConnectionStatusChanged:(RCConnectionStatus)status{
-    NSString *result = nil;
-    switch (status) {
-        case -1:result = @"未知状态。";break;
-        case 0:result = @"连接成功。";break;
-        case 1:result = @"网络连接不可用。";break;
-        case 2: result = @"设备处于飞行模式。";break;
-        case 3:result = @"设备处于2G低网速下。";break;
-        case 4:result = @"设备处于3G,4G网速下。";break;
-        case 5: result = @"设备切换到WIFI网络下。";break;
-        case 6:result = @"设备在其它设备登陆。";break;
-        case 12:result = @"注销";break;
-        case 31004:result = @"Token无效，可能是token错误，token过期或者后台刷新了密钥等原因。";break;
-        case 31011:result = @"服务器断开连接。";break;
-        default:result = @"其他状态。";break;
-    }
+//    NSString *result = nil;
+//    switch (status) {
+//        case -1:result = @"未知状态。";break;
+//        case 0:result = @"连接成功。";break;
+//        case 1:result = @"网络连接不可用。";break;
+//        case 2: result = @"设备处于飞行模式。";break;
+//        case 3:result = @"设备处于2G低网速下。";break;
+//        case 4:result = @"设备处于3G,4G网速下。";break;
+//        case 5: result = @"设备切换到WIFI网络下。";break;
+//        case 6:result = @"设备在其它设备登陆。";break;
+//        case 12:result = @"注销";break;
+//        case 31004:result = @"Token无效，可能是token错误，token过期或者后台刷新了密钥等原因。";break;
+//        case 31011:result = @"服务器断开连接。";break;
+//        default:result = @"其他状态。";break;
+//    }
     if (status == ConnectionStatus_KICKED_OFFLINE_BY_OTHER_CLIENT) {
         [[IdentityManager manager] logOut];
         [[IdentityManager manager] showLogin:@"你的账号在其他设备上登录，请重新登录"];

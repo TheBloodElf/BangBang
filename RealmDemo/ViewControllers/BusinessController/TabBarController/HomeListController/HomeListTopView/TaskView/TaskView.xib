@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -112,16 +112,9 @@
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GBy-tt-5t5">
                                     <rect key="frame" x="0.0" y="0.0" width="160" height="180"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="60" id="Ibk-p0-rSM"/>
-                                        <constraint firstAttribute="width" constant="60" id="yeQ-oD-Khp"/>
-                                    </constraints>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="Ibk-p0-rSM"/>
-                                            <exclude reference="yeQ-oD-Khp"/>
-                                        </mask>
-                                    </variation>
+                                    <state key="normal" title="我委派的按钮">
+                                        <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </state>
                                     <connections>
                                         <action selector="todayClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="8hq-XX-JWh"/>
                                     </connections>
@@ -263,16 +256,6 @@
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Raa-6H-yEM">
                                     <rect key="frame" x="0.0" y="0.0" width="160" height="180"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="60" id="1j2-6I-c6I"/>
-                                        <constraint firstAttribute="width" constant="60" id="8cm-0X-coY"/>
-                                    </constraints>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="1j2-6I-c6I"/>
-                                            <exclude reference="8cm-0X-coY"/>
-                                        </mask>
-                                    </variation>
                                     <connections>
                                         <action selector="weekClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="9cB-x5-0Sy"/>
                                     </connections>

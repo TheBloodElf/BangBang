@@ -65,6 +65,8 @@
                 [companys addObject:company];
             }
             [_userManager updateCompanyArr:companys];
+            [companys removeAllObjects];
+            companys = nil;
         }];
     }];
     //创建空太图
@@ -80,6 +82,9 @@
     [self.view bringSubviewToFront:_moreSelectView];
     //创建右边导航按钮
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigationbar_menu"] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonClicked:)];
+#ifdef DEBUG
+    [self.navigationItem.rightBarButtonItem setAccessibilityLabel:@"companyManagerRightItem"];
+#endif
     //测试按钮
 //    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
 //    [button setTitle:@"测试按钮" forState:UIControlStateNormal];

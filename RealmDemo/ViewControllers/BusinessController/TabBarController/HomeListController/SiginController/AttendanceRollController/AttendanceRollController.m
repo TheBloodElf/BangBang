@@ -56,6 +56,7 @@
     [_tableView registerNib:[UINib nibWithNibName:@"AttendanceRollCell" bundle:nil] forCellReuseIdentifier:@"AttendanceRollCell"];
     [self.view addSubview:_tableView];
     //进来就获取一次签到规则
+    [self getCurrData];
     [self getCompanySiginRule];
     // Do any additional setup after loading the view.
 }
@@ -66,15 +67,22 @@
 #pragma mark --
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
+    //获取显示的数据
+    [self getCurrData];
+}
+- (void)getCurrData {
     _dataArr = [_userManager getSiginRule:_userManager.user.currCompany.company_no];
-    [_tableView reloadData];
-    if(_dataArr.count == 0) {
-        _tableView.tableFooterView = _noResultView;
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(rightNavigationBarAction:)];
-    } else {
-        _tableView.tableFooterView = [UIView new];
-        self.navigationItem.rightBarButtonItem = nil;
-    }
+    //主线程刷新界面
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_tableView reloadData];
+        if(_dataArr.count == 0) {
+            _tableView.tableFooterView = _noResultView;
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(rightNavigationBarAction:)];
+        } else {
+            _tableView.tableFooterView = [UIView new];
+            self.navigationItem.rightBarButtonItem = nil;
+        }
+    });
 }
 #pragma mark --
 #pragma mark -- 这里是需要有网就操作的

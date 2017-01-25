@@ -17,6 +17,7 @@
 #import "TaskListController.h"
 #import "WebNonstandarViewController.h"
 #import "SiginController.h"
+#import "UserHttp.h"
 
 @interface HomeListController ()<HomeListTopDelegate,HomeListBottomDelegate,RBQFetchedResultsControllerDelegate> {
     UIScrollView *_scrollView;//整体的滚动视图
@@ -59,9 +60,9 @@
     _scrollView.contentSize = CGSizeMake(MAIN_SCREEN_WIDTH, CGRectGetMaxY(_homeListBottomView.frame));
     [self.view addSubview:_scrollView];
     //加上左边边界侧滑手势
-//    UIScreenEdgePanGestureRecognizer * screenEdgePanGesture = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(showLeftClicked:)];
-//    screenEdgePanGesture.edges = UIRectEdgeLeft;
-//    [self.view addGestureRecognizer:screenEdgePanGesture];
+    UIScreenEdgePanGestureRecognizer * screenEdgePanGesture = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(showLeftClicked:)];
+    screenEdgePanGesture.edges = UIRectEdgeLeft;
+    [self.view addGestureRecognizer:screenEdgePanGesture];
     [self setLeftNavigationBarItem];
     [self setRightNavigationBarItem];
     // Do any additional setup after loading the view.
@@ -71,9 +72,9 @@
     self.navigationController.navigationBar.barTintColor = [UIColor homeListColor];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
-//- (void)showLeftClicked:(UIScreenEdgePanGestureRecognizer*)sepr {
-//    [self.navigationController.frostedViewController presentMenuViewController];
-//}
+- (void)showLeftClicked:(UIScreenEdgePanGestureRecognizer*)sepr {
+    [self.navigationController.frostedViewController presentMenuViewController];
+}
 #pragma mark --
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
@@ -92,6 +93,13 @@
         label.hidden = !count;
     } else if(controller == _userFetchedResultsController) {
         User *user = [_userManager user];
+        //修改了自己的信息后，红包头像显示错误
+        RCUserInfo *userInfo = [RCUserInfo new];
+        userInfo.userId = @([UserManager manager].user.user_no).stringValue;
+        userInfo.name = [UserManager manager].user.real_name;
+        userInfo.portraitUri = [UserManager manager].user.avatar;
+        //#BANG-532 用户钱包信息显示不出来
+        [RCIM sharedRCIM].currentUserInfo = userInfo;
         //重新设置签到记录的数据监听
         _sigRuleFetchedResultsController = [_userManager createSiginRuleFetchedResultsController];
         _sigRuleFetchedResultsController.delegate = self;

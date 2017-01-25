@@ -46,9 +46,9 @@
     _tableView.tableFooterView = [UIView new];
     [_tableView registerNib:[UINib nibWithNibName:@"RequestManagerCell" bundle:nil] forCellReuseIdentifier:@"RequestManagerCell"];
     _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [UserHttp getEmployeeCompnyNo:_userManager.user.currCompany.company_no status:0 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
-            [_tableView.mj_header endRefreshing];
+        [UserHttp getEmployeeCompnyNo:_userManager.user.currCompany.company_no status:2 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
             if(error) {
+                [_tableView.mj_header endRefreshing];
                 [self.navigationController.view showFailureTips:@"获取失败，请重试"];
                 return ;
             }
@@ -58,9 +58,9 @@
                 [employee mj_setKeyValues:dic];
                 [array addObject:employee];
             }
-            [UserHttp getEmployeeCompnyNo:_userManager.user.currCompany.company_no status:4 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
-                [_tableView.mj_header endRefreshing];
+            [UserHttp getEmployeeCompnyNo:_userManager.user.currCompany.company_no status:5 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
                 if(error) {
+                    [_tableView.mj_header endRefreshing];
                     [self.navigationController.view showFailureTips:@"获取失败，请重试"];
                     return ;
                 }
@@ -69,10 +69,22 @@
                     [employee mj_setKeyValues:dic];
                     [array addObject:employee];
                 }
-                //存入本地数据库
-                for (Employee *employee in array) {
-                    [_userManager updateEmployee:employee];
-                }
+                [UserHttp getEmployeeCompnyNo:_userManager.user.currCompany.company_no status:0 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+                    [_tableView.mj_header endRefreshing];
+                    if(error) {
+                        [self.navigationController.view showFailureTips:@"获取失败，请重试"];
+                        return ;
+                    }
+                    for (NSDictionary *dic in data[@"list"]) {
+                        Employee *employee = [Employee new];
+                        [employee mj_setKeyValues:dic];
+                        [array addObject:employee];
+                    }
+                    //存入本地数据库
+                    for (Employee *employee in array) {
+                        [_userManager updateEmployee:employee];
+                    }
+                }];
             }];
         }];
     }];

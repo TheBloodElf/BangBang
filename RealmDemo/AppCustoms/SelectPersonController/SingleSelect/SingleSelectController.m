@@ -82,8 +82,8 @@
     //填充数据
     for (Employee *tempEmployee in _selectEmployees) {
         //判断是否要加入到字典中
-        if([NSString isBlank:text] || ([tempEmployee.user_real_name rangeOfString:text].location != NSNotFound)) {
-            NSString *firstChar = [tempEmployee.user_real_name firstChar];
+        if([NSString isBlank:text] || ([tempEmployee.real_name rangeOfString:text].location != NSNotFound)) {
+            NSString *firstChar = [tempEmployee.real_name firstChar];
             NSMutableArray *currArr = _currDataArr[firstChar];
             [currArr addObject:tempEmployee];
             _currDataArr[firstChar] = currArr;

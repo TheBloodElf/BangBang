@@ -26,11 +26,14 @@
 #import "RepCalendarDetailController.h"
 #import "BindPhoneController.h"
 
-@interface MainBusinessController ()<UITabBarControllerDelegate,MoreViewControllerDelegate,BindPhoneDelegate> {
+@interface MainBusinessController ()<UITabBarControllerDelegate,MoreViewControllerDelegate,BindPhoneDelegate,RCIMReceiveMessageDelegate> {
     UITabBarController *_tabBarVC;
     UserManager *_userManager;
     IdentityManager *_identityManager;
     NSMutableArray *_needSyncCalender;//需要同步的日程
+    //用一个简单的方式来补救、提送不及时问题
+    NSTimer *_syncTaskCanclder4;//4小时定时获取任务和日程
+    NSTimer *_syncTaskCanclder1;//1小时定时获取任务和日程
 }
 @property (nonatomic, strong) NSDictionary *launchOptions;
 
@@ -74,28 +77,96 @@
     //检查启动参数 如果有就进行相应的跳转
     //后面想了一下，本地推送已经存入数据库 远程推送有个推的透传，可以不需要检查启动参数了
 //    [self checkOption];
+    //初始化定时器
+    _syncTaskCanclder1 =  [NSTimer scheduledTimerWithTimeInterval:60 * 60 target:self selector:@selector(tongBuCalendarTask) userInfo:nil repeats:YES];
+    [_syncTaskCanclder1 setFireDate:[NSDate distantFuture]];
+    _syncTaskCanclder4 =  [NSTimer scheduledTimerWithTimeInterval:4 * 60 * 60 target:self selector:@selector(tongBuCalendarTask) userInfo:nil repeats:YES];
+    [_syncTaskCanclder4 setFireDate:[NSDate distantFuture]];
     //检查网络是否连接
     AFNetworkReachabilityManager *reachabilityManager = [AFNetworkReachabilityManager sharedManager];
     [reachabilityManager startMonitoring];
     [reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         //这里进程序就会回调一次 所以可以在这里进行程序进入后加载所需要的最新数据 进入时加载必要的最新数据
-        if(status == -1 || status == 0) {
+        //没有网络
+        if(status == AFNetworkReachabilityStatusUnknown || status == AFNetworkReachabilityStatusNotReachable) {
             [self.navigationController.view showFailureTips:@"网络不可用，请连接网络"];
             return;
         }
-        if(!_userManager.user.currCompany.company_no) return;
-        [self getCompanySiginRule];//获取签到规则 这里第一次进入应用是获取不到签到规则的  因为第一次用户当前没有圈子 是在[self checkSyncCalender]中获取的    不过这里写上的作用在于网络可用时再获取一次
-        [self checkSyncCalender];//同步日程
+        //4g流量进行日程、任务轮询间隔为4小时
+        if(status == AFNetworkReachabilityStatusReachableViaWWAN) {
+            [_syncTaskCanclder1 setFireDate:[NSDate distantFuture]];
+            [_syncTaskCanclder4 setFireDate:[NSDate distantPast]];
+        }
+        //wifi流量进行日程、任务轮询间隔为1小时
+        if(status == AFNetworkReachabilityStatusReachableViaWiFi) {
+            [_syncTaskCanclder1 setFireDate:[NSDate distantPast]];
+            [_syncTaskCanclder4 setFireDate:[NSDate distantFuture]];
+        }
+        //同步离线操作过的日程
+        [self checkSyncCalender];
     }];
     //每次进来重新获取一次圈子和员工信息，保证数据的有效性
     [self requestCompanyEmployee];
+    //添加一个融云监听试试
+    //即便融云控制器没有初始化也可以得到角标
+    [[RCIM sharedRCIM] setReceiveMessageDelegate:self];
+    int count = [RCIMClient sharedRCIMClient].getTotalUnreadCount;
+    //#BANG-625 新消息来了不刷新小红点
+    //因为回调不在主线程，所以不会刷新
+    //count <= 0都表示异常
+    _tabBarVC.viewControllers[1].tabBarItem.badgeValue = (count <= 0) ? nil : @(count).stringValue;
 }
-
+#pragma mark -- RCIMReceiveMessageDelegate
+- (void)onRCIMReceiveMessage:(RCMessage *)message
+                        left:(int)left {
+    int count = [RCIMClient sharedRCIMClient].getTotalUnreadCount;
+    //#BANG-625 新消息来了不刷新小红点
+    //因为回调不在主线程，所以不会刷新
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //count <= 0都表示异常
+        _tabBarVC.viewControllers[1].tabBarItem.badgeValue = (count <= 0) ? nil : @(count).stringValue;
+    });
+}
+//同步日程 然后同步任务
+- (void)tongBuCalendarTask {
+    //日程
+    [UserHttp getUserCalendar:_userManager.user.user_guid handler:^(id data, MError *error) {
+        if(error) {
+            [self.navigationController.view showFailureTips:error.statsMsg];
+            return ;
+        }
+        NSMutableArray *array = [@[] mutableCopy];
+        for (NSDictionary *dic in data[@"list"]) {
+            Calendar *calendar = [Calendar new];
+            [calendar mj_setKeyValues:dic];
+            calendar.descriptionStr = dic[@"description"];
+            [array addObject:calendar];
+        }
+        [_userManager updateCalendars:array];
+        //任务
+        if(_userManager.user.currCompany.company_no == 0)
+            return;
+        Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
+        [UserHttp getTaskList:employee.employee_guid handler:^(id data, MError *error) {
+            if(error) {
+                [self.navigationController.view showFailureTips:error.statsMsg];
+                return ;
+            }
+            NSMutableArray<TaskModel*> *array = [@[] mutableCopy];
+            for (NSDictionary *dic in data[@"list"]) {
+                TaskModel *model = [TaskModel new];
+                [model mj_setKeyValues:dic];
+                model.descriptionStr = dic[@"description"];
+                [array addObject:model];
+            }
+            [_userManager updateTask:array companyNo:_userManager.user.currCompany.company_no];
+        }];
+    }];
+}
 - (void)requestCompanyEmployee {
     //获取所有圈子 所有状态员工
     [UserHttp getCompanysUserGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
         if(error) {
-            [self.navigationController dismissTips];
             [self.navigationController.view showFailureTips:error.statsMsg];
             return ;
         }
@@ -107,7 +178,8 @@
         }
         [_userManager updateCompanyArr:companys];
         //获取所有圈子的员工信息
-        [UserHttp getEmployeeCompnyNo:0 status:5 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+        //#BANG-585 别人同意你加入圈子，列表不刷新，要获取状态为2的员工
+        [UserHttp getEmployeeCompnyNo:0 status:2 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
             if(error) {
                 [self.navigationController dismissTips];
                 [self.navigationController.view showFailureTips:error.statsMsg];
@@ -120,7 +192,7 @@
                 [array addObject:employee];
             }
             //#BANG-585 company_no传0获取不到状态为0的员工
-            [UserHttp getEmployeeCompnyNo:0 status:0 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+            [UserHttp getEmployeeCompnyNo:0 status:5 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
                 if(error) {
                     [self.navigationController dismissTips];
                     [self.navigationController.view showFailureTips:error.statsMsg];
@@ -131,18 +203,30 @@
                     [employee mj_setKeyValues:dic];
                     [array addObject:employee];
                 }
-                [_userManager updateEmployee:array companyNo:0];
-                //如果当前用户没有圈子，就重新给一个 把第一个正式员工作为自己当前圈子
-                if(_userManager.user.currCompany.company_no != 0)
-                    return;
-                for (Company *company in [_userManager getCompanyArr]) {
-                    Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:company.company_no];
-                    if(employee.status == 1 || employee.status == 4) {
-                        _userManager.user.currCompany = company;
-                        break;
+                [UserHttp getEmployeeCompnyNo:0 status:0 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+                    if(error) {
+                        [self.navigationController dismissTips];
+                        [self.navigationController.view showFailureTips:error.statsMsg];
+                        return ;
                     }
-                }
-                [_userManager updateUser:_userManager.user];
+                    for (NSDictionary *dic in data[@"list"]) {
+                        Employee *employee = [Employee new];
+                        [employee mj_setKeyValues:dic];
+                        [array addObject:employee];
+                    }
+                    [_userManager updateEmployee:array companyNo:0];
+                    //如果当前用户没有圈子，就重新给一个 把第一个正式员工作为自己当前圈子
+                    if(_userManager.user.currCompany.company_no != 0)
+                        return;
+                    for (Company *company in [_userManager getCompanyArr]) {
+                        Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:company.company_no];
+                        if(employee.status == 1 || employee.status == 4) {
+                            _userManager.user.currCompany = company;
+                            break;
+                        }
+                    }
+                    [_userManager updateUser:_userManager.user];
+                }];
             }];
         }];
     }];
@@ -245,35 +329,6 @@
 }
 #pragma mark --
 #pragma mark -- 这里是需要有网就操作的
-//获取签到规则
-- (void)getCompanySiginRule {
-    //没有圈子就不获取规则
-    if(_userManager.user.currCompany.company_no == 0)
-        return;
-    [UserHttp getSiginRule:_userManager.user.currCompany.company_no handler:^(id data, MError *error) {
-        if(error) {
-            [self.navigationController.view showFailureTips:error.statsMsg];
-            return ;
-        }
-        NSMutableArray *array = [@[] mutableCopy];
-        for (NSDictionary *dic in data) {
-            NSMutableDictionary *dicDic = [dic mutableCopy];
-            dicDic[@"work_day"] = [dicDic[@"work_day"] componentsJoinedByString:@","];
-            SiginRuleSet *set = [SiginRuleSet new];
-            [set mj_setKeyValues:dicDic];
-            //这里动态添加签到地址
-            RLMArray<PunchCardAddressSetting> *settingArr = [[RLMArray<PunchCardAddressSetting> alloc] initWithObjectClassName:@"PunchCardAddressSetting"];
-            for (NSDictionary *settingDic in dicDic[@"address_settings"]) {
-                PunchCardAddressSetting *setting = [PunchCardAddressSetting new];
-                [setting mj_setKeyValues:settingDic];
-                [settingArr addObject:setting];
-            }
-            set.json_list_address_settings = settingArr;
-            [array addObject:set];
-        }
-        [_userManager updateSiginRule:array companyNo:_userManager.user.currCompany.company_no];
-    }];
-}
 //看有没有日程需要同步
 - (void)checkSyncCalender {
     _needSyncCalender = [@[] mutableCopy];
@@ -490,7 +545,7 @@
                     [company mj_setKeyValues:data];
                     [_userManager addCompany:company];
                     //获取圈子员工列表
-                    [UserHttp getEmployeeCompnyNo:message.company_no status:0 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+                    [UserHttp getEmployeeCompnyNo:message.company_no status:2 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
                         if(error) {
                             return ;
                         }
@@ -509,7 +564,17 @@
                                 [employee mj_setKeyValues:dic];
                                 [array addObject:employee];
                             }
-                            [_userManager updateEmployee:array companyNo:message.company_no];
+                            [UserHttp getEmployeeCompnyNo:message.company_no status:0 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+                                if(error) {
+                                    return ;
+                                }
+                                for (NSDictionary *dic in data[@"list"]) {
+                                    Employee *employee = [Employee new];
+                                    [employee mj_setKeyValues:dic];
+                                    [array addObject:employee];
+                                }
+                                [_userManager updateEmployee:array companyNo:message.company_no];
+                            }];
                         }];
                     }];
                 }];
@@ -596,7 +661,7 @@
             //                break;
             //            }
             //        }
-            [UserHttp getEmployeeCompnyNo:message.company_no status:0 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+            [UserHttp getEmployeeCompnyNo:message.company_no status:2 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
                 if(error) {
                     return ;
                 }
@@ -606,7 +671,7 @@
                     [employee mj_setKeyValues:dic];
                     [array addObject:employee];
                 }
-                [UserHttp getEmployeeCompnyNo:message.company_no status:4 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+                [UserHttp getEmployeeCompnyNo:message.company_no status:5 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
                     if(error) {
                         return ;
                     }
@@ -615,10 +680,20 @@
                         [employee mj_setKeyValues:dic];
                         [array addObject:employee];
                     }
-                    //存入本地数据库
-                    for (Employee *employee in array) {
-                        [_userManager updateEmployee:employee];
-                    }
+                    [UserHttp getEmployeeCompnyNo:message.company_no status:0 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+                        if(error) {
+                            return ;
+                        }
+                        for (NSDictionary *dic in data[@"list"]) {
+                            Employee *employee = [Employee new];
+                            [employee mj_setKeyValues:dic];
+                            [array addObject:employee];
+                        }
+                        //存入本地数据库
+                        for (Employee *employee in array) {
+                            [_userManager updateEmployee:employee];
+                        }
+                    }];
                 }];
             }];
         }
@@ -632,25 +707,13 @@
         //        }
     }
     if([message.type isEqualToString:@"MEETING"]) {
-        if([message.action isEqualToString:@"GENERAL"]) {//如果是有会议来
-            
-        } else {
-            NSData *calendarData = [[dict objectForKey:@"entity"] dataUsingEncoding:NSUTF8StringEncoding];
-            NSMutableDictionary *calendarDic = [NSJSONSerialization JSONObjectWithData:calendarData options:NSJSONReadingMutableContainers error:nil];
-            Calendar *meetingCalendar = [Calendar new];
-            [meetingCalendar mj_setKeyValues:calendarDic];
+        NSData *calendarData = [[dict objectForKey:@"entity"] dataUsingEncoding:NSUTF8StringEncoding];
+        NSMutableDictionary *calendarDic = [NSJSONSerialization JSONObjectWithData:calendarData options:NSJSONReadingMutableContainers error:nil];
+        Calendar *meetingCalendar = [Calendar new];
+        [meetingCalendar mj_setKeyValues:calendarDic];
+        if(meetingCalendar.id) {
             meetingCalendar.descriptionStr = calendarDic[@"description"];
-            if([message.action isEqualToString:@"MEETING_RECEIVE"]){//接收会议 加入本地日程
-                [_userManager addCalendar:meetingCalendar];
-            } else if ([message.action isEqualToString:@"MEETING_FINISHED"]) {//会议完结 本地的日程完结
-                meetingCalendar.status = 2;
-                [_userManager updateCalendar:meetingCalendar];
-            } else if ([message.action isEqualToString:@"MEETING_UPDATE"]) {//更新会议 更新本地日程
-                [_userManager updateCalendar:meetingCalendar];
-            } else if ([message.action isEqualToString:@"MEETING_CALLOFF"]) {//取消会议
-                meetingCalendar.status = 0;
-                [_userManager updateCalendar:meetingCalendar];
-            }
+            [_userManager addCalendar:meetingCalendar];
         }
     }
     [_userManager addPushMessage:message];

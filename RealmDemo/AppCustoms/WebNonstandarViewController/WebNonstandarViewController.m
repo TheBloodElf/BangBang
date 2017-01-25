@@ -316,7 +316,7 @@
     //取出数据
     NSString* employeeGuid = employee.employee_guid;
     NSString* employeeAvatar = employee.avatar;
-    NSString* employeeName = employee.user_real_name;
+    NSString* employeeName = employee.real_name;
     NSDictionary* onePerson = @{@"employeeGuid":employeeGuid,
                                 @"employeeAvatar":employeeAvatar,
                                 @"employeeName":employeeName
@@ -335,10 +335,10 @@
         //取数据
         NSString* employeeGuid = employee.employee_guid;
         NSString* employeeAvatar = employee.avatar;
-        NSString* employeeName = employee.user_real_name;
+        NSString* employeeName = employee.real_name;
         NSDictionary* onePerson = @{@"employee_guid":employeeGuid,
                                     @"avatar":employeeAvatar,
-                                    @"user_real_name":employeeName
+                                    @"real_name":employeeName
                                     };
         [sendUsersArray addObject:onePerson];
     }

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AliTestViewController">
+            <connections>
+                <outlet property="testLabel" destination="5v2-nY-WJP" id="Qmy-pQ-Bxe"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XlE-wt-SWy">
+                    <rect key="frame" x="149" y="318.5" width="77" height="30"/>
+                    <state key="normal" title="点击试试看"/>
+                    <connections>
+                        <action selector="btnClicked:" destination="-1" eventType="touchUpInside" id="Yph-oZ-tpS"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="这是默认显示的内容" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5v2-nY-WJP">
+                    <rect key="frame" x="109.5" y="398.5" width="156" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="5v2-nY-WJP" firstAttribute="top" secondItem="XlE-wt-SWy" secondAttribute="bottom" constant="50" id="Gks-az-fHR"/>
+                <constraint firstItem="XlE-wt-SWy" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="dda-MN-F5p"/>
+                <constraint firstItem="5v2-nY-WJP" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="gvL-UT-aYt"/>
+                <constraint firstItem="XlE-wt-SWy" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="oTZ-Wz-wbi"/>
+            </constraints>
+            <point key="canvasLocation" x="16" y="22"/>
+        </view>
+    </objects>
+</document>

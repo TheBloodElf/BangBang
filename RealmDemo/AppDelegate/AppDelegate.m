@@ -21,12 +21,12 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-//    NSDictionary *dic = @{@"1":@"one",@"2":@"two"};
-    //Realm数据库版本 数据模型改变 上线前记得数字增加
+    //Realm数据库配置
     RLMRealmConfiguration *config = [RLMRealmConfiguration defaultConfiguration];
-    config.schemaVersion = 7;
-    //#150 too many open files
-    config.deleteRealmIfMigrationNeeded = YES;
+    //上线前记得增加数字 versin版本号增加
+    config.schemaVersion = 9;
+    //这个属性必须设置成NO YES过后会出错，数据库会被莫名删除
+//    config.deleteRealmIfMigrationNeeded = YES;
     [RLMRealmConfiguration setDefaultConfiguration:config];
     //键盘遮挡问题解决方案
     [IQKeyboardManager sharedManager].enable = YES;
@@ -34,8 +34,12 @@
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     //初始化融云 只需要在程序启动时初始化一次 不然会有警告
     [[RCIM sharedRCIM] initWithAppKey:RONGCLOUD_IM_APPKEY];
+    //设置红包扩展的Url Schem
+    [[RCIM sharedRCIM] setScheme:@"BangBang" forExtensionModule:@"JrmfPacketManager"];
     //百度统计
     [self startBDMobStat];
+    //阿里热修复
+//    [self startAliHotFix];
     //注册微信APPID
     [WXApi registerApp:@"wxbd349c9a6abf20f8" withDescription:@"weixin"];
     //注册微博APPKEY
@@ -70,45 +74,6 @@
 //    if (![[[UIDevice currentDevice] model] isEqualToString:@"iPhone Simulator"]) {
 //        [self redirectNSlogToDocumentFolder];
 //    }
-//    NSMutableArray *array = [@[@"2",@"2",@"2",@"3",@"4",@"5"] mutableCopy];
-//    [array enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//       if([obj isEqualToString:@"2"])
-//           [array removeObject:obj];
-//    }];
-    
-//    NSDictionary *dic = @{@"id":@32664,
-//                          @"company_no":@10008,
-//                          @"event_name":@"CRM 系统功能反馈",
-//                          @"description":@"",
-//                          @"address":@"",
-//                          @"begindate_utc":@1481794478040,
-//                          @"enddate_utc":@1482053698000,
-//                          @"is_allday":@false,
-//@"app_guid":@"00000000-0000-0000-0000-000000000000",
-//                          @"target_id":@"",
-//                          @"repeat_type":@0,
-//                          @"is_alert":@false,
-//                          @"alert_minutes_before":@0,
-//                          @"alert_minutes_after":@0,
-//                          @"user_guid":@"b62cc1a7-24d3-4958-87a5-68089b07517a",
-//                          @"created_by":@"3b85e198-e2df-4670-9ab9-298f9d816d89",
-//                          @"createdon_utc":@1481794620887,
-//                          @"updated_by":@"3b85e198-e2df-4670-9ab9-298f9d816d89",
-//                          @"updatedon_utc":@1481794620887,
-//                          @"status":@1,
-//                          @"finishedon_utc":@0,
-//                          @"rrule":@"",
-//                          @"rdate":@"",
-//                          @"emergency_status":@1,
-//                          @"deleted_dates":@"",
-//                          @"finished_dates":@"",
-//                          @"r_begin_date_utc":@1481794478040,
-//                          @"r_end_date_utc":@1481794478040,
-//                          @"is_over_day":@true,
-//                          @"members":@"83da16e3-5ed3-4dbd-9c3a-6fd45cb7afa8,ae2bac9b-57aa-4477-bd71-4eb43f37bae2,ac052010-5e12-4192-8238-89f68fb42835,456e59ac-98fe-4fbc-ae1a-91ee081ed4bb,b668b9e4-3c38-495d-aa78-5285bfee60c0,8f820310-c6d2-4d02-8420-0d0e08959c15,b62cc1a7-24d3-4958-87a5-68089b07517a,d119866f-f7e7-4ed5-aa1d-2b27b0c207de,3b85e198-e2df-4670-9ab9-298f9d816d89",
-//                          @"member_names":@"程龙,罗元,潘贺春,温贺,徐朝帅,杨波,余敏,周曙煜,宋文枫",
-//                          @"event_guid":@"e8755fcf-6f9b-4de7-a38d-9cc00f41bc3d",
-//                          @"creator_name":@"宋文枫"};
     
     return YES;
 }
@@ -133,6 +98,7 @@
 //}
 //进入应用
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+//    [AliHotFix sync];
     //清空应用红点
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     if([UserManager manager].user.user_no == 0) return;
@@ -170,16 +136,19 @@
 //    }
 //    return YES;
 //}
-//today扩展进来的 qq分享进入qq应用分享界面是用open方法通过这个回调实现的
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(nullable NSString *)sourceApplication annotation:(id)annotation {
+//统一这个方法处理
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {
+    //toady扩展
     if([[url.absoluteString componentsSeparatedByString:@"//"][1] isEqualToString:@"openCalendar"]) {
         //发出通知  统一在MainBusinessController处理
         [[NSNotificationCenter defaultCenter] postNotificationName:@"OpenSoft_FormToday_openCalendar_Notication" object:[url.absoluteString componentsSeparatedByString:@"//"][2]];
-    } else if ([[url.absoluteString componentsSeparatedByString:@"//"][1] isEqualToString:@"addCalendar"]) {
+    }
+    //toady扩展
+    if ([[url.absoluteString componentsSeparatedByString:@"//"][1] isEqualToString:@"addCalendar"]) {
         //发出通知  统一在MainBusinessController处理
         [[NSNotificationCenter defaultCenter] postNotificationName:@"OpenSoft_FormToday_addCalendar_Notication" object:nil];
     }
-    return [TencentOAuth HandleOpenURL:url] || [WXApi handleOpenURL:url delegate:self] || [WeiboSDK handleOpenURL:url delegate:self];
+    return [TencentOAuth HandleOpenURL:url] || [WXApi handleOpenURL:url delegate:self] || [WeiboSDK handleOpenURL:url delegate:self] || [[RCIM sharedRCIM] openExtensionModuleUrl:url];
 }
 #pragma mark - WBApiDelegate
 - (void)didReceiveWeiboRequest:(WBBaseRequest *)request {
@@ -201,9 +170,9 @@
     }
 }
 //获取token失败
-//- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error  {
-//    
-//}
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error  {
+    
+}
 //收到推送token
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
@@ -277,4 +246,16 @@
     statTracker.shortAppVersion  = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     [statTracker startWithAppId:@"6a6086b259"];//设置您在mtj网站上添加的app的appkey,此处AppId即为应用的appKey
 }
+//启动阿里热修复
+- (void)startAliHotFix {
+//    char aesEncryptKeyBytes[] = {18,80,-105,120,16,79,75,-23,100,58,-3,74,117,-74,-49,5};
+//    NSData *aesEncryptKeyData = [NSData dataWithBytes:aesEncryptKeyBytes length:sizeof(aesEncryptKeyBytes)];
+//    char rsaPublicDerBytes[]={48,-126,2,1,48,-126,1,106,2,9,0,-32,77,107,-16,38,32,-88,95,48,13,6,9,42,-122,72,-122,-9,13,1,1,5,5,0,48,69,49,11,48,9,6,3,85,4,6,19,2,65,85,49,19,48,17,6,3,85,4,8,19,10,83,111,109,101,45,83,116,97,116,101,49,33,48,31,6,3,85,4,10,19,24,73,110,116,101,114,110,101,116,32,87,105,100,103,105,116,115,32,80,116,121,32,76,116,100,48,30,23,13,49,55,48,49,49,49,49,49,48,54,52,54,90,23,13,50,55,48,49,48,57,49,49,48,54,52,54,90,48,69,49,11,48,9,6,3,85,4,6,19,2,65,85,49,19,48,17,6,3,85,4,8,19,10,83,111,109,101,45,83,116,97,116,101,49,33,48,31,6,3,85,4,10,19,24,73,110,116,101,114,110,101,116,32,87,105,100,103,105,116,115,32,80,116,121,32,76,116,100,48,-127,-97,48,13,6,9,42,-122,72,-122,-9,13,1,1,1,5,0,3,-127,-115,0,48,-127,-119,2,-127,-127,0,-54,-106,-120,-33,18,-89,-44,5,-59,-50,-102,76,89,-83,88,15,-38,-99,19,96,-112,34,33,33,-76,-29,90,-62,-123,116,101,-57,-101,87,-43,-117,-55,94,46,-4,96,-124,-3,23,-10,-91,93,-124,58,-43,-95,123,-113,125,104,84,-99,82,-46,98,-70,118,49,42,124,-96,-79,-31,111,-39,-22,104,-92,-60,-40,83,78,59,-18,-86,-53,-97,104,63,-67,-108,41,104,77,107,61,37,5,-9,56,-40,121,-3,-92,54,-100,-120,-4,-74,-107,-20,-105,-91,41,-26,24,-56,115,-71,108,-15,-112,-12,-78,-124,79,-85,-46,58,-71,86,-80,113,2,3,1,0,1,48,13,6,9,42,-122,72,-122,-9,13,1,1,5,5,0,3,-127,-127,0,53,16,-96,-65,85,-38,21,-86,-30,-24,-76,29,58,123,-94,51,89,-31,-9,-5,-17,122,-69,-43,122,-127,-89,24,-93,-29,89,-64,38,111,-101,89,12,21,-122,-42,111,61,-123,-67,102,2,-121,-59,69,82,-20,-33,16,0,103,-38,54,58,10,100,-51,-37,34,101,-84,108,-117,-73,-80,35,18,1,-116,94,-63,52,-32,71,-125,-20,82,-55,41,61,-61,115,92,-54,54,-80,71,43,-87,5,104,102,-70,-69,-65,60,-19,94,17,3,-81,-103,-1,39,-74,-45,45,127,24,-44,-115,27,3,74,-10,124,-7,-123,-94,21,104,126,71,-75};
+//    NSData *rsaPublicDerData = [NSData dataWithBytes:rsaPublicDerBytes length:sizeof(rsaPublicDerBytes)];
+//    [AliHotFix startWithAppID:@"37332-2" secret:@"e4caef9cb0437c6597f9dcee99d568a2" privateKey:@"MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCIp8RFhU77tgb8wi5R3+c+/4HZH2h+eey6yf1i7NJ+0968RLfsDqpbqppZorhCBov/QqL0tkXL3VQ/oK6bnNbNuMBMsyF+wzEpX/j6WNFMRYpTFNt+3wmBKOghG61dWyMl/bHNkzCulZA6EX0FrVN1rfXT6yQ9OUJ7c5N41wpo6EI+0GHuoFhPhO3h8pjG3XKgqgLLht9CUzx286CkZ8Lh1xkueNtkm52rsb+Nxtez+3ldV+PJhUkSPTyiSdOtfScyGuqbHsJDcC7OtfqfX2hsQIZhN1uC0q/gi+eDuSgk5Gwh3ki9oGyF3UHSmvph6lvAra4MoAsG6rI8ANJvZiR5AgMBAAECggEAHndgr6snz8BmUGWuU/yaHpZySYjSEBh4qbAsuKhZyYLMzqZ3Zr5iRquDW+aGM9onzhH6KJqWdvvyM3lMVE8kKJs+7Bqnpg44YKQP6yhwCRQb4aftw5xQDyaikfcMsJqH/IlR4aYmHVYk4H1TpTdeOwc8njF3U9r3MnSy9SbkID0MBQsageyQ1FHhzJaUb1RCg4RapQrn1WK09sbGQeQxSliAbgGyXpnerzKsJHhcfwmXIboj2F+HSUigzC7BEKrJ6v2lgPRGFTX6SMOPTcRxpCRdU2IaURiv0DnnJ4TU8NRZczg7tqyn9z3grB6g3t29ybM+s6C+tnJsv3XlahivbQKBgQDMcTNO64FS6ce1QuQIXsyvqOaEZNrlk0HixtdQk4n6qBdhZQngdKGeCCDg/g/b+eT/cLAIg+sIwf4AHh++aoHSQxv6OrALempxFULmI84D91IUrrjn1jxje/dNImMqWI7ejcriWCK0lM+Ddpn5DvL5mgaNo6N8Lzk9TBQALO8EqwKBgQCrHj5Gl/qL7Q8qPu4G8B8qqUoI99LxveGQd7/+Z/kcnXKBsML8ry32BMivetagfOKg5zgq1+6IjlfVotEJaPhO0pWYAe2H2vr99gpAGrdNANq5ibcIVjVSLSYb0X0FLjOgnSPEDE1v06f3IKwiJl1TsDo+aIprf84ipJLD7XOTawKBgFEs6Xh+njzzwm5AfxarvY5J/C25dgkN7W1EEp5V1sWGFLKBUeijpsB+7b8oYdewY7LhZaQb7SjvDhGx5FzRIXcBWoyC3P/RvY3lKUkEEnsUqqy3q4eyUwwVXt5rtwBLZX8MwfAZmr4lEDhc0UpJG0TsWYnH3dQjVBD4skBXlxg9AoGAezYSl1gVMq2l7sBTObGqb1hoE58GR8R2Z0SifPe2mpEQAywYqkMk7/Ev45KqefKSaFM00Tyb572+pvhOVd08dd0Rk9tHgjv93+FKLjBObebAlzn/DcStLheOSheEUreauvqK5z4IgA3B8qKW7xv6tSi+N3Okv5TOA4nGl8chIjMCgYBbAWaFRLeSLibrurGnX2dD7S4AayEosH9UJ8Sx7Z2Rpuw3R34C7h7NQW17OnSJ76hGgr6ehsfic123rRzWF9VjXR4/H614dsFDOMHISsGw99daTikpnDUdhZAJ8AxkDVnlQSClJPcjRHAGL/WPkUF+ZCEh4DUUjRqxRBxgekoR7w==" publicKey:rsaPublicDerData encryptAESKey:aesEncryptKeyData];
+//    // patchDirectory 为本地Patch目录全路径,注意该Patch目录结构参照'Part2生成patch补丁'中的Patch目录结构规则
+////    NSString *mainPath = [NSBundle mainBundle].bundlePath;
+////    [AliHotFixDebug runPatch:mainPath];
+}
+
 @end

@@ -60,6 +60,9 @@
         _scrollView.bounces = NO;
         _scrollView.contentSize = CGSizeMake(frame.size.width * 2, _scrollView.frame.size.height);
         _scrollView.pagingEnabled = YES;
+#ifdef DEBUG
+        [_scrollView setAccessibilityLabel:@"home_page_top_scrollView"];
+#endif
         CalendarView *calendarView = [[NSBundle mainBundle] loadNibNamed:@"CalendarView" owner:nil options:nil][0];
         calendarView.frame = CGRectMake(0, 0, _scrollView.frame.size.width, _scrollView.frame.size.height);
         calendarView.delegate = self;

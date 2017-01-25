@@ -96,7 +96,7 @@
 - (void)updateCalendar:(Calendar*)calendar;
 //更新所有的日程
 - (void)updateCalendars:(NSMutableArray<Calendar*>*)calendarArr;
-//获取指定时间的日程 
+//获取指定天的日程
 - (NSMutableArray<Calendar*>*)getCalendarArrWithDate:(NSDate*)date;
 //获取所有的日程
 - (NSMutableArray<Calendar*>*)getCalendarArr;

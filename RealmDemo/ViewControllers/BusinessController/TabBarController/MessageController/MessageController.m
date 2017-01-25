@@ -43,18 +43,9 @@
     self.navigationController.navigationBar.barTintColor = [UIColor homeListColor];
     //每次要显示页面就获取一次未读消息数量
     int count = [RCIMClient sharedRCIMClient].getTotalUnreadCount;
-    self.navigationController.tabBarItem.badgeValue = (count == 0) ? nil : @(count).stringValue;
+    //count <= 0都表示异常
+    self.navigationController.tabBarItem.badgeValue = (count <= 0) ? nil : @(count).stringValue;
 }
-- (void)didReceiveMessageNotification:(NSNotification *)notification {
-    int count = [RCIMClient sharedRCIMClient].getTotalUnreadCount;
-    self.navigationController.tabBarItem.badgeValue = (count == 0) ? nil : @(count).stringValue;
-}
-//有未读的消息，就显示出来
-//- (void)didReceiveMessageNotification:(NSNotification *)notification {
-//    [super didReceiveMessageNotification:notification];
-//    int unreadNumber = [[RCIMClient sharedRCIMClient] getTotalUnreadCount];;
-//    self.navigationController.tabBarItem.badgeValue = unreadNumber ? @(unreadNumber).stringValue : nil;
-//}
 - (void)rightClicked:(UIBarButtonItem*)item {
     if(_moreSelectView.isHide == YES)
         [_moreSelectView showSelectView];

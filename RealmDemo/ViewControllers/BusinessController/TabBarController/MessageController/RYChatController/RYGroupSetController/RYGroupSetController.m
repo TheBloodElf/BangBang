@@ -51,7 +51,7 @@
                 }
                 RCUserInfo *user = [RCUserInfo new];
                 user.portraitUri = emp.avatar;
-                user.name = emp.user_real_name;
+                user.name = emp.real_name;
                 user.userId = targetId;
                 [_rCUserArr addObject:user];
             }
@@ -65,7 +65,6 @@
                 [_userManager deleteUserDiscuss:userDiscuss];
                 [UserHttp delUserDiscuss:_userManager.user.user_no discussId:self.targetId handler:^(id data, MError *error) {
                     [self.navigationController.view showFailureTips:@"讨论组不存在，已删除!"];
-                    [self.navigationController popToViewController:self.navigationController.viewControllers[self.navigationController.viewControllers.count - 3] animated:YES];
                 }];
                 break;
             }

@@ -156,7 +156,12 @@
         }];
         NSMutableArray *array = [@[] mutableCopy];
         for (NSDate *date in _calendarDateArr) {
-            [array addObject:dateCalendarDic[date]];
+            NSMutableArray *temp = dateCalendarDic[date];
+            //每天的日程要排序
+            [temp sortUsingComparator:^NSComparisonResult(Calendar*  _Nonnull obj1,Calendar*  _Nonnull obj2) {
+                return obj1.begindate_utc > obj2.begindate_utc;
+            }];
+            [array addObject:temp];
         }
         _calendarArr = array;
         dispatch_async(dispatch_get_main_queue(), ^{

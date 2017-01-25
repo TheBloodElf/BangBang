@@ -787,10 +787,6 @@ Commerce lists of Denied Persons, Unverified Parties or Restricted Entities, or
 otherwise in violation of any such restrictions or regulations.
 
 
-## RongCloudIM
-
-Copyright 2014 Rong Cloud
-
 ## SDWebImage
 
 Copyright (c) 2016 Olivier Poitrey rs@dailymotion.com

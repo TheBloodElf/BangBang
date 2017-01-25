@@ -59,6 +59,11 @@
 #import "UIImageView+CornerRadius.h"//离屏渲染解决方案
 #import "UIView+hotView.h"//给视图加红点
 #import "FMDB.h"//同步之前的数据临时加入的库
+//#import <AliHotFix/AliHotFix.h>//阿里热修复
+//#import <AliHotFixDebug/AliHotFixDebug.h>//阿里热修复
+//#import <YWFeedbackFMWK/YWFeedbackKit.h>//阿里反馈
+//#import <YWFeedbackFMWK/YWFeedbackViewController.h>//阿里反馈
+#import <JrmfWalletKit/JrmfWalletKit.h>//融云钱包
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
     #import <CoreSpotlight/CoreSpotlight.h>//Spotlight搜索

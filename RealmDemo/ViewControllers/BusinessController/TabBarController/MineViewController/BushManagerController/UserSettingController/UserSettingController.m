@@ -314,8 +314,10 @@
         }
     } else if (indexPath.section == 2) {
         if(indexPath.row == 0) {
+            //推荐给朋友
             [self recommendToFriend];
-        } else {
+        } else if(indexPath.row == 1){
+            //账号与安全
             [self accountSafe];
         }
     } else {

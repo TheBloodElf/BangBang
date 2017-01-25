@@ -142,7 +142,7 @@
             }
             //这里要把这个圈子加入到本地 员工信息加入到本地
             [_userManager addCompany:model];
-            [UserHttp getEmployeeCompnyNo:model.company_no status:0 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+            [UserHttp getEmployeeCompnyNo:model.company_no status:2 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
                 if(error) {
                     [weakSelf.navigationController.view showFailureTips:error.statsMsg];
                     return ;
@@ -163,9 +163,20 @@
                         [employee mj_setKeyValues:dic];
                         [array addObject:employee];
                     }
-                    [_userManager updateEmployee:array companyNo:model.company_no];
-                    [weakSelf.navigationController showSuccessTips:@"请求已发出，请等待"];
-                    [weakSelf.navigationController popViewControllerAnimated:YES];
+                    [UserHttp getEmployeeCompnyNo:model.company_no status:0 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+                        if(error) {
+                            [weakSelf.navigationController.view showFailureTips:error.statsMsg];
+                            return ;
+                        }
+                        for (NSDictionary *dic in data[@"list"]) {
+                            Employee *employee = [Employee new];
+                            [employee mj_setKeyValues:dic];
+                            [array addObject:employee];
+                        }
+                        [_userManager updateEmployee:array companyNo:model.company_no];
+                        [weakSelf.navigationController showSuccessTips:@"请求已发出，请等待"];
+                        [weakSelf.navigationController popViewControllerAnimated:YES];
+                    }];
                 }];
             }];
         }];

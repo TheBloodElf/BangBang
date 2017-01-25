@@ -45,19 +45,28 @@
 
 - (void)setupUI {
     self.userInteractionEnabled = YES;
-    //算出距离明天早上还有多少秒
-    int64_t tomarrroInterval = 24 * 60 * 60 - [NSDate date].hour * 60 * 60 - [NSDate date].minute * 60 - [NSDate date].second;
-    _dateTimer = [NSTimer scheduledTimerWithTimeInterval:tomarrroInterval target:self selector:@selector(updateCalendar:) userInfo:nil repeats:NO];
     _userManager = [UserManager manager];
     _calendarFetchedResultsController = [_userManager createCalendarFetchedResultsController];
     _calendarFetchedResultsController.delegate = self;
-    //给这几个数字填充值
-    [self getCurrCount];
-    [_userManager addCalendarNotfition];
-}
-- (void)updateCalendar:(NSTimer*)timer {
-    _todayFinishCount = _todayNoFinishCount = _weekFinishCount = _weekNoFinishCount = 0;
-    _dateTimer = [NSTimer scheduledTimerWithTimeInterval:24 * 60 * 60 target:self selector:@selector(updateCalendar:) userInfo:nil repeats:NO];
+    //先显示出来灰色 因为逻辑处理太费时间了
+    leftLayer = [LineProgressLayer layer];
+    leftLayer.bounds = self.leftView.bounds;
+    leftLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
+    leftLayer.contentsScale = [UIScreen mainScreen].scale;
+    leftLayer.completed = leftLayer.total;
+    leftLayer.completedColor = [UIColor colorFromHexCode:@"#999999"];//灰色
+    [leftLayer setNeedsDisplay];
+    [leftLayer showAnimate];
+    [self.leftView.layer insertSublayer:leftLayer atIndex:0];
+    
+    rightLayer = [LineProgressLayer layer];
+    rightLayer.bounds = self.rightView.bounds;
+    rightLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
+    rightLayer.contentsScale = [UIScreen mainScreen].scale;
+    rightLayer.color = [UIColor colorFromHexCode:@"#999999"];//灰色
+    [rightLayer setNeedsDisplay];
+    [rightLayer showAnimate];
+    [self.rightView.layer insertSublayer:rightLayer atIndex:0];
     //给这几个数字填充值
     [self getCurrCount];
     [_userManager addCalendarNotfition];
@@ -65,16 +74,11 @@
 #pragma mark --
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
-    _todayFinishCount = _todayNoFinishCount = _weekFinishCount = _weekNoFinishCount = 0;
     //给这几个数字填充值
     [self getCurrCount];
     [_userManager addCalendarNotfition];
 }
 - (void)createPie {
-    [leftLayer removeFromSuperlayer];
-    [leftScondLayer removeFromSuperlayer];
-    [rightLayer removeFromSuperlayer];
-    [rightScondLayer removeFromSuperlayer];
     
     [self.todayFinish setTitle:[NSString stringWithFormat:@"%d",_todayFinishCount] forState:UIControlStateNormal];
     self.todayNoFinish.text = [NSString stringWithFormat:@"%d",_todayNoFinishCount];
@@ -85,7 +89,9 @@
     
     //今天
     float tempValue = _todayFinishCount / (float)(_todayNoFinishCount + _todayFinishCount);
-    leftLayer = [LineProgressLayer layer];
+    [leftLayer removeFromSuperlayer];
+    if(!leftLayer)
+        leftLayer = [LineProgressLayer layer];
     leftLayer.bounds = self.leftView.bounds;
     leftLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
     leftLayer.contentsScale = [UIScreen mainScreen].scale;
@@ -103,7 +109,9 @@
         [leftLayer showAnimate];
         [self.leftView.layer insertSublayer:leftLayer atIndex:0];
         
-        leftScondLayer = [LineProgressLayer layer];
+        [leftScondLayer removeFromSuperlayer];
+        if(!leftScondLayer)
+            leftScondLayer = [LineProgressLayer layer];
         leftScondLayer.bounds = self.leftView.bounds;
         leftScondLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
         leftScondLayer.contentsScale = [UIScreen mainScreen].scale;
@@ -118,7 +126,9 @@
     //本周
     //本月的数据面板
     float finishValue = _weekFinishCount / (float)(_weekNoFinishCount + _weekFinishCount);
-    rightLayer = [LineProgressLayer layer];
+    [rightLayer removeFromSuperlayer];
+    if(!rightLayer)
+        rightLayer = [LineProgressLayer layer];
     rightLayer.bounds = self.rightView.bounds;
     rightLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
     rightLayer.contentsScale = [UIScreen mainScreen].scale;
@@ -135,7 +145,9 @@
         [rightLayer showAnimate];
         [self.rightView.layer insertSublayer:rightLayer atIndex:0];
         
-        rightScondLayer = [LineProgressLayer layer];
+        [rightScondLayer removeFromSuperlayer];
+        if(!rightScondLayer)
+            rightScondLayer = [LineProgressLayer layer];
         rightScondLayer.bounds = self.rightView.bounds;
         rightScondLayer.position = CGPointMake(MAIN_SCREEN_WIDTH / 4, MAIN_SCREEN_WIDTH / 4);
         rightScondLayer.contentsScale = [UIScreen mainScreen].scale;
@@ -152,11 +164,12 @@
 - (void)getCurrCount {
     @synchronized (self) {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
+    _todayFinishCount = _todayNoFinishCount = _weekFinishCount = _weekNoFinishCount = 0;
     //today扩展数组
     NSMutableArray<TodayCalendarModel*> *todayCalendarArr = [@[] mutableCopy];
     //先获取今天的
     NSDate *todayDate = [NSDate date];
-    NSArray *todayArr = [_userManager getCalendarArrWithDate:todayDate];
+    NSMutableArray *todayArr = [_userManager getCalendarArrWithDate:todayDate];
     for (Calendar *tempCalendar in todayArr) {
         //去掉删除的
         if(tempCalendar.status == 0) continue;
@@ -203,11 +216,14 @@
             }
         }
     }
-    
+        [todayArr removeAllObjects];
+        todayArr = nil;
     //把登录信息放到应用组间共享数据
     NSUserDefaults *sharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.lottak.bangbang"];
     [sharedDefaults setObject:[NSMutableDictionary mj_keyValuesArrayWithObjectArray:todayCalendarArr] forKey:@"GroupTodayInfo"];
     [sharedDefaults synchronize];
+    [todayCalendarArr removeAllObjects];
+    todayCalendarArr = nil;
     
     //获取本周的所有时间 周日到周六
     NSMutableArray *dateArr = [self getSureDate];
@@ -245,7 +261,10 @@
                 }
             }
         }
+        tempArr = nil;
     }
+        [dateArr removeAllObjects];
+        dateArr = nil;
         //创建动画
         dispatch_async(dispatch_get_main_queue(), ^{
             [self createPie];

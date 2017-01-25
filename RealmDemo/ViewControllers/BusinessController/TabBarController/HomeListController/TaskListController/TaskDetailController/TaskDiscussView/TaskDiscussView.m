@@ -135,13 +135,13 @@
     UITextField *textField = [whiteView viewWithTag:1003];
     UIButton *deleBtn = [nameBtn viewWithTag:1004];
     //当前名字占的宽度
-    CGFloat width = [[NSString stringWithFormat:@"@%@",employee.user_real_name] textSizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(10000, 30)].width;
+    CGFloat width = [[NSString stringWithFormat:@"@%@",employee.real_name] textSizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(10000, 30)].width;
     nameBtn.frame = CGRectMake(15, 0, width, 30);
     deleBtn.frame = CGRectMake(width - 10, 0, 10, 10);
-    [nameBtn setTitle:[NSString stringWithFormat:@"@%@",employee.user_real_name] forState:UIControlStateNormal];
+    [nameBtn setTitle:[NSString stringWithFormat:@"@%@",employee.real_name] forState:UIControlStateNormal];
     
     textField.frame = CGRectMake(width + 15, 0, whiteView.frame.size.width - width - 15, 30);
-    _currCommentModel.reply_employeename = employee.user_real_name;
+    _currCommentModel.reply_employeename = employee.real_name;
     _currCommentModel.reply_employeeguid = employee.employee_guid;
 }
 - (void)selectCancle {

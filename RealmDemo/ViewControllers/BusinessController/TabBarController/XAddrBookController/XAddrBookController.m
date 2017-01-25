@@ -111,7 +111,7 @@
             [employee mj_setKeyValues:dic];
             [array addObject:employee];
         }
-        [UserHttp getEmployeeCompnyNo:_userManager.user.currCompany.company_no status:0 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+        [UserHttp getEmployeeCompnyNo:_userManager.user.currCompany.company_no status:2 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
             if(error) {
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
@@ -121,8 +121,19 @@
                 [employee mj_setKeyValues:dic];
                 [array addObject:employee];
             }
-            //存入本地数据库
-            [_userManager updateEmployee:array companyNo:_userManager.user.currCompany.company_no];
+            [UserHttp getEmployeeCompnyNo:_userManager.user.currCompany.company_no status:0 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+                if(error) {
+                    [self.navigationController.view showFailureTips:error.statsMsg];
+                    return ;
+                }
+                for (NSDictionary *dic in data[@"list"]) {
+                    Employee *employee = [Employee new];
+                    [employee mj_setKeyValues:dic];
+                    [array addObject:employee];
+                }
+                //存入本地数据库
+                [_userManager updateEmployee:array companyNo:_userManager.user.currCompany.company_no];
+            }];
         }];
     }];
 }
@@ -225,7 +236,7 @@
     [_currDataArr setObject:[@[] mutableCopy] forKey:@"#"];
     //填充数据
     for (Employee *tempEmployee in _employeeArr) {
-        NSString *firstChar = [tempEmployee.user_real_name firstChar];
+        NSString *firstChar = [tempEmployee.real_name firstChar];
         NSMutableArray *currArr = _currDataArr[firstChar];
         [currArr addObject:tempEmployee];
         _currDataArr[firstChar] = currArr;
@@ -313,7 +324,7 @@
         RYChatController *conversationVC = [[RYChatController alloc]init];
         conversationVC.conversationType =ConversationType_PRIVATE; //会话类型，这里设置为 PRIVATE 即发起单聊会话。
         conversationVC.targetId = @(employee.user_no).stringValue; // 接收者的 targetId，这里为举例。
-        conversationVC.title = employee.user_real_name; // 会话的 title。
+        conversationVC.title = employee.real_name; // 会话的 title。
         conversationVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:conversationVC animated:YES];
     }

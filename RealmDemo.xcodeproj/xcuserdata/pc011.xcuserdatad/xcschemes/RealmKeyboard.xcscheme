@@ -43,13 +43,23 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "04D6AF9D1E2EF28700BF66F6"
+               BuildableName = "&#x5e2e;&#x5e2e;&#x7ba1;&#x7406;&#x52a9;&#x624b;UITests.xctest"
+               BlueprintName = "&#x5e2e;&#x5e2e;&#x7ba1;&#x7406;&#x52a9;&#x624b;UITests"
+               ReferencedContainer = "container:RealmDemo.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1B0591DB1D66B4E10090B4D2"
-            BuildableName = "RealmKeyboard.appex"
-            BlueprintName = "RealmKeyboard"
+            BlueprintIdentifier = "1B877F111D178E7D000144B2"
+            BuildableName = "&#x5e2e;&#x5e2e;&#x7ba1;&#x7406;&#x52a9;&#x624b;.app"
+            BlueprintName = "RealmDemo"
             ReferencedContainer = "container:RealmDemo.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

@@ -32,7 +32,7 @@
     Employee * employee = self.data;
     //#BANG-550 隐藏帮帮号
 //    self.userName.text = [NSString stringWithFormat:@"%@(%@)", employee.user_real_name,employee.user_name];
-    self.userName.text = [NSString stringWithFormat:@"%@", employee.user_real_name];
+    self.userName.text = [NSString stringWithFormat:@"%@", employee.real_name];
     if([NSString isBlank:employee.departments])
         self.userDert.text = @"无部门信息";
     else

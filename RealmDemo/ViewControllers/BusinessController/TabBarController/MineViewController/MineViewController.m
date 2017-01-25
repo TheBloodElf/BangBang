@@ -16,9 +16,12 @@
 #import "IdentityManager.h"
 #import "UserHttp.h"
 
+//#import "AliTestViewController.h"
+
 @interface MineViewController ()<RBQFetchedResultsControllerDelegate,UIViewControllerPreviewingDelegate> {
     UserManager *_userManager;
     RBQFetchedResultsController *_userFetchedResultsController;
+//    YWFeedbackKit *_yWFeedbackKit;//请不要将YWFeedbackKit实例设置为局部变量，请持有YWFeedback实例，以免被提前释放
 }
 
 @property (weak, nonatomic) IBOutlet UIImageView *avaterImage;
@@ -31,6 +34,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //阿里反馈
+//    _yWFeedbackKit = [[YWFeedbackKit alloc] initWithAppKey:@"23259348"];
     //把视图移动到最顶部 即使有状态栏和导航
     if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -91,12 +96,24 @@
             BushManageViewController *bushManager = [BushManageViewController new];
             bushManager.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:bushManager animated:YES];
-        } else {
+        } else if(indexPath.row == 1) {
             //我的工单
             WebNonstandarViewController *webViewcontroller = [[WebNonstandarViewController alloc]init];
             webViewcontroller.applicationUrl = [NSString stringWithFormat:@"%@workorder?userGuid=%@&companyNo=%d&access_token=%@",XYFMobileDomain,_userManager.user.user_guid,_userManager.user.currCompany.company_no,[IdentityManager manager].identity.accessToken];
             webViewcontroller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:webViewcontroller animated:YES];
+//            [_yWFeedbackKit makeFeedbackViewControllerWithCompletionBlock:^(BCFeedbackViewController *viewController, NSError *error) {
+//                if(error) return ;
+//                [self.navigationController setNavigationBarHidden:NO animated:NO];
+//                viewController.hidesBottomBarWhenPushed = YES;
+//                [self.navigationController pushViewController:viewController animated:YES];
+//                [viewController setCloseBlock:^(UIViewController *aParentController){
+//                    [self.navigationController popViewControllerAnimated:YES];
+//                }];
+//            }];
+        } else if (indexPath.row == 2) {
+            //我的钱包
+            [JrmfWalletSDK openWallet];
         }
     }
 //    else if (indexPath.section == 2) {
@@ -137,6 +154,10 @@
         AboutViewController *about = [AboutViewController new];
         about.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:about animated:YES];
+        //进入阿里热修复调试界面
+//        AliTestViewController *aliView = [AliTestViewController new];
+//        aliView.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:aliView animated:YES];
     }
 }
 @end

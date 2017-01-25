@@ -155,7 +155,7 @@
             [employee mj_setKeyValues:dic];
             [array addObject:employee];
         }
-        [UserHttp getEmployeeCompnyNo:_userManager.user.currCompany.company_no status:0 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+        [UserHttp getEmployeeCompnyNo:_userManager.user.currCompany.company_no status:2 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
             if(error) {
                 [self.navigationController.view showFailureTips:error.statsMsg];
                 return ;
@@ -165,8 +165,19 @@
                 [employee mj_setKeyValues:dic];
                 [array addObject:employee];
             }
-            //存入本地数据库
-            [_userManager updateEmployee:array companyNo:_userManager.user.currCompany.company_no];
+            [UserHttp getEmployeeCompnyNo:_userManager.user.currCompany.company_no status:0 userGuid:_userManager.user.user_guid handler:^(id data, MError *error) {
+                if(error) {
+                    [self.navigationController.view showFailureTips:error.statsMsg];
+                    return ;
+                }
+                for (NSDictionary *dic in data[@"list"]) {
+                    Employee *employee = [Employee new];
+                    [employee mj_setKeyValues:dic];
+                    [array addObject:employee];
+                }
+                //存入本地数据库
+                [_userManager updateEmployee:array companyNo:_userManager.user.currCompany.company_no];
+            }];
         }];
     }];
 }

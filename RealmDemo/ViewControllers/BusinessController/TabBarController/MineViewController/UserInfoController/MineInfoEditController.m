@@ -259,7 +259,6 @@
         for (Company *company in [_userManager getCompanyArr]) {
             Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:company.company_no];
             employee.real_name = user.real_name;
-            employee.user_real_name = user.real_name;
             employee.user_name = user.user_name;
             employee.sex = user.sex;
             employee.mood = user.mood;

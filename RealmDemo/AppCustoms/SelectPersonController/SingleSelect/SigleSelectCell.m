@@ -27,7 +27,7 @@
 - (void)dataDidChange {
     Employee *employee = self.data;
     [self.avaterImage sd_setImageWithURL:[NSURL URLWithString:employee.avatar] placeholderImage:[UIImage imageNamed:@"default_image_icon"]];
-    self.nameLabel.text = employee.user_real_name;
+    self.nameLabel.text = employee.real_name;
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

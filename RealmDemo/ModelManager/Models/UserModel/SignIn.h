@@ -12,94 +12,94 @@
 /**
  *  唯一ID
  */
-@property(nonatomic,assign)int id;
+@property(nonatomic,assign) int id;
 /**
  *  配置点的GUID
  */
-@property(nonatomic,strong)NSString *setting_guid;
+@property(nonatomic,strong) NSString *setting_guid;
 /**
  *  打卡者员工GUID
  */
-@property(nonatomic,strong)NSString *employee_guid;
+@property(nonatomic,strong) NSString *employee_guid;
 /**
  *  打卡者姓名
  */
-@property(nonatomic,strong)NSString *create_name;
+@property(nonatomic,strong) NSString *create_name;
 /**
  *  类型；0-上班；1-下班；2-外勤；3-其他
  */
-@property(nonatomic,assign)int category;
+@property(nonatomic,assign) int category;
 /**
  *  打卡者头像
  */
-@property(nonatomic,strong)NSString *create_avatar;
+@property(nonatomic,strong) NSString *create_avatar;
 /**
  *  公司编号
  */
-@property(nonatomic,assign)int company_no;
+@property(nonatomic,assign) int company_no;
 /**
  *  打卡员工GUID
  */
-@property(nonatomic,strong)NSString *user_guid;
+@property(nonatomic,strong) NSString *user_guid;
 /**
  *  打卡时间
  */
-@property(nonatomic,assign)int64_t create_on_utc;
-@property (nonatomic, assign) CGFloat distance;
+@property(nonatomic,assign) int64_t create_on_utc;
+@property(nonatomic,assign) CGFloat distance;
 /**
  *  签到详情
  */
-@property(nonatomic,strong)NSString *descriptionStr;
+@property(nonatomic,strong) NSString *descriptionStr;
 /**
  *  经度
  */
-@property(nonatomic,assign)CGFloat longitude;
+@property(nonatomic,assign) CGFloat longitude;
 
 /**
  *  纬度
  */
-@property(nonatomic,assign)CGFloat latitude;
+@property(nonatomic,assign) CGFloat latitude;
 
 /**
  *  地址详情
  */
-@property(nonatomic,strong)NSString *address;
+@property(nonatomic,strong) NSString *address;
 
 /**
  *  签到点名称
  */
-@property(nonatomic,strong)NSString *address_name;
+@property(nonatomic,strong) NSString *address_name;
 
 /**
  *  国家
  */
-@property(nonatomic,strong)NSString *country;
+@property(nonatomic,strong) NSString *country;
 
 /**
  *  省
  */
-@property(nonatomic,strong)NSString *province;
+@property(nonatomic,strong) NSString *province;
 
 /**
  *  城市
  */
-@property(nonatomic,strong)NSString *city;
+@property(nonatomic,strong) NSString *city;
 
 /**
  *  街道小区
  */
-@property(nonatomic,strong)NSString *subdistrict;
+@property(nonatomic,strong) NSString *subdistrict;
 
 /**
  *  城市编号（区号）
  */
-@property(nonatomic,assign)int city_code;
+@property(nonatomic,assign) int city_code;
 
 /**
  *
  区域编码（邮编）
  */
-@property(nonatomic,assign)int area_code;
+@property(nonatomic,assign) int area_code;
 
 /**
  *  精度

@@ -41,51 +41,20 @@
     _endDate.hidden = NO;
     _allDayDate.hidden = YES;
     _alertImage.hidden = NO;
+    //开始时间
+    NSDate *start = [NSDate dateWithTimeIntervalSince1970:calendar.begindate_utc/1000];
+    //结束时间
+    NSDate *end = [NSDate dateWithTimeIntervalSince1970:calendar.enddate_utc/1000];
     if (calendar.is_over_day && calendar.repeat_type == 0) {
-        //开始时间
-        static NSDateFormatter *startDateOverDayFormatter = nil;
-        if (startDateOverDayFormatter == nil) {
-            startDateOverDayFormatter = [[NSDateFormatter alloc] init];
-            [startDateOverDayFormatter setDateFormat:@"MM/dd"];
-        }
-        NSDate *start = [NSDate dateWithTimeIntervalSince1970:calendar.begindate_utc/1000];
-        NSString *startStr = [startDateOverDayFormatter stringFromDate:start];
-        _startDate.text = startStr;
-        
-        //结束时间
-        static NSDateFormatter *endDateOverFormatter = nil;
-        if (endDateOverFormatter == nil) {
-            endDateOverFormatter = [[NSDateFormatter alloc] init];
-            [endDateOverFormatter setDateFormat:@"~MM/dd"];
-        }
-        NSDate *end = [NSDate dateWithTimeIntervalSince1970:calendar.enddate_utc/1000];
-        NSString *endStr = [endDateOverFormatter stringFromDate:end];
-        _endDate.text = endStr;
+        _startDate.text = [NSString stringWithFormat:@"%02ld:%02ld",start.hour,start.second];
+        _endDate.text = [NSString stringWithFormat:@"%02ld:%02ld",end.hour,end.second];
     } else if(calendar.is_allday) {
-        //开始时间
         _allDayDate.hidden = NO;
         _startDate.hidden = YES;
         _endDate.hidden = YES;
     } else{
-        //开始时间
-        static NSDateFormatter *startDateFormatter = nil;
-        if (startDateFormatter == nil) {
-            startDateFormatter = [[NSDateFormatter alloc] init];
-            [startDateFormatter setDateFormat:@"HH:mm"];
-        }
-        NSDate *start = [NSDate dateWithTimeIntervalSince1970:calendar.begindate_utc/1000];
-        NSString *startStr = [startDateFormatter stringFromDate:start];
-        _startDate.text = startStr;
-        
-        //结束时间
-        static NSDateFormatter *endDateFormatter = nil;
-        if (endDateFormatter == nil) {
-            endDateFormatter = [[NSDateFormatter alloc] init];
-            [endDateFormatter setDateFormat:@"~HH:mm"];
-        }
-        NSDate *end = [NSDate dateWithTimeIntervalSince1970:calendar.enddate_utc/1000];
-        NSString *endStr = [endDateFormatter stringFromDate:end];
-        _endDate.text = endStr;
+        _startDate.text = [NSString stringWithFormat:@"%02ld:%02ld",start.hour,start.second];
+        _endDate.text = [NSString stringWithFormat:@"%02ld:%02ld",end.hour,end.second];
     }
     //闹钟图标
     if(calendar.alert_minutes_after == 0)

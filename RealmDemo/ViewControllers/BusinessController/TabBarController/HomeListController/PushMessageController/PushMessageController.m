@@ -85,11 +85,6 @@
     //创建空太图
     _noDataView = [[NoResultView alloc] initWithFrame:_tableView.bounds];
     [self searchDataFormLoc];
-    if(_pushMessageArr.count == 0)
-        _tableView.tableFooterView = _noDataView;
-    else
-        _tableView.tableFooterView = [UIView new];
-    [_tableView reloadData];
 }
 //表格视图长按手势
 - (void)longClicked:(UILongPressGestureRecognizer*)lpgr {
@@ -153,44 +148,45 @@
 #pragma mark -- RBQFetchedResultsControllerDelegate
 - (void)controllerDidChangeContent:(nonnull RBQFetchedResultsController *)controller {
     [self searchDataFormLoc];
-    if(_pushMessageArr.count == 0)
-        self.tableView.tableFooterView = _noDataView;
-    else
-        self.tableView.tableFooterView = [UIView new];
-    [self.tableView reloadData];
 }
 //从本地搜索数据
 - (void)searchDataFormLoc {
-    NSMutableArray *array = [_userManager getPushMessageArr];
-    NSMutableArray *currArr = [@[] mutableCopy];
-    for (PushMessage *message in array) {
-        //本地推送只读取现在之前的
-        if(message.id.doubleValue > 0)
-            if(message.addTime.timeIntervalSince1970 > [NSDate date].timeIntervalSince1970)
+    @synchronized (self) {
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSMutableArray *array = [_userManager getPushMessageArr];
+        NSMutableArray *currArr = [@[] mutableCopy];
+        for (PushMessage *message in array) {
+            //本地推送只读取现在之前的
+            if(message.id.doubleValue > 0)
+                if(message.addTime.timeIntervalSince1970 > [NSDate date].timeIntervalSince1970)
+                    continue;
+            if([NSString isBlank:self.searchBar.text]) {
+                [currArr addObject:message];
                 continue;
-        if([NSString isBlank:self.searchBar.text]) {
-            [currArr addObject:message];
-            continue;
+            }
+            if([message.content rangeOfString:self.searchBar.text].location != NSNotFound)
+                [currArr addObject:message];
         }
-        if([message.content rangeOfString:self.searchBar.text].location != NSNotFound)
-            [currArr addObject:message];
+        _pushMessageArr = currArr;
+        //按照时间降序排列
+        [_pushMessageArr sortUsingComparator:^NSComparisonResult(PushMessage *obj1, PushMessage *obj2) {
+            return obj1.addTime.timeIntervalSince1970 < obj2.addTime.timeIntervalSince1970;
+        }];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(_pushMessageArr.count == 0)
+                self.tableView.tableFooterView = _noDataView;
+            else
+                self.tableView.tableFooterView = [UIView new];
+            [self.tableView reloadData];
+        });
+    });
     }
-    _pushMessageArr = currArr;
-    //按照时间降序排列
-    [_pushMessageArr sortUsingComparator:^NSComparisonResult(PushMessage *obj1, PushMessage *obj2) {
-        return obj1.addTime.timeIntervalSince1970 < obj2.addTime.timeIntervalSince1970;
-    }];
 }
 #pragma mark --
 #pragma mark -- UISearchBarDelegate
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [self.searchBar endEditing:YES];
     [self searchDataFormLoc];
-    if(_pushMessageArr.count == 0)
-        self.tableView.tableFooterView = _noDataView;
-    else
-        self.tableView.tableFooterView = [UIView new];
-    [self.tableView reloadData];
 }
 #pragma mark --
 #pragma mark -- UITableViewDelegate

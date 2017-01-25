@@ -106,11 +106,10 @@
     //是不是第一次加载这个页面
     if(isFirstLoad) return;
     isFirstLoad = YES;
-
-    if([_userManager getTaskArr:_userManager.user.currCompany.company_no].count == 0)
+    
+    [self getCurrData];
+    if(![[_userManager getTaskArr:_userManager.user.currCompany.company_no] count])
         [self tongBuTask];
-    else
-        [self getCurrData];
 }
 - (void)addTaskClicked:(UIButton*)item {
     //添加任务
@@ -118,7 +117,6 @@
     [self.navigationController pushViewController:create animated:YES];
 }
 - (void)loadTaskClicked:(UIBarButtonItem*)item {
-    [self.navigationController.view showLoadingTips:@""];
     [self tongBuTask];
 }
 #pragma mark -- RBQFetchedResultsControllerDelegate
@@ -173,6 +171,8 @@
 }
 //同步任务
 - (void)tongBuTask {
+    if(_userManager.user.currCompany.company_no == 0)
+        return;
     [self.navigationController.view showLoadingTips:@""];
     Employee *employee = [_userManager getEmployeeWithGuid:_userManager.user.user_guid companyNo:_userManager.user.currCompany.company_no];
     [UserHttp getTaskList:employee.employee_guid handler:^(id data, MError *error) {

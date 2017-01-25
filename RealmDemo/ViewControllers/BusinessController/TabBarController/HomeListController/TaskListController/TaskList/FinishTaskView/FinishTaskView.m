@@ -61,6 +61,8 @@
     [self getCurrData];
 }
 - (void)getCurrData {
+    @synchronized (self) {
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
     NSMutableArray *array = [@[] mutableCopy];
     for (TaskModel *model in self.data) {
             if([NSString isBlank:_searchBar.text]) {
@@ -82,6 +84,8 @@
             _tableView.tableFooterView = [UIView new];
         [_tableView reloadData];
     });
+    });
+    }
 }
 #pragma mark -- UISearchBarDelegate
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
