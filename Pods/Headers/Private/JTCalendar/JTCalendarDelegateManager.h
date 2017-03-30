@@ -1,1 +1,0 @@
-../../../JTCalendar/JTCalendar/Managers/JTCalendarDelegateManager.h
